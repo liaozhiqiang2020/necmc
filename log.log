@@ -1,0 +1,8 @@
+[INFO ] 2018-06-30 12:35:42,406 com.sv.triangle.TriangleApplication - Starting TriangleApplication on V73SV74ORO6XC6S with PID 6504 (E:\codeforidea\necmc\target\classes started by Administrator in E:\codeforidea\necmc)
+[DEBUG] 2018-06-30 12:35:42,425 com.sv.triangle.TriangleApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-06-30 12:35:42,425 com.sv.triangle.TriangleApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-06-30 12:36:14,106 com.sv.triangle.TriangleApplication - Started TriangleApplication in 32.68 seconds (JVM running for 37.45)
+[INFO ] 2018-06-30 12:44:28,733 com.sv.triangle.TriangleApplication - Starting TriangleApplication on V73SV74ORO6XC6S with PID 5632 (E:\codeforidea\necmc\target\classes started by Administrator in E:\codeforidea\necmc)
+[DEBUG] 2018-06-30 12:44:28,743 com.sv.triangle.TriangleApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-06-30 12:44:28,744 com.sv.triangle.TriangleApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-06-30 12:44:50,814 com.sv.triangle.TriangleApplication - Started TriangleApplication in 22.574 seconds (JVM running for 24.086)
