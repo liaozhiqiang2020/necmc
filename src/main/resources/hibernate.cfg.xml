@@ -8,13 +8,13 @@
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <!--<property name="connection.url">jdbc:mysql://111.231.85.247:3306/triangle</property>-->
     <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
-    <!--<mapping class="com.sv.triangle.pojo.UserEntity"/>-->
+    <!--<mapping class="UserEntity"/>-->
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
-    <mapping class="com.sv.triangle.pojo.RoleEntity"/>
-    <mapping class="com.sv.triangle.pojo.UserEntity"/>
-    <mapping class="com.sv.triangle.pojo.RoleEntity"/>
-    <mapping class="com.sv.triangle.pojo.PermissionEntity"/>
+    <mapping class="com.sv.mc.pojo.RoleEntity"/>
+    <mapping class="com.sv.mc.pojo.UserEntity"/>
+    <mapping class="com.sv.mc.pojo.RoleEntity"/>
+    <mapping class="com.sv.mc.pojo.PermissionEntity"/>
   </session-factory>
 </hibernate-configuration>

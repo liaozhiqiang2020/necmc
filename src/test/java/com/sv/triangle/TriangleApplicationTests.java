@@ -1,13 +1,13 @@
 package com.sv.triangle;
 
-import com.sv.triangle.exception.UserRolePermissionDuplicatedBindingException;
-import com.sv.triangle.pojo.PermissionEntity;
-import com.sv.triangle.pojo.RoleEntity;
-import com.sv.triangle.pojo.UserEntity;
-import com.sv.triangle.service.PermissionService;
-import com.sv.triangle.service.RedisService;
-import com.sv.triangle.service.RoleService;
-import com.sv.triangle.service.UserService;
+import com.sv.mc.exception.UserRolePermissionDuplicatedBindingException;
+import com.sv.mc.pojo.PermissionEntity;
+import com.sv.mc.pojo.RoleEntity;
+import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.service.PermissionService;
+import com.sv.mc.service.RedisService;
+import com.sv.mc.service.RoleService;
+import com.sv.mc.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

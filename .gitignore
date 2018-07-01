@@ -25,7 +25,7 @@ nbdist/
 
 ##
 .mvn/
-src/main/java/com/sv/triangle/config/
-src/main/java/com/sv/triangle/error/
+src/main/java/com/sv/mc/config/
+src/main/java/com/sv/mc/error/
 #src/main/resources/static/js/triangle/
 #src/main/resources/static/js/vue/
