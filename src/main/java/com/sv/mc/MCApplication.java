@@ -14,10 +14,10 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource(locations={"classpath:spring-redis.xml"})
 @EnableCaching
 @EnableAutoConfiguration
-public class TriangleApplication {
+public class MCApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TriangleApplication.class, args);
+		SpringApplication.run(MCApplication.class, args);
 
 	}
 }

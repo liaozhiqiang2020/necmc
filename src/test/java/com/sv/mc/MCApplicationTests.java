@@ -1,4 +1,4 @@
-package com.sv.triangle;
+package com.sv.mc;
 
 import com.sv.mc.exception.UserRolePermissionDuplicatedBindingException;
 import com.sv.mc.pojo.PermissionEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TriangleApplicationTests {
+public class MCApplicationTests {
 
     @Autowired
     private UserService userService;

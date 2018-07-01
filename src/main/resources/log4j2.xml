@@ -17,7 +17,7 @@
     </Appenders>
     <Loggers>
         <!--记录 qg.fangrui.boot 包及其子包 debug 及其以上的记录，并输出到文件中-->
-        <Logger name="com.sv.triangle" level="debug">
+        <Logger name="com.sv.mc" level="debug">
             <!-- AppenderRef 可以控制文件输出对象-->
             <AppenderRef ref="File" />
         </Logger>

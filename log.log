@@ -6,3 +6,6 @@
 [DEBUG] 2018-06-30 12:44:28,743 com.sv.triangle.TriangleApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
 [INFO ] 2018-06-30 12:44:28,744 com.sv.triangle.TriangleApplication - No active profile set, falling back to default profiles: default
 [INFO ] 2018-06-30 12:44:50,814 com.sv.triangle.TriangleApplication - Started TriangleApplication in 22.574 seconds (JVM running for 24.086)
+[INFO ] 2018-07-01 18:33:40,808 com.sv.mc.MCApplication - Starting MCApplication on Kevins-MacBook-Pro.local with PID 32388 (/Users/kevin/Development/projects/necmc/target/classes started by kevin in /Users/kevin/Development/projects/necmc)
+[DEBUG] 2018-07-01 18:33:40,814 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-01 18:33:40,814 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
