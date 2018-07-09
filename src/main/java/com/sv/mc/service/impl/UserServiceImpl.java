@@ -1,7 +1,7 @@
 package com.sv.mc.service.impl;
 
+import com.sv.mc.pojo.sysUserEntity;
 import com.sv.mc.repository.UserRepository;
-import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService<UserEntity> {
+public class UserServiceImpl implements UserService<sysUserEntity> {
 
     @Autowired
     private UserRepository userRepository;
@@ -26,21 +26,21 @@ public class UserServiceImpl implements UserService<UserEntity> {
     @Override
     @Transactional
     @Cacheable
-    public List<UserEntity> findAllEntities() {
+    public List<sysUserEntity> findAllEntities() {
         return this.userRepository.findAll();
     }
 
     @Override
     @Transactional
-    public List<UserEntity> findEntitiesPager(){
+    public List<sysUserEntity> findEntitiesPager(){
         PageRequest pageRequest = new PageRequest(0,5);
-        Page<UserEntity> userEntityPage = userRepository.findAll(pageRequest);
+        Page<sysUserEntity> userEntityPage = userRepository.findAll(pageRequest);
         return userEntityPage.getContent();
     }
 
     @Override
     @Transactional
-    public UserEntity findUserByUserName(String userName) {
+    public sysUserEntity findUserByUserName(String userName) {
         return this.userRepository.findUserByUserName(userName);
     }
 }

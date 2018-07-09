@@ -1,12 +1,12 @@
 package com.sv.mc.service;
 
-import com.sv.mc.pojo.PermissionEntity;
+import com.sv.mc.pojo.sysPermissionEntity;
 
 public interface PermissionService<T> {
-    void save(PermissionEntity permissionEntity);
+    void save(sysPermissionEntity sysPermissionEntity);
 
-    PermissionEntity findByPermissionName(String name);
+    sysPermissionEntity findByPermissionName(String name);
 
-    void delet(PermissionEntity permissionEntity);
+    void delet(sysPermissionEntity sysPermissionEntity);
 
 }
