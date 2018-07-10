@@ -78,6 +78,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             if (errcode != null) {
                 //返回异常信息
 //                throw new WeixinException(getCause(Integer.parseInt(errcode.toString())));
+                  throw new WeixinException(errcode.toString());
             }
 
             ObjectMapper mapper = new ObjectMapper();
