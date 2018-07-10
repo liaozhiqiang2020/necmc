@@ -42,7 +42,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
     @Autowired
     private WxUserInfoService wxUserInfoService;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+//    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final String appid = "wxef6b91b1a0f63519";        //微信小程序appid
     private static final String secret = "0db1ee3366332ed66650ce0acce409a7";    //微信小程序密钥
@@ -84,7 +84,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             ObjectMapper mapper = new ObjectMapper();
             OAuthJsToken oauthJsToken = mapper.readValue(jsonObj.toString(), OAuthJsToken.class);
 
-            logger.info("openid=" + oauthJsToken.getOpenid());
+            System.out.println("openid=" + oauthJsToken.getOpenid());
+//            logger.info("openid=" + oauthJsToken.getOpenid());
 
             WxUserInfoEntity wxUserInfoEntity = this.wxUserInfoService.findWxUserInfoByOpenId(oauthJsToken.getOpenid());//根据openId查询用户信息
             if(wxUserInfoEntity!=null){
@@ -137,7 +138,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
             //MD5运算生成签名，这里是第一次签名，用于调用统一下单接口
             String mysign = PayUtil.sign(prestr, WxPayConfig.key, "utf-8").toUpperCase();
-            logger.info("=======================第一次签名：" + mysign + "=====================");
+            System.out.println("=======================第一次签名：" + mysign + "=====================");
+//            logger.info("=======================第一次签名：" + mysign + "=====================");
 
             //拼接统一下单接口使用的xml数据，要将上一步生成的签名一起拼接进去
             String xml = "<xml>" + "<appid>" + WxPayConfig.appid + "</appid>"
@@ -178,7 +180,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                 String stringSignTemp = "appId=" + WxPayConfig.appid + "&nonceStr=" + nonce_str + "&package=prepay_id=" + prepay_id + "&signType=" + WxPayConfig.SIGNTYPE + "&timeStamp=" + timeStamp;
                 //再次签名，这个签名用于小程序端调用wx.requesetPayment方法
                 String paySign = PayUtil.sign(stringSignTemp, WxPayConfig.key, "utf-8").toUpperCase();
-                logger.info("=======================第二次签名：" + paySign + "=====================");
+                System.out.println("=======================第二次签名：" + paySign + "=====================");
+//                logger.info("=======================第二次签名：" + paySign + "=====================");
 
                 response.put("paySign", paySign);
 
