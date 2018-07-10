@@ -1,9 +1,6 @@
 package com.sv.mc.service;
 
-import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PlaceMapEntity;
-
-import java.util.List;
 
 /**
  * 接口

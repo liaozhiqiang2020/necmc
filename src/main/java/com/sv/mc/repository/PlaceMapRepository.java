@@ -1,6 +1,5 @@
 package com.sv.mc.repository;
 
-import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceMapEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

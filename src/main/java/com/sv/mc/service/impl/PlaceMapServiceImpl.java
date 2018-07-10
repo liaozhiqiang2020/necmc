@@ -1,14 +1,10 @@
 package com.sv.mc.service.impl;
 
-import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PlaceMapEntity;
 import com.sv.mc.repository.PlaceMapRepository;
-import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.service.PlaceMapService;
-import com.sv.mc.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

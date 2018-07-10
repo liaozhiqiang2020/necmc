@@ -10,7 +10,8 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "mc_device_date", schema = "mc", catalog = "")
-public class DeviceDateEntity {
+public class
+DeviceDateEntity {
     private int id;
     private Timestamp startDate; //设备写入系统时间
     private Timestamp endDate;      //设备最后一次使用时间

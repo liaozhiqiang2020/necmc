@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://111.231.85.247:3306/triangle</property>
+    <property name="connection.url">jdbc:mysql://111.231.85.247:3306/mc</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <!--<property name="connection.url">jdbc:mysql://111.231.85.247:3306/triangle</property>-->
     <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
@@ -16,5 +16,7 @@
     <mapping class="com.sv.mc.pojo.UserEntity"/>
     <mapping class="com.sv.mc.pojo.RoleEntity"/>
     <mapping class="com.sv.mc.pojo.PermissionEntity"/>
+    <mapping class="com.sv.mc.pojo.DeviceEntity"/>
+    <mapping class="com.sv.mc.pojo.PlaceEntity"/>
   </session-factory>
 </hibernate-configuration>
