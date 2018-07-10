@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 价格逻辑层
@@ -109,4 +113,27 @@ public class PriceServiceImpl implements PriceService {
     }
 
 
+    /**
+     * 根据设备id查询价格和时间
+     * @param deviceId
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> queryPriceAndTime(int deviceId) {
+        List<Map<String, Object>> listmap = new ArrayList<>();
+        List<PriceEntity> priceEntityList = this.priceRepository.queryPriceAndTime(deviceId);
+        for (int i = 0; i <priceEntityList.size() ; i++) {
+            Map<String,Object> map = new HashMap<>();
+            PriceEntity priceEntity = priceEntityList.get(i);
+            String priceName = priceEntity.getPriceName();
+            BigDecimal price = priceEntity.getPrice();
+            int useTime = priceEntity.getUseTime();
+
+            map.put("priceName",priceName);
+            map.put("price",price);
+            map.put("useTime",useTime/60);
+            listmap.add(map);
+        }
+        return listmap;
+    }
 }

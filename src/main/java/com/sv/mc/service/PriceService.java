@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PriceService{
 
@@ -22,4 +23,6 @@ public interface PriceService{
      PriceEntity addPrice(PriceEntity priceEntity);
 
      List<Object[]> findPriceByDeviceId(int deviceId);
+
+     List<Map<String,Object>> queryPriceAndTime(int deviceId);
 }

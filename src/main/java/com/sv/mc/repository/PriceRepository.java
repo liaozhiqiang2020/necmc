@@ -34,5 +34,7 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     @Query(value = "select price,use_time FROM mc_price as p join mc_price_device on p.id = price_id  join mc_device as d on d.id=device_id where d.id = :dId",nativeQuery = true)
     List<Object[]> findPriceEntitiesByDeviceID(@Param("dId") int deviceId);
 
-
+    //根据设备id查询价格和时间
+    @Query(value = "select p.* from mc_price p,mc_device d,mc_price_device pd where p.id=pd.price_id and d.id=pd.device_id and d.id=:deviceId",nativeQuery = true)
+    List<PriceEntity> queryPriceAndTime(@Param("deviceId") int deviceId);
 }

@@ -1,6 +1,9 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.PriceEntity;
+import com.sv.mc.pojo.PriceHistoryEntity;
 import com.sv.mc.service.OrderService;
+import com.sv.mc.service.PriceService;
 import com.sv.mc.service.WeiXinPayService;
 import com.sv.mc.weixinpay.vo.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ public class WeixinController extends WeixinSupport {
     private OrderService orderService;
     @Autowired
     private WeiXinPayService weiXinPayService;
+    @Autowired
+    private PriceService priceService;
 
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
@@ -175,6 +180,21 @@ public class WeixinController extends WeixinSupport {
     @ResponseBody
     public void servingOrderState(int orderId){
         this.orderService.servingOrderState(orderId);
+    }
+
+    /**
+     * 根据设备编号查询价格列表
+     * @param deviceCode
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @RequestMapping("/queryPriceAndTime")
+    @ResponseBody
+    public List<Map<String,Object>> queryPriceAndTime(int deviceCode){
+        List<Map<String,Object>> priceList = priceService.queryPriceAndTime(deviceCode);
+
+        return priceList;
     }
 
 }
