@@ -1,27 +1,27 @@
 package com.sv.mc.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mc_place", schema = "mc")
+@Table(name = "mc_place", schema = "mc", catalog = "")
 public class PlaceEntity {
     private int id;
     private String placeSn;
+    private int levelFlag;
+    private int discardStatus;
     private String principal;
     private String placeAddress;
     private String placeName;
-    private String placeRank;
-    private Integer pId;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private Timestamp startDateTime;
     private Timestamp endDateTime;
-    private int placeMapId;
+    private Integer pId;
+    private Integer placeMapId;
+    private String placeRank;
 
     @Id
     @Column(name = "Id")
@@ -35,7 +35,6 @@ public class PlaceEntity {
 
     @Basic
     @Column(name = "place_sn")
-    @JsonIgnore
     public String getPlaceSn() {
         return placeSn;
     }
@@ -45,8 +44,27 @@ public class PlaceEntity {
     }
 
     @Basic
+    @Column(name = "level_flag")
+    public int getLevelFlag() {
+        return levelFlag;
+    }
+
+    public void setLevelFlag(int levelFlag) {
+        this.levelFlag = levelFlag;
+    }
+
+    @Basic
+    @Column(name = "discard_status")
+    public int getDiscardStatus() {
+        return discardStatus;
+    }
+
+    public void setDiscardStatus(int discardStatus) {
+        this.discardStatus = discardStatus;
+    }
+
+    @Basic
     @Column(name = "principal")
-    @JsonIgnore
     public String getPrincipal() {
         return principal;
     }
@@ -57,7 +75,6 @@ public class PlaceEntity {
 
     @Basic
     @Column(name = "place_address")
-    @JsonIgnore
     public String getPlaceAddress() {
         return placeAddress;
     }
@@ -77,30 +94,7 @@ public class PlaceEntity {
     }
 
     @Basic
-    @Column(name = "place_rank")
-    @JsonIgnore
-    public String getPlaceRank() {
-        return placeRank;
-    }
-
-    public void setPlaceRank(String placeRank) {
-        this.placeRank = placeRank;
-    }
-
-    @Basic
-    @Column(name = "p_id")
-    @JsonIgnore
-    public Integer getpId() {
-        return pId;
-    }
-
-    public void setpId(Integer pId) {
-        this.pId = pId;
-    }
-
-    @Basic
     @Column(name = "latitude")
-    @JsonIgnore
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -111,7 +105,6 @@ public class PlaceEntity {
 
     @Basic
     @Column(name = "longitude")
-    @JsonIgnore
     public BigDecimal getLongitude() {
         return longitude;
     }
@@ -122,7 +115,6 @@ public class PlaceEntity {
 
     @Basic
     @Column(name = "start_date_time")
-    @JsonIgnore
     public Timestamp getStartDateTime() {
         return startDateTime;
     }
@@ -133,7 +125,6 @@ public class PlaceEntity {
 
     @Basic
     @Column(name = "end_date_time")
-    @JsonIgnore
     public Timestamp getEndDateTime() {
         return endDateTime;
     }
@@ -142,37 +133,60 @@ public class PlaceEntity {
         this.endDateTime = endDateTime;
     }
 
+    @Basic
+    @Column(name = "p_id")
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    @Basic
+    @Column(name = "place_map_id")
+    public Integer getPlaceMapId() {
+        return placeMapId;
+    }
+
+    public void setPlaceMapId(Integer placeMapId) {
+        this.placeMapId = placeMapId;
+    }
+
+    @Basic
+    @Column(name = "place_rank")
+    public String getPlaceRank() {
+        return placeRank;
+    }
+
+    public void setPlaceRank(String placeRank) {
+        this.placeRank = placeRank;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlaceEntity that = (PlaceEntity) o;
         return id == that.id &&
+                levelFlag == that.levelFlag &&
+                discardStatus == that.discardStatus &&
                 Objects.equals(placeSn, that.placeSn) &&
                 Objects.equals(principal, that.principal) &&
                 Objects.equals(placeAddress, that.placeAddress) &&
                 Objects.equals(placeName, that.placeName) &&
-                Objects.equals(placeRank, that.placeRank) &&
-                Objects.equals(pId, that.pId) &&
                 Objects.equals(latitude, that.latitude) &&
                 Objects.equals(longitude, that.longitude) &&
                 Objects.equals(startDateTime, that.startDateTime) &&
-                Objects.equals(endDateTime, that.endDateTime);
+                Objects.equals(endDateTime, that.endDateTime) &&
+                Objects.equals(pId, that.pId) &&
+                Objects.equals(placeMapId, that.placeMapId) &&
+                Objects.equals(placeRank, that.placeRank);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, placeSn, principal, placeAddress, placeName, placeRank, pId, latitude, longitude, startDateTime, endDateTime);
-    }
-
-    @Basic
-    @Column(name = "place_map_id")
-    public int getPlaceMapId() {
-        return placeMapId;
-    }
-
-    public void setPlaceMapId(int placeMapId) {
-        this.placeMapId = placeMapId;
+        return Objects.hash(id, placeSn, levelFlag, discardStatus, principal, placeAddress, placeName, latitude, longitude, startDateTime, endDateTime, pId, placeMapId, placeRank);
     }
 }

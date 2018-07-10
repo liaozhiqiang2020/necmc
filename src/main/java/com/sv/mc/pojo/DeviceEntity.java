@@ -1,43 +1,22 @@
 package com.sv.mc.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-@Table(name = "mc_device", schema = "mc")
+@Table(name = "mc_device", schema = "mc", catalog = "")
 public class DeviceEntity {
     private int id;
-    private Timestamp maintainDateTime;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
-    private int mcType;
-    private int mcStatus;
-    private String mcSn;
-    private String note;
-
-
-    private Set<PriceEntity> priceEntities = new HashSet<>();
-
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "mc_price_device",                       //指定第三张表
-            joinColumns = {@JoinColumn(name = "device_id")},             //本表与中间表的外键对应
-            inverseJoinColumns = {@JoinColumn(name = "price_id")})  //另一张表与第三张表的外键的对应关系
-    public Set<PriceEntity> getPriceEntities() {
-        return priceEntities;
-    }
-
-    public void setPriceEntities(Set<PriceEntity> priceEntities) {
-        this.priceEntities = priceEntities;
-    }
+    private int placeId;                    //场地id
+    private Timestamp maintainDateTime;     //维修时间
+    private BigDecimal latitude;            //按摩椅纬度
+    private BigDecimal longitude;           //按摩椅经度
+    private int mcType;                     //按摩椅型号
+    private int mcStatus;                   //按摩椅状态(0可用,1使用中,2维修中)
+    private String mcSn;                    //按摩椅编号
+    private String note;                    //备注
 
     @Id
     @Column(name = "Id")
@@ -51,7 +30,6 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "maintain_date_time")
-    @JsonIgnore
     public Timestamp getMaintainDateTime() {
         return maintainDateTime;
     }
@@ -62,7 +40,6 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "latitude")
-    @JsonIgnore
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -73,7 +50,6 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "longitude")
-    @JsonIgnore
     public BigDecimal getLongitude() {
         return longitude;
     }
@@ -83,19 +59,7 @@ public class DeviceEntity {
     }
 
     @Basic
-    @Column(name = "mc_type")
-    public int getMcType() {
-        return mcType;
-    }
-
-    public void setMcType(int mcType) {
-        this.mcType = mcType;
-    }
-
-
-    @Basic
     @Column(name = "mc_status")
-    @JsonIgnore
     public int getMcStatus() {
         return mcStatus;
     }
@@ -116,7 +80,6 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "note")
-    @JsonIgnore
     public String getNote() {
         return note;
     }
@@ -135,7 +98,6 @@ public class DeviceEntity {
                 Objects.equals(maintainDateTime, that.maintainDateTime) &&
                 Objects.equals(latitude, that.latitude) &&
                 Objects.equals(longitude, that.longitude) &&
-                Objects.equals(mcType, that.mcType) &&
                 Objects.equals(mcSn, that.mcSn) &&
                 Objects.equals(note, that.note);
     }
@@ -143,6 +105,6 @@ public class DeviceEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, maintainDateTime, latitude, longitude, mcType,  mcStatus, mcSn, note);
+        return Objects.hash(id, maintainDateTime, latitude, longitude, mcStatus, mcSn, note);
     }
 }
