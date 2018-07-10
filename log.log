@@ -9,3 +9,424 @@
 [INFO ] 2018-07-01 18:33:40,808 com.sv.mc.MCApplication - Starting MCApplication on Kevins-MacBook-Pro.local with PID 32388 (/Users/kevin/Development/projects/necmc/target/classes started by kevin in /Users/kevin/Development/projects/necmc)
 [DEBUG] 2018-07-01 18:33:40,814 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
 [INFO ] 2018-07-01 18:33:40,814 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 11:46:58,681 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 11916 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 11:46:58,688 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 11:46:58,688 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 11:47:20,572 com.sv.mc.MCApplication - Started MCApplication in 22.861 seconds (JVM running for 27.411)
+[INFO ] 2018-07-06 11:51:32,593 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14864 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 11:51:32,604 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 11:51:32,604 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 11:51:53,648 com.sv.mc.MCApplication - Started MCApplication in 21.903 seconds (JVM running for 25.142)
+[INFO ] 2018-07-06 12:08:41,000 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 2672 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 12:08:41,014 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 12:08:41,015 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 12:09:06,887 com.sv.mc.MCApplication - Started MCApplication in 26.417 seconds (JVM running for 29.252)
+[INFO ] 2018-07-06 12:43:14,003 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6112 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 12:43:14,009 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 12:43:14,009 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 12:44:17,065 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 15544 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 12:44:17,070 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 12:44:17,071 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 12:54:58,280 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 2096 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 12:54:58,284 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 12:54:58,284 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 12:55:20,522 com.sv.mc.MCApplication - Started MCApplication in 22.716 seconds (JVM running for 25.216)
+[INFO ] 2018-07-06 13:14:30,466 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 13492 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 13:14:30,472 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 13:14:30,472 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 13:14:53,607 com.sv.mc.MCApplication - Started MCApplication in 23.578 seconds (JVM running for 25.983)
+[INFO ] 2018-07-06 13:45:28,413 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9768 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 13:45:28,418 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 13:45:28,418 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 13:45:48,588 com.sv.mc.MCApplication - Started MCApplication in 20.507 seconds (JVM running for 22.9)
+[INFO ] 2018-07-06 22:55:21,237 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 5588 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 22:55:21,241 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 22:55:21,242 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 22:56:56,390 com.sv.mc.MCApplication - Started MCApplication in 95.539 seconds (JVM running for 98.25)
+[INFO ] 2018-07-06 23:09:16,610 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 16980 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 23:09:16,615 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 23:09:16,616 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 23:10:53,111 com.sv.mc.MCApplication - Started MCApplication in 96.914 seconds (JVM running for 98.894)
+[INFO ] 2018-07-06 23:15:58,626 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 18332 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 23:15:58,632 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 23:15:58,632 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 23:17:13,708 com.sv.mc.MCApplication - Started MCApplication in 75.4 seconds (JVM running for 77.656)
+[INFO ] 2018-07-06 23:18:21,489 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 8656 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 23:18:21,490 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 23:18:21,490 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 23:19:34,599 com.sv.mc.MCApplication - Started MCApplication in 73.382 seconds (JVM running for 76.272)
+[INFO ] 2018-07-06 23:21:40,230 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 15068 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 23:21:40,232 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 23:21:40,232 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 23:22:58,116 com.sv.mc.MCApplication - Started MCApplication in 78.298 seconds (JVM running for 80.44)
+[INFO ] 2018-07-06 23:24:32,272 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9020 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 23:24:32,275 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 23:24:32,275 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 23:25:59,914 com.sv.mc.MCApplication - Started MCApplication in 87.95 seconds (JVM running for 90.111)
+[INFO ] 2018-07-06 23:28:45,618 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 3040 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-06 23:28:45,626 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-06 23:28:45,626 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-06 23:30:07,207 com.sv.mc.MCApplication - Started MCApplication in 81.87 seconds (JVM running for 83.751)
+[INFO ] 2018-07-07 10:43:10,418 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 4564 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 10:43:10,497 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 10:43:10,498 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 10:43:40,766 com.sv.mc.MCApplication - Started MCApplication in 31.091 seconds (JVM running for 36.423)
+[INFO ] 2018-07-07 10:48:19,916 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12972 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 10:48:19,920 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 10:48:19,920 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 10:48:39,758 com.sv.mc.MCApplication - Started MCApplication in 20.156 seconds (JVM running for 22.883)
+[INFO ] 2018-07-07 10:51:06,760 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 7360 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 10:51:06,766 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 10:51:06,766 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 10:51:26,660 com.sv.mc.MCApplication - Started MCApplication in 20.305 seconds (JVM running for 23.052)
+[INFO ] 2018-07-07 13:08:10,832 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14536 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 13:08:10,837 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 13:08:10,837 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 13:08:32,816 com.sv.mc.MCApplication - Started MCApplication in 22.386 seconds (JVM running for 25.183)
+[INFO ] 2018-07-07 13:46:25,127 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14536 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 13:46:25,127 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 13:46:25,128 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 13:46:32,251 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 13568 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 13:46:32,256 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 13:46:32,256 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 13:46:40,804 com.sv.mc.MCApplication - Started MCApplication in 15.82 seconds (JVM running for 2313.172)
+[INFO ] 2018-07-07 13:46:56,619 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 24.976 seconds (JVM running for 28.971)
+[INFO ] 2018-07-07 13:57:04,107 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14536 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 13:57:04,107 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 13:57:04,107 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 13:57:08,171 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 7336 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 13:57:08,180 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 13:57:08,180 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 13:57:20,877 com.sv.mc.MCApplication - Started MCApplication in 16.943 seconds (JVM running for 2953.244)
+[INFO ] 2018-07-07 13:57:33,271 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 25.994 seconds (JVM running for 29.94)
+[INFO ] 2018-07-07 14:05:30,970 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 5516 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:05:30,991 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:05:30,992 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:05:53,225 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 22.875 seconds (JVM running for 26.554)
+[INFO ] 2018-07-07 14:06:24,875 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4624 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:06:24,908 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:06:24,909 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:06:48,739 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 24.267 seconds (JVM running for 27.545)
+[INFO ] 2018-07-07 14:07:15,231 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 2000 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:07:15,265 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:07:15,266 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:07:39,625 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 24.838 seconds (JVM running for 28.024)
+[INFO ] 2018-07-07 14:25:48,217 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14536 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:25:48,218 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:25:48,218 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:25:50,775 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 12336 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:25:50,785 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:25:50,786 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:26:04,649 com.sv.mc.MCApplication - Started MCApplication in 16.745 seconds (JVM running for 4677.016)
+[INFO ] 2018-07-07 14:26:13,148 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 22.934 seconds (JVM running for 27.03)
+[INFO ] 2018-07-07 14:44:28,566 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14536 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:44:28,566 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:44:28,566 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:44:37,629 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 13644 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 14:44:37,633 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 14:44:37,633 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 14:44:56,312 com.sv.mc.MCApplication - Started MCApplication in 18.919 seconds (JVM running for 21.427)
+[INFO ] 2018-07-07 15:33:07,224 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 948 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 15:33:07,228 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 15:33:07,228 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 15:33:27,092 com.sv.mc.MCApplication - Started MCApplication in 20.13 seconds (JVM running for 22.776)
+[INFO ] 2018-07-07 15:34:04,526 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 11044 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 15:34:04,531 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 15:34:04,532 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 15:34:27,739 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 23.671 seconds (JVM running for 26.799)
+[INFO ] 2018-07-07 15:35:12,288 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 5848 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 15:35:12,293 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 15:35:12,293 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 15:35:34,370 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 22.473 seconds (JVM running for 25.4)
+[INFO ] 2018-07-07 15:35:59,890 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 10480 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 15:35:59,895 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 15:35:59,895 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 15:36:22,942 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 23.44 seconds (JVM running for 26.744)
+[INFO ] 2018-07-07 16:51:32,037 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12156 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 16:51:32,040 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 16:51:32,040 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 16:51:53,851 com.sv.mc.MCApplication - Started MCApplication in 22.208 seconds (JVM running for 24.508)
+[INFO ] 2018-07-07 17:27:44,214 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9408 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 17:27:44,218 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 17:27:44,219 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 17:46:06,854 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14824 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 17:46:06,858 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 17:46:06,858 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 17:46:26,479 com.sv.mc.MCApplication - Started MCApplication in 19.908 seconds (JVM running for 22.687)
+[INFO ] 2018-07-07 17:58:36,153 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12692 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 17:58:36,157 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 17:58:36,157 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 17:58:56,951 com.sv.mc.MCApplication - Started MCApplication in 21.108 seconds (JVM running for 23.495)
+[INFO ] 2018-07-07 18:01:44,296 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 13984 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-07 18:01:44,302 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-07 18:01:44,302 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-07 18:02:04,330 com.sv.mc.MCApplication - Started MCApplication in 20.42 seconds (JVM running for 23.15)
+[INFO ] 2018-07-08 15:00:08,983 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14888 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:00:08,983 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:00:08,983 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:30:05,664 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 11464 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:30:05,711 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:30:05,711 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:31:18,285 com.sv.mc.MCApplication - Started MCApplication in 73.168 seconds (JVM running for 80.222)
+[INFO ] 2018-07-08 15:34:22,636 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 10400 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:34:22,636 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:34:22,636 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:35:24,514 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 62.378 seconds (JVM running for 65.188)
+[INFO ] 2018-07-08 15:37:54,613 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 1612 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:37:54,619 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:37:54,620 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:39:00,434 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 66.222 seconds (JVM running for 69.736)
+[INFO ] 2018-07-08 15:41:07,745 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4500 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:41:07,745 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:41:07,745 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:42:39,554 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 92.168 seconds (JVM running for 95.464)
+[INFO ] 2018-07-08 15:45:14,927 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 13020 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:45:14,943 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:45:14,943 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:46:17,089 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 62.505 seconds (JVM running for 65.125)
+[INFO ] 2018-07-08 15:47:23,922 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 6580 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:47:23,938 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:47:23,938 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:48:50,389 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 86.842 seconds (JVM running for 89.639)
+[INFO ] 2018-07-08 15:52:27,624 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12364 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 15:52:27,628 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 15:52:27,628 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 15:53:39,840 com.sv.mc.MCApplication - Started MCApplication in 72.433 seconds (JVM running for 74.585)
+[INFO ] 2018-07-08 16:01:05,006 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12364 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:01:05,006 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:01:05,006 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:01:10,993 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 9444 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:01:11,009 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:01:11,009 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:01:58,847 com.sv.mc.MCApplication - Started MCApplication in 53.966 seconds (JVM running for 573.602)
+[INFO ] 2018-07-08 16:02:12,471 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 61.916 seconds (JVM running for 65.281)
+[INFO ] 2018-07-08 16:03:54,798 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 11344 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:03:54,806 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:03:54,806 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:06:30,916 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 156.536 seconds (JVM running for 159.917)
+[INFO ] 2018-07-08 16:23:02,743 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12364 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:23:02,743 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:23:02,743 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:23:08,059 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 3892 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:23:08,059 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:23:08,059 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:23:51,467 com.sv.mc.MCApplication - Started MCApplication in 48.801 seconds (JVM running for 1886.212)
+[INFO ] 2018-07-08 16:24:04,704 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 57.02 seconds (JVM running for 60.316)
+[INFO ] 2018-07-08 16:34:59,909 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12364 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:34:59,909 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:34:59,909 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:35:04,017 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 8536 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 16:35:04,017 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 16:35:04,017 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 16:35:49,370 com.sv.mc.MCApplication - Started MCApplication in 49.555 seconds (JVM running for 2604.116)
+[INFO ] 2018-07-08 16:35:58,329 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 54.718 seconds (JVM running for 58.117)
+[INFO ] 2018-07-08 17:09:46,083 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6992 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 17:09:46,088 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 17:09:46,088 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 17:13:16,381 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6780 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 17:13:16,381 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 17:13:16,381 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 17:15:04,182 com.sv.mc.MCApplication - Started MCApplication in 108.101 seconds (JVM running for 110.526)
+[INFO ] 2018-07-08 17:21:42,613 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 3812 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 17:21:42,617 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 17:21:42,618 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 17:22:27,766 com.sv.mc.MCApplication - Started MCApplication in 45.568 seconds (JVM running for 48.038)
+[INFO ] 2018-07-08 17:27:41,605 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 1000 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 17:27:41,612 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 17:27:41,612 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 17:28:23,312 com.sv.mc.MCApplication - Started MCApplication in 42.062 seconds (JVM running for 44.505)
+[INFO ] 2018-07-08 17:34:12,257 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 2112 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 17:34:12,268 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 17:34:12,268 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 17:35:02,490 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 50.767 seconds (JVM running for 54.726)
+[INFO ] 2018-07-08 17:39:31,252 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 11860 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 17:39:31,267 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 17:39:31,268 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 17:40:54,466 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 83.588 seconds (JVM running for 86.791)
+[INFO ] 2018-07-08 21:36:01,429 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 14412 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 21:36:01,462 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 21:36:01,463 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 21:38:26,620 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 12148 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 21:38:26,626 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 21:38:26,627 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 21:39:08,538 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 42.27 seconds (JVM running for 45.298)
+[INFO ] 2018-07-08 21:39:29,696 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 13808 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 21:39:29,700 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 21:39:29,700 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 21:40:09,592 com.sv.mc.MCApplication - Started MCApplication in 40.366 seconds (JVM running for 43.077)
+[INFO ] 2018-07-08 22:11:42,963 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 14344 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 22:11:42,969 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 22:11:42,969 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 22:13:03,297 com.sv.mc.MCApplication - Started MCApplication in 80.718 seconds (JVM running for 82.835)
+[INFO ] 2018-07-08 22:16:32,900 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 13684 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 22:16:32,905 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 22:16:32,905 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 22:17:28,330 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 55.879 seconds (JVM running for 58.958)
+[INFO ] 2018-07-08 22:27:16,919 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 3184 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 22:27:16,925 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 22:27:16,925 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 22:28:00,427 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 43.869 seconds (JVM running for 46.804)
+[INFO ] 2018-07-08 22:28:32,152 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 13488 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 22:28:32,183 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 22:28:32,183 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 22:29:33,622 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 61.932 seconds (JVM running for 65.252)
+[INFO ] 2018-07-08 22:55:24,367 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6892 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 22:55:24,375 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 22:55:24,375 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 22:56:16,724 com.sv.mc.MCApplication - Started MCApplication in 52.797 seconds (JVM running for 55.684)
+[INFO ] 2018-07-08 22:59:10,401 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 8160 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 22:59:10,408 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 22:59:10,409 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:00:10,421 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 60.623 seconds (JVM running for 63.635)
+[INFO ] 2018-07-08 23:01:04,821 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 13528 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:01:04,825 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:01:04,826 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:02:12,274 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 67.922 seconds (JVM running for 71.54)
+[INFO ] 2018-07-08 23:03:03,417 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6892 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:03:03,418 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:03:03,418 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:03:08,858 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 8 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:03:09,019 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:03:09,020 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:03:55,915 com.sv.mc.MCApplication - Started MCApplication in 52.657 seconds (JVM running for 514.876)
+[INFO ] 2018-07-08 23:04:12,980 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 64.986 seconds (JVM running for 68.044)
+[INFO ] 2018-07-08 23:18:23,343 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 6616 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:18:23,349 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:18:23,350 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:19:16,252 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 53.384 seconds (JVM running for 56.895)
+[INFO ] 2018-07-08 23:25:03,912 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 9372 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:25:03,923 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:25:03,923 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:26:00,572 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 57.152 seconds (JVM running for 60.859)
+[INFO ] 2018-07-08 23:42:29,871 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 8164 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:42:29,876 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:42:29,876 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:43:32,310 com.sv.mc.MCApplication - Started MCApplication in 62.715 seconds (JVM running for 65.316)
+[INFO ] 2018-07-08 23:48:00,300 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 15172 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-08 23:48:00,310 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-08 23:48:00,310 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-08 23:48:49,555 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 49.68 seconds (JVM running for 52.897)
+[INFO ] 2018-07-09 00:34:16,622 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6732 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 00:34:16,626 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 00:34:16,626 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 00:35:05,807 com.sv.mc.MCApplication - Started MCApplication in 49.505 seconds (JVM running for 51.955)
+[INFO ] 2018-07-09 00:38:47,416 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 14236 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 00:38:47,429 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 00:38:47,430 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 00:39:47,954 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 61.018 seconds (JVM running for 64.571)
+[INFO ] 2018-07-09 00:45:09,184 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 6732 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 00:45:09,184 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 00:45:09,184 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 00:45:13,469 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 6960 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 00:45:13,475 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 00:45:13,475 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 00:45:59,005 com.sv.mc.MCApplication - Started MCApplication in 49.989 seconds (JVM running for 705.152)
+[INFO ] 2018-07-09 00:46:10,172 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 57.395 seconds (JVM running for 60.824)
+[INFO ] 2018-07-09 09:04:05,594 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 14992 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 09:04:05,601 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 09:04:05,602 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 09:04:48,775 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 43.873 seconds (JVM running for 47.561)
+[INFO ] 2018-07-09 09:08:06,609 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 7124 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 09:08:06,617 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 09:08:06,617 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 09:08:51,927 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 45.861 seconds (JVM running for 49.331)
+[INFO ] 2018-07-09 09:27:39,848 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12556 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 09:27:39,851 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 09:27:39,852 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 09:28:32,699 com.sv.mc.MCApplication - Started MCApplication in 53.281 seconds (JVM running for 56.134)
+[INFO ] 2018-07-09 09:51:13,561 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9496 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 09:51:13,573 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 09:51:13,573 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 09:52:17,597 com.sv.mc.MCApplication - Started MCApplication in 64.45 seconds (JVM running for 66.854)
+[INFO ] 2018-07-09 10:02:24,739 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 11068 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 10:02:24,746 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 10:02:24,747 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 10:03:15,742 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 51.684 seconds (JVM running for 55.109)
+[INFO ] 2018-07-09 15:03:43,111 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 940 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:03:43,116 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:03:43,116 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:04:32,892 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:04:32,897 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:04:32,897 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:05:31,956 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:05:31,957 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:05:31,957 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:06:28,746 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:06:28,747 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:06:28,747 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:07:32,774 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:07:32,774 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:07:32,774 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:08:25,482 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:08:25,482 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:08:25,491 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:08:58,537 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 13820 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:08:58,541 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:08:58,542 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:09:13,383 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:09:13,383 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:09:13,383 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:09:59,805 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:09:59,805 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:09:59,806 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:10:56,536 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:10:56,536 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:10:56,536 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:11:39,779 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:11:39,780 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:11:39,780 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:12:28,986 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:12:28,986 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:12:28,986 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:13:12,701 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:13:12,702 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:13:12,702 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:14:01,043 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:14:01,044 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:14:01,044 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:14:50,882 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:14:50,883 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:14:50,883 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:15:44,085 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:15:44,085 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:15:44,086 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:16:29,115 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:16:29,116 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:16:29,116 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:17:12,775 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:17:12,776 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:17:12,776 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:17:56,749 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:17:56,750 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:17:56,750 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:18:38,509 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 4324 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:18:38,510 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:18:38,510 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:27:18,594 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 12512 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:27:18,599 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:27:18,600 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:29:53,166 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9064 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:29:53,170 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:29:53,170 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:30:46,711 com.sv.mc.MCApplication - Started MCApplication in 53.897 seconds (JVM running for 56.658)
+[INFO ] 2018-07-09 15:37:40,944 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9760 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 15:37:40,951 com.sv.mc.MCApplication - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 15:37:40,952 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 15:38:37,047 com.sv.mc.MCApplication - Started MCApplication in 56.784 seconds (JVM running for 59.172)
+[INFO ] 2018-07-09 16:18:09,988 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 11320 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 16:18:09,992 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 16:18:09,993 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 16:23:14,181 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 2980 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 16:23:14,187 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 16:23:14,187 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 16:28:19,508 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 12092 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 16:28:19,517 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 16:28:19,517 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 16:35:43,223 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 10748 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 16:35:43,228 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 16:35:43,229 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 16:47:46,201 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 723.401 seconds (JVM running for 726.888)
+[INFO ] 2018-07-09 16:56:49,016 com.sv.mc.MCApplicationTests - Starting MCApplicationTests on DESKTOP-MF71NMU with PID 13404 (started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-09 16:56:49,028 com.sv.mc.MCApplicationTests - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.12.RELEASE
+[INFO ] 2018-07-09 16:56:49,028 com.sv.mc.MCApplicationTests - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-09 16:59:11,132 com.sv.mc.MCApplicationTests - Started MCApplicationTests in 142.652 seconds (JVM running for 145.917)

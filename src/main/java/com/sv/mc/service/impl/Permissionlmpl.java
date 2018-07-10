@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @Service
 public class Permissionlmpl implements PermissionService {
 
-    @Resource
+   /* @Resource
     private PermissionRepository dao;
 
     @Override
@@ -35,6 +35,6 @@ public class Permissionlmpl implements PermissionService {
     @CacheEvict(value = "user",key = "#root.caches[0].name ")
     public void delet(PermissionEntity permissionEntity) {
         dao.delete(permissionEntity);
-    }
+    }*/
 
 }
