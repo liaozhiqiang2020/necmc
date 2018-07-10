@@ -1,7 +1,7 @@
 package com.sv.mc.controller;
 
 import com.google.gson.*;
-import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.sysUserEntity;
 import com.sv.mc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +26,13 @@ public class UserController {
 
     @GetMapping(value = "/user/getAllUsers")
     public @ResponseBody
-    List<UserEntity> getAllUsers() {
-        List<UserEntity> userEntityList = this.userService.findAllEntities();
-        return userEntityList;
+    List<sysUserEntity> getAllUsers() {
+        List<sysUserEntity> sysUserEntityList = this.userService.findAllEntities();
+        return sysUserEntityList;
     }
 
 //    @GetMapping(value = "/user/save")
-//    public void saveOrUpdateUser(@RequestBody UserEntity user) {
+//    public void saveOrUpdateUser(@RequestBody sysUserEntity user) {
 //        this.userService.saveOrUpdate(user);
 //    }
 
@@ -59,7 +59,7 @@ public class UserController {
         });
 
         Gson gson = builder.create();
-        UserEntity userMap = gson.fromJson(url, UserEntity.class);
+        sysUserEntity userMap = gson.fromJson(url, sysUserEntity.class);
         System.out.println(userMap);
         return "ok";
     }

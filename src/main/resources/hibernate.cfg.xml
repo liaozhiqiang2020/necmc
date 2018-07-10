@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://111.231.85.247:3306/mc</property>
+    <property name="connection.url">jdbc:mysql://111.231.85.247:3306/triangle</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <!--<property name="connection.url">jdbc:mysql://111.231.85.247:3306/triangle</property>-->
     <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
@@ -16,37 +16,5 @@
     <mapping class="com.sv.mc.pojo.UserEntity"/>
     <mapping class="com.sv.mc.pojo.RoleEntity"/>
     <mapping class="com.sv.mc.pojo.PermissionEntity"/>
-    <mapping class="com.sv.mc.pojo.BranchEntity"/>
-    <mapping class="com.sv.mc.pojo.BranchEntity"/>
-    <mapping class="com.sv.mc.pojo.BranchEntity"/>
-      <mapping class="com.sv.mc.pojo.HeadQuartersEntity"/>
-      <mapping class="com.sv.mc.pojo.BranchEntity"/>
-      <mapping class="com.sv.mc.pojo.VendorEntity"/>
-      <mapping class="com.sv.mc.pojo.AreaEntity"/>
-      <mapping class="com.sv.mc.pojo.BusinessEntity"/>
-      <mapping class="com.sv.mc.pojo.CityEntity"/>
-      <mapping class="com.sv.mc.pojo.ProvinceEntity"/>
-      <mapping class="com.sv.mc.pojo.SignEntity"/>
-      <mapping class="com.sv.mc.pojo.SupplierEntity"/>
-      <mapping class="com.sv.mc.pojo.DeviceEntity"/>
-      <mapping class="com.sv.mc.pojo.DeviceDateEntity"/>
-      <mapping class="com.sv.mc.pojo.DeviceModelEntity"/>
-      <mapping class="com.sv.mc.pojo.PlaceEntity"/>
-      <mapping class="com.sv.mc.pojo.PlaceMapEntity"/>
-    <mapping class="com.sv.mc.pojo.BusinessEntity"/>
-    <mapping class="com.sv.mc.pojo.CityEntity"/>
-    <mapping class="com.sv.mc.pojo.ContractEntity"/>
-    <mapping class="com.sv.mc.pojo.DeviceEntity"/>
-    <mapping class="com.sv.mc.pojo.DeviceDateEntity"/>
-    <mapping class="com.sv.mc.pojo.DeviceModelEntity"/>
-    <mapping class="com.sv.mc.pojo.HeadQuartersEntity"/>
-    <mapping class="com.sv.mc.pojo.PlaceEntity"/>
-    <mapping class="com.sv.mc.pojo.PlaceMapEntity"/>
-    <mapping class="com.sv.mc.pojo.ProvinceEntity"/>
-    <mapping class="com.sv.mc.pojo.SupplierEntity"/>
-    <mapping class="com.sv.mc.pojo.VendorEntity"/>
-    <mapping class="com.sv.mc.pojo.AreaEntity"/>
-    <mapping class="com.sv.mc.pojo.BranchEntity"/>
-      <mapping class="com.sv.mc.pojo.PlaceLevelEntity"/>
   </session-factory>
 </hibernate-configuration>

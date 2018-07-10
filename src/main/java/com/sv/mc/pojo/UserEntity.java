@@ -1,47 +1,33 @@
 package com.sv.mc.pojo;
 
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Objects;
 
+/**
+ * 用户表
+ * @author 魏帅志
+ */
 @Entity
-@Table(name = "sys_user", schema = "triangle")
-public class UserEntity implements Serializable{
-    private int id;
-    private String userName;
-    private String authenticationString;
-    private Timestamp createDatetime;
-    private String email;
-    private String cellphoneNumber;
-    private String fixedPhoneNumber;
-    private Timestamp latestLoginDatetime;
-    private Timestamp updateDatetime;
-    private String qq;
-    private String latestLoginIp;
+@Table(name = "mc_user", schema = "mc", catalog = "")
+public class UserEntity {
+    private int id;                                 //主键Id
+    private String userName;                        //用户名
+    private String name;                            //用户真实姓名
+    private String authenticationString;            //密码
+    private Timestamp createDatetime;               //创建日期
+    private String email;                           //邮箱
+    private String cellphoneNumber;                 //手机
+    private String fixedPhoneNumber;                //固话
+    private Timestamp latestLoginDatetime;          //上次登录时间
+    private String latestLoginIp;                   //上次登录Ip
+    private int status;                             //状态
 
-    private Collection<RoleEntity> roleEntities = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "sys_user_role",                       //指定第三张表
-            joinColumns = {@JoinColumn(name = "user_id")},             //本表与中间表的外键对应
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})  //另一张表与第三张表的外键的对应关系
-    public Collection<RoleEntity> getRoleEntities() {
-        return roleEntities;
-    }
-
-    public void setRoleEntities(Collection<RoleEntity> roleEntities) {
-        this.roleEntities = roleEntities;
-    }
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -51,7 +37,7 @@ public class UserEntity implements Serializable{
     }
 
     @Basic
-    @Column(name = "user_name", nullable = false, length = 30)
+    @Column(name = "user_name")
     public String getUserName() {
         return userName;
     }
@@ -61,7 +47,17 @@ public class UserEntity implements Serializable{
     }
 
     @Basic
-    @Column(name = "authentication_string", nullable = false, length = 64)
+    @Column(name = "name")
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Basic
+    @Column(name = "authentication_string")
+    @JsonIgnore
     public String getAuthenticationString() {
         return authenticationString;
     }
@@ -71,7 +67,8 @@ public class UserEntity implements Serializable{
     }
 
     @Basic
-    @Column(name = "create_datetime", nullable = false)
+    @Column(name = "create_datetime")
+    @JsonIgnore
     public Timestamp getCreateDatetime() {
         return createDatetime;
     }
@@ -80,8 +77,9 @@ public class UserEntity implements Serializable{
         this.createDatetime = createDatetime;
     }
 
+    @JsonIgnore
     @Basic
-    @Column(name = "email", nullable = true, length = 100)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -90,8 +88,9 @@ public class UserEntity implements Serializable{
         this.email = email;
     }
 
+    @JsonIgnore
     @Basic
-    @Column(name = "cellphone_number", nullable = true, length = 50)
+    @Column(name = "cellphone_number")
     public String getCellphoneNumber() {
         return cellphoneNumber;
     }
@@ -100,8 +99,9 @@ public class UserEntity implements Serializable{
         this.cellphoneNumber = cellphoneNumber;
     }
 
+    @JsonIgnore
     @Basic
-    @Column(name = "fixed_phone_number", nullable = true, length = 45)
+    @Column(name = "fixed_phone_number")
     public String getFixedPhoneNumber() {
         return fixedPhoneNumber;
     }
@@ -110,8 +110,9 @@ public class UserEntity implements Serializable{
         this.fixedPhoneNumber = fixedPhoneNumber;
     }
 
+    @JsonIgnore
     @Basic
-    @Column(name = "latest_login_datetime", nullable = false)
+    @Column(name = "latest_login_datetime")
     public Timestamp getLatestLoginDatetime() {
         return latestLoginDatetime;
     }
@@ -120,28 +121,9 @@ public class UserEntity implements Serializable{
         this.latestLoginDatetime = latestLoginDatetime;
     }
 
+    @JsonIgnore
     @Basic
-    @Column(name = "update_datetime", nullable = false)
-    public Timestamp getUpdateDatetime() {
-        return updateDatetime;
-    }
-
-    public void setUpdateDatetime(Timestamp updateDatetime) {
-        this.updateDatetime = updateDatetime;
-    }
-
-    @Basic
-    @Column(name = "qq", nullable = true, length = 20)
-    public String getQq() {
-        return qq;
-    }
-
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
-
-    @Basic
-    @Column(name = "latest_login_ip", nullable = true, length = 30)
+    @Column(name = "latest_login_ip")
     public String getLatestLoginIp() {
         return latestLoginIp;
     }
@@ -150,28 +132,38 @@ public class UserEntity implements Serializable{
         this.latestLoginIp = latestLoginIp;
     }
 
+    @JsonIgnore
+    @Basic
+    @Column(name = "status")
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
         return id == that.id &&
+                status == that.status &&
                 Objects.equals(userName, that.userName) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(authenticationString, that.authenticationString) &&
                 Objects.equals(createDatetime, that.createDatetime) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(cellphoneNumber, that.cellphoneNumber) &&
                 Objects.equals(fixedPhoneNumber, that.fixedPhoneNumber) &&
                 Objects.equals(latestLoginDatetime, that.latestLoginDatetime) &&
-                Objects.equals(updateDatetime, that.updateDatetime) &&
-                Objects.equals(qq, that.qq) &&
                 Objects.equals(latestLoginIp, that.latestLoginIp);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, userName, authenticationString, createDatetime, email, cellphoneNumber, fixedPhoneNumber, latestLoginDatetime, updateDatetime, qq, latestLoginIp);
+        return Objects.hash(id, userName, name, authenticationString, createDatetime, email, cellphoneNumber, fixedPhoneNumber, latestLoginDatetime, latestLoginIp, status);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.sv.mc.pojo;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -21,6 +22,46 @@ public class DeviceEntity {
     private int mcStatus;                   //按摩椅状态(0可用,1使用中,2维修中)
     private String mcSn;                    //按摩椅编号
     private String note;                    //备注
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "mc_device", schema = "mc")
+public class DeviceEntity {
+    private int id;
+    private Timestamp maintainDateTime;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+    private int mcType;
+    private int mcStatus;
+    private String mcSn;
+    private String note;
+
+
+    private Set<PriceEntity> priceEntities = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "mc_price_device",                       //指定第三张表
+            joinColumns = {@JoinColumn(name = "device_id")},             //本表与中间表的外键对应
+            inverseJoinColumns = {@JoinColumn(name = "price_id")})  //另一张表与第三张表的外键的对应关系
+    public Set<PriceEntity> getPriceEntities() {
+        return priceEntities;
+    }
+
+    public void setPriceEntities(Set<PriceEntity> priceEntities) {
+        this.priceEntities = priceEntities;
+    }
+>>>>>>> origin/master
 
     @Id
     @Column(name = "Id")
@@ -33,6 +74,7 @@ public class DeviceEntity {
     }
 
     @Basic
+<<<<<<< HEAD
     @Column(name = "place_id")
     public int getPlaceId() {
         return placeId;
@@ -44,6 +86,10 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "maintain_date_time")
+=======
+    @Column(name = "maintain_date_time")
+    @JsonIgnore
+>>>>>>> origin/master
     public Timestamp getMaintainDateTime() {
         return maintainDateTime;
     }
@@ -54,6 +100,10 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "latitude")
+<<<<<<< HEAD
+=======
+    @JsonIgnore
+>>>>>>> origin/master
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -64,6 +114,10 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "longitude")
+<<<<<<< HEAD
+=======
+    @JsonIgnore
+>>>>>>> origin/master
     public BigDecimal getLongitude() {
         return longitude;
     }
@@ -82,8 +136,15 @@ public class DeviceEntity {
         this.mcType = mcType;
     }
 
+<<<<<<< HEAD
     @Basic
     @Column(name = "mc_status")
+=======
+
+    @Basic
+    @Column(name = "mc_status")
+    @JsonIgnore
+>>>>>>> origin/master
     public int getMcStatus() {
         return mcStatus;
     }
@@ -104,6 +165,10 @@ public class DeviceEntity {
 
     @Basic
     @Column(name = "note")
+<<<<<<< HEAD
+=======
+    @JsonIgnore
+>>>>>>> origin/master
     public String getNote() {
         return note;
     }
@@ -118,12 +183,19 @@ public class DeviceEntity {
         if (o == null || getClass() != o.getClass()) return false;
         DeviceEntity that = (DeviceEntity) o;
         return id == that.id &&
+<<<<<<< HEAD
                 placeId == that.placeId &&
                 mcType == that.mcType &&
+=======
+>>>>>>> origin/master
                 mcStatus == that.mcStatus &&
                 Objects.equals(maintainDateTime, that.maintainDateTime) &&
                 Objects.equals(latitude, that.latitude) &&
                 Objects.equals(longitude, that.longitude) &&
+<<<<<<< HEAD
+=======
+                Objects.equals(mcType, that.mcType) &&
+>>>>>>> origin/master
                 Objects.equals(mcSn, that.mcSn) &&
                 Objects.equals(note, that.note);
     }
@@ -131,6 +203,10 @@ public class DeviceEntity {
     @Override
     public int hashCode() {
 
+<<<<<<< HEAD
         return Objects.hash(id, placeId, maintainDateTime, latitude, longitude, mcType, mcStatus, mcSn, note);
+=======
+        return Objects.hash(id, maintainDateTime, latitude, longitude, mcType,  mcStatus, mcSn, note);
+>>>>>>> origin/master
     }
 }

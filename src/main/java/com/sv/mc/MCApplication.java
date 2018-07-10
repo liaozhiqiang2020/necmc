@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @Configuration
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource(locations={"classpath:spring-redis.xml"})
 @EnableCaching
 @EnableAutoConfiguration
+@EnableScheduling
 public class MCApplication {
 
 	public static void main(String[] args) {

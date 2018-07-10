@@ -1,6 +1,6 @@
 package com.sv.mc.service;
 
-import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.sysUserEntity;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public interface UserService<T> extends BaseService<T> {
 
     int specificCalculate();
 
-    List<UserEntity> findEntitiesPager();
+    List<sysUserEntity> findEntitiesPager();
 
-    UserEntity findUserByUserName(String userName);
+    sysUserEntity findUserByUserName(String userName);
 }

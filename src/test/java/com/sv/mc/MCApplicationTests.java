@@ -1,9 +1,9 @@
 package com.sv.mc;
 
 import com.sv.mc.exception.UserRolePermissionDuplicatedBindingException;
-import com.sv.mc.pojo.PermissionEntity;
-import com.sv.mc.pojo.RoleEntity;
-import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.sysPermissionEntity;
+import com.sv.mc.pojo.sysRoleEntity;
+import com.sv.mc.pojo.sysUserEntity;
 import com.sv.mc.service.PermissionService;
 import com.sv.mc.service.RedisService;
 import com.sv.mc.service.RoleService;
@@ -36,20 +36,20 @@ public class MCApplicationTests {
 
     @Test
     public void testFindByRole() {
-        List<RoleEntity> roleEntityList = this.roleService.findAllEntities();
-        for (RoleEntity roleEntity : roleEntityList) {
-            for (UserEntity userEntity : roleEntity.getUserEntities()) {
-                System.out.println("---------------------------------------------------------------------------" + userEntity.getUserName());
+        List<sysRoleEntity> sysRoleEntityList = this.roleService.findAllEntities();
+        for (sysRoleEntity sysRoleEntity : sysRoleEntityList) {
+            for (sysUserEntity sysUserEntity : sysRoleEntity.getUserEntities()) {
+                System.out.println("---------------------------------------------------------------------------" + sysUserEntity.getUserName());
             }
         }
     }
 
     @Test
     public void testFindByUser() {
-        List<UserEntity> userEntityList = this.userService.findAllEntities();
-        for (UserEntity userEntity : userEntityList) {
-            for (RoleEntity roleEntity : userEntity.getRoleEntities()) {
-                System.out.println("当前用户：" + userEntity.getUserName() + "    " + "当前用户所在角色：" + roleEntity.getRoleName());
+        List<sysUserEntity> sysUserEntityList = this.userService.findAllEntities();
+        for (sysUserEntity sysUserEntity : sysUserEntityList) {
+            for (sysRoleEntity sysRoleEntity : sysUserEntity.getRoleEntities()) {
+                System.out.println("当前用户：" + sysUserEntity.getUserName() + "    " + "当前用户所在角色：" + sysRoleEntity.getRoleName());
             }
         }
     }
@@ -57,11 +57,11 @@ public class MCApplicationTests {
     @Test
     @Rollback(false)
     public void testAddUserToRole() {
-        RoleEntity roleEntity = this.roleService.findRoleByRoleName("普通用户");
-        UserEntity userEntity = this.userService.findUserByUserName("kangkai");
-        roleEntity.getUserEntities().add(userEntity);
+        sysRoleEntity sysRoleEntity = this.roleService.findRoleByRoleName("普通用户");
+        sysUserEntity sysUserEntity = this.userService.findUserByUserName("kangkai");
+        sysRoleEntity.getUserEntities().add(sysUserEntity);
         try {
-            this.roleService.save(roleEntity);
+            this.roleService.save(sysRoleEntity);
         } catch (UserRolePermissionDuplicatedBindingException e) {
             e.printStackTrace();
         }
@@ -76,26 +76,26 @@ public class MCApplicationTests {
 
     @Test
     public void test1(){
-//        RoleEntity roleEntity = this.roleService.findRoleByRoleName("普通用户");
+//        sysRoleEntity roleEntity = this.roleService.findRoleByRoleName("普通用户");
 //
-//        PermissionEntity permissionEntity = new PermissionEntity();
-//        permissionEntity.getRoleEntities().add(roleEntity);
-//        permissionEntity.setId(100);
-//        permissionEntity.setName("7级");
-//        permissionEntity.setDescription("dsfdsf");
-//        permissionEntity.setUrl("www.baidu.com");
-//        bo.save(permissionEntity);
-        PermissionEntity permissionEntity = bo.findByPermissionName("7级");
-        bo.delet(permissionEntity);
+//        sysPermissionEntity sysPermissionEntity = new sysPermissionEntity();
+//        sysPermissionEntity.getRoleEntities().add(roleEntity);
+//        sysPermissionEntity.setId(100);
+//        sysPermissionEntity.setName("7级");
+//        sysPermissionEntity.setDescription("dsfdsf");
+//        sysPermissionEntity.setUrl("www.baidu.com");
+//        bo.save(sysPermissionEntity);
+        sysPermissionEntity sysPermissionEntity = bo.findByPermissionName("7级");
+        bo.delet(sysPermissionEntity);
 
-//     PermissionEntity s = bo.findByPermissionName("7级");
+//     sysPermissionEntity s = bo.findByPermissionName("7级");
 //       System.out.println("---------------------------------------------------------------------------" +s.getDescription()+s.getName()+s.getUrl()+s.getId());
 
     }
 
     @Test
     public void test3(){
-        UserEntity user = userService.findUserByUserName("kangkai");
+        sysUserEntity user = userService.findUserByUserName("kangkai");
         user.getUserName();
         redisBo.add("test-3",user.getUserName());
 
@@ -104,7 +104,7 @@ public class MCApplicationTests {
 //	@Transactional
 //	@Rollback(value = false)
 //	public void saveUser() {
-//		UserEntity userEntity = new UserEntity();
+//		sysUserEntity userEntity = new sysUserEntity();
 //		userEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
 //		userEntity.setLatestLoginDateTime(new Timestamp(System.currentTimeMillis()));
 //		userEntity.setCellPhoneNumber("13901183126");

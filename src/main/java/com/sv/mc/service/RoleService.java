@@ -1,12 +1,12 @@
 package com.sv.mc.service;
 
 import com.sv.mc.exception.UserRolePermissionDuplicatedBindingException;
-import com.sv.mc.pojo.RoleEntity;
+import com.sv.mc.pojo.sysRoleEntity;
 
 public interface RoleService<T> extends BaseService<T> {
-    void save(RoleEntity roleEntity) throws UserRolePermissionDuplicatedBindingException;
+    void save(sysRoleEntity sysRoleEntity) throws UserRolePermissionDuplicatedBindingException;
 
-    RoleEntity findRoleByRoleName(String roleName);
+    sysRoleEntity findRoleByRoleName(String roleName);
 
     void removeUserFromRole(String roleName, String userName);
 }
