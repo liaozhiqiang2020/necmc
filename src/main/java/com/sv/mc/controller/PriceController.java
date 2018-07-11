@@ -172,7 +172,7 @@ public class PriceController {
     public ModelAndView turnTopriceMgrTest() {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("./priceForpalce");
+        mv.setViewName("./priceForplace");
         return mv;
     }
 
