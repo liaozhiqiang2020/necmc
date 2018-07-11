@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::header-css">
+    <meta charset="UTF-8">
+    <base href="https://demos.telerik.com/kendo-ui/grid/detailtemplate">
+    <title>Triangle Platform</title>
+    <link rel="stylesheet" href="../static/css/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="../static/css/kendo/kendo.default.min.css" />
+    <link rel="stylesheet" href="../static/css/kendo/kendo.default.mobile.min.css" />
+    <!--<script src="http://cdn.kendostatic.com/2013.2.716/js/cultures/kendo.culture.zh-CN.min.js"></script>-->
+    <script src="../static/js/jquery-3.2.1.min.js"></script>
+    <script src="../static/js/kendo/kendo.all.min.js"></script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div th:replace="fragments/header :: header-body"/>
+<div class="content-wrapper">
+    <section th:replace="fragments/sitemap"/>
+    <div class="container-fluid">
+        <div id="example">
+            <div id="grid"></div>
+            <script type="text/x-kendo-template" id="template1">
+                #if(data.isNew()) {#
+                #var createTemp = kendo.template($("\#createTemplate").html());#
+                #=createTemp(data)#
+                #} else {#
+                #var createTemp = kendo.template($("\#editTemplate").html());#
+                #=createTemp(data)#
+                #}#
+            </script>
+            <script type="text/x-kendo-template" id="editTemplate" >
+                <div id ="div11" style="width: 500px"></div>
+                <div id = "div22"></div>
+            </script>
+
+            <script type="text/x-kendo-template" id="template">
+                <div class="tabstrip">
+                    <ul>
+                        <li class="k-state-active">
+                            按摩椅
+                        </li>
+
+                    </ul>
+                    <div>
+                        <div class="orders"></div>
+                    </div>
+                    <div>
+                        <div class='employee-details'>
+
+                        </div>
+                    </div>
+                </div>
+
+            </script>
+
+            <script>
+                $(document).ready(function() {
+
+
+                    var element = $("#grid").kendoGrid({
+                        dataSource: {
+                            type: "json",
+                            transport: {
+                                read:  {
+                                    url: "./allPlace",
+                                    dataType: "json"
+                                },
+                                update: {
+                                    type: "post",
+                                    url: "./price/update",
+                                    dataType: "json",
+                                    contentType : "application/json"
+
+                                },
+                                destroy: {
+                                    url: "./price/delete",
+                                    dataType: "json",
+                                    type: "post",
+                                    contentType : "application/json"
+                                },parameterMap: function(options, operation) {
+                                    if (operation !== "read" && options.models) {
+                                        return  kendo.stringify(options.models);
+                                    }
+                                }
+                            },
+                            pageSize: 20,
+                            serverPaging: true,
+                            serverSorting: true,
+                            schema: {
+                                model: {
+                                    id: "id",
+                                    fields: {
+                                        id: { editable: false, nullable: true },
+                                        placeSn: { type: "string"},
+                                        placeName: { type: "string" },
+                                        placeAddress: { type: "string",editable: false },
+                                        city: { type: "array" }
+                                    }
+                                }
+                            }
+                        },
+                        height: 600,
+                        sortable: true,
+                        pageable: true,
+                        filterable: true,
+                        detailTemplate: kendo.template($("#template").html()),
+
+
+                        detailInit: detailInit,
+                        dataBound: function() {
+                            this.expandRow(this.tbody.find("tr.k-master-row").first());
+                        },
+                        columns: [
+                            {
+                                field: "placeName",
+                                title: "场地名",
+                                width: "120px"
+                            },
+                            {
+                                field: "placeAddress",
+                                title: "场地地点",
+                                width: "120px"
+                            },
+
+                            {
+                                field: "placeSn",
+                                title:"场地编码",
+                                width: "120px"
+                            },{
+                                field: "city",
+                                title:"城市",
+                                width: "120px"
+                            },
+                            { command: ["edit"], title: "&nbsp;", width: "160px" },
+                        ],
+
+                        editable: {
+                            mode: "popup",
+                            template: $("#template1").html()
+                        },
+
+                        edit: function(e){
+                            dataSource = new kendo.data.DataSource({
+                                transport: {
+                                    read: {
+                                        url: "./price/all",
+                                        dataType: "json"
+                                    },
+                                    destroy: {
+                                        url: "./price/all",
+                                        dataType: "json"
+                                    },
+                                    parameterMap: function (options, operation) {
+                                        if (operation !== "read" && options.models) {
+                                            return kendo.stringify(options.models) ;
+                                        }
+                                    }
+                                },
+                                batch: true,
+                                pageSize: 5,
+                                schema: {
+                                    model: {
+                                        id: "id",
+                                        fields: {
+                                            id: { editable: false, nullable: true },
+                                            price: { type: "number", validation: { required: true, min: 1} },
+                                            useTime: { type: "number" ,validation: { required: true, min: 1} },
+                                            createDateTime: { type: "timestamp",editable: false },
+                                            startDateTime: { type: "timestamp" },
+                                            endDateTime: { type: "timestamp" },
+                                            userId: { type: "string" },
+                                            status: { type: "number" },
+                                            priceName : {type : "string"},
+                                            user :{type:"array"}
+                                        }
+                                    }
+                                }
+                            });
+                            $("#div11").kendoGrid({
+                                toolbar:"已绑定价格",
+                                dataSource: dataSource,
+                                pageable: true,
+                                height: 300,
+                                columns: [
+                                    { field: "priceName", title: "价格名称",  width: "50px" },
+                                    { field: "price", title: "价格(元)", width: "50px" },
+                                    { field: "useTime", title:"使用时长",width: "50px" },
+                                    { field: "startDateTime", title:"开始时间",width: "50px" },
+                                    { field: "endDateTime", title:"结束时间",width: "50px" },
+                                    { command: ["destroy"], title: "&nbsp;", width: "50px"}],
+                                editable: false
+                            });
+                            $("#div22").kendoGrid({
+                                toolbar: "未绑定价格",
+                                dataSource: dataSource,
+                                pageable: true,
+                                height: 300,
+                                columns: [
+                                    { field: "priceName", title: "价格",  width: "50px" },
+                                    { field: "price", title: "价格", width: "50px" },
+                                    { field: "useTime", title:"使用时长",width: "50px" },
+                                    { field: "startDateTime", title:"开始时间",width: "50px" },
+                                    { field: "endDateTime", title:"结束时间",width: "50px" },
+                                    { command: ["update"], title: "&nbsp;", width: "50px"}],
+                                editable: false
+                            });
+                        },
+
+                    });
+
+
+                    function detailInit(e) {
+                        var detailRow = e.detailRow;
+                        var pid =e.data.id;
+
+                        detailRow.find(".tabstrip").kendoTabStrip({
+                            animation: {
+                                open: { effects: "fadeIn" }
+                            }
+                        });
+
+                        detailRow.find(".orders").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: "./allDevice",
+                                },
+                                serverPaging: true,
+                                serverSorting: true,
+                                serverFiltering: true,
+                                pageSize: 7,
+                                schema: {
+                                    model: {
+                                        id: "id",
+                                        fields: {
+                                            id: { editable: false, nullable: true },
+                                            maintainDateTime: { type: "timestamp"},
+                                            latitude: { type: "number" ,validation: { required: true, min: 1} },
+                                            longitude: { type: "number",editable: false },
+                                            mcType: { type: "number" },
+                                            mcStatus: { type: "boolean" },
+                                            mcSn: { type: "string" },
+                                            priceEntities :{type:"array"},
+                                        }
+                                    }
+                                }
+
+                            },
+                            scrollable: false,
+                            sortable: true,
+                            pageable: true,
+                            filterable: true,
+                            // filterable: true,
+                            columns: [
+                                { field: "latitude", title:"按摩椅经度", width: "110px" },
+                                { field: "mcStatus", title:"按摩椅状态", width: "110px" },
+                                { field: "mcSn", title:"机器SN" ,width: "110px"},
+                                { command: [ "添加", "删除" ] }
+                            ],
+                            editable: "popup",
+                        });
+                    }
+
+                    function customBoolEditor(container, options) {
+                        var guid = kendo.guid();
+                        $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+                        $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
+                    }
+                });
+
+
+            </script>
+            <style>
+                .k-detail-cell .k-tabstrip .k-content {
+                    padding: 0.2em;
+                }
+                .employee-details ul
+                {
+                    list-style:none;
+                    font-style:italic;
+                    margin: 15px;
+                    padding: 0;
+                }
+                .employee-details ul li
+                {
+                    margin: 0;
+                    line-height: 1.7em;
+                }
+
+                .employee-details label
+                {
+                    display:inline-block;
+                    width:90px;
+                    padding-right: 10px;
+                    text-align: right;
+                    font-style:normal;
+                    font-weight:bold;
+                }
+            </style>
+        </div>
+
+        </div>
+        </div>
+
+<footer th:replace="fragments/footer::footer"/>
+<aside th:replace="fragments/menu"/>
+
+</body>
+</html>

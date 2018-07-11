@@ -87,23 +87,27 @@ public class PriceController {
 
     /**
      * 更新价格
-     * @param priceEntity 价格对象
+     * @param models 价格对象集合
      */
     @PostMapping("/price/update")
-    public String updatePrice(@RequestBody PriceEntity priceEntity){
-        this.priceService.updatePrice(priceEntity);
-        PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
-        priceHistoryEntity.setUseTime(priceEntity.getUseTime());
-        priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
-        priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
-        priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
-        priceHistoryEntity.setPrice(priceEntity.getPrice());
-        priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
-        priceHistoryEntity.setStatus(priceEntity.getStatus());
-        priceHistoryEntity.setUser(priceEntity.getUser());
-        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
-        this.priceHistoryService.addPrice(priceHistoryEntity);
-        return "更新成功";
+    public @ResponseBody List<PriceEntity> updatePrice(@RequestBody List<PriceEntity> models) {
+        System.out.println(models);
+        for (PriceEntity priceEntity : models
+                ) {
+            PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
+            priceHistoryEntity.setUseTime(priceEntity.getUseTime());
+            priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
+            priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
+            priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
+            priceHistoryEntity.setPrice(priceEntity.getPrice());
+            priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
+            priceHistoryEntity.setStatus(priceEntity.getStatus());
+            priceHistoryEntity.setUser(priceEntity.getUser());
+            priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
+            this.priceHistoryService.addPrice(priceHistoryEntity);
+            this.priceService.updatePrice(priceEntity);
+        }
+        return models;
     }
 
     /**
@@ -140,8 +144,14 @@ public class PriceController {
 
     }
 
+
+//    @GetMapping("/price/status")
+//    public List<PriceEntity> priceStatus(@RequestParam int status){
+//        return priceService.statusPrice(status);
+//    }
+
     /**
-     * 跳转到roleTest页面
+     * 跳转到priceTest页面
      *
      * @return
      */
@@ -150,6 +160,19 @@ public class PriceController {
         ModelAndView mv = new ModelAndView();
 
         mv.setViewName("./priceDemo");
+        return mv;
+    }
+
+    /**
+     * 跳转到priceTest页面
+     *
+     * @return
+     */
+    @GetMapping(value = "/priceTest1")
+    public ModelAndView turnTopriceMgrTest() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("./priceForpalce");
         return mv;
     }
 
