@@ -1,10 +1,13 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.VendorEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * DAO层
@@ -21,5 +24,20 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     VendorEntity findVendorById(@Param("id") int id);
 
 
+    /**
+     * 分页查询代理商信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_vendor where discard_status=1 LIMIT :offset,:pageSize",nativeQuery = true)
+    List<VendorEntity> findAllVendorByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Query(value="select count(*) from VendorEntity where discardStatus=1")
+    int findVendorTotal();
 
 }

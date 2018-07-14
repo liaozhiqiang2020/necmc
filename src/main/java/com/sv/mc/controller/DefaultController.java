@@ -7,14 +7,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class DefaultController {
 
-    @GetMapping("/")
-    public String home1() {
-        return "/home";
-    }
+//    @GetMapping("/")
+//    public String home1() {
+//        return "/home";
+//    }
 
-    @GetMapping("/home")
-    public String home() {
-        return "/home";
+//    @GetMapping("/home")
+//    public String home() {
+//        return "/home";
+//    }
+    @GetMapping(value="/")
+    public ModelAndView turnToHome(){
+        return new ModelAndView("/home");
     }
 
     @GetMapping("/admin")

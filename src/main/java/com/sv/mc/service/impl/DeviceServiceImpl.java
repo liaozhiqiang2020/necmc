@@ -1,11 +1,19 @@
 package com.sv.mc.service.impl;
 
+import com.google.gson.Gson;
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.service.DeviceService;
+import com.sv.mc.util.BaseUtil;
+import com.sv.mc.util.DataSourceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,7 +58,17 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
-        public DeviceEntity insertDevice(DeviceEntity device) {
+        public DeviceEntity insertDevice(DeviceEntity device,String maintainDateTime) {
+                device.setDiscardStatus(1);
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+                ParsePosition pos = new ParsePosition(0);
+                BaseUtil baseUtil = new BaseUtil();
+                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
+                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
+                Timestamp ts = new Timestamp(nReviseDate2.getTime());
+                device.setMaintainDateTime(ts);
+                device.setMcType(1);
+                device.setPlaceId(1);
                 return deviceRepository.save(device);
         }
 
@@ -61,5 +79,44 @@ public class DeviceServiceImpl implements DeviceService {
         @Override
         public List<DeviceEntity> findAllEntities() {
                 return deviceRepository.findAll();
+        }
+
+
+
+        @Override
+        public DeviceEntity updateDevice(DeviceEntity device,String maintainDateTime) {
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+                ParsePosition pos = new ParsePosition(0);
+                BaseUtil baseUtil = new BaseUtil();
+                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
+                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
+                Timestamp ts = new Timestamp(nReviseDate2.getTime());
+                device.setMaintainDateTime(ts);
+                return this.deviceRepository.save(device);
+        }
+
+        @Override
+        public String findAllDeviceByPage(int page, int pageSize) {
+                Gson gson = new Gson();
+                DataSourceResult<DeviceEntity> deviceEntityDataSourceResult = new DataSourceResult<>();
+                int offset = ((page-1)*pageSize);
+                List<DeviceEntity> deviceEntityList = this.deviceRepository.findAllDeviceByPage(offset,pageSize);
+                int total = this.deviceRepository.findDeviceTotal();
+                deviceEntityDataSourceResult.setData(deviceEntityList);
+                deviceEntityDataSourceResult.setTotal(total);
+                return gson.toJson(deviceEntityDataSourceResult);
+        }
+
+        @Override
+        public void deleteDevice(int deviceId) {
+                DeviceEntity deviceEntity = findDeviceById(deviceId);
+                deviceEntity.setDiscardStatus(0);
+                this.deviceRepository.save(deviceEntity);
+        }
+
+
+        @Override
+        public List<DeviceEntity> findAllDevice() {
+                return this.deviceRepository.findAllDevice();
         }
 }

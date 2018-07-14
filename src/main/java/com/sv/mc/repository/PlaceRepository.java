@@ -20,5 +20,29 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
             nativeQuery = true)
     List findPlaceListById(@Param("id") int id);
 
+    /**
+     * 根据市id查询场地
+     * @param cityId
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018//7/11
+     */
+    @Query(value="select p.* from mc_city c,mc_place p where c.Id=p.city_id and c.Id=:cityId",nativeQuery = true)
+    List<PlaceEntity> queryPlaceEntitiesByCityId(@Param("cityId") int cityId);
 
+    /**
+     * 分页查询场地方信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_place as b where b.discard_status=1 LIMIT :offset,:pageSize",nativeQuery = true)
+    List<PlaceEntity> findAllPlaceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Query(value="select count(*) from mc_place as b where b.discard_status=1",nativeQuery = true)
+    int findPlaceTotal();
 }

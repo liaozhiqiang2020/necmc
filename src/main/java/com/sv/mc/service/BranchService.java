@@ -1,6 +1,12 @@
 package com.sv.mc.service;
 
 import com.sv.mc.pojo.BranchEntity;
+import com.sv.mc.pojo.BusinessEntity;
+import com.sv.mc.util.DataSourceResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * 接口
@@ -21,21 +27,27 @@ public interface BranchService<T> extends BaseService<T>{
      */
     BranchEntity findBranchById(int id);
 
+    /**
+     * 分页查询分公司数据
+     */
+    String findAllBranchByPage(int page, int pageSize);
 
-    /**3
+    /**
      * 根据分公司id更改对应的分公司数据
-     * @param id  分公司id
      * @param branch 新分公司名称
      * @return BranchEntity
      */
-    BranchEntity updateBranchDataById(int id ,BranchEntity branch);
+    BranchEntity updateBranchDataById(BranchEntity branch);
 
-    /**4
+    /**
      * 插入一条分公司数据
      * @param branch
      * @return BranchEntity
      */
     BranchEntity insertBranch(BranchEntity branch);
 
-
+    /**
+     * 根据id修改状态
+     */
+    void deleteBranch(int branchId);
 }

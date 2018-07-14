@@ -1,14 +1,19 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.service.HeadQuartersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/headMgr")
 public class HeadQuartersController {
     //注入
     @Autowired
@@ -36,6 +41,89 @@ public class HeadQuartersController {
         return headQuartersService.save(headQuarters);
     }
 
+    /**
+     * 跳转到总公司管理页面
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018/7/11
+     */
+    @GetMapping(value="/turnToHeadMgr")
+    public ModelAndView turnToHeadMgr(){
+        return new ModelAndView("./baseInfo/headQuartersMgr");
+    }
+
+    /**
+     * 全部查询
+     * @return 返回所有总公司内容分页
+     */
+    @GetMapping(value = "/allHeadByPage")
+    public @ResponseBody
+    String getAllHeadByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
+        return this.headQuartersService.findAllHeadByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    }
+
+    /**
+     * 全部查询
+     * @return 返回所有总公司内容不分页
+     */
+    @GetMapping(value = "/allHead")
+    public @ResponseBody
+    List<HeadQuartersEntity> getAllHead() {
+        return this.headQuartersService.findAllHead();
+    }
+
+    /**
+     * 插入一条总公司数据
+     * @param headQuartersEntity
+     * @return
+     */
+    @RequestMapping(value = "/insertHead",method = RequestMethod.POST)
+    public @ResponseBody
+    HeadQuartersEntity insertHead(HeadQuartersEntity headQuartersEntity){
+        return  this.headQuartersService.insertHead(headQuartersEntity);
+    }
+
+    /**
+     * 更改总公司数据
+     * @param headQuartersEntity
+     * @return
+     */
+    @RequestMapping(value = "/updateHead",method = RequestMethod.POST)
+    public @ResponseBody
+    HeadQuartersEntity updateHead(HeadQuartersEntity headQuartersEntity){
+        return this.headQuartersService.updateHeadDataById(headQuartersEntity);
+
+    }
+
+    /**
+     * 逻辑删除总公司数据
+     */
+    @RequestMapping(value = "/deleteHead",method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteHead(int id){
+        this.headQuartersService.deleteHead(id);
+    }
+
+
+    /**
+     * 根据分公司id查询总公司名称
+     * @return
+     */
+    @PostMapping(value = "/findHeadInfo")
+    public @ResponseBody
+    int findHeadInfo(int branchId) {
+        return this.headQuartersService.findHeadByBranchId(branchId).getId();
+    }
+
+    /**
+     * 根据总公司id查询总公司名称
+     * @return
+     */
+    @PostMapping(value = "/findHeadName")
+    public @ResponseBody
+    String findHeadName(int headId) {
+        return this.headQuartersService.findHeadQuartersById(headId).getName();
+    }
 
 
 
