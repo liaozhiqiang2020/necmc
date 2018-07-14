@@ -20,6 +20,22 @@
                 function loadUserList() {
                     kendo.culture("zh-CN");
 
+                    var testDataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                // type: "get",
+                                url: "../headMgr/allHead"
+                                // dataType: "json"
+                                // contentType: "application/json",
+                                // headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                            }
+                        }
+                    });
+
+                    testDataSource.fetch(function() {
+                        console.log(testDataSource.view().length); // displays "77"
+                    });
+
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
@@ -51,7 +67,7 @@
                                     return {page:page,pageSize:pageSize};
                                 }
                                 if(operation !== "read"){
-                                    console.log(options);
+                                    // console.log(options);
                                     return kendo.stringify(options);
                                 }
                             }
@@ -71,12 +87,24 @@
                                     principal: {type: "string"},
                                     telephone: {type: "string"},
                                     email: {type: "string"},
-                                    levelFlag:{type:"number"},
-                                    superiorId:{type:"number"}
+                                    levelFlag:{type:"string"},
+                                    superiorId:{type:"number"},
+                                    superiorName:{type:"string"}
                                 }
                             },
                             data: function (response) {
+                                // console.log(response.data);
                                 var list = JSON.parse(response).data;
+                                for(var i=0;i<list.length;i++){
+                                    var content2 = list[i];
+                                    var flag = content2.levelFlag;
+                                    // console.log(flag);
+                                    if(flag==1){
+                                        content2.levelFlag="分公司";
+                                    }else if(flag==2){
+                                        content2.levelFlag="总部";
+                                    }
+                                }
                                 return list;
                             },
                             total: function (response) {
@@ -150,7 +178,7 @@
                             {
                                 field: "superiorId",
                                 title: "分公司名称",
-                                // template:"#=branchEntity.name#",
+                                template:"#=superiorName#",
                                 editor:roleListDropDownEditor
                             },
                             {
@@ -207,10 +235,11 @@
                     }
                 }
 
-
+                var flag;
                 function chanceBranchOrHead(container, options){
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
+
                     input.kendoComboBox({
                         autoBind: true,
                         placeholder: "请选择...",
@@ -220,48 +249,74 @@
                         dataSource: [
                             {
                                 "id":1,
-                                "name":"总部"
+                                "name":"分公司"
                             },
                             {
                                 "id":2,
-                                "name":"分公司"
+                                "name":"总部"
                             }
-                        ]
+                        ],
+                        select:function(e){
+                            var item = e.dataItem.id;
+
+                            flag=item;
+                            // $("#superiorId_input");
+                            console.log("ddddd");
+                        }
                     });
                 }
 
                 //打开标记窗口时下拉列表展示
                 function roleListDropDownEditor(container, options) {
-                    var flag =options.model.levelFlag;
-                    var branchId = options.model.superiorId;
 
-                    var url="";
-                    if(flag==2){
-                        url="../branchMgr/allBranch";
-                    }else if(flag==1){
-                        url="../headMgr/allHead";
-                    }
+                    flag =options.model.levelFlag;
+                    // console.log(flag);
+                    var branchId = options.model.superiorId;
+                    alert(flag);
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
-                    input.kendoComboBox({
-                        autoBind: true,
-                        placeholder: "请选择...",
-                        dataTextField: "name",
-                        dataValueField: "id",
-                        value: branchId,
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    type: "get",
-                                    url: url,
-                                    dataType: "json",
-                                    contentType: "application/json",
-                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+
+                    if(flag=="分公司"){//分公司
+                        input.kendoComboBox({
+                            autoBind: true,
+                            placeholder: "请选择...",
+                            dataTextField: "branchName",
+                            dataValueField: "id",
+                            value: branchId,
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        type: "get",
+                                        url: "../branchMgr/allBranch",
+                                        dataType: "json",
+                                        contentType: "application/json",
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }else if(flag=="总部"){//总部
+                        input.kendoComboBox({
+                            autoBind: true,
+                            placeholder: "请选择...",
+                            dataTextField: "name",
+                            dataValueField: "id",
+                            value: branchId,
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        type: "get",
+                                        url: "../headMgr/allHead",
+                                        dataType: "json",
+                                        contentType: "application/json",
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                    }
+                                }
+                            }
+                        });
+                    }
+
                 }
                 /*]]>*/
             </script>

@@ -40,4 +40,16 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     @Query(value="select count(*) from VendorEntity where discardStatus=1")
     int findVendorTotal();
 
+    /**
+     * 使用branchId查分公司名
+     */
+    @Query(value="select b.branchName from BranchEntity b where b.id=:branchId")
+    String findBranchNameById(@Param("branchId")int branchId);
+
+    /**
+     * 使用headId查总公司名
+     */
+    @Query(value="select b.name from HeadQuartersEntity b where b.id=:headId")
+    String findHeadNameById(@Param("headId")int headId);
+
 }
