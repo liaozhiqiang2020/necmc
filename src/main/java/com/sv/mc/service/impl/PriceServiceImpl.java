@@ -1,7 +1,10 @@
 package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.PriceEntity;
+import com.sv.mc.pojo.PriceHistoryEntity;
+import com.sv.mc.repository.PriceHistoryRepository;
 import com.sv.mc.repository.PriceRepository;
+import com.sv.mc.service.PriceHistoryService;
 import com.sv.mc.service.PriceService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.awt.print.PrinterException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +31,40 @@ public class PriceServiceImpl implements PriceService {
     private PriceRepository priceRepository;
 
     @Resource
-    private PriceHistoryServiceImpl priceHistoryService;
+    private PriceHistoryService priceHistoryService;
 
+    @Resource
+    private PriceHistoryRepository priceHistoryRepository;
+
+    /**
+     * 批量新增、更新价格数据
+     * @param priceEntityList 价格对象列表
+     * @return 已经新增或更新的价格对象列表，准备返回前台画面进行展示
+     */
+    @Override
+    public List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList) {
+        List<PriceHistoryEntity> priceHistoryEntityList = new ArrayList<>(); //创建价格变化历史对象
+        for (PriceEntity priceEntity : priceEntityList) {
+            //给必要的成员变量赋值
+            PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
+            priceHistoryEntity.setUseTime(priceEntity.getUseTime());
+            priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
+            priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
+            priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
+            priceHistoryEntity.setPrice(priceEntity.getPrice());
+            priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
+            priceHistoryEntity.setStatus(priceEntity.getStatus());
+            priceHistoryEntity.setUser(priceEntity.getUser());
+//            priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
+            priceHistoryEntityList.add(priceHistoryEntity);
+        }
+        //批量插入价格变化历史
+        this.priceHistoryRepository.saveAll(priceHistoryEntityList);
+        //批量插入或更新价格
+        List<PriceEntity> persistPriceList = this.priceRepository.saveAll(priceEntityList);
+
+        return persistPriceList;
+    }
 
     /**
      * 分页查询所有价格

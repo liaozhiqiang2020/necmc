@@ -25,4 +25,11 @@ public interface PriceService{
      List<Object[]> findPriceByDeviceId(int deviceId);
 
      List<Map<String,Object>> queryPriceAndTime(int deviceId);
+
+    /**
+     * 批量新增、更新价格数据
+     * @param priceEntityList 价格对象列表
+     * @return 已经新增或更新的价格对象列表，准备返回前台画面进行展示
+     */
+     List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList);
 }

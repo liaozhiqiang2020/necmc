@@ -26,21 +26,21 @@ public class PriceHistoryEntity {
     private Timestamp endDateTime;      //价格结束时间
 
     private UserEntity user;            //一对多用户
-    private Set<DeviceEntity> deviceEntities = new HashSet<>();             //设备多对多集合
+//    private Set<DeviceEntity> deviceEntities = new HashSet<>();             //设备多对多集合
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "mc_device_price_history",                       //指定第三张表
-            joinColumns = {@JoinColumn(name = "price_id")},             //本表与中间表的外键对应
-            inverseJoinColumns = {@JoinColumn(name = "device_id")})  //另一张表与第三张表的外键的对应关系
-    public Set<DeviceEntity> getDeviceEntities() {
-        return deviceEntities;
-    }
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//    @JoinTable(name = "mc_device_price_history",                       //指定第三张表
+//            joinColumns = {@JoinColumn(name = "price_id")},             //本表与中间表的外键对应
+//            inverseJoinColumns = {@JoinColumn(name = "device_id")})  //另一张表与第三张表的外键的对应关系
+//    public Set<DeviceEntity> getDeviceEntities() {
+//        return deviceEntities;
+//    }
 
-    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
-        this.deviceEntities = deviceEntities;
-    }
+//    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
+//        this.deviceEntities = deviceEntities;
+//    }
 
     @ManyToOne// 指定多对一关系
     @JoinColumn(name="user_id")
@@ -53,6 +53,7 @@ public class PriceHistoryEntity {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;
