@@ -1,5 +1,6 @@
 package com.sv.mc.service;
 
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.PlaceEntity;
 
 import java.util.List;
@@ -32,12 +33,7 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     PlaceEntity updatePlaceById(int id, PlaceEntity place);
 
-    /**4
-     * 插入一条场地数据
-     * @param place
-     * @return PlaceEntity
-     */
-    PlaceEntity insertPlace(PlaceEntity place);
+
 
     /**
      * 查询详细数据
@@ -45,5 +41,31 @@ public interface PlaceService<T> extends BaseService<T>{
      * @return
      */
     List findPlace(int id);
+
+
+    /**
+     * 分页查询场地数据
+     */
+    String findAllPlaceByPage(int page, int pageSize);
+
+    /**4
+     * 插入一条场地数据
+     * @param placeEntity
+     * @return PlaceEntity
+     */
+    PlaceEntity insertPlace(PlaceEntity placeEntity);
+
+    /**
+     * 根据分公司id更改对应的场地数据
+     * @param placeEntity 新场地名称
+     * @return placeEntity
+     */
+    PlaceEntity updatePlace(PlaceEntity placeEntity);
+
+
+    /**
+     * 根据id修改状态
+     */
+    void deletePlace(int placeId);
 
 }

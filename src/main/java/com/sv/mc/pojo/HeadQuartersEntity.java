@@ -1,6 +1,9 @@
 package com.sv.mc.pojo;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,6 +18,10 @@ public class HeadQuartersEntity {
     private String address;     //总部地址
     private String telephone;   //总部电话
     private String email;       //总部邮箱
+    private int deleteFlag;  //删除标志
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<BranchEntity> branchEntityList;
 
     @Id
     @Column(name = "Id")
@@ -64,6 +71,14 @@ public class HeadQuartersEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override

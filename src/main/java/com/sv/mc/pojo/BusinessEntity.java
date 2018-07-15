@@ -3,16 +3,13 @@ package com.sv.mc.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * 实体类层 行业分类
- * Author:赵政博
- */
 @Entity
 @Table(name = "mc_business", schema = "mc", catalog = "")
 public class BusinessEntity {
     private int id;
-    private String name;    //行业名字
-    private int level;  //行业级别
+    private String name;
+    private int level;
+    private Integer discardStatus;
 
     @Id
     @Column(name = "Id")
@@ -44,6 +41,16 @@ public class BusinessEntity {
         this.level = level;
     }
 
+    @Basic
+    @Column(name = "discard_status")
+    public Integer getDiscardStatus() {
+        return discardStatus;
+    }
+
+    public void setDiscardStatus(Integer discardStatus) {
+        this.discardStatus = discardStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,12 +58,13 @@ public class BusinessEntity {
         BusinessEntity that = (BusinessEntity) o;
         return id == that.id &&
                 level == that.level &&
-                Objects.equals(name, that.name);
+                Objects.equals(name, that.name) &&
+                Objects.equals(discardStatus, that.discardStatus);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, level);
+        return Objects.hash(id, name, level, discardStatus);
     }
 }

@@ -1,6 +1,9 @@
 package com.sv.mc.service;
 
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
+
+import java.util.List;
 
 /**
  * 接口
@@ -35,7 +38,28 @@ public interface DeviceService<T> extends BaseService<T>{
      * @param device
      * @return DeviceEntity
      */
-    DeviceEntity insertDevice(DeviceEntity device);
+    DeviceEntity insertDevice(DeviceEntity device,String maintainDateTime);
+
+    /**
+     * 更新设备信息
+     * @param device
+     * @return
+     */
+    DeviceEntity updateDevice(DeviceEntity device,String maintainDateTime);
+
+    /**
+      * 分页查询设备数据
+      */
+    String findAllDeviceByPage(int page, int pageSize);
+
+    /**
+     * 不分页查询设备数据
+     */
+    List<DeviceEntity> findAllDevice();
 
 
+    /**
+      * 根据id修改状态
+      */
+    void deleteDevice(int deviceId);
 }

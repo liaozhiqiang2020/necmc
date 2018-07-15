@@ -1,28 +1,33 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.VendorEntity;
 import com.sv.mc.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/vendorMgr")
 public class VendorController {
     //注入
     @Autowired
     private VendorService vendorService;
 
-    /**
-     * 全部查询
-     * @return 返回所有代理商内容
-     */
-    @GetMapping(value = "/allVendor")
-    public @ResponseBody
-    List<VendorEntity> getAllVendor() {
-        return this.vendorService.findAllEntities();
-    }
+//    /**
+//     * 全部查询
+//     * @return 返回所有代理商内容
+//     */
+//    @GetMapping(value = "/allVendor")
+//    public @ResponseBody
+//    List<VendorEntity> getAllVendor() {
+//        return this.vendorService.findAllEntities();
+//    }
     /**
      * 根据分公司id查询单个代理商内容
      * @param id
@@ -34,16 +39,16 @@ public class VendorController {
             return this.vendorService.findVendorById(id);
     }
 
-    /**
-     * 插入一条代理商数据
-     * @param vendor
-     * @return
-     */
-    @RequestMapping(value = "/vendor/insertVendor",method = RequestMethod.POST)
-    public @ResponseBody
-    VendorEntity insertVendor(@RequestBody VendorEntity vendor){
-        return  vendorService.insertVendor(vendor);
-    }
+//    /**
+//     * 插入一条代理商数据
+//     * @param vendor
+//     * @return
+//     */
+//    @RequestMapping(value = "/vendor/insertVendor",method = RequestMethod.POST)
+//    public @ResponseBody
+//    VendorEntity insertVendor(@RequestBody VendorEntity vendor){
+//        return  vendorService.insertVendor(vendor);
+//    }
     /**
      * 更改代理商id更改数据
      * @param id
@@ -55,6 +60,62 @@ public class VendorController {
     VendorEntity updateVendor(@PathParam("id") int id,@RequestBody VendorEntity vendor){
         return vendorService.updateVendorDataById(id,vendor);
 
+    }
+
+
+
+    /**
+     * 跳转到代理商管理页面
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018/7/11
+     */
+    @GetMapping(value="/turnToVendorMgr")
+    public ModelAndView turnToVendorMgr(){
+        return new ModelAndView("./baseInfo/vendorMgr");
+    }
+
+    /**
+     * 全部查询
+     * @return 返回所有代理商内容
+     */
+    @GetMapping(value = "/allVendor")
+    public @ResponseBody
+    String getAllVendor(@Param("page") String page, @Param("pageSize") String pageSize) {
+        System.out.println(this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize)));
+
+        return this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    }
+
+    /**
+     * 插入一条代理商数据
+     * @param vendorEntity
+     * @return
+     */
+    @RequestMapping(value = "/insertVendor",method = RequestMethod.POST)
+    public @ResponseBody
+    VendorEntity insertVendor(@RequestBody VendorEntity vendorEntity){
+        return this.vendorService.insertVendor(vendorEntity);
+    }
+
+    /**
+     * 更改代理商数据
+     * @param vendorEntity
+     * @return
+     */
+    @RequestMapping(value = "/updateVendor",method = RequestMethod.POST)
+    public @ResponseBody
+    VendorEntity updateVendor(@RequestBody VendorEntity vendorEntity){
+       return this.vendorService.updateVendorDataById(vendorEntity);
+    }
+
+    /**
+     * 逻辑删除代理商数据
+     */
+    @RequestMapping(value = "/deleteVendor",method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteVendor(@RequestBody VendorEntity vendorEntity){
+        this.vendorService.deleteVendor(vendorEntity.getId());
     }
 
 

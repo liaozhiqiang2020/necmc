@@ -1,24 +1,35 @@
 package com.sv.mc.pojo;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 实体类层 代理商
- * Author:赵政博
+ * 代理商实体类
  */
 @Entity
 @Table(name = "mc_vendor", schema = "mc", catalog = "")
 public class VendorEntity {
     private int id;
-    private int levelFlag; //判断隶属的单位(1总部,2分公司)
-    private int superiorId;//存储上级主键
-    private int discardStatus;//事物删除(1事物显示,0事物删除)
-    private String vendorName; //代理商名字
+    private int discardStatus;//删除标注
+    private String vendorName;//代理商名字
     private String vendorAddress;//代理商地址
     private String principal;//负责人
     private String telephone;//电话
     private String email;//邮箱
+    private int levelFlag;//隶属单位（1总部，2分公司）
+    private int superiorId;//上级主键
+
+    @Basic
+    @Column(name = "superior_id")
+    public int getSuperiorId() {
+        return superiorId;
+    }
+
+    public void setSuperiorId(int superiorId) {
+        this.superiorId = superiorId;
+    }
 
     @Id
     @Column(name = "Id")
@@ -38,16 +49,6 @@ public class VendorEntity {
 
     public void setLevelFlag(int levelFlag) {
         this.levelFlag = levelFlag;
-    }
-
-    @Basic
-    @Column(name = "superior_id")
-    public int getSuperiorId() {
-        return superiorId;
-    }
-
-    public void setSuperiorId(int superiorId) {
-        this.superiorId = superiorId;
     }
 
     @Basic
@@ -117,7 +118,6 @@ public class VendorEntity {
         VendorEntity that = (VendorEntity) o;
         return id == that.id &&
                 levelFlag == that.levelFlag &&
-                superiorId == that.superiorId &&
                 discardStatus == that.discardStatus &&
                 Objects.equals(vendorName, that.vendorName) &&
                 Objects.equals(vendorAddress, that.vendorAddress) &&
@@ -129,6 +129,6 @@ public class VendorEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, levelFlag, superiorId, discardStatus, vendorName, vendorAddress, principal, telephone, email);
+        return Objects.hash(id, levelFlag, discardStatus, vendorName, vendorAddress, principal, telephone, email);
     }
 }

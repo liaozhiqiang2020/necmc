@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
 
     /**
-     * 查询所有已支付订单
+     * 查询所有订单
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
     /**
-     * 创建已支付订单
+     * 创建订单
      * @param orderEntity
      * @author: lzq
      * @date: 2018年7月6日
@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
     /**
-     * 查询当前用户已支付订单列表
+     * 查询当前用户订单列表
      * @param openId
      * @return
      * @author: lzq

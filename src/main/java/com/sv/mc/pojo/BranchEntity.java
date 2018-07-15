@@ -1,5 +1,7 @@
 package com.sv.mc.pojo;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,7 +13,6 @@ import java.util.Objects;
 @Table(name = "mc_branch", schema = "mc", catalog = "")
 public class BranchEntity {
     private int id;
-    private int headQuartersId; //总部id
     private int levelFlag;      //判断1代理商和分公司平级,2分公司管理代理商
     private int discardStatus;  //事物删除(1是显示此数据,0是事物删除数据)
     private String branchName;  //分公司名称
@@ -19,6 +20,8 @@ public class BranchEntity {
     private String principal;   //分公司负责人
     private String telephone;   //分公司联系电话
     private String email;       //分公司邮箱
+
+    private HeadQuartersEntity headQuartersEntity;//总公司信息
 
     @Id
     @Column(name = "Id")
@@ -30,14 +33,15 @@ public class BranchEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "head_quarters_id")
-    public int getHeadQuartersId() {
-        return headQuartersId;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn(name="head_quarters_id")
+    public HeadQuartersEntity getHeadQuartersEntity() {
+        return headQuartersEntity;
     }
 
-    public void setHeadQuartersId(int headQuartersId) {
-        this.headQuartersId = headQuartersId;
+    public void setHeadQuartersEntity(HeadQuartersEntity headQuartersEntity) {
+        this.headQuartersEntity = headQuartersEntity;
     }
 
     @Basic
@@ -116,7 +120,6 @@ public class BranchEntity {
         if (o == null || getClass() != o.getClass()) return false;
         BranchEntity that = (BranchEntity) o;
         return id == that.id &&
-                headQuartersId == that.headQuartersId &&
                 levelFlag == that.levelFlag &&
                 discardStatus == that.discardStatus &&
                 Objects.equals(branchName, that.branchName) &&
@@ -129,6 +132,6 @@ public class BranchEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, headQuartersId, levelFlag, discardStatus, branchName, branchAddress, principal, telephone, email);
+        return Objects.hash(id, levelFlag, discardStatus, branchName, branchAddress, principal, telephone, email);
     }
 }

@@ -2,6 +2,8 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.BusinessEntity;
 
+import java.util.List;
+
 /**
  * 接口
  * author:赵政博
@@ -21,5 +23,28 @@ public interface BusinessService<T> extends BaseService<T>{
      */
     BusinessEntity fianBusinessById(int id);
 
+    /**
+     * 插入数据
+     * @param businessEntity
+     * @return
+     */
+    BusinessEntity insertBusiness(BusinessEntity businessEntity);
 
+    /**
+     * 修改数据
+     * @param businessEntity
+     * @return
+     */
+    BusinessEntity updateBussiness(BusinessEntity businessEntity);
+
+    /**
+     * 删除数据
+     * @param businessId
+     */
+    void deleteBussiness(int businessId);
+
+    /**
+     * 分页查询行业分类信息
+     */
+    String findAllBusinessByPage(int page, int pageSize);
 }

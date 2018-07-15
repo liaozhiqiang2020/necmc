@@ -1,14 +1,20 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/placeMgr")
 public class PlaceController {
     //注入
     @Autowired
@@ -34,16 +40,16 @@ public class PlaceController {
             return this.placeService.findPlaceById(id);
     }
 
-    /**
-     * 插入一条场地数据
-     * @param place
-     * @return
-     */
-    @RequestMapping(value = "/place/insert",method = RequestMethod.POST)
-    public @ResponseBody
-    PlaceEntity insertPlace(@RequestBody PlaceEntity place){
-        return  placeService.insertPlace(place);
-    }
+//    /**
+//     * 插入一条场地数据
+//     * @param place
+//     * @return
+//     */
+//    @RequestMapping(value = "/place/insert",method = RequestMethod.POST)
+//    public @ResponseBody
+//    PlaceEntity insertPlace(@RequestBody PlaceEntity place){
+//        return  placeService.insertPlace(place);
+//    }
     /**
      * 更改分场地id更改数据
      * @param id
@@ -56,6 +62,61 @@ public class PlaceController {
         return placeService.updatePlaceById(id,place);
 
     }
+
+    /**
+     * 跳转到场地管理页面
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018/7/11
+     */
+    @GetMapping(value="/turnToPlaceMgr")
+    public ModelAndView turnToPlaceMgr(){
+        return new ModelAndView("./baseInfo/placeMgr");
+    }
+
+
+    /**
+     * 全部查询
+     * @return 返回所有场地内容
+     */
+    @GetMapping(value = "/getAllPlace")
+    public @ResponseBody
+    String getAllPlace(@Param("page") String page, @Param("pageSize") String pageSize) {
+        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    }
+
+    /**
+     * 插入一条场地数据
+     * @param placeEntity
+     * @return
+     */
+    @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
+    public @ResponseBody
+    PlaceEntity insertPlace(PlaceEntity placeEntity, BindingResult bindingResult){
+        return  this.placeService.insertPlace(placeEntity);
+    }
+
+    /**
+     * 更改场地数据
+     * @param placeEntity
+     * @return
+     */
+    @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
+    public @ResponseBody
+    PlaceEntity updatePlace(PlaceEntity placeEntity, BindingResult bindingResult){
+        return this.placeService.updatePlace(placeEntity);
+
+    }
+
+    /**
+     * 逻辑删除场地数据
+     */
+    @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
+    public @ResponseBody
+    void deletePlace(int id){
+        this.placeService.deletePlace(id);
+    }
+
 
 
 
