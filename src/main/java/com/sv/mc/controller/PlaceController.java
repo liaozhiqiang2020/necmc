@@ -75,14 +75,24 @@ public class PlaceController {
     }
 
 
+//    /**
+//     * 全部查询
+//     * @return 返回所有场地内容
+//     */
+//    @GetMapping(value = "/getAllPlace")
+//    public @ResponseBody
+//    String getAllPlace(@Param("page") String page, @Param("pageSize") String pageSize) {
+//        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+//    }
+
     /**
      * 全部查询
      * @return 返回所有场地内容
      */
     @GetMapping(value = "/getAllPlace")
     public @ResponseBody
-    String getAllPlace(@Param("page") String page, @Param("pageSize") String pageSize) {
-        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    String getAllPlace() {
+        return this.placeService.findAllPlace();
     }
 
     /**
@@ -92,8 +102,12 @@ public class PlaceController {
      */
     @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity insertPlace(PlaceEntity placeEntity, BindingResult bindingResult){
-        return  this.placeService.insertPlace(placeEntity);
+    PlaceEntity insertPlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
+//        System.out.println(startDateTime);
+////        System.out.println(endDateTime);
+//        String startDateTime="51220";
+//        String endDateTime="88888";
+        return  this.placeService.insertPlace(placeEntity,startDateTime,endDateTime);
     }
 
     /**
@@ -103,8 +117,8 @@ public class PlaceController {
      */
     @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity updatePlace(PlaceEntity placeEntity, BindingResult bindingResult){
-        return this.placeService.updatePlace(placeEntity);
+    PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
+        return this.placeService.updatePlace(placeEntity,startDateTime,endDateTime);
 
     }
 
@@ -113,15 +127,45 @@ public class PlaceController {
      */
     @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
     public @ResponseBody
-    void deletePlace(int id){
-        this.placeService.deletePlace(id);
+    void deletePlace(@RequestBody PlaceEntity placeEntity,BindingResult bindingResult){
+        this.placeService.deletePlace(placeEntity.getId());
     }
 
 
 
 
 
-
+//    /**
+//     * 插入一条场地数据
+//     * @param placeEntity
+//     * @return
+//     */
+//    @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
+//    public @ResponseBody
+//    PlaceEntity insertPlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
+//        return  this.placeService.insertPlace(placeEntity,startDateTime,endDateTime);
+//    }
+//
+//    /**
+//     * 更改场地数据
+//     * @param placeEntity
+//     * @return
+//     */
+//    @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
+//    public @ResponseBody
+//    PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
+//        return this.placeService.updatePlace(placeEntity,startDateTime,endDateTime);
+//
+//    }
+//
+//    /**
+//     * 逻辑删除场地数据
+//     */
+//    @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
+//    public @ResponseBody
+//    void deletePlace(PlaceEntity placeEntity,BindingResult bindingResult){
+//        this.placeService.deletePlace(placeEntity.getId());
+//    }
 
 
 

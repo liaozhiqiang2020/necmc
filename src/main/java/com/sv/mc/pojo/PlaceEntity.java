@@ -1,5 +1,7 @@
 package com.sv.mc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -17,7 +19,9 @@ public class PlaceEntity {
     private String name;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp startDateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp endDateTime;
     private Integer pId;
     private Integer placeMapId;

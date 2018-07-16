@@ -29,17 +29,26 @@
                                 url: "insertPlace",
                                 dataType: "json",
                                 type: "post"
+                                // contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
                                 url: "deletePlace",
                                 dataType: "json",
                                 type: "post"
+                                // contentType:"application/json;charset=UTF-8"
                             },
                             update: {
                                 url:  "updatePlace",
                                 dataType: "json",
                                 type: "post"
+                                // contentType:"application/json;charset=UTF-8"
                             }
+                            // parameterMap:function(options, operation){
+                            //     if(operation !== "read"){
+                            //         // console.log(options);
+                            //         return kendo.stringify(options);
+                            //     }
+                            // }
                         },
                         serverPaging: true,    //设定服务器来实现分页功能
                         serverFiltering: true,
@@ -54,18 +63,21 @@
                                     id: {type: "number", editable: false},
                                     pId: {type: "number",nullable: true},
                                     placeSn: {type: "string"},
-                                    levelFlag: {type: "int"},
                                     principal: {type: "string"},
                                     placeAddress: {type: "string"},
-                                    placeName: {type: "string"},
+                                    name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
                                     startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"}
+                                    endDateTime: {type: "timestamp"},
+                                    levelFlag: {type: "number"},
+                                    levelFlagName: {type: "string"},
+                                    superiorId:{type:"number"},
+                                    superiorName:{type:"string"}
                                 }
                             },
                             data: function (response) {
-                                console.log(response);
+                                // console.log(response);
                                 // console.log(response.data);
                                 var list = JSON.parse(response).data;
                                 // var list = response;
@@ -104,6 +116,7 @@
                         // },
                         toolbar: [{name: "create", text: "新增"}],
                         columnMenu: true,
+                        resizable: true,
                         pageable: {
                             // empty:"没有要显示的数据",
                             // //代表是否支持刷新
@@ -136,9 +149,6 @@
                                 field: "placeSn",
                                 title: "场地编码"
                             }, {
-                                field: "levelFlag",
-                                title: "隶属单位"
-                            }, {
                                 field: "principal",
                                 title: "场地负责人"
                             },
@@ -147,7 +157,7 @@
                                 title: "地址"
                             },
                             {
-                                field: "placeName",
+                                field: "name",
                                 title: "场地名称"
                             },
                             {
@@ -169,10 +179,23 @@
                                 title: "协议结束时间",
                                 format: "{0:yyyy-MM-dd HH:mm}",
                                 editor: changeDate
-                            }, {
+                            },{
+                                field: "levelFlag",
+                                title: "隶属单位",
+                                template:"#=levelFlagName#",
+                                editor:chooseBranchOrHead
+                            },
+                            {
+                                field: "superiorId",
+                                title: "隶属单位名称",
+                                template:"#=superiorName#",
+                                editor:roleListDropDownEditor
+                            },
+                            {
                                 command: [
                                     {
-                                        name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
+                                        // name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
+                                        name: "edit", text: "编辑"
                                     }, {
                                         name: "destroy", text: "删除"
                                     }],
@@ -223,60 +246,102 @@
                     }
                 }
 
-                //grid改变时触发的事件，暂时用于分页
-                // function onChange(e) {
-                //     page = $("#grid").data("kendoGrid").dataSource.page();
-                //     pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                //     //$("#grid").data("kendoGrid").dataSource.bind("parameterMap", parameterMap);
-                // }
+                var useFlag=false;
+                var testDataSource;
+                function chooseBranchOrHead(container, options){
+                    var levelFlag = options.model.levelFlag;
 
-                //dataSource向后台发送数据时触发的事件
-                // function parameterMap(e){
-                //     console.log("parameterMap");
-                //     return {page:page,pageSize:pageSize};
-                // }
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
 
-                // //编辑时boolean类型复选框样式修改
-                // function customBoolEditor(container, options) {
-                //     var guid = kendo.guid();
-                //     $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
-                //     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
-                // }
+                    input.kendoComboBox({
+                        autoBind: true,
+                        // enable: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: levelFlag,
+                        dataSource: [
+                            {
+                                "id":1,
+                                "name":"总部"
+                            },{
+                                "id":2,
+                                "name":"分公司"
+                            },{
+                                "id":3,
+                                "name":"代理商"
+                            }
+                        ],
+                        select:function(e){
+                            var item = e.dataItem.id;
 
-                // //打开标记窗口时下拉列表展示
-                // function roleListDropDownEditor(container, options) {
-                //     var userId = options.model.id;
-                //
-                //     $.ajax({
-                //         type: "post",
-                //         async: true,
-                //         url: "/userController/roleList",
-                //         dataType: "json",
-                //         data:{userId:userId},
-                //         success: function (data) {
-                //             $('<select required name="'+options.field+'" multiple="multiple"></select>')
-                //                 .appendTo(container)
-                //                 .kendoMultiSelect({
-                //                     autoBind: false,
-                //                     dataTextField: "roleName",
-                //                     dataValueField: "roleId",
-                //                     dataSource: {
-                //                         serverFiltering: true,
-                //                         transport: {
-                //                             read: {
-                //                                 type: "post",
-                //                                 url: "/roleController/roleList",
-                //                                 dataType: "json",
-                //                                 contentType: "application/json",
-                //                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                //                             }
-                //                         }
-                //                     },
-                //                     value: data
-                //                 });
-                //         }
-                //     });
-                // }
+                            var flag=item;
+                            useFlag=true;
+
+
+                            if(flag==1){
+                                testDataSource = new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: "../headMgr/allHead"
+                                        }
+                                    }
+                                });
+                            }else if(flag==2){
+                                testDataSource = new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: "../branchMgr/allBranch"
+                                        }
+                                    }
+                                });
+                            } else if(flag==3){
+                                testDataSource = new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: "../vendorMgr/getAllVendor"
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+
+
+                //打开标记窗口时下拉列表展示
+                function roleListDropDownEditor(container, options) {
+                    // var flag =options.model.levelFlag;
+
+                    var branchId = options.model.superiorId;
+                    var branchName = options.model.superiorName;
+                    // console.log(options.model);
+                    // console.log(branchName);
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+
+                    // input.kendoComboBox.
+
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        // value: branchId,
+                        text:branchName,
+                        open: function(e) {
+                            if(useFlag==true){
+                                this.setDataSource(testDataSource);
+                            }else{
+                                return;
+                            }
+
+                        }
+                    });
+
+                }
                 /*]]>*/
             </script>
 

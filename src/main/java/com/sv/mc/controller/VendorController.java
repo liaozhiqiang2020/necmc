@@ -19,15 +19,15 @@ public class VendorController {
     @Autowired
     private VendorService vendorService;
 
-//    /**
-//     * 全部查询
-//     * @return 返回所有代理商内容
-//     */
-//    @GetMapping(value = "/allVendor")
-//    public @ResponseBody
-//    List<VendorEntity> getAllVendor() {
-//        return this.vendorService.findAllEntities();
-//    }
+    /**
+     * 全部查询
+     * @return 返回所有代理商内容
+     */
+    @GetMapping(value = "/getAllVendor")
+    public @ResponseBody
+    List<VendorEntity> getAllVendor() {
+        return this.vendorService.findAllEntities();
+    }
     /**
      * 根据分公司id查询单个代理商内容
      * @param id
@@ -81,7 +81,7 @@ public class VendorController {
      */
     @GetMapping(value = "/allVendor")
     public @ResponseBody
-    String getAllVendor(@Param("page") String page, @Param("pageSize") String pageSize) {
+    String getAllVendorByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
 //        System.out.println(this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize)));
 
         return this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize));

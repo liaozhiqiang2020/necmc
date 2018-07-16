@@ -13,7 +13,7 @@ import java.util.Objects;
 public class VendorEntity {
     private int id;
     private int discardStatus;//删除标注
-    private String vendorName;//代理商名字
+    private String name;//代理商名字
     private String vendorAddress;//代理商地址
     private String principal;//负责人
     private String telephone;//电话
@@ -62,13 +62,13 @@ public class VendorEntity {
     }
 
     @Basic
-    @Column(name = "vendor_name")
-    public String getVendorName() {
-        return vendorName;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -119,7 +119,7 @@ public class VendorEntity {
         return id == that.id &&
                 levelFlag == that.levelFlag &&
                 discardStatus == that.discardStatus &&
-                Objects.equals(vendorName, that.vendorName) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(vendorAddress, that.vendorAddress) &&
                 Objects.equals(principal, that.principal) &&
                 Objects.equals(telephone, that.telephone) &&
@@ -129,6 +129,6 @@ public class VendorEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, levelFlag, discardStatus, vendorName, vendorAddress, principal, telephone, email);
+        return Objects.hash(id, levelFlag, discardStatus, name, vendorAddress, principal, telephone, email);
     }
 }

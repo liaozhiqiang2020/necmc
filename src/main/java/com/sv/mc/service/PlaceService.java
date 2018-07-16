@@ -48,19 +48,24 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     String findAllPlaceByPage(int page, int pageSize);
 
+    /**
+     * 不分页查询场地数据
+     */
+    String findAllPlace();
+
     /**4
      * 插入一条场地数据
      * @param placeEntity
      * @return PlaceEntity
      */
-    PlaceEntity insertPlace(PlaceEntity placeEntity);
+    PlaceEntity insertPlace(PlaceEntity placeEntity,String startDateTime,String endDateTime);
 
     /**
      * 根据分公司id更改对应的场地数据
      * @param placeEntity 新场地名称
      * @return placeEntity
      */
-    PlaceEntity updatePlace(PlaceEntity placeEntity);
+    PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTime,String endDateTime);
 
 
     /**
