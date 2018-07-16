@@ -1,5 +1,6 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -20,15 +21,19 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     @Query("from PriceEntity as p where p.id = :id")
     PriceEntity findPriceEntitiesById(@Param("id") int id);
 
-    //根据使用时长查询价格
-    @Query("from PriceEntity as p where p.useTime = :userTime")
-    List<PriceEntity> findPriceEntitiesByUseTime(@Param("userTime") int useTime);
+    //根据机器id查询机器已绑定价格
+    @Query("select d.priceEntities from DeviceEntity d  where d.id = :did")
+    List<PriceEntity> findDevicePrice(@Param("did") int deviceId);
 
-    @Query("from PriceEntity as p where p.status = :status")
-    List<PriceEntity> findPriceEntitiesByStatus(@Param("status") int status);
 
-    @Query("from PriceEntity as p where p.startDateTime > :startDateTime and p.endDateTime < :endDateTime")
-    List<PriceEntity> findPriceByStartAndEndDate(@Param("startDateTime") Timestamp startTime, @Param("endDateTime") Timestamp endTime);
+    //状态为可用的所有价格
+    @Query("from PriceEntity as p where p.status = 1")
+    List<PriceEntity> findPriceEntitiesByStatus();
+
+    //根据价格里的机器类型查询出所有该设备可绑定价格
+    @Query("select p from PriceEntity as p,DeviceEntity as d where p.deviceModelEntity = d.deviceModelEntity and p.status = 1 and d.id = :deviceId")
+    List<PriceEntity> findPriceEntitiesByMcType(@Param("deviceId") int deviceId);
+
 
     //根据机器ID查询价格
     @Query(value = "select price,use_time FROM mc_price as p join mc_price_device on p.id = price_id  join mc_device as d on d.id=device_id where d.id = :dId",nativeQuery = true)

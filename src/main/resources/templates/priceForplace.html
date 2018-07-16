@@ -20,18 +20,28 @@
         <div id="example">
             <div id="grid"></div>
             <script type="text/x-kendo-template" id="template1">
-                #if(data.isNew()) {#
-                #var createTemp = kendo.template($("\#createTemplate").html());#
-                #=createTemp(data)#
-                #} else {#
-                #var createTemp = kendo.template($("\#editTemplate").html());#
-                #=createTemp(data)#
-                #}#
+                <!--#if(data.isNew()) {#-->
+                <!--#var createTemp = kendo.template($("\#createTemplate").html());#-->
+                <!--#=createTemp(data)#-->
+                <!--#} else {#-->
+                <!--#var createTemp = kendo.template($("\#editTemplate").html());#-->
+                <!--#=createTemp(data)#-->
+                <!--#}#-->
+                <div id ="edit-1"></div>
+                <div id = "edit-2"></div>
+            </script>
+
+            <script type="text/x-kendo-template" id="template2">
+
+                <div id ="edit-3"></div>
+                <div id = "edit-4"></div>
+
             </script>
             <script type="text/x-kendo-template" id="editTemplate" >
-                <div id ="div11" style="width: 500px"></div>
-                <div id = "div22"></div>
+
             </script>
+
+
 
             <script type="text/x-kendo-template" id="template">
                 <div class="tabstrip">
@@ -65,19 +75,7 @@
                                     url: "./allPlace",
                                     dataType: "json"
                                 },
-                                update: {
-                                    type: "post",
-                                    url: "./price/update",
-                                    dataType: "json",
-                                    contentType : "application/json"
-
-                                },
-                                destroy: {
-                                    url: "./price/delete",
-                                    dataType: "json",
-                                    type: "post",
-                                    contentType : "application/json"
-                                },parameterMap: function(options, operation) {
+                                parameterMap: function(options, operation) {
                                     if (operation !== "read" && options.models) {
                                         return  kendo.stringify(options.models);
                                     }
@@ -91,10 +89,10 @@
                                     id: "id",
                                     fields: {
                                         id: { editable: false, nullable: true },
-                                        placeSn: { type: "string"},
-                                        placeName: { type: "string" },
+                                        placeSn: { type: "string",editable: false},
+                                        placeName: { type: "string",editable: false },
                                         placeAddress: { type: "string",editable: false },
-                                        city: { type: "array" }
+                                        city: { type: "array",editable: false }
                                     }
                                 }
                             }
@@ -140,17 +138,33 @@
                         },
 
                         edit: function(e){
-                            dataSource = new kendo.data.DataSource({
+                            let placeId = e.model.id;
+
+                          let  dataSource = new kendo.data.DataSource({
                                 transport: {
                                     read: {
-                                        url: "./price/all",
+                                        url: "./price/status",
                                         dataType: "json"
                                     },
-                                    destroy: {
-                                        url: "./price/all",
-                                        dataType: "json"
+                                    update: {
+                                        url: "./price/placeAddPrice",
+                                        dataType: "json",
+                                        type: "post",
+                                        contentType : "application/json"
                                     },
                                     parameterMap: function (options, operation) {
+                                        if (operation === "destroy" && options.models) {
+                                            let array = [];
+                                               for (let j =0 ;j<options.models.length;j++){
+                                                   array[j] = options.models[j].id;
+                                               }
+
+                                           let list1 = {
+                                               price :  array,
+                                               placeId : placeId
+                                           }
+                                           return kendo.stringify(list1);
+                                        }
                                         if (operation !== "read" && options.models) {
                                             return kendo.stringify(options.models) ;
                                         }
@@ -163,46 +177,36 @@
                                         id: "id",
                                         fields: {
                                             id: { editable: false, nullable: true },
-                                            price: { type: "number", validation: { required: true, min: 1} },
-                                            useTime: { type: "number" ,validation: { required: true, min: 1} },
+                                            price: { type: "number", validation: { required: true, min: 1} ,editable: false},
+                                            useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
                                             createDateTime: { type: "timestamp",editable: false },
-                                            startDateTime: { type: "timestamp" },
-                                            endDateTime: { type: "timestamp" },
-                                            userId: { type: "string" },
-                                            status: { type: "number" },
-                                            priceName : {type : "string"},
-                                            user :{type:"array"}
+                                            startDateTime: { type: "timestamp" ,editable: false},
+                                            endDateTime: { type: "timestamp",editable: false},
+                                            userId: { type: "string" ,editable: false},
+                                            status: { type: "number",editable: false },
+                                            priceName : {type : "string",editable: false},
+                                            user :{type:"array",editable: false},
+                                            deviceModelEntity:{type:"array",editable: false}
                                         }
                                     }
                                 }
                             });
-                            $("#div11").kendoGrid({
-                                toolbar:"已绑定价格",
+                            $("#edit-1").kendoGrid({
+                                toolbar: [ "save", "cancel"],
                                 dataSource: dataSource,
                                 pageable: true,
+                                checkboxes: true,
+                                sortable:true,
                                 height: 300,
                                 columns: [
+                                    { selectable: true, width: "50px" },
                                     { field: "priceName", title: "价格名称",  width: "50px" },
                                     { field: "price", title: "价格(元)", width: "50px" },
                                     { field: "useTime", title:"使用时长",width: "50px" },
-                                    { field: "startDateTime", title:"开始时间",width: "50px" },
-                                    { field: "endDateTime", title:"结束时间",width: "50px" },
-                                    { command: ["destroy"], title: "&nbsp;", width: "50px"}],
-                                editable: false
-                            });
-                            $("#div22").kendoGrid({
-                                toolbar: "未绑定价格",
-                                dataSource: dataSource,
-                                pageable: true,
-                                height: 300,
-                                columns: [
-                                    { field: "priceName", title: "价格",  width: "50px" },
-                                    { field: "price", title: "价格", width: "50px" },
-                                    { field: "useTime", title:"使用时长",width: "50px" },
-                                    { field: "startDateTime", title:"开始时间",width: "50px" },
-                                    { field: "endDateTime", title:"结束时间",width: "50px" },
-                                    { command: ["update"], title: "&nbsp;", width: "50px"}],
-                                editable: false
+                                    { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
+                                    { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" },
+                                    { command: ["destroy"], title: "绑定", width: "50px"}],
+                                editable: true,
                             });
                         },
 
@@ -211,8 +215,7 @@
 
                     function detailInit(e) {
                         var detailRow = e.detailRow;
-                        var pid =e.data.id;
-
+                        var placeId = e.data.id;
                         detailRow.find(".tabstrip").kendoTabStrip({
                             animation: {
                                 open: { effects: "fadeIn" }
@@ -223,7 +226,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./allDevice",
+                                    read: "./place/device?placeId="+ placeId,
                                 },
                                 serverPaging: true,
                                 serverSorting: true,
@@ -255,9 +258,146 @@
                                 { field: "latitude", title:"按摩椅经度", width: "110px" },
                                 { field: "mcStatus", title:"按摩椅状态", width: "110px" },
                                 { field: "mcSn", title:"机器SN" ,width: "110px"},
-                                { command: [ "添加", "删除" ] }
+                                { command: ["edit"], title: "&nbsp;", width: "160px" },
                             ],
-                            editable: "popup",
+                            editable: {
+                                mode: "popup",
+                                template: $("#template2").html()
+                            },
+                            edit: function(e){
+                                let deviceId = e.model.id;
+                               let dataSource = new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: "./price/devicePrice?deviceId="+deviceId,
+                                            dataType: "json"
+                                        },
+                                        destroy: {
+                                            url: "./price/deviceDeletePrice",
+                                            dataType: "json",
+                                            type: "post",
+                                            contentType : "application/json"
+                                        },
+                                        parameterMap: function (options, operation) {
+                                            if (operation === "destroy" && options.models) {
+                                                let array = [];
+                                                for (let j =0 ;j<options.models.length;j++){
+                                                    array[j] = options.models[j].id;
+                                                }
+
+                                                let list1 = {
+                                                    price :  array,
+                                                    deviceId : deviceId
+                                                }
+                                                return kendo.stringify(list1);
+                                            }
+                                            if (operation !== "read" && options.models) {
+                                                return kendo.stringify(options.models) ;
+                                            }
+                                        }
+                                    },
+                                    batch: true,
+                                    pageSize: 5,
+                                    schema: {
+                                        model: {
+                                            id: "id",
+                                            fields: {
+                                                id: { editable: false, nullable: true },
+                                                price: { type: "number", validation: { required: true, min: 1},editable: false },
+                                                useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
+                                                createDateTime: { type: "timestamp",editable: false },
+                                                startDateTime: { type: "timestamp" ,editable: false},
+                                                endDateTime: { type: "timestamp" ,editable: false},
+                                                userId: { type: "string" ,editable: false},
+                                                status: { type: "number" ,editable: false},
+                                                priceName : {type : "string",editable: false},
+                                                user :{type:"array"}
+                                            }
+                                        }
+                                    }
+                                });
+                              let  dataSource1 = new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: "./price/deviceUnPrice?deviceId=" + deviceId,
+                                            dataType: "json"
+                                        },
+                                        destroy: {
+                                            url: "./price/deviceSavePrice",
+                                            dataType: "json",
+                                            type: "post",
+                                            contentType : "application/json"
+                                        },
+                                        parameterMap: function (options, operation) {
+                                            if (operation === "destroy" && options.models) {
+                                                let array = [];
+                                                for (let j =0 ;j<options.models.length;j++){
+                                                    array[j] = options.models[j].id;
+                                                }
+
+                                                let list1 = {
+                                                    price :  array,
+                                                    deviceId : deviceId
+                                                }
+                                                return kendo.stringify(list1);
+                                            }
+                                            if (operation !== "read" && options.models) {
+                                                return kendo.stringify(options.models) ;
+                                            }
+                                        }
+                                    },
+                                    batch: true,
+                                    pageSize: 5,
+                                    schema: {
+                                        model: {
+                                            id: "id",
+                                            fields: {
+                                                id: { editable: false, nullable: true },
+                                                price: { type: "number", validation: { required: true, min: 1},editable: false },
+                                                useTime: { type: "number" ,validation: { required: true, min: 1},editable: false },
+                                                createDateTime: { type: "timestamp",editable: false },
+                                                startDateTime: { type: "timestamp",editable: false },
+                                                endDateTime: { type: "timestamp",editable: false },
+                                                userId: { type: "string" ,editable: false},
+                                                status: { type: "number" ,editable: false},
+                                                priceName : {type : "string",editable: false},
+                                                user :{type:"array",editable: false}
+                                            }
+                                        }
+                                    }
+                                });
+                                $("#edit-3").kendoGrid({
+                                    toolbar:[ "save", "cancel"],
+                                    dataSource: dataSource,
+                                    pageable: true,
+                                    sortable:true,
+                                    height: 300,
+                                    columns: [
+                                        { field: "priceName", title: "价格名称",  width: "50px" },
+                                        { field: "price", title: "价格(元)", width: "50px" },
+                                        { field: "useTime", title:"使用时长",width: "50px" },
+                                        { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
+                                        { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" },
+                                        { command: ["destroy"], title: "&nbsp;", width: "50px"}],
+                                    editable: true
+                                });
+                                $("#edit-4").kendoGrid({
+                                    toolbar: [ "save", "cancel"],
+                                    dataSource: dataSource1,
+                                    sortable:true,
+                                    pageable: true,
+                                    height: 300,
+                                    columns: [
+                                        { field: "priceName", title: "价格",  width: "50px" },
+                                        { field: "price", title: "价格", width: "50px" },
+                                        { field: "useTime", title:"使用时长",width: "50px" },
+                                        { field: "startDateTime", title:"开始时间",width: "50px",format: "{0: yyyy-MM-dd}" },
+                                        { field: "endDateTime", title:"结束时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
+                                        // { title: "绑定", width: 80,template: "<button class='row-number'>绑定</button>"},
+                                        { command: ["destroy"], title: "&nbsp;", width: "50px" },],
+                                    editable: true
+                                });
+                            },
                         });
                     }
 

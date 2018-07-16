@@ -13,8 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@Controller
-@RequestMapping("/placeMgr")
+@RestController
 public class PlaceController {
     //注入
     @Autowired
@@ -132,7 +131,10 @@ public class PlaceController {
     }
 
 
-
+    @GetMapping("/place/device")
+    public List<DeviceEntity> findDeviceByPlace(@RequestParam("placeId") int placeId){
+        return this.placeService.findDeviceByPlace(placeId);
+    }
 
 
 //    /**

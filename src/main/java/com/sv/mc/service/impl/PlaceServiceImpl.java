@@ -224,4 +224,11 @@ public class PlaceServiceImpl implements PlaceService {
                 this.placeRepository.save(placeEntity);
 
         }
+
+        @Override
+        public List<DeviceEntity> findDeviceByPlace(int placeId) {
+                PlaceEntity place = this.placeRepository.findPlaceById(placeId);
+                List<DeviceEntity> devices = place.getDeviceEntities();
+                return devices;
+        }
 }

@@ -67,8 +67,6 @@ public class DeviceServiceImpl implements DeviceService {
                 Date nReviseDate2 = sdf.parse(nReviseDate,pos);
                 Timestamp ts = new Timestamp(nReviseDate2.getTime());
                 device.setMaintainDateTime(ts);
-                device.setMcType(1);
-                device.setPlaceId(1);
                 return deviceRepository.save(device);
         }
 

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -24,7 +26,7 @@ public class UserEntity {
     private Timestamp latestLoginDatetime;          //上次登录时间
     private String latestLoginIp;                   //上次登录Ip
     private int status;                             //状态
-
+    private List<PriceEntity> priceEntities = new ArrayList<>();    //与价格一对多绑定
 
     @Id
     @Column(name = "Id")
@@ -57,7 +59,6 @@ public class UserEntity {
 
     @Basic
     @Column(name = "authentication_string")
-    @JsonIgnore
     public String getAuthenticationString() {
         return authenticationString;
     }
@@ -68,7 +69,6 @@ public class UserEntity {
 
     @Basic
     @Column(name = "create_datetime")
-    @JsonIgnore
     public Timestamp getCreateDatetime() {
         return createDatetime;
     }
@@ -77,7 +77,7 @@ public class UserEntity {
         this.createDatetime = createDatetime;
     }
 
-    @JsonIgnore
+
     @Basic
     @Column(name = "email")
     public String getEmail() {
@@ -88,7 +88,7 @@ public class UserEntity {
         this.email = email;
     }
 
-    @JsonIgnore
+
     @Basic
     @Column(name = "cellphone_number")
     public String getCellphoneNumber() {
@@ -99,7 +99,7 @@ public class UserEntity {
         this.cellphoneNumber = cellphoneNumber;
     }
 
-    @JsonIgnore
+
     @Basic
     @Column(name = "fixed_phone_number")
     public String getFixedPhoneNumber() {
@@ -110,7 +110,7 @@ public class UserEntity {
         this.fixedPhoneNumber = fixedPhoneNumber;
     }
 
-    @JsonIgnore
+
     @Basic
     @Column(name = "latest_login_datetime")
     public Timestamp getLatestLoginDatetime() {
@@ -121,7 +121,7 @@ public class UserEntity {
         this.latestLoginDatetime = latestLoginDatetime;
     }
 
-    @JsonIgnore
+
     @Basic
     @Column(name = "latest_login_ip")
     public String getLatestLoginIp() {
@@ -133,6 +133,15 @@ public class UserEntity {
     }
 
     @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    public List<PriceEntity> getPriceEntities() {
+        return priceEntities;
+    }
+
+    public void setPriceEntities(List<PriceEntity> priceEntities) {
+        this.priceEntities = priceEntities;
+    }
+
     @Basic
     @Column(name = "status")
     public int getStatus() {
