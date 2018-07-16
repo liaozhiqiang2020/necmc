@@ -20,7 +20,7 @@
                 function loadUserList() {
                     kendo.culture("zh-CN");
 
-                    var dataSource = new kendo.data.DataSource({
+                    var dataSource = new kendo.data.TreeListDataSource({
                         transport: {
                             read: {
                                 url: "getAllPlace"
@@ -49,8 +49,10 @@
                         schema: {
                             model: {
                                 id: "id",
+                                parentId: "pId",
                                 fields: {
                                     id: {type: "number", editable: false},
+                                    pId: {type: "number",nullable: true},
                                     placeSn: {type: "string"},
                                     levelFlag: {type: "int"},
                                     principal: {type: "string"},
@@ -66,27 +68,32 @@
                                 console.log(response);
                                 // console.log(response.data);
                                 var list = JSON.parse(response).data;
-                                // for(var i=0;i<list.length;i++){
-                                //     var content2 = list[i];
-                                //     var startime = content2.reviseDate;
-                                //     var oldDate = new Date(Date.parse(startime));//.replace(/-/g, '/')
-                                //     var time1 = oldDate.getTime();
-                                //     content2.reviseDate = datetimeFormat_2(time1);
-                                // }
+                                // var list = response;
+                                for(var i=0;i<list.length;i++){
+                                    var content2 = list[i];
+                                    var startime = content2.startDateTime;
+                                    var endtime = content2.endDateTime;
+                                    var startime2 = new Date(Date.parse(startime));//.replace(/-/g, '/')
+                                    var endtime2 = new Date(Date.parse(endtime));//.replace(/-/g, '/')
+                                    var time1 = startime2.getTime();
+                                    var time2 =endtime2.getTime();
+                                    content2.startDateTime = datetimeFormat_2(time1);
+                                    content2.endDateTime = datetimeFormat_2(time2);
+                                }
                                 return list;
                                 // return response.data;
-                            },
-                            total: function (response) {
-                                // console.log(response.total);
-                                // return response.total;
-
-                                return JSON.parse(response).total;
                             }
+                            // total: function (response) {
+                            //     // console.log(response.total);
+                            //     // return response.total;
+                            //
+                            //     return JSON.parse(response).total;
+                            // }
                         }
                     });
 
                     //dataSource是必填属性
-                    $("#grid").kendoGrid({
+                    $("#grid").kendoTreeList({
                         dataSource: dataSource,
                         height: 600,
                         sortable: true, //表示是否支持排序， boolean型
@@ -125,10 +132,6 @@
                             }
                         },
                         columns: [
-                    // latitude: {type: "number"},
-                    // longitude: {type: "number"},
-                    // startDateTime: {type: "timestamp"},
-                    // endDateTime: {type: "timestamp"}
                             {
                                 field: "placeSn",
                                 title: "场地编码"
@@ -157,11 +160,15 @@
                             },
                             {
                                 field: "startDateTime",
-                                title: "协议开始时间"
+                                title: "协议开始时间",
+                                format: "{0:yyyy-MM-dd HH:mm}",
+                                editor: changeDate
                             },
                             {
                                 field: "endDateTime",
-                                title: "协议结束时间"
+                                title: "协议结束时间",
+                                format: "{0:yyyy-MM-dd HH:mm}",
+                                editor: changeDate
                             }, {
                                 command: [
                                     {
