@@ -7,38 +7,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class DefaultController {
 
-//    @GetMapping("/")
-//    public String home1() {
-//        return "/home";
-//    }
-
-//    @GetMapping("/home")
-//    public String home() {
-//        return "/home";
-//    }
-    @GetMapping(value="/")
-    public ModelAndView turnToHome(){
+    @GetMapping("/")
+    public ModelAndView index() {
         return new ModelAndView("/home");
     }
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "/admin";
-    }
-
-    @GetMapping("/user")
-    public String user() {
-        return "/user";
-    }
-
-    @GetMapping("/about")
-    public String about() {
-        return "/about";
-    }
-
     @GetMapping("/login")
-    public String login() {
-        return "/login";
+    public ModelAndView login() {
+        return new ModelAndView("/login");
     }
 
     @GetMapping("/urpMgmt/roleIndex")
@@ -46,7 +22,7 @@ public class DefaultController {
         return new ModelAndView("/userRolePermissionMgmt/roleList");
     }
 
-    @GetMapping("/403")
+    @GetMapping("/error")
     public String error403() {
         return "/error/403";
     }

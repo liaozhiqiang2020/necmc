@@ -46,6 +46,7 @@ public class PriceEntity {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

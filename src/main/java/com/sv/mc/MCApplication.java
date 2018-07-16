@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @Configuration
 @ComponentScan
-@ImportResource(locations={"classpath:spring-redis.xml"})
+//@ImportResource(locations={"classpath:spring-redis.xml"})
 @EnableCaching
 @EnableAutoConfiguration
 @EnableScheduling

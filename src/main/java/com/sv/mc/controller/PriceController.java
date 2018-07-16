@@ -4,6 +4,7 @@ import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
 import com.sv.mc.service.impl.PriceHistoryServiceImpl;
 import com.sv.mc.service.impl.PriceServiceImpl;
+import lombok.experimental.var;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,7 @@ public class PriceController {
         priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
         priceHistoryEntity.setStatus(priceEntity.getStatus());
         priceHistoryEntity.setUser(priceEntity.getUser());
-        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
+//        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
 
         this.priceHistoryService.addPrice(priceHistoryEntity);
         return "保存成功";
@@ -92,22 +93,8 @@ public class PriceController {
     @PostMapping("/price/update")
     public @ResponseBody List<PriceEntity> updatePrice(@RequestBody List<PriceEntity> models) {
         System.out.println(models);
-        for (PriceEntity priceEntity : models
-                ) {
-            PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
-            priceHistoryEntity.setUseTime(priceEntity.getUseTime());
-            priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
-            priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
-            priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
-            priceHistoryEntity.setPrice(priceEntity.getPrice());
-            priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
-            priceHistoryEntity.setStatus(priceEntity.getStatus());
-            priceHistoryEntity.setUser(priceEntity.getUser());
-            priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
-            this.priceHistoryService.addPrice(priceHistoryEntity);
-            this.priceService.updatePrice(priceEntity);
-        }
-        return models;
+        List<PriceEntity> persistPriceList = this.priceService.batchSaveOrUpdatePrice(models);
+        return persistPriceList;
     }
 
     /**
@@ -127,7 +114,7 @@ public class PriceController {
         priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
         priceHistoryEntity.setStatus(priceEntity.getStatus());
         priceHistoryEntity.setUser(priceEntity.getUser());
-        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
+//        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
         this.priceHistoryService.addPrice(priceHistoryEntity);
         return "删除成功";
     }
