@@ -1,6 +1,8 @@
 package com.sv.mc.service;
 
 
+import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,26 +12,108 @@ import java.util.Map;
 
 public interface PriceService{
 
+    /**
+     * 分页查询所有数据
+     * @param pageable 分页规则
+     * @return 价格分页集合
+     */
     Page<PriceEntity> findAllPagePrice(Pageable pageable);
 
+    /**
+     * 查询所有价格数据
+     * @return 价格集合
+     */
     List<PriceEntity> findAllPrice();
 
-    PriceEntity updatePrice(PriceEntity priceEntity);
+    /**
+     * 查询状态为使用中的价格
+     * @return价格集合数组
+     */
+    List<PriceEntity> findStatusPrice();
 
-    void deletePrice(int priceId);
-
-    PriceEntity findPriceById(int Id);
-
-     PriceEntity addPrice(PriceEntity priceEntity);
-
-     List<Object[]> findPriceByDeviceId(int deviceId);
-
-     List<Map<String,Object>> queryPriceAndTime(int deviceId);
 
     /**
-     * 批量新增、更新价格数据
-     * @param priceEntityList 价格对象列表
-     * @return 已经新增或更新的价格对象列表，准备返回前台画面进行展示
+     * 更新价格
+     * @param priceEntity 价格对象（价格对象必须包含主键ID）
+     * @return 消息
      */
-     List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList);
+    PriceEntity updatePrice(PriceEntity priceEntity);
+
+
+    /**
+     * 删除价格
+     * @param priceId 价格Id
+     * @return 消息
+     */
+    void deletePrice(int priceId);
+
+
+    /**
+     * 根据id查询价格
+     * @param Id    价格ID
+     * @return
+     */
+    PriceEntity findPriceById(int Id);
+    /**
+     * 添加价格
+     * @param priceEntity 价格对象
+     * @return 消息
+     */
+    PriceEntity addPrice(PriceEntity priceEntity);
+
+    /**
+     * 批量修改或者保存价格数据
+     * @param priceEntityList
+     * @return 页面需要回显新的价格数据
+     */
+    List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList);
+
+    /**
+     * 批量删除
+     * @param priceEntityList
+     * @return 页面需要回显新的价格数据
+     */
+    List<PriceEntity> batchDeletePrice(List<PriceEntity> priceEntityList);
+    /**
+     * 根据设备id的价格进行查询
+     * @param deviceId 设备Id
+     * @return 当前机器的价格集合
+     */
+    List<Object[]> findPriceByDeviceId(int deviceId);
+
+    /**
+     * 根据设备Id查询出当前设备的所有绑定的价格
+     * @param deviceId 设备Id
+     * @return 价格集合
+     */
+    List<PriceEntity> findDevicePrice(int deviceId);
+
+    /**
+     * 根据当前设备查询所有未绑定的价格方案
+     * @param deviceId 当前设备
+     * @return 未绑定的价格集合
+     */
+    List<PriceEntity> findUnDevicePrice(int deviceId);
+
+    /**
+     * 给机器绑定价格
+     * @return 成功消息
+     */
+    List<PriceEntity> deviceSavePrice(Map<String,Object> listMap);
+
+    /**
+     * 给机器解绑价格方案
+     * @param listMap 设备实体类
+     * @return 设备
+     */
+    List<PriceEntity> deviceDeletePrice(Map<String,Object> listMap);
+
+    /**
+     * 给场地上的某种类型的所有机器绑定价格
+     * @param listMap 场地id 与 价格id集合
+     * @return
+     */
+    List<PriceEntity> placeAddPrice(Map<String,Object> listMap);
+
+    List<Map<String,Object>> queryPriceAndTime(int deviceId);
 }

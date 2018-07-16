@@ -1,8 +1,12 @@
 package com.sv.mc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +27,19 @@ public class PlaceEntity {
     private Integer placeMapId;
     private String placeRank;
     private int superiorId;
+
+    private List<DeviceEntity> deviceEntities = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany( mappedBy = "placeEntity")  //指定一对多关系
+    public List<DeviceEntity> getDeviceEntities() {
+        return deviceEntities;
+    }
+
+    public void setDeviceEntities(List<DeviceEntity> deviceEntities) {
+        this.deviceEntities = deviceEntities;
+    }
 
 
     @Id

@@ -26,6 +26,10 @@
                 <div id="client"></div>
             </div>
 
+            <script id="product-template" type="text/x-kendo-template">
+                <h4> #: user.name #</h4>
+            </script>
+
             <script>
                 $(document).ready(function() {
 
@@ -33,7 +37,7 @@
                         dataSource: {
                             transport: {
                                 read:  {
-                                    url: "./price/all",
+                                    url: "./price/status",
                                     dataType: "json"
                                 },
                                 update: {
@@ -44,18 +48,23 @@
 
                                 },
                                 destroy: {
-                                    url: "./price/delete",
+                                    url: "./price/batchDelete",
                                     dataType: "json",
                                     type: "post",
                                     contentType : "application/json"
                                 },
                                 create: {
-                                    url: "./price/save",
+                                    url: "./price/update",
                                     dataType: "json",
                                     type: "post",
                                     contentType : "application/json"
                                 },
                                 parameterMap: function(options, operation) {
+                                    // for(let i = 0; i<options.models;i++){
+                                    //     let a = options.models;
+                                    //     a[i].startDateTime
+                                    // }
+
                                     if (operation !== "read" && options.models) {
                                         return  kendo.stringify(options.models);
                                     }
@@ -70,13 +79,14 @@
                                         id: { editable: false, nullable: true },
                                         price: { type: "number", validation: { required: true, min: 1} },
                                         useTime: { type: "number" ,validation: { required: true, min: 1} },
-                                        createDateTime: { type: "timestamp",editable: false },
-                                        startDateTime: { type: "timestamp" },
-                                        endDateTime: { type: "timestamp" },
-                                        userId: { type: "string" },
-                                        status: { type: "number" },
+                                        createDateTime: { type: "timestamp",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                        startDateTime: { type: "timestamp", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                        endDateTime: { type: "timestamp", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                        userId: { type: "int" ,editable: false},
+                                        status: { type: "number",editable: false },
                                         priceName : {type : "string"},
-                                        user :{type:"array"}
+                                        user :{type:"array",editable: false},
+                                        deviceModelEntity : {type:"array",editable: false},
                                     }
                                 }
                             }
@@ -84,25 +94,32 @@
                         filterable: true,
                         pageable: {
                             refresh: true,
-                            pageSizes: true,
-                            buttonCount: 5
+                            // pageSizes: true,
+                            pageSize: 5,
+                            totalPages: true,
+                            pageSizes: [5, 10, 15, 20],
+                            buttonCount: 5,
                         },
-                        height: 880,
+                        height: 550,
                         toolbar: ["create", "save", "cancel"],
                         columns: [
                             {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                            { field: "priceName",title: "价格名称", width: 120,filterable: { multi: true, search: true} },
-                            { field: "price", title: "价格(元)", width: 100, filterable: { multi: true,search: true } },
-                            { field: "useTime", title: "时长(分钟)", width: 100, filterable: { multi: true } },
-                            { field: "user.name", title: "创建人", width: 100, filterable: { multi: true } },
-                            { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true} },
-                            { field: "startDateTime",title: "开始时间",width: 120, filterable: { multi: true, search: true},format: "{0:yyyy-MM-dd HH:mm}",
+                            { field: "priceName",title: "价格名称", width: 100,filterable: { multi: true, search: true} },
+                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true } },
+                            { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
+                            { field: "user.name", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'></span>" },
+                            { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                            { field: "startDateTime",title: "开始时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
-                            { field: "endDateTime",title: "结束时间",width: 120, filterable: { multi: true, search: true},format: "{0:yyyy-MM-dd HH:mm}",
+                            { field: "endDateTime",title: "结束时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
-                            { field: "status",title: "状态",width: 120, filterable: { multi: true, search: true} },
+                            { field: "status",title: "状态",width: 80, filterable: { multi: true, search: true}, values: [
+                                    { text: "false", value: 0 },
+                                    { text: "true", value: 1 }] },
+                            { field: "deviceModelEntity.name", title: "按摩椅类型", width: 100, filterable: { multi: true } },
                             // { field: "status", title: "状态",width: 120, filterable: { multi: true, dataSource: [{ Discontinued: 1 }, { Discontinued: 0 }]} },
                             { command: "destroy", title: "&nbsp;", width: 100}],
+
                         editable: true,
                         dataBound: function () {
                             var rows = this.items();
@@ -115,6 +132,7 @@
                             });
                         }
                     });
+                    var template = kendo.template($("#product-template").html());
                     function changeDate(container, options) {
                         var input = $('<input name="' + options.field + '"/>');
                         input.appendTo(container);
@@ -122,6 +140,8 @@
                             format: "{0:yyyy-MM-dd HH:mm}"
                         });
                     }
+
+
                 });
             </script>
         </div>
