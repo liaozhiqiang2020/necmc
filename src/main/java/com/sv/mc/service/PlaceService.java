@@ -54,6 +54,11 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     String findAllPlace();
 
+    /**
+     * 不分页查询场地数据
+     */
+    List<PlaceEntity> findAllPlaces();
+
     /**4
      * 插入一条场地数据
      * @param placeEntity
@@ -81,5 +86,9 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     List<DeviceEntity> findDeviceByPlace(int placeId);
 
+    /**
+     * 根据场地id查询他的字节点
+     */
+    List<PlaceEntity> findPlaceByParentId(int placeId);
 
 }

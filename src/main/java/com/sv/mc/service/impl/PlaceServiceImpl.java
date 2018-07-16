@@ -231,4 +231,16 @@ public class PlaceServiceImpl implements PlaceService {
                 List<DeviceEntity> devices = place.getDeviceEntities();
                 return devices;
         }
+
+
+        @Override
+        public List<PlaceEntity> findPlaceByParentId(int placeId) {
+                return this.placeRepository.findPlaceByParentId(placeId);
+        }
+
+
+        @Override
+        public List<PlaceEntity> findAllPlaces() {
+                return this.placeRepository.findAllPlaces();
+        }
 }

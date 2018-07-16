@@ -13,7 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/placeMgr")
 public class PlaceController {
     //注入
     @Autowired
@@ -80,7 +81,7 @@ public class PlaceController {
 //     */
 //    @GetMapping(value = "/getAllPlace")
 //    public @ResponseBody
-//    String getAllPlace(@Param("page") String page, @Param("pageSize") String pageSize) {
+//    String getAllPlace(String page, String pageSize) {
 //        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
 //    }
 
@@ -90,8 +91,8 @@ public class PlaceController {
      */
     @GetMapping(value = "/getAllPlace")
     public @ResponseBody
-    String getAllPlace() {
-        return this.placeService.findAllPlace();
+    List<PlaceEntity> getAllPlace() {
+        return this.placeService.findAllPlaces();
     }
 
     /**
@@ -131,10 +132,16 @@ public class PlaceController {
     }
 
 
-    @GetMapping("/place/device")
-    public List<DeviceEntity> findDeviceByPlace(@RequestParam("placeId") int placeId){
-        return this.placeService.findDeviceByPlace(placeId);
+    /**
+     * 根据场地id查询他的字节点
+     */
+    @GetMapping(value = "/findPlaceByParentId")
+    public @ResponseBody
+    List<PlaceEntity> findPlaceByParentId(@RequestParam(name = "placeId")int placeId){
+        return this.placeService.findPlaceByParentId(placeId);
     }
+
+
 
 
 //    /**
