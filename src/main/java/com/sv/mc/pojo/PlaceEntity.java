@@ -14,7 +14,7 @@ public class PlaceEntity {
     private int discardStatus;
     private String principal;
     private String placeAddress;
-    private String placeName;
+    private String name;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private Timestamp startDateTime;
@@ -22,6 +22,8 @@ public class PlaceEntity {
     private Integer pId;
     private Integer placeMapId;
     private String placeRank;
+    private int superiorId;
+
 
     @Id
     @Column(name = "Id")
@@ -31,6 +33,15 @@ public class PlaceEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "superior_id")
+    public int getSuperiorId() {
+        return superiorId;
+    }
+    public void setSuperiorId(int superiorId) {
+        this.superiorId = superiorId;
     }
 
     @Basic
@@ -84,13 +95,13 @@ public class PlaceEntity {
     }
 
     @Basic
-    @Column(name = "place_name")
-    public String getPlaceName() {
-        return placeName;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -174,7 +185,7 @@ public class PlaceEntity {
                 Objects.equals(placeSn, that.placeSn) &&
                 Objects.equals(principal, that.principal) &&
                 Objects.equals(placeAddress, that.placeAddress) &&
-                Objects.equals(placeName, that.placeName) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(latitude, that.latitude) &&
                 Objects.equals(longitude, that.longitude) &&
                 Objects.equals(startDateTime, that.startDateTime) &&
@@ -187,6 +198,6 @@ public class PlaceEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, placeSn, levelFlag, discardStatus, principal, placeAddress, placeName, latitude, longitude, startDateTime, endDateTime, pId, placeMapId, placeRank);
+        return Objects.hash(id, placeSn, levelFlag, discardStatus, principal, placeAddress, name, latitude, longitude, startDateTime, endDateTime, pId, placeMapId, placeRank);
     }
 }
