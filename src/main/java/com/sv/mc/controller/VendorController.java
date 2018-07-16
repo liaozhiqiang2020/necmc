@@ -82,7 +82,7 @@ public class VendorController {
     @GetMapping(value = "/allVendor")
     public @ResponseBody
     String getAllVendor(@Param("page") String page, @Param("pageSize") String pageSize) {
-        System.out.println(this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize)));
+//        System.out.println(this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize)));
 
         return this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
     }

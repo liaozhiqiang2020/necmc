@@ -43,7 +43,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     /**
      * 使用branchId查分公司名
      */
-    @Query(value="select b.branchName from BranchEntity b where b.id=:branchId")
+    @Query(value="select b.name from BranchEntity b where b.id=:branchId")
     String findBranchNameById(@Param("branchId")int branchId);
 
     /**

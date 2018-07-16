@@ -98,27 +98,31 @@ public class VendorServiceImpl implements VendorService {
                 vendorEntityDataSourceResult.setTotal(total);
 
                 String result = gson.toJson(vendorEntityDataSourceResult);
-                System.out.println(result);
+//                System.out.println(result);
                 JSONObject jsonObject = JSONObject.fromObject(result);
                 JSONArray jsonArray =jsonObject.getJSONArray("data");
                 JSONArray jsonArray1 = new JSONArray();
                 String superiorName="";
+                String levelFlagName="";
                 for (int i = 0; i <jsonArray.size() ; i++) {
                         JSONObject jsonObject12 =jsonArray.getJSONObject(i);
-                        System.out.println(jsonObject12);
+//                        System.out.println(jsonObject12);
                         int superiorId =Integer.parseInt(jsonObject12.get("superiorId").toString());
                         int levelFlag =Integer.parseInt(jsonObject12.get("levelFlag").toString());
                         if(levelFlag==1){
+                              levelFlagName = "分公司";
                               superiorName = this.vendorRepository.findBranchNameById(superiorId);
 
                         }else if(levelFlag==2){
+                              levelFlagName = "总部";
                               superiorName = this.vendorRepository.findHeadNameById(superiorId);
                         }
                         jsonObject12.put("superiorName",superiorName);
+                        jsonObject12.put("levelFlagName",levelFlagName);
                         jsonArray1.add(jsonObject12);
                 }
 
-                System.out.println(jsonArray1.toString());
+//                System.out.println(jsonArray1.toString());
 
                 jsonObject.put("data",jsonArray1);
 
