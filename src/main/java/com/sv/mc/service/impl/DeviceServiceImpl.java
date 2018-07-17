@@ -61,6 +61,7 @@ public class DeviceServiceImpl implements DeviceService {
          */
         @Override
         public DeviceEntity insertDevice(DeviceEntity device) {
+                device.setDiscardStatus(1);
                 return deviceRepository.save(device);
         }
 

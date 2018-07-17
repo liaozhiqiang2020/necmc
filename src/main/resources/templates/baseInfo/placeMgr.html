@@ -231,8 +231,8 @@
                             },
                             parameterMap:function(options, operation){
                                 // console.log(options.models);
+                                console.log(place_index2_Id);
                                 if (operation === "destroy") {
-                                    console.log(operation);
                                     var placeId = options.id;
 
                                     var list = {
@@ -273,8 +273,8 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp",editable: false},
-                                    endDateTime: {type: "timestamp",editable: false},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
@@ -381,8 +381,7 @@
 
             function detailInit2(e) {
                 var detailRow = e.detailRow;
-                var placeId = e.data.id;
-                console.log("detail2-----------"+placeId);
+                var place_index2_Id = e.data.id;
 
                 detailRow.find(".tabstrip").kendoTabStrip({
                     animation: {
@@ -393,7 +392,7 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url: "./placeMgr/findPlaceByParentId?placeId="+placeId
+                                url: "./placeMgr/findPlaceByParentId?placeId="+place_index2_Id
                             },
                             create: {
                                 url: "./placeMgr/insertPlace",
@@ -457,8 +456,8 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp",editable: false},
-                                    endDateTime: {type: "timestamp",editable: false},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
@@ -564,7 +563,7 @@
 
             function detailInit3(e) {
                 var detailRow = e.detailRow;
-                var placeId = e.data.id;
+                var place_index2_Id = e.data.id;
                 // console.log(placeId);
 
                 detailRow.find(".tabstrip").kendoTabStrip({
@@ -576,7 +575,7 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url: "./placeMgr/findPlaceByParentId?placeId="+placeId
+                                url: "./placeMgr/findPlaceByParentId?placeId="+place_index2_Id
                             },
                             create: {
                                 url: "./placeMgr/insertPlace",
@@ -640,8 +639,8 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp",editable: false},
-                                    endDateTime: {type: "timestamp",editable: false},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
@@ -819,7 +818,7 @@
                 var input = $('<input required name="' + options.field + '"/>');
                 input.appendTo(container);
                 input.kendoComboBox({
-                    autoBind: true,
+                    autoBind: false,
                     placeholder: "请选择...",
                     dataTextField: "name",
                     dataValueField: "id",
@@ -845,7 +844,7 @@
                 var input = $('<input required name="' + options.field + '"/>');
                 input.appendTo(container);
                 input.kendoComboBox({
-                    autoBind: true,
+                    autoBind: false,
                     placeholder: "请选择...",
                     dataTextField: "name",
                     dataValueField: "id",

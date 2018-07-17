@@ -162,8 +162,6 @@ public class PlaceServiceImpl implements PlaceService {
          */
         @Override
         public PlaceEntity insertPlace(PlaceEntity place) {
-                place.setpId(0);
-                place.setPlaceLevelId(1);
                 place.setDiscardStatus(1);
                 return  this.placeRepository.save(place);
         }
