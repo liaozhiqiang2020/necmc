@@ -163,11 +163,28 @@ public class PlaceServiceImpl implements PlaceService {
         @Override
         public PlaceEntity insertPlace(PlaceEntity place) {
                 place.setDiscardStatus(1);
+                place.setpId(null);
                 return  this.placeRepository.save(place);
         }
 
         @Override
         public PlaceEntity updatePlace(PlaceEntity placeEntity) {
+                placeEntity.setpId(null);
+                return this.placeRepository.save(placeEntity);
+        }
+
+        /**4
+         * 插入一条场地数据
+         * @param place
+         */
+        @Override
+        public PlaceEntity insertPlaceChild(PlaceEntity place) {
+                place.setDiscardStatus(1);
+                return  this.placeRepository.save(place);
+        }
+
+        @Override
+        public PlaceEntity updatePlaceChild(PlaceEntity placeEntity) {
                 return this.placeRepository.save(placeEntity);
         }
 

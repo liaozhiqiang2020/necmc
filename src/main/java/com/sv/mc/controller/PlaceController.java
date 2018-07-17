@@ -118,6 +118,28 @@ public class PlaceController {
     }
 
     /**
+     * 插入一条场地数据
+     * @param placeEntity
+     * @return
+     */
+    @RequestMapping(value = "/placeMgr/insertPlaceChild",method = RequestMethod.POST)
+    public @ResponseBody
+    PlaceEntity insertPlaceChild(@RequestBody PlaceEntity placeEntity){
+        return  this.placeService.insertPlaceChild(placeEntity);
+    }
+
+    /**
+     * 更改场地数据
+     * @param placeEntity
+     * @return
+     */
+    @RequestMapping(value = "/placeMgr/updatePlaceChild",method = RequestMethod.POST)
+    public @ResponseBody
+    PlaceEntity updatePlaceChild(@RequestBody PlaceEntity placeEntity){
+        return this.placeService.updatePlaceChild(placeEntity);
+    }
+
+    /**
      * 逻辑删除场地数据
      */
     @RequestMapping(value = "/placeMgr/deletePlace",method = RequestMethod.POST)

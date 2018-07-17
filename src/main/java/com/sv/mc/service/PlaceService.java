@@ -73,6 +73,20 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     PlaceEntity updatePlace(PlaceEntity placeEntity);
 
+    /**4
+     * 插入一条场地数据
+     * @param placeEntity
+     * @return PlaceEntity
+     */
+    PlaceEntity insertPlaceChild(PlaceEntity placeEntity);
+
+    /**
+     * 根据分公司id更改对应的场地数据
+     * @param placeEntity 新场地名称
+     * @return placeEntity
+     */
+    PlaceEntity updatePlaceChild(PlaceEntity placeEntity);
+
 
     /**
      * 根据id修改状态
