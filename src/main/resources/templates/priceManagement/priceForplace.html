@@ -66,7 +66,7 @@
                             type: "json",
                             transport: {
                                 read:  {
-                                    url: "./allPlace",
+                                    url: "./placeMgr/allPlace",
                                     dataType: "json"
                                 },
                                 parameterMap: function(options, operation) {
@@ -225,7 +225,7 @@
                                 serverPaging: true,
                                 serverSorting: true,
                                 serverFiltering: true,
-                                pageSize: 7,
+                                pageSize: 5,
                                 schema: {
                                     model: {
                                         id: "id",

@@ -218,7 +218,7 @@ public class PriceController {
     public ModelAndView turnToRoleMgrTest() {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("./priceDemo");
+        mv.setViewName("./priceManagement/priceDemo");
         return mv;
     }
 
@@ -231,7 +231,7 @@ public class PriceController {
     public ModelAndView turnTopriceMgrTest() {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("./priceForplace");
+        mv.setViewName("./priceManagement/priceForplace");
         return mv;
     }
 
