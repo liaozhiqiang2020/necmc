@@ -14,8 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
-@Controller
-@RequestMapping("/branchMgr")
+@RestController
 public class BranchController {
     //注入
     @Autowired
@@ -36,7 +35,7 @@ public class BranchController {
      * 全部查询
      * @return 返回所有分公司内容
      */
-    @GetMapping(value = "/allBranchByPage")
+    @GetMapping(value = "/branchMgr/allBranchByPage")
     public @ResponseBody
     String getAllBranchsByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
         return this.branchService.findAllBranchByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
@@ -46,7 +45,7 @@ public class BranchController {
      * 全部查询
      * @return 返回所有分公司内容(不分页)
      */
-    @GetMapping(value = "/allBranch")
+    @GetMapping(value = "/branchMgr/allBranch")
     public @ResponseBody
     List<BranchEntity> getAllBranchs() {
         return this.branchService.findAllEntities();
@@ -57,20 +56,18 @@ public class BranchController {
      * @param id
      * @return 单个分公司内容
      */
-    @RequestMapping(value = "/branch",method=RequestMethod.GET)
+    @RequestMapping(value = "/branchMgr/branch",method=RequestMethod.GET)
     public @ResponseBody
-        BranchEntity getbranchById(@PathParam("id") int id ) {
+    BranchEntity getbranchById(@PathParam("id") int id ) {
             return this.branchService.findBranchById(id);
     }
-
-
 
     /**
      * 插入一条分公司数据
      * @param branch
      * @return
      */
-    @RequestMapping(value = "/insertBranch",method = RequestMethod.POST)
+    @RequestMapping(value = "/branchMgr/insertBranch",method = RequestMethod.POST)
     public @ResponseBody
     BranchEntity insertBranch(@RequestBody BranchEntity branch){
         return  branchService.insertBranch(branch);
@@ -81,17 +78,16 @@ public class BranchController {
      * @param branch
      * @return
      */
-    @RequestMapping(value = "/updateBranch",method = RequestMethod.POST)
+    @RequestMapping(value = "/branchMgr/updateBranch",method = RequestMethod.POST)
     public @ResponseBody
     BranchEntity updateBranch(@RequestBody BranchEntity branch){
         return branchService.updateBranchDataById(branch);
-
     }
 
     /**
      * 逻辑删除分公司数据
      */
-    @RequestMapping(value = "/deleteBranch",method = RequestMethod.POST)
+    @RequestMapping(value = "/branchMgr/deleteBranch",method = RequestMethod.POST)
     public @ResponseBody
     void deleteBranch(@RequestBody BranchEntity branch){
         branchService.deleteBranch(branch.getId());

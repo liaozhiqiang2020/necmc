@@ -1,27 +1,35 @@
 package com.sv.mc.controller;
 
+import com.google.gson.Gson;
+import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
+import com.sv.mc.service.PriceHistoryService;
+import com.sv.mc.service.PriceService;
 import com.sv.mc.service.impl.PriceHistoryServiceImpl;
 import com.sv.mc.service.impl.PriceServiceImpl;
-import lombok.experimental.var;
+import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PriceController {
 
     @Resource
-    private PriceServiceImpl priceService;
+    private PriceService priceService;
 
     @Resource
-    private PriceHistoryServiceImpl priceHistoryService;
+    private PriceHistoryService priceHistoryService;
 
     /**
      * 分页查询价格列表
@@ -29,11 +37,30 @@ public class PriceController {
      * @param pageSize 页号
      * @return
      */
-    @GetMapping("/price/pageall")
-    public Page<PriceEntity> findAllPagePrcie(@RequestParam String page, @RequestParam String pageSize){
-        PageRequest pageRequest =new PageRequest(Integer.parseInt(page)-1,Integer.parseInt(pageSize));
-        Page<PriceEntity> priceEntityPage = this.priceService.findAllPagePrice(pageRequest);
-        return priceEntityPage;
+    @GetMapping("/price/pageAll")
+    public String findAllPagePrice(@Param("page") String page, @Param("pageSize") String pageSize){
+        System.out.println(page);
+        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
+        DataSourceResult<PriceEntity> PriceEntityDataSourceResult = new DataSourceResult<>();
+        Page<PriceEntity> PriceEntityPage = this.priceService.findAllPagePrice(pageRequest);
+        PriceEntityDataSourceResult.setData(PriceEntityPage.getContent());
+        PriceEntityDataSourceResult.setTotal(PriceEntityPage.getTotalPages());
+        Gson gson = new Gson();
+        return gson.toJson(PriceEntityPage);
+    }
+
+    /**
+     * 不分页查询价格列表,价格状态为正常的
+     * @return 价格集合
+     */
+    @GetMapping("/price/status")
+    public List<PriceEntity> findStatusPrice(){
+        List<PriceEntity> priceList = priceService.findStatusPrice();
+        for (PriceEntity priceEntity:priceList) {
+            int useTime = priceEntity.getUseTime()/60;
+            priceEntity.setUseTime(useTime);
+        }
+        return priceList;
     }
 
     /**
@@ -69,66 +96,112 @@ public class PriceController {
      * @param priceEntity 价格对象
      */
     @PostMapping("/price/save")
-    public String addPrice(@RequestBody PriceEntity priceEntity){
-        this.priceService.addPrice(priceEntity);
-        PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
-        priceHistoryEntity.setUseTime(priceEntity.getUseTime());
-        priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
-        priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
-        priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
-        priceHistoryEntity.setPrice(priceEntity.getPrice());
-        priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
-        priceHistoryEntity.setStatus(priceEntity.getStatus());
-        priceHistoryEntity.setUser(priceEntity.getUser());
-//        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
-
-        this.priceHistoryService.addPrice(priceHistoryEntity);
-        return "保存成功";
+    public PriceEntity addPrice(@RequestBody PriceEntity priceEntity){
+        return this.priceService.addPrice(priceEntity);
     }
 
     /**
      * 更新价格
-     * @param models 价格对象集合
+     * @param priceEntity 价格对象
      */
     @PostMapping("/price/update")
+    public PriceEntity updatePrice(@RequestBody PriceEntity priceEntity){
+        return this.priceService.updatePrice(priceEntity);
+    }
+
+    /**
+     * 批量更新或保存价格
+     * @param models 价格对象集合
+     */
+    @PostMapping("/price/updateList")
     public @ResponseBody List<PriceEntity> updatePrice(@RequestBody List<PriceEntity> models) {
-        System.out.println(models);
-        List<PriceEntity> persistPriceList = this.priceService.batchSaveOrUpdatePrice(models);
-        return persistPriceList;
+        List<PriceEntity> priceEntityList = this.priceService.batchSaveOrUpdatePrice(models);
+        for (PriceEntity price:priceEntityList
+                ) {
+            price.setUseTime(price.getUseTime()/60);
+        }
+        return priceEntityList;
+    }
+
+    /**
+     * 批量删除价格
+     * @param models 价格对象集合
+     */
+    @PostMapping("/price/batchDelete")
+    public  List<PriceEntity> batchDeletePrice(@RequestBody List<PriceEntity> models) {
+        List<PriceEntity> priceEntityList = this.priceService.batchDeletePrice(models);
+        return priceEntityList;
     }
 
     /**
      * 删除价格
-     * @param priceId 价格Id
+     * @param priceEntity 价格Id
      */
     @PostMapping("/price/delete")
-    public String deletePrice(@RequestBody int priceId){
-        this.priceService.deletePrice(priceId);
-        PriceEntity priceEntity = this.priceService.findPriceById(priceId);
-        PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
-        priceHistoryEntity.setUseTime(priceEntity.getUseTime());
-        priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
-        priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
-        priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
-        priceHistoryEntity.setPrice(priceEntity.getPrice());
-        priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
-        priceHistoryEntity.setStatus(priceEntity.getStatus());
-        priceHistoryEntity.setUser(priceEntity.getUser());
-//        priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
-        this.priceHistoryService.addPrice(priceHistoryEntity);
-        return "删除成功";
+    public void deletePrice(@RequestBody PriceEntity priceEntity){
+        this.priceService.deletePrice(priceEntity);
     }
 
     /**
-     * 根据设备id查询价格
+     * 根据设备id查询价格和时长
      * @param deviceId
-     * @return 当前设备的价格集合
+     * @return 当前设备的价格，时长集合
      */
-    @PostMapping("/price/devicePrice")
+    @PostMapping("/price/deviceUse")
     public List<Object[]> findPriceByDeviceId(@RequestParam int deviceId){
 
-     return this.priceService.findPriceByDeviceId(deviceId);
+        return this.priceService.findPriceByDeviceId(deviceId);
 
+    }
+
+    /**
+     * 根据机器查询当前机器已绑定价格
+     * @param deviceId
+     * @return
+     */
+    @GetMapping("/price/devicePrice")
+    public List<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId){
+        return this.priceService.findDevicePrice(deviceId);
+    }
+
+    /**
+     * 查询当前设备可绑定的未绑定价格
+     * @param deviceId
+     * @return 价格集合
+     */
+    @GetMapping("/price/deviceUnPrice")
+    public List<PriceEntity> findDeviceUnPrice(@RequestParam int deviceId){
+        return this.priceService.findUnDevicePrice(deviceId);
+    }
+
+    /**
+     * 给对应机器绑定价格
+     * @param listMap 价格id集合与机器Id
+     * @return 保存成功消息
+     */
+    @PostMapping("/price/deviceSavePrice")
+    public List<PriceEntity> deviceSavePrice(@RequestBody Map<String,Object> listMap){
+        return this.priceService.deviceSavePrice(listMap);
+    }
+
+    /**
+     * 为机器删除其绑定的价格
+     * @param listMap 价格Id与机器Id
+     * @return 该机器已绑定集合
+     */
+    @PostMapping("/price/deviceDeletePrice")
+    public List<PriceEntity> deviceDeletePrice(@RequestBody Map<String,Object> listMap){
+        return  this.priceService.deviceDeletePrice(listMap);
+    }
+
+    /**
+     * 为场地上某种类型的所有的机器进行价格绑定
+     * @param listMap 场地id 与 价格id集合
+     * @return 可绑定价格集合
+     */
+    @PostMapping("/price/placeAddPrice")
+    public List<PriceEntity> placeAddPrice(@RequestBody Map<String,Object> listMap){
+        return this.priceService.placeAddPrice(listMap);
     }
 
 
@@ -139,14 +212,13 @@ public class PriceController {
 
     /**
      * 跳转到priceTest页面
-     *
      * @return
      */
     @GetMapping(value = "/priceTest")
     public ModelAndView turnToRoleMgrTest() {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("./priceDemo");
+        mv.setViewName("./priceManagement/priceDemo");
         return mv;
     }
 
@@ -159,7 +231,7 @@ public class PriceController {
     public ModelAndView turnTopriceMgrTest() {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("./priceForplace");
+        mv.setViewName("./priceManagement/priceForplace");
         return mv;
     }
 

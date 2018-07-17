@@ -1,5 +1,6 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -40,9 +41,36 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     List<PlaceEntity> findAllPlaceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**
+     * 不分页查询场地方信息
+     * @return
+     */
+    @Query(value="select * from mc_place as b where b.discard_status=1",nativeQuery = true)
+    List<PlaceEntity> findAllPlace();
+
+    /**
+     * 不分页查询场地方信息(pId为0，第一级)
+     * @return
+     */
+    @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId=0")
+    List<PlaceEntity> findAllPlaces();
+
+    /**
      * 查询数量
      * @return
      */
     @Query(value="select count(*) from mc_place as b where b.discard_status=1",nativeQuery = true)
     int findPlaceTotal();
+
+    /**
+     * 根据场地id查询他的字节点
+     */
+    @Query("from PlaceEntity where pId=:placeId and discardStatus=1")
+    List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
+
+    /**
+     * 根据场地id查所有设备
+     * @return
+     */
+    @Query("select p.deviceEntities from PlaceEntity p where p.id=:placeId")
+    List<DeviceEntity> findAllDeviceByPlaceId(@Param("placeId") int placeId);
 }

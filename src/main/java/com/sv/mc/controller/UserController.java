@@ -1,66 +1,82 @@
 package com.sv.mc.controller;
 
 import com.google.gson.*;
+import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.pojo.sysUserEntity;
 import com.sv.mc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+@RestController("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    @Resource
+    UserService userService;
 
-    
-    @GetMapping(value = "/user/index")
-    public String index() {
-        return "Hello world!";
+    /**
+     * 查询所有user
+     * @return 返回User集合
+     */
+    @GetMapping("/all")
+    public List<UserEntity> findUserAll(){
+        return this.userService.findAllUser();
     }
 
-    @GetMapping(value = "/user/getAllUsers")
-    public @ResponseBody
-    List<sysUserEntity> getAllUsers() {
-        List<sysUserEntity> sysUserEntityList = this.userService.findAllEntities();
-        return sysUserEntityList;
+    /**
+     * 查询所有user
+     * @return 返回User集合
+     */
+    @GetMapping("/allStatus")
+    public List<UserEntity> findAllByStatus(){
+        return this.userService.findAllByStatus();
     }
 
-//    @GetMapping(value = "/user/save")
-//    public void saveOrUpdateUser(@RequestBody sysUserEntity user) {
-//        this.userService.saveOrUpdate(user);
-//    }
+    /**
+     * 根据id查询当前用户
+     * @param userId 当前用户id
+     * @return 用户信息
+     */
+    @GetMapping("/currentUser")
+    public UserEntity findUserById (@RequestParam("userId") int userId){
+        return this.userService.findUserById(userId);
+    }
 
-    @PostMapping(value = "/user/updateUser")
-    public @ResponseBody
-    String updateUser(@RequestBody String gridParams) {
-        System.out.println(gridParams);
-        String url = new String();
-        try {
-            url = URLDecoder.decode(gridParams, "UTF-8");
-            url = url.replaceAll("models=", "");
-            //url = url.substring(1, url.length()-1);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        // Creates the json object which will manage the information received
-        GsonBuilder builder = new GsonBuilder();
+    /**
+     * 逻辑删除用户
+     * @param userEntity 用户对象
+     */
+    @PostMapping("/delete")
+    public void deleteUser(@RequestBody UserEntity userEntity){
+        this.userService.deleteUser(userEntity);
+    }
 
-        // Register an adapter to manage the date types as long values
-        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return new Date(json.getAsJsonPrimitive().getAsLong());
-            }
-        });
+    /**
+     * 更新或保存用户
+     * @param userEntity
+     * @return
+     */
+    @PostMapping("/saveOrUpdate")
+    public UserEntity saveOrUpdateUser (@RequestBody UserEntity userEntity){
+        return this.saveOrUpdateUser(userEntity);
+    }
 
-        Gson gson = builder.create();
-        sysUserEntity userMap = gson.fromJson(url, sysUserEntity.class);
-        System.out.println(userMap);
-        return "ok";
+    /**
+     * 跳转到userManagement页面
+     * @return
+     */
+    @GetMapping(value = "/userManagement")
+    public ModelAndView turnToUserManagement() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("./authorityManagement/userMgr");
+        return mv;
     }
 }

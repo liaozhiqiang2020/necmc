@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header::header-css">
-    <title>分公司管理</title>
+    <title>价格管理</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
@@ -25,35 +25,41 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./branchMgr/allBranchByPage"
+                                url: "./price/status"
                             },
                             create: {
-                                url: "./branchMgrinsertBranch",
+                                url: "./price/save",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "./branchMgrdeleteBranch",
+                                url: "./price/delete",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./branchMgrupdateBranch",
+                                url:  "./price/update",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             parameterMap:function(options, operation){
 
-                                if(operation=="read"){
-                                    var page = $("#grid").data("kendoGrid").dataSource.page();
-                                    var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                                    return {page:page,pageSize:pageSize};
+                                // if(operation=="read"){
+                                //     var page = $("#grid").data("kendoGrid").dataSource.page();
+                                //     var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
+                                //     return {page:page,pageSize:pageSize};
+                                // }
+                                if(operation === "create"||operation ==="update"){
+                                    var endDate =options.endDateTime;
+                                    var startDate = options.startDateTime;
+                                    options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    return kendo.stringify(options);
                                 }
                                 if(operation !== "read"){
-                                    console.log(options);
                                     return kendo.stringify(options);
                                 }
                             }
@@ -67,22 +73,25 @@
                             model: {
                                 id: "id",
                                 fields: {
-                                    id: {type: "number", editable: false},
-                                    name: {type: "string"},
-                                    branchAddress: {type: "string"},
-                                    principal: {type: "string"},
-                                    telephone: {type: "string"},
-                                    email: {type: "string"},
-                                    headQuartersEntity:{defaultValue: { id: 1, name: ""}}
-                                 }
+                                    id: { editable: false, nullable: true },
+                                    price: { type: "number", validation: { required: true, min: 1} },
+                                    useTime: { type: "number" ,validation: { required: true, min: 1} },
+                                    // createDateTime: { type: "timestamp",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                    startDateTime: { type: "timestamp", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                    endDateTime: { type: "timestamp", format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                    userId: { type: "int" ,editable: false},
+                                    status: { type: "number",editable: false },
+                                    priceName : {type : "string"},
+                                    user :{type:"array",editable: false},
+                                    // deviceModelEntity : {type:"array"},
+                                }
                             },
-                            data: function (response) {
-                                var list = JSON.parse(response).data;
-                                return list;
-                            },
-                            total: function (response) {
-                                return JSON.parse(response).total;
-                            }
+                            // data: function (response) {
+                            //     return JSON.parse(response).content;
+                            // },
+                            // total: function (response) {
+                            //     return JSON.parse(response).total;
+                            // }
                         }
                     });
 
@@ -126,28 +135,18 @@
                             }
                         },
                         columns: [
-                            {
-                                field: "name",
-                                title: "分公司名称"
-                            }, {
-                                field: "branchAddress",
-                                title: "分公司地址"
-                            }, {
-                                field: "principal",
-                                title: "分公司负责人"
-                            }, {
-                                field: "telephone",
-                                title: "分公司联系电话"
-                            }, {
-                                field: "email",
-                                title: "分公司邮箱"
-                            },
-                            {
-                                field: "headQuartersEntity",
-                                title: "总公司名称",
-                                template:"#=headQuartersEntity.name#",
-                                editor:roleListDropDownEditor
-                            },
+                            {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
+                            { field: "priceName",title: "价格名称", width: 100,filterable: { multi: true, search: true} },
+                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true } },
+                            { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
+                            // { field: "user", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'>#=user.name#</span>" },
+                            // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                            { field: "startDateTime",title: "启用时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                editor: changeDate },
+                            { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                editor: changeDate },
+                            // { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#，",editor:roleListDropDownEditor},
+
                             {
                                 command: [
                                     {
@@ -156,17 +155,31 @@
                                         name: "destroy", text: "删除"
                                     }],
                                 title: "操作",
-                                width: "250px"
+                                width: "200px"
                             }
                         ],
                         editable: {
                             mode: "popup",
                             window: {
-                                title: "分公司管理"
+                                title: "价格管理"
                             }
+                        },
+
+                        dataBound: function () {
+                            var rows = this.items();
+                            var page = this.pager.page() - 1;
+                            var pagesize = this.pager.pageSize();
+                            $(rows).each(function () {
+                                var index = $(this).index() + 1 + page * pagesize;
+                                var rowLabel = $(this).find(".row-number");
+                                $(rowLabel).html(index);
+                            });
                         }
                     });
+
                 }
+
+
 
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
                 function onRequestEnd(e) {
@@ -201,10 +214,36 @@
                     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                 }
 
-                //打开标记窗口时下拉列表展示
+                function changeDate(container, options) {
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoDateTimePicker({
+                        format: "{0:yyyy-MM-dd HH:mm}"
+                    });
+                }
+
+               let format = function(format)
+                {
+                    var o = {
+                        "M+" : this.getMonth()+1, //month
+                        "d+" : this.getDate(),    //day
+                        "h+" : this.getHours(),   //hour
+                        "m+" : this.getMinutes(), //minute
+                        "s+" : this.getSeconds(), //second
+                        "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+                        "S" : this.getMilliseconds() //millisecond
+                    }
+                    if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+                        (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                    for(var k in o)if(new RegExp("("+ k +")").test(format))
+                        format = format.replace(RegExp.$1,
+                            RegExp.$1.length==1 ? o[k] :
+                                ("00"+ o[k]).substr((""+ o[k]).length));
+                    return format;
+                }
                 function roleListDropDownEditor(container, options) {
                     // console.log(options.model);
-                    var headId = options.model.headQuartersEntity.id;
+                    var typeId = options.model.deviceModelEntity.id;
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
@@ -213,12 +252,12 @@
                         placeholder: "请选择...",
                         dataTextField: "name",
                         dataValueField: "id",
-                        value: headId,
+                        value: typeId,
                         dataSource: {
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./headMgr/allHead",
+                                    url: "./deviceModel/all",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -227,6 +266,7 @@
                         }
                     });
                 }
+
                 /*]]>*/
             </script>
         </div>

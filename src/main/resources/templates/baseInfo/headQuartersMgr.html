@@ -23,20 +23,20 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "allHeadByPage"
+                                url: "./headMgr/allHeadByPage"
                             },
                             create: {
-                                url: "insertHead",
+                                url: "./headMgr/insertHead",
                                 dataType: "json",
                                 type: "post"
                             },
                             destroy: {
-                                url: "deleteHead",
+                                url: "./headMgr/deleteHead",
                                 dataType: "json",
                                 type: "post"
                             },
                             update: {
-                                url:  "updateHead",
+                                url:  "./headMgr/updateHead",
                                 dataType: "json",
                                 type: "post"
                             }

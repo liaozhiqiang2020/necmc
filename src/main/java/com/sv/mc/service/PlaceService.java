@@ -1,6 +1,7 @@
 package com.sv.mc.service;
 
 import com.sv.mc.pojo.BranchEntity;
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 
 import java.util.List;
@@ -48,6 +49,16 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     String findAllPlaceByPage(int page, int pageSize);
 
+    /**
+     * 不分页查询场地数据
+     */
+    String findAllPlace();
+
+    /**
+     * 不分页查询场地数据
+     */
+    List<PlaceEntity> findAllPlaces();
+
     /**4
      * 插入一条场地数据
      * @param placeEntity
@@ -67,5 +78,17 @@ public interface PlaceService<T> extends BaseService<T>{
      * 根据id修改状态
      */
     void deletePlace(int placeId);
+
+    /**
+     * 根据场地Id查询该场地的所有设备
+     * @param placeId
+     * @return
+     */
+    List<DeviceEntity> findDeviceByPlace(int placeId);
+
+    /**
+     * 根据场地id查询他的字节点
+     */
+    String findPlaceByParentId(int placeId);
 
 }

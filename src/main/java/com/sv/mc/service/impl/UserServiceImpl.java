@@ -1,5 +1,6 @@
 package com.sv.mc.service.impl;
 
+import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.pojo.sysUserEntity;
 import com.sv.mc.repository.UserRepository;
 import com.sv.mc.service.UserService;
@@ -10,37 +11,43 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService<sysUserEntity> {
+public class UserServiceImpl implements UserService<UserEntity> {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Resource
+    UserRepository userRepository;
 
     @Override
-    public int specificCalculate() {
-        return 1 + 1;
+    public List<UserEntity> findEntitiesPager() {
+        return null;
     }
 
     @Override
-    @Transactional
-    @Cacheable
-    public List<sysUserEntity> findAllEntities() {
-        return this.userRepository.findAll();
+    public List<UserEntity> findAllUser() {
+       return this.userRepository.findAll();
     }
 
     @Override
-    @Transactional
-    public List<sysUserEntity> findEntitiesPager(){
-        PageRequest pageRequest = new PageRequest(0,5);
-        Page<sysUserEntity> userEntityPage = userRepository.findAll(pageRequest);
-        return userEntityPage.getContent();
+    public List<UserEntity> findAllByStatus() {
+        return this.userRepository.findAllByStatus();
     }
 
     @Override
-    @Transactional
-    public sysUserEntity findUserByUserName(String userName) {
-        return this.userRepository.findUserByUserName(userName);
+    public UserEntity saveOrUpdateUser(UserEntity user) {
+        return this.userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(UserEntity user) {
+       user.setStatus(1);
+       this.userRepository.save(user);
+    }
+
+    @Override
+    public UserEntity findUserById(int userId) {
+       return this.userRepository.findUserById(userId);
     }
 }

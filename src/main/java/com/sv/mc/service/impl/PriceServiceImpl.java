@@ -1,18 +1,18 @@
 package com.sv.mc.service.impl;
 
-import com.sv.mc.pojo.PriceEntity;
-import com.sv.mc.pojo.PriceHistoryEntity;
-import com.sv.mc.repository.PriceHistoryRepository;
-import com.sv.mc.repository.PriceRepository;
-import com.sv.mc.service.PriceHistoryService;
+import com.google.gson.Gson;
+import com.sv.mc.pojo.*;
+import com.sv.mc.repository.*;
 import com.sv.mc.service.PriceService;
+import com.sv.mc.weixinpay.vo.Json;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.awt.print.PrinterException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -31,40 +31,20 @@ public class PriceServiceImpl implements PriceService {
     private PriceRepository priceRepository;
 
     @Resource
-    private PriceHistoryService priceHistoryService;
+    private PriceHistoryServiceImpl priceHistoryService;
 
     @Resource
-    private PriceHistoryRepository priceHistoryRepository;
+    private DeviceModelRepository deviceModelRepository;
 
-    /**
-     * 批量新增、更新价格数据
-     * @param priceEntityList 价格对象列表
-     * @return 已经新增或更新的价格对象列表，准备返回前台画面进行展示
-     */
-    @Override
-    public List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList) {
-        List<PriceHistoryEntity> priceHistoryEntityList = new ArrayList<>(); //创建价格变化历史对象
-        for (PriceEntity priceEntity : priceEntityList) {
-            //给必要的成员变量赋值
-            PriceHistoryEntity priceHistoryEntity = new PriceHistoryEntity();
-            priceHistoryEntity.setUseTime(priceEntity.getUseTime());
-            priceHistoryEntity.setCreateDateTime(priceEntity.getCreateDateTime());
-            priceHistoryEntity.setEndDateTime(priceEntity.getEndDateTime());
-            priceHistoryEntity.setLatestDateTime(new Timestamp(System.currentTimeMillis()));
-            priceHistoryEntity.setPrice(priceEntity.getPrice());
-            priceHistoryEntity.setStartDateTime(priceEntity.getStartDateTime());
-            priceHistoryEntity.setStatus(priceEntity.getStatus());
-            priceHistoryEntity.setUser(priceEntity.getUser());
-//            priceHistoryEntity.setDeviceEntities(priceEntity.getDeviceEntities());
-            priceHistoryEntityList.add(priceHistoryEntity);
-        }
-        //批量插入价格变化历史
-        this.priceHistoryRepository.saveAll(priceHistoryEntityList);
-        //批量插入或更新价格
-        List<PriceEntity> persistPriceList = this.priceRepository.saveAll(priceEntityList);
+    @Resource
+    private DeviceRepository deviceRepository;
 
-        return persistPriceList;
-    }
+    @Resource
+    private UserRepository userRepository;
+
+    @Resource
+    private PlaceRepository placeRepository;
+
 
     /**
      * 分页查询所有价格
@@ -91,6 +71,11 @@ public class PriceServiceImpl implements PriceService {
         return this.priceRepository.findAll();
     }
 
+    @Override
+    public List<PriceEntity> findStatusPrice() {
+        return this.priceRepository.findPriceEntitiesByStatus();
+    }
+
 
     /**
      * 更新价格
@@ -100,21 +85,24 @@ public class PriceServiceImpl implements PriceService {
     @Override
     @Transactional
     public PriceEntity updatePrice(PriceEntity priceEntity) {
-       return priceRepository.save(priceEntity);
+        int oldTime = priceEntity.getUseTime();
+        int useTime = oldTime*60;
+        priceEntity.setUseTime(useTime);
+        return priceRepository.save(priceEntity);
 
 
     }
 
     /**
      * 删除价格
-     * @param priceId 价格Id
+     * @param priceEntity 价格Id
      * @return 消息
      */
     @Transactional
     @Override
-    public void deletePrice(int priceId) {
-        PriceEntity price = priceRepository.findPriceEntitiesById(priceId);
-        this.priceRepository.delete(price);
+    public void deletePrice(PriceEntity priceEntity) {
+        priceEntity.setStatus(0);
+        this.priceRepository.save(priceEntity);
     }
 
     /**
@@ -135,8 +123,42 @@ public class PriceServiceImpl implements PriceService {
     @Override
     @Transactional
     public PriceEntity addPrice(PriceEntity priceEntity) {
-      return   this.priceRepository.save(priceEntity);
+        int oldTime = priceEntity.getUseTime();
+        int useTime = oldTime*60;
+        priceEntity.setUseTime(useTime);
+        priceEntity.setStatus(1);
+        priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
+        UserEntity userEntity =userRepository.findUserById(1);
+        priceEntity.setUser(userEntity);
+        DeviceModelEntity deviceModelEntity = deviceModelRepository.findById(1);
+        priceEntity.setDeviceModelEntity(deviceModelEntity);
+        return   this.priceRepository.save(priceEntity);
 
+    }
+
+    /**
+     * 批量删除或者保存价格数据
+     * @param priceEntityList
+     * @return 页面需要回显新的价格数据
+     */
+    @Override
+    @Transactional
+    public List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList) {
+        for (PriceEntity priceEntity:priceEntityList) {
+            priceEntity.setUseTime(priceEntity.getUseTime()*60);
+        }
+        List<PriceEntity> priceEntities = this.priceRepository.saveAll(priceEntityList);
+        return priceEntities;
+    }
+
+    @Transactional
+    @Override
+    public List<PriceEntity> batchDeletePrice(List<PriceEntity> priceEntityList) {
+        for (PriceEntity priceEntity:priceEntityList){
+            priceEntity.setStatus(0);
+        }
+        List<PriceEntity> priceEntities = this.priceRepository.saveAll(priceEntityList);
+        return priceEntities;
     }
 
     /**
@@ -144,9 +166,87 @@ public class PriceServiceImpl implements PriceService {
      * @param deviceId 设备Id
      * @return 当前机器的价格集合
      */
+    @Transactional(readOnly = true)
     @Override
     public List<Object[]> findPriceByDeviceId(int deviceId) {
         return this.priceRepository.findPriceEntitiesByDeviceID(deviceId);
+    }
+
+    @Transactional
+    @Override
+    public List<PriceEntity> findDevicePrice(int deviceId) {
+
+        return priceRepository.findDevicePrice(deviceId);
+    }
+
+    //查询该设备当前未绑定的价格
+    @Override
+    @Transactional
+    public List<PriceEntity> findUnDevicePrice(int deviceId) {
+        List<PriceEntity> priceAll = this.priceRepository.findPriceEntitiesByMcType(deviceId);
+        List<PriceEntity> priceEntityList = this.priceRepository.findDevicePrice(deviceId);
+        List<PriceEntity> priceList = new ArrayList<>();
+        for (PriceEntity price: priceAll
+             ) {
+
+        }
+
+        return priceAll;
+    }
+
+    @Transactional
+    @Override
+    public List<PriceEntity> deviceSavePrice(Map<String,Object> listMap) {
+        Object deviceId = listMap.get("deviceId");
+        Object price = listMap.get("price");
+        DeviceEntity device = this.deviceRepository.findDeviceById((int)deviceId);
+        for (int priceId: (ArrayList<Integer>)price
+                ) {
+            device.getPriceEntities().add(this.priceRepository.findPriceEntitiesById(priceId));
+        }
+        return device.getPriceEntities();
+    }
+
+    @Transactional
+    @Override
+    public List<PriceEntity> deviceDeletePrice(Map<String,Object> listMap) {
+        Object deviceId = listMap.get("deviceId");
+        Object price = listMap.get("price");
+        DeviceEntity device = this.deviceRepository.findDeviceById((int)deviceId);
+        for (int priceId: (ArrayList<Integer>)price
+                ) {
+            device.getPriceEntities().remove(this.priceRepository.findPriceEntitiesById(priceId));
+        }
+        return device.getPriceEntities();
+    }
+
+    //为场地上某种类型的机器添加价格
+    @Override
+    public List<PriceEntity> placeAddPrice(Map<String,Object> listMap) {
+
+        Object placeId = listMap.get("placeId");
+        Object price = listMap.get("price");
+        PlaceEntity place = this.placeRepository.findPlaceById((int)placeId);
+        for (DeviceEntity device: place.getDeviceEntities()
+                ) {
+            for (int priceId: (ArrayList<Integer>)price
+                    ) {
+                PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById(priceId);
+                if (device.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()){
+                    device.getPriceEntities().add(priceEntity);
+                    List<PriceEntity> priceEntityList = device.getPriceEntities();
+                        for  ( int  i  =   0 ; i  <  priceEntityList.size()  -   1 ; i ++ )  {
+                            for  ( int  j  =  priceEntityList.size()  -   1 ; j  >  i; j -- )  {
+                                if  (priceEntityList.get(j).equals(priceEntityList.get(i)))  {
+                                    priceEntityList.remove(j);
+                                }
+                            }
+                        }
+            }
+            }
+        }
+        this.placeRepository.save(place);
+        return this.priceRepository.findPriceEntitiesByStatus();
     }
 
 

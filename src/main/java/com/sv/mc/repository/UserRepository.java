@@ -1,14 +1,25 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.pojo.sysUserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends BaseRepository<sysUserEntity, Long>, PagingAndSortingRepository<sysUserEntity, Long> {
+import java.util.List;
 
-    @Query("from sysUserEntity as u where u.userName = :userName")
-    sysUserEntity findUserByUserName(@Param("userName") String userName);
+@Repository
+public interface UserRepository extends BaseRepository<UserEntity, Long>, PagingAndSortingRepository<UserEntity, Long> {
+
+    //根据用户账号查询用户
+    @Query("from UserEntity as u where u.userName = :userName")
+    UserEntity findUserByUserName(@Param("userName") String userName);
+
+    //根据Id查询用户
+    @Query("from UserEntity as u where u.id = :uId")
+    UserEntity findUserById(@Param("uId") int uId);
+
+    @Query("from UserEntity as u where u.status = 1")
+    List<UserEntity> findAllByStatus();
 }

@@ -1,14 +1,14 @@
 package com.sv.mc.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 价格实体类
@@ -24,24 +24,28 @@ public class PriceEntity {
     private Timestamp createDateTime;           //创建时间
     private int status;         //状态
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp startDateTime;            //价格开始时间
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp endDateTime;              //价格结束时间
     private String priceName;
+    private DeviceModelEntity deviceModelEntity; //价格对应机器类型
     private UserEntity user;            //一对多用户
-    private Set<DeviceEntity> deviceEntities = new HashSet<>();             //设备多对多集合
+    private List<DeviceEntity> deviceEntities = new ArrayList<>();             //设备多对多集合
 
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "mc_price_device",                       //指定第三张表
             joinColumns = {@JoinColumn(name = "price_id")},             //本表与中间表的外键对应
             inverseJoinColumns = {@JoinColumn(name = "device_id")})  //另一张表与第三张表的外键的对应关系
-    public Set<DeviceEntity> getDeviceEntities() {
+    public List<DeviceEntity> getDeviceEntities() {
         return deviceEntities;
     }
 
-    public void setDeviceEntities(Set<DeviceEntity> deviceEntities) {
+    public void setDeviceEntities(List<DeviceEntity> deviceEntities) {
         this.deviceEntities = deviceEntities;
     }
 
@@ -76,7 +80,8 @@ public class PriceEntity {
         this.useTime = useTime;
     }
 
-    @ManyToOne// 指定多对一关系
+
+    @ManyToOne(cascade = CascadeType.ALL)// 指定多对一关系
     @JoinColumn(name="user_id")
     public UserEntity getUser() {
         return user;
@@ -84,6 +89,17 @@ public class PriceEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+
+    @ManyToOne(cascade = CascadeType.ALL)// 指定多对一关系
+    @JoinColumn(name="mc_type")
+    public DeviceModelEntity getDeviceModelEntity() {
+        return deviceModelEntity;
+    }
+
+    public void setDeviceModelEntity(DeviceModelEntity deviceModelEntity) {
+        this.deviceModelEntity = deviceModelEntity;
     }
 
     @Basic
@@ -147,12 +163,16 @@ public class PriceEntity {
                 Objects.equals(price, that.price) &&
                 Objects.equals(createDateTime, that.createDateTime) &&
                 Objects.equals(startDateTime, that.startDateTime) &&
-                Objects.equals(endDateTime, that.endDateTime);
+                Objects.equals(endDateTime, that.endDateTime) &&
+                Objects.equals(priceName, that.priceName) &&
+                Objects.equals(deviceModelEntity, that.deviceModelEntity) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(deviceEntities, that.deviceEntities);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, price, useTime, createDateTime, status,  startDateTime, endDateTime);
+        return Objects.hash(id, price, useTime, createDateTime, status, startDateTime, endDateTime, priceName, deviceModelEntity, user, deviceEntities);
     }
 }

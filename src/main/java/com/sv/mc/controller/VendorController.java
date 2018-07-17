@@ -12,28 +12,27 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@Controller
-@RequestMapping("/vendorMgr")
+@RestController
 public class VendorController {
     //注入
     @Autowired
     private VendorService vendorService;
 
-//    /**
-//     * 全部查询
-//     * @return 返回所有代理商内容
-//     */
-//    @GetMapping(value = "/allVendor")
-//    public @ResponseBody
-//    List<VendorEntity> getAllVendor() {
-//        return this.vendorService.findAllEntities();
-//    }
+    /**
+     * 全部查询
+     * @return 返回所有代理商内容
+     */
+    @GetMapping(value = "/vendorMgr/getAllVendor")
+    public @ResponseBody
+    List<VendorEntity> getAllVendor() {
+        return this.vendorService.findAllEntities();
+    }
     /**
      * 根据分公司id查询单个代理商内容
      * @param id
      * @return 单个代理商内容
      */
-    @RequestMapping(value = "/vendor",method=RequestMethod.GET)
+    @RequestMapping(value = "/vendorMgr/vendor",method=RequestMethod.GET)
     public @ResponseBody
     VendorEntity getVendorById(@PathParam("id") int id ) {
             return this.vendorService.findVendorById(id);
@@ -79,9 +78,9 @@ public class VendorController {
      * 全部查询
      * @return 返回所有代理商内容
      */
-    @GetMapping(value = "/allVendor")
+    @GetMapping(value = "/vendorMgr/allVendor")
     public @ResponseBody
-    String getAllVendor(@Param("page") String page, @Param("pageSize") String pageSize) {
+    String getAllVendorByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
 //        System.out.println(this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize)));
 
         return this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
@@ -92,7 +91,7 @@ public class VendorController {
      * @param vendorEntity
      * @return
      */
-    @RequestMapping(value = "/insertVendor",method = RequestMethod.POST)
+    @RequestMapping(value = "/vendorMgr/insertVendor",method = RequestMethod.POST)
     public @ResponseBody
     VendorEntity insertVendor(@RequestBody VendorEntity vendorEntity){
         return this.vendorService.insertVendor(vendorEntity);
@@ -103,7 +102,7 @@ public class VendorController {
      * @param vendorEntity
      * @return
      */
-    @RequestMapping(value = "/updateVendor",method = RequestMethod.POST)
+    @RequestMapping(value = "/vendorMgr/updateVendor",method = RequestMethod.POST)
     public @ResponseBody
     VendorEntity updateVendor(@RequestBody VendorEntity vendorEntity){
        return this.vendorService.updateVendorDataById(vendorEntity);
@@ -112,7 +111,7 @@ public class VendorController {
     /**
      * 逻辑删除代理商数据
      */
-    @RequestMapping(value = "/deleteVendor",method = RequestMethod.POST)
+    @RequestMapping(value = "/vendorMgr/deleteVendor",method = RequestMethod.POST)
     public @ResponseBody
     void deleteVendor(@RequestBody VendorEntity vendorEntity){
         this.vendorService.deleteVendor(vendorEntity.getId());
