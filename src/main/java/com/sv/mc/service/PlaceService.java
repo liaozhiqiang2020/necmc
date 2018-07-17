@@ -64,14 +64,14 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param placeEntity
      * @return PlaceEntity
      */
-    PlaceEntity insertPlace(PlaceEntity placeEntity,String startDateTime,String endDateTime);
+    PlaceEntity insertPlace(PlaceEntity placeEntity);
 
     /**
      * 根据分公司id更改对应的场地数据
      * @param placeEntity 新场地名称
      * @return placeEntity
      */
-    PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTime,String endDateTime);
+    PlaceEntity updatePlace(PlaceEntity placeEntity);
 
 
     /**

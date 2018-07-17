@@ -15,7 +15,10 @@ import java.util.Objects;
 public class PlaceEntity {
     private int id;
     private String placeSn;
-    private int levelFlag;
+    private Integer levelFlag;
+    private Integer businessId;
+    private Integer cityId;
+    private Integer placeLevelId;
     private int discardStatus;
     private String principal;
     private String placeAddress;
@@ -29,10 +32,12 @@ public class PlaceEntity {
     private Integer pId;
     private Integer placeMapId;
     private String placeRank;
-    private int superiorId;
+    private Integer level;
+    private String placeLevelName;
+    private Integer superiorId;
+
 
     private List<DeviceEntity> deviceEntities = new ArrayList<>();
-
 
     @JsonIgnore
     @OneToMany( mappedBy = "placeEntity")  //指定一对多关系
@@ -44,7 +49,6 @@ public class PlaceEntity {
         this.deviceEntities = deviceEntities;
     }
 
-
     @Id
     @Column(name = "Id")
     public int getId() {
@@ -53,15 +57,6 @@ public class PlaceEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "superior_id")
-    public int getSuperiorId() {
-        return superiorId;
-    }
-    public void setSuperiorId(int superiorId) {
-        this.superiorId = superiorId;
     }
 
     @Basic
@@ -76,12 +71,42 @@ public class PlaceEntity {
 
     @Basic
     @Column(name = "level_flag")
-    public int getLevelFlag() {
+    public Integer getLevelFlag() {
         return levelFlag;
     }
 
-    public void setLevelFlag(int levelFlag) {
+    public void setLevelFlag(Integer levelFlag) {
         this.levelFlag = levelFlag;
+    }
+
+    @Basic
+    @Column(name = "business_id")
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
+    }
+
+    @Basic
+    @Column(name = "city_id")
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    @Basic
+    @Column(name = "place_level_id")
+    public Integer getPlaceLevelId() {
+        return placeLevelId;
+    }
+
+    public void setPlaceLevelId(Integer placeLevelId) {
+        this.placeLevelId = placeLevelId;
     }
 
     @Basic
@@ -194,15 +219,48 @@ public class PlaceEntity {
         this.placeRank = placeRank;
     }
 
+    @Basic
+    @Column(name = "level")
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    @Basic
+    @Column(name = "place_level_name")
+    public String getPlaceLevelName() {
+        return placeLevelName;
+    }
+
+    public void setPlaceLevelName(String placeLevelName) {
+        this.placeLevelName = placeLevelName;
+    }
+
+    @Basic
+    @Column(name = "superior_id")
+    public Integer getSuperiorId() {
+        return superiorId;
+    }
+
+    public void setSuperiorId(Integer superiorId) {
+        this.superiorId = superiorId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlaceEntity that = (PlaceEntity) o;
         return id == that.id &&
-                levelFlag == that.levelFlag &&
                 discardStatus == that.discardStatus &&
                 Objects.equals(placeSn, that.placeSn) &&
+                Objects.equals(levelFlag, that.levelFlag) &&
+                Objects.equals(businessId, that.businessId) &&
+                Objects.equals(cityId, that.cityId) &&
+                Objects.equals(placeLevelId, that.placeLevelId) &&
                 Objects.equals(principal, that.principal) &&
                 Objects.equals(placeAddress, that.placeAddress) &&
                 Objects.equals(name, that.name) &&
@@ -212,12 +270,15 @@ public class PlaceEntity {
                 Objects.equals(endDateTime, that.endDateTime) &&
                 Objects.equals(pId, that.pId) &&
                 Objects.equals(placeMapId, that.placeMapId) &&
-                Objects.equals(placeRank, that.placeRank);
+                Objects.equals(placeRank, that.placeRank) &&
+                Objects.equals(level, that.level) &&
+                Objects.equals(placeLevelName, that.placeLevelName) &&
+                Objects.equals(superiorId, that.superiorId);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, placeSn, levelFlag, discardStatus, principal, placeAddress, name, latitude, longitude, startDateTime, endDateTime, pId, placeMapId, placeRank);
+        return Objects.hash(id, placeSn, levelFlag, businessId, cityId, placeLevelId, discardStatus, principal, placeAddress, name, latitude, longitude, startDateTime, endDateTime, pId, placeMapId, placeRank, level, placeLevelName, superiorId);
     }
 }

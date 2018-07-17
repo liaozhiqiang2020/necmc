@@ -8,8 +8,10 @@ import com.sv.mc.repository.VendorRepository;
 import com.sv.mc.service.PlaceService;
 import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.DateJsonValueProcessor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,19 +126,56 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public String findAllPlace() {
-                Gson gson = new Gson();
-                DataSourceResult<PlaceEntity> placeEntityDataSourceResult = new DataSourceResult<>();
-                List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlace();
-                int total = this.placeRepository.findPlaceTotal();
-                placeEntityDataSourceResult.setData(placeEntityList);
-                placeEntityDataSourceResult.setTotal(total);
+//                Gson gson = new Gson();
+//                DataSourceResult<PlaceEntity> placeEntityDataSourceResult = new DataSourceResult<>();
+////                List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlace();
+////                int total = this.placeRepository.findPlaceTotal();
+////                placeEntityDataSourceResult.setData(placeEntityList);
+////                placeEntityDataSourceResult.setTotal(total);
+//
+//
+//                String result = gson.toJson(placeEntityDataSourceResult);
+////                System.out.println(result);
+//                JSONObject jsonObject = JSONObject.fromObject(result);
+//                JSONArray jsonArray =jsonObject.getJSONArray("data");
+//                JSONArray jsonArray1 = new JSONArray();
+//                String superiorName="";
+//                String levelFlagName="";
+//                for (int i = 0; i <jsonArray.size() ; i++) {
+//                        JSONObject jsonObject12 =jsonArray.getJSONObject(i);
+////                        System.out.println(jsonObject12);
+//                        int superiorId =Integer.parseInt(jsonObject12.get("superiorId").toString());
+//                        int levelFlag =Integer.parseInt(jsonObject12.get("levelFlag").toString());
+//                        if(levelFlag==1){
+//                                levelFlagName = "总部";
+//                                superiorName = this.vendorRepository.findHeadNameById(superiorId);
+//                        }else if(levelFlag==2){
+//                                levelFlagName = "分公司";
+//                                superiorName = this.vendorRepository.findBranchNameById(superiorId);
+//                        } else if(levelFlag==3){
+//                                levelFlagName = "代理商";
+//                                superiorName = this.vendorRepository.findVendorById(superiorId).getName();
+//                        }
+//                        jsonObject12.put("superiorName",superiorName);
+//                        jsonObject12.put("levelFlagName",levelFlagName);
+//                        jsonArray1.add(jsonObject12);
+//                }
+//
+////                System.out.println(jsonArray1.toString());
+//
+//                jsonObject.put("data",jsonArray1);
+//                return jsonObject.toString();
+
+//                return gson.toJson(placeEntityDataSourceResult);
 
 
-                String result = gson.toJson(placeEntityDataSourceResult);
-//                System.out.println(result);
-                JSONObject jsonObject = JSONObject.fromObject(result);
-                JSONArray jsonArray =jsonObject.getJSONArray("data");
-                JSONArray jsonArray1 = new JSONArray();
+                List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlaces();//查询所有pid为0的
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+                config.setExcludes(new String[] { "deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+                JSONArray jsonArray = JSONArray.fromObject(placeEntityList,config);//转化为jsonArray
+                JSONArray jsonArray1 = new JSONArray();//新建json数组
+
                 String superiorName="";
                 String levelFlagName="";
                 for (int i = 0; i <jsonArray.size() ; i++) {
@@ -158,13 +197,8 @@ public class PlaceServiceImpl implements PlaceService {
                         jsonObject12.put("levelFlagName",levelFlagName);
                         jsonArray1.add(jsonObject12);
                 }
+                return jsonArray1.toString();
 
-//                System.out.println(jsonArray1.toString());
-
-                jsonObject.put("data",jsonArray1);
-                return jsonObject.toString();
-
-//                return gson.toJson(placeEntityDataSourceResult);
         }
 
         /**4
@@ -172,47 +206,50 @@ public class PlaceServiceImpl implements PlaceService {
          * @param place
          */
         @Override
-        public PlaceEntity insertPlace(PlaceEntity place,String startDateTiame,String endDateTime) {
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-                ParsePosition pos = new ParsePosition(0);
-                BaseUtil baseUtil = new BaseUtil();
+        public PlaceEntity insertPlace(PlaceEntity place) {
+//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+//                ParsePosition pos = new ParsePosition(0);
+//                BaseUtil baseUtil = new BaseUtil();
+//
+//
+//                String nReviseDate = baseUtil.parseTime(startDateTiame);    //时间格式转换
+//                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
+//                Timestamp ts1 = new Timestamp(nReviseDate2.getTime());
+//
+//                String reviseDate = baseUtil.parseTime(endDateTime);    //时间格式转换
+//                Date reviseDate2 = sdf.parse(reviseDate,pos);
+//                Timestamp ts2 = new Timestamp(reviseDate2.getTime());
+//
+//
+//                place.setStartDateTime(ts1);
+//                place.setStartDateTime(ts2);
 
-
-                String nReviseDate = baseUtil.parseTime(startDateTiame);    //时间格式转换
-                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
-                Timestamp ts1 = new Timestamp(nReviseDate2.getTime());
-
-                String reviseDate = baseUtil.parseTime(endDateTime);    //时间格式转换
-                Date reviseDate2 = sdf.parse(reviseDate,pos);
-                Timestamp ts2 = new Timestamp(reviseDate2.getTime());
-
-
-                place.setStartDateTime(ts1);
-                place.setStartDateTime(ts2);
-
-
+                place.setpId(0);
+                place.setCityId(1);
+                place.setBusinessId(1);
+                place.setPlaceLevelId(1);
                 place.setDiscardStatus(1);
                 return  this.placeRepository.save(place);
         }
 
         @Override
-        public PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTiame,String endDateTime) {
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-                ParsePosition pos = new ParsePosition(0);
-                BaseUtil baseUtil = new BaseUtil();
-
-
-                String nReviseDate = baseUtil.parseTime(startDateTiame);    //时间格式转换
-                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
-                Timestamp ts1 = new Timestamp(nReviseDate2.getTime());
-
-                String reviseDate = baseUtil.parseTime(endDateTime);    //时间格式转换
-                Date reviseDate2 = sdf.parse(reviseDate,pos);
-                Timestamp ts2 = new Timestamp(reviseDate2.getTime());
-
-
-                placeEntity.setStartDateTime(ts1);
-                placeEntity.setStartDateTime(ts2);
+        public PlaceEntity updatePlace(PlaceEntity placeEntity) {
+//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+//                ParsePosition pos = new ParsePosition(0);
+//                BaseUtil baseUtil = new BaseUtil();
+//
+//
+//                String nReviseDate = baseUtil.parseTime(startDateTiame);    //时间格式转换
+//                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
+//                Timestamp ts1 = new Timestamp(nReviseDate2.getTime());
+//
+//                String reviseDate = baseUtil.parseTime(endDateTime);    //时间格式转换
+//                Date reviseDate2 = sdf.parse(reviseDate,pos);
+//                Timestamp ts2 = new Timestamp(reviseDate2.getTime());
+//
+//
+//                placeEntity.setStartDateTime(ts1);
+//                placeEntity.setStartDateTime(ts2);
 
                 return this.placeRepository.save(placeEntity);
         }

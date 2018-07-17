@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/placeMgr")
@@ -91,8 +92,8 @@ public class PlaceController {
      */
     @GetMapping(value = "/getAllPlace")
     public @ResponseBody
-    List<PlaceEntity> getAllPlace() {
-        return this.placeService.findAllPlaces();
+    String getAllPlace() {
+        return this.placeService.findAllPlace();
     }
 
     /**
@@ -102,12 +103,8 @@ public class PlaceController {
      */
     @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity insertPlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
-//        System.out.println(startDateTime);
-////        System.out.println(endDateTime);
-//        String startDateTime="51220";
-//        String endDateTime="88888";
-        return  this.placeService.insertPlace(placeEntity,startDateTime,endDateTime);
+    PlaceEntity insertPlace(@RequestBody PlaceEntity placeEntity){
+        return  this.placeService.insertPlace(placeEntity);
     }
 
     /**
@@ -117,8 +114,8 @@ public class PlaceController {
      */
     @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
-        return this.placeService.updatePlace(placeEntity,startDateTime,endDateTime);
+    PlaceEntity updatePlace(@RequestBody PlaceEntity placeEntity){
+        return this.placeService.updatePlace(placeEntity);
 
     }
 
@@ -127,8 +124,8 @@ public class PlaceController {
      */
     @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
     public @ResponseBody
-    void deletePlace(@RequestBody PlaceEntity placeEntity,BindingResult bindingResult){
-        this.placeService.deletePlace(placeEntity.getId());
+    void deletePlace(@RequestBody Map<String,Object> map){
+        this.placeService.deletePlace(Integer.parseInt(map.get("placeId").toString()));
     }
 
 
