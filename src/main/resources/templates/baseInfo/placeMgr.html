@@ -10,17 +10,32 @@
     <section th:replace="fragments/sitemap"/>
     <div class="container-fluid">
 
-        <div class="container-fluid">
-            <div id="grid"></div>
-            <script>
-                /*<![CDATA[*/
-                $(function () {loadUserList();});
+        <div id="grid"></div>
 
-                //初始化表格数据
-                function loadUserList() {
-                    kendo.culture("zh-CN");
+        <script type="text/x-kendo-template" id="template">
+            <div class="tabstrip">
+                <ul>
+                    <li class="k-state-active">
 
-                    var dataSource = new kendo.data.TreeListDataSource({
+                    </li>
+
+                </ul>
+                <div>
+                    <div class="orders1"></div>
+                    <div class="orders2"></div>
+                    <div class="orders3"></div>
+                    <div class="orders4"></div>
+                    <div class="orders5"></div>
+                </div>
+
+            </div>
+
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                var element = $("#grid").kendoGrid({
+                    dataSource: {
                         transport: {
                             read: {
                                 url: "getAllPlace"
@@ -28,262 +43,633 @@
                             create: {
                                 url: "insertPlace",
                                 dataType: "json",
-                                type: "post"
+                                type: "post",
+                                contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
                                 url: "deletePlace",
                                 dataType: "json",
-                                type: "post"
+                                type: "post",
+                                contentType:"application/json;charset=UTF-8"
                             },
                             update: {
                                 url:  "updatePlace",
                                 dataType: "json",
-                                type: "post"
+                                type: "post",
+                                contentType:"application/json;charset=UTF-8"
+                            },
+                            parameterMap:function(options, operation){
+                                // console.log(options.models);
+                                if (operation === "destroy") {
+                                    console.log(operation);
+                                    var placeId = options.id;
+
+                                    var list = {
+                                        placeId:placeId
+                                    }
+
+                                    return kendo.stringify(list);
+                                    // return kendo.stringify(list);
+                                }
+                                if(operation ==="create"){
+                                    var date1 = datetimeFormat_2(options.startDateTime);
+                                    var date2 = datetimeFormat_2(options.endDateTime);
+                                    options.startDateTime = date1;
+                                    options.endDateTime = date2;
+                                    return kendo.stringify(options);
+                                }
+                                if(operation === "update"){
+                                    return kendo.stringify(options);
+                                }
+
                             }
                         },
-                        serverPaging: true,    //设定服务器来实现分页功能
-                        serverFiltering: true,
+                        pageSize: 20,
+                        serverPaging: true,
                         serverSorting: true,
-                        requestEnd: onRequestEnd,
-                        pageSize: 5,
                         schema: {
                             model: {
                                 id: "id",
-                                parentId: "pId",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    pId: {type: "number",nullable: true},
+                                    pId: {type: "number", nullable: true},
                                     placeSn: {type: "string"},
-                                    levelFlag: {type: "int"},
                                     principal: {type: "string"},
                                     placeAddress: {type: "string"},
-                                    placeName: {type: "string"},
+                                    name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
                                     startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"}
+                                    endDateTime: {type: "timestamp"},
+                                    levelFlag: {type: "number"},
+                                    levelFlagName: {type: "string"},
+                                    superiorId: {type: "number"},
+                                    superiorName: {type: "string"}
                                 }
                             },
-                            data: function (response) {
-                                console.log(response);
-                                // console.log(response.data);
-                                var list = JSON.parse(response).data;
-                                // var list = response;
-                                for(var i=0;i<list.length;i++){
-                                    var content2 = list[i];
-                                    var startime = content2.startDateTime;
-                                    var endtime = content2.endDateTime;
-                                    var startime2 = new Date(Date.parse(startime));//.replace(/-/g, '/')
-                                    var endtime2 = new Date(Date.parse(endtime));//.replace(/-/g, '/')
-                                    var time1 = startime2.getTime();
-                                    var time2 =endtime2.getTime();
-                                    content2.startDateTime = datetimeFormat_2(time1);
-                                    content2.endDateTime = datetimeFormat_2(time2);
-                                }
+                            data:function(response){
+                                var list = JSON.parse(response);
                                 return list;
-                                // return response.data;
                             }
-                            // total: function (response) {
-                            //     // console.log(response.total);
-                            //     // return response.total;
-                            //
-                            //     return JSON.parse(response).total;
-                            // }
                         }
-                    });
+                    },
+                    height: 550,
+                    sortable: true,
+                    pageable: true,
+                    detailTemplate: kendo.template($("#template").html()),
+                    detailInit: detailInit,
+                    // dataBound: function() {
+                    //     this.expandRow(this.tbody.find("tr.k-master-row").first());
+                    // },
+                    toolbar: ["create"],
+                    columnMenu: true,
+                    resizable: true,
+                    columns: [
+                        {
+                            field: "placeSn",
+                            title: "场地编码"
+                        }, {
+                            field: "principal",
+                            title: "场地负责人"
+                        },
+                        {
+                            field: "placeAddress",
+                            title: "地址"
+                        },
+                        {
+                            field: "name",
+                            title: "场地名称"
+                        },
+                        {
+                            field: "latitude",
+                            title: "纬度"
+                        },
+                        {
+                            field: "longitude",
+                            title: "经度"
+                        },
+                        {
+                            field: "startDateTime",
+                            title: "协议开始时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },
+                        {
+                            field: "endDateTime",
+                            title: "协议结束时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },{
+                            field: "levelFlag",
+                            title: "隶属单位",
+                            template:"#=levelFlagName#",
+                            editor:chooseBranchOrHead
+                        },
+                        {
+                            field: "superiorId",
+                            title: "隶属单位名称",
+                            template:"#=superiorName#",
+                            editor:roleListDropDownEditor
+                        },
+                        {
+                            command: ["edit","destroy"],
+                            title: "操作",
+                            width: "250px"
+                        }
+                    ],
+                    editable: {
+                        mode: "popup",
+                        window: {
+                            title: "场地管理"
+                        }
+                    }
+                });
+            });
 
-                    //dataSource是必填属性
-                    $("#grid").kendoTreeList({
-                        dataSource: dataSource,
-                        height: 600,
-                        sortable: true, //表示是否支持排序， boolean型
-                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
-                        // groupable: true,//表格标题
-                        // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
-                        //     virtual: true
-                        // },
-                        toolbar: [{name: "create", text: "新增"}],
-                        columnMenu: true,
-                        pageable: {
-                            // empty:"没有要显示的数据",
-                            // //代表是否支持刷新
-                            // refresh: true,
-                            // //表示每页显示的记录数，默认为5,10,20
-                            pageSizes: true,
-                            // //表示显示的页数，5表示1,2,3,4,5
-                            buttonCount: 5,
-                            totalPages: true,
-                            // input: true,//表示是否可以输入数字
-                            refresh: true,
-                            pageSize: 5,
-                            pageSizes: [5, 10, 15, 20],
-                            numeric: true,
-                            input: true,
-                            messages: {
-                                display: "显示 {0}-{1} 条，共 {2} 条",
-                                empty: "没有数据",
-                                itemsPerPage: "每页显示数量",
-                                first: "第一页",
-                                last: "最后一页",
-                                next: "下一页",
-                                previous: "上一页",
-                                page: "页",
-                                of: "共 {0}页"
+            function detailInit(e) {
+                var detailRow = e.detailRow;
+                var placeId = e.data.id;
+                // console.log(placeId);
+
+                detailRow.find(".tabstrip").kendoTabStrip({
+                    animation: {
+                        open: { effects: "fadeIn" }
+                    }
+                });
+                detailRow.find(".orders1").kendoGrid({
+                    dataSource: {
+                        transport: {
+                            read:{
+                                url: "../placeMgr/findPlaceByParentId?placeId="+placeId
                             }
                         },
-                        columns: [
-                            {
-                                field: "placeSn",
-                                title: "场地编码"
-                            }, {
-                                field: "levelFlag",
-                                title: "隶属单位"
-                            }, {
-                                field: "principal",
-                                title: "场地负责人"
-                            },
-                            {
-                                field: "placeAddress",
-                                title: "地址"
-                            },
-                            {
-                                field: "placeName",
-                                title: "场地名称"
-                            },
-                            {
-                                field: "latitude",
-                                title: "纬度"
-                            },
-                            {
-                                field: "longitude",
-                                title: "经度"
-                            },
-                            {
-                                field: "startDateTime",
-                                title: "协议开始时间",
-                                format: "{0:yyyy-MM-dd HH:mm}",
-                                editor: changeDate
-                            },
-                            {
-                                field: "endDateTime",
-                                title: "协议结束时间",
-                                format: "{0:yyyy-MM-dd HH:mm}",
-                                editor: changeDate
-                            }, {
-                                command: [
-                                    {
-                                        name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
-                                    }, {
-                                        name: "destroy", text: "删除"
-                                    }],
-                                title: "操作",
-                                width: "250px"
-                            }
-                        ],
-                        editable: {
-                            mode: "popup",
-                            window: {
-                                title: "场地管理"
+                        serverPaging: true,
+                        serverSorting: true,
+                        serverFiltering: true,
+                        pageSize: 7,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    pId: {type: "number", nullable: true},
+                                    placeSn: {type: "string"},
+                                    principal: {type: "string"},
+                                    placeAddress: {type: "string"},
+                                    name: {type: "string"},
+                                    latitude: {type: "number"},
+                                    longitude: {type: "number"},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
+                                    levelFlag: {type: "number"},
+                                    levelFlagName: {type: "string"},
+                                    superiorId: {type: "number"},
+                                    superiorName: {type: "string"}
+                                }
                             }
                         }
-                    });
-                }
-
-                function changeDate(container, options) {
-                    var input = $('<input name="' + options.field + '"/>');
-                    input.appendTo(container);
-                    input.kendoDateTimePicker({
-                        format: "{0:yyyy-MM-dd HH:mm}"
-                    });
-                }
-
-                //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
-                function onRequestEnd(e) {
-                    if (e.type == "create") {
-                        e.sender.read();       //调用read方法 重新读取表格
-                    }
-                    else if (e.type == "update") {
-                        e.sender.read();
-                    }
-                    else if (e.type == "destroy") {
-                        e.sender.read();
-                    }
-
-                    //更新成功后弹出提示信息
-                    var response = e.response;
-                    if (response) {
-                        var type = e.type;
-                        if (type != 'read') {
-                            var status = response.status;
-                            if (status == 200) {this.read();}
-                            else {
-                                // alert(response.msg);
-                            }
+                    },
+                    detailTemplate: kendo.template($("#template").html()),
+                    detailInit: detailInit2,
+                    // dataBound: function() {
+                    //     this.expandRow(this.tbody.find("tr.k-master-row").first());
+                    // },
+                    toolbar: ["create"],
+                    columnMenu: true,
+                    resizable: true,
+                    scrollable: false,
+                    sortable: true,
+                    pageable: true,
+                    columns: [
+                        {
+                            field: "placeSn",
+                            title: "场地编码"
+                        }, {
+                            field: "principal",
+                            title: "场地负责人"
+                        },
+                        {
+                            field: "placeAddress",
+                            title: "地址"
+                        },
+                        {
+                            field: "name",
+                            title: "场地名称"
+                        },
+                        {
+                            field: "latitude",
+                            title: "纬度"
+                        },
+                        {
+                            field: "longitude",
+                            title: "经度"
+                        },
+                        {
+                            field: "startDateTime",
+                            title: "协议开始时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },
+                        {
+                            field: "endDateTime",
+                            title: "协议结束时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },{
+                            field: "levelFlag",
+                            title: "隶属单位",
+                            template:"#=levelFlagName#",
+                            editor:chooseBranchOrHead
+                        },
+                        {
+                            field: "superiorId",
+                            title: "隶属单位名称",
+                            template:"#=superiorName#",
+                            editor:roleListDropDownEditor
+                        },
+                        {
+                            command: ["edit","destroy"],
+                            title: "操作",
+                            width: "250px"
+                        }
+                    ],
+                    editable: {
+                        mode: "popup",
+                        window: {
+                            title: "场地管理"
                         }
                     }
-                }
+                });
+            }
 
-                //grid改变时触发的事件，暂时用于分页
-                // function onChange(e) {
-                //     page = $("#grid").data("kendoGrid").dataSource.page();
-                //     pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                //     //$("#grid").data("kendoGrid").dataSource.bind("parameterMap", parameterMap);
-                // }
 
-                //dataSource向后台发送数据时触发的事件
-                // function parameterMap(e){
-                //     console.log("parameterMap");
-                //     return {page:page,pageSize:pageSize};
-                // }
+            function detailInit2(e) {
+                var detailRow = e.detailRow;
+                var placeId = e.data.id;
+                console.log("detail2-----------"+placeId);
 
-                // //编辑时boolean类型复选框样式修改
-                // function customBoolEditor(container, options) {
-                //     var guid = kendo.guid();
-                //     $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
-                //     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
-                // }
+                detailRow.find(".tabstrip").kendoTabStrip({
+                    animation: {
+                        open: { effects: "fadeIn" }
+                    }
+                });
+                detailRow.find(".orders2").kendoGrid({
+                    dataSource: {
+                        transport: {
+                            read:{
+                                url: "../placeMgr/findPlaceByParentId?placeId="+placeId
+                            }
+                        },
+                        serverPaging: true,
+                        serverSorting: true,
+                        serverFiltering: true,
+                        pageSize: 7,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    pId: {type: "number", nullable: true},
+                                    placeSn: {type: "string"},
+                                    principal: {type: "string"},
+                                    placeAddress: {type: "string"},
+                                    name: {type: "string"},
+                                    latitude: {type: "number"},
+                                    longitude: {type: "number"},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
+                                    levelFlag: {type: "number"},
+                                    levelFlagName: {type: "string"},
+                                    superiorId: {type: "number"},
+                                    superiorName: {type: "string"}
+                                }
+                            }
+                        }
+                    },
+                    detailTemplate: kendo.template($("#template").html()),
+                    detailInit: detailInit3,
+                    // dataBound: function() {
+                    //     this.expandRow(this.tbody.find("tr.k-master-row").first());
+                    // },
+                    toolbar: ["create"],
+                    columnMenu: true,
+                    resizable: true,
+                    scrollable: false,
+                    sortable: true,
+                    pageable: true,
+                    columns: [
+                        {
+                            field: "placeSn",
+                            title: "场地编码"
+                        }, {
+                            field: "principal",
+                            title: "场地负责人"
+                        },
+                        {
+                            field: "placeAddress",
+                            title: "地址"
+                        },
+                        {
+                            field: "name",
+                            title: "场地名称"
+                        },
+                        {
+                            field: "latitude",
+                            title: "纬度"
+                        },
+                        {
+                            field: "longitude",
+                            title: "经度"
+                        },
+                        {
+                            field: "startDateTime",
+                            title: "协议开始时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },
+                        {
+                            field: "endDateTime",
+                            title: "协议结束时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },{
+                            field: "levelFlag",
+                            title: "隶属单位",
+                            template:"#=levelFlagName#",
+                            editor:chooseBranchOrHead
+                        },
+                        {
+                            field: "superiorId",
+                            title: "隶属单位名称",
+                            template:"#=superiorName#",
+                            editor:roleListDropDownEditor
+                        },
+                        {
+                            command: ["edit","destroy"],
+                            title: "操作",
+                            width: "250px"
+                        }
+                    ],
+                    editable: {
+                        mode: "popup",
+                        window: {
+                            title: "场地管理"
+                        }
+                    }
+                });
+            }
 
-                // //打开标记窗口时下拉列表展示
-                // function roleListDropDownEditor(container, options) {
-                //     var userId = options.model.id;
-                //
-                //     $.ajax({
-                //         type: "post",
-                //         async: true,
-                //         url: "/userController/roleList",
-                //         dataType: "json",
-                //         data:{userId:userId},
-                //         success: function (data) {
-                //             $('<select required name="'+options.field+'" multiple="multiple"></select>')
-                //                 .appendTo(container)
-                //                 .kendoMultiSelect({
-                //                     autoBind: false,
-                //                     dataTextField: "roleName",
-                //                     dataValueField: "roleId",
-                //                     dataSource: {
-                //                         serverFiltering: true,
-                //                         transport: {
-                //                             read: {
-                //                                 type: "post",
-                //                                 url: "/roleController/roleList",
-                //                                 dataType: "json",
-                //                                 contentType: "application/json",
-                //                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                //                             }
-                //                         }
-                //                     },
-                //                     value: data
-                //                 });
-                //         }
-                //     });
-                // }
-                /*]]>*/
-            </script>
 
-            <!--<script type="text/x-kendo-template" id="reviseDate_template">-->
-            <!--#= kendo.toString(reviseDate, "yyyy-MM-dd") #-->
-            <!--</script>-->
-        </div>
+            function detailInit3(e) {
+                var detailRow = e.detailRow;
+                var placeId = e.data.id;
+                // console.log(placeId);
+
+                detailRow.find(".tabstrip").kendoTabStrip({
+                    animation: {
+                        open: { effects: "fadeIn" }
+                    }
+                });
+                detailRow.find(".orders1").kendoGrid({
+                    dataSource: {
+                        transport: {
+                            read:{
+                                url: "../placeMgr/findPlaceByParentId?placeId="+placeId
+                            }
+                        },
+                        serverPaging: true,
+                        serverSorting: true,
+                        serverFiltering: true,
+                        pageSize: 7,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    pId: {type: "number", nullable: true},
+                                    placeSn: {type: "string"},
+                                    principal: {type: "string"},
+                                    placeAddress: {type: "string"},
+                                    name: {type: "string"},
+                                    latitude: {type: "number"},
+                                    longitude: {type: "number"},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
+                                    levelFlag: {type: "number"},
+                                    levelFlagName: {type: "string"},
+                                    superiorId: {type: "number"},
+                                    superiorName: {type: "string"}
+                                }
+                            }
+                        }
+                    },
+                    toolbar: ["create"],
+                    columnMenu: true,
+                    resizable: true,
+                    scrollable: false,
+                    sortable: true,
+                    pageable: true,
+                    columns: [
+                        {
+                            field: "placeSn",
+                            title: "场地编码"
+                        }, {
+                            field: "principal",
+                            title: "场地负责人"
+                        },
+                        {
+                            field: "placeAddress",
+                            title: "地址"
+                        },
+                        {
+                            field: "name",
+                            title: "场地名称"
+                        },
+                        {
+                            field: "latitude",
+                            title: "纬度"
+                        },
+                        {
+                            field: "longitude",
+                            title: "经度"
+                        },
+                        {
+                            field: "startDateTime",
+                            title: "协议开始时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },
+                        {
+                            field: "endDateTime",
+                            title: "协议结束时间",
+                            format: "{0:yyyy-MM-dd HH:mm}",
+                            editor: changeDate
+                        },{
+                            field: "levelFlag",
+                            title: "隶属单位",
+                            template:"#=levelFlagName#",
+                            editor:chooseBranchOrHead
+                        },
+                        {
+                            field: "superiorId",
+                            title: "隶属单位名称",
+                            template:"#=superiorName#",
+                            editor:roleListDropDownEditor
+                        },
+                        {
+                            command: ["edit","destroy"],
+                            title: "操作",
+                            width: "250px"
+                        }
+                    ],
+                    editable: {
+                        mode: "popup",
+                        window: {
+                            title: "场地管理"
+                        }
+                    }
+                });
+            }
+
+
+
+            function changeDate(container, options) {
+                var input = $('<input name="' + options.field + '"/>');
+                input.appendTo(container);
+                input.kendoDateTimePicker({
+                    format: "{0:yyyy-MM-dd HH:mm}"
+                });
+            }
+
+            var useFlag=false;
+            var testDataSource;
+            function chooseBranchOrHead(container, options){
+                var levelFlag = options.model.levelFlag;
+
+                var input = $('<input required name="' + options.field + '"/>');
+                input.appendTo(container);
+
+                input.kendoComboBox({
+                    autoBind: true,
+                    // enable: false,
+                    placeholder: "请选择...",
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    value: levelFlag,
+                    dataSource: [
+                        {
+                            "id":1,
+                            "name":"总部"
+                        },{
+                            "id":2,
+                            "name":"分公司"
+                        },{
+                            "id":3,
+                            "name":"代理商"
+                        }
+                    ],
+                    select:function(e){
+                        var item = e.dataItem.id;
+
+                        var flag=item;
+                        useFlag=true;
+
+
+                        if(flag==1){
+                            testDataSource = new kendo.data.DataSource({
+                                transport: {
+                                    read: {
+                                        url: "../headMgr/allHead"
+                                    }
+                                }
+                            });
+                        }else if(flag==2){
+                            testDataSource = new kendo.data.DataSource({
+                                transport: {
+                                    read: {
+                                        url: "../branchMgr/allBranch"
+                                    }
+                                }
+                            });
+                        } else if(flag==3){
+                            testDataSource = new kendo.data.DataSource({
+                                transport: {
+                                    read: {
+                                        url: "../vendorMgr/getAllVendor"
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+
+            //打开标记窗口时下拉列表展示
+            function roleListDropDownEditor(container, options) {
+                // var flag =options.model.levelFlag;
+
+                var branchId = options.model.superiorId;
+                var branchName = options.model.superiorName;
+                // console.log(options.model);
+                // console.log(branchName);
+
+                var input = $('<input required name="' + options.field + '"/>');
+                input.appendTo(container);
+
+                // input.kendoComboBox.
+
+                input.kendoComboBox({
+                    autoBind: false,
+                    placeholder: "请选择...",
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    // value: branchId,
+                    text:branchName,
+                    open: function(e) {
+                        if(useFlag==true){
+                            this.setDataSource(testDataSource);
+                        }else{
+                            return;
+                        }
+
+                    }
+                });
+
+            }
+
+        </script>
+
+
+
+
+        <style>
+            .k-detail-cell .k-tabstrip .k-content {
+                padding: 0.2em;
+            }
+            .employee-details ul
+            {
+                list-style:none;
+                font-style:italic;
+                margin: 15px;
+                padding: 0;
+            }
+            .employee-details ul li
+            {
+                margin: 0;
+                line-height: 1.7em;
+            }
+
+            .employee-details label
+            {
+                display:inline-block;
+                width:90px;
+                padding-right: 10px;
+                text-align: right;
+                font-style:normal;
+                font-weight:bold;
+            }
+        </style>
 
     </div>
 </div>

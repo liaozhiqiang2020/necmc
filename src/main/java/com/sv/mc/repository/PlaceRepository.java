@@ -40,9 +40,30 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     List<PlaceEntity> findAllPlaceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**
+     * 不分页查询场地方信息
+     * @return
+     */
+    @Query(value="select * from mc_place as b where b.discard_status=1",nativeQuery = true)
+    List<PlaceEntity> findAllPlace();
+
+    /**
+     * 不分页查询场地方信息
+     * @return
+     */
+    @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId=0")
+    List<PlaceEntity> findAllPlaces();
+
+    /**
      * 查询数量
      * @return
      */
     @Query(value="select count(*) from mc_place as b where b.discard_status=1",nativeQuery = true)
     int findPlaceTotal();
+
+    /**
+     * 根据场地id查询他的字节点
+     */
+    @Query("from PlaceEntity where pId=:placeId")
+    List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
+
 }

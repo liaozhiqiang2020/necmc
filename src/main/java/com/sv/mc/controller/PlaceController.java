@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
+@RequestMapping("/placeMgr")
 public class PlaceController {
     //注入
     @Autowired
@@ -74,14 +76,24 @@ public class PlaceController {
     }
 
 
+//    /**
+//     * 全部查询
+//     * @return 返回所有场地内容
+//     */
+//    @GetMapping(value = "/getAllPlace")
+//    public @ResponseBody
+//    String getAllPlace(String page, String pageSize) {
+//        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+//    }
+
     /**
      * 全部查询
      * @return 返回所有场地内容
      */
     @GetMapping(value = "/getAllPlace")
     public @ResponseBody
-    String getAllPlace(@Param("page") String page, @Param("pageSize") String pageSize) {
-        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    String getAllPlace() {
+        return this.placeService.findAllPlace();
     }
 
     /**
@@ -91,7 +103,7 @@ public class PlaceController {
      */
     @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity insertPlace(PlaceEntity placeEntity, BindingResult bindingResult){
+    PlaceEntity insertPlace(@RequestBody PlaceEntity placeEntity){
         return  this.placeService.insertPlace(placeEntity);
     }
 
@@ -102,7 +114,7 @@ public class PlaceController {
      */
     @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity updatePlace(PlaceEntity placeEntity, BindingResult bindingResult){
+    PlaceEntity updatePlace(@RequestBody PlaceEntity placeEntity){
         return this.placeService.updatePlace(placeEntity);
 
     }
@@ -112,18 +124,54 @@ public class PlaceController {
      */
     @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
     public @ResponseBody
-    void deletePlace(int id){
-        this.placeService.deletePlace(id);
+    void deletePlace(@RequestBody Map<String,Object> map){
+        this.placeService.deletePlace(Integer.parseInt(map.get("placeId").toString()));
     }
 
 
-    @GetMapping("/place/device")
-    public List<DeviceEntity> findDeviceByPlace(@RequestParam("placeId") int placeId){
-        return this.placeService.findDeviceByPlace(placeId);
+    /**
+     * 根据场地id查询他的字节点
+     */
+    @GetMapping(value = "/findPlaceByParentId")
+    public @ResponseBody
+    List<PlaceEntity> findPlaceByParentId(@RequestParam(name = "placeId")int placeId){
+        return this.placeService.findPlaceByParentId(placeId);
     }
 
 
 
+
+//    /**
+//     * 插入一条场地数据
+//     * @param placeEntity
+//     * @return
+//     */
+//    @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
+//    public @ResponseBody
+//    PlaceEntity insertPlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
+//        return  this.placeService.insertPlace(placeEntity,startDateTime,endDateTime);
+//    }
+//
+//    /**
+//     * 更改场地数据
+//     * @param placeEntity
+//     * @return
+//     */
+//    @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
+//    public @ResponseBody
+//    PlaceEntity updatePlace(PlaceEntity placeEntity,String startDateTime,String endDateTime,BindingResult bindingResult){
+//        return this.placeService.updatePlace(placeEntity,startDateTime,endDateTime);
+//
+//    }
+//
+//    /**
+//     * 逻辑删除场地数据
+//     */
+//    @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
+//    public @ResponseBody
+//    void deletePlace(PlaceEntity placeEntity,BindingResult bindingResult){
+//        this.placeService.deletePlace(placeEntity.getId());
+//    }
 
 
 

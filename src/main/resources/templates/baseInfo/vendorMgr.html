@@ -16,6 +16,8 @@
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
 
+                var testDataSource;
+
                 //初始化表格数据
                 function loadUserList() {
                     kendo.culture("zh-CN");
@@ -66,19 +68,30 @@
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    vendorName: {type: "string"},
+                                    name: {type: "string"},
                                     vendorAddress: {type: "string"},
                                     principal: {type: "string"},
                                     telephone: {type: "string"},
                                     email: {type: "string"},
-                                    levelFlag:{type:"string"},
+                                    levelFlag:{type:"number"},
                                     levelFlagName:{type:"string"},
                                     superiorId:{type:"number"},
                                     superiorName:{type:"string"}
                                 }
                             },
                             data: function (response) {
+                                // console.log(response.data);
                                 var list = JSON.parse(response).data;
+                                // for(var i=0;i<list.length;i++){
+                                //     var content2 = list[i];
+                                //     var flag = content2.levelFlag;
+                                //     // console.log(flag);
+                                //     if(flag==1){
+                                //         content2.levelFlag="分公司";
+                                //     }else if(flag==2){
+                                //         content2.levelFlag="总部";
+                                //     }
+                                // }
                                 return list;
                             },
                             total: function (response) {
@@ -128,7 +141,7 @@
                         },
                         columns: [
                             {
-                                field: "vendorName",
+                                field: "name",
                                 title: "代理商名称"
                             }, {
                                 field: "vendorAddress",
@@ -146,13 +159,13 @@
                             },
                             {
                                 field: "levelFlag",
-                                title: "总部/分公司",
+                                title: "隶属单位",
                                 template:"#=levelFlagName#",
-                                editor:chooseBranchOrHead
+                                editor:chanceBranchOrHead
                             },
                             {
                                 field: "superiorId",
-                                title: "分公司名称",
+                                title: "隶属单位名称",
                                 template:"#=superiorName#",
                                 editor:roleListDropDownEditor
                             },
@@ -212,13 +225,13 @@
 
                 var useFlag=false;
                 var testDataSource;
-                function chooseBranchOrHead(container, options){
+                function chanceBranchOrHead(container, options){
                     var levelFlag = options.model.levelFlag;
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
 
-                    input.kendoComboBox({
+                    var combobox1 = input.kendoComboBox({
                         autoBind: true,
                         // enable: false,
                         placeholder: "请选择...",
@@ -254,6 +267,10 @@
                                         }
                                     }
                                 });
+
+                                // testDataSource.fetch(function() {
+                                //     console.log(testDataSource.view()); // displays "77"
+                                // });
                             }else if(flag==2){
                                 testDataSource = new kendo.data.DataSource({
                                     transport: {
@@ -266,6 +283,10 @@
                                         }
                                     }
                                 });
+
+                                // testDataSource.fetch(function() {
+                                //     console.log(testDataSource.view()); // displays "77"
+                                // });
                             }
                         }
                     });
@@ -273,12 +294,17 @@
 
                 //打开标记窗口时下拉列表展示
                 function roleListDropDownEditor(container, options) {
+                    // var flag =options.model.levelFlag;
 
                     var branchId = options.model.superiorId;
                     var branchName = options.model.superiorName;
+                    // console.log(options.model);
+                    // console.log(branchName);
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
+
+                    // input.kendoComboBox.
 
                     input.kendoComboBox({
                         autoBind: false,
