@@ -187,9 +187,8 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public List<DeviceEntity> findDeviceByPlace(int placeId) {
-                PlaceEntity place = this.placeRepository.findPlaceById(placeId);
-                List<DeviceEntity> devices = place.getDeviceEntities();
-                return devices;
+                List<DeviceEntity> deviceEntities = this.placeRepository.findAllDeviceByPlaceId(placeId);
+                return deviceEntities;
         }
 
 
@@ -210,6 +209,7 @@ public class PlaceServiceImpl implements PlaceService {
                         int superiorId =Integer.parseInt(jsonObject12.get("superiorId").toString());
                         int levelFlag =Integer.parseInt(jsonObject12.get("levelFlag").toString());
                         if(levelFlag==1){
+
                                 levelFlagName = "总部";
                                 superiorName = this.vendorRepository.findHeadNameById(superiorId);
                         }else if(levelFlag==2){

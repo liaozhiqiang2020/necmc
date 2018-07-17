@@ -136,6 +136,15 @@ public class PlaceController {
         return this.placeService.findPlaceByParentId(placeId);
     }
 
+    /**
+     * 根据场地id查询所有设备
+     */
+    @RequestMapping(value = "/placeMgr/findAllDeviceByPlaceId",method = RequestMethod.GET)
+    public @ResponseBody
+    List<DeviceEntity> findAllDeviceByPlaceId(@RequestParam  int placeId){
+        return this.placeService.findDeviceByPlace(placeId);
+    }
+
 
 
 

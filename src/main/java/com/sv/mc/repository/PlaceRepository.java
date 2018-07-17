@@ -1,5 +1,6 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -66,4 +67,10 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     @Query("from PlaceEntity where pId=:placeId and discardStatus=1")
     List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
 
+    /**
+     * 根据场地id查所有设备
+     * @return
+     */
+    @Query("select p.deviceEntities from PlaceEntity p where p.id=:placeId")
+    List<DeviceEntity> findAllDeviceByPlaceId(@Param("placeId") int placeId);
 }
