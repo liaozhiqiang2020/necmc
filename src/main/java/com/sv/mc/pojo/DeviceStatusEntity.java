@@ -13,6 +13,7 @@ public class DeviceStatusEntity {
     private String note;
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

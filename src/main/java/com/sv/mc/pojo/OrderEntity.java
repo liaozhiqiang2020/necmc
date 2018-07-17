@@ -30,6 +30,7 @@ public class OrderEntity {
     private Integer mcTime;  //按摩时长
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

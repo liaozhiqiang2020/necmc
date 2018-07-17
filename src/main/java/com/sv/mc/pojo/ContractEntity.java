@@ -24,6 +24,7 @@ public class ContractEntity {
     private BigDecimal adminiFee;   //管理费（基础收益扣除合同额的百分之多少，相当于管理费）
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

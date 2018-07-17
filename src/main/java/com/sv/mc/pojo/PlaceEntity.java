@@ -80,6 +80,7 @@ public class PlaceEntity {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

@@ -20,6 +20,7 @@ public class BranchEntity {
     private HeadQuartersEntity headQuartersEntity;//总公司信息
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

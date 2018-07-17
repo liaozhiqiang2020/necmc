@@ -18,6 +18,7 @@ public class PromoCodeEntity {
     private Integer type;  //优惠码类型()
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

@@ -14,6 +14,7 @@ public class DeviceInstructionEntity {
     private int status;
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

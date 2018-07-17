@@ -14,6 +14,7 @@ public class AreaEntity {
     private String name;  //大区名称
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

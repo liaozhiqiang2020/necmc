@@ -32,6 +32,7 @@ public class VendorEntity {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

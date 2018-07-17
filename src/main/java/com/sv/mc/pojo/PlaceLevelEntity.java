@@ -11,6 +11,7 @@ public class PlaceLevelEntity {
     private int levelFlag;   //场地级别分类
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

@@ -61,14 +61,6 @@ public class DeviceServiceImpl implements DeviceService {
          */
         @Override
         public DeviceEntity insertDevice(DeviceEntity device) {
-//                device.setDiscardStatus(1);
-//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-//                ParsePosition pos = new ParsePosition(0);
-//                BaseUtil baseUtil = new BaseUtil();
-//                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
-//                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
-//                Timestamp ts = new Timestamp(nReviseDate2.getTime());
-//                device.setMaintainDateTime(ts);
                 return deviceRepository.save(device);
         }
 
@@ -85,13 +77,6 @@ public class DeviceServiceImpl implements DeviceService {
 
         @Override
         public DeviceEntity updateDevice(DeviceEntity device) {
-//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-//                ParsePosition pos = new ParsePosition(0);
-//                BaseUtil baseUtil = new BaseUtil();
-//                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
-//                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
-//                Timestamp ts = new Timestamp(nReviseDate2.getTime());
-//                device.setMaintainDateTime(ts);
                 return this.deviceRepository.save(device);
         }
 

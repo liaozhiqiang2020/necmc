@@ -13,6 +13,7 @@ public class BusinessEntity {
     private Integer parentId;
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

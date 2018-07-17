@@ -17,6 +17,7 @@ public class PlaceMapEntity {
     private String name;        //地图名称
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

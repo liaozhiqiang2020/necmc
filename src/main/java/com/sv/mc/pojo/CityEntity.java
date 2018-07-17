@@ -15,6 +15,7 @@ public class CityEntity {
     private String name;    //市名字
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

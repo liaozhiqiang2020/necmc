@@ -30,6 +30,7 @@ public class DeviceEntity {
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

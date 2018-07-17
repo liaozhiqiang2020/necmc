@@ -21,6 +21,7 @@ DeviceDateEntity {
     private int placeId;        //绑定场地id
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

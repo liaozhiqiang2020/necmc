@@ -21,6 +21,7 @@ public class DeviceModelEntity {
     private List<PriceEntity> priceEntities = new ArrayList<>();
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

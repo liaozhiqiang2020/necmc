@@ -27,6 +27,7 @@ public class WxUserInfoEntity {
     private Timestamp updateDateTime;  //修改时间
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

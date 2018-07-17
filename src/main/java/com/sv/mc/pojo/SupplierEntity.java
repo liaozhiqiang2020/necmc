@@ -20,6 +20,7 @@ public class SupplierEntity {
     private int modelType;//按摩椅型号分类
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

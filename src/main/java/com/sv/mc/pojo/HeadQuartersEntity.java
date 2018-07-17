@@ -24,6 +24,7 @@ public class HeadQuartersEntity {
 //    private List<BranchEntity> branchEntityList;
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;

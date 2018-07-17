@@ -15,7 +15,7 @@ public class ProvinceEntity {
     private int areaId; //大区id
 
 
-    @GeneratedValue()
+    @GeneratedValue
     @Id
     @Column(name = "Id")
     public int getId() {
