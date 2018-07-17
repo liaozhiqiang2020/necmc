@@ -23,20 +23,20 @@
                     var dataSource = new kendo.data.TreeListDataSource({
                         transport: {
                             read: {
-                                url: "getBusiness"
+                                url: "./bussinessMgr/getBusiness"
                             },
                             create: {
-                                url: "createBusiness1",
+                                url: "./bussinessMgr/createBusiness1",
                                 dataType: "json",
                                 type: "post"
                             },
                             destroy: {
-                                url: "removeBusiness1",
+                                url: "./bussinessMgr/removeBusiness1",
                                 dataType: "json",
                                 type: "post"
                             },
                             update: {
-                                url:  "uppdateBusiness1",
+                                url:  "./bussinessMgr/uppdateBusiness1",
                                 dataType: "json",
                                 type: "post"
                             }
@@ -117,7 +117,7 @@
                        dataSource: {
                             type: "json",
                             transport: {
-                                read: "./getBusiness2?id="+id,
+                                read: "./bussinessMgr/getBusiness2?id="+id,
                                 create: {
                                     url: "createBusiness2",
                                     dataType: "json",
@@ -125,14 +125,14 @@
                                     contentType:"application/json;charset=UTF-8"
                                 },
                                 destroy: {
-                                    url: "removeBusiness2",
+                                    url: "./bussinessMgr/removeBusiness2",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"
 
                                 },
                                 update: {
-                                    url:  "uppdateBusiness2",
+                                    url:  "./bussinessMgr/uppdateBusiness2",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"

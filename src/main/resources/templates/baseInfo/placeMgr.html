@@ -24,8 +24,6 @@
                     <div class="orders1"></div>
                     <div class="orders2"></div>
                     <div class="orders3"></div>
-                    <div class="orders4"></div>
-                    <div class="orders5"></div>
                 </div>
 
             </div>
@@ -61,14 +59,11 @@
                             parameterMap:function(options, operation){
                                 if (operation === "destroy") {
                                     var placeId = options.id;
-
                                     var list = {
                                         placeId:placeId
                                     }
-
                                     return kendo.stringify(list);
                                 }
-
                                 if(operation ==="create"){
                                     var endDate =options.endDateTime;
                                     var startDate = options.startDateTime;
@@ -97,8 +92,8 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp",editable: false},
-                                    endDateTime: {type: "timestamp",editable: false},
+                                    startDateTime: {type: "timestamp"},
+                                    endDateTime: {type: "timestamp"},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
@@ -114,7 +109,7 @@
                             }
                         }
                     },
-                    height: 550,
+                    height: 700,
                     sortable: true,
                     pageable: true,
                     detailTemplate: kendo.template($("#template").html()),
@@ -577,7 +572,7 @@
                         open: { effects: "fadeIn" }
                     }
                 });
-                detailRow.find(".orders1").kendoGrid({
+                detailRow.find(".orders3").kendoGrid({
                     dataSource: {
                         transport: {
                             read:{
