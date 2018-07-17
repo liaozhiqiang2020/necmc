@@ -38,8 +38,7 @@
                     dataSource: {
                         transport: {
                             read: {
-                                url: "./placeMgr/getAllPlace",
-                                contentType:"application/json;charset=UTF-8"
+                                url: "./placeMgr/getAllPlace"
                             },
                             create: {
                                 url: "./placeMgr/insertPlace",
@@ -60,9 +59,7 @@
                                 contentType:"application/json;charset=UTF-8"
                             },
                             parameterMap:function(options, operation){
-                                // console.log(options.models);
                                 if (operation === "destroy") {
-                                    console.log(operation);
                                     var placeId = options.id;
 
                                     var list = {
@@ -70,19 +67,18 @@
                                     }
 
                                     return kendo.stringify(list);
-                                    // return kendo.stringify(list);
-                                }
-                                if(operation ==="create"){
-                                    var date1 = datetimeFormat_2(options.startDateTime);
-                                    var date2 = datetimeFormat_2(options.endDateTime);
-                                    options.startDateTime = date1;
-                                    options.endDateTime = date2;
-                                    return kendo.stringify(options);
-                                }
-                                if(operation === "update"){
-                                    return kendo.stringify(options);
                                 }
 
+                                if(operation ==="create"){
+                                    var endDate =options.endDateTime;
+                                    var startDate = options.startDateTime;
+                                    options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    return kendo.stringify(options);
+                                }
+                                if(operation ==="update"){
+                                    return kendo.stringify(options);
+                                }
                             }
                         },
                         pageSize: 20,
@@ -101,16 +97,17 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
+                                    startDateTime: {type: "timestamp",editable: false},
+                                    endDateTime: {type: "timestamp",editable: false},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
-                                    superiorName: {type: "string"}
+                                    superiorName: {type: "string"},
+                                    businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
-                                // console.log(response);
                                 var list = JSON.parse(response);
 
                                 return list;
@@ -178,6 +175,18 @@
                             editor:roleListDropDownEditor
                         },
                         {
+                            field: "businessEntity",
+                            title: "行业分类名称",
+                            template:"#=businessEntity.name#",
+                            editor:businessEditor
+                        },
+                        {
+                            field: "cityEntity",
+                            title: "城市名称",
+                            template:"#=cityEntity.name#",
+                            editor:cityEditor
+                        },
+                        {
                             command: ["edit","destroy"],
                             title: "操作",
                             width: "250px"
@@ -195,7 +204,6 @@
             function detailInit(e) {
                 var detailRow = e.detailRow;
                 var place_index2_Id = e.data.id;
-                // console.log(placeId);
 
                 detailRow.find(".tabstrip").kendoTabStrip({
                     animation: {
@@ -206,7 +214,7 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url: "../placeMgr/findPlaceByParentId?placeId="+place_index2_Id
+                                url: "./placeMgr/findPlaceByParentId?placeId="+place_index2_Id
                             },
                             create: {
                                 url: "./placeMgr/insertPlace",
@@ -270,12 +278,14 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
+                                    startDateTime: {type: "timestamp",editable: false},
+                                    endDateTime: {type: "timestamp",editable: false},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
-                                    superiorName: {type: "string"}
+                                    superiorName: {type: "string"},
+                                    businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
@@ -347,6 +357,18 @@
                             editor:roleListDropDownEditor
                         },
                         {
+                            field: "businessEntity",
+                            title: "行业分类名称",
+                            template:"#=businessEntity.name#",
+                            editor:businessEditor
+                        },
+                        {
+                            field: "cityEntity",
+                            title: "城市名称",
+                            template:"#=cityEntity.name#",
+                            editor:cityEditor
+                        },
+                        {
                             command: ["edit","destroy"],
                             title: "操作",
                             width: "250px"
@@ -376,7 +398,7 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url: "../placeMgr/findPlaceByParentId?placeId="+placeId
+                                url: "./placeMgr/findPlaceByParentId?placeId="+placeId
                             },
                             create: {
                                 url: "./placeMgr/insertPlace",
@@ -440,12 +462,14 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
+                                    startDateTime: {type: "timestamp",editable: false},
+                                    endDateTime: {type: "timestamp",editable: false},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
-                                    superiorName: {type: "string"}
+                                    superiorName: {type: "string"},
+                                    businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
@@ -516,6 +540,18 @@
                             editor:roleListDropDownEditor
                         },
                         {
+                            field: "businessEntity",
+                            title: "行业分类名称",
+                            template:"#=businessEntity.name#",
+                            editor:businessEditor
+                        },
+                        {
+                            field: "cityEntity",
+                            title: "城市名称",
+                            template:"#=cityEntity.name#",
+                            editor:cityEditor
+                        },
+                        {
                             command: ["edit","destroy"],
                             title: "操作",
                             width: "250px"
@@ -545,7 +581,7 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url: "../placeMgr/findPlaceByParentId?placeId="+placeId
+                                url: "./placeMgr/findPlaceByParentId?placeId="+placeId
                             },
                             create: {
                                 url: "./placeMgr/insertPlace",
@@ -609,12 +645,14 @@
                                     name: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
+                                    startDateTime: {type: "timestamp",editable: false},
+                                    endDateTime: {type: "timestamp",editable: false},
                                     levelFlag: {type: "number"},
                                     levelFlagName: {type: "string"},
                                     superiorId: {type: "number"},
-                                    superiorName: {type: "string"}
+                                    superiorName: {type: "string"},
+                                    businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
@@ -678,6 +716,18 @@
                             title: "隶属单位名称",
                             template:"#=superiorName#",
                             editor:roleListDropDownEditor
+                        },
+                        {
+                            field: "businessEntity",
+                            title: "行业分类名称",
+                            template:"#=businessEntity.name#",
+                            editor:businessEditor
+                        },
+                        {
+                            field: "cityEntity",
+                            title: "城市名称",
+                            template:"#=cityEntity.name#",
+                            editor:cityEditor
                         },
                         {
                             command: ["edit","destroy"],
@@ -762,6 +812,58 @@
                                     }
                                 }
                             });
+                        }
+                    }
+                });
+            }
+
+            //行业分类下拉列表
+            function businessEditor(container, options){
+                var businessId = options.model.businessEntity.id;
+
+                var input = $('<input required name="' + options.field + '"/>');
+                input.appendTo(container);
+                input.kendoComboBox({
+                    autoBind: true,
+                    placeholder: "请选择...",
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    value: businessId,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                type: "get",
+                                url: "./bussinessMgr/allBusiness",
+                                dataType: "json",
+                                contentType: "application/json",
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                            }
+                        }
+                    }
+                });
+            }
+
+            //城市下拉列表
+            function cityEditor(container, options){
+                var cityId = options.model.cityEntity.id;
+
+                var input = $('<input required name="' + options.field + '"/>');
+                input.appendTo(container);
+                input.kendoComboBox({
+                    autoBind: true,
+                    placeholder: "请选择...",
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    value: cityId,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                type: "get",
+                                url: "./allCity",
+                                dataType: "json",
+                                contentType: "application/json",
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                            }
                         }
                     }
                 });

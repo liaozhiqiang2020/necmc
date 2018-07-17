@@ -135,26 +135,24 @@ public class PlaceServiceImpl implements PlaceService {
 
                 String superiorName="";
                 String levelFlagName="";
-                for (int i = 0; i <jsonArray.size() ; i++) {
-                        JSONObject jsonObject12 =jsonArray.getJSONObject(i);
-//                        System.out.println(jsonObject12);
-                        int superiorId =Integer.parseInt(jsonObject12.get("superiorId").toString());
-                        int levelFlag =Integer.parseInt(jsonObject12.get("levelFlag").toString());
+                for (int y = 0; y <jsonArray.size() ; y++) {
+                        JSONObject jsonObject2 =jsonArray.getJSONObject(y);
+                        int superiorId =Integer.parseInt(jsonObject2.get("superiorId").toString());
+                        int levelFlag =Integer.parseInt(jsonObject2.get("levelFlag").toString());
                         if(levelFlag==1){
                                 levelFlagName = "总部";
-                                superiorName = this.vendorRepository.findHeadNameById(superiorId);
+                                superiorName = vendorRepository.findHeadNameById(superiorId);
                         }else if(levelFlag==2){
                                 levelFlagName = "分公司";
-                                superiorName = this.vendorRepository.findBranchNameById(superiorId);
+                                superiorName = vendorRepository.findBranchNameById(superiorId);
                         } else if(levelFlag==3){
                                 levelFlagName = "代理商";
-                                superiorName = this.vendorRepository.findVendorById(superiorId).getName();
+                                superiorName = vendorRepository.findVendorById(superiorId).getName();
                         }
-                        jsonObject12.put("superiorName",superiorName);
-                        jsonObject12.put("levelFlagName",levelFlagName);
-                        jsonArray1.add(jsonObject12);
+                        jsonObject2.put("superiorName",superiorName);
+                        jsonObject2.put("levelFlagName",levelFlagName);
+                        jsonArray1.add(jsonObject2);
                 }
-//                System.out.println(jsonArray1.toString());
                 return jsonArray1.toString();
         }
 
@@ -165,8 +163,6 @@ public class PlaceServiceImpl implements PlaceService {
         @Override
         public PlaceEntity insertPlace(PlaceEntity place) {
                 place.setpId(0);
-                place.setCityId(1);
-                place.setBusinessId(1);
                 place.setPlaceLevelId(1);
                 place.setDiscardStatus(1);
                 return  this.placeRepository.save(place);
