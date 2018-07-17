@@ -12,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@RestController
+@Controller
+@RequestMapping("/bussinessMgr")
 public class BusinessController {
     @Autowired
     private BusinessService businessService;
@@ -21,7 +22,7 @@ public class BusinessController {
      * 全部查询
      * @return 返回所有行业内容
      */
-    @GetMapping(value = "/bussinessMgr/allBusiness")
+    @GetMapping(value = "/allBusiness")
     public @ResponseBody
     List<BusinessEntity> getAll() {
         return this.businessService.findAllEntities();
@@ -30,7 +31,7 @@ public class BusinessController {
      * 根据id查询行业
      * @return 返回所有行业内容p
      */
-    @RequestMapping(value = "/bussinessMgr/business",method=RequestMethod.GET)
+    @RequestMapping(value = "/business",method=RequestMethod.GET)
     public @ResponseBody
     BusinessEntity getBusinessById(@PathParam("id") int id ) {
         return this.businessService.fianBusinessById(id);
@@ -41,7 +42,7 @@ public class BusinessController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/bussinessMgr/update/business",method=RequestMethod.GET)
+    @RequestMapping(value = "/update/business",method=RequestMethod.GET)
     public @ResponseBody
     BusinessEntity updateBusinessById(@PathParam("id") int id,BusinessEntity business ) {
         return this.businessService.save(business);
@@ -64,7 +65,7 @@ public class BusinessController {
      * @param businessEntity
      * @return
      */
-    @RequestMapping(value = "/bussinessMgr/insertBussiness",method = RequestMethod.POST)
+    @RequestMapping(value = "/insertBussiness",method = RequestMethod.POST)
     public @ResponseBody
     BusinessEntity insertBussiness(BusinessEntity businessEntity){
         return  this.businessService.insertBusiness(businessEntity);
@@ -75,7 +76,7 @@ public class BusinessController {
      * @param businessEntity
      * @return
      */
-    @RequestMapping(value = "/bussinessMgr/updateBussiness",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateBussiness",method = RequestMethod.POST)
     public @ResponseBody
     BusinessEntity updateBussiness(BusinessEntity businessEntity){
         return this.businessService.updateBussiness(businessEntity);
@@ -85,7 +86,7 @@ public class BusinessController {
     /**
      * 逻辑删除行业分类数据
      */
-    @RequestMapping(value = "/bussinessMgr/deleteBussiness",method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteBussiness",method = RequestMethod.POST)
     public @ResponseBody
     void deleteBussiness(int id){
         this.businessService.deleteBussiness(id);
@@ -95,10 +96,109 @@ public class BusinessController {
      * 全部查询
      * @return 返回所有行业分类内容
      */
-    @GetMapping(value = "/bussinessMgr/getAllBusiness")
+    @GetMapping(value = "/getAllBusiness")
     public @ResponseBody
     String getAllBusiness(@Param("page") String page, @Param("pageSize") String pageSize) {
+
         return this.businessService.findAllBusinessByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    }
+
+    /**
+     * 查询一级分类
+     * @return 返回一级分类内容
+     */
+    @GetMapping(value = "/getBusiness")
+    public @ResponseBody
+    List<BusinessEntity> findAllBusinessByLevel(Integer id){
+        return this.businessService.selectBussinessByLevel(1);
+
+    }
+
+    /**
+     * 根据上级id查询二级分类
+     * @return 返回二级分类内容
+     */
+
+    @GetMapping(value = "/getBusiness2")
+    public @ResponseBody
+    List<BusinessEntity> findAllBusinessByLevel(@Param("id")int id){
+        return this.businessService.selectBussinessByLevel2(id);
+
+    }
+
+
+    /**
+     * 增加一级分类
+     * @return 返回一级分类内容
+     */
+
+    @PostMapping(value = "/createBusiness1")
+    public @ResponseBody
+    BusinessEntity insertBusinessOne(@Param("business")BusinessEntity business){
+        return this.businessService.insertBussiness1(business);
+        /**
+         * 增加二级分类
+         * @return 返回一级分类内容
+         */
+    }
+    @PostMapping(value = "/createBusiness2")
+    public @ResponseBody
+    BusinessEntity insertBusinessTwo(@RequestBody BusinessEntity business){
+        System.out.println(business.toString());
+        return this.businessService.insertBussiness2(business);
+
+    }
+
+
+
+    /**
+     * 删除一级分类
+     *
+     */
+
+    @PostMapping(value = "/removeBusiness1")
+    public @ResponseBody
+    void removeBusiness1(@Param("business")BusinessEntity business){
+        this.businessService.deleteBussiness1(business);
+
+    }
+
+
+
+    /**
+     * 删除二级分类
+     *
+     */
+
+    @PostMapping(value = "/removeBusiness2")
+    public @ResponseBody
+    void removeBusiness2(@RequestBody BusinessEntity business){
+        System.out.println(business.toString());
+        this.businessService.deleteBussiness2(business);
+
+    }
+
+
+    /**
+     * 修改一级分类
+     * @return 返回一级分类内容
+     */
+    @PostMapping(value = "/uppdateBusiness1")
+    public @ResponseBody
+    BusinessEntity uppdateBusiness1(@Param("business")BusinessEntity business){
+        this.businessService.upadateBussiness1(business);
+    return business;
+    }
+    /**
+     * 修改二级分类
+     * @return 返回一级分类内容
+     */
+    @PostMapping(value = "/uppdateBusiness2")
+    public @ResponseBody
+    BusinessEntity uppdateBusiness2(@RequestBody BusinessEntity business){
+
+        return this.businessService.upadateBussiness2(business);
+
     }
 
 }

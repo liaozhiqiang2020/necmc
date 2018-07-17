@@ -20,28 +20,29 @@
                 function loadUserList() {
                     kendo.culture("zh-CN");
 
-                    var dataSource = new kendo.data.DataSource({
+                    var dataSource = new kendo.data.TreeListDataSource({
                         transport: {
                             read: {
-                                url: "./bussinessMgrgetAllBusiness"
+                                url: "getBusiness"
                             },
                             create: {
-                                url: "./bussinessMgr/insertBussiness",
+                                url: "createBusiness1",
                                 dataType: "json",
                                 type: "post"
                             },
                             destroy: {
-                                url: "./bussinessMgr/deleteBussiness",
+                                url: "removeBusiness1",
                                 dataType: "json",
                                 type: "post"
                             },
                             update: {
-                                url:  "./bussinessMgr/updateBussiness",
+                                url:  "uppdateBusiness1",
                                 dataType: "json",
                                 type: "post"
                             }
                         },
                         serverPaging: true,    //设定服务器来实现分页功能
+
                         serverFiltering: true,
                         serverSorting: true,
                         requestEnd: onRequestEnd,
@@ -49,32 +50,16 @@
                         schema: {
                             model: {
                                 id: "id",
+
                                 fields: {
-                                    id: {type: "number", editable: false},
-                                    name: {type: "string"},
-                                    level: {type: "int"}
+                                    id: {type: "number", editable: false}
+
                                 }
                             },
                             data: function (response) {
-                                // console.log(response);
-                                // console.log(response.data);
-                                var list = JSON.parse(response).data;
-                                // for(var i=0;i<list.length;i++){
-                                //     var content2 = list[i];
-                                //     var startime = content2.reviseDate;
-                                //     var oldDate = new Date(Date.parse(startime));//.replace(/-/g, '/')
-                                //     var time1 = oldDate.getTime();
-                                //     content2.reviseDate = datetimeFormat_2(time1);
-                                // }
-                                return list;
-                                // return response.data;
-                            },
-                            total: function (response) {
-                                // console.log(response.total);
-                                // return response.total;
-
-                                return JSON.parse(response).total;
+                                 return response;
                             }
+
                         }
                     });
 
@@ -82,55 +67,28 @@
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         height: 600,
-                        sortable: true, //表示是否支持排序， boolean型
-                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
-                        // groupable: true,//表格标题
-                        // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
-                        //     virtual: true
-                        // },
-                        toolbar: [{name: "create", text: "新增"}],
-                        columnMenu: true,
-                        pageable: {
-                            // empty:"没有要显示的数据",
-                            // //代表是否支持刷新
-                            // refresh: true,
-                            // //表示每页显示的记录数，默认为5,10,20
-                            pageSizes: true,
-                            // //表示显示的页数，5表示1,2,3,4,5
-                            buttonCount: 5,
-                            totalPages: true,
-                            // input: true,//表示是否可以输入数字
-                            refresh: true,
-                            pageSize: 5,
-                            pageSizes: [5, 10, 15, 20],
-                            numeric: true,
-                            input: true,
-                            messages: {
-                                display: "显示 {0}-{1} 条，共 {2} 条",
-                                empty: "没有数据",
-                                itemsPerPage: "每页显示数量",
-                                first: "第一页",
-                                last: "最后一页",
-                                next: "下一页",
-                                previous: "上一页",
-                                page: "页",
-                                of: "共 {0}页"
-                            }
+                        sortable: true,
+                        pageable: true,
+                        detailInit: detailInit,
+                        dataBound: function() {
+                            this.expandRow(this.tbody.find("tr.k-master-row").first());
                         },
+                        toolbar: [{name: "create", text: "新增"}],
                         columns: [
                             {
                                 field: "name",
                                 title: "行业分类名称"
-                            }, {
-                                field: "level",
-                                title: "行业分类等级"
-                            }, {
+                            },  {
                                 command: [
                                     {
-                                        name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
+                                        name: "edit", text: "编辑"
                                     }, {
                                         name: "destroy", text: "删除"
-                                    }],
+
+                                    }
+
+
+                                    ],
                                 title: "操作",
                                 width: "250px"
                             }
@@ -141,6 +99,119 @@
                                 title: "行业分类管理"
                             }
                         }
+                    });
+                }
+
+                function detailInit(e) {
+                   var e=e;
+                    var id=e.data.id
+
+                   $("<div/>").appendTo(e.detailCell).kendoGrid({
+
+                       editable: {
+                           mode: "popup",
+                           window: {
+                               title: "行业分类管理"
+                           }
+                       },
+                       dataSource: {
+                            type: "json",
+                            transport: {
+                                read: "./getBusiness2?id="+id,
+                                create: {
+                                    url: "createBusiness2",
+                                    dataType: "json",
+                                    type: "post",
+                                    contentType:"application/json;charset=UTF-8"
+                                },
+                                destroy: {
+                                    url: "removeBusiness2",
+                                    dataType: "json",
+                                    type: "post",
+                                    contentType:"application/json;charset=UTF-8"
+
+                                },
+                                update: {
+                                    url:  "uppdateBusiness2",
+                                    dataType: "json",
+                                    type: "post",
+                                    contentType:"application/json;charset=UTF-8"
+                                },
+                                parameterMap:function(options, operation){
+
+                                    if(operation ==="create"){
+                                        options.parentId =id;
+                                        console.log(options)
+
+                                        return kendo.stringify(options);
+                                    }
+                                    if(operation === "update"){
+                                        return kendo.stringify(options);
+                                    }
+                                    if(operation === "destroy"){
+                                        return kendo.stringify(options);
+                                    }
+
+
+                                }
+
+                            },
+                            serverPaging: true,
+                            serverSorting: true,
+                            serverFiltering: true,
+                            pageSize: 10,
+                            schema: {
+                               model: {
+                                   id: "id",
+
+                                   fields: {
+                                       id: {type: "number", editable: false}
+
+                                   }
+                               },
+                               data: function (response) {
+                                   // response.parentId=id;
+                                   return response;
+                               }
+
+                           }
+                        },
+                        scrollable: false,
+                        sortable: true,
+                        pageable: true,
+                        toolbar: [ "create"],
+                        columns: [
+                            { field: "name" ,title: "行业分类名称", width: "110px" },
+
+                            {
+                                command: [
+                                        "edit"
+                                    ,
+                                         "destroy"
+                                ],
+                                title: "操作",
+                                width: "250px"
+                            }
+                        ],
+                       schema: {
+                           model: {
+                               id: "id",
+                               parentId:"parentId",
+                               fields: {
+                                   id: {type: "number", editable: false},
+                                   parentId:{type: "number",nullable: true}
+                               },
+
+
+                               },
+                           data: function (response) {
+                               return response;
+                           }
+
+                       },
+
+
+
                     });
                 }
 
