@@ -141,7 +141,7 @@ public class PlaceController {
      */
     @RequestMapping(value = "/placeMgr/findAllDeviceByPlaceId",method = RequestMethod.GET)
     public @ResponseBody
-    List<DeviceEntity> findAllDeviceByPlaceId(@RequestParam  int placeId){
+    List<DeviceEntity> findAllDeviceByPlaceId(@RequestParam(name = "placeId")  int placeId){
         return this.placeService.findDeviceByPlace(placeId);
     }
 
