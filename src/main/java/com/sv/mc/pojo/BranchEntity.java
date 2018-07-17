@@ -30,8 +30,7 @@ public class BranchEntity {
         this.id = id;
     }
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="head_quarters_id")
     public HeadQuartersEntity getHeadQuartersEntity() {
         return headQuartersEntity;

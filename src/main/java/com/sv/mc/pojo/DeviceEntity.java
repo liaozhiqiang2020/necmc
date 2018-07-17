@@ -3,7 +3,6 @@ package com.sv.mc.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,14 +15,15 @@ import java.util.Objects;
 @Table(name = "mc_device", schema = "mc", catalog = "")
 public class DeviceEntity {
     private int id;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-    private Timestamp maintainDateTime;     //维修时间
-    private BigDecimal latitude;            //按摩椅纬度
-    private BigDecimal longitude;           //按摩椅经度
-    private int mcStatus;                   //按摩椅状态(0可用,1使用中,2维修中)
-    private String mcSn;                    //按摩椅编号
-    private String note;                    //备注
+    private Timestamp maintainDateTime; //维修时间
+    private BigDecimal latitude;//按摩椅纬度
+    private BigDecimal longitude; //按摩椅经度
+
+    private int mcStatus;//按摩椅状态(0可用,1使用中,2维修中)
+    private String mcSn;//按摩椅编号
+    private String note;//备注
     private Integer discardStatus;
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
     private PlaceEntity placeEntity;            //场地
@@ -40,8 +40,6 @@ public class DeviceEntity {
         this.id = id;
     }
 
-
-
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
     @JoinTable(name = "mc_price_device",                       //指定第三张表
@@ -56,7 +54,25 @@ public class DeviceEntity {
         this.priceEntities = priceEntities;
     }
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="mc_type")
+    public DeviceModelEntity getDeviceModelEntity() {
+        return deviceModelEntity;
+    }
 
+    public void setDeviceModelEntity(DeviceModelEntity deviceModelEntity) {
+        this.deviceModelEntity = deviceModelEntity;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="place_id")
+    public PlaceEntity getPlaceEntity() {
+        return placeEntity;
+    }
+
+    public void setPlaceEntity(PlaceEntity placeEntity) {
+        this.placeEntity = placeEntity;
+    }
 
     @Basic
     @Column(name = "maintain_date_time")
@@ -128,30 +144,6 @@ public class DeviceEntity {
     public void setDiscardStatus(Integer discardStatus) {
         this.discardStatus = discardStatus;
     }
-
-    //    @JsonIgnore
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name="place_id")
-    public PlaceEntity getPlaceEntity() {
-        return placeEntity;
-    }
-
-    public void setPlaceEntity(PlaceEntity placeEntity) {
-        this.placeEntity = placeEntity;
-    }
-
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name="mc_type")
-    public DeviceModelEntity getDeviceModelEntity() {
-        return deviceModelEntity;
-    }
-
-    public void setDeviceModelEntity(DeviceModelEntity deviceModelEntity) {
-        this.deviceModelEntity = deviceModelEntity;
-    }
-
 
     @Override
     public boolean equals(Object o) {

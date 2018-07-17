@@ -43,8 +43,7 @@ public class PlaceEntity {
 
     private BusinessEntity businessEntity;//行业信息
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="business_id")
     public BusinessEntity getBusinessEntity() {
         return businessEntity;
@@ -56,8 +55,7 @@ public class PlaceEntity {
 
     private CityEntity cityEntity;//城市信息
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="city_id")
     public CityEntity getCityEntity() {
         return cityEntity;
