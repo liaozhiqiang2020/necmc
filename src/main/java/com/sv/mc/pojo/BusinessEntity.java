@@ -10,13 +10,13 @@ public class BusinessEntity {
     private String name;
     private int level;
     private Integer discardStatus;
+    private Integer parentId;
 
     @Id
     @Column(name = "Id")
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -26,18 +26,16 @@ public class BusinessEntity {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
     @Basic
     @Column(name = "level")
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
-
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
@@ -46,10 +44,18 @@ public class BusinessEntity {
     public Integer getDiscardStatus() {
         return discardStatus;
     }
-
     public void setDiscardStatus(Integer discardStatus) {
         this.discardStatus = discardStatus;
     }
+
+
+
+    @Basic
+    @Column(name = "parent_id")
+    public void setParentId(Integer parentId) { this.parentId = parentId; }
+    public Integer getParentId() { return parentId; }
+
+
 
     @Override
     public boolean equals(Object o) {

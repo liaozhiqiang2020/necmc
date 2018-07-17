@@ -35,4 +35,34 @@ public interface BusinessRepository extends BaseRepository<BusinessEntity, Long>
      */
     @Query(value="select count(*) from mc_business as b where b.discard_status=1",nativeQuery = true)
     int findBusinessTotal();
+
+
+    /*
+    查询一级目录
+    */
+    @Query("from BusinessEntity as b where b.level=:id and b.discardStatus=1")
+    List<BusinessEntity> findBusinessByParentId(@Param("id") Integer id);
+
+
+
+    /*
+    查询二级目录
+    */
+    @Query("from BusinessEntity as b where b.parentId=:id and b.discardStatus=1")
+    List<BusinessEntity> findBusinessByParentId2(@Param("id") int id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

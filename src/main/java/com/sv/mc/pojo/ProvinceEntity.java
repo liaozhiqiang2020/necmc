@@ -14,6 +14,8 @@ public class ProvinceEntity {
     private String name; //省名
     private int areaId; //大区id
 
+
+    @GeneratedValue()
     @Id
     @Column(name = "Id")
     public int getId() {
@@ -43,6 +45,16 @@ public class ProvinceEntity {
     public void setAreaId(int areaId) {
         this.areaId = areaId;
     }
+
+
+
+    @OneToMany
+    @JoinColumn(name = "type_id")
+
+
+
+
+
 
     @Override
     public boolean equals(Object o) {

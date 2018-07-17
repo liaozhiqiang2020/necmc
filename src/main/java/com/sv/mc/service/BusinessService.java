@@ -47,4 +47,46 @@ public interface BusinessService<T> extends BaseService<T>{
      * 分页查询行业分类信息
      */
     String findAllBusinessByPage(int page, int pageSize);
+
+
+     /*
+      查询一级行业
+      */
+    List<BusinessEntity> selectBussinessByLevel(Integer id);
+
+   /*
+     查询二级行业信息
+    */
+   List<BusinessEntity> selectBussinessByLevel2(int id);
+
+  /*
+    增加一级行业
+  */
+  BusinessEntity insertBussiness1(BusinessEntity business);
+
+
+
+  /*
+    增加二级行业
+  */
+  BusinessEntity insertBussiness2(BusinessEntity business);
+
+
+  /*
+    删除一级行业
+   */
+   void deleteBussiness1(BusinessEntity buiness);
+  /*
+   删除二级行业
+   */
+  void deleteBussiness2(BusinessEntity buiness);
+   /*
+   修改一级行业
+    */
+    BusinessEntity upadateBussiness1(BusinessEntity buiness);
+ /*
+   修改二级行业
+  */
+    BusinessEntity upadateBussiness2(BusinessEntity buiness);
+
 }

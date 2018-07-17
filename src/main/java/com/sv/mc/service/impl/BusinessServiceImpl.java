@@ -77,4 +77,75 @@ public class BusinessServiceImpl implements BusinessService {
         branchEntityDataSourceResult.setTotal(total);
         return gson.toJson(branchEntityDataSourceResult);
     }
+/*
+   查询第一级分类
+ */
+    @Override
+    public List<BusinessEntity> selectBussinessByLevel(Integer id) {
+        return this.businessRepository.findBusinessByParentId(id);
+    }
+/*
+ 查询二级分类
+ */
+    @Override
+    public List<BusinessEntity> selectBussinessByLevel2(int id) {
+        return this.businessRepository.findBusinessByParentId2(id);
+    }
+//增加一级分类
+    @Override
+    public BusinessEntity insertBussiness1(BusinessEntity business) {
+        business.setDiscardStatus(1);
+        business.setLevel(1);
+        business.setParentId(null);
+        this.businessRepository.save(business);
+        return business;
+    }
+//增加二级分类
+    @Override
+    public BusinessEntity insertBussiness2(BusinessEntity business) {
+        business.setDiscardStatus(1);
+        business.setLevel(2);
+
+        this.businessRepository.save(business);
+        return business;
+    }
+//删除一级分类
+    @Override
+    public void deleteBussiness1(BusinessEntity buiness) {
+     buiness.setDiscardStatus(0);
+     this.businessRepository.save(buiness);
+
+    }
+//删除二级分类
+    @Override
+    public void deleteBussiness2(BusinessEntity buiness) {
+        buiness.setDiscardStatus(0);
+
+        this.businessRepository.save(buiness);
+    }
+//修改一级分类
+    @Override
+    public BusinessEntity upadateBussiness1(BusinessEntity business) {
+        this.businessRepository.save(business);
+        return business;
+    }
+//修改二级分类
+    @Override
+    public BusinessEntity upadateBussiness2(BusinessEntity business) {
+        if(business.getLevel()==1){
+            business.setParentId(0);
+        }
+        this.businessRepository.save(business);
+        return business;
+    }
+
+
+
+
+
+
+
+
+
+
 }
