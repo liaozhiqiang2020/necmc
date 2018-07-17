@@ -88,6 +88,7 @@
                         pageSize: 20,
                         serverPaging: false,
                         serverSorting: true,
+                        requestEnd: onRequestEnd,
                         schema: {
                             model: {
                                 id: "id",
@@ -109,7 +110,7 @@
                                 }
                             },
                             data:function(response){
-                                console.log(response);
+                                // console.log(response);
                                 var list = JSON.parse(response);
 
                                 return list;
@@ -145,11 +146,13 @@
                         },
                         {
                             field: "latitude",
-                            title: "纬度"
+                            title: "纬度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "longitude",
-                            title: "经度"
+                            title: "经度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "startDateTime",
@@ -252,6 +255,7 @@
                         },
                         serverPaging: false,
                         serverSorting: true,
+                        requestEnd: onRequestEnd,
                         serverFiltering: true,
                         pageSize: 7,
                         schema: {
@@ -311,11 +315,13 @@
                         },
                         {
                             field: "latitude",
-                            title: "纬度"
+                            title: "纬度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "longitude",
-                            title: "经度"
+                            title: "经度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "startDateTime",
@@ -419,6 +425,7 @@
                         },
                         serverPaging: true,
                         serverSorting: true,
+                        requestEnd: onRequestEnd,
                         serverFiltering: true,
                         pageSize: 7,
                         schema: {
@@ -477,11 +484,13 @@
                         },
                         {
                             field: "latitude",
-                            title: "纬度"
+                            title: "纬度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "longitude",
-                            title: "经度"
+                            title: "经度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "startDateTime",
@@ -585,6 +594,7 @@
                         },
                         serverPaging: true,
                         serverSorting: true,
+                        requestEnd: onRequestEnd,
                         serverFiltering: true,
                         pageSize: 7,
                         schema: {
@@ -638,11 +648,13 @@
                         },
                         {
                             field: "latitude",
-                            title: "纬度"
+                            title: "纬度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "longitude",
-                            title: "经度"
+                            title: "经度",
+                            format: "{0:n4}"
                         },
                         {
                             field: "startDateTime",
@@ -787,6 +799,33 @@
                     }
                 });
 
+            }
+
+
+            //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
+            function onRequestEnd(e) {
+                if (e.type == "create") {
+                    e.sender.read();       //调用read方法 重新读取表格
+                }
+                else if (e.type == "update") {
+                    e.sender.read();
+                }
+                else if (e.type == "destroy") {
+                    e.sender.read();
+                }
+
+                //更新成功后弹出提示信息
+                var response = e.response;
+                if (response) {
+                    var type = e.type;
+                    if (type != 'read') {
+                        var status = response.status;
+                        if (status == 200) {this.read();}
+                        else {
+                            // alert(response.msg);
+                        }
+                    }
+                }
             }
 
         </script>
