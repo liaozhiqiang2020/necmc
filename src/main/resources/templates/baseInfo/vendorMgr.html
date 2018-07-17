@@ -25,22 +25,22 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "allVendor"
+                                url: "./vendorMgr/allVendor"
                             },
                             create: {
-                                url: "insertVendor",
+                                url: "./vendorMgr/insertVendor",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "deleteVendor",
+                                url: "./vendorMgr/deleteVendor",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "updateVendor",
+                                url:  "./vendorMgr/updateVendor",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -92,6 +92,7 @@
                                 //         content2.levelFlag="总部";
                                 //     }
                                 // }
+                                console.log(list);
                                 return list;
                             },
                             total: function (response) {
@@ -260,7 +261,7 @@
                                     transport: {
                                         read: {
                                             // type: "get",
-                                            url: "../branchMgr/allBranch"
+                                            url: "./branchMgr/allBranch"
                                             // dataType: "json",
                                             // contentType: "application/json",
                                             // headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -276,7 +277,7 @@
                                     transport: {
                                         read: {
                                             // type: "get",
-                                            url: "../headMgr/allHead"
+                                            url: "./headMgr/allHead"
                                             // dataType: "json"
                                             // contentType: "application/json",
                                             // headers: {'Content-Type': 'application/x-www-form-urlencoded'}

@@ -12,8 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
-@Controller
-@RequestMapping("/headMgr")
+@RestController
 public class HeadQuartersController {
     //注入
     @Autowired
@@ -23,7 +22,7 @@ public class HeadQuartersController {
      * 全部查询
      * @return 返回所有总公司内容
      */
-    @GetMapping(value = "/allHeadQuarters")
+    @GetMapping(value = "/headMgr/allHeadQuarters")
     public @ResponseBody
     List<HeadQuartersEntity> getAllHeadQuarters() {
         return this.headQuartersService.findAllEntities();
@@ -35,7 +34,7 @@ public class HeadQuartersController {
      * @param headQuarters
      * @return
      */
-    @RequestMapping(value = "/update/headQuarters",method = RequestMethod.POST)
+    @RequestMapping(value = "/headMgr/update/headQuarters",method = RequestMethod.POST)
     public @ResponseBody
     HeadQuartersEntity updateBranchDataById(@PathParam("id") int id,@RequestBody HeadQuartersEntity headQuarters){
         return headQuartersService.save(headQuarters);
@@ -56,7 +55,7 @@ public class HeadQuartersController {
      * 全部查询
      * @return 返回所有总公司内容分页
      */
-    @GetMapping(value = "/allHeadByPage")
+    @GetMapping(value = "/headMgr/allHeadByPage")
     public @ResponseBody
     String getAllHeadByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
         return this.headQuartersService.findAllHeadByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
@@ -66,7 +65,7 @@ public class HeadQuartersController {
      * 全部查询
      * @return 返回所有总公司内容不分页
      */
-    @GetMapping(value = "/allHead")
+    @GetMapping(value = "/headMgr/allHead")
     public @ResponseBody
     List<HeadQuartersEntity> getAllHead() {
         return this.headQuartersService.findAllHead();
@@ -77,7 +76,7 @@ public class HeadQuartersController {
      * @param headQuartersEntity
      * @return
      */
-    @RequestMapping(value = "/insertHead",method = RequestMethod.POST)
+    @RequestMapping(value = "/headMgr/insertHead",method = RequestMethod.POST)
     public @ResponseBody
     HeadQuartersEntity insertHead(HeadQuartersEntity headQuartersEntity){
         return  this.headQuartersService.insertHead(headQuartersEntity);
@@ -88,7 +87,7 @@ public class HeadQuartersController {
      * @param headQuartersEntity
      * @return
      */
-    @RequestMapping(value = "/updateHead",method = RequestMethod.POST)
+    @RequestMapping(value = "/headMgr/updateHead",method = RequestMethod.POST)
     public @ResponseBody
     HeadQuartersEntity updateHead(HeadQuartersEntity headQuartersEntity){
         return this.headQuartersService.updateHeadDataById(headQuartersEntity);
@@ -98,7 +97,7 @@ public class HeadQuartersController {
     /**
      * 逻辑删除总公司数据
      */
-    @RequestMapping(value = "/deleteHead",method = RequestMethod.POST)
+    @RequestMapping(value = "/headMgr/deleteHead",method = RequestMethod.POST)
     public @ResponseBody
     void deleteHead(int id){
         this.headQuartersService.deleteHead(id);
@@ -109,7 +108,7 @@ public class HeadQuartersController {
      * 根据分公司id查询总公司名称
      * @return
      */
-    @PostMapping(value = "/findHeadInfo")
+    @PostMapping(value = "/headMgr/findHeadInfo")
     public @ResponseBody
     int findHeadInfo(int branchId) {
         return this.headQuartersService.findHeadByBranchId(branchId).getId();
@@ -119,7 +118,7 @@ public class HeadQuartersController {
      * 根据总公司id查询总公司名称
      * @return
      */
-    @PostMapping(value = "/findHeadName")
+    @PostMapping(value = "/headMgr/findHeadName")
     public @ResponseBody
     String findHeadName(int headId) {
         return this.headQuartersService.findHeadQuartersById(headId).getName();

@@ -63,7 +63,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     /**
      * 根据场地id查询他的字节点
      */
-    @Query("from PlaceEntity where pId=:placeId")
+    @Query("from PlaceEntity where pId=:placeId and discardStatus=1")
     List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
 
 }

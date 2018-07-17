@@ -89,6 +89,6 @@ public interface PlaceService<T> extends BaseService<T>{
     /**
      * 根据场地id查询他的字节点
      */
-    List<PlaceEntity> findPlaceByParentId(int placeId);
+    String findPlaceByParentId(int placeId);
 
 }

@@ -14,8 +14,7 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/placeMgr")
+@RestController
 public class PlaceController {
     //注入
     @Autowired
@@ -25,7 +24,7 @@ public class PlaceController {
      * 全部查询
      * @return 返回所有场地内容
      */
-    @GetMapping(value = "/allPlace")
+    @GetMapping(value = "/placeMgr/allPlace")
     public @ResponseBody
     List<PlaceEntity> getAll() {
         return this.placeService.findAllEntities();
@@ -35,7 +34,7 @@ public class PlaceController {
      * @param id
      * @return 单个分公司内容
      */
-    @RequestMapping(value = "/place",method=RequestMethod.GET)
+    @RequestMapping(value = "/placeMgr/place",method=RequestMethod.GET)
     public @ResponseBody
     PlaceEntity getPlaceById(@PathParam("id") int id ) {
             return this.placeService.findPlaceById(id);
@@ -57,7 +56,7 @@ public class PlaceController {
      * @param place
      * @return
      */
-    @RequestMapping(value = "/place/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/placeMgr/place/update",method = RequestMethod.POST)
     public @ResponseBody
     PlaceEntity updatePlace(@PathParam("id") int id,@RequestBody PlaceEntity place){
         return placeService.updatePlaceById(id,place);
@@ -90,7 +89,7 @@ public class PlaceController {
      * 全部查询
      * @return 返回所有场地内容
      */
-    @GetMapping(value = "/getAllPlace")
+    @GetMapping(value = "/placeMgr/getAllPlace")
     public @ResponseBody
     String getAllPlace() {
         return this.placeService.findAllPlace();
@@ -101,7 +100,7 @@ public class PlaceController {
      * @param placeEntity
      * @return
      */
-    @RequestMapping(value = "/insertPlace",method = RequestMethod.POST)
+    @RequestMapping(value = "/placeMgr/insertPlace",method = RequestMethod.POST)
     public @ResponseBody
     PlaceEntity insertPlace(@RequestBody PlaceEntity placeEntity){
         return  this.placeService.insertPlace(placeEntity);
@@ -112,17 +111,16 @@ public class PlaceController {
      * @param placeEntity
      * @return
      */
-    @RequestMapping(value = "/updatePlace",method = RequestMethod.POST)
+    @RequestMapping(value = "/placeMgr/updatePlace",method = RequestMethod.POST)
     public @ResponseBody
     PlaceEntity updatePlace(@RequestBody PlaceEntity placeEntity){
         return this.placeService.updatePlace(placeEntity);
-
     }
 
     /**
      * 逻辑删除场地数据
      */
-    @RequestMapping(value = "/deletePlace",method = RequestMethod.POST)
+    @RequestMapping(value = "/placeMgr/deletePlace",method = RequestMethod.POST)
     public @ResponseBody
     void deletePlace(@RequestBody Map<String,Object> map){
         this.placeService.deletePlace(Integer.parseInt(map.get("placeId").toString()));
@@ -132,9 +130,9 @@ public class PlaceController {
     /**
      * 根据场地id查询他的字节点
      */
-    @GetMapping(value = "/findPlaceByParentId")
+    @GetMapping(value = "/placeMgr/findPlaceByParentId")
     public @ResponseBody
-    List<PlaceEntity> findPlaceByParentId(@RequestParam(name = "placeId")int placeId){
+    String findPlaceByParentId(@RequestParam(name = "placeId")int placeId){
         return this.placeService.findPlaceByParentId(placeId);
     }
 

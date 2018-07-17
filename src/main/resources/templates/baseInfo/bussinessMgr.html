@@ -23,20 +23,20 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "getAllBusiness"
+                                url: "./bussinessMgrgetAllBusiness"
                             },
                             create: {
-                                url: "insertBussiness",
+                                url: "./bussinessMgr/insertBussiness",
                                 dataType: "json",
                                 type: "post"
                             },
                             destroy: {
-                                url: "deleteBussiness",
+                                url: "./bussinessMgr/deleteBussiness",
                                 dataType: "json",
                                 type: "post"
                             },
                             update: {
-                                url:  "updateBussiness",
+                                url:  "./bussinessMgr/updateBussiness",
                                 dataType: "json",
                                 type: "post"
                             }
@@ -56,7 +56,7 @@
                                 }
                             },
                             data: function (response) {
-                                console.log(response);
+                                // console.log(response);
                                 // console.log(response.data);
                                 var list = JSON.parse(response).data;
                                 // for(var i=0;i<list.length;i++){
