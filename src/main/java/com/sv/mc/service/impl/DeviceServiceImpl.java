@@ -7,6 +7,8 @@ import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.DataSourceResult;
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,15 +60,15 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
-        public DeviceEntity insertDevice(DeviceEntity device,String maintainDateTime) {
-                device.setDiscardStatus(1);
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-                ParsePosition pos = new ParsePosition(0);
-                BaseUtil baseUtil = new BaseUtil();
-                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
-                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
-                Timestamp ts = new Timestamp(nReviseDate2.getTime());
-                device.setMaintainDateTime(ts);
+        public DeviceEntity insertDevice(DeviceEntity device) {
+//                device.setDiscardStatus(1);
+//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+//                ParsePosition pos = new ParsePosition(0);
+//                BaseUtil baseUtil = new BaseUtil();
+//                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
+//                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
+//                Timestamp ts = new Timestamp(nReviseDate2.getTime());
+//                device.setMaintainDateTime(ts);
                 return deviceRepository.save(device);
         }
 
@@ -82,27 +84,32 @@ public class DeviceServiceImpl implements DeviceService {
 
 
         @Override
-        public DeviceEntity updateDevice(DeviceEntity device,String maintainDateTime) {
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-                ParsePosition pos = new ParsePosition(0);
-                BaseUtil baseUtil = new BaseUtil();
-                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
-                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
-                Timestamp ts = new Timestamp(nReviseDate2.getTime());
-                device.setMaintainDateTime(ts);
+        public DeviceEntity updateDevice(DeviceEntity device) {
+//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+//                ParsePosition pos = new ParsePosition(0);
+//                BaseUtil baseUtil = new BaseUtil();
+//                String nReviseDate = baseUtil.parseTime(maintainDateTime);    //时间格式转换
+//                Date nReviseDate2 = sdf.parse(nReviseDate,pos);
+//                Timestamp ts = new Timestamp(nReviseDate2.getTime());
+//                device.setMaintainDateTime(ts);
                 return this.deviceRepository.save(device);
         }
 
         @Override
         public String findAllDeviceByPage(int page, int pageSize) {
-                Gson gson = new Gson();
+//                Gson gson = new Gson();
                 DataSourceResult<DeviceEntity> deviceEntityDataSourceResult = new DataSourceResult<>();
                 int offset = ((page-1)*pageSize);
                 List<DeviceEntity> deviceEntityList = this.deviceRepository.findAllDeviceByPage(offset,pageSize);
                 int total = this.deviceRepository.findDeviceTotal();
                 deviceEntityDataSourceResult.setData(deviceEntityList);
                 deviceEntityDataSourceResult.setTotal(total);
-                return gson.toJson(deviceEntityDataSourceResult);
+                JsonConfig config = new JsonConfig();
+                config.setExcludes(new String[] { "priceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+                JSONArray jsonArray = JSONArray.fromObject(deviceEntityDataSourceResult,config);
+
+
+                return jsonArray.toString();
         }
 
         @Override

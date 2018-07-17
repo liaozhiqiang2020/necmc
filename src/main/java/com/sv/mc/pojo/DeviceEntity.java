@@ -16,7 +16,6 @@ import java.util.Objects;
 @Table(name = "mc_device", schema = "mc", catalog = "")
 public class DeviceEntity {
     private int id;
-    private int placeId;                    //场地id
 //    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp maintainDateTime;     //维修时间
@@ -29,6 +28,17 @@ public class DeviceEntity {
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
     private PlaceEntity placeEntity;            //场地
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
+
+    @Id
+    @Column(name = "Id")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -45,15 +55,6 @@ public class DeviceEntity {
         this.priceEntities = priceEntities;
     }
 
-    @Id
-    @Column(name = "Id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
 
     @Basic
@@ -127,8 +128,9 @@ public class DeviceEntity {
         this.discardStatus = discardStatus;
     }
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)// 指定多对一关系
+    //    @JsonIgnore
+    @ManyToOne(fetch=FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name="place_id")
     public PlaceEntity getPlaceEntity() {
         return placeEntity;
@@ -138,8 +140,8 @@ public class DeviceEntity {
         this.placeEntity = placeEntity;
     }
 
-    @JsonIgnore
-    @ManyToOne// 指定多对一关系
+    @ManyToOne(fetch=FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name="mc_type")
     public DeviceModelEntity getDeviceModelEntity() {
         return deviceModelEntity;
@@ -156,7 +158,6 @@ public class DeviceEntity {
         if (o == null || getClass() != o.getClass()) return false;
         DeviceEntity that = (DeviceEntity) o;
         return id == that.id &&
-                placeId == that.placeId &&
                 mcStatus == that.mcStatus &&
                 Objects.equals(maintainDateTime, that.maintainDateTime) &&
                 Objects.equals(latitude, that.latitude) &&
@@ -169,6 +170,6 @@ public class DeviceEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, placeId, maintainDateTime, latitude, longitude, mcStatus, mcSn, note, discardStatus);
+        return Objects.hash(id, maintainDateTime, latitude, longitude, mcStatus, mcSn, note, discardStatus);
     }
 }

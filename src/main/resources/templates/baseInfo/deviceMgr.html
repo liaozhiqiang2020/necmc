@@ -23,33 +23,41 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "getAllDevice"
+                                url: "./deviceMgr/getAllDevice"
                             },
                             create: {
-                                url: "insertDevice",
+                                url: "./deviceMgr/insertDevice",
                                 dataType: "json",
-                                type: "post"
-                                // contentType:"application/json"
+                                type: "post",
+                                contentType:"application/json"
                             },
                             destroy: {
-                                url: "deleteDevice",
+                                url: "./deviceMgr/deleteDevice",
                                 dataType: "json",
-                                type: "post"
-                                // contentType:"application/json"
+                                type: "post",
+                                contentType:"application/json"
                             },
                             update: {
-                                url:  "updateDevice",
+                                url:  "./deviceMgr/updateDevice",
                                 dataType: "json",
-                                type: "post"
-                                // contentType:"application/json"
+                                type: "post",
+                                contentType:"application/json"
+                            },
+                            parameterMap:function(options, operation){
+                                if (operation === "destroy") {
+                                    var deviceId = options.id;
+
+                                    var list = {
+                                        id:deviceId
+                                    }
+                                    return kendo.stringify(list);
+                                }
+                                if(operation ==="create" || operation ==="update"){
+                                    var maintainDateTime =options.maintainDateTime;
+                                    options.maintainDateTime=  kendo.toString(kendo.parseDate(maintainDateTime, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    return kendo.stringify(options);
+                                }
                             }
-                            // ,
-                            // parameterMap: function(options, operation) {
-                            //     console.log(options);
-                            //     if (operation !== "read" && options.models) {
-                            //         return {models: kendo.stringify(options.models)};
-                            //     }
-                            // }
                         },
                         serverPaging: false,    //设定服务器来实现分页功能
                         serverFiltering: true,
@@ -66,30 +74,14 @@
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
                                     mcStatus: {type: "int"},
-                                    note: {type: "string"}
+                                    note: {type: "string"},
+                                    placeEntity:{defaultValue: { id: 1, name: ""}},
+                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}}
                                 }
+                            },
+                            data: function (response) {
+                                return response;
                             }
-                            // ,
-                            // data: function (response) {
-                            //     // console.log(response);
-                            //     // console.log(response.data);
-                            //     var list = JSON.parse(response).data;
-                            //     for(var i=0;i<list.length;i++){
-                            //         var content2 = list[i];
-                            //         var startime = content2.maintainDateTime;
-                            //         var oldDate = new Date(Date.parse(startime));//.replace(/-/g, '/')
-                            //         var time1 = oldDate.getTime();
-                            //         content2.maintainDateTime = datetimeFormat_2(time1);
-                            // }
-                            //     return list;
-                            //     // return response.data;
-                            // },
-                            // total: function (response) {
-                            //     // console.log(response.total);
-                            //     // return response.total;
-                            //
-                            //     return JSON.parse(response).total;
-                            // }
                         }
                     });
 
@@ -143,17 +135,35 @@
                                 format: "{0:yyyy-MM-dd HH:mm}",
                                 editor: changeDate
                             },
-                            {field: "latitude",
-                                title: "按摩椅所在纬度"
+                            {
+                                field: "latitude",
+                                title: "按摩椅所在纬度",
+                                format: "{0:n4}"
                             },
-                            {field: "longitude",
-                                title: "按摩椅所在经度"
+                            {
+                                field: "longitude",
+                                title: "按摩椅所在经度",
+                                format: "{0:n4}"
                             },
-                            {field: "mcStatus",
+                            {
+                                field: "mcStatus",
                                 title: "按摩椅状态"
                             },
-                            {field: "note",
+                            {
+                                field: "note",
                                 title: "备注信息"
+                            },
+                            {
+                                field: "placeEntity",
+                                title: "所属场地",
+                                template:"#=placeEntity.name#",
+                                editor:placeEditor
+                            },
+                            {
+                                field: "deviceModelEntity",
+                                title: "所属型号",
+                                template:"#=deviceModelEntity.name#",
+                                editor:deviceEditor
                             },
                             {
                                 command: [
@@ -209,60 +219,55 @@
                     }
                 }
 
-                //grid改变时触发的事件，暂时用于分页
-                // function onChange(e) {
-                //     page = $("#grid").data("kendoGrid").dataSource.page();
-                //     pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                //     //$("#grid").data("kendoGrid").dataSource.bind("parameterMap", parameterMap);
-                // }
+                function placeEditor(container, options){
+                    var placeId = options.model.placeEntity.id;
 
-                //dataSource向后台发送数据时触发的事件
-                // function parameterMap(e){
-                //     console.log("parameterMap");
-                //     return {page:page,pageSize:pageSize};
-                // }
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: placeId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./placeMgr/allPlace",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
 
-                // //编辑时boolean类型复选框样式修改
-                // function customBoolEditor(container, options) {
-                //     var guid = kendo.guid();
-                //     $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
-                //     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
-                // }
+                function deviceEditor(container, options){
+                    var deviceId = options.model.deviceModelEntity.id;
 
-                // //打开标记窗口时下拉列表展示
-                // function roleListDropDownEditor(container, options) {
-                //     var userId = options.model.id;
-                //
-                //     $.ajax({
-                //         type: "post",
-                //         async: true,
-                //         url: "/userController/roleList",
-                //         dataType: "json",
-                //         data:{userId:userId},
-                //         success: function (data) {
-                //             $('<select required name="'+options.field+'" multiple="multiple"></select>')
-                //                 .appendTo(container)
-                //                 .kendoMultiSelect({
-                //                     autoBind: false,
-                //                     dataTextField: "roleName",
-                //                     dataValueField: "roleId",
-                //                     dataSource: {
-                //                         serverFiltering: true,
-                //                         transport: {
-                //                             read: {
-                //                                 type: "post",
-                //                                 url: "/roleController/roleList",
-                //                                 dataType: "json",
-                //                                 contentType: "application/json",
-                //                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                //                             }
-                //                         }
-                //                     },
-                //                     value: data
-                //                 });
-                //         }
-                //     });
-                // }
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: deviceId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./deviceModel/all",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
                 /*]]>*/
             </script>
 

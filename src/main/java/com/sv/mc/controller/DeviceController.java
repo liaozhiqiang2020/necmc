@@ -19,9 +19,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-@Controller
-@RequestMapping("/deviceMgr")
+@RestController
 public class DeviceController {
     //注入
     @Autowired
@@ -31,7 +31,7 @@ public class DeviceController {
      * 全部查询
      * @return 返回所有设备内容
      */
-    @GetMapping(value = "/allDevice")
+    @GetMapping(value = "/deviceMgr/allDevice")
     public @ResponseBody
     List<DeviceEntity> getAll() {
         return this.deviceService.findAllEntities();
@@ -41,7 +41,7 @@ public class DeviceController {
      * @param id
      * @return 单个设备内容
      */
-    @RequestMapping(value = "/device",method=RequestMethod.GET)
+    @RequestMapping(value = "/deviceMgr/device",method=RequestMethod.GET)
     public @ResponseBody
     DeviceEntity getDeviceById(@PathParam("id") int id ) {
             return this.deviceService.findDeviceById(id);
@@ -89,7 +89,7 @@ public class DeviceController {
 //     * 全部查询
 //     * @return 返回所有设备内容
 //     */
-//    @GetMapping(value = "/getAllDevice")
+//    @GetMapping(value = "/deviceMgr/getAllDevice")
 //    public @ResponseBody
 //    String getAllDevice(@Param("page") String page, @Param("pageSize") String pageSize) {
 //        return this.deviceService.findAllDeviceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
@@ -99,7 +99,7 @@ public class DeviceController {
      * 全部查询
      * @return 返回所有设备内容
      */
-    @GetMapping(value = "/getAllDevice")
+    @GetMapping(value = "/deviceMgr/getAllDevice")
     public @ResponseBody
     List<DeviceEntity> getAllDevice() {
         return this.deviceService.findAllDevice();
@@ -110,10 +110,10 @@ public class DeviceController {
      * @param deviceEntity
      * @return
      */
-    @RequestMapping(value = "/insertDevice",method = RequestMethod.POST)
+    @RequestMapping(value = "/deviceMgr/insertDevice",method = RequestMethod.POST)
     public @ResponseBody
-    DeviceEntity insertDevice(DeviceEntity deviceEntity,BindingResult bindingResult,String maintainDateTime){
-        return  this.deviceService.insertDevice(deviceEntity,maintainDateTime);
+    DeviceEntity insertDevice(@RequestBody DeviceEntity deviceEntity){
+        return  this.deviceService.insertDevice(deviceEntity);
     }
 
     /**
@@ -121,20 +121,20 @@ public class DeviceController {
      * @param deviceEntity
      * @return
      */
-    @RequestMapping(value = "/updateDevice",method = RequestMethod.POST)
+    @RequestMapping(value = "/deviceMgr/updateDevice",method = RequestMethod.POST)
     public @ResponseBody
-    DeviceEntity updateDevice(DeviceEntity deviceEntity, BindingResult bindingResult,String maintainDateTime){
-        return this.deviceService.updateDevice(deviceEntity,maintainDateTime);
+    DeviceEntity updateDevice(@RequestBody DeviceEntity deviceEntity){
+        return this.deviceService.updateDevice(deviceEntity);
 
     }
 
     /**
      * 逻辑删除设备数据
      */
-    @RequestMapping(value = "/deleteDevice",method = RequestMethod.POST)
+    @RequestMapping(value = "/deviceMgr/deleteDevice",method = RequestMethod.POST)
     public @ResponseBody
-    void deleteDevice(int id){
-        this.deviceService.deleteDevice(id);
+    void deleteDevice(@RequestBody Map<String,Object> map){
+        this.deviceService.deleteDevice(Integer.parseInt(map.get("id").toString()));
     }
 
 

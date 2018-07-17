@@ -38,14 +38,14 @@ public interface DeviceService<T> extends BaseService<T>{
      * @param device
      * @return DeviceEntity
      */
-    DeviceEntity insertDevice(DeviceEntity device,String maintainDateTime);
+    DeviceEntity insertDevice(DeviceEntity device);
 
     /**
      * 更新设备信息
      * @param device
      * @return
      */
-    DeviceEntity updateDevice(DeviceEntity device,String maintainDateTime);
+    DeviceEntity updateDevice(DeviceEntity device);
 
     /**
       * 分页查询设备数据
