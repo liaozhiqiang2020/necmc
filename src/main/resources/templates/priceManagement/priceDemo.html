@@ -52,6 +52,13 @@
                                 //     var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
                                 //     return {page:page,pageSize:pageSize};
                                 // }
+                                if(operation === "create"||operation ==="update"){
+                                    var endDate =options.endDateTime;
+                                    var startDate = options.startDateTime;
+                                    options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    return kendo.stringify(options);
+                                }
                                 if(operation !== "read"){
                                     return kendo.stringify(options);
                                 }
@@ -134,9 +141,9 @@
                             { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
                             // { field: "user", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'>#=user.name#</span>" },
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                            { field: "startDateTime",title: "开始时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
+                            { field: "startDateTime",title: "启用时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
-                            { field: "endDateTime",title: "结束时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
+                            { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
                             // { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#，",editor:roleListDropDownEditor},
 
