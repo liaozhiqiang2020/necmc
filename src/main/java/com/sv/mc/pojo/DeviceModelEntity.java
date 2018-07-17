@@ -59,6 +59,7 @@ public class DeviceModelEntity {
     public void setDeviceType(int deviceType) {
         this.deviceType = deviceType;
     }
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModelEntity")
     public List<PriceEntity> getPriceEntities() {

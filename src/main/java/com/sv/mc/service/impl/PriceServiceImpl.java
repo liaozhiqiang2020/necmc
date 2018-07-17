@@ -1,12 +1,8 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
-import com.sv.mc.pojo.DeviceEntity;
-import com.sv.mc.pojo.PlaceEntity;
-import com.sv.mc.pojo.PriceEntity;
-import com.sv.mc.repository.DeviceRepository;
-import com.sv.mc.repository.PlaceRepository;
-import com.sv.mc.repository.PriceRepository;
+import com.sv.mc.pojo.*;
+import com.sv.mc.repository.*;
 import com.sv.mc.service.PriceService;
 import com.sv.mc.weixinpay.vo.Json;
 import net.sf.json.JSONArray;
@@ -18,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +34,13 @@ public class PriceServiceImpl implements PriceService {
     private PriceHistoryServiceImpl priceHistoryService;
 
     @Resource
+    private DeviceModelRepository deviceModelRepository;
+
+    @Resource
     private DeviceRepository deviceRepository;
+
+    @Resource
+    private UserRepository userRepository;
 
     @Resource
     private PlaceRepository placeRepository;
@@ -82,6 +85,9 @@ public class PriceServiceImpl implements PriceService {
     @Override
     @Transactional
     public PriceEntity updatePrice(PriceEntity priceEntity) {
+        int oldTime = priceEntity.getUseTime();
+        int useTime = oldTime*60;
+        priceEntity.setUseTime(useTime);
         return priceRepository.save(priceEntity);
 
 
@@ -89,14 +95,14 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 删除价格
-     * @param priceId 价格Id
+     * @param priceEntity 价格Id
      * @return 消息
      */
     @Transactional
     @Override
-    public void deletePrice(int priceId) {
-        PriceEntity price = priceRepository.findPriceEntitiesById(priceId);
-        this.priceRepository.delete(price);
+    public void deletePrice(PriceEntity priceEntity) {
+        priceEntity.setStatus(0);
+        this.priceRepository.save(priceEntity);
     }
 
     /**
@@ -117,6 +123,15 @@ public class PriceServiceImpl implements PriceService {
     @Override
     @Transactional
     public PriceEntity addPrice(PriceEntity priceEntity) {
+        int oldTime = priceEntity.getUseTime();
+        int useTime = oldTime*60;
+        priceEntity.setUseTime(useTime);
+        priceEntity.setStatus(1);
+        priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
+        UserEntity userEntity =userRepository.findUserById(1);
+        priceEntity.setUser(userEntity);
+        DeviceModelEntity deviceModelEntity = deviceModelRepository.findById(1);
+        priceEntity.setDeviceModelEntity(deviceModelEntity);
         return   this.priceRepository.save(priceEntity);
 
     }
@@ -173,12 +188,10 @@ public class PriceServiceImpl implements PriceService {
         List<PriceEntity> priceList = new ArrayList<>();
         for (PriceEntity price: priceAll
              ) {
-            if(!priceEntityList.contains(price)){
-                priceList.add(price);
-            }
+
         }
 
-        return priceList;
+        return priceAll;
     }
 
     @Transactional

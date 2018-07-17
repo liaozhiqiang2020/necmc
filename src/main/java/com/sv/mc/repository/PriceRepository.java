@@ -42,4 +42,21 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     //根据设备id查询价格和时间
     @Query(value = "select p.* from mc_price p,mc_device d,mc_price_device pd where p.id=pd.price_id and d.id=pd.device_id and d.id=:deviceId",nativeQuery = true)
     List<PriceEntity> queryPriceAndTime(@Param("deviceId") int deviceId);
+
+
+//    /**
+//     * 分页查询分公司信息
+//     * @param offset
+//     * @param pageSize
+//     * @return
+//     */
+//    @Query(value="select * from mc_price as p where p.status = 1 LIMIT :offset,:pageSize",nativeQuery=true)
+//    List<PriceEntity> findAllPriceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+//
+//    /**
+//     * 查询数量
+//     * @return
+//     */
+//    @Query(value="select count(*) from mc_price as p where p.status= 1",nativeQuery = true)
+//    int findPriceTotal();
 }

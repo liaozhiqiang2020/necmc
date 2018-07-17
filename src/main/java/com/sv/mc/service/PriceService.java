@@ -42,10 +42,10 @@ public interface PriceService{
 
     /**
      * 删除价格
-     * @param priceId 价格Id
+     * @param priceEntity 价格
      * @return 消息
      */
-    void deletePrice(int priceId);
+    void deletePrice(PriceEntity priceEntity);
 
 
     /**

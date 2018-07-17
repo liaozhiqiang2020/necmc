@@ -1,5 +1,6 @@
 package com.sv.mc.controller;
 
+import com.google.gson.Gson;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PriceEntity;
@@ -8,6 +9,7 @@ import com.sv.mc.service.PriceHistoryService;
 import com.sv.mc.service.PriceService;
 import com.sv.mc.service.impl.PriceHistoryServiceImpl;
 import com.sv.mc.service.impl.PriceServiceImpl;
+import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
@@ -35,12 +37,16 @@ public class PriceController {
      * @param pageSize 页号
      * @return
      */
-    @GetMapping("/price/pageall")
-    public Page<PriceEntity> findAllPagePrice(@Param("page") String page, @Param("pageSize") String pageSize){
-
-        PageRequest pageRequest =new PageRequest(Integer.parseInt(page)-1,Integer.parseInt(pageSize));
-        Page<PriceEntity> priceEntityPage = this.priceService.findAllPagePrice(pageRequest);
-        return priceEntityPage;
+    @GetMapping("/price/pageAll")
+    public String findAllPagePrice(@Param("page") String page, @Param("pageSize") String pageSize){
+        System.out.println(page);
+        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
+        DataSourceResult<PriceEntity> PriceEntityDataSourceResult = new DataSourceResult<>();
+        Page<PriceEntity> PriceEntityPage = this.priceService.findAllPagePrice(pageRequest);
+        PriceEntityDataSourceResult.setData(PriceEntityPage.getContent());
+        PriceEntityDataSourceResult.setTotal(PriceEntityPage.getTotalPages());
+        Gson gson = new Gson();
+        return gson.toJson(PriceEntityPage);
     }
 
     /**
@@ -90,16 +96,24 @@ public class PriceController {
      * @param priceEntity 价格对象
      */
     @PostMapping("/price/save")
-    public String addPrice(@RequestBody PriceEntity priceEntity){
-        this.priceService.addPrice(priceEntity);
-        return "保存成功";
+    public PriceEntity addPrice(@RequestBody PriceEntity priceEntity){
+        return this.priceService.addPrice(priceEntity);
+    }
+
+    /**
+     * 更新价格
+     * @param priceEntity 价格对象
+     */
+    @PostMapping("/price/update")
+    public PriceEntity updatePrice(@RequestBody PriceEntity priceEntity){
+        return this.priceService.updatePrice(priceEntity);
     }
 
     /**
      * 批量更新或保存价格
      * @param models 价格对象集合
      */
-    @PostMapping("/price/update")
+    @PostMapping("/price/updateList")
     public @ResponseBody List<PriceEntity> updatePrice(@RequestBody List<PriceEntity> models) {
         List<PriceEntity> priceEntityList = this.priceService.batchSaveOrUpdatePrice(models);
         for (PriceEntity price:priceEntityList
@@ -121,13 +135,11 @@ public class PriceController {
 
     /**
      * 删除价格
-     * @param priceId 价格Id
+     * @param priceEntity 价格Id
      */
     @PostMapping("/price/delete")
-    public String deletePrice(@RequestParam(name = "priceId")  int priceId){
-        this.priceService.deletePrice(priceId);
-        PriceEntity priceEntity = this.priceService.findPriceById(priceId);
-        return "删除成功";
+    public void deletePrice(@RequestBody PriceEntity priceEntity){
+        this.priceService.deletePrice(priceEntity);
     }
 
     /**
@@ -200,7 +212,6 @@ public class PriceController {
 
     /**
      * 跳转到priceTest页面
-     *
      * @return
      */
     @GetMapping(value = "/priceTest")

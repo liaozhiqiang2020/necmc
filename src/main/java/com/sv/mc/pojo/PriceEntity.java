@@ -24,8 +24,10 @@ public class PriceEntity {
     private Timestamp createDateTime;           //创建时间
     private int status;         //状态
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp startDateTime;            //价格开始时间
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp endDateTime;              //价格结束时间
     private String priceName;
     private DeviceModelEntity deviceModelEntity; //价格对应机器类型
@@ -132,7 +134,6 @@ public class PriceEntity {
 
     @Basic
     @Column(name = "start_date_time")
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ssXXX")
     public Timestamp getStartDateTime() {
         return startDateTime;
     }
@@ -143,7 +144,6 @@ public class PriceEntity {
 
     @Basic
     @Column(name = "end_date_time")
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ssXXX")
     public Timestamp getEndDateTime() {
         return endDateTime;
     }
