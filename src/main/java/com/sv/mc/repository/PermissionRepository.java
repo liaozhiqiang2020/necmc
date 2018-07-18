@@ -10,4 +10,6 @@ public interface PermissionRepository extends BaseRepository<sysPermissionEntity
 
     @Query("from sysPermissionEntity as p where p.name = :permission")
     sysPermissionEntity findByPermissionName(@Param("permission") String permissionName);
+
+
 }

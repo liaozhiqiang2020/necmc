@@ -1,15 +1,10 @@
 package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.UserEntity;
-import com.sv.mc.pojo.sysUserEntity;
 import com.sv.mc.repository.UserRepository;
 import com.sv.mc.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,7 +31,15 @@ public class UserServiceImpl implements UserService<UserEntity> {
     }
 
     @Override
-    public UserEntity saveOrUpdateUser(UserEntity user) {
+    public UserEntity updateUser(UserEntity user) {
+        return this.userRepository.save(user);
+    }
+
+    @Override
+    public UserEntity saveUser(UserEntity user) {
+        user.setStatus(1);
+        String password = "daeyulife";
+        user.setAuthenticationString( DigestUtils.md5DigestAsHex(password.getBytes()));
         return this.userRepository.save(user);
     }
 

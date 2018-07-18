@@ -1,8 +1,6 @@
 package com.sv.mc.service;
 
 
-import com.sv.mc.pojo.DeviceEntity;
-import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -99,21 +97,21 @@ public interface PriceService{
      * 给机器绑定价格
      * @return 成功消息
      */
-    List<PriceEntity> deviceSavePrice(Map<String,Object> listMap);
+    List<PriceEntity> deviceSavePrice(Map<String, Object> listMap);
 
     /**
      * 给机器解绑价格方案
      * @param listMap 设备实体类
      * @return 设备
      */
-    List<PriceEntity> deviceDeletePrice(Map<String,Object> listMap);
+    List<PriceEntity> deviceDeletePrice(Map<String, Object> listMap);
 
     /**
      * 给场地上的某种类型的所有机器绑定价格
      * @param listMap 场地id 与 价格id集合
      * @return
      */
-    List<PriceEntity> placeAddPrice(Map<String,Object> listMap);
+    List<PriceEntity> placeAddPrice(Map<String, Object> listMap);
 
     List<Map<String,Object>> queryPriceAndTime(int deviceId);
 }

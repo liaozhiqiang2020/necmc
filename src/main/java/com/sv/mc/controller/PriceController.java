@@ -1,14 +1,10 @@
 package com.sv.mc.controller;
 
 import com.google.gson.Gson;
-import com.sv.mc.pojo.DeviceEntity;
-import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
 import com.sv.mc.service.PriceHistoryService;
 import com.sv.mc.service.PriceService;
-import com.sv.mc.service.impl.PriceHistoryServiceImpl;
-import com.sv.mc.service.impl.PriceServiceImpl;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +100,7 @@ public class PriceController {
      */
     @PostMapping("/price/update")
     public PriceEntity updatePrice(@RequestBody PriceEntity priceEntity){
+        System.out.println(priceEntity.getEndDateTime());
         return this.priceService.updatePrice(priceEntity);
     }
 
@@ -234,6 +229,19 @@ public class PriceController {
         mv.setViewName("./priceManagement/priceForplace");
         return mv;
     }
+
+//    /**
+//     * 跳转到priceTest页面
+//     *
+//     * @return
+//     */
+//    @GetMapping(value = "/login1")
+//    public ModelAndView Test() {
+//        ModelAndView mv = new ModelAndView();
+//
+//        mv.setViewName("./login");
+//        return mv;
+//    }
 
 
 
