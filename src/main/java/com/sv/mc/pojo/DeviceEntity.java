@@ -20,13 +20,13 @@ public class DeviceEntity {
     private Timestamp maintainDateTime; //维修时间
     private BigDecimal latitude;//按摩椅纬度
     private BigDecimal longitude; //按摩椅经度
-
     private int mcStatus;//按摩椅状态(0可用,1使用中,2维修中)
     private String mcSn;//按摩椅编号
     private String note;//备注
     private Integer discardStatus;
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
     private PlaceEntity placeEntity;            //场地
+    private SupplierEntity supplierEntity;  //供应商
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
 
     @Id
@@ -62,6 +62,16 @@ public class DeviceEntity {
 
     public void setDeviceModelEntity(DeviceModelEntity deviceModelEntity) {
         this.deviceModelEntity = deviceModelEntity;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="supplier_id")
+    public SupplierEntity getSupplierEntity() {
+        return supplierEntity;
+    }
+
+    public void setSupplierEntity(SupplierEntity supplierEntity) {
+        this.supplierEntity = supplierEntity;
     }
 
     @ManyToOne(cascade = CascadeType.MERGE)

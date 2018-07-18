@@ -15,9 +15,9 @@ public class SupplierController {
 
     /**
      * 全部查询
-     * @return 返回所有合同内容
+     * @return 返回所有供应商
      */
-    @GetMapping(value = "/allSupplier")
+    @GetMapping(value = "/supplierMgr/allSupplier")
     public @ResponseBody
     List<SupplierEntity> getAll() {
         return this.supplierService.findAllEntities();
@@ -27,7 +27,7 @@ public class SupplierController {
      * @param id
      * @return 单个分公司合同
      */
-    @RequestMapping(value = "/supplier",method=RequestMethod.GET)
+    @RequestMapping(value = "/supplierMgr/supplier",method=RequestMethod.GET)
     public @ResponseBody
     SupplierEntity getbranchById(@PathParam("id") int id ) {
         return this.supplierService.findSupplierById(id);
@@ -38,7 +38,7 @@ public class SupplierController {
      * @param supplier
      * @return
      */
-    @RequestMapping(value = "/supplier/insert",method = RequestMethod.POST)
+    @RequestMapping(value = "/supplierMgr/supplier/insert",method = RequestMethod.POST)
     public @ResponseBody
     SupplierEntity insertBranch(@RequestBody SupplierEntity supplier){
         return  supplierService.insertSupplier(supplier);

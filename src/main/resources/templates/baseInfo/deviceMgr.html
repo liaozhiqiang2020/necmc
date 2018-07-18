@@ -53,8 +53,8 @@
                                     return kendo.stringify(list);
                                 }
                                 if(operation ==="create" || operation ==="update"){
-                                    var maintainDateTime =options.maintainDateTime;
-                                    options.maintainDateTime=  kendo.toString(kendo.parseDate(maintainDateTime, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    // var maintainDateTime =options.maintainDateTime;
+                                    // options.maintainDateTime=  kendo.toString(kendo.parseDate(maintainDateTime, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
                                     return kendo.stringify(options);
                                 }
                             }
@@ -70,13 +70,14 @@
                                 fields: {
                                     id: {type: "number", editable: false},
                                     mcSn: {type: "string"},
-                                    maintainDateTime: {type: "timestamp"},
+                                    // maintainDateTime: {type: "timestamp"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
                                     mcStatus: {type: "int"},
                                     note: {type: "string"},
                                     placeEntity:{defaultValue: { id: 1, name: ""}},
-                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}}
+                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                                    supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
                                 }
                             },
                             data: function (response) {
@@ -129,12 +130,12 @@
                                 field: "mcSn",
                                 title: "按摩椅编号"
                             },
-                            {
-                                field: "maintainDateTime",
-                                title: "上次维修时间",
-                                format: "{0:yyyy-MM-dd HH:mm}",
-                                editor: changeDate
-                            },
+                            // {
+                            //     field: "maintainDateTime",
+                            //     title: "上次维修时间",
+                            //     format: "{0:yyyy-MM-dd HH:mm}",
+                            //     editor: changeDate
+                            // },
                             {
                                 field: "latitude",
                                 title: "按摩椅所在纬度",
@@ -166,6 +167,12 @@
                                 editor:deviceEditor
                             },
                             {
+                                field: "supplierEntity",
+                                title: "供应商",
+                                template:"#=supplierEntity.supplierName#",
+                                editor:supplierEditor
+                            },
+                            {
                                 command: [
                                     {
                                         name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
@@ -179,7 +186,7 @@
                         editable: {
                             mode: "popup",
                             window: {
-                                title: "行业分类管理"
+                                title: "设备管理"
                             }
                         }
                     });
@@ -225,7 +232,7 @@
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
-                        autoBind: true,
+                        autoBind: false,
                         placeholder: "请选择...",
                         dataTextField: "name",
                         dataValueField: "id",
@@ -250,7 +257,7 @@
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
-                        autoBind: true,
+                        autoBind: false,
                         placeholder: "请选择...",
                         dataTextField: "name",
                         dataValueField: "id",
@@ -268,6 +275,32 @@
                         }
                     });
                 }
+
+                function supplierEditor(container, options){
+                    var deviceId = options.model.supplierEntity.id;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "supplierName",
+                        dataValueField: "id",
+                        value: deviceId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./supplierMgr/allSupplier",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
                 /*]]>*/
             </script>
 
