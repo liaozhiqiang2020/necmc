@@ -100,7 +100,6 @@ public class PriceController {
      */
     @PostMapping("/price/update")
     public PriceEntity updatePrice(@RequestBody PriceEntity priceEntity){
-        System.out.println(priceEntity.getEndDateTime());
         return this.priceService.updatePrice(priceEntity);
     }
 
@@ -156,7 +155,13 @@ public class PriceController {
      */
     @GetMapping("/price/devicePrice")
     public List<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId){
-        return this.priceService.findDevicePrice(deviceId);
+       List<PriceEntity> priceList= this.priceService.findDevicePrice(deviceId);
+
+        for (PriceEntity priceEntity:priceList) {
+            int useTime = priceEntity.getUseTime()/60;
+            priceEntity.setUseTime(useTime);
+        }
+        return priceList;
     }
 
     /**
@@ -166,7 +171,12 @@ public class PriceController {
      */
     @GetMapping("/price/deviceUnPrice")
     public List<PriceEntity> findDeviceUnPrice(@RequestParam int deviceId){
-        return this.priceService.findUnDevicePrice(deviceId);
+        List<PriceEntity> priceList= this.priceService.findUnDevicePrice(deviceId);
+        for (PriceEntity priceEntity:priceList) {
+            int useTime = priceEntity.getUseTime()/60;
+            priceEntity.setUseTime(useTime);
+        }
+        return priceList;
     }
 
     /**

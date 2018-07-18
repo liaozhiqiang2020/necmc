@@ -25,22 +25,16 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./role/all"
+                                url: "./permission/all"
                             },
                             create: {
-                                url: "./role/save",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            destroy: {
-                                url: "./role/delete",
+                                url: "./permission/save",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./role/save",
+                                url:  "./permission/update",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -68,8 +62,8 @@
                                 id: "id",
                                 fields: {
                                     id: { editable: false, nullable: true },
-                                    roleName: { type: "string" },
-                                    createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
+                                    permissionsName: { type: "string" },
+                                    url: { type: "string"},
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },
@@ -123,9 +117,9 @@
                         },
                         columns: [
                             // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                            { field: "roleName",title: "角色", width: 100,filterable: { multi: true, search: true} },
+                            { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
                             // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:"#=roleEntities.name#，" },
-                            { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                            { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                             {
                                 command: [
                                     {

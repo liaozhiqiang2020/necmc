@@ -44,7 +44,7 @@ public class RoleController {
     }
 
     /**
-     * 跳转到userManagement页面
+     * 跳转到roleManagement页面
      * @return
      */
     @GetMapping(value = "/roleManagement")

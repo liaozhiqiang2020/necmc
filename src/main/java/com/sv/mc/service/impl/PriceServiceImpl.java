@@ -200,7 +200,15 @@ public class PriceServiceImpl implements PriceService {
         DeviceEntity device = this.deviceRepository.findDeviceById((int)deviceId);
         for (int priceId: (ArrayList<Integer>)price
                 ) {
-            device.getPriceEntities().add(this.priceRepository.findPriceEntitiesById(priceId));
+            PriceEntity price1 = findPriceById(priceId);
+            for (PriceEntity price2: device.getPriceEntities()
+                 ) {
+                if (price1.getUseTime() == price2.getUseTime()){
+                    device.getPriceEntities().remove(price2);
+                }
+            }
+            device.getPriceEntities().add(price1);
+
         }
         return device.getPriceEntities();
     }

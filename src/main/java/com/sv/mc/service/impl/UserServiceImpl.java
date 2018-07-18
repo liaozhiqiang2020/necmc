@@ -32,20 +32,20 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     @Override
     public UserEntity updateUser(UserEntity user) {
+        user.setAuthenticationString( DigestUtils.md5DigestAsHex(user.getAuthenticationString().getBytes()));
         return this.userRepository.save(user);
     }
 
     @Override
     public UserEntity saveUser(UserEntity user) {
         user.setStatus(1);
-        String password = "daeyulife";
-        user.setAuthenticationString( DigestUtils.md5DigestAsHex(password.getBytes()));
+        user.setAuthenticationString( DigestUtils.md5DigestAsHex(user.getAuthenticationString().getBytes()));
         return this.userRepository.save(user);
     }
 
     @Override
     public void deleteUser(UserEntity user) {
-       user.setStatus(1);
+       user.setStatus(0);
        this.userRepository.save(user);
     }
 

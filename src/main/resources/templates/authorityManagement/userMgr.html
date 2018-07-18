@@ -68,11 +68,12 @@
                                 id: "id",
                                 fields: {
                                     id: { editable: false, nullable: true },
-                                    userName: { type: "string" },
-                                    name: { type: "string"  },
+                                    userName: { type: "string" ,validation:{required: true}},
+                                    name: { type: "string" ,validation:{required: true} },
+                                    authenticationString:{type:"string",validation:{required: true}},
                                     createDatetime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     email: { type: "string"},
-                                    cellphoneNumber: { type: "string",validation:{length:11} },
+                                    cellphoneNumber: { type: "string",validation:{required: true} },
                                     fixedPhoneNumber: { type: "string" },
                                     latestLoginDatetime : {type : "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     latestLoginIp : {type : "string",editable: false},
@@ -133,6 +134,7 @@
                             { field: "name", title: "姓名", width: 80, filterable: { multi: true,search: true } },
                             { field: "email", title: "邮箱", width: 80, filterable: { multi: true } },
                             // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:"#=roleEntities.name#，" },
+                            { field: "authenticationString", title: "密码", width: 80, filterable: { multi: true } },
                             { field: "cellphoneNumber", title: "手机", width: 80, filterable: { multi: true } },
                             { field: "fixedPhoneNumber", title: "固话", width: 80, filterable: { multi: true } },
                             { field: "latestLoginIp", title: "上次登录ip", width: 80, filterable: { multi: true } },
@@ -244,6 +246,7 @@
 
     </div>
 </div>
+
 <!-- /.container -->
 
 <footer th:replace="fragments/footer::footer"/>
