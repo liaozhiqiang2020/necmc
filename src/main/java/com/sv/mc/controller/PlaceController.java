@@ -159,7 +159,7 @@ public class PlaceController {
      */
     @RequestMapping(value = "/placeMgr/findAllDeviceByPlaceId",method = RequestMethod.GET)
     public @ResponseBody
-    List<Map<String,Object>> findAllDeviceByPlaceId(@RequestParam(name = "placeId")  int placeId){
+    String findAllDeviceByPlaceId(@RequestParam(name = "placeId")  int placeId){
         return this.placeService.findDeviceByPlace(placeId);
     }
 

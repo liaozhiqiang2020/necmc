@@ -195,7 +195,7 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<Map<String,Object>> findDeviceByPlace(int pId) {
+        public String findDeviceByPlace(int pId) {
                 List<Object[]> deviceEntities = this.placeRepository.findAllChildById(pId);
                 List<Map<String,Object>> mapList = new ArrayList<>();
                 for (int i = 0; i <deviceEntities.size() ; i++) {
@@ -224,9 +224,9 @@ public class PlaceServiceImpl implements PlaceService {
                         mapList.add(map);
                 }
 
-                System.out.println(mapList);
+                String json = JSONArray.fromObject(mapList).toString();
 
-                return mapList;
+                return json;
 
         }
 
