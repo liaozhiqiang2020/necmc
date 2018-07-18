@@ -60,6 +60,10 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query(value="select * from mc_device as b where b.discard_status=1 LIMIT :offset,:pageSize",nativeQuery=true)
     List<DeviceEntity> findAllDeviceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
+    /**
+     * 查询所有设备
+     * @return
+     */
     @Query("from DeviceEntity as b where b.discardStatus=1")
     List<DeviceEntity> findAllDevice();
 
