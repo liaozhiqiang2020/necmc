@@ -1,12 +1,8 @@
 package com.sv.mc.service.impl;
 
-import com.google.gson.Gson;
 import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
 import com.sv.mc.service.PriceService;
-import com.sv.mc.weixinpay.vo.Json;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -187,11 +183,13 @@ public class PriceServiceImpl implements PriceService {
         List<PriceEntity> priceEntityList = this.priceRepository.findDevicePrice(deviceId);
         List<PriceEntity> priceList = new ArrayList<>();
         for (PriceEntity price: priceAll
-             ) {
-
+                ) {
+            if(!priceEntityList.contains(price)){
+                priceList.add(price);
+            }
         }
 
-        return priceAll;
+        return priceList;
     }
 
     @Transactional
@@ -202,7 +200,15 @@ public class PriceServiceImpl implements PriceService {
         DeviceEntity device = this.deviceRepository.findDeviceById((int)deviceId);
         for (int priceId: (ArrayList<Integer>)price
                 ) {
-            device.getPriceEntities().add(this.priceRepository.findPriceEntitiesById(priceId));
+            PriceEntity price1 = findPriceById(priceId);
+            for (PriceEntity price2: device.getPriceEntities()
+                 ) {
+                if (price1.getUseTime() == price2.getUseTime()){
+                    device.getPriceEntities().remove(price2);
+                }
+            }
+            device.getPriceEntities().add(price1);
+
         }
         return device.getPriceEntities();
     }

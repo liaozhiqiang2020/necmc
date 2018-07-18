@@ -1,7 +1,6 @@
 package com.sv.mc.service;
 
 import com.sv.mc.pojo.UserEntity;
-import com.sv.mc.pojo.sysUserEntity;
 
 import java.util.List;
 
@@ -28,11 +27,17 @@ public interface UserService<T>  {
      */
     List<UserEntity> findAllByStatus();
     /**
-     *更新或保存user对象
+     *更新user对象
      * @param user user对象
      * @return 更新的user对象
      */
-    UserEntity saveOrUpdateUser(UserEntity user);
+    UserEntity updateUser(UserEntity user);
+    /**
+     *保存user对象
+     * @param user user对象
+     * @return 保存的user对象
+     */
+    UserEntity saveUser(UserEntity user);
 
     /**
      * 逻辑删除一个user对象

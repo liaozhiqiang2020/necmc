@@ -1,50 +1,52 @@
 package com.sv.mc.service.impl;
 
-import com.sv.mc.exception.UserRolePermissionDuplicatedBindingException;
-import com.sv.mc.pojo.sysRoleEntity;
+import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.repository.RoleRepository;
-import com.sv.mc.repository.UserRepository;
 import com.sv.mc.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    @Resource
+    RoleRepository roleRepository;
 
     @Override
-    public List findAllEntities() {
-        return this.roleRepository.findAll();
-    }
-
-    @Override
-    @Transactional
-    public void save(sysRoleEntity sysRoleEntity) throws UserRolePermissionDuplicatedBindingException {
-        try {
-            this.roleRepository.save(sysRoleEntity);
-        }
-        catch (Exception e){
-            throw new UserRolePermissionDuplicatedBindingException("对不起，该用户已经与当前角色绑定了，不能重复绑定。" + e.getMessage());
-        }
-    }
-
-    @Override
-    public sysRoleEntity findRoleByRoleName(String roleName) {
+    public RoleEntity findRoleByRoleName(String roleName) {
         return this.roleRepository.findRoleByRoleName(roleName);
     }
 
     @Override
-    public void removeUserFromRole(String roleName, String userName) {
-        sysRoleEntity role =  this.roleRepository.findRoleByRoleName(roleName);
-        role.getUserEntities().remove(this.userRepository.findUserByUserName(userName));
-        this.roleRepository.save(role);
+    public List<RoleEntity> findEntitiesPager() {
+        return null;
+    }
+
+    @Override
+    public List<RoleEntity> findAllRole() {
+        return this.roleRepository.findAll();
+    }
+
+
+    @Override
+    public RoleEntity updateRole(RoleEntity role) {
+        return this.roleRepository.save(role);
+    }
+
+    @Override
+    public RoleEntity saveRole(RoleEntity role) {
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public void deleteRole(RoleEntity role) {
+        this.roleRepository.delete(role);
+    }
+
+    @Override
+    public RoleEntity findRoleById(int roleId) {
+        return this.roleRepository.findById(roleId);
     }
 }

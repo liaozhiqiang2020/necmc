@@ -43,14 +43,18 @@
                         <li class="k-state-active">
                             按摩椅
                         </li>
-
+                        <li>
+                            子场地
+                        </li>
                     </ul>
                     <div>
                         <div class="orders"></div>
                     </div>
                     <div>
                         <div class='employee-details'>
-
+                            <ul>
+                              <div class="son"></div>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -61,12 +65,12 @@
                 $(document).ready(function() {
 
 
-                    var element = $("#grid").kendoGrid({
+                     $("#grid").kendoGrid({
                         dataSource: {
                             type: "json",
                             transport: {
                                 read:  {
-                                    url: "./placeMgr/allPlace",
+                                    url: "./placeMgr/getAllPlace",
                                     dataType: "json"
                                 },
                                 parameterMap: function(options, operation) {
@@ -84,9 +88,10 @@
                                     fields: {
                                         id: { editable: false, nullable: true },
                                         placeSn: { type: "string",editable: false},
-                                        placeName: { type: "string",editable: false },
+                                        name: { type: "string",editable: false },
                                         placeAddress: { type: "string",editable: false },
-                                        city: { type: "array",editable: false }
+                                        city: { type: "array",editable: false },
+                                        principal:{type:"string",editable:false}
                                     }
                                 }
                             }
@@ -94,6 +99,7 @@
                         height: 600,
                         sortable: true,
                         pageable: true,
+                        groupable: true,
                         filterable: true,
                         detailTemplate: kendo.template($("#template").html()),
 
@@ -104,7 +110,7 @@
                         },
                         columns: [
                             {
-                                field: "placeName",
+                                field: "name",
                                 title: "场地名",
                                 width: "120px"
                             },
@@ -119,8 +125,8 @@
                                 title:"场地编码",
                                 width: "120px"
                             },{
-                                field: "city",
-                                title:"城市",
+                                field: "principal",
+                                title:"场地负责人",
                                 width: "120px"
                             },
                             { command: ["edit"], title: "&nbsp;", width: "160px" },
@@ -128,6 +134,8 @@
 
                         editable: {
                             mode: "popup",
+                            width:500,
+                            title:"场地价格绑定",
                             template: $("#template1").html()
                         },
 
@@ -147,7 +155,7 @@
                                         contentType : "application/json"
                                     },
                                     parameterMap: function (options, operation) {
-                                        if (operation === "destroy" && options.models) {
+                                        if (operation === "update" && options.models) {
                                             let array = [];
                                                for (let j =0 ;j<options.models.length;j++){
                                                    array[j] = options.models[j].id;
@@ -186,21 +194,22 @@
                                 }
                             });
                             $("#edit-1").kendoGrid({
-                                toolbar: [ "save", "cancel"],
+                                toolbar: [ {name: "update", text: "价格绑定"}],
                                 dataSource: dataSource,
                                 pageable: true,
-                                checkboxes: true,
                                 sortable:true,
-                                height: 300,
+                                height: 350,
                                 columns: [
                                     { selectable: true, width: "50px" },
-                                    { field: "priceName", title: "价格名称",  width: "50px" },
-                                    { field: "price", title: "价格(元)", width: "50px" },
-                                    { field: "useTime", title:"使用时长",width: "50px" },
-                                    { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
-                                    { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" },
-                                    { command: ["destroy"], title: "绑定", width: "50px"}],
+                                    { field: "priceName", title: "价格名称",  width: "80px" },
+                                    { field: "price", title: "价格(元)", width: "80px" },
+                                    { field: "useTime", title:"使用时长",width: "80px" },
+                                    { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
+                                    { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
+                                    { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" }],
+
                                 editable: true,
+
                             });
                         },
 
@@ -210,17 +219,168 @@
                     function detailInit(e) {
                         var detailRow = e.detailRow;
                         var placeId = e.data.id;
+
                         detailRow.find(".tabstrip").kendoTabStrip({
                             animation: {
                                 open: { effects: "fadeIn" }
                             }
                         });
 
+
+                        detailRow.find(".son").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read:  {
+                                        url: "./placeMgr/findPlaceByParentId?placeId="+placeId,
+                                        dataType: "json"
+                                    },
+                                    parameterMap: function(options, operation) {
+                                        if (operation !== "read" && options.models) {
+                                            return  kendo.stringify(options.models);
+                                        }
+                                    }
+                                },
+                                pageSize: 20,
+                                serverPaging: true,
+                                serverSorting: true,
+                                schema: {
+                                    model: {
+                                        id: "id",
+                                        fields: {
+                                            id: { editable: false, nullable: true },
+                                            placeSn: { type: "string",editable: false},
+                                            name: { type: "string",editable: false },
+                                            placeAddress: { type: "string",editable: false },
+                                            city: { type: "array",editable: false },
+                                            principal:{type:"string",editable:false}
+                                        }
+                                    }
+                                }
+                            },
+                            height: 600,
+                            sortable: true,
+                            pageable: true,
+                            groupable: true,
+                            filterable: true,
+                            detailTemplate: kendo.template($("#template").html()),
+
+
+                            detailInit: detailInit,
+                            dataBound: function() {
+                                this.expandRow(this.tbody.find("tr.k-master-row").first());
+                            },
+                            columns: [
+                                {
+                                    field: "name",
+                                    title: "场地名",
+                                    width: "120px"
+                                },
+                                {
+                                    field: "placeAddress",
+                                    title: "场地地点",
+                                    width: "120px"
+                                },
+
+                                {
+                                    field: "placeSn",
+                                    title:"场地编码",
+                                    width: "120px"
+                                },{
+                                    field: "principal",
+                                    title:"场地负责人",
+                                    width: "120px"
+                                },
+                                { command: ["edit"], title: "&nbsp;", width: "160px" },
+                            ],
+
+                            editable: {
+                                mode: "popup",
+                                width:500,
+                                title:"场地价格绑定",
+                                template: $("#template1").html()
+                            },
+
+                            edit: function(e){
+                                let placeId = e.model.id;
+
+                                let  dataSource = new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: "./price/status",
+                                            dataType: "json"
+                                        },
+                                        update: {
+                                            url: "./price/placeAddPrice",
+                                            dataType: "json",
+                                            type: "post",
+                                            contentType : "application/json"
+                                        },
+                                        parameterMap: function (options, operation) {
+                                            if (operation === "update" && options.models) {
+                                                let array = [];
+                                                for (let j =0 ;j<options.models.length;j++){
+                                                    array[j] = options.models[j].id;
+                                                }
+
+                                                let list1 = {
+                                                    price :  array,
+                                                    placeId : placeId
+                                                }
+                                                return kendo.stringify(list1);
+                                            }
+                                            if (operation !== "read" && options.models) {
+                                                return kendo.stringify(options.models) ;
+                                            }
+                                        }
+                                    },
+                                    batch: true,
+                                    pageSize: 5,
+                                    schema: {
+                                        model: {
+                                            id: "id",
+                                            fields: {
+                                                id: { editable: false, nullable: true },
+                                                price: { type: "number", validation: { required: true, min: 1} ,editable: false},
+                                                useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
+                                                createDateTime: { type: "timestamp",editable: false },
+                                                startDateTime: { type: "timestamp" ,editable: false},
+                                                endDateTime: { type: "timestamp",editable: false},
+                                                userId: { type: "string" ,editable: false},
+                                                status: { type: "number",editable: false },
+                                                priceName : {type : "string",editable: false},
+                                                user :{type:"array",editable: false},
+                                                deviceModelEntity:{type:"array",editable: false}
+                                            }
+                                        }
+                                    }
+                                });
+                                $("#edit-1").kendoGrid({
+                                    toolbar: [ {name: "update", text: "价格绑定"}],
+                                    dataSource: dataSource,
+                                    pageable: true,
+                                    sortable:true,
+                                    height: 350,
+                                    columns: [
+                                        { selectable: true, width: "50px" },
+                                        { field: "priceName", title: "价格名称",  width: "80px" },
+                                        { field: "price", title: "价格(元)", width: "80px" },
+                                        { field: "useTime", title:"使用时长",width: "80px" },
+                                        { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
+                                        { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
+                                        { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" }],
+
+                                    editable: true,
+
+                                });
+                            },
+
+                        });
                         detailRow.find(".orders").kendoGrid({
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/device?placeId="+ placeId,
+                                    read: "./deviceMgr/allDevice",
                                 },
                                 serverPaging: true,
                                 serverSorting: true,
@@ -361,7 +521,7 @@
                                     }
                                 });
                                 $("#edit-3").kendoGrid({
-                                    toolbar:[ "save", "cancel"],
+                                    toolbar:"已绑定价格",
                                     dataSource: dataSource,
                                     pageable: true,
                                     sortable:true,
@@ -371,12 +531,11 @@
                                         { field: "price", title: "价格(元)", width: "50px" },
                                         { field: "useTime", title:"使用时长",width: "50px" },
                                         { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
-                                        { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" },
-                                        { command: ["destroy"], title: "&nbsp;", width: "50px"}],
-                                    editable: true
+                                        { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" }],
+                                    editable: false
                                 });
                                 $("#edit-4").kendoGrid({
-                                    toolbar: [ "save", "cancel"],
+                                    toolbar: [ {name: "save", text: "价格绑定"},{name: "cancel", text: "返回"}],
                                     dataSource: dataSource1,
                                     sortable:true,
                                     pageable: true,
@@ -388,7 +547,7 @@
                                         { field: "startDateTime", title:"开始时间",width: "50px",format: "{0: yyyy-MM-dd}" },
                                         { field: "endDateTime", title:"结束时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
                                         // { title: "绑定", width: 80,template: "<button class='row-number'>绑定</button>"},
-                                        { command: ["destroy"], title: "&nbsp;", width: "50px" },],
+                                        { command: [{name:"destroy",text:"绑定"}], title: "&nbsp;", width: "50px" },],
                                     editable: true
                                 });
                             },
@@ -405,6 +564,10 @@
 
             </script>
             <style>
+                .k-edit-form-container
+                {
+                    width: 700px;
+                }
                 .k-detail-cell .k-tabstrip .k-content {
                     padding: 0.2em;
                 }
