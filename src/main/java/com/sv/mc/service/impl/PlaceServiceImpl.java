@@ -1,12 +1,10 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
-import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.repository.VendorRepository;
 import com.sv.mc.service.PlaceService;
-import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.DateJsonValueProcessor;
 import net.sf.json.JSONArray;
@@ -16,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PlaceServiceImpl implements PlaceService {
@@ -198,19 +195,38 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<Object> findDeviceByPlace(int placeId) {
-//                List<Object> list = this.placeRepository.findAllChildById(placeId);
-//                System.out.println(list);
-//                List<DeviceEntity> newDeviceEntities = new ArrayList<>();
-//                for (int i = 0; i <list.size() ; i++) {
-//                        List<DeviceEntity> deviceEntities = this.placeRepository.findAllDeviceByPlaceId(Integer.parseInt(list.get(i).toString()));
-//                        newDeviceEntities.addAll(deviceEntities);
-//                }
-//                System.out.println(newDeviceEntities);
-//
-//                return newDeviceEntities;
-                List<Object> deviceEntities = this.placeRepository.findAllChildById(placeId);
-                return deviceEntities;
+        public List<Map<String,Object>> findDeviceByPlace(int pId) {
+                List<Object[]> deviceEntities = this.placeRepository.findAllChildById(pId);
+                List<Map<String,Object>> mapList = new ArrayList<>();
+                for (int i = 0; i <deviceEntities.size() ; i++) {
+                        Map<String,Object> map = new HashMap<>();
+                        Object[] object =deviceEntities.get(i);
+                        int id = Integer.parseInt(object[0].toString());
+                        int placeId = Integer.parseInt(object[1].toString());
+                        Timestamp maintainDateTime = Timestamp.valueOf(object[2].toString());
+                        BigDecimal latitude = new BigDecimal(object[3].toString());
+                        BigDecimal longitude = new BigDecimal(object[4].toString());
+                        int mcType =Integer.parseInt(object[5].toString());
+                        int mcStatus = Integer.parseInt(object[6].toString());
+                        String mcSn = object[7].toString();
+                        String note = object[8].toString();
+                        int discardStatus = Integer.parseInt(object[9].toString());
+                        map.put("id",id);
+                        map.put("placeId",placeId);
+                        map.put("maintainDateTime",maintainDateTime);
+                        map.put("latitude",latitude);
+                        map.put("longitude",longitude);
+                        map.put("mcType",mcType);
+                        map.put("mcStatus",mcStatus);
+                        map.put("mcSn",mcSn);
+                        map.put("note",note);
+                        map.put("discardStatus",discardStatus);
+                        mapList.add(map);
+                }
+
+                System.out.println(mapList);
+
+                return mapList;
 
         }
 
