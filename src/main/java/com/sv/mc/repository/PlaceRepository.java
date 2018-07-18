@@ -62,10 +62,25 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     int findPlaceTotal();
 
     /**
-     * 根据场地id查询他的字节点
+     * 根据场地id查询他下一级的所有信息
      */
     @Query("from PlaceEntity where pId=:placeId and discardStatus=1")
     List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
+
+
+//    /**
+//     * 查询所有子场地id
+//     */
+//    @Query(value="select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))",nativeQuery = true)
+//    List<Object> findAllChildById(@Param("placeId") int placeId);
+
+    /**
+     * 查询场地下所有设备
+     * @param placeId
+     * @return
+     */
+    @Query(value="select d.* from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)))",nativeQuery = true)
+    List<Object> findAllChildById(@Param("placeId") int placeId);
 
     /**
      * 根据场地id查所有设备

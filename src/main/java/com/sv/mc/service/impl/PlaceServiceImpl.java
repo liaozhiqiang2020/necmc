@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -197,9 +198,20 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<DeviceEntity> findDeviceByPlace(int placeId) {
-                List<DeviceEntity> deviceEntities = this.placeRepository.findAllDeviceByPlaceId(placeId);
+        public List<Object> findDeviceByPlace(int placeId) {
+//                List<Object> list = this.placeRepository.findAllChildById(placeId);
+//                System.out.println(list);
+//                List<DeviceEntity> newDeviceEntities = new ArrayList<>();
+//                for (int i = 0; i <list.size() ; i++) {
+//                        List<DeviceEntity> deviceEntities = this.placeRepository.findAllDeviceByPlaceId(Integer.parseInt(list.get(i).toString()));
+//                        newDeviceEntities.addAll(deviceEntities);
+//                }
+//                System.out.println(newDeviceEntities);
+//
+//                return newDeviceEntities;
+                List<Object> deviceEntities = this.placeRepository.findAllChildById(placeId);
                 return deviceEntities;
+
         }
 
 

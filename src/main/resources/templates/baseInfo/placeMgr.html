@@ -18,7 +18,6 @@
                     <li class="k-state-active">
 
                     </li>
-
                 </ul>
                 <div>
                     <div class="orders1"></div>
@@ -72,6 +71,16 @@
                                     return kendo.stringify(options);
                                 }
                                 if(operation ==="update"){
+                                    var endDate =options.endDateTime;
+                                    var startDate = options.startDateTime;
+
+                                    if(endDate.length!==19){
+                                        options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    }
+                                    if(startDate.length!==19){
+                                        options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    }
+
                                     return kendo.stringify(options);
                                 }
                             }
@@ -79,16 +88,17 @@
                         pageSize: 20,
                         serverPaging: false,
                         serverSorting: true,
+                        groupable:true,
                         requestEnd: onRequestEnd,
                         schema: {
                             model: {
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    placeSn: {type: "string"},
-                                    principal: {type: "string"},
-                                    placeAddress: {type: "string"},
                                     name: {type: "string"},
+                                    placeSn: {type: "string"},
+                                    placeAddress: {type: "string"},
+                                    principal: {type: "string"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
                                     startDateTime: {type: "timestamp"},
@@ -121,19 +131,20 @@
                     resizable: true,
                     columns: [
                         {
+                            field: "name",
+                            title: "场地名称"
+                        },
+                        {
                             field: "placeSn",
                             title: "场地编码"
-                        }, {
-                            field: "principal",
-                            title: "场地负责人"
                         },
                         {
                             field: "placeAddress",
                             title: "地址"
                         },
                         {
-                            field: "name",
-                            title: "场地名称"
+                            field: "principal",
+                            title: "场地负责人"
                         },
                         {
                             field: "latitude",
@@ -183,7 +194,10 @@
                         {
                             command: ["edit","destroy"],
                             title: "操作",
-                            width: "100px"
+                            width: "200px"
+                            // headerAttributes: {
+                            //     style: "display:none;"
+                            // }
                         }
                     ],
                     editable: {
@@ -197,7 +211,7 @@
 
             function detailInit(e) {
                 var detailRow = e.detailRow;
-                var place_index2_Id = e.data.id;
+                var place_index2_Id = e.data.id;  //一级场地id
 
                 detailRow.find(".tabstrip").kendoTabStrip({
                     animation: {
@@ -233,20 +247,25 @@
                                 console.log(place_index2_Id);
                                 if (operation === "destroy") {
                                     var placeId = options.id;
-
                                     var list = {
                                         placeId:placeId
                                     }
-
                                     return kendo.stringify(list);
-                                    // return kendo.stringify(list);
                                 }
                                 if(operation ==="create"){
-                                    var date1 = datetimeFormat_2(options.startDateTime);
-                                    var date2 = datetimeFormat_2(options.endDateTime);
-                                    options.startDateTime = date1;
-                                    options.endDateTime = date2;
                                     options.pId =place_index2_Id;
+                                    options.principal = e.data.principal;
+                                    options.placeAddress = e.data.placeAddress;
+                                    options.latitude = e.data.latitude;
+                                    options.longitude = e.data.longitude;
+                                    options.startDateTime = e.data.startDateTime;
+                                    options.endDateTime = e.data.endDateTime;
+                                    options.levelFlag = e.data.levelFlag;
+                                    options.levelFlagName = e.data.levelFlagName;
+                                    options.superiorId = e.data.superiorId;
+                                    options.superiorName = e.data.superiorName;
+                                    options.businessEntity = e.data.businessEntity;
+                                    options.cityEntity = e.data.cityEntity;
                                     return kendo.stringify(options);
                                 }
                                 if(operation === "update"){
@@ -266,20 +285,20 @@
                                 fields: {
                                     id: {type: "number", editable: false},
                                     pId: {type: "number", nullable: true},
-                                    placeSn: {type: "string"},
-                                    principal: {type: "string"},
-                                    placeAddress: {type: "string"},
                                     name: {type: "string"},
-                                    latitude: {type: "number"},
-                                    longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
-                                    levelFlag: {type: "number"},
-                                    levelFlagName: {type: "string"},
-                                    superiorId: {type: "number"},
-                                    superiorName: {type: "string"},
-                                    businessEntity:{defaultValue: { id: 1, name: ""}},
-                                    cityEntity:{defaultValue: { id: 1, name: ""}}
+                                    placeSn: {type: "string"},
+                                    // principal: {type: "string"},
+                                    // placeAddress: {type: "string"},
+                                    // latitude: {type: "number"},
+                                    // longitude: {type: "number"},
+                                    // startDateTime: {type: "timestamp"},
+                                    // endDateTime: {type: "timestamp"},
+                                    // levelFlag: {type: "number"},
+                                    // levelFlagName: {type: "string"},
+                                    // superiorId: {type: "number"},
+                                    // superiorName: {type: "string"},
+                                    // businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    // cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
@@ -303,69 +322,79 @@
                     //pageable: true,
                     columns: [
                         {
-                            field: "placeSn",
-                            title: "场地编码"
-                        }, {
-                            field: "principal",
-                            title: "场地负责人"
-                        },
-                        {
-                            field: "placeAddress",
-                            title: "地址"
-                        },
-                        {
                             field: "name",
-                            title: "场地名称"
+                            title: "场地名称",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         },
                         {
-                            field: "latitude",
-                            title: "纬度",
-                            format: "{0:n4}"
+                            field: "placeSn",
+                            title: "场地编码",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         },
-                        {
-                            field: "longitude",
-                            title: "经度",
-                            format: "{0:n4}"
-                        },
-                        {
-                            field: "startDateTime",
-                            title: "协议开始时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
-                        },
-                        {
-                            field: "endDateTime",
-                            title: "协议结束时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
-                        },{
-                            field: "levelFlag",
-                            title: "隶属单位",
-                            template:"#=levelFlagName#",
-                            editor:chooseBranchOrHead
-                        },
-                        {
-                            field: "superiorId",
-                            title: "隶属单位名称",
-                            template:"#=superiorName#",
-                            editor:roleListDropDownEditor
-                        },
-                        {
-                            field: "businessEntity",
-                            title: "行业分类名称",
-                            template:"#=businessEntity.name#",
-                            editor:businessEditor
-                        },
-                        {
-                            field: "cityEntity",
-                            title: "城市名称",
-                            template:"#=cityEntity.name#",
-                            editor:cityEditor
-                        },
+                        // {
+                        //     field: "principal",
+                        //     title: "场地负责人"
+                        // },
+                        // {
+                        //     field: "placeAddress",
+                        //     title: "地址"
+                        // },
+                        // {
+                        //     field: "latitude",
+                        //     title: "纬度",
+                        //     format: "{0:n4}"
+                        // },
+                        // {
+                        //     field: "longitude",
+                        //     title: "经度",
+                        //     format: "{0:n4}"
+                        // },
+                        // {
+                        //     field: "startDateTime",
+                        //     title: "协议开始时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate
+                        // },
+                        // {
+                        //     field: "endDateTime",
+                        //     title: "协议结束时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate
+                        // },{
+                        //     field: "levelFlag",
+                        //     title: "隶属单位",
+                        //     template:"#=levelFlagName#",
+                        //     editor:chooseBranchOrHead
+                        // },
+                        // {
+                        //     field: "superiorId",
+                        //     title: "隶属单位名称",
+                        //     template:"#=superiorName#",
+                        //     editor:roleListDropDownEditor
+                        // },
+                        // {
+                        //     field: "businessEntity",
+                        //     title: "行业分类名称",
+                        //     template:"#=businessEntity.name#",
+                        //     editor:businessEditor
+                        // },
+                        // {
+                        //     field: "cityEntity",
+                        //     title: "城市名称",
+                        //     template:"#=cityEntity.name#",
+                        //     editor:cityEditor
+                        // },
                         {
                             command: ["edit","destroy"],
-                            title: "操作",
-                            width: "100px"
+                            // title: "操作",
+                            width: "200px",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         }
                     ],
                     editable: {
@@ -425,11 +454,19 @@
                                     // return kendo.stringify(list);
                                 }
                                 if(operation ==="create"){
-                                    var date1 = datetimeFormat_2(options.startDateTime);
-                                    var date2 = datetimeFormat_2(options.endDateTime);
-                                    options.startDateTime = date1;
-                                    options.endDateTime = date2;
                                     options.pId =place_index2_Id;
+                                    options.principal = e.data.principal;
+                                    options.placeAddress = e.data.placeAddress;
+                                    options.latitude = e.data.latitude;
+                                    options.longitude = e.data.longitude;
+                                    options.startDateTime = e.data.startDateTime;
+                                    options.endDateTime = e.data.endDateTime;
+                                    options.levelFlag = e.data.levelFlag;
+                                    options.levelFlagName = e.data.levelFlagName;
+                                    options.superiorId = e.data.superiorId;
+                                    options.superiorName = e.data.superiorName;
+                                    options.businessEntity = e.data.businessEntity;
+                                    options.cityEntity = e.data.cityEntity;
                                     return kendo.stringify(options);
                                 }
                                 if(operation === "update"){
@@ -449,20 +486,20 @@
                                 fields: {
                                     id: {type: "number", editable: false},
                                     pId: {type: "number", nullable: true},
-                                    placeSn: {type: "string"},
-                                    principal: {type: "string"},
-                                    placeAddress: {type: "string"},
                                     name: {type: "string"},
-                                    latitude: {type: "number"},
-                                    longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
-                                    levelFlag: {type: "number"},
-                                    levelFlagName: {type: "string"},
-                                    superiorId: {type: "number"},
-                                    superiorName: {type: "string"},
-                                    businessEntity:{defaultValue: { id: 1, name: ""}},
-                                    cityEntity:{defaultValue: { id: 1, name: ""}}
+                                    placeSn: {type: "string"},
+                                    // principal: {type: "string"},
+                                    // placeAddress: {type: "string"},
+                                    // latitude: {type: "number"},
+                                    // longitude: {type: "number"},
+                                    // startDateTime: {type: "timestamp"},
+                                    // endDateTime: {type: "timestamp"},
+                                    // levelFlag: {type: "number"},
+                                    // levelFlagName: {type: "string"},
+                                    // superiorId: {type: "number"},
+                                    // superiorName: {type: "string"},
+                                    // businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    // cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
@@ -485,69 +522,79 @@
                     //pageable: true,
                     columns: [
                         {
-                            field: "placeSn",
-                            title: "场地编码"
-                        }, {
-                            field: "principal",
-                            title: "场地负责人"
-                        },
-                        {
-                            field: "placeAddress",
-                            title: "地址"
-                        },
-                        {
                             field: "name",
-                            title: "场地名称"
+                            title: "场地名称",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         },
                         {
-                            field: "latitude",
-                            title: "纬度",
-                            format: "{0:n4}"
+                            field: "placeSn",
+                            title: "场地编码",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         },
-                        {
-                            field: "longitude",
-                            title: "经度",
-                            format: "{0:n4}"
-                        },
-                        {
-                            field: "startDateTime",
-                            title: "协议开始时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
-                        },
-                        {
-                            field: "endDateTime",
-                            title: "协议结束时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
-                        },{
-                            field: "levelFlag",
-                            title: "隶属单位",
-                            template:"#=levelFlagName#",
-                            editor:chooseBranchOrHead
-                        },
-                        {
-                            field: "superiorId",
-                            title: "隶属单位名称",
-                            template:"#=superiorName#",
-                            editor:roleListDropDownEditor
-                        },
-                        {
-                            field: "businessEntity",
-                            title: "行业分类名称",
-                            template:"#=businessEntity.name#",
-                            editor:businessEditor
-                        },
-                        {
-                            field: "cityEntity",
-                            title: "城市名称",
-                            template:"#=cityEntity.name#",
-                            editor:cityEditor
-                        },
+                        // {
+                        //     field: "principal",
+                        //     title: "场地负责人"
+                        // },
+                        // {
+                        //     field: "placeAddress",
+                        //     title: "地址"
+                        // // },
+                        // {
+                        //     field: "latitude",
+                        //     title: "纬度",
+                        //     format: "{0:n4}"
+                        // },
+                        // {
+                        //     field: "longitude",
+                        //     title: "经度",
+                        //     format: "{0:n4}"
+                        // },
+                        // {
+                        //     field: "startDateTime",
+                        //     title: "协议开始时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate
+                        // },
+                        // {
+                        //     field: "endDateTime",
+                        //     title: "协议结束时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate
+                        // },{
+                        //     field: "levelFlag",
+                        //     title: "隶属单位",
+                        //     template:"#=levelFlagName#",
+                        //     editor:chooseBranchOrHead
+                        // },
+                        // {
+                        //     field: "superiorId",
+                        //     title: "隶属单位名称",
+                        //     template:"#=superiorName#",
+                        //     editor:roleListDropDownEditor
+                        // },
+                        // {
+                        //     field: "businessEntity",
+                        //     title: "行业分类名称",
+                        //     template:"#=businessEntity.name#",
+                        //     editor:businessEditor
+                        // },
+                        // {
+                        //     field: "cityEntity",
+                        //     title: "城市名称",
+                        //     template:"#=cityEntity.name#",
+                        //     editor:cityEditor
+                        // },
                         {
                             command: ["edit","destroy"],
-                            title: "操作",
-                            width: "150px"
+                            // title: "操作",
+                            width: "200px",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         }
                     ],
                     editable: {
@@ -608,11 +655,19 @@
                                     // return kendo.stringify(list);
                                 }
                                 if(operation ==="create"){
-                                    var date1 = datetimeFormat_2(options.startDateTime);
-                                    var date2 = datetimeFormat_2(options.endDateTime);
-                                    options.startDateTime = date1;
-                                    options.endDateTime = date2;
                                     options.pId =place_index2_Id;
+                                    options.principal = e.data.principal;
+                                    options.placeAddress = e.data.placeAddress;
+                                    options.latitude = e.data.latitude;
+                                    options.longitude = e.data.longitude;
+                                    options.startDateTime = e.data.startDateTime;
+                                    options.endDateTime = e.data.endDateTime;
+                                    options.levelFlag = e.data.levelFlag;
+                                    options.levelFlagName = e.data.levelFlagName;
+                                    options.superiorId = e.data.superiorId;
+                                    options.superiorName = e.data.superiorName;
+                                    options.businessEntity = e.data.businessEntity;
+                                    options.cityEntity = e.data.cityEntity;
                                     return kendo.stringify(options);
                                 }
                                 if(operation === "update"){
@@ -632,20 +687,20 @@
                                 fields: {
                                     id: {type: "number", editable: false},
                                     pId: {type: "number", nullable: true},
-                                    placeSn: {type: "string"},
-                                    principal: {type: "string"},
-                                    placeAddress: {type: "string"},
                                     name: {type: "string"},
-                                    latitude: {type: "number"},
-                                    longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
-                                    levelFlag: {type: "number"},
-                                    levelFlagName: {type: "string"},
-                                    superiorId: {type: "number"},
-                                    superiorName: {type: "string"},
-                                    businessEntity:{defaultValue: { id: 1, name: ""}},
-                                    cityEntity:{defaultValue: { id: 1, name: ""}}
+                                    placeSn: {type: "string"},
+                                    // principal: {type: "string"},
+                                    // placeAddress: {type: "string"},
+                                    // latitude: {type: "number"},
+                                    // longitude: {type: "number"},
+                                    // startDateTime: {type: "timestamp"},
+                                    // endDateTime: {type: "timestamp"},
+                                    // levelFlag: {type: "number"},
+                                    // levelFlagName: {type: "string"},
+                                    // superiorId: {type: "number"},
+                                    // superiorName: {type: "string"},
+                                    // businessEntity:{defaultValue: { id: 1, name: ""}},
+                                    // cityEntity:{defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             data:function(response){
@@ -663,69 +718,79 @@
                     ////pageable: true,
                     columns: [
                         {
-                            field: "placeSn",
-                            title: "场地编码"
-                        }, {
-                            field: "principal",
-                            title: "场地负责人"
-                        },
-                        {
-                            field: "placeAddress",
-                            title: "地址"
-                        },
-                        {
                             field: "name",
-                            title: "场地名称"
+                            title: "场地名称",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         },
                         {
-                            field: "latitude",
-                            title: "纬度",
-                            format: "{0:n4}"
+                            field: "placeSn",
+                            title: "场地编码",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         },
-                        {
-                            field: "longitude",
-                            title: "经度",
-                            format: "{0:n4}"
-                        },
-                        {
-                            field: "startDateTime",
-                            title: "协议开始时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
-                        },
-                        {
-                            field: "endDateTime",
-                            title: "协议结束时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
-                        },{
-                            field: "levelFlag",
-                            title: "隶属单位",
-                            template:"#=levelFlagName#",
-                            editor:chooseBranchOrHead
-                        },
-                        {
-                            field: "superiorId",
-                            title: "隶属单位名称",
-                            template:"#=superiorName#",
-                            editor:roleListDropDownEditor
-                        },
-                        {
-                            field: "businessEntity",
-                            title: "行业分类名称",
-                            template:"#=businessEntity.name#",
-                            editor:businessEditor
-                        },
-                        {
-                            field: "cityEntity",
-                            title: "城市名称",
-                            template:"#=cityEntity.name#",
-                            editor:cityEditor
-                        },
+                        // {
+                        //     field: "principal",
+                        //     title: "场地负责人"
+                        // },
+                        // {
+                        //     field: "placeAddress",
+                        //     title: "地址"
+                        // },
+                        // {
+                        //     field: "latitude",
+                        //     title: "纬度",
+                        //     format: "{0:n4}"
+                        // },
+                        // {
+                        //     field: "longitude",
+                        //     title: "经度",
+                        //     format: "{0:n4}"
+                        // },
+                        // {
+                        //     field: "startDateTime",
+                        //     title: "协议开始时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate
+                        // },
+                        // {
+                        //     field: "endDateTime",
+                        //     title: "协议结束时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate
+                        // },{
+                        //     field: "levelFlag",
+                        //     title: "隶属单位",
+                        //     template:"#=levelFlagName#",
+                        //     editor:chooseBranchOrHead
+                        // },
+                        // {
+                        //     field: "superiorId",
+                        //     title: "隶属单位名称",
+                        //     template:"#=superiorName#",
+                        //     editor:roleListDropDownEditor
+                        // },
+                        // {
+                        //     field: "businessEntity",
+                        //     title: "行业分类名称",
+                        //     template:"#=businessEntity.name#",
+                        //     editor:businessEditor
+                        // },
+                        // {
+                        //     field: "cityEntity",
+                        //     title: "城市名称",
+                        //     template:"#=cityEntity.name#",
+                        //     editor:cityEditor
+                        // },
                         {
                             command: ["edit","destroy"],
-                            title: "操作",
-                            width: "100px"
+                            // title: "操作",
+                            width: "200px",
+                            headerAttributes: {
+                                style: "display:none;"
+                            }
                         }
                     ],
                     editable: {

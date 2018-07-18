@@ -73,7 +73,18 @@ public class DeviceController {
 
 
     /**
-     * 跳转到设备管理页面
+     * 跳转到设备库存管理页面
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018/7/11
+     */
+    @GetMapping(value="/turnToInventoryMgr")
+    public ModelAndView turnToInventoryMgr(){
+        return new ModelAndView("./baseInfo/inventoryMgr");
+    }
+
+    /**
+     * 跳转到设备场地绑定页面
      * @return
      * @auther liaozhiqiang
      * @date 2018/7/11

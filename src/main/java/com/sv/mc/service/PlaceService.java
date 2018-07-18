@@ -101,7 +101,7 @@ public interface PlaceService<T> extends BaseService<T>{
     List<DeviceEntity> findDeviceByPlace(int placeId);
 
     /**
-     * 根据场地id查询他的字节点
+     * 根据场地id查下一级信息
      */
     String findPlaceByParentId(int placeId);
 
