@@ -40,17 +40,17 @@
                                 dataType: "json",
                                 type: "post"
                             }
-                        },
-                        serverPaging: false,    //设定服务器来实现分页功能
 
-                        serverFiltering: true,
+                        },
+                        pageSize :10,
+                        serverPaging: false,
                         serverSorting: true,
+                        serverFiltering: true,
                         requestEnd: onRequestEnd,
-                        pageSize: 5,
+
                         schema: {
                             model: {
                                 id: "id",
-
                                 fields: {
                                     id: {type: "number", editable: false}
 
@@ -60,7 +60,10 @@
                                  return response;
                             }
 
-                        }
+                        },
+                        scrollable: false,
+                        sortable: true,
+                        pageable: true
                     });
 
                     //dataSource是必填属性
@@ -70,9 +73,6 @@
                         sortable: true,
                         pageable: true,
                         detailInit: detailInit,
-                        // dataBound: function() {
-                        //     this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        // },
                         toolbar: [{name: "create", text: "新增"}],
                         columns: [
                             {
