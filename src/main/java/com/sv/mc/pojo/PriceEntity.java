@@ -23,13 +23,13 @@ public class PriceEntity {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp createDateTime;           //创建时间
     private int status;         //状态
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp startDateTime;            //价格开始时间
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp endDateTime;              //价格结束时间
-    private String priceName;
+    private String priceName;                   //价格名称
     private DeviceModelEntity deviceModelEntity; //价格对应机器类型
     private UserEntity user;            //一对多用户
     private List<DeviceEntity> deviceEntities = new ArrayList<>();             //设备多对多集合

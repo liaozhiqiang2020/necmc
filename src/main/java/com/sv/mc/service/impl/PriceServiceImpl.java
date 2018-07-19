@@ -228,6 +228,7 @@ public class PriceServiceImpl implements PriceService {
 
     //为场地上某种类型的机器添加价格
     @Override
+    @Transactional
     public List<PriceEntity> placeAddPrice(Map<String,Object> listMap) {
 
         Object placeId = listMap.get("placeId");
@@ -262,6 +263,7 @@ public class PriceServiceImpl implements PriceService {
      * @return
      */
     @Override
+    @Transactional
     public List<Map<String, Object>> queryPriceAndTime(int deviceId) {
         List<Map<String, Object>> listmap = new ArrayList<>();
         List<PriceEntity> priceEntityList = this.priceRepository.queryPriceAndTime(deviceId);

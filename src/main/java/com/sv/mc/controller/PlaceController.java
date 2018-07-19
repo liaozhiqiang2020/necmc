@@ -1,5 +1,6 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,14 +155,20 @@ public class PlaceController {
         return this.placeService.findPlaceByParentId(placeId);
     }
 
-    /**
-     * 根据场地id查询所有设备
-     */
-    @RequestMapping(value = "/placeMgr/findAllDeviceByPlaceId",method = RequestMethod.GET)
-    public @ResponseBody
-    String findAllDeviceByPlaceId(@RequestParam(name = "placeId")  int placeId){
+
+    @GetMapping("/place/findDeviceByPlace")
+    public List<DeviceEntity> findDeviceByPlace(@RequestParam("placeId") int placeId){
         return this.placeService.findDeviceByPlace(placeId);
     }
+
+//    /**
+//     * 根据场地id查询所有设备
+//     */
+//    @RequestMapping(value = "/placeMgr/findAllDeviceByPlaceId",method = RequestMethod.GET)
+//    public @ResponseBody
+//    List findAllDeviceByPlaceId(@RequestParam(name = "placeId")  int placeId){
+//        return this.placeService.findDeviceByPlace(placeId);
+//    }
 
 
 
