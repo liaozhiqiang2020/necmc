@@ -80,7 +80,7 @@
                                 }
                             },
                             pageSize: 20,
-                            serverPaging: true,
+                            // serverPaging: true,
                             serverSorting: true,
                             schema: {
                                 model: {
@@ -242,7 +242,7 @@
                                     }
                                 },
                                 pageSize: 20,
-                                serverPaging: true,
+                                // serverPaging: true,
                                 serverSorting: true,
                                 schema: {
                                     model: {
@@ -380,9 +380,9 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./deviceMgr/allDevice",
+                                    read: "./place/findDeviceByPlace",
                                 },
-                                serverPaging: true,
+                                // serverPaging: true,
                                 serverSorting: true,
                                 serverFiltering: true,
                                 pageSize: 5,
@@ -394,7 +394,7 @@
                                             maintainDateTime: { type: "timestamp"},
                                             latitude: { type: "number" ,validation: { required: true, min: 1} },
                                             longitude: { type: "number",editable: false },
-                                            mcType: { type: "number" },
+                                            mcType: { type: "array" },
                                             mcStatus: { type: "boolean" },
                                             mcSn: { type: "string" },
                                             priceEntities :{type:"array"},
@@ -409,9 +409,10 @@
                             filterable: true,
                             // filterable: true,
                             columns: [
-                                { field: "latitude", title:"按摩椅经度", width: "110px" },
-                                { field: "mcStatus", title:"按摩椅状态", width: "110px" },
                                 { field: "mcSn", title:"机器SN" ,width: "110px"},
+                                { field: "latitude", title:"按摩椅经度", width: "110px" },
+                                { field: "longitude", title:"按摩椅纬度", width: "110px" },
+                                { field: "mcStatus", title:"按摩椅状态", width: "110px" },
                                 { command: ["edit"], title: "&nbsp;", width: "160px" },
                             ],
                             editable: {

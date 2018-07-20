@@ -1,6 +1,7 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.repository.VendorRepository;
@@ -33,7 +34,6 @@ public class PlaceServiceImpl implements PlaceService {
          * @return
          */
         @Override
-        @Transactional
         public PlaceEntity save(PlaceEntity place) {
                 return this.placeRepository.save(place);
         }
@@ -65,7 +65,6 @@ public class PlaceServiceImpl implements PlaceService {
          * @return PranchEntity
          */
         @Override
-        @Transactional
         public PlaceEntity updatePlaceById(int id, PlaceEntity place) {
                 return  this.placeRepository.save(place);
 
@@ -73,14 +72,12 @@ public class PlaceServiceImpl implements PlaceService {
 
 
         @Override
-        @Transactional
         public List findPlace(int id) {
                 return null;
         }
 
 
         @Override
-        @Transactional
         public String findAllPlaceByPage(int page, int pageSize) {
                 Gson gson = new Gson();
                 DataSourceResult<PlaceEntity> placeEntityDataSourceResult = new DataSourceResult<>();
@@ -127,7 +124,6 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        @Transactional
         public String findAllPlace() {
                 List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlaces();//查询所有pid为0的
                 JsonConfig config = new JsonConfig();
@@ -164,7 +160,6 @@ public class PlaceServiceImpl implements PlaceService {
          * @param place
          */
         @Override
-        @Transactional
         public PlaceEntity insertPlace(PlaceEntity place) {
                 place.setDiscardStatus(1);
                 place.setpId(null);
@@ -172,7 +167,6 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        @Transactional
         public PlaceEntity updatePlace(PlaceEntity placeEntity) {
                 placeEntity.setpId(null);
                 return this.placeRepository.save(placeEntity);
@@ -183,20 +177,17 @@ public class PlaceServiceImpl implements PlaceService {
          * @param place
          */
         @Override
-        @Transactional
         public PlaceEntity insertPlaceChild(PlaceEntity place) {
                 place.setDiscardStatus(1);
                 return  this.placeRepository.save(place);
         }
 
         @Override
-        @Transactional
         public PlaceEntity updatePlaceChild(PlaceEntity placeEntity) {
                 return this.placeRepository.save(placeEntity);
         }
 
         @Override
-        @Transactional
         public void deletePlace(int placeId) {
                 PlaceEntity placeEntity = findPlaceById(placeId);
                 placeEntity.setDiscardStatus(0);
@@ -205,45 +196,48 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        @Transactional
-        public String findDeviceByPlace(int pId) {
+        public List<Integer> findDeviceByPlace(int pId) {
                 List<Object[]> deviceEntities = this.placeRepository.findAllChildById(pId);
-                List<Map<String,Object>> mapList = new ArrayList<>();
+//                List<Map<String,Object>> mapList = new ArrayList<>();
+                List<Integer> deviceIdList = new ArrayList<>();
                 for (int i = 0; i <deviceEntities.size() ; i++) {
-                        Map<String,Object> map = new HashMap<>();
+//                        Map<String,Object> map = new HashMap<>();
                         Object[] object =deviceEntities.get(i);
                         int id = Integer.parseInt(object[0].toString());
-                        int placeId = Integer.parseInt(object[1].toString());
-                        Timestamp maintainDateTime = Timestamp.valueOf(object[2].toString());
-                        BigDecimal latitude = new BigDecimal(object[3].toString());
-                        BigDecimal longitude = new BigDecimal(object[4].toString());
-                        int mcType =Integer.parseInt(object[5].toString());
-                        int mcStatus = Integer.parseInt(object[6].toString());
-                        String mcSn = object[7].toString();
-                        String note = object[8].toString();
-                        int discardStatus = Integer.parseInt(object[9].toString());
-                        map.put("id",id);
-                        map.put("placeId",placeId);
-                        map.put("maintainDateTime",maintainDateTime);
-                        map.put("latitude",latitude);
-                        map.put("longitude",longitude);
-                        map.put("mcType",mcType);
-                        map.put("mcStatus",mcStatus);
-                        map.put("mcSn",mcSn);
-                        map.put("note",note);
-                        map.put("discardStatus",discardStatus);
-                        mapList.add(map);
+//                        int placeId = Integer.parseInt(object[1].toString());
+//                        Timestamp maintainDateTime = Timestamp.valueOf(object[2].toString());
+//                        BigDecimal latitude = new BigDecimal(object[3].toString());
+//                        BigDecimal longitude = new BigDecimal(object[4].toString());
+//                        int mcType =Integer.parseInt(object[5].toString());
+//                        int mcStatus = Integer.parseInt(object[6].toString());
+//                        String mcSn = object[7].toString();
+//                        String note = object[8].toString();
+//                        int discardStatus = Integer.parseInt(object[9].toString());
+//                        map.put("id",id);
+//                        map.put("placeId",placeId);
+//                        map.put("maintainDateTime",maintainDateTime);
+//                        map.put("latitude",latitude);
+//                        map.put("longitude",longitude);
+//                        map.put("mcType",mcType);
+//                        map.put("mcStatus",mcStatus);
+//                        map.put("mcSn",mcSn);
+//                        map.put("note",note);
+//                        map.put("discardStatus",discardStatus);
+//                        mapList.add(map);
+                        deviceIdList.add(id);
                 }
 
-                String json = JSONArray.fromObject(mapList).toString();
+                return deviceIdList;
 
-                return json;
+        }
 
+        @Override
+        public List<DeviceEntity> findDeviceByPlaceId(int placeId) {
+                return this.placeRepository.findAllDeviceByPlaceId(placeId);
         }
 
 
         @Override
-        @Transactional
         public String findPlaceByParentId(int placeId) {
                 List<PlaceEntity> placeEntityList = this.placeRepository.findPlaceByParentId(placeId);
                 JsonConfig config = new JsonConfig();
@@ -279,7 +273,6 @@ public class PlaceServiceImpl implements PlaceService {
 
 
         @Override
-        @Transactional
         public List<PlaceEntity> findAllPlaces() {
                 return this.placeRepository.findAllPlaces();
         }
