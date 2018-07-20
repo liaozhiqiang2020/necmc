@@ -258,12 +258,13 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 根据设备id查询价格和时间
-     * @param deviceId
+     * @param deviceCode
      * @return
      */
     @Override
-    public List<Map<String, Object>> queryPriceAndTime(int deviceId) {
+    public List<Map<String, Object>> queryPriceAndTime(String deviceCode) {
         List<Map<String, Object>> listmap = new ArrayList<>();
+        int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
         List<PriceEntity> priceEntityList = this.priceRepository.queryPriceAndTime(deviceId);
         for (int i = 0; i <priceEntityList.size() ; i++) {
             Map<String,Object> map = new HashMap<>();

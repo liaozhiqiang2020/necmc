@@ -15,6 +15,13 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     DeviceEntity findDeviceById(@Param("id") int id);
 
     /**
+     * 根据设备编号查询设备id
+     */
+    @Query("select d.id from DeviceEntity d where d.mcSn=:deviceCode")
+    int queryDeviceIdByDeviceCode(@Param("deviceCode")String deviceCode);
+
+
+    /**
      * 查询按摩椅正常数量
      * @return
      * @author: lzq

@@ -33,6 +33,7 @@ public class PlaceServiceImpl implements PlaceService {
          * @return
          */
         @Override
+        @Transactional
         public PlaceEntity save(PlaceEntity place) {
                 return this.placeRepository.save(place);
         }
@@ -64,6 +65,7 @@ public class PlaceServiceImpl implements PlaceService {
          * @return PranchEntity
          */
         @Override
+        @Transactional
         public PlaceEntity updatePlaceById(int id, PlaceEntity place) {
                 return  this.placeRepository.save(place);
 
@@ -71,12 +73,14 @@ public class PlaceServiceImpl implements PlaceService {
 
 
         @Override
+        @Transactional
         public List findPlace(int id) {
                 return null;
         }
 
 
         @Override
+        @Transactional
         public String findAllPlaceByPage(int page, int pageSize) {
                 Gson gson = new Gson();
                 DataSourceResult<PlaceEntity> placeEntityDataSourceResult = new DataSourceResult<>();
@@ -123,6 +127,7 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
+        @Transactional
         public String findAllPlace() {
                 List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlaces();//查询所有pid为0的
                 JsonConfig config = new JsonConfig();
@@ -159,6 +164,7 @@ public class PlaceServiceImpl implements PlaceService {
          * @param place
          */
         @Override
+        @Transactional
         public PlaceEntity insertPlace(PlaceEntity place) {
                 place.setDiscardStatus(1);
                 place.setpId(null);
@@ -166,6 +172,7 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
+        @Transactional
         public PlaceEntity updatePlace(PlaceEntity placeEntity) {
                 placeEntity.setpId(null);
                 return this.placeRepository.save(placeEntity);
@@ -176,17 +183,20 @@ public class PlaceServiceImpl implements PlaceService {
          * @param place
          */
         @Override
+        @Transactional
         public PlaceEntity insertPlaceChild(PlaceEntity place) {
                 place.setDiscardStatus(1);
                 return  this.placeRepository.save(place);
         }
 
         @Override
+        @Transactional
         public PlaceEntity updatePlaceChild(PlaceEntity placeEntity) {
                 return this.placeRepository.save(placeEntity);
         }
 
         @Override
+        @Transactional
         public void deletePlace(int placeId) {
                 PlaceEntity placeEntity = findPlaceById(placeId);
                 placeEntity.setDiscardStatus(0);
@@ -195,6 +205,7 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
+        @Transactional
         public String findDeviceByPlace(int pId) {
                 List<Object[]> deviceEntities = this.placeRepository.findAllChildById(pId);
                 List<Map<String,Object>> mapList = new ArrayList<>();
@@ -232,6 +243,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 
         @Override
+        @Transactional
         public String findPlaceByParentId(int placeId) {
                 List<PlaceEntity> placeEntityList = this.placeRepository.findPlaceByParentId(placeId);
                 JsonConfig config = new JsonConfig();
@@ -267,6 +279,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 
         @Override
+        @Transactional
         public List<PlaceEntity> findAllPlaces() {
                 return this.placeRepository.findAllPlaces();
         }

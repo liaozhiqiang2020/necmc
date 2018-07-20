@@ -76,4 +76,12 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 //    @Query("from OrderEntity as u where u.code =:openId")
 //    List<OrderEntity> getOrderListServing(@Param("openId")String openId);
 
+    /**
+     * 根据orderId获取按摩椅code
+     * @param orderId
+     * @return
+     */
+    @Query(value = "select d.mc_sn from mc_order o,mc_device d where o.device_id = d.id and o.id=:orderId",nativeQuery = true)
+    String getMcCode(@Param("orderId")int orderId);
+
 }

@@ -113,5 +113,10 @@ public interface PriceService{
      */
     List<PriceEntity> placeAddPrice(Map<String, Object> listMap);
 
-    List<Map<String,Object>> queryPriceAndTime(int deviceId);
+    /**
+     * 根据设备编号查询价格列表
+     * @param deviceCode
+     * @return
+     */
+    List<Map<String,Object>> queryPriceAndTime(String deviceCode);
 }

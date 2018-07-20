@@ -2,8 +2,11 @@ package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.OrderEntity;
 import com.sv.mc.pojo.WxUserInfoEntity;
+import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.repository.OrderRepository;
 import com.sv.mc.repository.WxUserInfoRepository;
+import com.sv.mc.service.DeviceService;
+import com.sv.mc.service.JMSProducer;
 import com.sv.mc.service.OrderService;
 import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,6 +36,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     private OrderRepository orderRepository;
     @Autowired
     private WxUserInfoRepository wxUserInfoRepository;
+    @Autowired
+    private DeviceRepository deviceRepository;
+    @Resource
+    private JMSProducer jmsProducer;
+
 
 
 
@@ -40,6 +50,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public List<OrderEntity> findAllEntities() {
         PageRequest pageRequest = new PageRequest(0,5);
         Page<OrderEntity> wxUserInfoEntityPage = this.orderRepository.findAll(pageRequest);
@@ -53,6 +64,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public void createPaidOrder(OrderEntity orderEntity) {
         this.orderRepository.save(orderEntity);
     }
@@ -65,6 +77,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public List<OrderEntity> findListByWxUserOpenId(String openId, int state) {
         List<OrderEntity> orderEntityList = this.orderRepository.findListByWxUserId(openId,state);
         return orderEntityList;
@@ -77,6 +90,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public OrderEntity findPaidOrderByOrderId(int paidOrderId) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(paidOrderId);
         return orderEntity;
@@ -89,6 +103,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public int findPaidOrderIdByOrderCode(String paidOrderCode) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderIdByOrderCode(paidOrderCode);
         return orderEntity.getId();
@@ -101,6 +116,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public void updatePaidOrder(OrderEntity orderEntity) {
         this.orderRepository.save(orderEntity);
     }
@@ -113,6 +129,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public void updateOrderByCode(String paidOrderCode,int state) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderIdByOrderCode(paidOrderCode);//查询订单信息
         orderEntity.setStatus(state);//写入订单状态
@@ -128,6 +145,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public void updateOrderById(int orderId, int state) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
         orderEntity.setStatus(state);//写入订单状态
@@ -142,6 +160,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public long getMcRemainingTime(int orderId) {
         long differTime = 0;
         OrderEntity orderEntity = this.findPaidOrderByOrderId(orderId);//查询订单信息
@@ -165,10 +184,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state) {
         OrderEntity orderEntity = new OrderEntity();
         WxUtil wxUtil = new WxUtil();
         String paidOrderCode = wxUtil.createPaidOrderCode(openid, deviceCode); //生成订单号
+        int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);//设备id
 
         Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
 
@@ -187,6 +208,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setPayDateTime(ts);//支付时间
         orderEntity.setMcStartDateTime(ts);//开始计时时间
         orderEntity.setCodeWx("66666666666");//微信订单号
+        orderEntity.setDeviceId(deviceId);//设备id
 
         Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
 
@@ -206,7 +228,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
-    public void updateOrderDetail(int orderId,int state,int mcTime) {
+    @Transactional
+    public void updateOrderDetail(int orderId,int state,int mcTime){
         WxUtil wxUtil = new WxUtil();
         OrderEntity orderEntity = this.findPaidOrderByOrderId(orderId);//查询订单信息
         Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
@@ -221,10 +244,20 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         this.orderRepository.save(orderEntity);//保存订单信息
 
+
+        String devideCode = getMcCode(orderId);
+        String chairCode = wxUtil.convertStringToHex(devideCode);
+
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         //参数：1、任务体 2、首次执行的延时时间
         //      3、任务执行间隔 4、间隔时间单位
-        service.scheduleAtFixedRate(()->findOrderStateByTime(service,afterTs,orderEntity), 0, 1, TimeUnit.SECONDS);//开始计时
+        service.scheduleAtFixedRate(()-> {
+            try {
+                findOrderStateByTime(service,afterTs,orderEntity,chairCode);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 0, 1, TimeUnit.SECONDS);//开始计时
     }
 
     /**
@@ -233,12 +266,18 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
-    public void findOrderStateByTime(ScheduledExecutorService service,Timestamp afterTs,OrderEntity orderEntity) {
+    @Transactional
+    public void findOrderStateByTime(ScheduledExecutorService service,Timestamp afterTs,OrderEntity orderEntity,String chairCode){
         WxUtil wxUtil = new WxUtil();
         if(afterTs.getTime()<= wxUtil.getNowDate().getTime()){//获取当前时间(时间戳)//如果现在的时间大于等于结束时间
             orderEntity.setStatus(2);//修改状态为已完成
             this.orderRepository.save(orderEntity);
             service.shutdownNow();//停止当前计时器
+            try {
+                jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002  停止按摩椅
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -248,6 +287,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public String findPaidOrderById(int orderId) {
         OrderEntity orderEntity = findPaidOrderByOrderId(orderId);//查询订单信息
         JSONObject jsonObject = JSONObject.fromObject(orderEntity);//转为json对象
@@ -261,6 +301,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public String findPaidOrderList(String openCode, int state) {
         List<OrderEntity> orderEntityList = findListByWxUserOpenId(openCode,state);//用openCode查询所有status=1的已支付订单
         JSONArray jsonArray = JSONArray.fromObject(orderEntityList);//把list转成JSONArray
@@ -274,6 +315,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public void servingOrderState(int orderId) {
         WxUtil wxUtil = new WxUtil();
         OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId);//查询的订单信息
@@ -281,5 +323,16 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
             orderEntity.setStatus(2);//修改状态为已完成
             this.orderRepository.save(orderEntity);
         }
+    }
+
+    /**
+     * 根据orderId获取按摩椅code
+     * @param orderId
+     * @return
+     */
+    @Override
+    @Transactional
+    public String getMcCode(int orderId) {
+        return this.orderRepository.getMcCode(orderId);
     }
 }
