@@ -15,5 +15,27 @@ public interface AreaService<T> extends BaseService<T>{
     AreaEntity save(AreaEntity branch);
 
 
+    /**
+     * 删除大区 将状态修改为0
+     * @param areaEntity
+     */
+
+    void removeArea(AreaEntity areaEntity);
+
+    /**
+     *
+     * @param areaEntity
+     * @return 修改大区
+     */
+    AreaEntity updateArea(AreaEntity areaEntity);
+
+
+    /***
+     * 增加新的大区
+     * @param areaEntity
+     * @return  返回新的大区
+     */
+    AreaEntity createArea(AreaEntity areaEntity);
+
 
 }

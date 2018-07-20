@@ -13913,3 +13913,15 @@
 [DEBUG] 2018-07-20 15:09:09,555 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
 [INFO ] 2018-07-20 15:09:09,555 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
 [INFO ] 2018-07-20 15:09:26,994 com.sv.mc.MCApplication - Started MCApplication in 17.733 seconds (JVM running for 20.509)
+[INFO ] 2018-07-20 16:56:25,416 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 9504 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-20 16:56:25,431 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 16:56:25,431 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 16:56:51,508 com.sv.mc.MCApplication - Started MCApplication in 27.28 seconds (JVM running for 34.991)
+[INFO ] 2018-07-20 17:03:45,922 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 15556 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-20 17:03:45,928 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 17:03:45,929 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 17:04:06,626 com.sv.mc.MCApplication - Started MCApplication in 21.148 seconds (JVM running for 23.635)
+[INFO ] 2018-07-20 17:06:16,593 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-MF71NMU with PID 15836 (D:\AZhao\IDEA-pro\necmc\target\classes started by admin in D:\AZhao\IDEA-pro\necmc)
+[DEBUG] 2018-07-20 17:06:16,602 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 17:06:16,604 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 17:06:36,501 com.sv.mc.MCApplication - Started MCApplication in 20.42 seconds (JVM running for 22.509)
