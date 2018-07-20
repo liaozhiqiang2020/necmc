@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PermissionRepository extends BaseRepository<PermissionEntity, Long> {
 
@@ -14,5 +16,8 @@ public interface PermissionRepository extends BaseRepository<PermissionEntity, L
 
     @Query("from PermissionEntity as p where p.id = :pId")
     PermissionEntity findByPermissionName(@Param("pId") int pId);
+
+    @Query("select p from PermissionEntity as p,UserEntity as u,RoleEntity as r where u.id = :uId")
+    List<PermissionEntity> findPermissionByUser(@Param("uId") int userId);
 
 }

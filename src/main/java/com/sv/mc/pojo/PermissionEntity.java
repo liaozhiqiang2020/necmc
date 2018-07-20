@@ -1,17 +1,29 @@
 package com.sv.mc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "mc_permission", schema = "mc", catalog = "")
 public class PermissionEntity {
     @Id
-    private int id;
-    private String permissionsName;
-    private String url;
+    private int id;                                 //主键id
+    private String permissionsName;                 //权限名称
+    private String url;                             //当前权限可以访问url
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "mc_role_permission",                       //指定第三张表
+            joinColumns = {@JoinColumn(name = "permission_id")},             //本表与中间表的外键对应
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})  //另一张表与第三张表的外键的对应关系
+    private List<RoleEntity> roleEntities = new ArrayList<>();      //角色集合
 
     @Basic
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;
@@ -22,7 +34,7 @@ public class PermissionEntity {
     }
 
     @Basic
-    @Column(name = "permissions_name")
+    @Column(name = "permissions_name",unique =true, nullable =false)
     public String getPermissionsName() {
         return permissionsName;
     }
@@ -32,13 +44,22 @@ public class PermissionEntity {
     }
 
     @Basic
-    @Column(name = "url")
+    @Column(name = "url", nullable =false)
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+
+    public List<RoleEntity> getRoleEntities() {
+        return roleEntities;
+    }
+
+    public void setRoleEntities(List<RoleEntity> roleEntities) {
+        this.roleEntities = roleEntities;
     }
 
     @Override

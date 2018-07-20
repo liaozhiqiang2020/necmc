@@ -98,7 +98,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param placeId
      * @return
      */
-    List<Integer> findDeviceByPlace(int placeId);
+    List<DeviceEntity> findDeviceByPlace(int placeId);
 
     /**
      * 根据场地Id查询该场地的所有设备

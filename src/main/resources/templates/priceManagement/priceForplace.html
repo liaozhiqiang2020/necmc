@@ -62,8 +62,8 @@
             </script>
 
             <script>
-                $(document).ready(function() {
 
+                $(document).ready(function() {
 
                      $("#grid").kendoGrid({
                         dataSource: {
@@ -105,9 +105,9 @@
 
 
                         detailInit: detailInit,
-                        dataBound: function() {
-                            this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        },
+                        // dataBound: function() {
+                        //     this.expandRow(this.tbody.find("tr.k-master-row").first());
+                        // },
                         columns: [
                             {
                                 field: "name",
@@ -141,21 +141,20 @@
 
                         edit: function(e){
                             let placeId = e.model.id;
-
                           let  dataSource = new kendo.data.DataSource({
                                 transport: {
                                     read: {
                                         url: "./price/status",
                                         dataType: "json"
                                     },
-                                    update: {
+                                    destroy: {
                                         url: "./price/placeAddPrice",
                                         dataType: "json",
                                         type: "post",
                                         contentType : "application/json"
                                     },
                                     parameterMap: function (options, operation) {
-                                        if (operation === "update" && options.models) {
+                                        if (operation === "destroy" && options.models) {
                                             let array = [];
                                                for (let j =0 ;j<options.models.length;j++){
                                                    array[j] = options.models[j].id;
@@ -174,6 +173,7 @@
                                 },
                                 batch: true,
                                 pageSize: 5,
+                              persistSelection: true,
                                 schema: {
                                     model: {
                                         id: "id",
@@ -181,9 +181,9 @@
                                             id: { editable: false, nullable: true },
                                             price: { type: "number", validation: { required: true, min: 1} ,editable: false},
                                             useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                                            createDateTime: { type: "timestamp",editable: false },
-                                            startDateTime: { type: "timestamp" ,editable: false},
-                                            endDateTime: { type: "timestamp",editable: false},
+                                            createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                            startDateTime: { type: "Date" ,editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                            endDateTime: { type: "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                             userId: { type: "string" ,editable: false},
                                             status: { type: "number",editable: false },
                                             priceName : {type : "string",editable: false},
@@ -194,7 +194,7 @@
                                 }
                             });
                             $("#edit-1").kendoGrid({
-                                toolbar: [ {name: "update", text: "价格绑定"}],
+                                toolbar:[ {name: "save", text: "价格绑定"},{name: "cancel", text: "返回"}],
                                 dataSource: dataSource,
                                 pageable: true,
                                 sortable:true,
@@ -206,15 +206,25 @@
                                     { field: "useTime", title:"使用时长",width: "80px" },
                                     { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
                                     { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
-                                    { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" }],
+                                    { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
+                                    { command: [{name:"destroy",text:"绑定"}], title: "&nbsp;", width: "50px" },],
 
                                 editable: true,
 
                             });
+                            // $("#edit-1").on("click", "tbody tr[role='row'] td", function () {
+                            //     if ($(this).html().indexOf("k-checkbox") > 0) {//判断点击项是不是checkbox，不是的情况下再进行行选中的操作
+                            //         $("#edit-1 tr").removeClass("chooseRow");
+                            //         $(this).parent().addClass("chooseRow"); //添加行选中的样式
+                            //         var index = $(this).parent().index();   //获取选中行的下标
+                            //         var selectedId = $("#grid").data("kendoGrid")
+                            //             .dataSource.at(index).id;  //获取选中行的ID
+                            //     }
+                            //
+                            // });
                         },
 
                     });
-
 
                     function detailInit(e) {
                         var detailRow = e.detailRow;
@@ -267,9 +277,9 @@
 
 
                             detailInit: detailInit,
-                            dataBound: function() {
-                                this.expandRow(this.tbody.find("tr.k-master-row").first());
-                            },
+                            // dataBound: function() {
+                            //     this.expandRow(this.tbody.find("tr.k-master-row").first());
+                            // },
                             columns: [
                                 {
                                     field: "name",
@@ -310,7 +320,7 @@
                                             url: "./price/status",
                                             dataType: "json"
                                         },
-                                        update: {
+                                        destroy: {
                                             url: "./price/placeAddPrice",
                                             dataType: "json",
                                             type: "post",
@@ -343,9 +353,9 @@
                                                 id: { editable: false, nullable: true },
                                                 price: { type: "number", validation: { required: true, min: 1} ,editable: false},
                                                 useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                                                createDateTime: { type: "timestamp",editable: false },
-                                                startDateTime: { type: "timestamp" ,editable: false},
-                                                endDateTime: { type: "timestamp",editable: false},
+                                                createDateTime: { type: "Date",editable: false },
+                                                startDateTime: { type: "Date" ,editable: false},
+                                                endDateTime: { type: "Date",editable: false},
                                                 userId: { type: "string" ,editable: false},
                                                 status: { type: "number",editable: false },
                                                 priceName : {type : "string",editable: false},
@@ -356,19 +366,20 @@
                                     }
                                 });
                                 $("#edit-1").kendoGrid({
-                                    toolbar: [ {name: "update", text: "价格绑定"}],
+                                    toolbar: [ {name: "save", text: "价格绑定"},{name: "cancel", text: "返回"}],
                                     dataSource: dataSource,
                                     pageable: true,
                                     sortable:true,
                                     height: 350,
                                     columns: [
-                                        { selectable: true, width: "50px" },
+                                        // { selectable: true, width: "50px" },
                                         { field: "priceName", title: "价格名称",  width: "80px" },
                                         { field: "price", title: "价格(元)", width: "80px" },
                                         { field: "useTime", title:"使用时长",width: "80px" },
                                         { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
                                         { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
-                                        { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" }],
+                                        { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
+                                        { command: [{name:"destroy",text:"绑定"}], title: "&nbsp;", width: "50px" }],
 
                                     editable: true,
 
@@ -380,7 +391,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceByPlace",
+                                    read: "./place/findDeviceByPlaceId?placeId="+placeId,
                                 },
                                 // serverPaging: true,
                                 serverSorting: true,
@@ -460,9 +471,9 @@
                                                 id: { editable: false, nullable: true },
                                                 price: { type: "number", validation: { required: true, min: 1},editable: false },
                                                 useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                                                createDateTime: { type: "timestamp",editable: false },
-                                                startDateTime: { type: "timestamp" ,editable: false},
-                                                endDateTime: { type: "timestamp" ,editable: false},
+                                                createDateTime: { type: "Date",editable: false },
+                                                startDateTime: { type: "Date" ,editable: false},
+                                                endDateTime: { type: "Date" ,editable: false},
                                                 userId: { type: "string" ,editable: false},
                                                 status: { type: "number" ,editable: false},
                                                 priceName : {type : "string",editable: false},
@@ -510,9 +521,9 @@
                                                 id: { editable: false, nullable: true },
                                                 price: { type: "number", validation: { required: true, min: 1},editable: false },
                                                 useTime: { type: "number" ,validation: { required: true, min: 1},editable: false },
-                                                createDateTime: { type: "timestamp",editable: false },
-                                                startDateTime: { type: "timestamp",editable: false },
-                                                endDateTime: { type: "timestamp",editable: false },
+                                                createDateTime: { type: "Date",editable: false },
+                                                startDateTime: { type: "Date",editable: false },
+                                                endDateTime: { type: "Date",editable: false },
                                                 userId: { type: "string" ,editable: false},
                                                 status: { type: "number" ,editable: false},
                                                 priceName : {type : "string",editable: false},

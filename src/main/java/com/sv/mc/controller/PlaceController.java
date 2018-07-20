@@ -157,10 +157,15 @@ public class PlaceController {
 
 
     @GetMapping("/place/findDeviceByPlace")
+    public List<DeviceEntity> findDeviceByPlace1(@RequestParam("placeId") int placeId){
+        return this.placeService.findDeviceByPlaceId(placeId);
+    }
+
+
+    @GetMapping("/place/findDeviceByPlaceId")
     public List<DeviceEntity> findDeviceByPlace(@RequestParam("placeId") int placeId){
         return this.placeService.findDeviceByPlace(placeId);
     }
-
 //    /**
 //     * 根据场地id查询所有设备
 //     */

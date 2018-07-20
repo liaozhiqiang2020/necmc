@@ -1,8 +1,13 @@
 package com.sv.mc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "mc_role", schema = "mc", catalog = "")
@@ -11,7 +16,11 @@ public class RoleEntity {
     private Timestamp createDateTime;
     private String roleName;
 
+    private Set<UserEntity> userEntitySet = new HashSet<>();
+    private Set<PermissionEntity> permissionEntityHashSet = new HashSet<>();
+
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;
@@ -32,7 +41,7 @@ public class RoleEntity {
     }
 
     @Basic
-    @Column(name = "role_name")
+    @Column(name = "role_name",unique =true, nullable =false)
     public String getRoleName() {
         return roleName;
     }
@@ -40,6 +49,35 @@ public class RoleEntity {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "mc_user_role",                       //指定第三张表
+            joinColumns = {@JoinColumn(name = "role_id")},             //本表与中间表的外键对应
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})  //另一张表与第三张表的外键的对应关系
+    public Set<UserEntity> getUserEntitySet() {
+        return userEntitySet;
+    }
+
+    public void setUserEntitySet(Set<UserEntity> userEntitySet) {
+        this.userEntitySet = userEntitySet;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "mc_role_permission",                       //指定第三张表
+            joinColumns = {@JoinColumn(name = "role_id")},             //本表与中间表的外键对应
+            inverseJoinColumns = {@JoinColumn(name = "permission_id")})  //另一张表与第三张表的外键的对应关系
+    public Set<PermissionEntity> getPermissionEntityHashSet() {
+        return permissionEntityHashSet;
+    }
+
+    public void setPermissionEntityHashSet(Set<PermissionEntity> permissionEntityHashSet) {
+        this.permissionEntityHashSet = permissionEntityHashSet;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

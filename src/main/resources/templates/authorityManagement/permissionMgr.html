@@ -25,16 +25,16 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./permission/all"
+                                url: "/mc/permission/all"
                             },
                             create: {
-                                url: "./permission/save",
+                                url: "/mc/permission/save",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./permission/update",
+                                url:  "/mc/permission/update",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"

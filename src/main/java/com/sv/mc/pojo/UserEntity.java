@@ -1,12 +1,11 @@
 package com.sv.mc.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 用户表
@@ -26,9 +25,11 @@ public class UserEntity {
     private Timestamp latestLoginDatetime;          //上次登录时间
     private String latestLoginIp;                   //上次登录Ip
     private int status;                             //状态
-    private List<PriceEntity> priceEntities = new ArrayList<>();    //与价格一对多绑定
+
+    private Set<RoleEntity> roleEntitySet = new HashSet<>();
 
     @Id
+    @GeneratedValue
     @Column(name = "Id")
     public int getId() {
         return id;
@@ -39,7 +40,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "user_name")
+    @Column(name = "user_name",unique =true, nullable =false)
     public String getUserName() {
         return userName;
     }
@@ -132,15 +133,6 @@ public class UserEntity {
         this.latestLoginIp = latestLoginIp;
     }
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    public List<PriceEntity> getPriceEntities() {
-        return priceEntities;
-    }
-
-    public void setPriceEntities(List<PriceEntity> priceEntities) {
-        this.priceEntities = priceEntities;
-    }
 
     @Basic
     @Column(name = "status")
@@ -151,6 +143,21 @@ public class UserEntity {
     public void setStatus(int status) {
         this.status = status;
     }
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "mc_user_role",                       //指定第三张表
+            joinColumns = {@JoinColumn(name = "user_id")},             //本表与中间表的外键对应
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})  //另一张表与第三张表的外键的对应关系
+    public Set<RoleEntity> getRoleEntitySet() {
+        return roleEntitySet;
+    }
+
+    public void setRoleEntitySet(Set<RoleEntity> roleEntitySet) {
+        this.roleEntitySet = roleEntitySet;
+    }
+
 
     @Override
     public boolean equals(Object o) {

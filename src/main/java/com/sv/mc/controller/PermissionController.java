@@ -42,7 +42,7 @@ public class PermissionController {
      * 跳转到permission管理页面
      * @return
      */
-    @GetMapping(value = "/permissionManagement")
+    @GetMapping(value = "/user/permissionManagement")
     public ModelAndView turnToUserManagement() {
         ModelAndView mv = new ModelAndView();
 

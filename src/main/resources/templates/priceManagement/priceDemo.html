@@ -76,7 +76,7 @@
                                     id: { editable: false, nullable: true },
                                     price: { type: "number", validation: { required: true, min: 1} },
                                     useTime: { type: "number" ,validation: { required: true, min: 1} },
-                                    // createDateTime: { type: "timestamp",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                    createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     startDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                     endDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                     userId: { type: "int" ,editable: false},
@@ -144,7 +144,7 @@
                                 editor: changeDate },
                             { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
-                            { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#，",editor:roleListDropDownEditor},
+                            { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#"},
 
                             {
                                 command: [
@@ -221,31 +221,31 @@
                     });
                 }
 
-                function roleListDropDownEditor(container, options) {
-                    // console.log(options.model);
-                    var typeId = options.model.deviceModelEntity.id;
-
-                    var input = $('<input required name="' + options.field + '"/>');
-                    input.appendTo(container);
-                    input.kendoComboBox({
-                        autoBind: true,
-                        placeholder: "请选择...",
-                        dataTextField: "name",
-                        dataValueField: "id",
-                        value: typeId,
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    type: "get",
-                                    url: "./deviceModel/all",
-                                    dataType: "json",
-                                    contentType: "application/json",
-                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                }
-                            }
-                        }
-                    });
-                }
+                // function roleListDropDownEditor(container, options) {
+                //     // console.log(options.model);
+                //     var typeId = options.model.deviceModelEntity.id;
+                //
+                //     var input = $('<input required name="' + options.field + '"/>');
+                //     input.appendTo(container);
+                //     input.kendoComboBox({
+                //         autoBind: true,
+                //         placeholder: "请选择...",
+                //         dataTextField: "name",
+                //         dataValueField: "id",
+                //         value: typeId,
+                //         dataSource: {
+                //             transport: {
+                //                 read: {
+                //                     type: "get",
+                //                     url: "./deviceModel/all",
+                //                     dataType: "json",
+                //                     contentType: "application/json",
+                //                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                //                 }
+                //             }
+                //         }
+                //     });
+                // }
 
                 /*]]>*/
             </script>

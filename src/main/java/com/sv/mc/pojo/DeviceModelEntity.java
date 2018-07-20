@@ -18,7 +18,7 @@ public class DeviceModelEntity {
     private String name;     //按摩椅名称
     private String model;    //按摩椅型号
     private int deviceType;     //按摩椅型号分类
-    private List<PriceEntity> priceEntities = new ArrayList<>();
+//    private List<PriceEntity> priceEntities = new ArrayList<>();
 
     @Id
     @GeneratedValue
@@ -61,15 +61,15 @@ public class DeviceModelEntity {
         this.deviceType = deviceType;
     }
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModelEntity")
-    public List<PriceEntity> getPriceEntities() {
-        return priceEntities;
-    }
-
-    public void setPriceEntities(List<PriceEntity> priceEntities) {
-        this.priceEntities = priceEntities;
-    }
+//    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModelEntity")
+//    public List<PriceEntity> getPriceEntities() {
+//        return priceEntities;
+//    }
+//
+//    public void setPriceEntities(List<PriceEntity> priceEntities) {
+//        this.priceEntities = priceEntities;
+//    }
 
     @Override
     public boolean equals(Object o) {
