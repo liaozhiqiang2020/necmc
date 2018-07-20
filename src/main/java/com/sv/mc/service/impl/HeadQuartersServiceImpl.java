@@ -8,6 +8,7 @@ import com.sv.mc.service.HeadQuartersService;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @return HeadQuartersEntity
      */
     @Override
+    @Transactional
     public HeadQuartersEntity save(HeadQuartersEntity headQuarters) {
         return headQuartersRepository.save(headQuarters);
     }
@@ -34,12 +36,14 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @return HeadQuartersEntity
      */
     @Override
+    @Transactional
     public HeadQuartersEntity findHeadQuartersById(int id) {
         return headQuartersRepository.findHeadQuartersById(id);
     }
 
 
     @Override
+    @Transactional
     public List findAllEntities() {
         return headQuartersRepository.findAll();
     }
@@ -52,6 +56,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @return
      */
     @Override
+    @Transactional
     public String findAllHeadByPage(int page, int pageSize) {
         Gson gson = new Gson();
         DataSourceResult<HeadQuartersEntity> branchEntityDataSourceResult = new DataSourceResult<>();
@@ -69,6 +74,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @return
      */
     @Override
+    @Transactional
     public HeadQuartersEntity updateHeadDataById(HeadQuartersEntity headQuartersEntity) {
         return this.headQuartersRepository.save(headQuartersEntity);
     }
@@ -79,6 +85,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @return
      */
     @Override
+    @Transactional
     public HeadQuartersEntity insertHead(HeadQuartersEntity headQuartersEntity) {
         headQuartersEntity.setDeleteFlag(1);
         return this.headQuartersRepository.save(headQuartersEntity);
@@ -89,6 +96,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @param headId
      */
     @Override
+    @Transactional
     public void deleteHead(int headId) {
         HeadQuartersEntity headQuartersEntity = findHeadQuartersById(headId);
         headQuartersEntity.setDeleteFlag(0);

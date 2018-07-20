@@ -29,6 +29,7 @@ public class BranchServiceImpl implements BranchService {
          * @param branch 分公司数据
          * @return
          */
+        @Transactional
         @Override
         public BranchEntity save(BranchEntity branch) {
                 return this.branchRepository.save(branch);
@@ -60,6 +61,7 @@ public class BranchServiceImpl implements BranchService {
          * @param branch
          */
         @Override
+        @Transactional
         public BranchEntity insertBranch(BranchEntity branch) {
                 branch.setDiscardStatus(1);
                 int headId = branch.getHeadQuartersEntity().getId();
@@ -74,6 +76,7 @@ public class BranchServiceImpl implements BranchService {
          * @return branch
          */
         @Override
+        @Transactional
         public BranchEntity updateBranchDataById(BranchEntity branch) {
                 int headId = branch.getHeadQuartersEntity().getId();
                 HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(headId);
@@ -86,6 +89,7 @@ public class BranchServiceImpl implements BranchService {
          * 根据id删除（逻辑删除，更改状态）
          */
         @Override
+        @Transactional
         public void deleteBranch(int branchId){
                 BranchEntity branchEntity = findBranchById(branchId);
                 branchEntity.setDiscardStatus(0);
@@ -99,6 +103,7 @@ public class BranchServiceImpl implements BranchService {
          * @return
          */
         @Override
+        @Transactional
         public String findAllBranchByPage(int page, int pageSize) {
                 Gson gson = new Gson();
                 DataSourceResult<BranchEntity> branchEntityDataSourceResult = new DataSourceResult<>();

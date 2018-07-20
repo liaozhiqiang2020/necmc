@@ -84,7 +84,7 @@ public interface OrderService<T> extends BaseService<T>{
     /**
      * 根据openId定时查询订单状态
      */
-    void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity);
+    void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity,String chairCode);
 
     /**
      * 根据订单号查询订单
@@ -106,4 +106,11 @@ public interface OrderService<T> extends BaseService<T>{
      * @date: 2018年7月6日
      */
     void servingOrderState(int orderId);
+
+    /**
+     * 根据订单号获取按摩椅code
+     * @param orderId
+     * @return
+     */
+    String getMcCode(int orderId);
 }

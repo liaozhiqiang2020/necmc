@@ -2,9 +2,11 @@ package com.sv.mc.controller;
 
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
+import com.sv.mc.service.JMSProducer;
 import com.sv.mc.service.OrderService;
 import com.sv.mc.service.PriceService;
 import com.sv.mc.service.WeiXinPayService;
+import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.vo.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.weixin4j.WeixinException;
 import org.weixin4j.WeixinSupport;
+
+import javax.annotation.Resource;
+import javax.jms.Queue;
+import javax.jms.Topic;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,6 +38,9 @@ public class WeixinController extends WeixinSupport {
     private WeiXinPayService weiXinPayService;
     @Autowired
     private PriceService priceService;
+
+    @Resource
+    private JMSProducer jmsProducer;
 
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
@@ -100,7 +109,7 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/findPaidOrderList")
     @ResponseBody
-    public String findPaidOrderList(String openCode, int state) {
+    public String findPaidOrderList(String openCode, int state,String chairCode) {
        return this.orderService.findPaidOrderList(openCode,state);
     }
 
@@ -135,6 +144,17 @@ public class WeixinController extends WeixinSupport {
     @ResponseBody
     public long getMcRemainingTime(int orderId) {
         return this.orderService.getMcRemainingTime(orderId);
+    }
+
+    /**
+     * 获取按摩椅code
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @RequestMapping("/getMcCode")
+    @ResponseBody
+    public String getMcCode(int orderId) {
+        return this.orderService.getMcCode(orderId);
     }
 
     /**
@@ -191,10 +211,37 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/queryPriceAndTime")
     @ResponseBody
-    public List<Map<String,Object>> queryPriceAndTime(int deviceCode){
+    public List<Map<String,Object>> queryPriceAndTime(String deviceCode){
         List<Map<String,Object>> priceList = priceService.queryPriceAndTime(deviceCode);
 
         return priceList;
     }
+
+    /**
+     * 发送启动按摩椅命令
+     */
+    @RequestMapping("/sendStartChairMsg")
+    @ResponseBody
+    public void sendStartChairMsg(String chairId) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+        jmsProducer.sendMessage("faaf0f09"+chairCode+"3c0000");//按摩椅20000002，60min
+    }
+
+    /**
+     * 发送停止按摩椅命令
+     */
+    @RequestMapping("/sendEndChairMsg")
+    @ResponseBody
+    public void sendEndChairMsg(String chairId)throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+        jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002
+    }
+
+
+
+
+
 
 }

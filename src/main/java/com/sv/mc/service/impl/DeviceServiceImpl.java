@@ -11,6 +11,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.ParsePosition;
@@ -29,6 +30,7 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
+        @Transactional
         public DeviceEntity save(DeviceEntity device) {
                 return deviceRepository.save(device);
         }
@@ -39,6 +41,7 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
+        @Transactional
         public DeviceEntity findDeviceById(int id) {
                 return deviceRepository.findDeviceById(id);
         }
@@ -50,6 +53,7 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
+        @Transactional
         public DeviceEntity updateDeviceById(int id, DeviceEntity device) {
                 return deviceRepository.save(device);
         }
@@ -60,6 +64,7 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
+        @Transactional
         public DeviceEntity insertDevice(DeviceEntity device) {
                 device.setDiscardStatus(1);
                 return deviceRepository.save(device);
@@ -70,6 +75,7 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
+        @Transactional
         public List<DeviceEntity> findAllEntities() {
                 return deviceRepository.findAll();
         }
@@ -77,11 +83,13 @@ public class DeviceServiceImpl implements DeviceService {
 
 
         @Override
+        @Transactional
         public DeviceEntity updateDevice(DeviceEntity device) {
                 return this.deviceRepository.save(device);
         }
 
         @Override
+        @Transactional
         public String findAllDeviceByPage(int page, int pageSize) {
 //                Gson gson = new Gson();
                 DataSourceResult<DeviceEntity> deviceEntityDataSourceResult = new DataSourceResult<>();
@@ -99,6 +107,7 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
         @Override
+        @Transactional
         public void deleteDevice(int deviceId) {
                 DeviceEntity deviceEntity = findDeviceById(deviceId);
                 deviceEntity.setDiscardStatus(0);
@@ -107,6 +116,7 @@ public class DeviceServiceImpl implements DeviceService {
 
 
         @Override
+        @Transactional
         public List<DeviceEntity> findAllDevice() {
                 return this.deviceRepository.findAllDevice();
         }
