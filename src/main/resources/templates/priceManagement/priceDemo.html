@@ -68,7 +68,7 @@
                         serverFiltering: true,
                         serverSorting: true,
                         requestEnd: onRequestEnd,
-                        pageSize: 5,
+                        pageSize: 10,
                         schema: {
                             model: {
                                 id: "id",
@@ -83,7 +83,7 @@
                                     status: { type: "number",editable: false },
                                     priceName : {type : "string"},
                                     user :{type:"array",editable: false,defaultValue: { id: 1, name: ""}},
-                                    deviceModelEntity : {type:"array",defaultValue: { id: 1, name: ""}},
+                                    deviceModelEntity : {defaultValue: { id: 1, name: ""}},
                                 }
                             },
                             // data: function (response) {
@@ -144,7 +144,7 @@
                                 editor: changeDate },
                             { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
-                            { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#"},
+                            { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#",editor:roleListDropDownEditor},
 
                             {
                                 command: [
@@ -207,11 +207,11 @@
                 }
 
                 //编辑时boolean类型复选框样式修改
-                function customBoolEditor(container, options) {
-                    var guid = kendo.guid();
-                    $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
-                    $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
-                }
+                // function customBoolEditor(container, options) {
+                //     var guid = kendo.guid();
+                //     $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
+                //     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
+                // }
 
                 function changeDate(container, options) {
                     var input = $('<input name="' + options.field + '"/>');
@@ -221,31 +221,31 @@
                     });
                 }
 
-                // function roleListDropDownEditor(container, options) {
-                //     // console.log(options.model);
-                //     var typeId = options.model.deviceModelEntity.id;
-                //
-                //     var input = $('<input required name="' + options.field + '"/>');
-                //     input.appendTo(container);
-                //     input.kendoComboBox({
-                //         autoBind: true,
-                //         placeholder: "请选择...",
-                //         dataTextField: "name",
-                //         dataValueField: "id",
-                //         value: typeId,
-                //         dataSource: {
-                //             transport: {
-                //                 read: {
-                //                     type: "get",
-                //                     url: "./deviceModel/all",
-                //                     dataType: "json",
-                //                     contentType: "application/json",
-                //                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                //                 }
-                //             }
-                //         }
-                //     });
-                // }
+                function roleListDropDownEditor(container, options) {
+                    // console.log(options.model);
+                    var typeId = options.model.deviceModelEntity.id;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: typeId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./deviceModel/all",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
 
                 /*]]>*/
             </script>

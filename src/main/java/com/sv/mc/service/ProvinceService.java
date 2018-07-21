@@ -1,6 +1,9 @@
 package com.sv.mc.service;
 
+import com.sv.mc.pojo.AreaEntity;
 import com.sv.mc.pojo.ProvinceEntity;
+
+import java.util.List;
 
 /**
  * 接口
@@ -20,7 +23,27 @@ public interface ProvinceService<T> extends BaseService<T>{
      * @param  id
      * @return ProvinceEntity
      */
-    ProvinceEntity findProvinceById (int id);
+    ProvinceEntity findProvinceById(int id);
+
+    /**
+     * 删除省
+     * @param provinceEntity
+     */
+    void removeProvince(ProvinceEntity provinceEntity);
+
+    /**
+     * 增加省份
+     * @param provinceEntity
+     * @return provinceEntity
+     */
+      ProvinceEntity  createProvince(ProvinceEntity provinceEntity);
+
+    /**
+     * 查询所有的省份
+     * @return
+     */
+      List<ProvinceEntity> selectProvince();
+
 
 
 }
