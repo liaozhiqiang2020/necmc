@@ -1,5 +1,7 @@
 package com.sv.mc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -17,11 +19,15 @@ public class OrderEntity {
     private String code;  //订单编号(自己编写后台代码生成规则)
     private String codeWx;  //微信生成的订单编号
     private int status;  //订单状态(0未付款，1已付款(服务中)，2已付款(已完成)，3已取消)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createDateTime;  //订单创建时间(自己的订单)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp payDateTime;  //订单支付时间
     private BigDecimal money; //订单金额
     private String description;  //订单描述
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp mcStartDateTime;  //按摩开始时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp mcEndDateTime;  //按摩结束时间
     private Integer mcStatus;  //按摩椅状态(0为异常，1为正常)
     private Integer deviceId;  //椅子编号

@@ -113,4 +113,10 @@ public interface OrderService<T> extends BaseService<T>{
      * @return
      */
     String getMcCode(int orderId);
+
+    /**
+     * 分页查询所有订单(后台查询)
+     * @return
+     */
+    String findAllOrdersByPage(int page, int pageSize);
 }

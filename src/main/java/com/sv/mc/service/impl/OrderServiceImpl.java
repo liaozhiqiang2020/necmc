@@ -1,5 +1,7 @@
 package com.sv.mc.service.impl;
 
+import com.google.gson.Gson;
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.OrderEntity;
 import com.sv.mc.pojo.WxUserInfoEntity;
 import com.sv.mc.repository.DeviceRepository;
@@ -8,9 +10,12 @@ import com.sv.mc.repository.WxUserInfoRepository;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.JMSProducer;
 import com.sv.mc.service.OrderService;
+import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.DateJsonValueProcessor;
 import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,7 +46,49 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     @Resource
     private JMSProducer jmsProducer;
 
+    /**
+     * 分页查询所有订单(后台查询)
+     * @return
+     */
+    @Override
+    @Transactional
+    public String findAllOrdersByPage(int page, int pageSize) {
+        DataSourceResult<OrderEntity> branchEntityDataSourceResult = new DataSourceResult<>();
+        int offset = ((page-1)*pageSize);
+        List<OrderEntity> branchEntityList = this.orderRepository.findAllOrdersByPage(offset,pageSize);//记录
+        int total = this.orderRepository.findOrderTotal();//数量
+        branchEntityDataSourceResult.setData(branchEntityList);
+        branchEntityDataSourceResult.setTotal(total);
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        JSONObject jsonObject = JSONObject.fromObject(branchEntityDataSourceResult,config);//转化为jsonArray
+        JSONArray jsonArray =jsonObject.getJSONArray("data");
 
+        JSONObject jsonObject1 = new JSONObject();
+        JSONArray jsonArray1 = new JSONArray();//新建json数组
+
+        String statusName="";
+        for (int i = 0; i <jsonArray.size() ; i++) {
+            JSONObject jsonObject12 =jsonArray.getJSONObject(i);
+            int status =Integer.parseInt(jsonObject12.get("status").toString());
+            if(status==0){
+                statusName = "未付款";
+            }else if(status==1){
+                statusName = "服务中";
+            }else if(status==2){
+                statusName = "已完成";
+            }else if(status==3){
+                statusName = "已取消";
+            }
+            jsonObject12.put("statusName",statusName);
+            jsonArray1.add(jsonObject12);
+        }
+        jsonObject1.put("data",jsonArray1);
+        jsonObject1.put("total",total);
+
+
+        return jsonObject1.toString();
+    }
 
 
     /**
@@ -52,7 +99,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     @Override
     @Transactional
     public List<OrderEntity> findAllEntities() {
-        PageRequest pageRequest = new PageRequest(0,5);
+        PageRequest pageRequest = PageRequest.of(0,5);
         Page<OrderEntity> wxUserInfoEntityPage = this.orderRepository.findAll(pageRequest);
         return wxUserInfoEntityPage.getContent();
     }

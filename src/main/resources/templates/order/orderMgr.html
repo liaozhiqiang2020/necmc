@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::header-css">
+    <title>订单管理</title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div th:replace="fragments/header::header-body"/>
+
+<div class="content-wrapper">
+    <section th:replace="fragments/sitemap"/>
+    <div class="container-fluid">
+
+        <div class="container-fluid">
+            <div id="grid"></div>
+            <script>
+                /*<![CDATA[*/
+                $(function () {loadUserList();});
+
+                //初始化表格数据
+                function loadUserList() {
+
+                    var dataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: "./orderMgr/allOrder"
+                            }
+                        },
+                        serverPaging: true,    //设定服务器来实现分页功能
+                        serverFiltering: false,
+                        serverSorting: false,
+                        pageSize: 10,
+                        requestEnd: onRequestEnd,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    code: {type: "string"},
+                                    codeWx: {type: "string"},
+                                    // status: {type: "string"},
+                                    statusName:{type:"string"},
+                                    createDateTime: {type: "timestamp"},
+                                    payDateTime: {type: "timestamp"},
+                                    money: {type: "string"},
+                                    mcStartDateTime: {type: "timestamp"},
+                                    mcEndDateTime: {type: "timestamp"},
+                                    mcStatus: {type: "int"},
+                                    deviceId: {type: "int"},
+                                    mcTime: {type: "string"},
+                                    description:{type:"string"}
+                                }
+                            },
+                            data: function (response) {
+                                var list = JSON.parse(response).data;
+                                return list;
+                                // return response.data;
+                            },
+                            total: function (response) {
+                                // console.log(response.total);
+                                // return response.total;
+
+                                return JSON.parse(response).total;
+                            }
+                        }
+                    });
+
+                    //dataSource是必填属性
+                    $("#grid").kendoGrid({
+                        dataSource: dataSource,
+                        height: 600,
+                        sortable: true, //表示是否支持排序， boolean型
+                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                        groupable: true,//表格标题
+                        resizable: true,
+                        columnMenu: true,
+                        pageable: {
+                            // empty:"没有要显示的数据",
+                            // //代表是否支持刷新
+                            // refresh: true,
+                            // //表示每页显示的记录数，默认为5,10,20
+                            pageSizes: true,
+                            // //表示显示的页数，5表示1,2,3,4,5
+                            buttonCount: 5,
+                            totalPages: true,
+                            // input: true,//表示是否可以输入数字
+                            refresh: true,
+                            pageSize: 5,
+                            pageSizes: [5, 10, 15, 20],
+                            numeric: true,
+                            input: true,
+                            messages: {
+                                display: "显示 {0}-{1} 条，共 {2} 条",
+                                empty: "没有数据",
+                                itemsPerPage: "每页显示数量",
+                                first: "第一页",
+                                last: "最后一页",
+                                next: "下一页",
+                                previous: "上一页",
+                                page: "页",
+                                of: "共 {0}页"
+                            }
+                        },
+                        columns: [
+                            {
+                                field: "code",
+                                title: "订单编号"
+                            }, {
+                                field: "codeWx",
+                                title: "微信订单号"
+                            },{
+                                field: "statusName",
+                                title: "订单状态"
+                            }, {
+                                field: "createDateTime",
+                                title: "订单创建时间",
+                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                            },
+                            {
+                                field: "payDateTime",
+                                title: "订单支付时间",
+                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                            },
+                            {
+                                field: "money",
+                                title: "订单金额"
+                            },
+                            {
+                                field: "mcStartDateTime",
+                                title: "开始按摩时间",
+                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                            },
+                            {
+                                field: "mcEndDateTime",
+                                title: "结束按摩时间",
+                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                            },
+                            // {
+                            //     field: "mcStatus",
+                            //     title: "按摩椅状态"
+                            // },
+                            {
+                                field: "deviceId",
+                                title: "设备资产编码"
+                            },
+                            {
+                                field: "mcTime",
+                                title: "按摩时长"
+                            },
+                            {
+                                field: "description",
+                                title: "取消订单原因"
+                            }
+                        ]
+                    });
+                }
+
+
+                //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
+                function onRequestEnd(e) {
+                    if (e.type == "create") {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+                    else if (e.type == "update") {
+                        e.sender.read();
+                    }
+                    else if (e.type == "destroy") {
+                        e.sender.read();
+                    }
+
+                    //更新成功后弹出提示信息
+                    var response = e.response;
+                    if (response) {
+                        var type = e.type;
+                        if (type != 'read') {
+                            var status = response.status;
+                            if (status == 200) {this.read();}
+                            else {
+                                // alert(response.msg);
+                            }
+                        }
+                    }
+                    // else{
+                    //     alert("服务器异常，请重试！");
+                    // }
+                }
+
+                /*]]>*/
+            </script>
+        </div>
+
+    </div>
+</div>
+<!-- /.container -->
+
+<footer th:replace="fragments/footer::footer"/>
+
+<aside th:replace="fragments/menu"/>
+</body>
+</html>

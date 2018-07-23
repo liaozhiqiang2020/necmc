@@ -6,6 +6,7 @@ import com.sv.mc.service.*;
 import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.vo.Json;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +41,8 @@ public class WeixinController extends WeixinSupport {
 
     @Resource
     private JMSProducer jmsProducer;
+    @Resource
+    private JMSConsumer jmsConsumer;
 
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
@@ -221,11 +224,14 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendStartChairMsg")
     @ResponseBody
+    @JmsListener(destination = "youTopic",containerFactory = "jmsListenerContainerTopic")
     public void sendStartChairMsg(String chairId) throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
         jmsProducer.sendMessage("faaf0f09"+chairCode+"3c0000");//按摩椅20000002，60min
         deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
+
+
     }
 
     /**

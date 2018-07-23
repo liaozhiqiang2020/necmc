@@ -1,5 +1,6 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.OrderEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -83,5 +84,23 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      */
     @Query(value = "select d.mc_sn from mc_order o,mc_device d where o.device_id = d.id and o.id=:orderId",nativeQuery = true)
     String getMcCode(@Param("orderId")int orderId);
+
+
+
+    /**
+     * 分页查询订单信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_order as b LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查询订单数量
+     * @return
+     */
+    @Query(value="select count(*) from mc_order as b",nativeQuery = true)
+    int findOrderTotal();
 
 }
