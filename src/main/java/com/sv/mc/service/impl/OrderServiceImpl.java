@@ -146,9 +146,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      */
     @Override
     @Transactional
-    public void updateOrderById(int orderId, int state) {
+    public void updateOrderById(int orderId, int state,String description) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
         orderEntity.setStatus(state);//写入订单状态
+        orderEntity.setDescription(description);
         this.orderRepository.save(orderEntity);
     }
 

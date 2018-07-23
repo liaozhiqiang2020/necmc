@@ -18,7 +18,6 @@
 
                 //初始化表格数据
                 function loadUserList() {
-                    kendo.culture("zh-CN");
 
                     var dataSource = new kendo.data.TreeListDataSource({
                         transport: {
@@ -44,10 +43,9 @@
                         },
                         pageSize :10,
                         serverPaging: false,
-                        serverSorting: true,
-                        serverFiltering: true,
+                        serverSorting: false,
+                        serverFiltering: false,
                         requestEnd: onRequestEnd,
-
                         schema: {
                             model: {
                                 id: "id",
@@ -60,20 +58,19 @@
                                  return response;
                             }
 
-                        },
-                        scrollable: false,
-                        sortable: true,
-                        pageable: true
+                        }
                     });
 
                     //dataSource是必填属性
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         height: 600,
-                        sortable: true,
-                        pageable: true,
-                        detailInit: detailInit,
+                        sortable: true, //表示是否支持排序， boolean型
+                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                        groupable: true,//表格标题
                         toolbar: [{name: "create", text: "新增"}],
+                        columnMenu: true,
+                        detailInit: detailInit,
                         columns: [
                             {
                                 field: "name",

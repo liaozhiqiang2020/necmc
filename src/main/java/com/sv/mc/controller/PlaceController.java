@@ -61,7 +61,7 @@ public class PlaceController {
     }
 
     /**
-     * 跳转到场地管理页面
+     * 跳转到场地树状图页面
      * @return
      * @auther liaozhiqiang
      * @date 2018/7/11
@@ -70,6 +70,19 @@ public class PlaceController {
     public ModelAndView turnToPlaceMgr(){
         return new ModelAndView("./baseInfo/placeMgr");
     }
+
+    /**
+     * 跳转到场地方管理页面
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018/7/11
+     */
+    @GetMapping(value="/turnToPlaceDetailMgr")
+    public ModelAndView turnToPlaceDetailMgr(){
+        return new ModelAndView("./baseInfo/placeDetailMgr");
+    }
+
+
 
 
 //    /**
@@ -91,6 +104,18 @@ public class PlaceController {
     String getAllPlace() {
         return this.placeService.findAllPlace();
     }
+
+    /**
+     * 全部查询
+     * @return 返回所有场地内容
+     */
+    @GetMapping(value = "/placeMgr/getAllPlaceForTreelist")
+    public @ResponseBody
+    List<PlaceEntity> getAllPlaceForTreelist() {
+        System.out.println(this.placeService.findAllPlaces());
+        return this.placeService.findAllPlaces();
+    }
+
 
     /**
      * 插入一条场地数据

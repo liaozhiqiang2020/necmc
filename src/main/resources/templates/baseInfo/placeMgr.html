@@ -10,129 +10,45 @@
     <section th:replace="fragments/sitemap"/>
     <div class="container-fluid">
 
-        <div id="grid"></div>
-
-        <script type="text/x-kendo-template" id="template">
-            <div class="tabstrip">
-                <ul>
-                    <li class="k-state-active">
-
-                    </li>
-                </ul>
-                <div>
-                    <div class="orders1"></div>
-                    <div class="orders2"></div>
-                    <div class="orders3"></div>
-                </div>
-
-            </div>
-
-        </script>
+        <div id="treelist"></div>
 
         <script>
             $(document).ready(function() {
-                var element = $("#grid").kendoGrid({
-                    dataSource: {
-                        transport: {
-                            read: {
-                                url: "./placeMgr/getAllPlace"
-                            },
-                            create: {
-                                url: "./placeMgr/insertPlace",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            destroy: {
-                                url: "./placeMgr/deletePlace",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            update: {
-                                url:  "./placeMgr/updatePlace",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            parameterMap:function(options, operation){
-                                if (operation === "destroy") {
-                                    var placeId = options.id;
-                                    var list = {
-                                        placeId:placeId
-                                    }
-                                    return kendo.stringify(list);
-                                }
-                                if(operation ==="create"){
-                                    var endDate =options.endDateTime;
-                                    var startDate = options.startDateTime;
-                                    options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
-                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
-                                    return kendo.stringify(options);
-                                }
-                                if(operation ==="update"){
-                                    var endDate =options.endDateTime;
-                                    var startDate = options.startDateTime;
-
-                                    if(endDate.length!==19){
-                                        options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
-                                    }
-                                    if(startDate.length!==19){
-                                        options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
-                                    }
-
-                                    return kendo.stringify(options);
-                                }
-                            }
-                        },
-                        pageSize: 20,
-                        serverPaging: false,
-                        serverSorting: true,
-                        groupable:true,
-                        requestEnd: onRequestEnd,
-                        schema: {
-                            model: {
-                                id: "id",
-                                fields: {
-                                    id: {type: "number", editable: false},
-                                    name: {type: "string"},
-                                    placeSn: {type: "string"},
-                                    placeAddress: {type: "string"},
-                                    principal: {type: "string"},
-                                    latitude: {type: "number"},
-                                    longitude: {type: "number"},
-                                    startDateTime: {type: "timestamp"},
-                                    endDateTime: {type: "timestamp"},
-                                    levelFlag: {type: "number"},
-                                    levelFlagName: {type: "string"},
-                                    superiorId: {type: "number"},
-                                    superiorName: {type: "string"},
-                                    businessEntity:{defaultValue: { id: 1, name: ""}},
-                                    cityEntity:{defaultValue: { id: 1, name: ""}}
-                                }
-                            },
-                            data:function(response){
-                                var list = JSON.parse(response);
-
-                                return list;
-                            }
+                var dataSource = new kendo.data.TreeListDataSource({
+                    transport: {
+                        read: {
+                            url: "./placeMgr/getAllPlaceForTreelist"
                         }
                     },
-                    height: 700,
-                    sortable: true,
-                    //pageable: true,
-                    detailTemplate: kendo.template($("#template").html()),
-                    detailInit: detailInit,
-                    // dataBound: function() {
-                    //     this.expandRow(this.tbody.find("tr.k-master-row").first());
-                    // },
-                    toolbar: ["create"],
+                    serverPaging: false,    //设定服务器来实现分页功能
+                    serverFiltering: false,
+                    serverSorting: false,
+                    schema: {
+                        model: {
+                            id: "id",
+                            parentId: "pId",
+                            fields: {
+                                id: {type: "number", nullable: false},
+                                pId: {field: "pId", nullable: true}
+                            }
+                        }
+                    }
+                });
+
+
+                $("#treelist").kendoTreeList({
+                    dataSource: dataSource,
+                    height: 600,
+                    sortable: true, //表示是否支持排序， boolean型
+                    filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                    groupable: true,//表格标题
                     columnMenu: true,
                     resizable: true,
                     columns: [
                         {
                             field: "name",
-                            title: "场地名称"
+                            title: "场地名称",
+                            expandable: true
                         },
                         {
                             field: "placeSn",
@@ -167,354 +83,19 @@
                             title: "协议结束时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
                             editor: changeDate
-                        },{
-                            field: "levelFlag",
-                            title: "隶属单位",
-                            template:"#=levelFlagName#",
-                            editor:chooseBranchOrHead
-                        },
-                        {
-                            field: "superiorId",
-                            title: "隶属单位名称",
-                            template:"#=superiorName#",
-                            editor:roleListDropDownEditor
-                        },
-                        {
-                            field: "businessEntity",
-                            title: "行业分类名称",
-                            template:"#=businessEntity.name#",
-                            editor:businessEditor
-                        },
-                        {
-                            field: "cityEntity",
-                            title: "城市名称",
-                            template:"#=cityEntity.name#",
-                            editor:cityEditor
-                        },
-                        {
-                            command: ["edit","destroy"],
-                            title: "操作",
-                            width: "200px"
                         }
-                    ],
-                    editable: {
-                        mode: "popup",
-                        window: {
-                            title: "场地管理"
-                        }
-                    }
-                });
-            });
-
-            function detailInit(e) {
-                var detailRow = e.detailRow;
-                var place_index2_Id = e.data.id;  //一级场地id
-
-                detailRow.find(".tabstrip").kendoTabStrip({
-                    animation: {
-                        open: { effects: "fadeIn" }
-                    }
-                });
-                detailRow.find(".orders1").kendoGrid({
-                    dataSource: {
-                        transport: {
-                            read:{
-                                url: "./placeMgr/findPlaceByParentId?placeId="+place_index2_Id
-                            },
-                            create: {
-                                url: "./placeMgr/insertPlaceChild",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            destroy: {
-                                url: "./placeMgr/deletePlace",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            update: {
-                                url:  "./placeMgr/updatePlaceChild",
-                                dataType: "json",
-                                type: "post",
-                                contentType:"application/json;charset=UTF-8"
-                            },
-                            parameterMap:function(options, operation){
-                                if (operation === "destroy") {
-                                    var placeId = options.id;
-                                    var list = {
-                                        placeId:placeId
-                                    }
-                                    return kendo.stringify(list);
-                                }
-                                if(operation ==="create"){
-                                    options.pId =place_index2_Id;
-                                    options.principal = e.data.principal;
-                                    options.placeAddress = e.data.placeAddress;
-                                    options.latitude = e.data.latitude;
-                                    options.longitude = e.data.longitude;
-                                    options.startDateTime = e.data.startDateTime;
-                                    options.endDateTime = e.data.endDateTime;
-                                    options.levelFlag = e.data.levelFlag;
-                                    options.levelFlagName = e.data.levelFlagName;
-                                    options.superiorId = e.data.superiorId;
-                                    options.superiorName = e.data.superiorName;
-                                    options.businessEntity = e.data.businessEntity;
-                                    options.cityEntity = e.data.cityEntity;
-                                    return kendo.stringify(options);
-                                }
-                                if(operation === "update"){
-                                    return kendo.stringify(options);
-                                }
-
-                            }
-                        },
-                        serverPaging: false,
-                        serverSorting: true,
-                        requestEnd: onRequestEnd,
-                        serverFiltering: true,
-                        pageSize: 7,
-                        schema: {
-                            model: {
-                                id: "id",
-                                fields: {
-                                    id: {type: "number", editable: false},
-                                    pId: {type: "number", nullable: true},
-                                    name: {type: "string"},
-                                    placeSn: {type: "string"}
-                                }
-                            },
-                            data:function(response){
-                                // console.log(response);
-                                var list = JSON.parse(response);
-                                return list;
-                            }
-                        }
-
-                    },
-                    detailTemplate: kendo.template($("#template").html()),
-                    detailInit: detailInit,
-                    toolbar: ["create"],
-                    columnMenu: true,
-                    resizable: true,
-                    scrollable: false,
-                    sortable: true,
-                    columns: [
-                        {
-                            field: "name",
-                            title: "场地名称",
-                            headerAttributes: {
-                                style: "display:none;"
-                            }
-                        },
-                        {
-                            field: "placeSn",
-                            title: "场地编码",
-                            headerAttributes: {
-                                style: "display:none;"
-                            }
-                        },
-                        {
-                            command: ["edit","destroy"],
-                            // title: "操作",
-                            width: "200px",
-                            headerAttributes: {
-                                style: "display:none;"
-                            }
-                        }
-                    ],
-                    editable: {
-                        mode: "popup",
-                        window: {
-                            title: "场地管理"
-                        }
-                    }
-                });
-            }
-
-            function changeDate(container, options) {
-                var input = $('<input name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoDateTimePicker({
-                    format: "{0:yyyy-MM-dd HH:mm}"
-                });
-            }
-
-            var useFlag=false;
-            var testDataSource;
-            function chooseBranchOrHead(container, options){
-                var levelFlag = options.model.levelFlag;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-
-                input.kendoComboBox({
-                    autoBind: true,
-                    // enable: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: levelFlag,
-                    dataSource: [
-                        {
-                            "id":1,
-                            "name":"总部"
-                        },{
-                            "id":2,
-                            "name":"分公司"
-                        },{
-                            "id":3,
-                            "name":"代理商"
-                        }
-                    ],
-                    select:function(e){
-                        var item = e.dataItem.id;
-
-                        var flag=item;
-                        useFlag=true;
-
-
-                        if(flag==1){
-                            testDataSource = new kendo.data.DataSource({
-                                transport: {
-                                    read: {
-                                        url: "./headMgr/allHead"
-                                    }
-                                }
-                            });
-                        }else if(flag==2){
-                            testDataSource = new kendo.data.DataSource({
-                                transport: {
-                                    read: {
-                                        url: "./branchMgr/allBranch"
-                                    }
-                                }
-                            });
-                        } else if(flag==3){
-                            testDataSource = new kendo.data.DataSource({
-                                transport: {
-                                    read: {
-                                        url: "./vendorMgr/getAllVendor"
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-
-            //行业分类下拉列表
-            function businessEditor(container, options){
-                var businessId = options.model.businessEntity.id;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoComboBox({
-                    autoBind: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: businessId,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                type: "get",
-                                url: "./bussinessMgr/allBusiness",
-                                dataType: "json",
-                                contentType: "application/json",
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                            }
-                        }
-                    }
-                });
-            }
-
-            //城市下拉列表
-            function cityEditor(container, options){
-                var cityId = options.model.cityEntity.id;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoComboBox({
-                    autoBind: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: cityId,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                type: "get",
-                                url: "./allCity",
-                                dataType: "json",
-                                contentType: "application/json",
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                            }
-                        }
-                    }
-                });
-            }
-
-
-            //打开标记窗口时下拉列表展示
-            function roleListDropDownEditor(container, options) {
-                // var flag =options.model.levelFlag;
-
-                var branchId = options.model.superiorId;
-                var branchName = options.model.superiorName;
-                // console.log(options.model);
-                // console.log(branchName);
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-
-                // input.kendoComboBox.
-
-                input.kendoComboBox({
-                    autoBind: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    // value: branchId,
-                    text:branchName,
-                    open: function(e) {
-                        if(useFlag==true){
-                            this.setDataSource(testDataSource);
-                        }else{
-                            return;
-                        }
-
-                    }
+                    ]
                 });
 
-            }
 
-
-            //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
-            function onRequestEnd(e) {
-                if (e.type == "create") {
-                    e.sender.read();       //调用read方法 重新读取表格
+                function changeDate(container, options) {
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoDateTimePicker({
+                        format: "{0:yyyy-MM-dd HH:mm}"
+                    });
                 }
-                else if (e.type == "update") {
-                    e.sender.read();
-                }
-                else if (e.type == "destroy") {
-                    e.sender.read();
-                }
-
-                //更新成功后弹出提示信息
-                var response = e.response;
-                if (response) {
-                    var type = e.type;
-                    if (type != 'read') {
-                        var status = response.status;
-                        if (status == 200) {this.read();}
-                        else {
-                            // alert(response.msg);
-                        }
-                    }
-                }
-            }
+            })
 
         </script>
 

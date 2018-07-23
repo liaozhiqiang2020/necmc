@@ -257,6 +257,6 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public List<PlaceEntity> findAllPlaces() {
-                return this.placeRepository.findAllPlaces();
+                return this.placeRepository.findAllPlace();
         }
 }

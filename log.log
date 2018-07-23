@@ -1937,6 +1937,7 @@
 [DEBUG] 2018-07-18 18:35:40,219 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
 [INFO ] 2018-07-18 18:35:40,220 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
 [INFO ] 2018-07-18 18:35:58,603 com.sv.mc.MCApplication - Started MCApplication in 18.744 seconds (JVM running for 20.207)
+<<<<<<< Updated upstream
 [INFO ] 2018-07-18 19:04:07,440 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-8DL9MA0 with PID 14172 (D:\codeforidea\necmc\target\classes started by 87038 in D:\codeforidea\necmc)
 [DEBUG] 2018-07-18 19:04:07,445 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
 [INFO ] 2018-07-18 19:04:07,445 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
@@ -2062,3 +2063,1618 @@
 [DEBUG] 2018-07-19 10:26:12,041 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
 [INFO ] 2018-07-19 10:26:12,042 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
 [INFO ] 2018-07-19 10:26:27,090 com.sv.mc.MCApplication - Started MCApplication in 15.352 seconds (JVM running for 16.64)
+=======
+[INFO ] 2018-07-18 18:38:16,206 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 9032 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 18:38:16,207 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 18:38:16,207 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 18:38:29,305 com.sv.mc.MCApplication - Started MCApplication in 13.15 seconds (JVM running for 170.908)
+[INFO ] 2018-07-18 18:38:45,124 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 9032 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 18:38:45,124 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 18:38:45,124 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 18:38:55,566 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 10020 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 18:38:55,578 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 18:38:55,579 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 18:39:14,484 com.sv.mc.MCApplication - Started MCApplication in 19.387 seconds (JVM running for 21.07)
+[INFO ] 2018-07-18 18:40:29,123 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 10020 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 18:40:29,124 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 18:40:29,124 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:36:53,010 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13988 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 21:36:53,040 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 21:36:53,041 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:37:14,551 com.sv.mc.MCApplication - Started MCApplication in 21.923 seconds (JVM running for 24.614)
+[INFO ] 2018-07-18 21:37:42,569 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13988 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 21:37:42,569 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 21:37:42,569 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:37:59,120 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 3000 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 21:37:59,124 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 21:37:59,124 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:38:14,822 com.sv.mc.MCApplication - Started MCApplication in 15.989 seconds (JVM running for 17.233)
+[INFO ] 2018-07-18 21:43:54,276 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 7288 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 21:43:54,279 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 21:43:54,282 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:44:10,310 com.sv.mc.MCApplication - Started MCApplication in 16.293 seconds (JVM running for 17.798)
+[INFO ] 2018-07-18 21:44:56,581 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 7288 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 21:44:56,581 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 21:44:56,581 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:46:35,082 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 2620 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 21:46:35,086 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 21:46:35,086 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 21:46:50,741 com.sv.mc.MCApplication - Started MCApplication in 15.934 seconds (JVM running for 17.29)
+[INFO ] 2018-07-18 22:02:57,133 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 2620 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-18 22:02:57,133 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-18 22:02:57,133 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-18 22:03:09,428 com.sv.mc.MCApplication - Started MCApplication in 12.347 seconds (JVM running for 995.978)
+[INFO ] 2018-07-19 09:21:48,292 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 09:21:48,313 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 09:21:48,314 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 09:22:08,092 com.sv.mc.MCApplication - Started MCApplication in 20.263 seconds (JVM running for 28.913)
+[INFO ] 2018-07-19 09:52:29,647 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 09:52:29,647 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 09:52:29,648 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 09:52:41,629 com.sv.mc.MCApplication - Started MCApplication in 12.033 seconds (JVM running for 1862.449)
+[INFO ] 2018-07-19 09:59:11,160 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 09:59:11,160 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 09:59:11,161 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 09:59:15,598 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 09:59:15,598 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 09:59:15,598 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 09:59:27,750 com.sv.mc.MCApplication - Started MCApplication in 12.168 seconds (JVM running for 2268.571)
+[INFO ] 2018-07-19 10:00:12,606 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:00:12,606 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:00:12,606 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:00:33,667 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:00:33,667 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:00:33,667 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:00:45,451 com.sv.mc.MCApplication - Started MCApplication in 11.811 seconds (JVM running for 2346.272)
+[INFO ] 2018-07-19 10:00:49,750 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:00:49,750 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:00:49,750 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:00:54,195 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11680 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:00:54,195 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:00:54,195 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:01:05,872 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 14380 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:01:05,876 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:01:05,877 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:01:21,920 com.sv.mc.MCApplication - Started MCApplication in 16.306 seconds (JVM running for 18.182)
+[INFO ] 2018-07-19 10:03:35,683 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 8324 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:03:35,691 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:03:35,692 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:03:52,824 com.sv.mc.MCApplication - Started MCApplication in 17.575 seconds (JVM running for 19.123)
+[INFO ] 2018-07-19 10:07:50,064 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 8324 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:07:50,064 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:07:50,064 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:07:57,736 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:07:57,741 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:07:57,742 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:08:13,216 com.sv.mc.MCApplication - Started MCApplication in 15.792 seconds (JVM running for 17.282)
+[INFO ] 2018-07-19 10:13:03,638 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:13:03,638 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:13:03,639 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:13:15,609 com.sv.mc.MCApplication - Started MCApplication in 12.033 seconds (JVM running for 319.675)
+[INFO ] 2018-07-19 10:25:28,950 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:25:28,950 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:25:28,950 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:25:41,559 com.sv.mc.MCApplication - Started MCApplication in 12.658 seconds (JVM running for 1065.625)
+[INFO ] 2018-07-19 10:25:53,752 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:25:53,752 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:25:53,752 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:26:07,571 com.sv.mc.MCApplication - Started MCApplication in 13.852 seconds (JVM running for 1091.637)
+[INFO ] 2018-07-19 10:26:11,593 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:26:11,593 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:26:11,593 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:27:41,489 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:27:41,489 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:27:41,490 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:28:08,215 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:28:08,215 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:28:08,216 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:29:41,872 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:29:41,872 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:29:41,872 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:30:42,866 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:30:42,867 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:30:42,867 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:30:57,441 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:30:57,441 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:30:57,441 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:33:07,400 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:33:07,400 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:33:07,401 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:33:11,410 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6228 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:33:11,410 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:33:11,410 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:33:23,291 com.sv.mc.MCApplication - Started MCApplication in 11.925 seconds (JVM running for 1527.356)
+[INFO ] 2018-07-19 10:34:32,701 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 9140 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:34:32,705 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:34:32,705 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:34:48,118 com.sv.mc.MCApplication - Started MCApplication in 15.709 seconds (JVM running for 16.974)
+[INFO ] 2018-07-19 10:36:50,995 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 9140 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:36:50,995 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:36:50,996 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:37:14,503 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 9140 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:37:14,503 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:37:14,504 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:37:31,693 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 14608 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:37:31,699 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:37:31,700 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:37:47,945 com.sv.mc.MCApplication - Started MCApplication in 16.61 seconds (JVM running for 18.002)
+[INFO ] 2018-07-19 10:42:12,134 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 10:42:12,142 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 10:42:12,142 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 10:42:32,162 com.sv.mc.MCApplication - Started MCApplication in 20.404 seconds (JVM running for 22.648)
+[INFO ] 2018-07-19 12:43:14,933 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:43:14,933 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:43:14,933 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:43:29,456 com.sv.mc.MCApplication - Started MCApplication in 14.632 seconds (JVM running for 7279.941)
+[INFO ] 2018-07-19 12:43:34,784 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:43:34,784 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:43:34,784 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:43:47,445 com.sv.mc.MCApplication - Started MCApplication in 12.708 seconds (JVM running for 7297.93)
+[INFO ] 2018-07-19 12:43:57,826 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:43:57,826 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:43:57,826 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:44:09,531 com.sv.mc.MCApplication - Started MCApplication in 11.752 seconds (JVM running for 7320.016)
+[INFO ] 2018-07-19 12:44:57,598 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:44:57,599 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:44:57,599 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:45:02,953 com.sv.mc.MCApplication - Started MCApplication in 5.407 seconds (JVM running for 7373.438)
+[INFO ] 2018-07-19 12:45:05,440 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:45:05,440 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:45:05,440 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:45:18,224 com.sv.mc.MCApplication - Started MCApplication in 12.822 seconds (JVM running for 7388.709)
+[INFO ] 2018-07-19 12:45:23,607 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:45:23,607 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:45:23,608 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:45:35,666 com.sv.mc.MCApplication - Started MCApplication in 12.112 seconds (JVM running for 7406.15)
+[INFO ] 2018-07-19 12:46:19,022 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:46:19,023 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:46:19,023 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:47:44,593 com.sv.mc.MCApplication - Started MCApplication in 85.638 seconds (JVM running for 7535.079)
+[INFO ] 2018-07-19 12:48:38,861 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:48:38,861 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:48:38,861 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:48:56,169 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:48:56,169 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:48:56,169 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:59:30,098 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:59:30,098 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:59:30,098 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 12:59:38,677 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 12:59:38,677 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 12:59:38,677 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 13:00:12,774 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 13:00:12,774 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 13:00:12,775 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 13:00:57,785 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 13:00:57,785 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 13:00:57,785 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 13:01:28,347 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 13:01:28,347 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 13:01:28,347 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 13:04:20,279 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12256 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 13:04:20,279 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 13:04:20,279 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 13:07:30,806 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!0
+[INFO ] 2018-07-19 13:07:30,889 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!1
+[INFO ] 2018-07-19 13:07:30,931 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!2
+[INFO ] 2018-07-19 13:07:30,975 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!3
+[INFO ] 2018-07-19 13:07:31,019 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!4
+[INFO ] 2018-07-19 13:07:31,063 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!5
+[INFO ] 2018-07-19 13:07:31,106 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!6
+[INFO ] 2018-07-19 13:07:31,151 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!7
+[INFO ] 2018-07-19 13:07:31,240 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!8
+[INFO ] 2018-07-19 13:07:31,260 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!9
+[INFO ] 2018-07-19 13:09:11,430 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!0
+[INFO ] 2018-07-19 13:09:11,485 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!1
+[INFO ] 2018-07-19 13:09:11,539 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!2
+[INFO ] 2018-07-19 13:09:11,580 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!3
+[INFO ] 2018-07-19 13:09:11,623 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!4
+[INFO ] 2018-07-19 13:09:11,667 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!5
+[INFO ] 2018-07-19 13:09:11,711 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!6
+[INFO ] 2018-07-19 13:09:11,755 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!7
+[INFO ] 2018-07-19 13:09:11,798 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!8
+[INFO ] 2018-07-19 13:09:11,844 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!9
+[INFO ] 2018-07-19 13:09:11,904 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!10
+[INFO ] 2018-07-19 13:09:11,953 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!11
+[INFO ] 2018-07-19 13:09:11,996 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!12
+[INFO ] 2018-07-19 13:09:12,047 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!13
+[INFO ] 2018-07-19 13:09:12,103 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!14
+[INFO ] 2018-07-19 13:09:12,158 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!15
+[INFO ] 2018-07-19 13:09:12,206 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!16
+[INFO ] 2018-07-19 13:09:12,264 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!17
+[INFO ] 2018-07-19 13:09:12,306 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!18
+[INFO ] 2018-07-19 13:09:12,471 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!19
+[INFO ] 2018-07-19 13:09:12,513 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!20
+[INFO ] 2018-07-19 13:09:12,557 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!21
+[INFO ] 2018-07-19 13:09:12,601 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!22
+[INFO ] 2018-07-19 13:09:12,646 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!23
+[INFO ] 2018-07-19 13:09:12,690 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!24
+[INFO ] 2018-07-19 13:09:12,733 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!25
+[INFO ] 2018-07-19 13:09:12,777 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!26
+[INFO ] 2018-07-19 13:09:12,821 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!27
+[INFO ] 2018-07-19 13:09:12,865 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!28
+[INFO ] 2018-07-19 13:09:12,909 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!29
+[INFO ] 2018-07-19 13:09:12,954 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!30
+[INFO ] 2018-07-19 13:09:12,998 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!31
+[INFO ] 2018-07-19 13:09:13,044 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!32
+[INFO ] 2018-07-19 13:09:13,086 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!33
+[INFO ] 2018-07-19 13:09:13,130 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!34
+[INFO ] 2018-07-19 13:09:13,173 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!35
+[INFO ] 2018-07-19 13:09:13,218 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!36
+[INFO ] 2018-07-19 13:09:13,262 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!37
+[INFO ] 2018-07-19 13:09:13,305 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!38
+[INFO ] 2018-07-19 13:09:13,350 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!39
+[INFO ] 2018-07-19 13:09:13,395 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!40
+[INFO ] 2018-07-19 13:09:13,438 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!41
+[INFO ] 2018-07-19 13:09:13,482 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!42
+[INFO ] 2018-07-19 13:09:13,526 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!43
+[INFO ] 2018-07-19 13:09:13,569 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!44
+[INFO ] 2018-07-19 13:09:13,633 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!45
+[INFO ] 2018-07-19 13:09:13,678 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!46
+[INFO ] 2018-07-19 13:09:13,726 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!47
+[INFO ] 2018-07-19 13:09:13,768 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!48
+[INFO ] 2018-07-19 13:09:13,811 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!49
+[INFO ] 2018-07-19 13:09:13,855 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!50
+[INFO ] 2018-07-19 13:09:13,910 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!51
+[INFO ] 2018-07-19 13:09:13,954 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!52
+[INFO ] 2018-07-19 13:09:13,996 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!53
+[INFO ] 2018-07-19 13:09:14,042 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!54
+[INFO ] 2018-07-19 13:09:14,085 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!55
+[INFO ] 2018-07-19 13:09:14,129 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!56
+[INFO ] 2018-07-19 13:09:14,176 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!57
+[INFO ] 2018-07-19 13:09:14,218 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!58
+[INFO ] 2018-07-19 13:09:14,263 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!59
+[INFO ] 2018-07-19 13:09:14,307 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!60
+[INFO ] 2018-07-19 13:09:14,350 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!61
+[INFO ] 2018-07-19 13:09:14,394 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!62
+[INFO ] 2018-07-19 13:09:14,438 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!63
+[INFO ] 2018-07-19 13:09:14,482 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!64
+[INFO ] 2018-07-19 13:09:14,527 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!65
+[INFO ] 2018-07-19 13:09:14,570 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!66
+[INFO ] 2018-07-19 13:09:14,614 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!67
+[INFO ] 2018-07-19 13:09:14,661 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!68
+[INFO ] 2018-07-19 13:09:14,702 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!69
+[INFO ] 2018-07-19 13:09:14,747 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!70
+[INFO ] 2018-07-19 13:09:14,792 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!71
+[INFO ] 2018-07-19 13:09:14,835 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!72
+[INFO ] 2018-07-19 13:09:14,880 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!73
+[INFO ] 2018-07-19 13:09:14,922 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!74
+[INFO ] 2018-07-19 13:09:14,966 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!75
+[INFO ] 2018-07-19 13:09:15,010 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!76
+[INFO ] 2018-07-19 13:09:15,054 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!77
+[INFO ] 2018-07-19 13:09:15,098 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!78
+[INFO ] 2018-07-19 13:09:15,142 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!79
+[INFO ] 2018-07-19 13:09:15,186 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!80
+[INFO ] 2018-07-19 13:09:15,227 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!81
+[INFO ] 2018-07-19 13:09:15,274 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!82
+[INFO ] 2018-07-19 13:09:15,318 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!83
+[INFO ] 2018-07-19 13:09:15,361 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!84
+[INFO ] 2018-07-19 13:09:15,408 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!85
+[INFO ] 2018-07-19 13:09:15,449 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!86
+[INFO ] 2018-07-19 13:09:15,493 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!87
+[INFO ] 2018-07-19 13:09:15,538 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!88
+[INFO ] 2018-07-19 13:09:15,582 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!89
+[INFO ] 2018-07-19 13:09:15,648 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!90
+[INFO ] 2018-07-19 13:09:15,713 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!91
+[INFO ] 2018-07-19 13:09:15,758 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!92
+[INFO ] 2018-07-19 13:09:15,801 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!93
+[INFO ] 2018-07-19 13:09:15,846 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!94
+[INFO ] 2018-07-19 13:09:15,887 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!95
+[INFO ] 2018-07-19 13:09:15,930 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!96
+[INFO ] 2018-07-19 13:09:15,975 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!97
+[INFO ] 2018-07-19 13:09:16,024 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!98
+[INFO ] 2018-07-19 13:09:16,066 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!99
+[INFO ] 2018-07-19 13:09:16,109 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!100
+[INFO ] 2018-07-19 13:09:16,151 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!101
+[INFO ] 2018-07-19 13:09:16,197 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!102
+[INFO ] 2018-07-19 13:09:16,242 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!103
+[INFO ] 2018-07-19 13:09:16,287 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!104
+[INFO ] 2018-07-19 13:09:16,327 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!105
+[INFO ] 2018-07-19 13:09:16,375 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!106
+[INFO ] 2018-07-19 13:09:16,417 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!107
+[INFO ] 2018-07-19 13:09:16,460 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!108
+[INFO ] 2018-07-19 13:09:16,506 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!109
+[INFO ] 2018-07-19 13:09:16,549 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!110
+[INFO ] 2018-07-19 13:09:16,592 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!111
+[INFO ] 2018-07-19 13:09:16,637 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!112
+[INFO ] 2018-07-19 13:09:16,681 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!113
+[INFO ] 2018-07-19 13:09:16,725 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!114
+[INFO ] 2018-07-19 13:09:16,769 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!115
+[INFO ] 2018-07-19 13:09:16,814 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!116
+[INFO ] 2018-07-19 13:09:16,857 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!117
+[INFO ] 2018-07-19 13:09:16,901 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!118
+[INFO ] 2018-07-19 13:09:16,942 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!119
+[INFO ] 2018-07-19 13:09:16,987 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!120
+[INFO ] 2018-07-19 13:09:17,033 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!121
+[INFO ] 2018-07-19 13:09:17,099 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!122
+[INFO ] 2018-07-19 13:09:17,140 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!123
+[INFO ] 2018-07-19 13:09:17,188 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!124
+[INFO ] 2018-07-19 13:09:17,231 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!125
+[INFO ] 2018-07-19 13:09:17,275 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!126
+[INFO ] 2018-07-19 13:09:17,319 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!127
+[INFO ] 2018-07-19 13:09:17,361 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!128
+[INFO ] 2018-07-19 13:09:17,407 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!129
+[INFO ] 2018-07-19 13:09:17,451 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!130
+[INFO ] 2018-07-19 13:09:17,606 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!131
+[INFO ] 2018-07-19 13:09:17,649 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!132
+[INFO ] 2018-07-19 13:09:17,693 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!133
+[INFO ] 2018-07-19 13:09:17,739 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!134
+[INFO ] 2018-07-19 13:09:17,781 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!135
+[INFO ] 2018-07-19 13:09:17,826 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!136
+[INFO ] 2018-07-19 13:09:17,870 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!137
+[INFO ] 2018-07-19 13:09:17,914 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!138
+[INFO ] 2018-07-19 13:09:17,957 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!139
+[INFO ] 2018-07-19 13:09:18,009 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!140
+[INFO ] 2018-07-19 13:09:18,057 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!141
+[INFO ] 2018-07-19 13:09:18,101 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!142
+[INFO ] 2018-07-19 13:09:18,145 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!143
+[INFO ] 2018-07-19 13:09:18,189 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!144
+[INFO ] 2018-07-19 13:09:18,234 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!145
+[INFO ] 2018-07-19 13:09:18,276 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!146
+[INFO ] 2018-07-19 13:09:18,321 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!147
+[INFO ] 2018-07-19 13:09:18,364 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!148
+[INFO ] 2018-07-19 13:09:18,406 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!149
+[INFO ] 2018-07-19 13:09:18,453 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!150
+[INFO ] 2018-07-19 13:09:18,496 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!151
+[INFO ] 2018-07-19 13:09:18,541 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!152
+[INFO ] 2018-07-19 13:09:18,584 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!153
+[INFO ] 2018-07-19 13:09:18,628 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!154
+[INFO ] 2018-07-19 13:09:18,672 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!155
+[INFO ] 2018-07-19 13:09:18,716 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!156
+[INFO ] 2018-07-19 13:09:18,760 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!157
+[INFO ] 2018-07-19 13:09:18,805 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!158
+[INFO ] 2018-07-19 13:09:18,849 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!159
+[INFO ] 2018-07-19 13:09:18,890 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!160
+[INFO ] 2018-07-19 13:09:18,937 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!161
+[INFO ] 2018-07-19 13:09:18,980 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!162
+[INFO ] 2018-07-19 13:09:19,024 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!163
+[INFO ] 2018-07-19 13:09:19,068 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!164
+[INFO ] 2018-07-19 13:09:19,112 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!165
+[INFO ] 2018-07-19 13:09:19,157 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!166
+[INFO ] 2018-07-19 13:09:19,200 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!167
+[INFO ] 2018-07-19 13:09:19,245 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!168
+[INFO ] 2018-07-19 13:09:19,289 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!169
+[INFO ] 2018-07-19 13:09:19,331 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!170
+[INFO ] 2018-07-19 13:09:19,373 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!171
+[INFO ] 2018-07-19 13:09:19,420 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!172
+[INFO ] 2018-07-19 13:09:19,464 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!173
+[INFO ] 2018-07-19 13:09:19,507 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!174
+[INFO ] 2018-07-19 13:09:19,552 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!175
+[INFO ] 2018-07-19 13:09:19,596 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!176
+[INFO ] 2018-07-19 13:09:19,640 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!177
+[INFO ] 2018-07-19 13:09:19,684 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!178
+[INFO ] 2018-07-19 13:09:19,740 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!179
+[INFO ] 2018-07-19 13:09:19,783 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!180
+[INFO ] 2018-07-19 13:09:19,823 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!181
+[INFO ] 2018-07-19 13:09:19,872 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!182
+[INFO ] 2018-07-19 13:09:19,914 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!183
+[INFO ] 2018-07-19 13:09:19,959 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!184
+[INFO ] 2018-07-19 13:09:20,003 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!185
+[INFO ] 2018-07-19 13:09:20,047 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!186
+[INFO ] 2018-07-19 13:09:20,088 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!187
+[INFO ] 2018-07-19 13:09:20,135 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!188
+[INFO ] 2018-07-19 13:09:20,179 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!189
+[INFO ] 2018-07-19 13:09:20,222 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!190
+[INFO ] 2018-07-19 13:09:20,267 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!191
+[INFO ] 2018-07-19 13:09:20,310 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!192
+[INFO ] 2018-07-19 13:09:20,354 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!193
+[INFO ] 2018-07-19 13:09:20,398 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!194
+[INFO ] 2018-07-19 13:09:20,442 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!195
+[INFO ] 2018-07-19 13:09:20,486 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!196
+[INFO ] 2018-07-19 13:09:20,530 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!197
+[INFO ] 2018-07-19 13:09:20,572 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!198
+[INFO ] 2018-07-19 13:09:20,620 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!199
+[INFO ] 2018-07-19 13:09:20,662 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!200
+[INFO ] 2018-07-19 13:09:20,706 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!201
+[INFO ] 2018-07-19 13:09:20,751 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!202
+[INFO ] 2018-07-19 13:09:20,795 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!203
+[INFO ] 2018-07-19 13:09:20,839 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!204
+[INFO ] 2018-07-19 13:09:20,882 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!205
+[INFO ] 2018-07-19 13:09:20,926 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!206
+[INFO ] 2018-07-19 13:09:20,971 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!207
+[INFO ] 2018-07-19 13:09:21,014 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!208
+[INFO ] 2018-07-19 13:09:21,058 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!209
+[INFO ] 2018-07-19 13:09:21,104 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!210
+[INFO ] 2018-07-19 13:09:21,147 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!211
+[INFO ] 2018-07-19 13:09:21,180 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!212
+[INFO ] 2018-07-19 13:09:21,234 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!213
+[INFO ] 2018-07-19 13:09:21,280 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!214
+[INFO ] 2018-07-19 13:09:21,322 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!215
+[INFO ] 2018-07-19 13:09:21,367 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!216
+[INFO ] 2018-07-19 13:09:21,411 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!217
+[INFO ] 2018-07-19 13:09:21,456 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!218
+[INFO ] 2018-07-19 13:09:21,499 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!219
+[INFO ] 2018-07-19 13:09:21,542 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!220
+[INFO ] 2018-07-19 13:09:21,576 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!221
+[INFO ] 2018-07-19 13:09:21,620 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!222
+[INFO ] 2018-07-19 13:09:21,664 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!223
+[INFO ] 2018-07-19 13:09:21,707 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!224
+[INFO ] 2018-07-19 13:09:21,752 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!225
+[INFO ] 2018-07-19 13:09:21,795 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!226
+[INFO ] 2018-07-19 13:09:21,839 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!227
+[INFO ] 2018-07-19 13:09:21,884 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!228
+[INFO ] 2018-07-19 13:09:21,927 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!229
+[INFO ] 2018-07-19 13:09:21,970 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!230
+[INFO ] 2018-07-19 13:09:22,015 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!231
+[INFO ] 2018-07-19 13:09:22,060 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!232
+[INFO ] 2018-07-19 13:09:22,103 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!233
+[INFO ] 2018-07-19 13:09:22,146 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!234
+[INFO ] 2018-07-19 13:09:22,191 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!235
+[INFO ] 2018-07-19 13:09:22,235 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!236
+[INFO ] 2018-07-19 13:09:22,278 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!237
+[INFO ] 2018-07-19 13:09:22,323 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!238
+[INFO ] 2018-07-19 13:09:22,367 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!239
+[INFO ] 2018-07-19 13:09:22,411 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!240
+[INFO ] 2018-07-19 13:09:22,455 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!241
+[INFO ] 2018-07-19 13:09:22,501 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!242
+[INFO ] 2018-07-19 13:09:22,544 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!243
+[INFO ] 2018-07-19 13:09:22,588 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!244
+[INFO ] 2018-07-19 13:09:22,763 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!245
+[INFO ] 2018-07-19 13:09:22,806 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!246
+[INFO ] 2018-07-19 13:09:22,847 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!247
+[INFO ] 2018-07-19 13:09:22,891 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!248
+[INFO ] 2018-07-19 13:09:22,936 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!249
+[INFO ] 2018-07-19 13:09:22,978 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!250
+[INFO ] 2018-07-19 13:09:23,017 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!251
+[INFO ] 2018-07-19 13:09:23,049 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!252
+[INFO ] 2018-07-19 13:09:23,083 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!253
+[INFO ] 2018-07-19 13:09:23,116 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!254
+[INFO ] 2018-07-19 13:09:23,150 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!255
+[INFO ] 2018-07-19 13:09:23,181 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!256
+[INFO ] 2018-07-19 13:09:23,215 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!257
+[INFO ] 2018-07-19 13:09:23,247 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!258
+[INFO ] 2018-07-19 13:09:23,280 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!259
+[INFO ] 2018-07-19 13:09:23,320 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!260
+[INFO ] 2018-07-19 13:09:23,369 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!261
+[INFO ] 2018-07-19 13:09:23,402 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!262
+[INFO ] 2018-07-19 13:09:23,434 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!263
+[INFO ] 2018-07-19 13:09:23,474 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!264
+[INFO ] 2018-07-19 13:09:23,518 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!265
+[INFO ] 2018-07-19 13:09:23,555 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!266
+[INFO ] 2018-07-19 13:09:23,595 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!267
+[INFO ] 2018-07-19 13:09:23,639 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!268
+[INFO ] 2018-07-19 13:09:23,684 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!269
+[INFO ] 2018-07-19 13:09:23,731 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!270
+[INFO ] 2018-07-19 13:09:23,775 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!271
+[INFO ] 2018-07-19 13:09:23,815 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!272
+[INFO ] 2018-07-19 13:09:23,862 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!273
+[INFO ] 2018-07-19 13:09:23,895 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!274
+[INFO ] 2018-07-19 13:09:23,939 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!275
+[INFO ] 2018-07-19 13:09:23,983 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!276
+[INFO ] 2018-07-19 13:09:24,028 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!277
+[INFO ] 2018-07-19 13:09:24,072 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!278
+[INFO ] 2018-07-19 13:09:24,117 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!279
+[INFO ] 2018-07-19 13:09:24,159 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!280
+[INFO ] 2018-07-19 13:09:24,204 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!281
+[INFO ] 2018-07-19 13:09:24,248 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!282
+[INFO ] 2018-07-19 13:09:24,291 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!283
+[INFO ] 2018-07-19 13:09:24,324 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!284
+[INFO ] 2018-07-19 13:09:24,369 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!285
+[INFO ] 2018-07-19 13:09:24,412 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!286
+[INFO ] 2018-07-19 13:09:24,456 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!287
+[INFO ] 2018-07-19 13:09:24,500 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!288
+[INFO ] 2018-07-19 13:09:24,545 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!289
+[INFO ] 2018-07-19 13:09:24,588 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!290
+[INFO ] 2018-07-19 13:09:24,633 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!291
+[INFO ] 2018-07-19 13:09:24,676 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!292
+[INFO ] 2018-07-19 13:09:24,722 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!293
+[INFO ] 2018-07-19 13:09:24,765 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!294
+[INFO ] 2018-07-19 13:09:24,798 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!295
+[INFO ] 2018-07-19 13:09:24,831 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!296
+[INFO ] 2018-07-19 13:09:24,874 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!297
+[INFO ] 2018-07-19 13:09:24,918 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!298
+[INFO ] 2018-07-19 13:09:24,962 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!299
+[INFO ] 2018-07-19 13:09:25,007 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!300
+[INFO ] 2018-07-19 13:09:25,051 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!301
+[INFO ] 2018-07-19 13:09:25,094 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!302
+[INFO ] 2018-07-19 13:09:25,127 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!303
+[INFO ] 2018-07-19 13:09:25,160 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!304
+[INFO ] 2018-07-19 13:09:25,204 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!305
+[INFO ] 2018-07-19 13:09:25,251 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!306
+[INFO ] 2018-07-19 13:09:25,292 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!307
+[INFO ] 2018-07-19 13:09:25,336 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!308
+[INFO ] 2018-07-19 13:09:25,369 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!309
+[INFO ] 2018-07-19 13:09:25,398 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!310
+[INFO ] 2018-07-19 13:09:25,431 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!311
+[INFO ] 2018-07-19 13:09:25,465 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!312
+[INFO ] 2018-07-19 13:09:25,497 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!313
+[INFO ] 2018-07-19 13:09:25,530 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!314
+[INFO ] 2018-07-19 13:09:25,564 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!315
+[INFO ] 2018-07-19 13:09:25,596 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!316
+[INFO ] 2018-07-19 13:09:25,634 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!317
+[INFO ] 2018-07-19 13:09:25,677 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!318
+[INFO ] 2018-07-19 13:09:25,721 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!319
+[INFO ] 2018-07-19 13:09:25,766 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!320
+[INFO ] 2018-07-19 13:09:25,810 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!321
+[INFO ] 2018-07-19 13:09:25,853 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!322
+[INFO ] 2018-07-19 13:09:25,897 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!323
+[INFO ] 2018-07-19 13:09:25,941 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!324
+[INFO ] 2018-07-19 13:09:26,081 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!325
+[INFO ] 2018-07-19 13:09:26,113 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!326
+[INFO ] 2018-07-19 13:09:26,150 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!327
+[INFO ] 2018-07-19 13:09:26,193 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!328
+[INFO ] 2018-07-19 13:09:26,237 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!329
+[INFO ] 2018-07-19 13:09:26,283 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!330
+[INFO ] 2018-07-19 13:09:26,326 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!331
+[INFO ] 2018-07-19 13:09:26,371 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!332
+[INFO ] 2018-07-19 13:09:26,414 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!333
+[INFO ] 2018-07-19 13:09:26,457 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!334
+[INFO ] 2018-07-19 13:09:26,502 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!335
+[INFO ] 2018-07-19 13:09:26,544 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!336
+[INFO ] 2018-07-19 13:09:26,586 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!337
+[INFO ] 2018-07-19 13:09:26,619 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!338
+[INFO ] 2018-07-19 13:09:26,652 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!339
+[INFO ] 2018-07-19 13:09:26,685 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!340
+[INFO ] 2018-07-19 13:09:26,717 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!341
+[INFO ] 2018-07-19 13:09:26,751 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!342
+[INFO ] 2018-07-19 13:09:26,795 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!343
+[INFO ] 2018-07-19 13:09:26,827 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!344
+[INFO ] 2018-07-19 13:09:26,860 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!345
+[INFO ] 2018-07-19 13:09:26,894 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!346
+[INFO ] 2018-07-19 13:09:26,927 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!347
+[INFO ] 2018-07-19 13:09:26,960 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!348
+[INFO ] 2018-07-19 13:09:26,992 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!349
+[INFO ] 2018-07-19 13:09:27,026 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!350
+[INFO ] 2018-07-19 13:09:27,058 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!351
+[INFO ] 2018-07-19 13:09:27,092 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!352
+[INFO ] 2018-07-19 13:09:27,124 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!353
+[INFO ] 2018-07-19 13:09:27,157 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!354
+[INFO ] 2018-07-19 13:09:27,190 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!355
+[INFO ] 2018-07-19 13:09:27,223 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!356
+[INFO ] 2018-07-19 13:09:27,256 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!357
+[INFO ] 2018-07-19 13:09:27,289 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!358
+[INFO ] 2018-07-19 13:09:27,321 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!359
+[INFO ] 2018-07-19 13:09:27,355 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!360
+[INFO ] 2018-07-19 13:09:27,389 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!361
+[INFO ] 2018-07-19 13:09:27,422 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!362
+[INFO ] 2018-07-19 13:09:27,454 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!363
+[INFO ] 2018-07-19 13:09:27,486 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!364
+[INFO ] 2018-07-19 13:09:27,519 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!365
+[INFO ] 2018-07-19 13:09:27,552 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!366
+[INFO ] 2018-07-19 13:09:27,586 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!367
+[INFO ] 2018-07-19 13:09:27,619 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!368
+[INFO ] 2018-07-19 13:09:27,652 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!369
+[INFO ] 2018-07-19 13:09:27,685 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!370
+[INFO ] 2018-07-19 13:09:27,718 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!371
+[INFO ] 2018-07-19 13:09:27,861 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!372
+[INFO ] 2018-07-19 13:09:27,905 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!373
+[INFO ] 2018-07-19 13:09:27,938 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!374
+[INFO ] 2018-07-19 13:09:27,972 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!375
+[INFO ] 2018-07-19 13:09:28,005 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!376
+[INFO ] 2018-07-19 13:09:28,037 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!377
+[INFO ] 2018-07-19 13:09:28,069 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!378
+[INFO ] 2018-07-19 13:09:28,102 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!379
+[INFO ] 2018-07-19 13:09:28,135 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!380
+[INFO ] 2018-07-19 13:09:28,168 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!381
+[INFO ] 2018-07-19 13:09:28,202 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!382
+[INFO ] 2018-07-19 13:09:28,235 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!383
+[INFO ] 2018-07-19 13:09:28,268 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!384
+[INFO ] 2018-07-19 13:09:28,300 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!385
+[INFO ] 2018-07-19 13:09:28,333 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!386
+[INFO ] 2018-07-19 13:09:28,367 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!387
+[INFO ] 2018-07-19 13:09:28,400 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!388
+[INFO ] 2018-07-19 13:09:28,432 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!389
+[INFO ] 2018-07-19 13:09:28,466 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!390
+[INFO ] 2018-07-19 13:09:28,499 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!391
+[INFO ] 2018-07-19 13:09:28,531 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!392
+[INFO ] 2018-07-19 13:09:28,565 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!393
+[INFO ] 2018-07-19 13:09:28,598 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!394
+[INFO ] 2018-07-19 13:09:28,631 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!395
+[INFO ] 2018-07-19 13:09:28,664 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!396
+[INFO ] 2018-07-19 13:09:28,696 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!397
+[INFO ] 2018-07-19 13:09:28,730 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!398
+[INFO ] 2018-07-19 13:09:28,764 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!399
+[INFO ] 2018-07-19 13:09:28,796 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!400
+[INFO ] 2018-07-19 13:09:28,829 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!401
+[INFO ] 2018-07-19 13:09:28,864 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!402
+[INFO ] 2018-07-19 13:09:28,894 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!403
+[INFO ] 2018-07-19 13:09:28,928 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!404
+[INFO ] 2018-07-19 13:09:28,961 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!405
+[INFO ] 2018-07-19 13:09:28,993 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!406
+[INFO ] 2018-07-19 13:09:29,027 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!407
+[INFO ] 2018-07-19 13:09:29,061 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!408
+[INFO ] 2018-07-19 13:09:29,093 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!409
+[INFO ] 2018-07-19 13:09:29,126 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!410
+[INFO ] 2018-07-19 13:09:29,158 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!411
+[INFO ] 2018-07-19 13:09:29,191 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!412
+[INFO ] 2018-07-19 13:09:29,224 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!413
+[INFO ] 2018-07-19 13:09:29,257 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!414
+[INFO ] 2018-07-19 13:09:29,290 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!415
+[INFO ] 2018-07-19 13:09:29,334 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!416
+[INFO ] 2018-07-19 13:09:29,373 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!417
+[INFO ] 2018-07-19 13:09:29,405 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!418
+[INFO ] 2018-07-19 13:09:29,444 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!419
+[INFO ] 2018-07-19 13:09:29,484 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!420
+[INFO ] 2018-07-19 13:09:29,522 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!421
+[INFO ] 2018-07-19 13:09:29,554 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!422
+[INFO ] 2018-07-19 13:09:29,596 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!423
+[INFO ] 2018-07-19 13:09:29,642 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!424
+[INFO ] 2018-07-19 13:09:29,686 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!425
+[INFO ] 2018-07-19 13:09:29,740 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!426
+[INFO ] 2018-07-19 13:09:29,797 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!427
+[INFO ] 2018-07-19 13:09:29,830 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!428
+[INFO ] 2018-07-19 13:09:29,863 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!429
+[INFO ] 2018-07-19 13:09:29,896 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!430
+[INFO ] 2018-07-19 13:09:29,939 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!431
+[INFO ] 2018-07-19 13:09:29,971 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!432
+[INFO ] 2018-07-19 13:09:30,005 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!433
+[INFO ] 2018-07-19 13:09:30,037 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!434
+[INFO ] 2018-07-19 13:09:30,071 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!435
+[INFO ] 2018-07-19 13:09:30,103 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!436
+[INFO ] 2018-07-19 13:09:30,137 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!437
+[INFO ] 2018-07-19 13:09:30,170 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!438
+[INFO ] 2018-07-19 13:09:30,202 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!439
+[INFO ] 2018-07-19 13:09:30,237 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!440
+[INFO ] 2018-07-19 13:09:30,269 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!441
+[INFO ] 2018-07-19 13:09:30,303 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!442
+[INFO ] 2018-07-19 13:09:30,335 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!443
+[INFO ] 2018-07-19 13:09:30,368 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!444
+[INFO ] 2018-07-19 13:09:30,401 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!445
+[INFO ] 2018-07-19 13:09:30,435 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!446
+[INFO ] 2018-07-19 13:09:30,467 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!447
+[INFO ] 2018-07-19 13:09:30,501 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!448
+[INFO ] 2018-07-19 13:09:30,533 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!449
+[INFO ] 2018-07-19 13:09:30,577 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!450
+[INFO ] 2018-07-19 13:09:30,609 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!451
+[INFO ] 2018-07-19 13:09:30,642 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!452
+[INFO ] 2018-07-19 13:09:30,693 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!453
+[INFO ] 2018-07-19 13:09:30,725 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!454
+[INFO ] 2018-07-19 13:09:30,758 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!455
+[INFO ] 2018-07-19 13:09:30,791 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!456
+[INFO ] 2018-07-19 13:09:30,824 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!457
+[INFO ] 2018-07-19 13:09:30,857 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!458
+[INFO ] 2018-07-19 13:09:30,890 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!459
+[INFO ] 2018-07-19 13:09:30,924 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!460
+[INFO ] 2018-07-19 13:09:30,957 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!461
+[INFO ] 2018-07-19 13:09:30,990 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!462
+[INFO ] 2018-07-19 13:09:31,022 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!463
+[INFO ] 2018-07-19 13:09:31,055 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!464
+[INFO ] 2018-07-19 13:09:31,088 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!465
+[INFO ] 2018-07-19 13:09:31,132 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!466
+[INFO ] 2018-07-19 13:09:31,164 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!467
+[INFO ] 2018-07-19 13:09:31,199 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!468
+[INFO ] 2018-07-19 13:09:31,231 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!469
+[INFO ] 2018-07-19 13:09:31,264 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!470
+[INFO ] 2018-07-19 13:09:31,296 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!471
+[INFO ] 2018-07-19 13:09:31,329 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!472
+[INFO ] 2018-07-19 13:09:31,362 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!473
+[INFO ] 2018-07-19 13:09:31,395 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!474
+[INFO ] 2018-07-19 13:09:31,429 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!475
+[INFO ] 2018-07-19 13:09:31,462 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!476
+[INFO ] 2018-07-19 13:09:31,496 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!477
+[INFO ] 2018-07-19 13:09:31,528 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!478
+[INFO ] 2018-07-19 13:09:31,562 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!479
+[INFO ] 2018-07-19 13:09:31,594 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!480
+[INFO ] 2018-07-19 13:09:31,627 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!481
+[INFO ] 2018-07-19 13:09:31,660 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!482
+[INFO ] 2018-07-19 13:09:31,693 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!483
+[INFO ] 2018-07-19 13:09:31,725 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!484
+[INFO ] 2018-07-19 13:09:31,759 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!485
+[INFO ] 2018-07-19 13:09:31,793 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!486
+[INFO ] 2018-07-19 13:09:31,824 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!487
+[INFO ] 2018-07-19 13:09:31,859 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!488
+[INFO ] 2018-07-19 13:09:31,891 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!489
+[INFO ] 2018-07-19 13:09:31,924 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!490
+[INFO ] 2018-07-19 13:09:31,956 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!491
+[INFO ] 2018-07-19 13:09:31,991 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!492
+[INFO ] 2018-07-19 13:09:32,023 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!493
+[INFO ] 2018-07-19 13:09:32,056 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!494
+[INFO ] 2018-07-19 13:09:32,088 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!495
+[INFO ] 2018-07-19 13:09:32,122 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!496
+[INFO ] 2018-07-19 13:09:32,155 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!497
+[INFO ] 2018-07-19 13:09:32,188 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!498
+[INFO ] 2018-07-19 13:09:32,220 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!499
+[INFO ] 2018-07-19 13:09:32,259 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!500
+[INFO ] 2018-07-19 13:09:32,292 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!501
+[INFO ] 2018-07-19 13:09:32,325 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!502
+[INFO ] 2018-07-19 13:09:32,359 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!503
+[INFO ] 2018-07-19 13:09:32,403 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!504
+[INFO ] 2018-07-19 13:09:32,436 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!505
+[INFO ] 2018-07-19 13:09:32,468 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!506
+[INFO ] 2018-07-19 13:09:32,501 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!507
+[INFO ] 2018-07-19 13:09:32,536 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!508
+[INFO ] 2018-07-19 13:09:32,566 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!509
+[INFO ] 2018-07-19 13:09:32,601 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!510
+[INFO ] 2018-07-19 13:09:32,636 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!511
+[INFO ] 2018-07-19 13:09:32,666 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!512
+[INFO ] 2018-07-19 13:09:32,699 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!513
+[INFO ] 2018-07-19 13:09:32,732 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!514
+[INFO ] 2018-07-19 13:09:32,770 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!515
+[INFO ] 2018-07-19 13:09:32,803 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!516
+[INFO ] 2018-07-19 13:09:32,837 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!517
+[INFO ] 2018-07-19 13:09:32,869 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!518
+[INFO ] 2018-07-19 13:09:33,013 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!519
+[INFO ] 2018-07-19 13:09:33,046 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!520
+[INFO ] 2018-07-19 13:09:33,078 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!521
+[INFO ] 2018-07-19 13:09:33,112 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!522
+[INFO ] 2018-07-19 13:09:33,144 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!523
+[INFO ] 2018-07-19 13:09:33,177 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!524
+[INFO ] 2018-07-19 13:09:33,210 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!525
+[INFO ] 2018-07-19 13:09:33,245 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!526
+[INFO ] 2018-07-19 13:09:33,276 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!527
+[INFO ] 2018-07-19 13:09:33,310 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!528
+[INFO ] 2018-07-19 13:09:33,342 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!529
+[INFO ] 2018-07-19 13:09:33,375 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!530
+[INFO ] 2018-07-19 13:09:33,421 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!531
+[INFO ] 2018-07-19 13:09:33,452 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!532
+[INFO ] 2018-07-19 13:09:33,485 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!533
+[INFO ] 2018-07-19 13:09:33,519 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!534
+[INFO ] 2018-07-19 13:09:33,551 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!535
+[INFO ] 2018-07-19 13:09:33,584 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!536
+[INFO ] 2018-07-19 13:09:33,617 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!537
+[INFO ] 2018-07-19 13:09:33,650 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!538
+[INFO ] 2018-07-19 13:09:33,683 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!539
+[INFO ] 2018-07-19 13:09:33,717 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!540
+[INFO ] 2018-07-19 13:09:33,749 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!541
+[INFO ] 2018-07-19 13:09:33,782 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!542
+[INFO ] 2018-07-19 13:09:33,815 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!543
+[INFO ] 2018-07-19 13:09:33,849 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!544
+[INFO ] 2018-07-19 13:09:33,881 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!545
+[INFO ] 2018-07-19 13:09:33,914 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!546
+[INFO ] 2018-07-19 13:09:33,947 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!547
+[INFO ] 2018-07-19 13:09:33,980 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!548
+[INFO ] 2018-07-19 13:09:34,012 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!549
+[INFO ] 2018-07-19 13:09:34,046 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!550
+[INFO ] 2018-07-19 13:09:34,080 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!551
+[INFO ] 2018-07-19 13:09:34,112 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!552
+[INFO ] 2018-07-19 13:09:34,145 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!553
+[INFO ] 2018-07-19 13:09:34,178 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!554
+[INFO ] 2018-07-19 13:09:34,211 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!555
+[INFO ] 2018-07-19 13:09:34,248 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!556
+[INFO ] 2018-07-19 13:09:34,282 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!557
+[INFO ] 2018-07-19 13:09:34,315 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!558
+[INFO ] 2018-07-19 13:09:34,347 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!559
+[INFO ] 2018-07-19 13:09:34,387 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!560
+[INFO ] 2018-07-19 13:09:34,420 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!561
+[INFO ] 2018-07-19 13:09:34,453 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!562
+[INFO ] 2018-07-19 13:09:34,486 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!563
+[INFO ] 2018-07-19 13:09:34,520 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!564
+[INFO ] 2018-07-19 13:09:34,553 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!565
+[INFO ] 2018-07-19 13:09:34,589 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!566
+[INFO ] 2018-07-19 13:09:34,618 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!567
+[INFO ] 2018-07-19 13:09:34,651 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!568
+[INFO ] 2018-07-19 13:09:34,684 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!569
+[INFO ] 2018-07-19 13:09:34,717 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!570
+[INFO ] 2018-07-19 13:09:34,750 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!571
+[INFO ] 2018-07-19 13:09:34,810 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!572
+[INFO ] 2018-07-19 13:09:34,843 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!573
+[INFO ] 2018-07-19 13:09:34,875 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!574
+[INFO ] 2018-07-19 13:09:34,909 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!575
+[INFO ] 2018-07-19 13:09:34,942 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!576
+[INFO ] 2018-07-19 13:09:34,975 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!577
+[INFO ] 2018-07-19 13:09:35,009 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!578
+[INFO ] 2018-07-19 13:09:35,041 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!579
+[INFO ] 2018-07-19 13:09:35,074 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!580
+[INFO ] 2018-07-19 13:09:35,107 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!581
+[INFO ] 2018-07-19 13:09:35,141 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!582
+[INFO ] 2018-07-19 13:09:35,173 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!583
+[INFO ] 2018-07-19 13:09:35,206 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!584
+[INFO ] 2018-07-19 13:09:35,239 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!585
+[INFO ] 2018-07-19 13:09:35,272 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!586
+[INFO ] 2018-07-19 13:09:35,304 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!587
+[INFO ] 2018-07-19 13:09:35,337 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!588
+[INFO ] 2018-07-19 13:09:35,372 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!589
+[INFO ] 2018-07-19 13:09:35,404 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!590
+[INFO ] 2018-07-19 13:09:35,437 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!591
+[INFO ] 2018-07-19 13:09:35,470 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!592
+[INFO ] 2018-07-19 13:09:35,503 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!593
+[INFO ] 2018-07-19 13:09:35,536 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!594
+[INFO ] 2018-07-19 13:09:35,569 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!595
+[INFO ] 2018-07-19 13:09:35,602 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!596
+[INFO ] 2018-07-19 13:09:35,635 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!597
+[INFO ] 2018-07-19 13:09:35,669 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!598
+[INFO ] 2018-07-19 13:09:35,701 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!599
+[INFO ] 2018-07-19 13:09:35,734 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!600
+[INFO ] 2018-07-19 13:09:35,766 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!601
+[INFO ] 2018-07-19 13:09:35,800 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!602
+[INFO ] 2018-07-19 13:09:35,832 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!603
+[INFO ] 2018-07-19 13:09:35,866 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!604
+[INFO ] 2018-07-19 13:09:35,899 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!605
+[INFO ] 2018-07-19 13:09:35,932 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!606
+[INFO ] 2018-07-19 13:09:35,964 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!607
+[INFO ] 2018-07-19 13:09:35,997 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!608
+[INFO ] 2018-07-19 13:09:36,030 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!609
+[INFO ] 2018-07-19 13:09:36,064 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!610
+[INFO ] 2018-07-19 13:09:36,096 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!611
+[INFO ] 2018-07-19 13:09:36,147 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!612
+[INFO ] 2018-07-19 13:09:36,179 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!613
+[INFO ] 2018-07-19 13:09:36,212 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!614
+[INFO ] 2018-07-19 13:09:36,245 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!615
+[INFO ] 2018-07-19 13:09:36,278 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!616
+[INFO ] 2018-07-19 13:09:36,415 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!617
+[INFO ] 2018-07-19 13:09:36,455 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!618
+[INFO ] 2018-07-19 13:09:36,591 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!619
+[INFO ] 2018-07-19 13:09:36,624 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!620
+[INFO ] 2018-07-19 13:09:36,747 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!621
+[INFO ] 2018-07-19 13:09:36,778 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!622
+[INFO ] 2018-07-19 13:09:36,811 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!623
+[INFO ] 2018-07-19 13:09:36,843 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!624
+[INFO ] 2018-07-19 13:09:36,877 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!625
+[INFO ] 2018-07-19 13:09:36,909 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!626
+[INFO ] 2018-07-19 13:09:36,943 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!627
+[INFO ] 2018-07-19 13:09:36,976 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!628
+[INFO ] 2018-07-19 13:09:37,009 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!629
+[INFO ] 2018-07-19 13:09:37,041 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!630
+[INFO ] 2018-07-19 13:09:37,074 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!631
+[INFO ] 2018-07-19 13:09:37,108 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!632
+[INFO ] 2018-07-19 13:09:37,140 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!633
+[INFO ] 2018-07-19 13:09:37,174 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!634
+[INFO ] 2018-07-19 13:09:37,206 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!635
+[INFO ] 2018-07-19 13:09:37,239 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!636
+[INFO ] 2018-07-19 13:09:37,273 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!637
+[INFO ] 2018-07-19 13:09:37,305 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!638
+[INFO ] 2018-07-19 13:09:37,340 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!639
+[INFO ] 2018-07-19 13:09:37,372 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!640
+[INFO ] 2018-07-19 13:09:37,404 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!641
+[INFO ] 2018-07-19 13:09:37,437 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!642
+[INFO ] 2018-07-19 13:09:37,481 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!643
+[INFO ] 2018-07-19 13:09:37,514 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!644
+[INFO ] 2018-07-19 13:09:37,548 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!645
+[INFO ] 2018-07-19 13:09:37,581 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!646
+[INFO ] 2018-07-19 13:09:37,613 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!647
+[INFO ] 2018-07-19 13:09:37,646 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!648
+[INFO ] 2018-07-19 13:09:37,679 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!649
+[INFO ] 2018-07-19 13:09:37,713 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!650
+[INFO ] 2018-07-19 13:09:37,746 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!651
+[INFO ] 2018-07-19 13:09:37,778 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!652
+[INFO ] 2018-07-19 13:09:37,811 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!653
+[INFO ] 2018-07-19 13:09:37,846 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!654
+[INFO ] 2018-07-19 13:09:37,878 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!655
+[INFO ] 2018-07-19 13:09:37,910 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!656
+[INFO ] 2018-07-19 13:09:37,944 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!657
+[INFO ] 2018-07-19 13:09:37,977 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!658
+[INFO ] 2018-07-19 13:09:38,013 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!659
+[INFO ] 2018-07-19 13:09:38,170 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!660
+[INFO ] 2018-07-19 13:09:38,203 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!661
+[INFO ] 2018-07-19 13:09:38,236 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!662
+[INFO ] 2018-07-19 13:09:38,269 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!663
+[INFO ] 2018-07-19 13:09:38,302 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!664
+[INFO ] 2018-07-19 13:09:38,335 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!665
+[INFO ] 2018-07-19 13:09:38,368 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!666
+[INFO ] 2018-07-19 13:09:38,402 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!667
+[INFO ] 2018-07-19 13:09:38,434 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!668
+[INFO ] 2018-07-19 13:09:38,467 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!669
+[INFO ] 2018-07-19 13:09:38,500 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!670
+[INFO ] 2018-07-19 13:09:38,533 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!671
+[INFO ] 2018-07-19 13:09:38,567 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!672
+[INFO ] 2018-07-19 13:09:38,599 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!673
+[INFO ] 2018-07-19 13:09:38,632 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!674
+[INFO ] 2018-07-19 13:09:38,666 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!675
+[INFO ] 2018-07-19 13:09:38,699 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!676
+[INFO ] 2018-07-19 13:09:38,731 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!677
+[INFO ] 2018-07-19 13:09:38,764 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!678
+[INFO ] 2018-07-19 13:09:38,798 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!679
+[INFO ] 2018-07-19 13:09:38,844 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!680
+[INFO ] 2018-07-19 13:09:38,977 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!681
+[INFO ] 2018-07-19 13:09:39,009 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!682
+[INFO ] 2018-07-19 13:09:39,043 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!683
+[INFO ] 2018-07-19 13:09:39,076 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!684
+[INFO ] 2018-07-19 13:09:39,109 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!685
+[INFO ] 2018-07-19 13:09:39,139 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!686
+[INFO ] 2018-07-19 13:09:39,171 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!687
+[INFO ] 2018-07-19 13:09:39,204 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!688
+[INFO ] 2018-07-19 13:09:39,237 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!689
+[INFO ] 2018-07-19 13:09:39,270 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!690
+[INFO ] 2018-07-19 13:09:39,303 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!691
+[INFO ] 2018-07-19 13:09:39,340 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!692
+[INFO ] 2018-07-19 13:09:39,373 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!693
+[INFO ] 2018-07-19 13:09:39,405 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!694
+[INFO ] 2018-07-19 13:09:39,436 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!695
+[INFO ] 2018-07-19 13:09:39,468 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!696
+[INFO ] 2018-07-19 13:09:39,501 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!697
+[INFO ] 2018-07-19 13:09:39,535 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!698
+[INFO ] 2018-07-19 13:09:39,566 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!699
+[INFO ] 2018-07-19 13:09:39,600 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!700
+[INFO ] 2018-07-19 13:09:39,634 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!701
+[INFO ] 2018-07-19 13:09:39,666 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!702
+[INFO ] 2018-07-19 13:09:39,699 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!703
+[INFO ] 2018-07-19 13:09:39,731 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!704
+[INFO ] 2018-07-19 13:09:39,765 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!705
+[INFO ] 2018-07-19 13:09:39,798 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!706
+[INFO ] 2018-07-19 13:09:39,831 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!707
+[INFO ] 2018-07-19 13:09:39,864 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!708
+[INFO ] 2018-07-19 13:09:39,896 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!709
+[INFO ] 2018-07-19 13:09:39,930 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!710
+[INFO ] 2018-07-19 13:09:39,963 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!711
+[INFO ] 2018-07-19 13:09:39,997 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!712
+[INFO ] 2018-07-19 13:09:40,030 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!713
+[INFO ] 2018-07-19 13:09:40,062 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!714
+[INFO ] 2018-07-19 13:09:40,095 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!715
+[INFO ] 2018-07-19 13:09:40,128 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!716
+[INFO ] 2018-07-19 13:09:40,161 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!717
+[INFO ] 2018-07-19 13:09:40,194 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!718
+[INFO ] 2018-07-19 13:09:40,241 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!719
+[INFO ] 2018-07-19 13:09:40,271 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!720
+[INFO ] 2018-07-19 13:09:40,304 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!721
+[INFO ] 2018-07-19 13:09:40,338 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!722
+[INFO ] 2018-07-19 13:09:40,369 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!723
+[INFO ] 2018-07-19 13:09:40,403 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!724
+[INFO ] 2018-07-19 13:09:40,435 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!725
+[INFO ] 2018-07-19 13:09:40,469 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!726
+[INFO ] 2018-07-19 13:09:40,502 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!727
+[INFO ] 2018-07-19 13:09:40,535 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!728
+[INFO ] 2018-07-19 13:09:40,568 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!729
+[INFO ] 2018-07-19 13:09:40,601 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!730
+[INFO ] 2018-07-19 13:09:40,634 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!731
+[INFO ] 2018-07-19 13:09:40,668 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!732
+[INFO ] 2018-07-19 13:09:40,699 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!733
+[INFO ] 2018-07-19 13:09:40,733 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!734
+[INFO ] 2018-07-19 13:09:40,767 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!735
+[INFO ] 2018-07-19 13:09:40,800 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!736
+[INFO ] 2018-07-19 13:09:40,831 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!737
+[INFO ] 2018-07-19 13:09:40,864 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!738
+[INFO ] 2018-07-19 13:09:40,897 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!739
+[INFO ] 2018-07-19 13:09:40,931 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!740
+[INFO ] 2018-07-19 13:09:40,964 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!741
+[INFO ] 2018-07-19 13:09:40,996 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!742
+[INFO ] 2018-07-19 13:09:41,045 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!743
+[INFO ] 2018-07-19 13:09:41,088 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!744
+[INFO ] 2018-07-19 13:09:41,132 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!745
+[INFO ] 2018-07-19 13:09:41,176 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!746
+[INFO ] 2018-07-19 13:09:41,221 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!747
+[INFO ] 2018-07-19 13:09:41,264 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!748
+[INFO ] 2018-07-19 13:09:41,308 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!749
+[INFO ] 2018-07-19 13:09:41,341 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!750
+[INFO ] 2018-07-19 13:09:41,370 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!751
+[INFO ] 2018-07-19 13:09:41,403 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!752
+[INFO ] 2018-07-19 13:09:41,437 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!753
+[INFO ] 2018-07-19 13:09:41,470 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!754
+[INFO ] 2018-07-19 13:09:41,502 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!755
+[INFO ] 2018-07-19 13:09:41,535 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!756
+[INFO ] 2018-07-19 13:09:41,572 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!757
+[INFO ] 2018-07-19 13:09:41,616 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!758
+[INFO ] 2018-07-19 13:09:41,661 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!759
+[INFO ] 2018-07-19 13:09:41,703 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!760
+[INFO ] 2018-07-19 13:09:41,748 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!761
+[INFO ] 2018-07-19 13:09:41,777 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!762
+[INFO ] 2018-07-19 13:09:41,814 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!763
+[INFO ] 2018-07-19 13:09:41,858 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!764
+[INFO ] 2018-07-19 13:09:41,887 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!765
+[INFO ] 2018-07-19 13:09:41,920 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!766
+[INFO ] 2018-07-19 13:09:41,953 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!767
+[INFO ] 2018-07-19 13:09:41,990 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!768
+[INFO ] 2018-07-19 13:09:42,022 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!769
+[INFO ] 2018-07-19 13:09:42,056 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!770
+[INFO ] 2018-07-19 13:09:42,085 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!771
+[INFO ] 2018-07-19 13:09:42,119 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!772
+[INFO ] 2018-07-19 13:09:42,152 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!773
+[INFO ] 2018-07-19 13:09:42,184 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!774
+[INFO ] 2018-07-19 13:09:42,218 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!775
+[INFO ] 2018-07-19 13:09:42,250 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!776
+[INFO ] 2018-07-19 13:09:42,286 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!777
+[INFO ] 2018-07-19 13:09:42,316 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!778
+[INFO ] 2018-07-19 13:09:42,352 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!779
+[INFO ] 2018-07-19 13:09:42,382 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!780
+[INFO ] 2018-07-19 13:09:42,415 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!781
+[INFO ] 2018-07-19 13:09:42,448 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!782
+[INFO ] 2018-07-19 13:09:42,481 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!783
+[INFO ] 2018-07-19 13:09:42,515 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!784
+[INFO ] 2018-07-19 13:09:42,548 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!785
+[INFO ] 2018-07-19 13:09:42,581 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!786
+[INFO ] 2018-07-19 13:09:42,613 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!787
+[INFO ] 2018-07-19 13:09:42,646 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!788
+[INFO ] 2018-07-19 13:09:42,793 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!789
+[INFO ] 2018-07-19 13:09:42,826 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!790
+[INFO ] 2018-07-19 13:09:42,859 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!791
+[INFO ] 2018-07-19 13:09:42,893 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!792
+[INFO ] 2018-07-19 13:09:42,926 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!793
+[INFO ] 2018-07-19 13:09:42,959 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!794
+[INFO ] 2018-07-19 13:09:42,991 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!795
+[INFO ] 2018-07-19 13:09:43,024 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!796
+[INFO ] 2018-07-19 13:09:43,057 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!797
+[INFO ] 2018-07-19 13:09:43,090 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!798
+[INFO ] 2018-07-19 13:09:43,123 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!799
+[INFO ] 2018-07-19 13:09:43,156 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!800
+[INFO ] 2018-07-19 13:09:43,189 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!801
+[INFO ] 2018-07-19 13:09:43,223 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!802
+[INFO ] 2018-07-19 13:09:43,255 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!803
+[INFO ] 2018-07-19 13:09:43,301 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!804
+[INFO ] 2018-07-19 13:09:43,342 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!805
+[INFO ] 2018-07-19 13:09:43,386 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!806
+[INFO ] 2018-07-19 13:09:43,431 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!807
+[INFO ] 2018-07-19 13:09:43,475 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!808
+[INFO ] 2018-07-19 13:09:43,518 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!809
+[INFO ] 2018-07-19 13:09:43,563 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!810
+[INFO ] 2018-07-19 13:09:43,618 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!811
+[INFO ] 2018-07-19 13:09:43,662 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!812
+[INFO ] 2018-07-19 13:09:43,706 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!813
+[INFO ] 2018-07-19 13:09:43,749 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!814
+[INFO ] 2018-07-19 13:09:43,794 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!815
+[INFO ] 2018-07-19 13:09:43,837 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!816
+[INFO ] 2018-07-19 13:09:43,877 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!817
+[INFO ] 2018-07-19 13:09:43,925 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!818
+[INFO ] 2018-07-19 13:09:43,969 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!819
+[INFO ] 2018-07-19 13:09:44,023 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!820
+[INFO ] 2018-07-19 13:09:44,068 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!821
+[INFO ] 2018-07-19 13:09:44,112 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!822
+[INFO ] 2018-07-19 13:09:44,156 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!823
+[INFO ] 2018-07-19 13:09:44,200 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!824
+[INFO ] 2018-07-19 13:09:44,244 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!825
+[INFO ] 2018-07-19 13:09:44,288 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!826
+[INFO ] 2018-07-19 13:09:44,333 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!827
+[INFO ] 2018-07-19 13:09:44,377 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!828
+[INFO ] 2018-07-19 13:09:44,420 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!829
+[INFO ] 2018-07-19 13:09:44,464 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!830
+[INFO ] 2018-07-19 13:09:44,507 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!831
+[INFO ] 2018-07-19 13:09:44,552 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!832
+[INFO ] 2018-07-19 13:09:44,596 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!833
+[INFO ] 2018-07-19 13:09:44,640 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!834
+[INFO ] 2018-07-19 13:09:44,684 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!835
+[INFO ] 2018-07-19 13:09:44,728 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!836
+[INFO ] 2018-07-19 13:09:44,772 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!837
+[INFO ] 2018-07-19 13:09:44,816 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!838
+[INFO ] 2018-07-19 13:09:44,856 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!839
+[INFO ] 2018-07-19 13:09:44,904 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!840
+[INFO ] 2018-07-19 13:09:44,948 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!841
+[INFO ] 2018-07-19 13:09:44,992 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!842
+[INFO ] 2018-07-19 13:09:45,032 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!843
+[INFO ] 2018-07-19 13:09:45,077 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!844
+[INFO ] 2018-07-19 13:09:45,120 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!845
+[INFO ] 2018-07-19 13:09:45,165 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!846
+[INFO ] 2018-07-19 13:09:45,212 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!847
+[INFO ] 2018-07-19 13:09:45,255 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!848
+[INFO ] 2018-07-19 13:09:45,297 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!849
+[INFO ] 2018-07-19 13:09:45,344 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!850
+[INFO ] 2018-07-19 13:09:45,387 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!851
+[INFO ] 2018-07-19 13:09:45,432 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!852
+[INFO ] 2018-07-19 13:09:45,475 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!853
+[INFO ] 2018-07-19 13:09:45,517 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!854
+[INFO ] 2018-07-19 13:09:45,571 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!855
+[INFO ] 2018-07-19 13:09:45,618 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!856
+[INFO ] 2018-07-19 13:09:45,660 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!857
+[INFO ] 2018-07-19 13:09:45,703 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!858
+[INFO ] 2018-07-19 13:09:45,750 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!859
+[INFO ] 2018-07-19 13:09:45,795 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!860
+[INFO ] 2018-07-19 13:09:45,838 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!861
+[INFO ] 2018-07-19 13:09:45,882 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!862
+[INFO ] 2018-07-19 13:09:45,926 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!863
+[INFO ] 2018-07-19 13:09:45,970 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!864
+[INFO ] 2018-07-19 13:09:46,014 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!865
+[INFO ] 2018-07-19 13:09:46,058 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!866
+[INFO ] 2018-07-19 13:09:46,100 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!867
+[INFO ] 2018-07-19 13:09:46,143 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!868
+[INFO ] 2018-07-19 13:09:46,188 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!869
+[INFO ] 2018-07-19 13:09:46,231 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!870
+[INFO ] 2018-07-19 13:09:46,279 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!871
+[INFO ] 2018-07-19 13:09:46,321 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!872
+[INFO ] 2018-07-19 13:09:46,366 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!873
+[INFO ] 2018-07-19 13:09:46,407 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!874
+[INFO ] 2018-07-19 13:09:46,454 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!875
+[INFO ] 2018-07-19 13:09:46,499 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!876
+[INFO ] 2018-07-19 13:09:46,539 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!877
+[INFO ] 2018-07-19 13:09:46,587 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!878
+[INFO ] 2018-07-19 13:09:46,630 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!879
+[INFO ] 2018-07-19 13:09:46,674 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!880
+[INFO ] 2018-07-19 13:09:46,717 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!881
+[INFO ] 2018-07-19 13:09:46,762 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!882
+[INFO ] 2018-07-19 13:09:46,829 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!883
+[INFO ] 2018-07-19 13:09:46,869 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!884
+[INFO ] 2018-07-19 13:09:46,916 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!885
+[INFO ] 2018-07-19 13:09:46,959 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!886
+[INFO ] 2018-07-19 13:09:47,004 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!887
+[INFO ] 2018-07-19 13:09:47,048 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!888
+[INFO ] 2018-07-19 13:09:47,103 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!889
+[INFO ] 2018-07-19 13:09:47,146 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!890
+[INFO ] 2018-07-19 13:09:47,191 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!891
+[INFO ] 2018-07-19 13:09:47,235 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!892
+[INFO ] 2018-07-19 13:09:47,278 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!893
+[INFO ] 2018-07-19 13:09:47,320 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!894
+[INFO ] 2018-07-19 13:09:47,366 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!895
+[INFO ] 2018-07-19 13:09:47,411 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!896
+[INFO ] 2018-07-19 13:09:47,454 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!897
+[INFO ] 2018-07-19 13:09:47,497 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!898
+[INFO ] 2018-07-19 13:09:47,540 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!899
+[INFO ] 2018-07-19 13:09:47,586 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!900
+[INFO ] 2018-07-19 13:09:47,631 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!901
+[INFO ] 2018-07-19 13:09:47,672 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!902
+[INFO ] 2018-07-19 13:09:47,717 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!903
+[INFO ] 2018-07-19 13:09:47,763 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!904
+[INFO ] 2018-07-19 13:09:47,806 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!905
+[INFO ] 2018-07-19 13:09:47,958 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!906
+[INFO ] 2018-07-19 13:09:48,001 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!907
+[INFO ] 2018-07-19 13:09:48,049 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!908
+[INFO ] 2018-07-19 13:09:48,092 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!909
+[INFO ] 2018-07-19 13:09:48,137 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!910
+[INFO ] 2018-07-19 13:09:48,178 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!911
+[INFO ] 2018-07-19 13:09:48,224 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!912
+[INFO ] 2018-07-19 13:09:48,268 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!913
+[INFO ] 2018-07-19 13:09:48,323 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!914
+[INFO ] 2018-07-19 13:09:48,367 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!915
+[INFO ] 2018-07-19 13:09:48,409 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!916
+[INFO ] 2018-07-19 13:09:48,455 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!917
+[INFO ] 2018-07-19 13:09:48,499 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!918
+[INFO ] 2018-07-19 13:09:48,543 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!919
+[INFO ] 2018-07-19 13:09:48,587 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!920
+[INFO ] 2018-07-19 13:09:48,630 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!921
+[INFO ] 2018-07-19 13:09:48,675 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!922
+[INFO ] 2018-07-19 13:09:48,717 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!923
+[INFO ] 2018-07-19 13:09:48,761 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!924
+[INFO ] 2018-07-19 13:09:48,804 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!925
+[INFO ] 2018-07-19 13:09:48,849 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!926
+[INFO ] 2018-07-19 13:09:48,895 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!927
+[INFO ] 2018-07-19 13:09:48,938 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!928
+[INFO ] 2018-07-19 13:09:48,983 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!929
+[INFO ] 2018-07-19 13:09:49,334 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!930
+[INFO ] 2018-07-19 13:09:49,500 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!931
+[INFO ] 2018-07-19 13:09:49,544 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!932
+[INFO ] 2018-07-19 13:09:49,588 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!933
+[INFO ] 2018-07-19 13:09:49,632 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!934
+[INFO ] 2018-07-19 13:09:49,675 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!935
+[INFO ] 2018-07-19 13:09:49,720 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!936
+[INFO ] 2018-07-19 13:09:49,763 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!937
+[INFO ] 2018-07-19 13:09:49,808 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!938
+[INFO ] 2018-07-19 13:09:49,852 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!939
+[INFO ] 2018-07-19 13:09:49,893 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!940
+[INFO ] 2018-07-19 13:09:49,937 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!941
+[INFO ] 2018-07-19 13:09:49,984 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!942
+[INFO ] 2018-07-19 13:09:50,025 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!943
+[INFO ] 2018-07-19 13:09:50,071 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!944
+[INFO ] 2018-07-19 13:09:50,115 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!945
+[INFO ] 2018-07-19 13:09:50,159 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!946
+[INFO ] 2018-07-19 13:09:50,203 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!947
+[INFO ] 2018-07-19 13:09:50,258 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!948
+[INFO ] 2018-07-19 13:09:50,303 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!949
+[INFO ] 2018-07-19 13:09:50,345 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!950
+[INFO ] 2018-07-19 13:09:50,391 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!951
+[INFO ] 2018-07-19 13:09:50,435 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!952
+[INFO ] 2018-07-19 13:09:50,478 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!953
+[INFO ] 2018-07-19 13:09:50,522 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!954
+[INFO ] 2018-07-19 13:09:50,567 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!955
+[INFO ] 2018-07-19 13:09:50,611 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!956
+[INFO ] 2018-07-19 13:09:50,654 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!957
+[INFO ] 2018-07-19 13:09:50,697 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!958
+[INFO ] 2018-07-19 13:09:50,742 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!959
+[INFO ] 2018-07-19 13:09:50,787 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!960
+[INFO ] 2018-07-19 13:09:50,828 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!961
+[INFO ] 2018-07-19 13:09:50,874 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!962
+[INFO ] 2018-07-19 13:09:50,918 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!963
+[INFO ] 2018-07-19 13:09:50,960 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!964
+[INFO ] 2018-07-19 13:09:51,004 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!965
+[INFO ] 2018-07-19 13:09:51,050 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!966
+[INFO ] 2018-07-19 13:09:51,095 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!967
+[INFO ] 2018-07-19 13:09:51,138 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!968
+[INFO ] 2018-07-19 13:09:51,182 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!969
+[INFO ] 2018-07-19 13:09:51,224 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!970
+[INFO ] 2018-07-19 13:09:51,270 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!971
+[INFO ] 2018-07-19 13:09:51,314 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!972
+[INFO ] 2018-07-19 13:09:51,358 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!973
+[INFO ] 2018-07-19 13:09:51,403 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!974
+[INFO ] 2018-07-19 13:09:51,446 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!975
+[INFO ] 2018-07-19 13:09:51,490 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!976
+[INFO ] 2018-07-19 13:09:51,535 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!977
+[INFO ] 2018-07-19 13:09:51,575 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!978
+[INFO ] 2018-07-19 13:09:51,623 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!979
+[INFO ] 2018-07-19 13:09:51,676 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!980
+[INFO ] 2018-07-19 13:09:51,733 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!981
+[INFO ] 2018-07-19 13:09:51,776 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!982
+[INFO ] 2018-07-19 13:09:51,831 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!983
+[INFO ] 2018-07-19 13:09:51,875 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!984
+[INFO ] 2018-07-19 13:09:51,919 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!985
+[INFO ] 2018-07-19 13:09:51,963 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!986
+[INFO ] 2018-07-19 13:09:52,007 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!987
+[INFO ] 2018-07-19 13:09:52,049 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!988
+[INFO ] 2018-07-19 13:09:52,095 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!989
+[INFO ] 2018-07-19 13:09:52,139 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!990
+[INFO ] 2018-07-19 13:09:52,183 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!991
+[INFO ] 2018-07-19 13:09:52,227 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!992
+[INFO ] 2018-07-19 13:09:52,271 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!993
+[INFO ] 2018-07-19 13:09:52,314 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!994
+[INFO ] 2018-07-19 13:09:52,360 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!995
+[INFO ] 2018-07-19 13:09:52,403 com.sv.mc.service.JMSConsumer - 接收到消息：hello,world!996
+[INFO ] 2018-07-19 13:20:20,132 com.sv.mc.service.JMSConsumer - 接收到queue消息：hello,world!997
+[INFO ] 2018-07-19 13:20:20,145 com.sv.mc.service.JMSConsumer - 接收到queue消息：hello,world!998
+[INFO ] 2018-07-19 13:20:20,145 com.sv.mc.service.JMSConsumer - 接收到queue消息：hello,world!999
+[INFO ] 2018-07-19 13:20:20,236 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!0
+[INFO ] 2018-07-19 13:20:20,286 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!0
+[INFO ] 2018-07-19 13:20:20,293 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!1
+[INFO ] 2018-07-19 13:20:20,317 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!1
+[INFO ] 2018-07-19 13:20:20,326 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!2
+[INFO ] 2018-07-19 13:20:20,351 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!2
+[INFO ] 2018-07-19 13:20:20,359 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!3
+[INFO ] 2018-07-19 13:20:20,384 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!3
+[INFO ] 2018-07-19 13:20:20,394 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!4
+[INFO ] 2018-07-19 13:20:20,429 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!4
+[INFO ] 2018-07-19 13:20:20,440 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!5
+[INFO ] 2018-07-19 13:20:20,475 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!5
+[INFO ] 2018-07-19 13:20:20,484 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!6
+[INFO ] 2018-07-19 13:20:20,515 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!6
+[INFO ] 2018-07-19 13:20:20,522 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!7
+[INFO ] 2018-07-19 13:20:20,548 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!7
+[INFO ] 2018-07-19 13:20:20,555 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!8
+[INFO ] 2018-07-19 13:20:20,582 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!8
+[INFO ] 2018-07-19 13:20:20,590 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!9
+[INFO ] 2018-07-19 13:20:20,615 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!9
+[INFO ] 2018-07-19 14:28:16,287 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!0
+[INFO ] 2018-07-19 14:28:16,393 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!0
+[INFO ] 2018-07-19 14:28:16,401 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!1
+[INFO ] 2018-07-19 14:28:16,432 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!1
+[INFO ] 2018-07-19 14:28:16,443 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!2
+[INFO ] 2018-07-19 14:28:16,471 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!2
+[INFO ] 2018-07-19 14:28:16,481 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!3
+[INFO ] 2018-07-19 14:28:16,514 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!3
+[INFO ] 2018-07-19 14:28:16,522 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!4
+[INFO ] 2018-07-19 14:28:16,554 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!4
+[INFO ] 2018-07-19 14:28:16,562 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!5
+[INFO ] 2018-07-19 14:28:16,588 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!5
+[INFO ] 2018-07-19 14:28:16,594 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!6
+[INFO ] 2018-07-19 14:28:16,621 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!6
+[INFO ] 2018-07-19 14:28:16,629 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!7
+[INFO ] 2018-07-19 14:28:16,654 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!7
+[INFO ] 2018-07-19 14:28:16,662 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!8
+[INFO ] 2018-07-19 14:28:16,688 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!8
+[INFO ] 2018-07-19 14:28:16,697 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!9
+[INFO ] 2018-07-19 14:28:16,721 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!9
+[INFO ] 2018-07-19 14:29:27,716 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!0
+[INFO ] 2018-07-19 14:29:27,827 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!0
+[INFO ] 2018-07-19 14:29:27,843 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!1
+[INFO ] 2018-07-19 14:29:27,884 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!1
+[INFO ] 2018-07-19 14:29:27,895 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!2
+[INFO ] 2018-07-19 14:29:27,921 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!2
+[INFO ] 2018-07-19 14:29:27,929 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!3
+[INFO ] 2018-07-19 14:29:27,954 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!3
+[INFO ] 2018-07-19 14:29:27,963 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!4
+[INFO ] 2018-07-19 14:29:27,987 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!4
+[INFO ] 2018-07-19 14:29:27,997 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!5
+[INFO ] 2018-07-19 14:29:28,020 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!5
+[INFO ] 2018-07-19 14:29:28,029 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!6
+[INFO ] 2018-07-19 14:29:28,056 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!6
+[INFO ] 2018-07-19 14:29:28,065 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!7
+[INFO ] 2018-07-19 14:29:28,096 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!7
+[INFO ] 2018-07-19 14:29:28,108 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!8
+[INFO ] 2018-07-19 14:29:28,146 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!8
+[INFO ] 2018-07-19 14:29:28,156 com.sv.mc.service.JMSConsumer - 接收到queue消息：queue,world!9
+[INFO ] 2018-07-19 14:29:28,185 com.sv.mc.service.JMSConsumer - 接收到topic消息：topic,world!9
+[INFO ] 2018-07-19 14:47:56,649 com.sv.mc.service.JMSConsumer - 接收到topic消息：faaf0e0832303030303030320000
+[INFO ] 2018-07-19 16:10:34,239 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13184 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:10:34,245 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:10:34,245 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:10:52,245 com.sv.mc.MCApplication - Started MCApplication in 18.286 seconds (JVM running for 19.804)
+[INFO ] 2018-07-19 16:13:36,129 com.sv.mc.service.JMSConsumer - 接收到topic消息：66616166306530383332333033303330333033303330333230303030
+[INFO ] 2018-07-19 16:32:28,875 com.sv.mc.service.JMSConsumer - 接收到topic消息：72,101,108,108,111,32,87,111,114,108,100,33
+[INFO ] 2018-07-19 16:34:46,664 com.sv.mc.service.JMSConsumer - 接收到topic消息：66616166306530383332333033303330333033303330333230303030
+[INFO ] 2018-07-19 16:36:14,225 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15100 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:36:14,233 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:36:14,233 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:36:32,713 com.sv.mc.MCApplication - Started MCApplication in 18.865 seconds (JVM running for 20.916)
+[INFO ] 2018-07-19 16:38:07,238 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15100 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:38:07,238 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:38:07,238 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:38:20,135 com.sv.mc.MCApplication - Started MCApplication in 12.934 seconds (JVM running for 128.339)
+[INFO ] 2018-07-19 16:38:22,544 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15100 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:38:22,544 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:38:22,544 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:38:34,584 com.sv.mc.MCApplication - Started MCApplication in 12.078 seconds (JVM running for 142.788)
+[INFO ] 2018-07-19 16:39:11,197 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 18364 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:39:11,202 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:39:11,203 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:39:27,799 com.sv.mc.MCApplication - Started MCApplication in 16.988 seconds (JVM running for 18.438)
+[INFO ] 2018-07-19 16:39:50,923 com.sv.mc.service.JMSConsumer - 接收到topic消息：faaf0e1032303030303030320000
+[INFO ] 2018-07-19 16:41:19,551 com.sv.mc.service.JMSConsumer - 接收到topic消息：faaf0e0832303030303030320000
+[INFO ] 2018-07-19 16:41:52,422 com.sv.mc.service.JMSConsumer - 接收到topic消息：faaf0e0832303030303030320000
+[INFO ] 2018-07-19 16:42:56,512 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 18364 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:42:56,513 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:42:56,513 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:42:59,222 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 16:42:59,230 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 16:42:59,230 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 16:43:15,449 com.sv.mc.MCApplication - Started MCApplication in 16.654 seconds (JVM running for 18.071)
+[INFO ] 2018-07-19 16:43:49,220 com.sv.mc.service.JMSConsumer - 接收到topic消息：faaf0f0932303030303030323c0000
+[INFO ] 2018-07-19 16:43:55,230 com.sv.mc.service.JMSConsumer - 接收到topic消息：faaf0e1032303030303030320000
+[INFO ] 2018-07-19 17:40:58,821 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:40:58,821 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:40:58,822 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:41:59,858 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:41:59,858 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:41:59,858 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:44:16,152 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:44:16,152 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:44:16,152 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:44:27,843 com.sv.mc.MCApplication - Started MCApplication in 11.732 seconds (JVM running for 3690.467)
+[INFO ] 2018-07-19 17:44:56,262 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:44:56,262 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:44:56,262 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:45:08,569 com.sv.mc.MCApplication - Started MCApplication in 12.34 seconds (JVM running for 3731.192)
+[INFO ] 2018-07-19 17:45:11,226 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:45:11,226 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:45:11,227 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:45:24,629 com.sv.mc.MCApplication - Started MCApplication in 13.469 seconds (JVM running for 3747.253)
+[INFO ] 2018-07-19 17:45:29,047 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1592 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:45:29,048 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:45:29,048 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:45:34,719 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 16796 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:45:34,724 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:45:34,725 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:45:51,575 com.sv.mc.MCApplication - Started MCApplication in 17.16 seconds (JVM running for 18.486)
+[INFO ] 2018-07-19 17:59:19,598 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 16992 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 17:59:19,602 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 17:59:19,602 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 17:59:36,092 com.sv.mc.MCApplication - Started MCApplication in 16.758 seconds (JVM running for 18.443)
+[INFO ] 2018-07-19 18:06:40,242 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:06:40,249 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:06:40,250 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:06:57,083 com.sv.mc.MCApplication - Started MCApplication in 17.243 seconds (JVM running for 18.775)
+[INFO ] 2018-07-19 18:11:13,742 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:11:13,742 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:11:13,742 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:11:26,160 com.sv.mc.MCApplication - Started MCApplication in 12.455 seconds (JVM running for 287.853)
+[INFO ] 2018-07-19 18:11:55,835 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:11:55,835 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:11:55,836 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:12:08,308 com.sv.mc.MCApplication - Started MCApplication in 12.549 seconds (JVM running for 330.0)
+[INFO ] 2018-07-19 18:22:04,140 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:22:04,140 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:22:04,140 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:22:17,038 com.sv.mc.MCApplication - Started MCApplication in 12.936 seconds (JVM running for 938.731)
+[INFO ] 2018-07-19 18:22:57,515 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:22:57,515 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:22:57,515 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:23:09,672 com.sv.mc.MCApplication - Started MCApplication in 12.192 seconds (JVM running for 991.364)
+[INFO ] 2018-07-19 18:23:16,068 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:23:16,068 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:23:16,068 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:23:27,977 com.sv.mc.MCApplication - Started MCApplication in 11.939 seconds (JVM running for 1009.669)
+[INFO ] 2018-07-19 18:23:30,548 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:23:30,548 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:23:30,549 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:23:42,385 com.sv.mc.MCApplication - Started MCApplication in 11.874 seconds (JVM running for 1024.077)
+[INFO ] 2018-07-19 18:26:12,904 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:26:12,904 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:26:12,904 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:26:24,789 com.sv.mc.MCApplication - Started MCApplication in 11.919 seconds (JVM running for 1186.482)
+[INFO ] 2018-07-19 18:37:52,915 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:37:52,915 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:37:52,915 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:38:05,922 com.sv.mc.MCApplication - Started MCApplication in 13.063 seconds (JVM running for 1887.614)
+[INFO ] 2018-07-19 18:38:25,450 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:38:25,450 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:38:25,450 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:38:37,134 com.sv.mc.MCApplication - Started MCApplication in 11.715 seconds (JVM running for 1918.826)
+[INFO ] 2018-07-19 18:38:41,545 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:38:41,545 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:38:41,545 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:40:08,707 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:40:08,707 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:40:08,707 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:40:28,754 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:40:28,754 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:40:28,754 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:42:05,018 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:42:05,018 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:42:05,018 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:42:18,028 com.sv.mc.MCApplication - Started MCApplication in 13.061 seconds (JVM running for 2139.721)
+[INFO ] 2018-07-19 18:42:26,583 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:42:26,583 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:42:26,583 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:42:38,131 com.sv.mc.MCApplication - Started MCApplication in 11.604 seconds (JVM running for 2159.823)
+[INFO ] 2018-07-19 18:44:03,786 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:44:03,786 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:44:03,786 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:44:16,092 com.sv.mc.MCApplication - Started MCApplication in 12.337 seconds (JVM running for 2257.784)
+[INFO ] 2018-07-19 18:44:27,719 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:44:27,719 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:44:27,720 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:44:40,305 com.sv.mc.MCApplication - Started MCApplication in 12.615 seconds (JVM running for 2281.997)
+[INFO ] 2018-07-19 18:44:45,694 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:44:45,694 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:44:45,695 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:45:00,715 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:45:00,715 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:45:00,715 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:45:12,774 com.sv.mc.MCApplication - Started MCApplication in 12.091 seconds (JVM running for 2314.466)
+[INFO ] 2018-07-19 18:45:16,528 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:45:16,528 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:45:16,529 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:45:48,320 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:45:48,320 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:45:48,320 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:46:07,104 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:46:07,104 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:46:07,104 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:46:19,317 com.sv.mc.MCApplication - Started MCApplication in 12.247 seconds (JVM running for 2381.01)
+[INFO ] 2018-07-19 18:48:52,105 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:48:52,106 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:48:52,106 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:49:21,077 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:49:21,077 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:49:21,077 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:50:07,696 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:50:07,696 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:50:07,696 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:50:31,646 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:50:31,647 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:50:31,647 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:50:50,143 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4968 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:50:50,143 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:50:50,143 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:51:11,347 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 16796 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:51:11,353 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:51:11,354 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:53:12,845 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 5224 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 18:53:12,851 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 18:53:12,851 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 18:53:28,991 com.sv.mc.MCApplication - Started MCApplication in 16.432 seconds (JVM running for 17.785)
+[INFO ] 2018-07-19 19:00:32,761 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 5224 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:00:32,762 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:00:32,762 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:00:45,162 com.sv.mc.MCApplication - Started MCApplication in 12.437 seconds (JVM running for 453.955)
+[INFO ] 2018-07-19 19:01:06,698 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 5224 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:01:06,698 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:01:06,699 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:01:18,273 com.sv.mc.MCApplication - Started MCApplication in 11.611 seconds (JVM running for 487.066)
+[INFO ] 2018-07-19 19:01:28,793 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 5224 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:01:28,793 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:01:28,793 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:01:40,615 com.sv.mc.MCApplication - Started MCApplication in 11.858 seconds (JVM running for 509.408)
+[INFO ] 2018-07-19 19:02:09,069 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 5224 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:02:09,069 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:02:09,069 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:02:21,531 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17888 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:02:21,535 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:02:21,536 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:02:37,429 com.sv.mc.MCApplication - Started MCApplication in 16.191 seconds (JVM running for 17.687)
+[INFO ] 2018-07-19 19:10:06,188 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17888 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:10:06,188 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:10:06,189 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:10:20,466 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17348 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:10:20,476 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:10:20,477 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:10:36,643 com.sv.mc.MCApplication - Started MCApplication in 16.568 seconds (JVM running for 18.235)
+[INFO ] 2018-07-19 19:26:14,596 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 18416 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:26:14,601 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:26:14,602 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:26:32,415 com.sv.mc.MCApplication - Started MCApplication in 18.158 seconds (JVM running for 19.95)
+[INFO ] 2018-07-19 19:29:08,857 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 18416 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:29:08,857 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:29:08,857 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:29:21,137 com.sv.mc.MCApplication - Started MCApplication in 12.345 seconds (JVM running for 188.671)
+[INFO ] 2018-07-19 19:32:32,110 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 18416 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:32:32,110 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:32:32,110 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:32:44,850 com.sv.mc.MCApplication - Started MCApplication in 12.792 seconds (JVM running for 392.385)
+[INFO ] 2018-07-19 19:32:58,376 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 18416 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:32:58,376 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:32:58,376 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:33:19,909 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 9372 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 19:33:19,915 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 19:33:19,915 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 19:33:39,332 com.sv.mc.MCApplication - Started MCApplication in 19.813 seconds (JVM running for 21.465)
+[INFO ] 2018-07-19 21:20:10,985 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 16024 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 21:20:10,994 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 21:20:10,995 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 21:41:34,821 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1352 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 21:41:34,828 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 21:41:34,829 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 21:42:30,510 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 19204 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 21:42:30,514 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 21:42:30,514 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 21:43:06,118 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15316 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 21:43:06,123 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 21:43:06,123 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 21:44:03,376 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 14372 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 21:44:03,380 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 21:44:03,381 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 21:44:19,395 com.sv.mc.MCApplication - Started MCApplication in 16.279 seconds (JVM running for 17.535)
+[INFO ] 2018-07-19 22:39:54,511 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17872 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:39:54,530 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:39:54,532 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:40:22,021 com.sv.mc.MCApplication - Started MCApplication in 28.14 seconds (JVM running for 37.93)
+[INFO ] 2018-07-19 22:45:32,646 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13660 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:45:32,659 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:45:32,660 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:45:43,204 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 14464 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:45:43,210 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:45:43,210 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:46:57,778 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17244 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:46:57,784 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:46:57,784 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:48:14,307 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 7076 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:48:14,311 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:48:14,312 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:48:49,406 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15748 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:48:49,410 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:48:49,410 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:49:07,476 com.sv.mc.MCApplication - Started MCApplication in 18.383 seconds (JVM running for 19.878)
+[INFO ] 2018-07-19 22:49:50,423 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 7440 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:49:50,427 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:49:50,427 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:50:08,252 com.sv.mc.MCApplication - Started MCApplication in 18.081 seconds (JVM running for 19.604)
+[INFO ] 2018-07-19 22:50:28,603 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 8696 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:50:28,608 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:50:28,608 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:50:46,371 com.sv.mc.MCApplication - Started MCApplication in 18.05 seconds (JVM running for 19.454)
+[INFO ] 2018-07-19 22:51:48,785 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17212 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 22:51:48,790 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 22:51:48,791 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 22:52:04,478 com.sv.mc.MCApplication - Started MCApplication in 15.955 seconds (JVM running for 17.348)
+[INFO ] 2018-07-19 23:14:08,250 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15444 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 23:14:08,254 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 23:14:08,255 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 23:14:23,828 com.sv.mc.MCApplication - Started MCApplication in 15.841 seconds (JVM running for 17.105)
+[INFO ] 2018-07-19 23:37:27,508 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 12500 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 23:37:27,512 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 23:37:27,512 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 23:37:43,060 com.sv.mc.MCApplication - Started MCApplication in 15.834 seconds (JVM running for 17.066)
+[INFO ] 2018-07-19 23:42:08,929 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13148 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-19 23:42:08,934 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-19 23:42:08,934 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-19 23:42:24,367 com.sv.mc.MCApplication - Started MCApplication in 15.696 seconds (JVM running for 17.216)
+>>>>>>> Stashed changes
+[INFO ] 2018-07-20 09:54:43,532 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 19400 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 09:54:43,536 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 09:54:43,537 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 09:55:02,771 com.sv.mc.MCApplication - Started MCApplication in 19.672 seconds (JVM running for 22.037)
+[INFO ] 2018-07-20 11:36:57,713 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 16196 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 11:36:57,718 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 11:36:57,718 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 11:37:16,146 com.sv.mc.MCApplication - Started MCApplication in 18.902 seconds (JVM running for 20.964)
+[INFO ] 2018-07-20 11:38:56,022 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 4092 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 11:38:56,027 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 11:38:56,028 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 11:39:17,774 com.sv.mc.MCApplication - Started MCApplication in 22.08 seconds (JVM running for 23.696)
+[INFO ] 2018-07-20 11:40:08,693 com.sv.mc.service.JMSConsumer - 接收到topic消息：50,48,48,48,48,48,48,56
+[INFO ] 2018-07-20 11:43:45,624 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 8440 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 11:43:45,628 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 11:43:45,628 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 11:44:23,139 com.sv.mc.MCApplication - Started MCApplication in 37.774 seconds (JVM running for 39.068)
+[ERROR] 2018-07-20 12:13:37,528 com.sv.mc.service.JMSConsumer - 接收到topic消息：50,48,48,48,48,48,48,56
+[ERROR] 2018-07-20 12:15:37,305 com.sv.mc.service.JMSConsumer - 接收到topic消息：50,48,48,48,48,48,48,56
+[INFO ] 2018-07-20 14:54:24,519 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11764 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 14:54:24,527 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 14:54:24,527 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 14:54:42,291 com.sv.mc.MCApplication - Started MCApplication in 18.164 seconds (JVM running for 19.674)
+[INFO ] 2018-07-20 15:24:20,038 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11352 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 15:24:20,042 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 15:24:20,042 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 15:24:37,337 com.sv.mc.MCApplication - Started MCApplication in 17.606 seconds (JVM running for 19.093)
+[INFO ] 2018-07-20 15:32:59,169 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1584 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 15:32:59,175 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 15:32:59,175 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 15:33:16,464 com.sv.mc.MCApplication - Started MCApplication in 17.563 seconds (JVM running for 18.942)
+[INFO ] 2018-07-20 17:33:30,843 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 11500 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 17:33:30,848 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 17:33:30,848 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 17:33:49,865 com.sv.mc.MCApplication - Started MCApplication in 19.346 seconds (JVM running for 20.749)
+[INFO ] 2018-07-20 18:40:16,967 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 7960 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 18:40:16,972 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 18:40:16,972 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 18:40:46,466 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 8144 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-20 18:40:46,472 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-20 18:40:46,472 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-20 18:41:04,019 com.sv.mc.MCApplication - Started MCApplication in 17.873 seconds (JVM running for 19.667)
+[INFO ] 2018-07-21 11:23:26,561 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 17472 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-21 11:23:26,565 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-21 11:23:26,566 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-21 11:23:49,816 com.sv.mc.MCApplication - Started MCApplication in 23.6 seconds (JVM running for 29.056)
+[INFO ] 2018-07-23 09:26:42,706 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 14488 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:26:42,711 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:26:42,711 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:27:06,625 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13272 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:27:06,628 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:27:06,629 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:29:26,511 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 476 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:29:26,517 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:29:26,517 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:29:44,968 com.sv.mc.MCApplication - Started MCApplication in 18.794 seconds (JVM running for 20.144)
+[INFO ] 2018-07-23 09:53:20,183 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15640 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:53:20,189 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:53:20,190 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:53:37,547 com.sv.mc.MCApplication - Started MCApplication in 17.634 seconds (JVM running for 19.146)
+[INFO ] 2018-07-23 09:54:26,458 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 13356 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:54:26,468 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:54:26,469 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:54:41,530 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 6804 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:54:41,535 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:54:41,535 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:54:58,765 com.sv.mc.MCApplication - Started MCApplication in 17.522 seconds (JVM running for 19.09)
+[INFO ] 2018-07-23 09:55:32,336 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1492 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 09:55:32,340 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 09:55:32,341 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 09:55:54,345 com.sv.mc.MCApplication - Started MCApplication in 22.343 seconds (JVM running for 23.903)
+[INFO ] 2018-07-23 10:18:13,074 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 2716 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 10:18:13,079 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 10:18:13,079 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 10:18:34,777 com.sv.mc.MCApplication - Started MCApplication in 21.994 seconds (JVM running for 23.517)
+[INFO ] 2018-07-23 10:29:46,032 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 1936 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
+[DEBUG] 2018-07-23 10:29:46,036 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
+[INFO ] 2018-07-23 10:29:46,037 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2018-07-23 10:30:09,087 com.sv.mc.MCApplication - Started MCApplication in 23.364 seconds (JVM running for 25.06)

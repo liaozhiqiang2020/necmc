@@ -164,8 +164,8 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/updatePaidOrderById")
     @ResponseBody
-    public void updatePaidOrderById(int orderId,int state) {
-       this.orderService.updateOrderById(orderId,state);
+    public void updatePaidOrderById(int orderId,int state,String description) {
+       this.orderService.updateOrderById(orderId,state,description);
     }
 
     /**

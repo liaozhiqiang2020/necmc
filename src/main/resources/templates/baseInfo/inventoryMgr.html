@@ -18,7 +18,6 @@
 
                 //初始化表格数据
                 function loadUserList() {
-                    kendo.culture("zh-CN");
 
                     var dataSource = new kendo.data.DataSource({
                         transport: {
@@ -60,10 +59,10 @@
                             }
                         },
                         serverPaging: false,    //设定服务器来实现分页功能
-                        serverFiltering: true,
-                        serverSorting: true,
+                        serverFiltering: false,
+                        serverSorting: false,
                         requestEnd: onRequestEnd,
-                        pageSize: 15,
+                        pageSize: 10,
                         schema: {
                             model: {
                                 id: "id",
@@ -91,7 +90,7 @@
                         height: 600,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
-                        // groupable: true,//表格标题
+                        groupable: true,//表格标题
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },

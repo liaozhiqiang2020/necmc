@@ -46,7 +46,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @author: lzq
      * @date: 2018年7月6日
      */
-    void updateOrderById(int orderId,int state);
+    void updateOrderById(int orderId,int state,String description);
 
     /**
      * 修改订单信息
