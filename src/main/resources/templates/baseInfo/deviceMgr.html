@@ -74,6 +74,7 @@
                                     longitude: {type: "number"},
                                     // mcStatus: {type: "int"},
                                     statusName:{type:"string"},
+                                    loraId:{type:"string"},
                                     note: {type: "string"},
                                     placeEntity:{defaultValue: { id: 1, name: ""}},
                                     deviceModelEntity:{defaultValue: { id: 1, name: ""}},
@@ -131,6 +132,10 @@
                             {
                                 field: "mcSn",
                                 title: "按摩椅编号"
+                            },
+                            {
+                                field: "loraId",
+                                title: "模块编号"
                             },
                             {
                                 field: "latitude",
