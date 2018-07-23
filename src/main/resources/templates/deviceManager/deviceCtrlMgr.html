@@ -153,19 +153,23 @@
                                             var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
-                                            console.log("开启设备");
-                                            $.ajax({
-                                                type:"post",
-                                                url:"./weixin/sendStartChairMsg",
-                                                data:{
-                                                    chairId:data.mcSn
-                                                },
-                                                success:function(res){
-                                                   alert("设备开启成功！");
-                                                    var grid = $("#grid").data("kendoGrid");
-                                                    grid.dataSource.read();
-                                                }
-                                            })
+                                            var mcStatus = data.mcStatus;
+                                            if(mcStatus=="运行中"){
+                                                alert("设备正在运行，请停止设备！");
+                                            }else{
+                                                $.ajax({
+                                                    type:"post",
+                                                    url:"./weixin/sendStartChairMsg",
+                                                    data:{
+                                                        chairId:data.mcSn
+                                                    },
+                                                    success:function(res){
+                                                        alert("设备开启成功！");
+                                                        var grid = $("#grid").data("kendoGrid");
+                                                        grid.dataSource.read();
+                                                    }
+                                                })
+                                            }
                                         }
                                     },
                                     {
@@ -175,19 +179,23 @@
                                             var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
-                                            console.log("停止设备");
-                                            $.ajax({
-                                                type:"post",
-                                                url:"./weixin/sendEndChairMsg",
-                                                data:{
-                                                    chairId:data.mcSn
-                                                },
-                                                success:function(res){
-                                                    alert("设备停止成功！");
-                                                    var grid = $("#grid").data("kendoGrid");
-                                                    grid.dataSource.read();
-                                                }
-                                            })
+                                            var mcStatus = data.mcStatus;
+                                            if(mcStatus=="空闲中"){
+                                                alert("设备空闲中，请开启设备！");
+                                            }else{
+                                                $.ajax({
+                                                    type:"post",
+                                                    url:"./weixin/sendStartChairMsg",
+                                                    data:{
+                                                        chairId:data.mcSn
+                                                    },
+                                                    success:function(res){
+                                                        alert("设备开启成功！");
+                                                        var grid = $("#grid").data("kendoGrid");
+                                                        grid.dataSource.read();
+                                                    }
+                                                })
+                                            }
                                         }
                                     }],
                                 title: "操作",
