@@ -75,6 +75,7 @@
                         //     virtual: true
                         // },
                         columnMenu: true,
+                        resizable: true,
                         pageable: {
                             // empty:"没有要显示的数据",
                             // //代表是否支持刷新
@@ -126,7 +127,8 @@
                                 field: "placeEntity",
                                 title: "所属场地",
                                 template:"#=placeEntity.name#",
-                                editor:placeEditor
+                                editor:placeEditor,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
                             },
                             {
                                 field: "deviceModelEntity",
