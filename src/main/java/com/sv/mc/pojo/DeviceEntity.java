@@ -14,14 +14,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_device", schema = "mc", catalog = "")
 public class DeviceEntity {
-    private int id;
+    private int id;//资产编码
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp maintainDateTime; //维修时间
     private BigDecimal latitude;//按摩椅纬度
     private BigDecimal longitude; //按摩椅经度
     private int mcStatus;//按摩椅状态(0可用,1使用中,2维修中)
-    private String mcSn;//按摩椅编号
+    private String mcSn;//按摩椅SN
+    private String loraId;//按摩椅模块编号
     private String note;//备注
     private Integer discardStatus;
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
@@ -54,7 +55,7 @@ public class DeviceEntity {
         this.priceEntities = priceEntities;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="mc_type")
     public DeviceModelEntity getDeviceModelEntity() {
         return deviceModelEntity;
@@ -64,7 +65,7 @@ public class DeviceEntity {
         this.deviceModelEntity = deviceModelEntity;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="supplier_id")
     public SupplierEntity getSupplierEntity() {
         return supplierEntity;
@@ -74,7 +75,7 @@ public class DeviceEntity {
         this.supplierEntity = supplierEntity;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="place_id")
     public PlaceEntity getPlaceEntity() {
         return placeEntity;
@@ -82,6 +83,16 @@ public class DeviceEntity {
 
     public void setPlaceEntity(PlaceEntity placeEntity) {
         this.placeEntity = placeEntity;
+    }
+
+    @Basic
+    @Column(name = "loraId")
+    public String getLoraId() {
+        return loraId;
+    }
+
+    public void setLoraId(String loraId) {
+        this.loraId = loraId;
     }
 
     @Basic
