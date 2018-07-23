@@ -22,6 +22,31 @@ public class AreaServiceImpl implements AreaService {
         return areaRepository.save(branch);
     }
 
+
+    /**
+     * 删除大区
+     * @param areaEntity
+     */
+
+
+    @Override
+    public void removeArea(AreaEntity areaEntity) {
+   areaEntity.setAreaState(0);
+        this.areaRepository.save(areaEntity);
+    }
+
+    /**
+     * 修改大区
+     * @param areaEntity
+     * @return
+     */
+    @Override
+    public AreaEntity updateArea(AreaEntity areaEntity) {
+       return this.areaRepository.save(areaEntity);
+    }
+
+
+
     /**
      * 查询所有大区域
      * @return List
@@ -31,6 +56,15 @@ public class AreaServiceImpl implements AreaService {
         return areaRepository.findAll();
     }
 
+
+    /**
+     * 增加区域
+     */
+    @Override
+    public AreaEntity createArea(AreaEntity areaEntity) {
+       areaEntity.setAreaState(1);
+        return this.areaRepository.save(areaEntity);
+    }
 
 
 }

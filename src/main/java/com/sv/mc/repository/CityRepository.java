@@ -28,4 +28,9 @@ public interface CityRepository extends BaseRepository<CityEntity, Long>, Paging
     @Query(value="select c.* from mc_city c,mc_province p where c.province_id=p.Id and p.Id=:provinceId",nativeQuery = true)
     List<CityEntity> findCityEntitiesByProvinceId(@Param("provinceId") int provinceId);
 
+
+
+
+
+
 }

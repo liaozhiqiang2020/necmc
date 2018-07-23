@@ -92,7 +92,8 @@ public class PriceEntity {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)// 指定多对一关系
+    @ManyToOne(fetch = FetchType.EAGER)// 指定多对一关系
+    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinColumn(name="mc_type")
     public DeviceModelEntity getDeviceModelEntity() {
         return deviceModelEntity;

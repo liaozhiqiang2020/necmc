@@ -1,6 +1,8 @@
 package com.sv.mc.pojo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,7 +15,18 @@ public class ProvinceEntity {
     private int id;
     private String name; //省名
     private int areaId; //大区id
+    private List<CityEntity> city=new ArrayList<>();//有多少个市区
 
+
+    public void setCity(List<CityEntity> city) {
+        this.city = city;
+    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "province_id")
+    public List<CityEntity> getCity() {
+
+        return city;
+    }
 
     @GeneratedValue
     @Id
@@ -48,8 +61,7 @@ public class ProvinceEntity {
 
 
 
-    @OneToMany
-    @JoinColumn(name = "type_id")
+
 
 
 
