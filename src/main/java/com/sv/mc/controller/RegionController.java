@@ -18,7 +18,6 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bussinessMgr")
 public class RegionController {
     @Autowired
     private RegionService regionService;
@@ -44,7 +43,7 @@ public class RegionController {
      *
      * @return
      */
-    @GetMapping(value = "/getRegion")
+    @GetMapping(value = "/bussinessMgr/getRegion")
     public @ResponseBody
     List<AreaEntity> getArea() {
         return regionService.getRegionOne();
@@ -56,7 +55,7 @@ public class RegionController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/getProvince")
+    @GetMapping(value = "/bussinessMgr/getProvince")
     public @ResponseBody
     List<ProvinceEntity> getProvince(@Param("id") int id) {
         return regionService.getRegionPrivince(id);
@@ -68,7 +67,7 @@ public class RegionController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/getCity")
+    @GetMapping(value = "/bussinessMgr/getCity")
     public @ResponseBody
     List<CityEntity> getCity(@Param("id") int id) {
         return regionService.getRegionityCity(id);
@@ -80,7 +79,7 @@ public class RegionController {
      * @param area
      * @return
      */
-    @PostMapping(value = "/updateArea")
+    @PostMapping(value = "/bussinessMgr/updateArea")
     public @ResponseBody
     AreaEntity getArea(@RequestBody AreaEntity area) {
         return this.areaService.updateArea(area);
@@ -89,7 +88,7 @@ public class RegionController {
     /**
      * 增加大区
      */
-    @PostMapping(value = "/createArea")
+    @PostMapping(value = "/bussinessMgr/createArea")
     public @ResponseBody
     AreaEntity createArea(@RequestBody AreaEntity area) {
         return this.areaService.createArea(area);
@@ -99,7 +98,7 @@ public class RegionController {
     /**
      * 删除大区
      */
-    @PostMapping(value = "/deleteArea")
+    @PostMapping(value = "/bussinessMgr/deleteArea")
     public @ResponseBody
     void Area(@RequestBody AreaEntity area) {
         this.areaService.removeArea(area);
@@ -110,7 +109,7 @@ public class RegionController {
  * 显示所有省
  */
 
-  @GetMapping("/allProvince")
+  @GetMapping("/bussinessMgr/allProvince")
  public @ResponseBody
     List<ProvinceEntity> fillProvince(){
       return this.provinceService.selectProvince();
@@ -120,7 +119,7 @@ public class RegionController {
      * 删除省
      * @param provinceEntity
      */
-    @PostMapping("/removeProvince")
+    @PostMapping("/bussinessMgr/removeProvince")
    public  @ResponseBody void  removeProvince(@RequestBody ProvinceEntity provinceEntity){
     this.provinceService.removeProvince(provinceEntity);
    }
@@ -130,7 +129,7 @@ public class RegionController {
      * @param provinceEntity
      * @return
      */
-    @PostMapping("/createProvince")
+    @PostMapping("/bussinessMgr/createProvince")
     public  @ResponseBody ProvinceEntity  createProvince(@RequestBody ProvinceEntity provinceEntity){
       return  this.provinceService.createProvince(provinceEntity);
     }

@@ -34,25 +34,24 @@
 
                 //初始化表格数据
                 function loadUserList() {
-                    kendo.culture("zh-CN");
 
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./getRegion"
+                                url: "./bussinessMgr/getRegion"
                             },
                             create: {
-                                url: "./createArea",
+                                url: "./bussinessMgr/createArea",
                                 contentType:"application/json;charset=UTF-8",
                                 type: "post"
                             },
                             destroy: {
-                                url: "./deleteArea",
+                                url: "./bussinessMgr/deleteArea",
                                 contentType:"application/json;charset=UTF-8",
                                 type: "post"
                             },
                             update: {
-                                url:  "./updateArea",
+                                url:  "./bussinessMgr/updateArea",
                                 contentType:"application/json;charset=UTF-8",
                                 type: "post"
                             },
@@ -74,8 +73,8 @@
                         },
                         pageSize :10,
                         serverPaging: false,
-                        serverSorting: true,
-                        serverFiltering: true,
+                        serverSorting: false,
+                        serverFiltering: false,
                         requestEnd: onRequestEnd,
 
                         schema: {
@@ -102,6 +101,7 @@
                         height: 600,
                         sortable: true,
                         pageable: true,
+                        groupable:true,
                         //detailTemplate: kendo.template($("#template").html()),
                         detailInit: detailInit,
                         toolbar: [{name: "create", text: "新增"}],
@@ -151,15 +151,15 @@
                         dataSource: {
                             type: "json",
                             transport: {
-                                read: "./getProvince?id="+id,
+                                read: "./bussinessMgr/getProvince?id="+id,
                                 create: {
-                                    url: "./createProvince",
+                                    url: "./bussinessMgr/createProvince",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"
                                 },
                                 destroy: {
-                                    url: "./removeProvince",
+                                    url: "./bussinessMgr/removeProvince",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"
@@ -184,6 +184,7 @@
                             serverPaging: false,
                             serverSorting: true,
                             serverFiltering: true,
+                            requestEnd: onRequestEnd,
                             pageSize: 10,
                             schema: {
                                 model: {
@@ -233,10 +234,10 @@
                         schema: {
                             model: {
                                 id: "id",
-                                parentId:"parentId",
+                                // parentId:"parentId",
                                 fields: {
-                                    id: {type: "number", editable: false},
-                                    parentId:{type: "number",nullable: true}
+                                    id: {type: "number", editable: false}
+                                    // parentId:{type: "number",nullable: true}
                                 },
 
                             },
@@ -271,7 +272,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./allProvince",
+                                    url: "./bussinessMgr/allProvince",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -306,7 +307,7 @@
                         dataSource: {
                             type: "json",
                             transport: {
-                                read: "./getCity?id="+id,
+                                read: "./bussinessMgr/getCity?id="+id,
                                 create: {
                                     url: "./bussinessMgr/createBusiness2",
                                     dataType: "json",
@@ -334,6 +335,7 @@
                             serverPaging: false,
                             serverSorting: true,
                             serverFiltering: true,
+                            requestEnd: onRequestEnd,
                             pageSize: 10,
                             schema: {
                                 model: {
