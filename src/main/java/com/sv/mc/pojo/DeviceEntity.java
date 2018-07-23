@@ -40,7 +40,7 @@ public class DeviceEntity {
         this.id = id;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
     @JoinTable(name = "mc_price_device",                       //指定第三张表
             joinColumns = {@JoinColumn(name = "device_id")},             //本表与中间表的外键对应

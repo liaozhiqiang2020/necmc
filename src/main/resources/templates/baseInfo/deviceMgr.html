@@ -72,7 +72,8 @@
                                     // maintainDateTime: {type: "timestamp"},
                                     latitude: {type: "number"},
                                     longitude: {type: "number"},
-                                    mcStatus: {type: "int"},
+                                    // mcStatus: {type: "int"},
+                                    statusName:{type:"string"},
                                     note: {type: "string"},
                                     placeEntity:{defaultValue: { id: 1, name: ""}},
                                     deviceModelEntity:{defaultValue: { id: 1, name: ""}},
@@ -80,6 +81,8 @@
                                 }
                             },
                             data: function (response) {
+                                // var list = JSON.parse(response);
+                                // return list;
                                 return response;
                             }
                         }
@@ -129,12 +132,6 @@
                                 field: "mcSn",
                                 title: "按摩椅编号"
                             },
-                            // {
-                            //     field: "maintainDateTime",
-                            //     title: "上次维修时间",
-                            //     format: "{0:yyyy-MM-dd HH:mm}",
-                            //     editor: changeDate
-                            // },
                             {
                                 field: "latitude",
                                 title: "按摩椅所在纬度",
@@ -145,14 +142,12 @@
                                 title: "按摩椅所在经度",
                                 format: "{0:n4}"
                             },
-                            {
-                                field: "mcStatus",
-                                title: "按摩椅状态"
-                            },
-                            {
-                                field: "note",
-                                title: "备注信息"
-                            },
+                            // {
+                            //     field: "mcStatus",
+                            //     title: "按摩椅状态",
+                            //     template:"#=statusName#",
+                            //     editor:statusEditor
+                            // },
                             {
                                 field: "placeEntity",
                                 title: "所属场地",
@@ -170,6 +165,10 @@
                                 title: "供应商",
                                 template:"#=supplierEntity.supplierName#",
                                 editor:supplierEditor
+                            },
+                            {
+                                field: "note",
+                                title: "备注信息"
                             },
                             {
                                 command: [
@@ -224,6 +223,36 @@
                         }
                     }
                 }
+
+
+                function statusEditor(container, options){
+                    var placeId = options.model.mcStatus;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value:placeId,
+                        dataSource: [
+                            {
+                                "id":0,
+                                "name":"正常"
+                            },{
+                                "id":1,
+                                "name":"维修中"
+                            },{
+                                "id":2,
+                                "name":"停用"
+                            }
+                        ]
+                    });
+                }
+
+
+
 
                 function placeEditor(container, options){
                     var placeId = options.model.placeEntity.id;
