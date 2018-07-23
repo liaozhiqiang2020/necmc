@@ -120,4 +120,16 @@ public class DeviceServiceImpl implements DeviceService {
         public List<DeviceEntity> findAllDevice() {
                 return this.deviceRepository.findAllDevice();
         }
+
+
+        /**
+         * 根据椅子sn修改椅子运行状态
+         */
+        @Override
+        public void findChairRuningStatus(String deviceCode,int mcStatus) {
+                int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
+                DeviceEntity deviceEntity = this.findDeviceById(deviceId);
+                deviceEntity.setMcStatus(mcStatus);
+                this.deviceRepository.save(deviceEntity);
+        }
 }

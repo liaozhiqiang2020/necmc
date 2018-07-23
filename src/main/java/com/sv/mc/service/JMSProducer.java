@@ -12,7 +12,7 @@ public class JMSProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    private static final String QUEUE_NAME = "myTopic";
+    private static final String QUEUE_NAME = "myTopic";//发命令的topic
 
 //    public void sendMessage(Destination destination, String message) {
 //        this.jmsTemplate.convertAndSend(destination,message);

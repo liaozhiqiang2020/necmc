@@ -2,10 +2,7 @@ package com.sv.mc.controller;
 
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
-import com.sv.mc.service.JMSProducer;
-import com.sv.mc.service.OrderService;
-import com.sv.mc.service.PriceService;
-import com.sv.mc.service.WeiXinPayService;
+import com.sv.mc.service.*;
 import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.vo.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +35,8 @@ public class WeixinController extends WeixinSupport {
     private WeiXinPayService weiXinPayService;
     @Autowired
     private PriceService priceService;
+    @Autowired
+    private DeviceService deviceService;
 
     @Resource
     private JMSProducer jmsProducer;
@@ -226,6 +225,7 @@ public class WeixinController extends WeixinSupport {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
         jmsProducer.sendMessage("faaf0f09"+chairCode+"3c0000");//按摩椅20000002，60min
+        deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
     }
 
     /**
@@ -237,6 +237,7 @@ public class WeixinController extends WeixinSupport {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
         jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002
+        deviceService.findChairRuningStatus(chairId,1);//如果设备停止成功，修改椅子状态为空闲中
     }
 
 

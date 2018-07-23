@@ -84,6 +84,18 @@ public class DeviceController {
     }
 
     /**
+     * 跳转到设备控制页面
+     * @return
+     * @auther liaozhiqiang
+     * @date 2018/7/11
+     */
+    @GetMapping(value="/turnToDeviceCtrl")
+    public ModelAndView turnToDeviceCtrl(){
+        return new ModelAndView("./deviceManager/deviceCtrlMgr");
+    }
+
+
+    /**
      * 跳转到设备场地绑定页面
      * @return
      * @auther liaozhiqiang

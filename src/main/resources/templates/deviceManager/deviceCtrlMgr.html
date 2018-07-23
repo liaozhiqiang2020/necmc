@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::header-css">
+    <title>设备控制</title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div th:replace="fragments/header::header-body"/>
+
+<div class="content-wrapper">
+    <section th:replace="fragments/sitemap"/>
+    <div class="container-fluid">
+
+        <div class="container-fluid">
+            <div id="grid"></div>
+            <script>
+                /*<![CDATA[*/
+                $(function () {loadUserList();});
+
+                //初始化表格数据
+                function loadUserList() {
+
+                    var dataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: "./deviceMgr/getAllDevice"
+                            }
+                        },
+                        serverPaging: false,    //设定服务器来实现分页功能
+                        serverFiltering: false,
+                        serverSorting: false,
+                        requestEnd: onRequestEnd,
+                        pageSize: 10,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    mcSn: {type: "string"},
+                                    // maintainDateTime: {type: "timestamp"},
+                                    latitude: {type: "number"},
+                                    longitude: {type: "number"},
+                                    mcStatus: {type: "int"},
+                                    statusName:{type:"string"},
+                                    note: {type: "string"},
+                                    placeEntity:{defaultValue: { id: 1, name: ""}},
+                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                                    supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                                }
+                            },
+                            data: function (response) {
+                                var list = response;
+                                for(var i=0;i<list.length;i++){
+                                    var content2 = list[i];
+                                    var flag = content2.mcStatus;
+                                    // console.log(flag);
+                                    if(flag==0){
+                                        content2.mcStatus="运行中";
+                                    }else if(flag==1){
+                                        content2.mcStatus="空闲中";
+                                    }
+                                }
+                                return response;
+                            }
+                        }
+                    });
+
+                    //dataSource是必填属性
+                    $("#grid").kendoGrid({
+                        dataSource: dataSource,
+                        height: 600,
+                        sortable: true, //表示是否支持排序， boolean型
+                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                        groupable: true,//表格标题
+                        // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
+                        //     virtual: true
+                        // },
+                        columnMenu: true,
+                        pageable: {
+                            // empty:"没有要显示的数据",
+                            // //代表是否支持刷新
+                            // refresh: true,
+                            // //表示每页显示的记录数，默认为5,10,20
+                            pageSizes: true,
+                            // //表示显示的页数，5表示1,2,3,4,5
+                            buttonCount: 5,
+                            totalPages: true,
+                            // input: true,//表示是否可以输入数字
+                            refresh: true,
+                            pageSize: 5,
+                            pageSizes: [5, 10, 15, 20],
+                            numeric: true,
+                            input: true,
+                            messages: {
+                                display: "显示 {0}-{1} 条，共 {2} 条",
+                                empty: "没有数据",
+                                itemsPerPage: "每页显示数量",
+                                first: "第一页",
+                                last: "最后一页",
+                                next: "下一页",
+                                previous: "上一页",
+                                page: "页",
+                                of: "共 {0}页"
+                            }
+                        },
+                        columns: [
+                            {
+                                field: "mcSn",
+                                title: "按摩椅编号"
+                            },
+                            {
+                                field: "latitude",
+                                title: "按摩椅所在纬度",
+                                format: "{0:n4}"
+                            },
+                            {
+                                field: "longitude",
+                                title: "按摩椅所在经度",
+                                format: "{0:n4}"
+                            },
+                            {
+                                field: "mcStatus",
+                                title: "按摩椅状态",
+                                editor:statusEditor
+                            },
+                            {
+                                field: "placeEntity",
+                                title: "所属场地",
+                                template:"#=placeEntity.name#",
+                                editor:placeEditor
+                            },
+                            {
+                                field: "deviceModelEntity",
+                                title: "所属型号",
+                                template:"#=deviceModelEntity.name#",
+                                editor:deviceEditor
+                            },
+                            {
+                                field: "supplierEntity",
+                                title: "供应商",
+                                template:"#=supplierEntity.supplierName#",
+                                editor:supplierEditor
+                            },
+                            {
+                                field: "note",
+                                title: "备注信息"
+                            },
+                            {
+                                command: [
+                                    {
+                                        text:"开启设备",//名称
+                                        click:function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+                                            console.log("开启设备");
+                                            $.ajax({
+                                                type:"post",
+                                                url:"./weixin/sendStartChairMsg",
+                                                data:{
+                                                    chairId:data.mcSn
+                                                },
+                                                success:function(res){
+                                                   alert("设备开启成功！");
+                                                    var grid = $("#grid").data("kendoGrid");
+                                                    grid.dataSource.read();
+                                                }
+                                            })
+                                        }
+                                    },
+                                    {
+                                        text:"停止设备",//名称
+                                        click:function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+                                            console.log("停止设备");
+                                            $.ajax({
+                                                type:"post",
+                                                url:"./weixin/sendEndChairMsg",
+                                                data:{
+                                                    chairId:data.mcSn
+                                                },
+                                                success:function(res){
+                                                    alert("设备停止成功！");
+                                                    var grid = $("#grid").data("kendoGrid");
+                                                    grid.dataSource.read();
+                                                }
+                                            })
+                                        }
+                                    }],
+                                title: "操作",
+                                width: "250px"
+                            }
+                        ],
+                        editable: {
+                            mode: "popup",
+                            window: {
+                                title: "设备管理"
+                            }
+                        }
+                    });
+                }
+
+                function changeDate(container, options) {
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoDateTimePicker({
+                        format: "{0:yyyy-MM-dd HH:mm}"
+                    });
+                }
+
+                //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
+                function onRequestEnd(e) {
+                    if (e.type == "create") {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+                    else if (e.type == "update") {
+                        e.sender.read();
+                    }
+                    else if (e.type == "destroy") {
+                        e.sender.read();
+                    }
+
+                    //更新成功后弹出提示信息
+                    var response = e.response;
+                    if (response) {
+                        var type = e.type;
+                        if (type != 'read') {
+                            var status = response.status;
+                            if (status == 200) {this.read();}
+                            else {
+                                // alert(response.msg);
+                            }
+                        }
+                    }
+                }
+
+
+                function statusEditor(container, options){
+                    var placeId = options.model.mcStatus;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value:placeId,
+                        dataSource: [
+                            {
+                                "id":0,
+                                "name":"正常"
+                            },{
+                                "id":1,
+                                "name":"维修中"
+                            },{
+                                "id":2,
+                                "name":"停用"
+                            }
+                        ]
+                    });
+                }
+
+
+
+
+                function placeEditor(container, options){
+                    var placeId = options.model.placeEntity.id;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: placeId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./placeMgr/allPlace",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+                function deviceEditor(container, options){
+                    var deviceId = options.model.deviceModelEntity.id;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: deviceId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./deviceModel/all",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+                function supplierEditor(container, options){
+                    var deviceId = options.model.supplierEntity.id;
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "supplierName",
+                        dataValueField: "id",
+                        value: deviceId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./supplierMgr/allSupplier",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+                /*]]>*/
+            </script>
+
+            <!--<script type="text/x-kendo-template" id="reviseDate_template">-->
+            <!--#= kendo.toString(reviseDate, "yyyy-MM-dd") #-->
+            <!--</script>-->
+        </div>
+
+    </div>
+</div>
+<!-- /.container -->
+
+<footer th:replace="fragments/footer::footer"/>
+
+<aside th:replace="fragments/menu"/>
+</body>
+</html>

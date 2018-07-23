@@ -62,4 +62,10 @@ public interface DeviceService<T> extends BaseService<T>{
       * 根据id修改状态
       */
     void deleteDevice(int deviceId);
+
+
+    /**
+     * 根据椅子sn修改椅子运行状态
+     */
+    void findChairRuningStatus(String deviceCode,int mcStatus);
 }
