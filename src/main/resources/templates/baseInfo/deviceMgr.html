@@ -132,21 +132,25 @@
                         columns: [
                             {
                                 field: "mcSn",
-                                title: "按摩椅编号"
+                                title: "按摩椅编号",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "loraId",
-                                title: "模块编号"
+                                title: "模块编号",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "latitude",
                                 title: "按摩椅所在纬度",
-                                format: "{0:n4}"
+                                format: "{0:n4}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "longitude",
                                 title: "按摩椅所在经度",
-                                format: "{0:n4}"
+                                format: "{0:n4}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             // {
                             //     field: "mcStatus",
@@ -158,23 +162,27 @@
                                 field: "placeEntity",
                                 title: "所属场地",
                                 template:"#=placeEntity.name#",
-                                editor:placeEditor
+                                editor:placeEditor,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "deviceModelEntity",
                                 title: "所属型号",
                                 template:"#=deviceModelEntity.name#",
-                                editor:deviceEditor
+                                editor:deviceEditor,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "supplierEntity",
                                 title: "供应商",
                                 template:"#=supplierEntity.supplierName#",
-                                editor:supplierEditor
+                                editor:supplierEditor,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "note",
-                                title: "备注信息"
+                                title: "备注信息",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 command: [
@@ -195,6 +203,29 @@
                         }
                     });
                 }
+
+                //add tooltip
+                $("#grid").kendoTooltip({
+                    show: function(e){
+                        if($.trim(this.content.text()) !=""){
+                            $('[role="tooltip"]').css("visibility", "visible");
+                        }
+                    },
+                    hide: function(){
+                        $('[role="tooltip"]').css("visibility", "hidden");
+                    },
+                    filter: "td:nth-child(n+3)",
+                    content: function(e){
+                        var element = e.target[0];
+                        if(element.offsetWidth < element.scrollWidth){
+                            var text = $(e.target).text();
+                            return '<div style="min-width:100px;max-width: 1000px;">' + text + '</div>';
+                        }else{
+                            $('[role="tooltip"]').css("visibility", "hidden");//解决鼠标一开始放在上面出现空模块
+                            return "";
+                        }
+                    }
+                }).data("kendoTooltip");
 
                 function changeDate(container, options) {
                     var input = $('<input name="' + options.field + '"/>');
@@ -337,6 +368,23 @@
 
                 /*]]>*/
             </script>
+
+            <!--设置tooltip的样式-->
+            <style>
+                div[role=tooltip].k-tooltip{
+                    padding: 2px;
+                    background: #5c9acf;
+                }
+                .k-tooltip-content{
+                    padding: 4px;
+                    text-align: left;
+                    background: #fff;
+                    color: #666;
+                }
+                .k-callout {
+                    border-bottom-color: #5c9acf;
+                }
+            </style>
 
             <!--<script type="text/x-kendo-template" id="reviseDate_template">-->
             <!--#= kendo.toString(reviseDate, "yyyy-MM-dd") #-->

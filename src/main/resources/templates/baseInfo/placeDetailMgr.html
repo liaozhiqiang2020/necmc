@@ -136,64 +136,78 @@
                     columns: [
                         {
                             field: "name",
-                            title: "场地名称"
+                            title: "场地名称",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "placeSn",
-                            title: "场地编码"
+                            title: "场地编码",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "placeAddress",
-                            title: "地址"
+                            title: "地址",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "principal",
-                            title: "场地负责人"
+                            title: "场地负责人",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "latitude",
                             title: "纬度",
-                            format: "{0:n4}"
+                            format: "{0:n4}",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "longitude",
                             title: "经度",
-                            format: "{0:n4}"
+                            format: "{0:n4}",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "startDateTime",
                             title: "协议开始时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
+                            editor: changeDate,
+                            //列数据过长时，不换行，简略为 " ... "
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "endDateTime",
                             title: "协议结束时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
+                            editor: changeDate,
+                            //列数据过长时，不换行，简略为 " ... "
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },{
                             field: "levelFlag",
                             title: "隶属单位",
                             template:"#=levelFlagName#",
-                            editor:chooseBranchOrHead
+                            editor:chooseBranchOrHead,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "superiorId",
                             title: "隶属单位名称",
                             template:"#=superiorName#",
-                            editor:roleListDropDownEditor
+                            editor:roleListDropDownEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "businessEntity",
                             title: "行业分类名称",
                             template:"#=businessEntity.name#",
-                            editor:businessEditor
+                            editor:businessEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "cityEntity",
                             title: "城市名称",
                             template:"#=cityEntity.name#",
-                            editor:cityEditor
+                            editor:cityEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             command: ["edit","destroy"],
@@ -209,6 +223,30 @@
                     }
                 });
             });
+
+
+            //add tooltip
+            $("#grid").kendoTooltip({
+                show: function(e){
+                    if($.trim(this.content.text()) !=""){
+                        $('[role="tooltip"]').css("visibility", "visible");
+                    }
+                },
+                hide: function(){
+                    $('[role="tooltip"]').css("visibility", "hidden");
+                },
+                filter: "td:nth-child(n+3)",
+                content: function(e){
+                    var element = e.target[0];
+                    if(element.offsetWidth < element.scrollWidth){
+                        var text = $(e.target).text();
+                        return '<div style="min-width:100px;max-width: 1000px;">' + text + '</div>';
+                    }else{
+                        $('[role="tooltip"]').css("visibility", "hidden");//解决鼠标一开始放在上面出现空模块
+                        return "";
+                    }
+                }
+            }).data("kendoTooltip");
 
             function detailInit(e) {
                 var detailRow = e.detailRow;
@@ -550,6 +588,22 @@
                 text-align: right;
                 font-style:normal;
                 font-weight:bold;
+            }
+        </style>
+        <!--设置tooltip的样式-->
+        <style>
+            div[role=tooltip].k-tooltip{
+                padding: 2px;
+                background: #5c9acf;
+            }
+            .k-tooltip-content{
+                padding: 4px;
+                text-align: left;
+                background: #fff;
+                color: #666;
+            }
+            .k-callout {
+                border-bottom-color: #5c9acf;
             }
         </style>
 
