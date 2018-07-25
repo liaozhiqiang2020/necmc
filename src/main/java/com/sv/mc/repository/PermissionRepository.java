@@ -15,7 +15,7 @@ public interface PermissionRepository extends BaseRepository<PermissionEntity, L
     PermissionEntity findByPermissionName(@Param("permission") String permissionName);
 
     @Query("from PermissionEntity as p where p.id = :pId")
-    PermissionEntity findByPermissionName(@Param("pId") int pId);
+    PermissionEntity findByPermissionId(@Param("pId") int pId);
 
     @Query("select p from PermissionEntity as p,UserEntity as u,RoleEntity as r where u.id = :uId")
     List<PermissionEntity> findPermissionByUser(@Param("uId") int userId);

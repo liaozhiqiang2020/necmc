@@ -1,8 +1,11 @@
 package com.sv.mc.service;
 
+import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.pojo.UserEntity;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author 魏帅志
@@ -51,4 +54,34 @@ public interface UserService<T>  {
      * @return 查询结果
      */
     UserEntity findUserById(int userId);
+
+    /**
+     * 根据用户id查询其所拥有角色
+     * @param userId
+     * @return
+     */
+    Set<RoleEntity> findUserRole(int userId);
+
+    /**
+     * 删除用户所拥有的角色
+     * @param listMap
+     * @return
+     */
+    Set<RoleEntity> deleteUserRole(Map<String,Object> listMap);
+
+
+    /**
+     *用户添加角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    Set<RoleEntity> addUserRole(int userId,int roleId);
+
+    /**
+     * 查询用户未绑定的角色
+     * @param userId
+     * @return
+     */
+    List<RoleEntity> userUnRole(int userId);
 }

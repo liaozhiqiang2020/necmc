@@ -1,5 +1,6 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -71,6 +74,42 @@ public class UserController {
         return this.userService.saveUser(userEntity);
     }
 
+    /**
+     * 根据用户查询其拥有角色
+     * @param userId
+     * @return
+     */
+    @GetMapping("/user/role")
+    public Set<RoleEntity> findUserRole (@RequestParam("userId") int userId){
+        return this.userService.findUserRole(userId);
+    }
+
+    /**
+     * 为用户解绑角色
+     * @param listMap
+     * @return
+     */
+    @PostMapping("/user/deleteRole")
+    public Set<RoleEntity> deleteUserRole(@RequestBody Map<String,Object> listMap){
+        return this.userService.deleteUserRole(listMap);
+    }
+
+    /**
+     * 为用户绑定角色
+     * @param listMap
+     * @return
+     */
+    @PostMapping("/user/userAddRole")
+    public Set<RoleEntity> userAddRole(@RequestBody Map<String,Object> listMap){
+        Object userId = listMap.get("userId");
+        Object roleId = listMap.get("roleId");
+        return this.userService.addUserRole((int)userId,(int)roleId);
+    }
+
+    @GetMapping("/user/userUnRole")
+    public List<RoleEntity> findUserUnRole(@RequestParam("userId") int userId){
+        return this.userService.userUnRole(userId);
+    }
     /**
      * 跳转到userManagement页面
      * @return

@@ -46,6 +46,6 @@ public class PermissionServiceImpl implements PermissionService{
     @Override
     @Transactional
     public PermissionEntity findPermissionById(int permissionId) {
-        return this.permissionRepository.findByPermissionName(permissionId);
+        return this.permissionRepository.findByPermissionId(permissionId);
     }
 }

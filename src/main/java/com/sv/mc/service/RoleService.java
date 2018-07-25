@@ -1,8 +1,10 @@
 package com.sv.mc.service;
 
+import com.sv.mc.pojo.PermissionEntity;
 import com.sv.mc.pojo.RoleEntity;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RoleService<T>{
 //    void save(sysRoleEntity sysRoleEntity) throws UserRolePermissionDuplicatedBindingException;
@@ -46,6 +48,34 @@ public interface RoleService<T>{
      */
     RoleEntity findRoleById(int roleId);
 
+ /**
+  * 查询当前角色所拥有权限
+  * @param roleId
+  * @return
+  */
+ Set<PermissionEntity> findRolePermission(int roleId);
 
+ /**
+  * 查询角色未拥有的权限
+  * @param roleId
+  * @return
+  */
+ List<PermissionEntity> findRoleUnPermission(int roleId);
+
+ /**
+  * 角色删除权限
+  * @param roleId
+  * @param pId 权限id
+  * @return
+  */
+ Set<PermissionEntity> roleDeletePermission(int roleId,int pId);
+
+ /**
+  * 角色添加权限
+  * @param roleId
+  * @param pId 权限id
+  * @return
+  */
+ Set<PermissionEntity> roleAddPermission(int roleId,int pId);
 
 }
