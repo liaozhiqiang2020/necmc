@@ -40,6 +40,17 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     List<OrderEntity> findListByWxUserId(@Param("openId") String openId, @Param("state") int state);
 
     /**
+     * 根据用户编号查询用户已支付订单(分页查询)
+     * @param openId
+     * @param state
+     * @return List<OrderEntity>
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @Query(value = "select p.* from mc_order p,mc_wx_user_info u where p.wx_user_info_id=u.id and u.open_code=:openId and p.status=:state order by p.create_date_time DESC LIMIT :offset,:pageSize", nativeQuery = true)
+    List<OrderEntity> findListByWxUserIdByPage(@Param("openId") String openId, @Param("state") int state,@Param("offset") int offset,@Param("pageSize") int pageSize);
+
+    /**
      * 根据订单code查询订单id
      * @param paidOrderCode
      * @return OrderEntity
@@ -76,6 +87,14 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 //     */
 //    @Query("from OrderEntity as u where u.code =:openId")
 //    List<OrderEntity> getOrderListServing(@Param("openId")String openId);
+
+    /**
+     * 根据orderId获取按摩椅code
+     * @param orderId
+     * @return
+     */
+    @Query(value = "select d.mc_sn,o.strength from mc_order o,mc_device d where o.device_id = d.id and o.id=:orderId",nativeQuery = true)
+    List<Object[]> getMcCodeForList(@Param("orderId")int orderId);
 
     /**
      * 根据orderId获取按摩椅code

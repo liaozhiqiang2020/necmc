@@ -34,6 +34,7 @@ public class OrderEntity {
     private Integer promoCodeId;  //优惠码编号
     private Integer wxUserInfoId;  //微信用户编号
     private Integer mcTime;  //按摩时长
+    private Integer strength;//按摩强度
 
     @Id
     @GeneratedValue
@@ -184,6 +185,16 @@ public class OrderEntity {
 
     public void setMcTime(Integer mcTime) {
         this.mcTime = mcTime;
+    }
+
+    @Basic
+    @Column(name = "strength")
+    public Integer getStrength() {
+        return strength;
+    }
+
+    public void setStrength(Integer strength) {
+        this.strength = strength;
     }
 
     @Override
