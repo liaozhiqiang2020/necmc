@@ -224,13 +224,11 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendStartChairMsg")
     @ResponseBody
-    @JmsListener(destination = "youTopic",containerFactory = "jmsListenerContainerTopic")
     public void sendStartChairMsg(String chairId) throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
         jmsProducer.sendMessage("faaf0f09"+chairCode+"3c0000");//按摩椅20000002，60min
         deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
-
 
     }
 

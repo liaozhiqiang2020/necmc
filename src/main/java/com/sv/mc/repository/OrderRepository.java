@@ -93,7 +93,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @param pageSize
      * @return
      */
-    @Query(value="select * from mc_order as b LIMIT :offset,:pageSize",nativeQuery=true)
+    @Query(value="select * from mc_order as b order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
     List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**

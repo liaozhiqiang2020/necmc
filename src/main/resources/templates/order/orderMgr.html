@@ -103,36 +103,44 @@
                         columns: [
                             {
                                 field: "code",
-                                title: "订单编号"
+                                title: "订单编号",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {
                                 field: "codeWx",
-                                title: "微信订单号"
+                                title: "微信订单号",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },{
                                 field: "statusName",
-                                title: "订单状态"
+                                title: "订单状态",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {
                                 field: "createDateTime",
                                 title: "订单创建时间",
-                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "payDateTime",
                                 title: "订单支付时间",
-                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "money",
-                                title: "订单金额"
+                                title: "订单金额",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "mcStartDateTime",
                                 title: "开始按摩时间",
-                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "mcEndDateTime",
                                 title: "结束按摩时间",
-                                format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             // {
                             //     field: "mcStatus",
@@ -140,19 +148,46 @@
                             // },
                             {
                                 field: "deviceId",
-                                title: "设备资产编码"
+                                title: "设备资产编码",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "mcTime",
-                                title: "按摩时长"
+                                title: "按摩时长",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "description",
-                                title: "取消订单原因"
+                                title: "取消订单原因",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }
                         ]
                     });
                 }
+
+
+                //add tooltip
+                $("#grid").kendoTooltip({
+                    show: function(e){
+                        if($.trim(this.content.text()) !=""){
+                            $('[role="tooltip"]').css("visibility", "visible");
+                        }
+                    },
+                    hide: function(){
+                        $('[role="tooltip"]').css("visibility", "hidden");
+                    },
+                    filter: "td:nth-child(n+3)",
+                    content: function(e){
+                        var element = e.target[0];
+                        if(element.offsetWidth < element.scrollWidth){
+                            var text = $(e.target).text();
+                            return '<div style="min-width:100px;max-width: 1000px;">' + text + '</div>';
+                        }else{
+                            $('[role="tooltip"]').css("visibility", "hidden");//解决鼠标一开始放在上面出现空模块
+                            return "";
+                        }
+                    }
+                }).data("kendoTooltip");
 
 
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
@@ -186,6 +221,23 @@
 
                 /*]]>*/
             </script>
+
+            <!--设置tooltip的样式-->
+            <style>
+                div[role=tooltip].k-tooltip{
+                    padding: 2px;
+                    background: #5c9acf;
+                }
+                .k-tooltip-content{
+                    padding: 4px;
+                    text-align: left;
+                    background: #fff;
+                    color: #666;
+                }
+                .k-callout {
+                    border-bottom-color: #5c9acf;
+                }
+            </style>
         </div>
 
     </div>
