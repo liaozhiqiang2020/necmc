@@ -10,9 +10,36 @@
     <section th:replace="fragments/sitemap"/>
     <div class="container-fluid">
 
-        <div class="container-fluid">
+<div> <div id="window"></div>
+
+    <div class="responsive-message"></div>
+</div>
+
+
             <div id="grid"></div>
+            <!--<script id = "role" type="text/x-kendo-template">-->
+
+            <!--</script>-->
             <script>
+                // $(document).ready(function() {
+                //     var myWindow = $("#window"),
+                //     undo = $("#undo");
+                //
+                //     function onClose() {
+                //         undo.fadeIn();
+                //     }
+                //
+                //     $("#window").kendoWindow({
+                //         width: "615px",
+                //         title: "角色",
+                //         content: "./role/all",
+                //         close: onClose
+                //     });
+                //     $("#undo").click(function () {
+                //         // myWindow.data("kendoWindow").open();
+                //         // undo.fadeOut();
+                //         alert(123);
+                //     }) });
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
 
@@ -59,8 +86,8 @@
                             }
                         },
                         // serverPaging: true,    //设定服务器来实现分页功能
-                        serverFiltering: true,
-                        serverSorting: true,
+                        // serverFiltering: true,
+                        // serverSorting: true,
                         requestEnd: onRequestEnd,
                         pageSize: 5,
                         schema: {
@@ -77,7 +104,7 @@
                                     fixedPhoneNumber: { type: "string" },
                                     latestLoginDatetime : {type : "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     latestLoginIp : {type : "string",editable: false},
-                                    // roleEntities : {defaultValue: { id: 1, name: ""}}
+                                    roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },
                             // data: function (response) {
@@ -88,11 +115,12 @@
                             // }
                         }
                     });
-
                     //dataSource是必填属性
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         height: 600,
+                        scrollable: false,
+                        groupable: true,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                         // groupable: true,//表格标题
@@ -112,7 +140,7 @@
                             totalPages: true,
                             // input: true,//表示是否可以输入数字
                             refresh: true,
-                            pageSize: 5,
+                            pageSize: 10,
                             pageSizes: [5, 10, 15, 20],
                             numeric: true,
                             input: true,
@@ -129,22 +157,44 @@
                             }
                         },
                         columns: [
-                            // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
                             { field: "userName",title: "账号", width: 100,filterable: { multi: true, search: true} },
                             { field: "name", title: "姓名", width: 80, filterable: { multi: true,search: true } },
                             { field: "email", title: "邮箱", width: 80, filterable: { multi: true } },
-                            // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:"#=roleEntities.name#，" },
+                            // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:$("#role").html() },
                             { field: "authenticationString", title: "密码", width: 80, filterable: { multi: true } },
                             { field: "cellphoneNumber", title: "手机", width: 80, filterable: { multi: true } },
                             { field: "fixedPhoneNumber", title: "固话", width: 80, filterable: { multi: true } },
                             { field: "latestLoginIp", title: "上次登录ip", width: 80, filterable: { multi: true } },
-                            { field: "createDatetime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             { field: "latestLoginDatetime",title: "上次登录时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                            { field: "createDatetime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             {
                                 command: [
                                     {
                                         name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
                                     }, {
+                                        name :"roles",click:function (e) {
+                                            var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                                            var data = this.dataItem(tr);
+                                            var myWindow = $("#window"),
+                                                undo = $("#undo");
+
+                                            function onClose() {
+                                                undo.fadeIn();
+                                            }
+
+                                            myWindow.kendoWindow({
+                                                width: "615px",
+                                                title: "Rams's Ten Principles of Good Design",
+                                                content: "../content/web/window/ajax/ajaxContent.html",
+                                                close: onClose
+                                            });
+
+                                            undo.click(function () {
+                                                myWindow.data("kendoWindow").open();
+                                                undo.fadeOut();
+                                            });
+                                        }
+                                    },{
                                         name: "destroy", text: "删除"
                                     }],
                                 title: "操作",
@@ -158,16 +208,33 @@
                             }
                         },
 
-                        dataBound: function () {
-                            var rows = this.items();
-                            var page = this.pager.page() - 1;
-                            var pagesize = this.pager.pageSize();
-                            $(rows).each(function () {
-                                var index = $(this).index() + 1 + page * pagesize;
-                                var rowLabel = $(this).find(".row-number");
-                                $(rowLabel).html(index);
-                            });
-                        }
+
+                        // dataBound: function (dataSource) {
+                        //     // var rows = this.items();
+                        //     // var page = this.pager.page() - 1;
+                        //     // var pagesize = this.pager.pageSize();
+                        //     // $(rows).each(function () {
+                        //     //     var index = $(this).index() + 1 + page * pagesize;
+                        //     //     var rowLabel = $(this).find(".row-number");
+                        //     //     $(rowLabel).html(index);
+                        //     // });
+                        //
+                        //     $("#edit-1").kendoDropDownList({
+                        //         dataTextField: "roleName",
+                        //         dataValueField: "id",
+                        //         dataSource: {
+                        //             transport: {
+                        //                 read: {
+                        //                     dataType: "json",
+                        //                     url: "./role/all",
+                        //                 }
+                        //             }
+                        //         }
+                        //     });
+                        // }
+
+
+
                     });
 
                 }
@@ -200,6 +267,7 @@
                     }
                 }
 
+                $(".product-preview").html()
                 //编辑时boolean类型复选框样式修改
                 function customBoolEditor(container, options) {
                     var guid = kendo.guid();
@@ -230,7 +298,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./deviceModel/all",
+                                    url: "./role/all",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}

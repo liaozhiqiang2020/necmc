@@ -65,8 +65,10 @@
                             }
                         },
                         // serverPaging: true,    //设定服务器来实现分页功能
-                        serverFiltering: true,
-                        serverSorting: true,
+                        // serverFiltering: true,
+                        // serverSorting: true,
+                        filterable:true,
+                        scrollable: true,
                         requestEnd: onRequestEnd,
                         pageSize: 10,
                         schema: {
@@ -99,6 +101,7 @@
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         height: 600,
+                        groupable: true,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                         // groupable: true,//表格标题
@@ -138,9 +141,9 @@
                             { field: "priceName",title: "价格名称", width: 100,filterable: { multi: true, search: true} },
                             { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true } },
                             { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
-                            // { field: "user", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'>#=user.name#</span>",editor:roleListDropDownEditor },
+                            { field: "user", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'>#=user.name#</span>",editor:roleListDropDownEditor },
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                            { field: "startDateTime",title: "启用时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
+                            { field: "startDateTime",title: "生效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
                             { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },

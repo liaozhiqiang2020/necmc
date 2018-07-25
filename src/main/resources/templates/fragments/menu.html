@@ -6,16 +6,16 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img th:src="@{/img/adminlte/user2-160x160.jpg}" src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>Alexander Pierce</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
-        <!-- search form -->
+        <!--<div class="user-panel">-->
+            <!--&lt;!&ndash;<div class="pull-left image">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img th:src="@{/img/adminlte/user2-160x160.jpg}" src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div class="pull-left info">-->
+                <!--<p>Alexander Pierce</p>-->
+                <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; search form &ndash;&gt;-->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -30,7 +30,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">导航栏</li>
-            <li class="active treeview menu-open">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>用户管理</span>
                     <span class="pull-right-container">
@@ -40,7 +40,7 @@
                 <ul class="treeview-menu">
                     <li><a href="/mc/userManagement"><i class="fa fa-circle-o"></i> 用户信息管理</a></li>
                     <li><a href="/mc/roleManagement"><i class="fa fa-circle-o"></i> 角色管理</a></li>
-                    <li ><a href="/mc/user/permissionManagement"><i class="fa fa-circle-o"></i> 用户权限管理</a></li>
+                    <li ><a href="/mc/user/permissionManagement"><i class="fa fa-circle-o"></i> 权限管理</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -48,7 +48,7 @@
                     <i class="fa fa-files-o"></i>
                     <span>基础数据管理</span>
                     <span class="pull-right-container">
-              <span class="label label-primary pull-right">0</span>
+              <span class="label label-primary pull-right"></span>
             </span>
                 </a>
                 <ul class="treeview-menu">
@@ -76,8 +76,8 @@
                 <ul class="treeview-menu">
                     <li><a href="/mc/priceTest"><i class="fa fa-circle-o"></i> 价格管理</a></li>
                     <li><a href="/mc/priceTest1"><i class="fa fa-circle-o"></i> 价格绑定</a></li>
-                    <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> 价格查询统计</a></li>
-                    <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> 销售报表</a></li>
+                    <!--<li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> 价格查询统计</a></li>-->
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 销售报表</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -90,7 +90,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="./turnToOrderMgr"><i class="fa fa-circle-o"></i> 订单查询</a></li>
-                    <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> 异常管理</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 异常管理</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -101,7 +101,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> 设备列表</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 设备列表</a></li>
                     <li><a href="./turnToDeviceCtrl"><i class="fa fa-circle-o"></i> 控制设备</a></li>
                 </ul>
             </li>
@@ -113,12 +113,33 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> 操作日志</a></li>
-                    <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> 个人信息</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 操作日志</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 个人信息</a></li>
                 </ul>
             </li>
         </ul>
     </section>
     <!-- /.sidebar -->
 </aside>
+<script>
+    $('.sidebar-menu li:not(.treeview) > a').on('click', function(){
+        var $parent = $(this).parent().addClass('active');
+        $parent.siblings('.treeview.active').find('> a').trigger('click');
+        $parent.siblings().removeClass('active').find('li').removeClass('active');
+    });
+
+    $(window).on('load', function(){
+        $('.sidebar-menu a').each(function(){
+            // console.log(this);
+            var cur = window.location.href;
+            var url = this.href;
+            // console.log(cur.match(url));
+            if(cur.match(url)){
+                $(this).parent().addClass('active')
+                    .closest('.treeview-menu').addClass('.menu-open')
+                    .closest('.treeview').addClass('active');
+            }
+        });
+    });
+</script>
 </html>

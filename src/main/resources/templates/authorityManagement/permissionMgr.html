@@ -53,8 +53,8 @@
                             }
                         },
                         // serverPaging: true,    //设定服务器来实现分页功能
-                        serverFiltering: true,
-                        serverSorting: true,
+                        // serverFiltering: true,
+                        // serverSorting: true,
                         requestEnd: onRequestEnd,
                         pageSize: 5,
                         schema: {
@@ -80,6 +80,8 @@
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         height: 600,
+                        scrollable: false,
+                        groupable: true,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                         // groupable: true,//表格标题
@@ -99,7 +101,7 @@
                             totalPages: true,
                             // input: true,//表示是否可以输入数字
                             refresh: true,
-                            pageSize: 5,
+                            pageSize: 10,
                             pageSizes: [5, 10, 15, 20],
                             numeric: true,
                             input: true,

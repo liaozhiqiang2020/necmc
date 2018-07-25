@@ -195,11 +195,11 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<PriceEntity> deviceSavePrice(Map<String,Object> listMap) {
         Object deviceId = listMap.get("deviceId");
-        Object price = listMap.get("price");
+        Object priceId = listMap.get("price");
         DeviceEntity device = this.deviceRepository.findDeviceById((int)deviceId);
-        for (int priceId: (ArrayList<Integer>)price
-                ) {
-            PriceEntity price1 = findPriceById(priceId);
+//        for (int priceId: (ArrayList<Integer>)price
+//                ) {
+//            PriceEntity price1 = findPriceById(priceId);
 //            for (PriceEntity price2: device.getPriceEntities()
 //                 ) {
 //                if (price1.getUseTime() == price2.getUseTime()){
@@ -207,10 +207,17 @@ public class PriceServiceImpl implements PriceService {
 //                }
 //            }
 
-            device.getPriceEntities().add(price1);
+//            device.getPriceEntities().add(price1);
+//        }
+
+        PriceEntity price  = findPriceById((Integer) priceId);
+        for (PriceEntity price1: device.getPriceEntities()
+             ) {
+            if (price1.getUseTime() == price.getUseTime()){
+                device.getPriceEntities().remove(price1);
+            }
         }
-        List<PriceEntity> priceList = device.getPriceEntities();
-        List<PriceEntity> list = new ArrayList<PriceEntity>();
+        device.getPriceEntities().add(price);
 
         return device.getPriceEntities();
     }

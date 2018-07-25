@@ -49,6 +49,7 @@ throw new Error('AdminLTE requires jQuery')
     data: '[data-widget="box-refresh"]'
   };
 
+
   // BoxRefresh Class Definition
   // =========================
   var BoxRefresh = function (element, options) {

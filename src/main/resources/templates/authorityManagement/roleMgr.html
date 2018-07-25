@@ -85,13 +85,13 @@
                     //dataSource是必填属性
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
-                        height: 600,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                         // groupable: true,//表格标题
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
+                        height: 600,
                         toolbar: [{name: "create", text: "新增"}],
                         columnMenu: true,
                         pageable: {
@@ -99,7 +99,7 @@
                             // //代表是否支持刷新
                             // refresh: true,
                             // //表示每页显示的记录数，默认为5,10,20
-                            pageSizes: true,
+                            // pageSizes: true,
                             // //表示显示的页数，5表示1,2,3,4,5
                             buttonCount: 5,
                             totalPages: true,
