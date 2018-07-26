@@ -124,28 +124,24 @@
                             {
                                 field: "mcStatus",
                                 title: "按摩椅状态",
-                                editor:statusEditor,
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;#=mcStatus === '空闲中' ? 'color:lime;' : 'color:gold;'#"}
                             },
                             {
                                 field: "placeEntity",
                                 title: "所属场地",
                                 template:"#=placeEntity.name#",
-                                editor:placeEditor,
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "deviceModelEntity",
                                 title: "所属型号",
                                 template:"#=deviceModelEntity.name#",
-                                editor:deviceEditor,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "supplierEntity",
                                 title: "供应商",
                                 template:"#=supplierEntity.supplierName#",
-                                editor:supplierEditor,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
