@@ -1,5 +1,6 @@
 package com.sv.mc.auth;
 
+import com.sv.mc.filter.LoginSuccessHandler;
 import com.sv.mc.filter.MyFilterSecurityInterceptor;
 import com.sv.mc.service.impl.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,29 +28,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //解决静态资源被拦截的问题
+        web.ignoring().antMatchers("/somewhere/**");
+    }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception{
             http
+                    .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                     .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/css/**").permitAll()
-                    .antMatchers("/js/**").permitAll()
-                    .antMatchers("/img/**").permitAll()
-                    .antMatchers("/price/**").authenticated()
+//                    .antMatchers("/css/**").permitAll()
+//                    .antMatchers("/js/**").permitAll()
+//                    .antMatchers("/img/**").permitAll()
+//                    .antMatchers("/price/**").hasAuthority("ROLE_AD")
+//                    .antMatchers("/role/**").hasAuthority("总公司权限")
+//                    .antMatchers("/user/**").hasAuthority("一级管理")
                     .anyRequest().permitAll()
                     .and()
                     .formLogin()
                     .loginPage("/login")
+                    .successHandler(loginSuccessHandler())
                     .failureUrl("/login?error")
-                    .successForwardUrl("/index")
+                    .successForwardUrl("/home")
                     .permitAll()
                     .and()
                     .logout()
                     .logoutUrl("/user")
                     .logoutSuccessUrl("/user")
                     .permitAll();
-            http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+//            http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         }
 
         @Autowired
@@ -62,10 +72,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**").antMatchers("/fonts/**").antMatchers("/img/**").antMatchers("/js/**");
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
     }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/css/**").antMatchers("/fonts/**").antMatchers("/img/**").antMatchers("/js/**");
+//    }
 
 
 }

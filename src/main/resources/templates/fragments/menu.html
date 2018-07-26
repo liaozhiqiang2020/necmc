@@ -48,8 +48,7 @@
                     <i class="fa fa-files-o"></i>
                     <span>基础数据管理</span>
                     <span class="pull-right-container">
-              <!--<span class="label label-primary pull-right"></span>-->
-                        <i class="fa fa-angle-left pull-right"></i>
+              <span class="label label-primary pull-right"></span>
             </span>
                 </a>
                 <ul class="treeview-menu">
@@ -126,7 +125,7 @@
     $('.sidebar-menu li:not(.treeview) > a').on('click', function(){
         var $parent = $(this).parent().addClass('active');
         $parent.siblings('.treeview.active').find('> a').trigger('click');
-        $parent.siblings().removeClass('active').find('li');
+        $parent.siblings().removeClass('active').find('li').removeClass('active');
     });
 
     $(window).on('load', function(){
