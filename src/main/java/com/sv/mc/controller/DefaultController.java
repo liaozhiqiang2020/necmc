@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class DefaultController {
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public ModelAndView index() {
         return new ModelAndView("/home");
     }
