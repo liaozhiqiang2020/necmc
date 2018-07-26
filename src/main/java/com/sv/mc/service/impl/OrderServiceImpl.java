@@ -1,15 +1,12 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
-import com.sv.mc.pojo.BranchEntity;
-import com.sv.mc.pojo.OrderEntity;
-import com.sv.mc.pojo.WxUserInfoEntity;
+import com.sv.mc.pojo.*;
+import com.sv.mc.repository.AccountRepository;
 import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.repository.OrderRepository;
 import com.sv.mc.repository.WxUserInfoRepository;
-import com.sv.mc.service.DeviceService;
-import com.sv.mc.service.JMSProducer;
-import com.sv.mc.service.OrderService;
+import com.sv.mc.service.*;
 import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.DateJsonValueProcessor;
 import com.sv.mc.util.WxUtil;
@@ -25,7 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -45,6 +45,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     private DeviceRepository deviceRepository;
     @Resource
     private JMSProducer jmsProducer;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private AccountDetailService accountDetailService;
 
     /**
      * 分页查询所有订单(后台查询)
@@ -127,6 +131,20 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     @Transactional
     public List<OrderEntity> findListByWxUserOpenId(String openId, int state) {
         List<OrderEntity> orderEntityList = this.orderRepository.findListByWxUserId(openId,state);
+        return orderEntityList;
+    }
+
+    /**
+     * 分页查询当前用户订单列表
+     * @param openId
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @Override
+    @Transactional
+    public List<OrderEntity> findListByWxUserOpenIdByPage(String openId, int state,int offset,int pageSize) {
+        List<OrderEntity> orderEntityList = this.orderRepository.findListByWxUserIdByPage(openId,state,offset,pageSize);
         return orderEntityList;
     }
 
@@ -233,7 +251,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      */
     @Override
     @Transactional
-    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state) {
+    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state,int strength) {
         OrderEntity orderEntity = new OrderEntity();
         WxUtil wxUtil = new WxUtil();
         String paidOrderCode = wxUtil.createPaidOrderCode(openid, deviceCode); //生成订单号
@@ -264,6 +282,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setStatus(state);//使用状态(未支付)
         orderEntity.setMcTime(mcTime);//按摩时长
         orderEntity.setMoney(money);//金额
+        orderEntity.setStrength(strength);//按摩强度
         createPaidOrder(orderEntity);
 
         return findPaidOrderIdByOrderCode(paidOrderCode);
@@ -291,6 +310,35 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setStatus(state);//使用状态1  已支付，使用中
 
         this.orderRepository.save(orderEntity);//保存订单信息
+
+        if(state==1){//插入账单信息
+            AccountDetailEntity accountDetailEntity = new AccountDetailEntity();
+            int deviceId = orderEntity.getDeviceId();//按摩椅编号
+            DeviceEntity deviceEntity = this.deviceRepository.findDeviceById(deviceId);//设备信息
+//            int placeId = deviceEntity.getPlaceEntity().getId();//场地id
+//            int superiorId = deviceEntity.getPlaceEntity().getSuperiorId();//上级单位id
+//            int typeFlag = deviceEntity.getPlaceEntity().getLevelFlag();//上级单位
+//            BigDecimal bigDecimal = new BigDecimal(0);
+            BigDecimal money = orderEntity.getMoney();//收入
+            accountDetailEntity.setAccountId(1);
+            accountDetailEntity.setDetailCode("accountDetail_"+ts.toString());
+            accountDetailEntity.setDetailName("accountDetail_"+ts.toString());
+            accountDetailEntity.setCapital(money);
+            accountDetailEntity.setCapitalFlag(1);
+            accountDetailEntity.setDetailDateTime(ts);
+            this.accountDetailService.createAccountDetail(accountDetailEntity);
+
+//
+//            accountEntity.setPlaceId(placeId);
+//            accountEntity.setAccountStatus(1);
+//            accountEntity.setName("微信");
+//            accountEntity.setGeneralIncome(money);
+//            accountEntity.setTotalExpenditure(bigDecimal);
+//            accountEntity.setProfit(money);
+//            accountEntity.setSuperiorId(superiorId);
+//            accountEntity.setTypeFlag(typeFlag);
+//            this.accountService.createAccount(accountEntity);
+        }
 
 
         String devideCode = getMcCode(orderId);
@@ -358,6 +406,23 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
     /**
+     * 分页查询订单
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @Override
+    @Transactional
+    public String findPaidOrderListByPage(String openCode, int state,int pageNumber,int pageSize) {
+        int offset = ((pageNumber-1)*pageSize);
+        List<OrderEntity> orderEntityList = findListByWxUserOpenIdByPage(openCode,state,offset,pageSize);//用openCode查询所有status=1的已支付订单
+        JSONArray jsonArray = JSONArray.fromObject(orderEntityList);//把list转成JSONArray
+        String json = jsonArray.toString();//json字符串
+        return json;
+    }
+
+
+
+    /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
      * @author: lzq
      * @date: 2018年7月6日
@@ -372,6 +437,28 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
             this.orderRepository.save(orderEntity);
         }
     }
+
+    /**
+     * 根据orderId获取按摩椅code
+     * @param orderId
+     * @return
+     */
+    @Override
+    @Transactional
+    public Map<String,Object> getMcCodeForMap(int orderId) {
+        List<Object[]> list = this.orderRepository.getMcCodeForList(orderId);
+        Map<String,Object> map = new HashMap<>();
+        for (int i = 0; i <list.size() ; i++) {
+            Object[] object =list.get(i);
+            String  chairId = object[0].toString();
+            int strength = Integer.parseInt(object[1].toString());
+            map.put("chairId",chairId);
+            map.put("strength",strength);
+        }
+
+        return map;
+    }
+
 
     /**
      * 根据orderId获取按摩椅code

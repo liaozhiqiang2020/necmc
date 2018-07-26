@@ -111,8 +111,19 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/findPaidOrderList")
     @ResponseBody
-    public String findPaidOrderList(String openCode, int state,String chairCode) {
+    public String findPaidOrderList(String openCode, int state) {
        return this.orderService.findPaidOrderList(openCode,state);
+    }
+
+    /**
+     * 分页查询订单
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @RequestMapping("/findPaidOrderListByPage")
+    @ResponseBody
+    public String findPaidOrderListByPage(String openCode, int state,int pageNumber,int pageSize) {
+        return this.orderService.findPaidOrderListByPage(openCode,state,pageNumber,pageSize);
     }
 
     /**
@@ -133,8 +144,8 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/createPaidOrder")
     @ResponseBody
-    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode,int state) {
-       return this.orderService.createPaidOrder(openid,mcTime,deviceCode,promoCode,money,unPaidOrderCode,state);
+    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode,int state,int strength) {
+       return this.orderService.createPaidOrder(openid,mcTime,deviceCode,promoCode,money,unPaidOrderCode,state,strength);
     }
 
     /**
@@ -155,8 +166,8 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/getMcCode")
     @ResponseBody
-    public String getMcCode(int orderId) {
-        return this.orderService.getMcCode(orderId);
+    public Map<String,Object> getMcCode(int orderId) {
+        return this.orderService.getMcCodeForMap(orderId);
     }
 
     /**
@@ -243,6 +254,27 @@ public class WeixinController extends WeixinSupport {
         jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002
         deviceService.findChairRuningStatus(chairId,1);//如果设备停止成功，修改椅子状态为空闲中
     }
+
+
+    /**
+     * 发送控制按摩椅强度指令
+     */
+    @RequestMapping("/sendStrengthChairMsg")
+    @ResponseBody
+    public void sendStrengthChairMsg(String chairId,int strength) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+        if(strength==0){//弱
+            jmsProducer.sendMessage("faaf0e15"+chairCode+"0000");
+        }else if(strength==1){//中
+            jmsProducer.sendMessage("faaf0e16"+chairCode+"0000");
+        }else if(strength==2){//强
+            jmsProducer.sendMessage("faaf0e17"+chairCode+"0000");
+        }
+    }
+
+
+
 
 
 

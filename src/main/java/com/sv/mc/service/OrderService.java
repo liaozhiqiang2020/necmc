@@ -5,6 +5,7 @@ import com.sv.mc.pojo.OrderEntity;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
@@ -26,6 +27,15 @@ public interface OrderService<T> extends BaseService<T>{
      * @date: 2018年7月6日
      */
     List<OrderEntity> findListByWxUserOpenId(String openId, int state);
+
+    /**
+     * 根据用户编号查询当前用户已支付订单（分页）
+     * @param openId
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+     List<OrderEntity> findListByWxUserOpenIdByPage(String openId, int state,int offset,int pageSize);
 
     /**
      * 根据订单号查询订单信息
@@ -79,7 +89,7 @@ public interface OrderService<T> extends BaseService<T>{
      * 创建订单
      * @return
      */
-    int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state);
+    int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state,int strength);
 
     /**
      * 根据openId定时查询订单状态
@@ -101,11 +111,25 @@ public interface OrderService<T> extends BaseService<T>{
     String findPaidOrderList(String openCode, int state);
 
     /**
+     * 分页查询订单
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    String findPaidOrderListByPage(String openCode, int state,int pageNumber,int pageSize);
+
+    /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
      * @author: lzq
      * @date: 2018年7月6日
      */
     void servingOrderState(int orderId);
+
+    /**
+     * 根据订单号获取按摩椅code
+     * @param orderId
+     * @return
+     */
+    Map<String,Object> getMcCodeForMap(int orderId);
 
     /**
      * 根据订单号获取按摩椅code
