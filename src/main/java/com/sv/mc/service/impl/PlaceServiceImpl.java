@@ -259,4 +259,10 @@ public class PlaceServiceImpl implements PlaceService {
         public List<PlaceEntity> findAllPlaces() {
                 return this.placeRepository.findAllPlace();
         }
+
+
+        @Override
+        public List<PlaceEntity> getPlace(int cityId) {
+                return this.placeRepository.queryPlaceEntitiesByCityId(cityId);
+        }
 }

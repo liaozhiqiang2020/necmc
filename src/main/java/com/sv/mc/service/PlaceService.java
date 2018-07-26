@@ -112,4 +112,9 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     String findPlaceByParentId(int placeId);
 
+    /**
+     * 根据市id 查询场地
+     */
+    List<PlaceEntity> getPlace(int cityId);
+
 }
