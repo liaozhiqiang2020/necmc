@@ -16,8 +16,29 @@ public class BranchEntity {
     private String principal;   //分公司负责人
     private String telephone;   //分公司联系电话
     private String email;       //分公司邮箱
+    private int headQuartersId;  //总公司Id
 
-    private HeadQuartersEntity headQuartersEntity;//总公司信息
+    @Basic
+    @Column(name = "head_quarters_id")
+    public int getHeadQuartersId() {
+        return headQuartersId;
+    }
+
+    public void setHeadQuartersId(int headQuartersId) {
+        this.headQuartersId = headQuartersId;
+    }
+
+//    private HeadQuartersEntity headQuartersEntity;//总公司信息
+
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name="head_quarters_id")
+//    public HeadQuartersEntity getHeadQuartersEntity() {
+//        return headQuartersEntity;
+//    }
+//
+//    public void setHeadQuartersEntity(HeadQuartersEntity headQuartersEntity) {
+//        this.headQuartersEntity = headQuartersEntity;
+//    }
 
     @Id
     @GeneratedValue
@@ -28,16 +49,6 @@ public class BranchEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="head_quarters_id")
-    public HeadQuartersEntity getHeadQuartersEntity() {
-        return headQuartersEntity;
-    }
-
-    public void setHeadQuartersEntity(HeadQuartersEntity headQuartersEntity) {
-        this.headQuartersEntity = headQuartersEntity;
     }
 
     @Basic

@@ -83,7 +83,8 @@
                                     principal: {type: "string"},
                                     telephone: {type: "string"},
                                     email: {type: "string"},
-                                    headQuartersEntity:{defaultValue: { id: 1, name: ""}}
+                                    headQuartersId:{type:"number",defaultValue: { id: 1, name: ""}},
+                                    headQuartersName:{type:"string"}
                                  }
                             },
                             data: function (response) {
@@ -159,9 +160,9 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
-                                field: "headQuartersEntity",
+                                field: "headQuartersId",
                                 title: "总公司名称",
-                                template:"#=headQuartersEntity.name#",
+                                template:"#=headQuartersName#",
                                 editor:roleListDropDownEditor,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
@@ -243,10 +244,10 @@
 
                 //打开标记窗口时下拉列表展示
                 function roleListDropDownEditor(container, options) {
-                    // console.log(options.model);
-                    var headId = options.model.headQuartersEntity.id;
+                    var headId = options.model.headQuartersId;
+                    var headName = options.model.headQuartersName;
 
-                    var input = $('<input required name="' + options.field + '"/>');
+                    var input = $('<input name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
                         autoBind: true,
@@ -254,6 +255,7 @@
                         dataTextField: "name",
                         dataValueField: "id",
                         value: headId,
+                        text:headName,
                         dataSource: {
                             transport: {
                                 read: {
