@@ -8,6 +8,8 @@ import com.sv.mc.repository.BranchRepository;
 import com.sv.mc.repository.HeadQuartersRepository;
 import com.sv.mc.service.BranchService;
 import com.sv.mc.util.DataSourceResult;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import net.sf.json.groovy.GJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -64,9 +66,9 @@ public class BranchServiceImpl implements BranchService {
         @Transactional
         public BranchEntity insertBranch(BranchEntity branch) {
                 branch.setDiscardStatus(1);
-                int headId = branch.getHeadQuartersEntity().getId();
-                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(headId);
-                branch.setHeadQuartersEntity(headQuartersEntity);
+//                int headId = branch.getHeadQuartersEntity().getId();
+                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(branch.getHeadQuartersId());
+//                branch.setHeadQuartersEntity(headQuartersEntity);
                 return  this.branchRepository.save(branch);
         }
 
@@ -78,9 +80,9 @@ public class BranchServiceImpl implements BranchService {
         @Override
         @Transactional
         public BranchEntity updateBranchDataById(BranchEntity branch) {
-                int headId = branch.getHeadQuartersEntity().getId();
-                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(headId);
-                branch.setHeadQuartersEntity(headQuartersEntity);
+//                int headId = branch.getHeadQuartersEntity().getId();
+                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(branch.getHeadQuartersId());
+//                branch.setHeadQuartersEntity(headQuartersEntity);
                 return  this.branchRepository.save(branch);
 
         }
@@ -105,14 +107,25 @@ public class BranchServiceImpl implements BranchService {
         @Override
         @Transactional
         public String findAllBranchByPage(int page, int pageSize) {
-                Gson gson = new Gson();
-                DataSourceResult<BranchEntity> branchEntityDataSourceResult = new DataSourceResult<>();
-                int offset = ((page-1)*pageSize);
-                List<BranchEntity> branchEntityList = this.branchRepository.findAllBranchByPage(offset,pageSize);//记录
+                int offset = ((page - 1) * pageSize);
+                List<BranchEntity> branchEntityList = this.branchRepository.findAllBranchByPage(offset, pageSize);//记录
                 int total = this.branchRepository.findBranchTotal();//数量
-                branchEntityDataSourceResult.setData(branchEntityList);
-                branchEntityDataSourceResult.setTotal(total);
-                return gson.toJson(branchEntityDataSourceResult);
 
+                JSONArray jsonArray1 = new JSONArray();//新建json数组
+                JSONObject jsonObject1 = new JSONObject();
+
+                JSONArray jsonArray = JSONArray.fromObject(branchEntityList);
+                String headQuartersName;
+                for (int i = 0; i < jsonArray.size(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int headQuartersId = Integer.parseInt(jsonObject.get("headQuartersId").toString());
+                        headQuartersName = this.headQuartersRepository.findHeadQuartersById(headQuartersId).getName();//查出总部名称
+                        jsonObject.put("headQuartersName", headQuartersName);
+                        jsonArray1.add(jsonObject);
+                }
+                jsonObject1.put("data",jsonArray1);
+                jsonObject1.put("total",total);
+
+                return jsonObject1.toString();
         }
 }
