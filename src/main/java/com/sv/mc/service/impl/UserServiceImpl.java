@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -145,9 +146,41 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     @Override
     @Transactional
-    public UserEntity saveUser(UserEntity user,String company) {
-        user.setStatus(1);
-        user.setAuthenticationString( DigestUtils.md5DigestAsHex(user.getAuthenticationString().getBytes()));
+    public UserEntity saveUser(@RequestBody Map<String,Object> map) {
+        String company = (String) map.get("company");
+        String password = (String) map.get("authenticationString");
+        String cellphoneNumber = (String) map.get("cellphoneNumber");
+        String email = (String) map.get("email");
+        String fixedPhoneNumber = (String) map.get("fixedPhoneNumber");
+        String latestLoginIp = (String)map.get("latestLoginIp");
+        String name = (String)map.get("name");
+        String userName = (String)map.get("userName");
+        int status = (int)map.get("status");
+        String latestLoginDatetime = (String) map.get("latestLoginDatetime");
+
+        UserEntity user = new UserEntity();
+        user.setStatus(status);
+        user.setCellphoneNumber(cellphoneNumber);
+        user.setEmail(email);
+        user.setFixedPhoneNumber(fixedPhoneNumber);
+        user.setName(name);
+        user.setUserName(userName);
+        user.setLatestLoginIp(latestLoginIp);
+        user.setCreateDatetime(new Timestamp(System.currentTimeMillis()));
+
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        try {
+//            Date date1 = simpleDateFormat.parse(createDateTime);
+//            Date date2 = simpleDateFormat.parse(latestLoginDatetime);
+//            long timeStamp1 = date1.getTime();
+//            long timeStamp2 = date2.getTime();
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            user.setCreateDatetime( (Timestamp) map.get("latestLoginDatetime"));
+//        }catch (ParseException e){
+//            System.out.println(e.getMessage());
+//        }
+
+        user.setAuthenticationString( DigestUtils.md5DigestAsHex(password.getBytes()));
         if(this.headQuartersRepository.findHByName(company)!=null){
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
             user.setGradeId(1);

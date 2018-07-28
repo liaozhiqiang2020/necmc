@@ -87,12 +87,12 @@ public class UserController {
 
     /**
      * 保存用户
-     * @param userEntity
+     * @param map
      * @return
      */
     @PostMapping("/user/save")
-    public UserEntity saveUser (@RequestBody UserEntity userEntity,@RequestParam(value = "company")String company){
-        return this.userService.saveUser(userEntity,company);
+    public UserEntity saveUser (@RequestBody Map<String,Object> map){
+        return this.userService.saveUser(map);
     }
 
     /**

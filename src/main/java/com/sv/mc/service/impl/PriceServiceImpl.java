@@ -197,27 +197,17 @@ public class PriceServiceImpl implements PriceService {
         Object deviceId = listMap.get("deviceId");
         Object priceId = listMap.get("price");
         DeviceEntity device = this.deviceRepository.findDeviceById((int)deviceId);
-//        for (int priceId: (ArrayList<Integer>)price
-//                ) {
-//            PriceEntity price1 = findPriceById(priceId);
-//            for (PriceEntity price2: device.getPriceEntities()
-//                 ) {
-//                if (price1.getUseTime() == price2.getUseTime()){
-//                    device.getPriceEntities().remove(price2);
-//                }
-//            }
-
-//            device.getPriceEntities().add(price1);
-//        }
 
         PriceEntity price  = findPriceById((Integer) priceId);
-        for (PriceEntity price1: device.getPriceEntities()
-             ) {
-            if (price1.getUseTime() == price.getUseTime()){
-                device.getPriceEntities().remove(price1);
+        List<PriceEntity> devicePrice= device.getPriceEntities();
+        for (int i= 0; i<devicePrice.size();i++){
+            if (devicePrice.get(i).getUseTime() == price.getUseTime()){
+                device.getPriceEntities().remove(devicePrice.get(i));
             }
         }
+
         device.getPriceEntities().add(price);
+        this.deviceRepository.save(device);
 
         return device.getPriceEntities();
     }
@@ -241,9 +231,10 @@ public class PriceServiceImpl implements PriceService {
     public List<PriceEntity> placeAddPrice(Map<String,Object> listMap) {
 
         Object placeId = listMap.get("placeId");
-        Object price = listMap.get("price");
+        Object priceId = listMap.get("price");
         List<Object[]> deviceEntities = this.placeRepository.findAllChildById((int)placeId);
         List<DeviceEntity> deviceList = new ArrayList<>();
+        PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById((int)priceId);
         for (int i = 0; i <deviceEntities.size() ; i++) {
             Object[] object =deviceEntities.get(i);
             int id = Integer.parseInt(object[0].toString());
@@ -251,29 +242,28 @@ public class PriceServiceImpl implements PriceService {
         }
         for (DeviceEntity device: deviceList
                 ) {
-            for (int priceId: (ArrayList<Integer>)price
-                    ) {
-                PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById(priceId);
                 if (device.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()){
-                    device.getPriceEntities().add(priceEntity);
                     List<PriceEntity> priceEntityList = device.getPriceEntities();
-                    List<PriceEntity> priceEntities = new ArrayList<>();
-                        for  ( int  i  =   0 ; i  <  priceEntityList.size()  -   1 ; i ++ )  {
-                            for  ( int  j  =  priceEntityList.size()  -   1 ; j  >  i; j -- )  {
-                                if  (priceEntityList.get(j).equals(priceEntityList.get(i)))  {
-                                    priceEntityList.remove(j);
-                                }
+                    if (!priceEntityList.contains(priceEntity)){
+                        for (PriceEntity priceEntity1 : priceEntityList){
+                            if(priceEntity1.getUseTime() == priceEntity.getUseTime()){
+                                priceEntityList.remove(priceEntity1);
                             }
                         }
-//                    Set set = new HashSet();
-//                    for (PriceEntity cd:priceEntityList) {
-//                        if(set.add(cd)){
-//                           priceEntities.add(cd);
+                        device.getPriceEntities().add(priceEntity);
+                    }
+
+//                    List<PriceEntity> priceEntityList = device.getPriceEntities();
+//                        for  ( int  i  =   0 ; i  <  priceEntityList.size()  -   1 ; i ++ )  {
+//                            for  ( int  j  =  priceEntityList.size()  -   1 ; j  >  i; j -- )  {
+//                                if  (priceEntityList.get(j).equals(priceEntityList.get(i)))  {
+//                                    priceEntityList.remove(j);
+//                                }
+//                            }
 //                        }
-//                    }
             }
             }
-        }
+
         this.deviceRepository.saveAll(deviceList);
         return this.priceRepository.findPriceEntitiesByStatus();
     }
