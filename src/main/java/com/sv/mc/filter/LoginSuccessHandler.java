@@ -19,6 +19,7 @@ public class LoginSuccessHandler extends
         UserEntity userDetails = (UserEntity) authentication.getPrincipal();
         /* Set<SysRole> roles = userDetails.getSysRoles();*/
         //输出登录提示信息
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("管理员 " + userDetails.getName() + " 登录");
 
         System.out.println("IP :"+getIpAddress(request));

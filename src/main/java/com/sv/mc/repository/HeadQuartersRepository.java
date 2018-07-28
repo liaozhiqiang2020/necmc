@@ -53,6 +53,9 @@ public interface HeadQuartersRepository extends BaseRepository<HeadQuartersEntit
      */
     @Query(value = "select h.* from mc_branch b,mc_head_quarters h where b.head_quarters_id=h.id and b.id=:branchId",nativeQuery = true)
     HeadQuartersEntity findHeadByBranchId(@Param("branchId") int branchId);
+
+    @Query("from HeadQuartersEntity h where h.name = :name")
+    HeadQuartersEntity findHByName(@Param("name") String name);
 }
 
 

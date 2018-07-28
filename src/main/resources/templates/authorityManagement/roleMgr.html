@@ -251,8 +251,8 @@
                                                 },
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                                                    // { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
-                                                    { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
+                                                    { field: "permissionsName",title: "权限", width: 100,filterable: { multi: true, search: true} },
+                                                    // { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
                                                     // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                                                     {
                                                         command: [
@@ -354,8 +354,8 @@
                                                 },
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                                                    // { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
-                                                    { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
+                                                    { field: "permissionsName",title: "权限", width: 100,filterable: { multi: true, search: true} },
+                                                    // { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
                                                     // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                                                     {
                                                         command: [
@@ -400,7 +400,7 @@
                                                 // close: onClose
                                             });
 
-                                            myWindow.data("kendoWindow").open();
+                                            myWindow.data("kendoWindow").center().open();
                                             // undo.fadeOut();
 
                                         }
@@ -465,38 +465,7 @@
                     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                 }
 
-                // function changeDate(container, options) {
-                //     var input = $('<input name="' + options.field + '"/>');
-                //     input.appendTo(container);
-                //     input.kendoDateTimePicker({
-                //         format: "{0:yyyy-MM-dd HH:mm}"
-                //     });
-                // }
-                function roleListDropDownEditor(container, options) {
-                    // console.log(options.model);
-                    var typeId = options.model.deviceModelEntity.id;
 
-                    var input = $('<input required name="' + options.field + '"/>');
-                    input.appendTo(container);
-                    input.kendoComboBox({
-                        autoBind: true,
-                        placeholder: "请选择...",
-                        dataTextField: "name",
-                        dataValueField: "id",
-                        value: typeId,
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    type: "get",
-                                    url: "./deviceModel/all",
-                                    dataType: "json",
-                                    contentType: "application/json",
-                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                }
-                            }
-                        }
-                    });
-                }
 
                 /*]]>*/
             </script>

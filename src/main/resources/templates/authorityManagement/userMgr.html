@@ -60,7 +60,7 @@
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./user/save",
+                                url:  "./user/update",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -74,6 +74,7 @@
                                 // }
 
                                 if(operation !== "read"){
+                                    console.log(options);
                                     return kendo.stringify(options);
                                 }
                             }
@@ -194,9 +195,9 @@
 
 
                                                         if (operation === "destroy" && options) {
-                                                            let array = [options.id];
+                                                            var array = [options.id];
 
-                                                            let list1 = {
+                                                            var list1 = {
                                                                 roleId :  array,
                                                                 userId : userId
                                                             }
@@ -280,7 +281,7 @@
                                                     { field: "roleName",title: "角色", width: 100,filterable: { multi: true, search: true} },
                                                     { field: "description",title: "角色权限描述", width: 150,filterable: { multi: true, search: true}},
                                                     // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                                                    {
+                                                     {
                                                         command: [
                                                             {
                                                                 name: "destroy", text: "解绑"
@@ -390,7 +391,7 @@
                                                                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                                                     var data = this.dataItem(tr);
                                                                     var roleId = data.id;
-                                                                    let list1 = {
+                                                                    var list1 = {
                                                                         userId :  userId,
                                                                         roleId : roleId
                                                                     };
@@ -424,9 +425,12 @@
                                                 title: data.userName+"用户角色管理",
                                                 // content: $("roleList").html
                                                 // close: onClose
+
                                             });
 
-                                                myWindow.data("kendoWindow").open();
+
+                                            myWindow.data("kendoWindow").center().open();
+
                                                 // undo.fadeOut();
 
                                         }
@@ -478,20 +482,21 @@
                 function roleListDropDownEditor(container, options) {
                     // console.log(options.model);
                     var typeId = options.model.pName;
-
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
                         autoBind: true,
                         placeholder: "请选择...",
-                        dataTextField: "company",
-                        dataValueField: "pName",
+                        dataTextField: "name",
+                        dataValueField: "name",
                         value: typeId,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: {
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./user/allStatus",
+                                    url: "./user/allplace1",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}

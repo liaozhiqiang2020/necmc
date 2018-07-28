@@ -73,8 +73,6 @@ public class PlaceServiceImpl implements PlaceService {
                 return  this.placeRepository.save(place);
 
         }
-
-
         @Override
         public List findPlace(int id) {
                 return null;

@@ -51,6 +51,11 @@ public class UserController {
         return this.userService.findAllByStatus();
     }
 
+
+    @GetMapping("/user/allplace1")
+    public List<Object> findAll1(){
+        return this.userService.findAllplace();
+    };
     /**
      * 根据id查询当前用户
      * @param userId 当前用户id
@@ -72,12 +77,12 @@ public class UserController {
 
     /**
      * 更新用户
-     * @param userEntity
+     * @param map
      * @return
      */
     @PostMapping("/user/update")
-    public UserEntity updateUser (@RequestBody UserEntity userEntity){
-        return this.userService.updateUser(userEntity);
+    public UserEntity updateUser (@RequestBody Map<String,Object> map){
+        return this.userService.updateUser(map);
     }
 
     /**
@@ -86,8 +91,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/user/save")
-    public UserEntity saveUser (@RequestBody UserEntity userEntity){
-        return this.userService.saveUser(userEntity);
+    public UserEntity saveUser (@RequestBody UserEntity userEntity,@RequestParam(value = "company")String company){
+        return this.userService.saveUser(userEntity,company);
     }
 
     /**

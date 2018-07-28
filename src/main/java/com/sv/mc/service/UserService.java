@@ -36,13 +36,13 @@ public interface UserService<T>  {
      * @param user user对象
      * @return 更新的user对象
      */
-    UserEntity updateUser(UserEntity user);
+    UserEntity updateUser(Map<String,Object> map);
     /**
      *保存user对象
      * @param user user对象
      * @return 保存的user对象
      */
-    UserEntity saveUser(UserEntity user);
+    UserEntity saveUser(UserEntity user,String company);
 
     /**
      * 逻辑删除一个user对象
@@ -86,4 +86,6 @@ public interface UserService<T>  {
      * @return
      */
     List<RoleEntity> userUnRole(int userId);
+
+    List<Object> findAllplace();
 }
