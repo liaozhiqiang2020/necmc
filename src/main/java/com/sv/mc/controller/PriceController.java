@@ -33,7 +33,6 @@ public class PriceController {
      */
     @GetMapping("/price/pageAll")
     public String findAllPagePrice(@Param("page") String page, @Param("pageSize") String pageSize){
-        System.out.println(page);
         PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
         DataSourceResult<PriceEntity> PriceEntityDataSourceResult = new DataSourceResult<>();
         Page<PriceEntity> PriceEntityPage = this.priceService.findAllPagePrice(pageRequest);

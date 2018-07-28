@@ -13,6 +13,7 @@ public class PermissionEntity {
     private int id;                                 //主键id
     private String permissionsName;                 //权限名称
     private String url;                             //当前权限可以访问url
+    private String description;                     //具体权限描述
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
@@ -60,6 +61,16 @@ public class PermissionEntity {
 
     public void setRoleEntities(List<RoleEntity> roleEntities) {
         this.roleEntities = roleEntities;
+    }
+
+    @Basic
+    @Column(name = "description", nullable =false)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

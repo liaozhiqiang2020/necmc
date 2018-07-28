@@ -1,8 +1,14 @@
 package com.sv.mc.controller;
 
+import com.google.gson.Gson;
+import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.UserService;
+import com.sv.mc.util.DataSourceResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +23,16 @@ public class UserController {
     @Resource
     UserService userService;
 
+@GetMapping("/user/allPage")
+    public String findAllUserPage(@Param("page") String page, @Param("pageSize") String pageSize){
+        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
+        DataSourceResult<UserEntity> UserEntityDataSourceResult = new DataSourceResult<>();
+        Page<UserEntity> UserEntityPage = this.userService.findEntitiesPager(pageRequest);
+        UserEntityDataSourceResult.setData( UserEntityPage.getContent());
+        UserEntityDataSourceResult.setTotal( UserEntityPage.getTotalPages());
+        Gson gson = new Gson();
+        return gson.toJson( UserEntityPage);
+    }
     /**
      * 查询所有user
      * @return 返回User集合
@@ -31,7 +47,7 @@ public class UserController {
      * @return 返回User集合
      */
     @GetMapping("/user/allStatus")
-    public List<UserEntity> findAllByStatus(){
+    public String findAllByStatus(){
         return this.userService.findAllByStatus();
     }
 

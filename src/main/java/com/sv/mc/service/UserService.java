@@ -2,6 +2,8 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.pojo.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,7 @@ public interface UserService<T>  {
      * 分页查询所有user
      * @return 分页集合
      */
-    List<UserEntity> findEntitiesPager();
+    Page<UserEntity> findEntitiesPager(Pageable pageable);
 
     /**
      * 不分页查询所有user
@@ -28,7 +30,7 @@ public interface UserService<T>  {
     /**
      * 返回所有状态为正常的用户
      */
-    List<UserEntity> findAllByStatus();
+    String findAllByStatus();
     /**
      *更新user对象
      * @param user user对象

@@ -25,6 +25,8 @@ public class UserEntity {
     private Timestamp latestLoginDatetime;          //上次登录时间
     private String latestLoginIp;                   //上次登录Ip
     private int status;                             //状态
+    private int pId;                                //隶属公司id
+    private int gradeId;                           //判断所属公司是哪个级别，1：总公司 2：分公司 3：代理商 4：场地方
 
     private Set<RoleEntity> roleEntitySet = new HashSet<>();
 
@@ -145,7 +147,28 @@ public class UserEntity {
     }
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @Basic
+    @Column(name = "p_id")
+    public int getpId() {
+        return pId;
+    }
+
+    public void setpId(int pId) {
+        this.pId = pId;
+    }
+
+    @Basic
+    @Column(name = "grade_id")
+    public int getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
+    }
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "mc_user_role",                       //指定第三张表
             joinColumns = {@JoinColumn(name = "user_id")},             //本表与中间表的外键对应
