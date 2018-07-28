@@ -25,18 +25,18 @@ public class MyUserDetailService implements UserDetailsService {
 
     //登陆验证时，通过username获取用户的所有权限信息，
     //并返回User放到spring的全局缓存SecurityContextHolder中，以供授权器使用
-    public UserDetails loadUserByUsername(String username){
+    public UserDetails loadUserByUsername(String username) {
         UserEntity user = userRepository.findUserByUserName(username);
-        if(user != null){
+        if (user != null) {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             List<PermissionEntity> permissions = this.permissionRepository.findPermissionByUser(user.getId());
-            for(PermissionEntity permission : permissions) {
+            for (PermissionEntity permission : permissions) {
                 GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getPermissionsName());
                 grantedAuthorities.add(grantedAuthority);
             }
-            return new User(user.getUserName(), user.getAuthenticationString(), grantedAuthorities);
-        }else {
-            throw new UsernameNotFoundException("admin: "+ username +" do not exist!");
+            return new User(user.getName(), user.getAuthenticationString(), grantedAuthorities);
+        } else {
+            throw new UsernameNotFoundException("admin: " + username + " do not exist!");
         }
     }
 }
