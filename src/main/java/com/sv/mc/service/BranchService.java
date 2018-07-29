@@ -50,4 +50,16 @@ public interface BranchService<T> extends BaseService<T>{
      * 根据id修改状态
      */
     void deleteBranch(int branchId);
+
+
+    /**
+     * 查询所有总公司和分公司内容
+     */
+    String allBranchAndHead();
+
+
+    /**
+     * 查询所有总公司和分公司和代理商内容
+     */
+    String allBranchAndHeadAndVendor();
 }

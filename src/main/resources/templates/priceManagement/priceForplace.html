@@ -157,7 +157,7 @@
                          },
 
                         detailTemplate: kendo.template($("#template").html()),
-
+                         detailInit: detailInit,
 
 
                         // dataBound: function() {
@@ -184,7 +184,7 @@
                                 title:"场地负责人",
                                 width: "120px"
                             },
-                            { command: [{name :"价格绑定",click:function (e) {
+                            { command: [{name :"场地价格绑定",click:function (e) {
                                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                         var data = this.dataItem(tr);
                                         var placeId = data.id;
@@ -351,7 +351,7 @@
                                     });
                             }}], title: "&nbsp;", width: "160px" },
                         ],
-                         detailInit: detailInit,
+
 
                     });
 
@@ -614,7 +614,7 @@
                                 { field: "placeEntity", title:"所属场地", width: "110px",template:"#=placeEntity.name#" },
                                 { field: "latitude", title:"按摩椅所在经度", width: "110px" },
                                 { field: "longitude", title:"按摩椅所在纬度", width: "110px" },
-                                { command: [{name :"价格绑定",click:function (e) {
+                                { command: [{text :"设备价格绑定",click:function (e) {
                                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                             var data = this.dataItem(tr);
                                             var deviceId = data.id;

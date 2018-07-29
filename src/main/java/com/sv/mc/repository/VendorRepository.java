@@ -1,5 +1,6 @@
 package com.sv.mc.repository;
 
+import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.VendorEntity;
 import org.springframework.data.jpa.repository.Query;
@@ -43,14 +44,26 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     /**
      * 使用branchId查分公司名
      */
-    @Query(value="select b.name from BranchEntity b where b.id=:branchId")
-    String findBranchNameById(@Param("branchId")int branchId);
+    @Query(value=" from BranchEntity b where b.id=:branchId")
+    BranchEntity findBranchNameById(@Param("branchId")int branchId);
 
     /**
      * 使用headId查总公司名
      */
-    @Query(value="select b.name from HeadQuartersEntity b where b.id=:headId")
-    String findHeadNameById(@Param("headId")int headId);
+    @Query(value=" from HeadQuartersEntity b where b.id=:headId")
+    HeadQuartersEntity findHeadNameById(@Param("headId")int headId);
+
+    /**
+     * 使用branchId,name查分公司名
+     */
+    @Query(value=" from BranchEntity b where b.id=:branchId and b.name=:branchName")
+    BranchEntity findBranchNameByIdAndName(@Param("branchId")int branchId,@Param("branchName") String branchName);
+
+    /**
+     * 使用headId,name查总公司名
+     */
+    @Query(value=" from HeadQuartersEntity b where b.id=:headId and b.name=:headName")
+    HeadQuartersEntity findHeadNameByIdAndName(@Param("headId")int headId,@Param("headName") String headName);
 
 
     /**

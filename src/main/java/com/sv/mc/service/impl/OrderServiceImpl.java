@@ -470,4 +470,20 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     public String getMcCode(int orderId) {
         return this.orderRepository.getMcCode(orderId);
     }
+
+
+    /**
+     * 后台添加订单描述
+     * @param
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @Override
+    @Transactional
+    public void addOrderDescription(int orderId, String description) {
+        OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
+        orderEntity.setCancelReason(description);
+        this.orderRepository.save(orderEntity);
+    }
 }

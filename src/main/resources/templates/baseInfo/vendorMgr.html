@@ -25,8 +25,6 @@
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
 
-                var testDataSource;
-
                 //初始化表格数据
                 function loadUserList() {
 
@@ -61,7 +59,7 @@
                                     return {page:page,pageSize:pageSize};
                                 }
                                 if(operation !== "read"){
-                                    // console.log(options);
+                                    console.log(options);
                                     return kendo.stringify(options);
                                 }
                             }
@@ -81,26 +79,14 @@
                                     principal: {type: "string"},
                                     telephone: {type: "string"},
                                     email: {type: "string"},
-                                    levelFlag:{type:"number",defaultValue: { id: 2, name: ""}},
-                                    levelFlagName:{type:"string"},
-                                    superiorId:{type:"number"},
+                                    levelFlag:{type:"number",editable: false},
+                                    levelFlagName:{type:"string",editable: false},
+                                    superiorId:{type:"string"},
                                     superiorName:{type:"string"}
                                 }
                             },
                             data: function (response) {
-                                // console.log(response.data);
                                 var list = JSON.parse(response).data;
-                                // for(var i=0;i<list.length;i++){
-                                //     var content2 = list[i];
-                                //     var flag = content2.levelFlag;
-                                //     // console.log(flag);
-                                //     if(flag==1){
-                                //         content2.levelFlag="分公司";
-                                //     }else if(flag==2){
-                                //         content2.levelFlag="总部";
-                                //     }
-                                // }
-                                // console.log(list);
                                 return list;
                             },
                             total: function (response) {
@@ -158,11 +144,13 @@
                                 field: "vendorAddress",
                                 title: "代理商地址",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            }, {
+                            },
+                            {
                                 field: "principal",
                                 title: "代理商负责人",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            }, {
+                            },
+                            {
                                 field: "telephone",
                                 title: "代理商联系电话",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
@@ -173,15 +161,14 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
-                                field: "levelFlag",
-                                title: "隶属单位",
+                                field: "levelFlagName",
+                                title: "隶属上级单位",
                                 template:"#=levelFlagName#",
-                                editor:chanceBranchOrHead,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
                                 field: "superiorId",
-                                title: "隶属单位名称",
+                                title: "上级单位名称",
                                 template:"#=superiorName#",
                                 editor:roleListDropDownEditor,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
@@ -240,75 +227,6 @@
                     }
                 }
 
-                var useFlag=false;
-                var testDataSource;
-                function chanceBranchOrHead(container, options){
-                    var levelFlag = options.model.levelFlag;
-
-                    var input = $('<input required name="' + options.field + '"/>');
-                    input.appendTo(container);
-
-                    var combobox1 = input.kendoComboBox({
-                        autoBind: true,
-                        // enable: false,
-                        placeholder: "请选择...",
-                        dataTextField: "name",
-                        dataValueField: "id",
-                        value: levelFlag,
-                        dataSource: [
-                            {
-                                "id":1,
-                                "name":"分公司"
-                            },
-                            {
-                                "id":2,
-                                "name":"总部"
-                            }
-                        ],
-                        select:function(e){
-                            var item = e.dataItem.id;
-
-                            var flag=item;
-                            useFlag=true;
-
-
-                            if(flag==1){
-                                testDataSource = new kendo.data.DataSource({
-                                    transport: {
-                                        read: {
-                                            // type: "get",
-                                            url: "./branchMgr/allBranch"
-                                            // dataType: "json",
-                                            // contentType: "application/json",
-                                            // headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        }
-                                    }
-                                });
-
-                                // testDataSource.fetch(function() {
-                                //     console.log(testDataSource.view()); // displays "77"
-                                // });
-                            }else if(flag==2){
-                                testDataSource = new kendo.data.DataSource({
-                                    transport: {
-                                        read: {
-                                            // type: "get",
-                                            url: "./headMgr/allHead"
-                                            // dataType: "json"
-                                            // contentType: "application/json",
-                                            // headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        }
-                                    }
-                                });
-
-                                // testDataSource.fetch(function() {
-                                //     console.log(testDataSource.view()); // displays "77"
-                                // });
-                            }
-                        }
-                    });
-                }
-
                 //add tooltip
                 $("#grid").kendoTooltip({
                     show: function(e){
@@ -334,32 +252,29 @@
 
                 //打开标记窗口时下拉列表展示
                 function roleListDropDownEditor(container, options) {
-                    // var flag =options.model.levelFlag;
-
                     var branchId = options.model.superiorId;
                     var branchName = options.model.superiorName;
-                    // console.log(options.model);
-                    // console.log(branchName);
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
-
-                    // input.kendoComboBox.
 
                     input.kendoComboBox({
                         autoBind: false,
                         placeholder: "请选择...",
                         dataTextField: "name",
                         dataValueField: "id",
-                        value: branchId,
+                        // value: branchId,
                         text:branchName,
-                        open: function(e) {
-                            if(useFlag==true){
-                                this.setDataSource(testDataSource);
-                            }else{
-                                return;
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./branchMgr/allBranchAndHead",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
                             }
-
                         }
                     });
 

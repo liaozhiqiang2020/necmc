@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class VendorController {
@@ -81,31 +82,29 @@ public class VendorController {
     @GetMapping(value = "/vendorMgr/allVendor")
     public @ResponseBody
     String getAllVendorByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
-//        System.out.println(this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize)));
-
         return this.vendorService.findAllVendorByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
     }
 
     /**
      * 插入一条代理商数据
-     * @param vendorEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "/vendorMgr/insertVendor",method = RequestMethod.POST)
     public @ResponseBody
-    VendorEntity insertVendor(@RequestBody VendorEntity vendorEntity){
-        return this.vendorService.insertVendor(vendorEntity);
+    VendorEntity insertVendor(@RequestBody Map<String,Object> map){
+        return this.vendorService.insertVendor(map);
     }
 
     /**
      * 更改代理商数据
-     * @param vendorEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "/vendorMgr/updateVendor",method = RequestMethod.POST)
     public @ResponseBody
-    VendorEntity updateVendor(@RequestBody VendorEntity vendorEntity){
-       return this.vendorService.updateVendorDataById(vendorEntity);
+    VendorEntity updateVendor(@RequestBody Map<String,Object> map){
+       return this.vendorService.updateVendorDataById(map);
     }
 
     /**

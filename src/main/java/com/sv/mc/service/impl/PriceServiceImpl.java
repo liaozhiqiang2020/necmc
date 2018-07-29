@@ -245,11 +245,11 @@ public class PriceServiceImpl implements PriceService {
                 if (device.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()){
                     List<PriceEntity> priceEntityList = device.getPriceEntities();
                     if (!priceEntityList.contains(priceEntity)){
-                        for (PriceEntity priceEntity1 : priceEntityList){
-                            if(priceEntity1.getUseTime() == priceEntity.getUseTime()){
-                                priceEntityList.remove(priceEntity1);
-                            }
-                        }
+                     for (int i=0;i<priceEntityList.size();i++){
+                         if(priceEntityList.get(i).getUseTime() == priceEntity.getUseTime()){
+                             device.getPriceEntities().remove(priceEntityList.get(i));
+                         }
+                     }
                         device.getPriceEntities().add(priceEntity);
                     }
 

@@ -37,8 +37,15 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @param pageSize
      * @return
      */
-    @Query(value="select * from mc_place as b where b.discard_status=1 LIMIT :offset,:pageSize",nativeQuery = true)
+    @Query(value="select * from mc_place as b where b.discard_status=1 and b.p_id is null LIMIT :offset,:pageSize",nativeQuery = true)
     List<PlaceEntity> findAllPlaceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Query(value="select count(*) from mc_place as b where b.discard_status=1 and b.p_id is null",nativeQuery = true)
+    int findPlaceTotal();
 
     /**
      * 不分页查询场地方信息
@@ -54,12 +61,6 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null")
     List<PlaceEntity> findAllPlaces();
 
-    /**
-     * 查询数量
-     * @return
-     */
-    @Query(value="select count(*) from mc_place as b where b.discard_status=1",nativeQuery = true)
-    int findPlaceTotal();
 
     /**
      * 根据场地id查询他下一级的所有信息

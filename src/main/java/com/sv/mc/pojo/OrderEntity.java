@@ -35,6 +35,7 @@ public class OrderEntity {
     private Integer wxUserInfoId;  //微信用户编号
     private Integer mcTime;  //按摩时长
     private Integer strength;//按摩强度
+    private String cancelReason;//取消原因
 
     @Id
     @GeneratedValue
@@ -195,6 +196,16 @@ public class OrderEntity {
 
     public void setStrength(Integer strength) {
         this.strength = strength;
+    }
+
+    @Basic
+    @Column(name = "cancel_reason")
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
     }
 
     @Override

@@ -38,32 +38,52 @@ public class PlaceEntity {
     private Integer superiorId;
     private Integer placeLevelId;
 
-//    private Integer businessId;
-//    private Integer cityId;
+    private Integer businessId;
+    private Integer cityId;
 
-    private BusinessEntity businessEntity;//行业信息
-
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @Basic
     @JoinColumn(name="business_id")
-    public BusinessEntity getBusinessEntity() {
-        return businessEntity;
+    public Integer getBusinessId() {
+        return businessId;
     }
 
-    public void setBusinessEntity(BusinessEntity businessEntity) {
-        this.businessEntity = businessEntity;
-    }
-
-    private CityEntity cityEntity;//城市信息
-
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @Basic
     @JoinColumn(name="city_id")
-    public CityEntity getCityEntity() {
-        return cityEntity;
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
     }
 
-    public void setCityEntity(CityEntity cityEntity) {
-        this.cityEntity = cityEntity;
+    public Integer getCityId() {
+        return cityId;
     }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    //    private BusinessEntity businessEntity;//行业信息
+//
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name="business_id")
+//    public BusinessEntity getBusinessEntity() {
+//        return businessEntity;
+//    }
+//
+//    public void setBusinessEntity(BusinessEntity businessEntity) {
+//        this.businessEntity = businessEntity;
+//    }
+//
+//    private CityEntity cityEntity;//城市信息
+//
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name="city_id")
+//    public CityEntity getCityEntity() {
+//        return cityEntity;
+//    }
+//
+//    public void setCityEntity(CityEntity cityEntity) {
+//        this.cityEntity = cityEntity;
+//    }
 
     private List<DeviceEntity> deviceEntities = new ArrayList<>();//设备信息
 
