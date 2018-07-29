@@ -74,6 +74,7 @@
                                     id: { editable: false, nullable: true },
                                     permissionsName: { type: "string" },
                                     url: { type: "string"},
+                                    description : {type: "string"},
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },
@@ -92,13 +93,14 @@
                         height: 600,
                         // scrollable: true,
                         groupable: true,
+                        resizable: true,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                         // groupable: true,//表格标题
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
-                        toolbar: [{name: "create", text: "新增"}],
+                        // toolbar: [{name: "create", text: "新增"}],
                         columnMenu: true,
                         pageable: {
                             // empty:"没有要显示的数据",
@@ -130,8 +132,9 @@
                         columns: [
                             // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
                             { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
+                            { field: "description",title: "权限描述", width: 100,filterable: { multi: true, search: true}},
                             // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:"#=roleEntities.name#，" },
-                            { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
+                            // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                             {
                                 command: [
                                     {

@@ -12,10 +12,10 @@ import java.util.Set;
 @Entity
 @Table(name = "mc_role", schema = "mc", catalog = "")
 public class RoleEntity {
-    private int id;
-    private Timestamp createDateTime;
-    private String roleName;
-
+    private int id;                             //角色id
+    private Timestamp createDateTime;           //创建时间
+    private String roleName;                    //角色名
+    private String description;                 //角色权限描述
     private Set<UserEntity> userEntitySet = new HashSet<>();
     private Set<PermissionEntity> permissionEntityHashSet = new HashSet<>();
 
@@ -49,6 +49,15 @@ public class RoleEntity {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+    @Basic
+    @Column(name = "description", nullable =false)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
@@ -64,6 +73,7 @@ public class RoleEntity {
         this.userEntitySet = userEntitySet;
     }
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "mc_role_permission",                       //指定第三张表

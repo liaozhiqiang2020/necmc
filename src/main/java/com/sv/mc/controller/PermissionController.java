@@ -38,15 +38,15 @@ public class PermissionController {
         return this.permissionService.findPermissionById(id);
     }
 
-    /**
-     * 跳转到permission管理页面
-     * @return
-     */
-    @GetMapping(value = "/user/permissionManagement")
-    public ModelAndView turnToUserManagement() {
-        ModelAndView mv = new ModelAndView();
-
-        mv.setViewName("./authorityManagement/permissionMgr");
-        return mv;
-    }
+//    /**
+//     * 跳转到permission管理页面
+//     * @return
+//     */
+//    @GetMapping(value = "/user/permissionManagement")
+//    public ModelAndView turnToUserManagement() {
+//        ModelAndView mv = new ModelAndView();
+//
+//        mv.setViewName("./authorityManagement/permissionMgr");
+//        return mv;
+//    }
 }

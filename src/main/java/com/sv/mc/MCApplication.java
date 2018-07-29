@@ -12,10 +12,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @Configuration
-@ComponentScan
+//@ComponentScan
 //@ImportResource(locations={"classpath:spring-redis.xml"})
 @EnableCaching
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @EnableScheduling
 public class MCApplication {
 

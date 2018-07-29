@@ -1,4 +1,0 @@
-[INFO ] 2018-07-23 10:59:19,776 com.sv.mc.MCApplication - Starting MCApplication on DESKTOP-OB6KHK3 with PID 15988 (D:\project\ideaWorkSpace\necmc\necmc\target\classes started by liaozhiqiang in D:\project\ideaWorkSpace\necmc\necmc)
-[DEBUG] 2018-07-23 10:59:19,781 com.sv.mc.MCApplication - Running with Spring Boot v2.0.3.RELEASE, Spring v5.0.7.RELEASE
-[INFO ] 2018-07-23 10:59:19,781 com.sv.mc.MCApplication - No active profile set, falling back to default profiles: default
-[INFO ] 2018-07-23 10:59:37,800 com.sv.mc.MCApplication - Started MCApplication in 18.305 seconds (JVM running for 19.68)

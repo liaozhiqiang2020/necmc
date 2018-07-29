@@ -22,4 +22,7 @@ public interface UserRepository extends BaseRepository<UserEntity, Long>, Paging
     //查询所有状态为正常的用户
     @Query("from UserEntity as u where u.status = 1")
     List<UserEntity> findAllByStatus();
+
+    //查询所有场地公司
+//    @Query(nativeQuery = true,value = "SELECT name ,id FROM mc_place,mc_")
 }

@@ -65,4 +65,13 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     @Query(value=" from HeadQuartersEntity b where b.id=:headId and b.name=:headName")
     HeadQuartersEntity findHeadNameByIdAndName(@Param("headId")int headId,@Param("headName") String headName);
 
+
+    /**
+     * 根据name查代理商
+     * @param name
+     * @return
+     */
+    @Query("from VendorEntity v where v.name = :name")
+    VendorEntity findVendorEntityByName(@Param("name")String name);
+
 }

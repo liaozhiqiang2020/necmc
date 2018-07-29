@@ -60,7 +60,7 @@
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./user/save",
+                                url:  "./user/update",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -74,6 +74,7 @@
                                 // }
 
                                 if(operation !== "read"){
+                                    console.log(options);
                                     return kendo.stringify(options);
                                 }
                             }
@@ -96,13 +97,14 @@
                                     cellphoneNumber: { type: "string",validation:{required: true,min:11,max:11} },
                                     fixedPhoneNumber: { type: "string" },
                                     latestLoginDatetime : {type : "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                                    latestLoginIp : {type : "string",editable: false},
+                                    latestLoginIp : {type : "string",editable:false},
+                                    company : {type : "string",validation:{required: true}},
                                     roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },
-                            // data: function (response) {
-                            //     return JSON.parse(response).content;
-                            // },
+                            data: function (response) {
+                                return JSON.parse(response);
+                            }
                             // total: function (response) {
                             //     return JSON.parse(response).total;
                             // }
@@ -113,6 +115,7 @@
                         dataSource: dataSource,
                         height: 600,
                         scrollable: false,
+                        resizable: true,
                         groupable: true,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
@@ -153,6 +156,7 @@
                             { field: "userName",title: "账号", width: 100,filterable: { multi: true, search: true} },
                             { field: "name", title: "姓名", width: 80, filterable: { multi: true,search: true } },
                             { field: "email", title: "邮箱", width: 80, filterable: { multi: true } },
+                            { field: "company", title: "所属公司", width: 80, filterable: { multi: true },editor:roleListDropDownEditor },
                             // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:$("#role").html() },
                             { field: "authenticationString", title: "密码", width: 80, filterable: { multi: true } ,hidden:true},
                             { field: "cellphoneNumber", title: "手机", width: 80, filterable: { multi: true } },
@@ -191,9 +195,9 @@
 
 
                                                         if (operation === "destroy" && options) {
-                                                            let array = [options.id];
+                                                            var array = [options.id];
 
-                                                            let list1 = {
+                                                            var list1 = {
                                                                 roleId :  array,
                                                                 userId : userId
                                                             }
@@ -217,6 +221,7 @@
                                                         fields: {
                                                             id: { editable: false, nullable: true },
                                                             roleName: { type: "string" },
+                                                            description : {type: "string"},
                                                             createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
                                                             // roleEntities : {defaultValue: { id: 1, name: ""}}
                                                         }
@@ -235,6 +240,7 @@
                                                 dataSource: dataSource1,
                                                 height: 300,
                                                 groupable: true,
+                                                resizable: true,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 // groupable: true,//表格标题
@@ -273,8 +279,9 @@
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
                                                     { field: "roleName",title: "角色", width: 100,filterable: { multi: true, search: true} },
-                                                    { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                                                    {
+                                                    { field: "description",title: "角色权限描述", width: 150,filterable: { multi: true, search: true}},
+                                                    // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                                     {
                                                         command: [
                                                             {
                                                                 name: "destroy", text: "解绑"
@@ -317,7 +324,8 @@
                                                         fields: {
                                                             id: { editable: false, nullable: true },
                                                             roleName: { type: "string" },
-                                                            createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
+                                                            description : {type: "string"},
+                                                            createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                                             // roleEntities : {defaultValue: { id: 1, name: ""}}
                                                         }
                                                     },
@@ -335,6 +343,7 @@
                                                 dataSource: dataSource2,
                                                 height: 300,
                                                 groupable: true,
+                                                resizable: true,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 // groupable: true,//表格标题
@@ -373,7 +382,8 @@
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
                                                     { field: "roleName",title: "角色", width: 100,filterable: { multi: true, search: true} },
-                                                    { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                                                    { field: "description",title: "角色权限描述", width: 100,filterable: { multi: true, search: true}},
+                                                    // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                                     {
                                                         command: [
                                                             {
@@ -381,7 +391,7 @@
                                                                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                                                     var data = this.dataItem(tr);
                                                                     var roleId = data.id;
-                                                                    let list1 = {
+                                                                    var list1 = {
                                                                         userId :  userId,
                                                                         roleId : roleId
                                                                     };
@@ -393,7 +403,7 @@
                                                                         dataType: "json",
                                                                         success:function (data) {
                                                                             myWindow.data("kendoWindow").close();
-                                                                        }
+                                                                }
 
                                                                     })
                                                                 }
@@ -412,12 +422,15 @@
 
                                             myWindow.kendoWindow({
                                                 width: "615px",
-                                                title: "用户角色管理",
+                                                title: data.userName+"用户角色管理",
                                                 // content: $("roleList").html
                                                 // close: onClose
+
                                             });
 
-                                                myWindow.data("kendoWindow").open();
+
+                                            myWindow.data("kendoWindow").center().open();
+
                                                 // undo.fadeOut();
 
                                         }
@@ -465,6 +478,32 @@
                             }
                         }
                     }
+                }
+                function roleListDropDownEditor(container, options) {
+                    // console.log(options.model);
+                    var typeId = options.model.pName;
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "name",
+                        value: typeId,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./user/allplace1",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
                 }
 
                 $(".product-preview").html()

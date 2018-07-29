@@ -85,6 +85,7 @@
                                 fields: {
                                     id: { editable: false, nullable: true },
                                    roleName: { type: "string" },
+                                    description : {type: "string"},
                                     createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
@@ -104,6 +105,7 @@
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                         groupable: true,
+                        resizable: true,
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
@@ -140,7 +142,8 @@
                         columns: [
                             // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
                             { field: "roleName",title: "角色", width: 100,filterable: { multi: true, search: true} },
-                            { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                            { field: "description",title: "角色权限描述", width: 100,filterable: { multi: true, search: true}},
+                            // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             {
                                 command: [
                                     {
@@ -191,7 +194,8 @@
                                                         fields: {
                                                             id: { editable: false, nullable: true },
                                                             permissionsName: { type: "string" },
-                                                            url: { type: "string"}
+                                                            url: { type: "string"},
+                                                            description : {type: "string"},
                                                             // roleEntities : {defaultValue: { id: 1, name: ""}}
                                                         }
                                                     },
@@ -209,6 +213,7 @@
                                                 dataSource: dataSource1,
                                                 height: 300,
                                                 groupable: true,
+                                                resizable: true,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 // groupable: true,//表格标题
@@ -246,8 +251,9 @@
                                                 },
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                                                    { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
-                                                    { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
+                                                    { field: "permissionsName",title: "权限", width: 100,filterable: { multi: true, search: true} },
+                                                    // { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
+                                                    // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                                                     {
                                                         command: [
                                                             {
@@ -291,7 +297,8 @@
                                                         fields: {
                                                             id: { editable: false, nullable: true },
                                                             permissionsName: { type: "string" },
-                                                            url: { type: "string"}
+                                                            url: { type: "string"},
+                                                            description : {type: "string"},
                                                             // roleEntities : {defaultValue: { id: 1, name: ""}}
                                                         }
                                                     },
@@ -309,6 +316,7 @@
                                                 dataSource: dataSource2,
                                                 height: 300,
                                                 groupable: true,
+                                                resizable: true,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 // groupable: true,//表格标题
@@ -346,8 +354,9 @@
                                                 },
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                                                    { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
-                                                    { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
+                                                    { field: "permissionsName",title: "权限", width: 100,filterable: { multi: true, search: true} },
+                                                    // { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
+                                                    // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                                                     {
                                                         command: [
                                                             {
@@ -386,12 +395,12 @@
 
                                             myWindow.kendoWindow({
                                                 width: "615px",
-                                                title: "角色权限管理",
+                                                title: data.roleName+"权限管理",
                                                 // content: $("roleList").html
                                                 // close: onClose
                                             });
 
-                                            myWindow.data("kendoWindow").open();
+                                            myWindow.data("kendoWindow").center().open();
                                             // undo.fadeOut();
 
                                         }
@@ -456,38 +465,7 @@
                     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                 }
 
-                // function changeDate(container, options) {
-                //     var input = $('<input name="' + options.field + '"/>');
-                //     input.appendTo(container);
-                //     input.kendoDateTimePicker({
-                //         format: "{0:yyyy-MM-dd HH:mm}"
-                //     });
-                // }
-                function roleListDropDownEditor(container, options) {
-                    // console.log(options.model);
-                    var typeId = options.model.deviceModelEntity.id;
 
-                    var input = $('<input required name="' + options.field + '"/>');
-                    input.appendTo(container);
-                    input.kendoComboBox({
-                        autoBind: true,
-                        placeholder: "请选择...",
-                        dataTextField: "name",
-                        dataValueField: "id",
-                        value: typeId,
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    type: "get",
-                                    url: "./deviceModel/all",
-                                    dataType: "json",
-                                    contentType: "application/json",
-                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                }
-                            }
-                        }
-                    });
-                }
 
                 /*]]>*/
             </script>

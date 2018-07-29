@@ -91,4 +91,6 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     List<DeviceEntity> findAllDeviceByPlaceId(@Param("placeId") int placeId);
 
 
+    @Query("from PlaceEntity p where p.name = :name")
+    PlaceEntity findPByName(@Param("name")String name);
 }

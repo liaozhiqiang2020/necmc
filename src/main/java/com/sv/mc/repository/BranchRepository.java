@@ -37,4 +37,12 @@ public interface BranchRepository extends BaseRepository<BranchEntity, Long>, Pa
      */
     @Query(value="select count(*) from mc_branch as b where b.discard_status=1",nativeQuery = true)
     int findBranchTotal();
+
+    /**
+     * 根据场地名查询场地
+     * @param name
+     * @return
+     */
+    @Query("from BranchEntity b where b.name = :name")
+    BranchEntity findBByName(@Param("name") String name);
 }

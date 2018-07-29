@@ -31,7 +31,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
-        web.ignoring().antMatchers("/somewhere/**");
+        web.ignoring()
+                .antMatchers("/css/**")
+                .antMatchers("/fonts/**")
+                .antMatchers("/img/**")
+                .antMatchers("/js/**");
     }
 
         @Override
@@ -40,24 +44,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                     .csrf().disable()
                     .authorizeRequests()
+                    .antMatchers("/**").authenticated()
+//                    .antMatchers("/**").authenticated()
 //                    .antMatchers("/css/**").permitAll()
 //                    .antMatchers("/js/**").permitAll()
 //                    .antMatchers("/img/**").permitAll()
 //                    .antMatchers("/price/**").hasAuthority("ROLE_AD")
 //                    .antMatchers("/role/**").hasAuthority("总公司权限")
 //                    .antMatchers("/user/**").hasAuthority("一级管理")
-                    .anyRequest().permitAll()
+//                    .anyRequest().permitAll()
                     .and()
                     .formLogin()
                     .loginPage("/login")
                     .successHandler(loginSuccessHandler())
                     .failureUrl("/login?error")
-                    .successForwardUrl("/home")
+                    .successForwardUrl("/index")
                     .permitAll()
                     .and()
                     .logout()
-                    .logoutUrl("/user")
-                    .logoutSuccessUrl("/user")
+//                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
                     .permitAll();
 //            http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         }
@@ -76,10 +82,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
     }
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/css/**").antMatchers("/fonts/**").antMatchers("/img/**").antMatchers("/js/**");
-//    }
-
-
 }
