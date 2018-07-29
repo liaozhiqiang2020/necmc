@@ -359,4 +359,13 @@ public class PlaceServiceImpl implements PlaceService {
         public List<PlaceEntity> getPlace(int cityId) {
                 return this.placeRepository.queryPlaceEntitiesByCityId(cityId);
         }
+
+
+        /**
+         * 不分页查询第一级场地数据
+         */
+        @Override
+        public List<PlaceEntity> findAllPlaceFirst() {
+                return this.placeRepository.findAllPlaces();
+        }
 }

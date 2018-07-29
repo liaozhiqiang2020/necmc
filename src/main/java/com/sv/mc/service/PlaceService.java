@@ -118,4 +118,8 @@ public interface PlaceService<T> extends BaseService<T>{
      */
     List<PlaceEntity> getPlace(int cityId);
 
+    /**
+     * 不分页查询一级场地数据
+     */
+    List<PlaceEntity> findAllPlaceFirst();
 }

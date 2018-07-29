@@ -3,6 +3,25 @@
 <head th:replace="fragments/header::header-css">
     <title>设备控制</title>
 </head>
+
+<style>
+    .login-button { /* 按钮美化 */
+        width: 70px; /* 宽度 */
+        height: 28px; /* 高度 */
+        border-width: 0px; /* 边框宽度 */
+        border-radius: 3px; /* 边框半径 */
+        background: #1E90FF; /* 背景颜色 */
+        cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+        outline: none; /* 不显示轮廓线 */
+        font-family: Microsoft YaHei; /* 设置字体 */
+        color: white; /* 字体颜色 */
+        font-size: 17px; /* 字体大小 */
+    }
+    .login-button:hover { /* 鼠标移入按钮范围时改变颜色 */
+        background: #5599FF;
+    }
+</style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
 
@@ -20,18 +39,57 @@
     <div class="container-fluid">
 
         <div class="container-fluid">
+
+            <div class="demo-section k-content">
+
+                <div id="fieldlist" style="background-color:#EDF0F4">
+                    <h5>
+                        场地:   <input id="place" /> <!--下拉框-->
+                        <button class="login-button" onclick="grid()">查询</button></h5>
+                </div>
+
+
+            </div >
+
             <div id="grid"></div>
             <script>
                 /*<![CDATA[*/
-                $(function () {loadUserList();});
+                $(function () {
+                    $("#place").kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./place/findAllPlaceFirst",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                });
+
+                //点击查询按钮
+                function grid(){
+                    var placeId = $("#place").data("kendoComboBox").value();//场地id
+
+                    loadUserList(placeId);
+                }
 
                 //初始化表格数据
-                function loadUserList() {
+                function loadUserList(placeId) {
 
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./deviceMgr/getAllDevice"
+                                url: "./place/findDevicesByPlaceId?placeId="+placeId
                             }
                         },
                         serverPaging: false,    //设定服务器来实现分页功能
