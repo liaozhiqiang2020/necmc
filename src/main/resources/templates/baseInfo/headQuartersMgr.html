@@ -59,10 +59,10 @@
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    name: {type: "string"},
-                                    address: {type: "string"},
-                                    telephone: {type: "string"},
-                                    email: {type: "string"}
+                                    name: {type: "string", validation: {required: true, required: { message: "请您填写名称" }}},
+                                    address: {type: "string", validation: {required: true, required: { message: "请您填写地址" }}},
+                                    telephone: {type: "string", validation: {required: true, required: { message: "请您填写电话" }}},
+                                    email: {type: "string", validation: {required: true, required: { message: "请您填写电子邮件地址" }}}
                                 }
                             },
                             data: function (response) {
