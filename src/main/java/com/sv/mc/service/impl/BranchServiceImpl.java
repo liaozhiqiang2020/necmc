@@ -8,6 +8,7 @@ import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.pojo.VendorEntity;
 import com.sv.mc.repository.BranchRepository;
 import com.sv.mc.repository.HeadQuartersRepository;
+import com.sv.mc.repository.UserRepository;
 import com.sv.mc.repository.VendorRepository;
 import com.sv.mc.service.BranchService;
 import com.sv.mc.util.DataSourceResult;
@@ -31,6 +32,8 @@ public class BranchServiceImpl implements BranchService {
         private HeadQuartersRepository headQuartersRepository;
         @Autowired
         private VendorRepository vendorRepository;
+        @Autowired
+        private UserRepository userRepository;
 
         /**1
          * 保存缓存数据
@@ -122,11 +125,15 @@ public class BranchServiceImpl implements BranchService {
 
                 JSONArray jsonArray = JSONArray.fromObject(branchEntityList);
                 String headQuartersName;
+                String userName;
                 for (int i = 0; i < jsonArray.size(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int headQuartersId = Integer.parseInt(jsonObject.get("headQuartersId").toString());
+                        int userId = Integer.parseInt(jsonObject.get("userId").toString());
                         headQuartersName = this.headQuartersRepository.findHeadQuartersById(headQuartersId).getName();//查出总部名称
+                        userName = this.userRepository.findUserById(userId).getName();
                         jsonObject.put("headQuartersName", headQuartersName);
+                        jsonObject.put("userName", userName);
                         jsonArray1.add(jsonObject);
                 }
                 jsonObject1.put("data",jsonArray1);
@@ -232,5 +239,15 @@ public class BranchServiceImpl implements BranchService {
                 }
 
                 return  jsonArray3.toString();
+        }
+
+
+        /**
+         * 查询所有状态为1的用户
+         * @return
+         */
+        @Override
+        public List<UserEntity> findAllByStatus() {
+                return this.userRepository.findAllByStatus();
         }
 }

@@ -78,17 +78,37 @@
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    mcSn: {type: "string"},
-                                    // maintainDateTime: {type: "timestamp"},
-                                    latitude: {type: "number"},
-                                    longitude: {type: "number"},
-                                    // mcStatus: {type: "int"},
-                                    statusName:{type:"string"},
-                                    loraId:{type:"string"},
+                                    mcSn: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "按摩椅编号为必填项！"}
+                                        }
+                                    },
+                                    loraId:{type:"string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "模块编号为必填项！"}
+                                        }
+                                    },
                                     note: {type: "string"},
-                                    placeEntity:{defaultValue: { id: 1, name: ""}},
-                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}},
-                                    supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                                    placeEntity:{defaultValue: { id: 1, name: ""},
+                                        validation: {
+                                            required: true,
+                                            required: {message: "所属场地为必填项！"}
+                                        }
+                                    },
+                                    deviceModelEntity:{defaultValue: { id: 1, name: ""},
+                                        validation: {
+                                            required: true,
+                                            required: {message: "所属型号为必填项！"}
+                                        }
+                                    },
+                                    supplierEntity:{defaultValue: { id: 1, supplierName: ""},
+                                        validation: {
+                                            required: true,
+                                            required: {message: "供应商为必填项！"}
+                                        }
+                                    }
                                 }
                             },
                             data: function (response) {
@@ -150,24 +170,6 @@
                                 title: "模块编号",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
-                            {
-                                field: "latitude",
-                                title: "按摩椅所在纬度",
-                                format: "{0:n4}",
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            },
-                            {
-                                field: "longitude",
-                                title: "按摩椅所在经度",
-                                format: "{0:n4}",
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            },
-                            // {
-                            //     field: "mcStatus",
-                            //     title: "按摩椅状态",
-                            //     template:"#=statusName#",
-                            //     editor:statusEditor
-                            // },
                             {
                                 field: "placeEntity",
                                 title: "所属场地",

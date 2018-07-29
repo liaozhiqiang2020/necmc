@@ -2,6 +2,7 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.BusinessEntity;
+import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,4 +63,9 @@ public interface BranchService<T> extends BaseService<T>{
      * 查询所有总公司和分公司和代理商内容
      */
     String allBranchAndHeadAndVendor();
+
+    /**
+     * 查询所有状态为1的用户
+     */
+    List<UserEntity> findAllByStatus();
 }

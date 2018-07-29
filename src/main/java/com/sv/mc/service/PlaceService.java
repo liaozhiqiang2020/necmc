@@ -76,17 +76,17 @@ public interface PlaceService<T> extends BaseService<T>{
 
     /**4
      * 插入一条子场地数据
-     * @param placeEntity
+     * @param
      * @return PlaceEntity
      */
-    PlaceEntity insertPlaceChild(PlaceEntity placeEntity);
+    PlaceEntity insertPlaceChild(Map<String,Object> map);
 
     /**
      * 根据分公司id更改对应的场地数据
-     * @param placeEntity 新场地名称
+     * @param
      * @return placeEntity
      */
-    PlaceEntity updatePlaceChild(PlaceEntity placeEntity);
+    PlaceEntity updatePlaceChild(Map<String,Object> map);
 
 
     /**

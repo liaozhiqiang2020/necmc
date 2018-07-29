@@ -110,14 +110,36 @@
                             id: "id",
                             fields: {
                                 id: {type: "number", editable: false},
-                                name: {type: "string"},
-                                placeSn: {type: "string"},
-                                placeAddress: {type: "string"},
-                                principal: {type: "string"},
-                                // latitude: {type: "number"},
-                                // longitude: {type: "number"},
-                                startDateTime: {type: "timestamp"},
-                                endDateTime: {type: "timestamp"},
+                                name: {type: "string",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "场地名称为必填项！"}
+                                    }
+                                },
+                                placeSn: {type: "string",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "场地编码为必填项！"}
+                                    }
+                                },
+                                placeAddress: {type: "string",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "场地地址为必填项！"}
+                                    }
+                                },
+                                startDateTime: {type: "timestamp",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "协议开始时间为必填项！"}
+                                    }
+                                },
+                                endDateTime: {type: "timestamp",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "协议结束时间为必填项！"}
+                                    }
+                                },
                                 levelFlag: {type: "number",editable: false},
                                 levelFlagName: {type: "string",editable: false},
                                 superiorId: {type: "string"},
@@ -125,7 +147,9 @@
                                 businessId:{type: "number"},
                                 businessName: {type: "string"},
                                 cityId:{type: "number"},
-                                cityName:{type: "string"}
+                                cityName:{type: "string"},
+                                userId:{type:"string"},
+                                userName:{type:"string"}
                             }
                         },
                         data: function (response) {
@@ -197,8 +221,10 @@
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
-                            field: "principal",
+                            field: "userId",
                             title: "场地负责人",
+                            template:"#=userName#",
+                            editor:chooseUser,
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         // {
@@ -335,21 +361,36 @@
                                 }
                                 if(operation ==="create"){
                                     options.pId =place_index2_Id;
-                                    options.principal = e.data.principal;
                                     options.placeAddress = e.data.placeAddress;
-                                    options.latitude = e.data.latitude;
-                                    options.longitude = e.data.longitude;
                                     options.startDateTime = e.data.startDateTime;
                                     options.endDateTime = e.data.endDateTime;
                                     options.levelFlag = e.data.levelFlag;
                                     options.levelFlagName = e.data.levelFlagName;
                                     options.superiorId = e.data.superiorId;
                                     options.superiorName = e.data.superiorName;
-                                    options.businessEntity = e.data.businessEntity;
-                                    options.cityEntity = e.data.cityEntity;
+                                    options.businessId = e.data.businessId;
+                                    options.businessName = e.data.businessName;
+                                    options.cityId = e.data.cityId;
+                                    options.cityName = e.data.cityName;
+                                    options.userId = e.data.userId;
+                                    options.userName = e.data.userName;
                                     return kendo.stringify(options);
                                 }
                                 if(operation === "update"){
+                                    options.pId =place_index2_Id;
+                                    options.placeAddress = e.data.placeAddress;
+                                    options.startDateTime = e.data.startDateTime;
+                                    options.endDateTime = e.data.endDateTime;
+                                    options.levelFlag = e.data.levelFlag;
+                                    options.levelFlagName = e.data.levelFlagName;
+                                    options.superiorId = e.data.superiorId;
+                                    options.superiorName = e.data.superiorName;
+                                    options.businessId = e.data.businessId;
+                                    options.businessName = e.data.businessName;
+                                    options.cityId = e.data.cityId;
+                                    options.cityName = e.data.cityName;
+                                    options.userId = e.data.userId;
+                                    options.userName = e.data.userName;
                                     return kendo.stringify(options);
                                 }
 
@@ -366,13 +407,27 @@
                                 fields: {
                                     id: {type: "number", editable: false},
                                     pId: {type: "number", nullable: true},
-                                    name: {type: "string"},
-                                    placeSn: {type: "string"}
+                                    name: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "场地名称为必填项！"}
+                                        }
+                                    },
+                                    placeSn: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "场地编码为必填项！"}
+                                        }
+                                    }
                                 }
                             },
                             data:function(response){
-                                // console.log(response);
                                 var list = JSON.parse(response);
+                                for(var i=0;i<list.length;i++){
+                                    var businessId = list[i].superiorId;
+                                    var businessName = list[i].businessName;
+                                    list[i].superiorId = businessId+"_"+businessName
+                                }
                                 return list;
                             }
                         }
@@ -431,7 +486,7 @@
                 var businessId = options.model.businessId;
                 var businessName = options.model.businessName;
 
-                var input = $('<input required name="' + options.field + '"/>');
+                var input = $('<input name="' + options.field + '"/>');
                 input.appendTo(container);
                 input.kendoComboBox({
                     autoBind: false,
@@ -461,7 +516,7 @@
                 var cityId = options.model.cityId;
                 var cityName = options.model.cityName;
 
-                var input = $('<input required name="' + options.field + '"/>');
+                var input = $('<input name="' + options.field + '"/>');
                 input.appendTo(container);
                 input.kendoComboBox({
                     autoBind: false,
@@ -492,7 +547,7 @@
                 var branchId = options.model.superiorId;
                 var branchName = options.model.superiorName;
 
-                var input = $('<input required name="' + options.field + '"/>');
+                var input = $('<input name="' + options.field + '"/>');
                 input.appendTo(container);
 
                 input.kendoComboBox({
@@ -520,6 +575,37 @@
                     }
                 });
 
+            }
+
+
+            //打开标记窗口时下拉列表展示
+            function chooseUser(container, options) {
+                var userId = options.model.userId;
+                var userName = options.model.userName;
+
+                var input = $('<input name="' + options.field + '"/>');
+                input.appendTo(container);
+                input.kendoComboBox({
+                    autoBind: false,
+                    placeholder: "请选择...",
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    value: userId,
+                    text:userName,
+                    filter: "contains",
+                    suggest: true,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                type: "get",
+                                url: "./branchMgr/findAllByStatus",
+                                dataType: "json",
+                                contentType: "application/json",
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                            }
+                        }
+                    }
+                });
             }
 
 

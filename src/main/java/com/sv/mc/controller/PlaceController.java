@@ -142,24 +142,24 @@ public class PlaceController {
 
     /**
      * 插入一条场地数据
-     * @param placeEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "/placeMgr/insertPlaceChild",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity insertPlaceChild(@RequestBody PlaceEntity placeEntity){
-        return  this.placeService.insertPlaceChild(placeEntity);
+    PlaceEntity insertPlaceChild(@RequestBody Map<String,Object> map){
+        return  this.placeService.insertPlaceChild(map);
     }
 
     /**
      * 更改场地数据
-     * @param placeEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "/placeMgr/updatePlaceChild",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity updatePlaceChild(@RequestBody PlaceEntity placeEntity){
-        return this.placeService.updatePlaceChild(placeEntity);
+    PlaceEntity updatePlaceChild(@RequestBody Map<String,Object> map){
+        return this.placeService.updatePlaceChild(map);
     }
 
     /**

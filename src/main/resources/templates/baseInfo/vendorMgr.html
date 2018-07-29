@@ -74,15 +74,36 @@
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    name: {type: "string"},
-                                    vendorAddress: {type: "string"},
-                                    principal: {type: "string"},
-                                    telephone: {type: "string"},
-                                    email: {type: "string"},
+                                    name: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "代理商名称为必填项！"}
+                                        }
+                                    },
+                                    vendorAddress: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "代理商地址为必填项！"}
+                                        }
+                                    },
+                                    telephone: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "代理商联系电话为必填项！"}
+                                        }
+                                    },
+                                    email: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "代理商邮箱为必填项！"}
+                                        }
+                                    },
                                     levelFlag:{type:"number",editable: false},
                                     levelFlagName:{type:"string",editable: false},
                                     superiorId:{type:"string"},
-                                    superiorName:{type:"string"}
+                                    superiorName:{type:"string"},
+                                    userId:{type:"string"},
+                                    userName:{type:"string"}
                                 }
                             },
                             data: function (response) {
@@ -146,8 +167,10 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
-                                field: "principal",
+                                field: "userId",
                                 title: "代理商负责人",
+                                template:"#=userName#",
+                                editor:chooseUser,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
@@ -255,7 +278,7 @@
                     var branchId = options.model.superiorId;
                     var branchName = options.model.superiorName;
 
-                    var input = $('<input required name="' + options.field + '"/>');
+                    var input = $('<input name="' + options.field + '"/>');
                     input.appendTo(container);
 
                     input.kendoComboBox({
@@ -263,8 +286,10 @@
                         placeholder: "请选择...",
                         dataTextField: "name",
                         dataValueField: "id",
-                        // value: branchId,
+                        value: branchId,
                         text:branchName,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: {
                             transport: {
                                 read: {
@@ -277,8 +302,38 @@
                             }
                         }
                     });
-
                 }
+
+                //打开标记窗口时下拉列表展示
+                function chooseUser(container, options) {
+                    var userId = options.model.userId;
+                    var userName = options.model.userName;
+
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: userId,
+                        text:userName,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./branchMgr/findAllByStatus",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
                 /*]]>*/
             </script>
 

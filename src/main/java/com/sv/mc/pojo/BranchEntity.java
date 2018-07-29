@@ -17,6 +17,7 @@ public class BranchEntity {
     private String telephone;   //分公司联系电话
     private String email;       //分公司邮箱
     private int headQuartersId;  //总公司Id
+    private int userId;//用户id
 
     @Basic
     @Column(name = "head_quarters_id")
@@ -59,6 +60,15 @@ public class BranchEntity {
 
     public void setLevelFlag(int levelFlag) {
         this.levelFlag = levelFlag;
+    }
+
+    @Basic
+    @Column(name="user_id")
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Basic
