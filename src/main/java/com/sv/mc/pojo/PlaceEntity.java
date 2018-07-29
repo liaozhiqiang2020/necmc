@@ -40,6 +40,7 @@ public class PlaceEntity {
 
     private Integer businessId;
     private Integer cityId;
+    private int userId;//用户id
 
     @Basic
     @JoinColumn(name="business_id")
@@ -106,6 +107,15 @@ public class PlaceEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name="user_id")
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Basic

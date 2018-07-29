@@ -6,6 +6,7 @@ import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.VendorEntity;
 import com.sv.mc.repository.BranchRepository;
 import com.sv.mc.repository.HeadQuartersRepository;
+import com.sv.mc.repository.UserRepository;
 import com.sv.mc.repository.VendorRepository;
 import com.sv.mc.service.VendorService;
 import com.sv.mc.util.DataSourceResult;
@@ -30,6 +31,8 @@ public class VendorServiceImpl implements VendorService {
         private HeadQuartersRepository headQuartersRepository;
         @Autowired
         private BranchRepository branchRepository;
+        @Autowired
+        private UserRepository userRepository;
 
         /**
          * 提交数据
@@ -91,10 +94,12 @@ public class VendorServiceImpl implements VendorService {
 
                 String superiorName="";
                 String levelFlagName="";
+                String userName = "";
                 for (int i = 0; i <jsonArray.size() ; i++) {
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
                         int superiorId =Integer.parseInt(jsonObject.get("superiorId").toString());
                         int levelFlag =Integer.parseInt(jsonObject.get("levelFlag").toString());
+                        int userId = Integer.parseInt(jsonObject.get("userId").toString());
                         if(levelFlag==1){
                                 levelFlagName = "总部";
                                 superiorName = this.vendorRepository.findHeadNameById(superiorId).getName();
@@ -102,8 +107,12 @@ public class VendorServiceImpl implements VendorService {
                                 levelFlagName = "分公司";
                                 superiorName = this.vendorRepository.findBranchNameById(superiorId).getName();
                         }
+                        userName = this.userRepository.findUserById(userId).getName();
+                        jsonObject.put("superiorId",superiorId+"_"+superiorName);
                         jsonObject.put("superiorName",superiorName);
                         jsonObject.put("levelFlagName",levelFlagName);
+//                        jsonObject.put("userId",userId+"_"+userName);
+                        jsonObject.put("userName",userName);
                         jsonArray1.add(jsonObject);
                 }
 
@@ -155,9 +164,10 @@ public class VendorServiceImpl implements VendorService {
 //                Object discardStatus = map.get("discardStatus");
                 Object email = map.get("email");
                 Object name = map.get("name");
-                Object principal = map.get("principal");
+//                Object principal = map.get("principal");
                 Object telephone = map.get("telephone");
                 Object vendorAddress = map.get("vendorAddress");
+                int userId = Integer.parseInt(map.get("userId").toString());
                 int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
                 String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
 
@@ -167,7 +177,8 @@ public class VendorServiceImpl implements VendorService {
                         vendorEntity.setId(Integer.parseInt(id.toString()));
                 }
                 vendorEntity.setName(name.toString());
-                vendorEntity.setPrincipal(principal.toString());
+//                vendorEntity.setPrincipal(principal.toString());\
+                vendorEntity.setUserId(userId);
                 vendorEntity.setTelephone(telephone.toString());
                 vendorEntity.setVendorAddress(vendorAddress.toString());
 

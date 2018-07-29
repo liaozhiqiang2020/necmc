@@ -3,6 +3,7 @@ package com.sv.mc.controller;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.BranchService;
+import com.sv.mc.service.UserService;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ public class BranchController {
     //注入
     @Autowired
     private BranchService branchService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 跳转到分公司管理页面
@@ -116,4 +119,12 @@ public class BranchController {
     }
 
 
+    /**
+     * 查询所有状态为1的用户
+     */
+    @GetMapping(value="/branchMgr/findAllByStatus")
+    public @ResponseBody
+    List<UserEntity> findAllByStatus(){
+        return this.branchService.findAllByStatus();
+    }
 }

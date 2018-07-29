@@ -78,13 +78,36 @@
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    name: {type: "string"},
-                                    branchAddress: {type: "string"},
-                                    principal: {type: "string"},
-                                    telephone: {type: "string"},
-                                    email: {type: "string"},
-                                    headQuartersId:{type:"number",defaultValue: { id: 1, name: ""}},
-                                    headQuartersName:{type:"string"}
+                                    name: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "分公司名称为必填项！"}
+                                        }
+                                     },
+                                    branchAddress: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "分公司地址为必填项！"}
+                                        }
+                                    },
+                                    telephone: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {
+                                                message: "分公司联系电话为必填项！"
+                                            }
+                                        }
+                                    },
+                                    email: {type: "string",
+                                        validation: {
+                                            required: true,
+                                            required: {message: "分公司邮箱为必填项！"}
+                                        }
+                                    },
+                                    headQuartersId:{type:"number"},
+                                    headQuartersName:{type:"string"},
+                                    userId:{type:"number"},
+                                    userName:{type:"string"},
                                  }
                             },
                             data: function (response) {
@@ -147,8 +170,10 @@
                                 title: "分公司地址",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {
-                                field: "principal",
+                                field: "userId",
                                 title: "分公司负责人",
+                                template:"#=userName#",
+                                editor:chooseUser,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {
                                 field: "telephone",
@@ -245,22 +270,55 @@
                 //打开标记窗口时下拉列表展示
                 function roleListDropDownEditor(container, options) {
                     var headId = options.model.headQuartersId;
-                    // var headName = options.model.headQuartersName;
+                    var headName = options.model.headQuartersName;
 
                     var input = $('<input name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
-                        autoBind: true,
+                        autoBind: false,
                         placeholder: "请选择...",
                         dataTextField: "name",
                         dataValueField: "id",
                         value: headId,
                         text:headName,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: {
                             transport: {
                                 read: {
                                     type: "get",
                                     url: "./headMgr/allHead",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+
+                //打开标记窗口时下拉列表展示
+                function chooseUser(container, options) {
+                    var userId = options.model.userId;
+                    var userName = options.model.userName;
+
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: userId,
+                        text:userName,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./branchMgr/findAllByStatus",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}

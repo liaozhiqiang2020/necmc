@@ -20,6 +20,7 @@ public class VendorEntity {
     private String email;//邮箱
     private int levelFlag;//隶属单位（1总部，2分公司）
     private int superiorId;//上级主键
+    private int userId;//用户id
 
     @Basic
     @Column(name = "superior_id")
@@ -40,6 +41,15 @@ public class VendorEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name="user_id")
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Basic
