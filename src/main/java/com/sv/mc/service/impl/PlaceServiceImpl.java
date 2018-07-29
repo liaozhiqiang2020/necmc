@@ -242,6 +242,7 @@ public class PlaceServiceImpl implements PlaceService {
                 Object name = map.get("name");
                 Object placeAddress = map.get("placeAddress");
                 Object placeSn = map.get("placeSn");
+//                Object file = map.get("file");
 //                Object principal = map.get("principal");
                 int userId = Integer.parseInt(map.get("userId").toString());
                 int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
@@ -260,6 +261,7 @@ public class PlaceServiceImpl implements PlaceService {
                 placeEntity.setPlaceSn(placeSn.toString());
                 placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
                 placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
+//                placeEntity.setFile(file.toString());
 
 
                 HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
@@ -297,6 +299,7 @@ public class PlaceServiceImpl implements PlaceService {
                 Object name = map.get("name");
                 Object placeAddress = map.get("placeAddress");
                 Object placeSn = map.get("placeSn");
+                Object file = map.get("file");
                 int userId = Integer.parseInt(map.get("userId").toString());
                 int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
                 String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
@@ -314,6 +317,7 @@ public class PlaceServiceImpl implements PlaceService {
                 placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
                 placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
                 placeEntity.setpId(pId);
+                placeEntity.setFile(file.toString());
 
                 HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
                 if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
@@ -467,5 +471,19 @@ public class PlaceServiceImpl implements PlaceService {
         @Override
         public List<PlaceEntity> findAllPlaceFirst() {
                 return this.placeRepository.findAllPlaces();
+        }
+
+
+        /**
+         * 把图片存到数据库中
+         * @param placeId
+         * @param uploadpath
+         */
+        @Override
+        public void saveFileToDB(int placeId, String uploadpath,String fileName) {
+                PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+                placeEntity.setFile(uploadpath);
+                placeEntity.setFileName(fileName);
+                this.placeRepository.save(placeEntity);
         }
 }

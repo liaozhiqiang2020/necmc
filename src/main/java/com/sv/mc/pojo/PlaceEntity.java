@@ -41,6 +41,8 @@ public class PlaceEntity {
     private Integer businessId;
     private Integer cityId;
     private int userId;//用户id
+    private String file;
+    private String fileName;
 
     @Basic
     @JoinColumn(name="business_id")
@@ -60,6 +62,26 @@ public class PlaceEntity {
 
     public void setCityId(Integer cityId) {
         this.cityId = cityId;
+    }
+
+    @Basic
+    @JoinColumn(name="file")
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    @Basic
+    @JoinColumn(name="file_Name")
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     //    private BusinessEntity businessEntity;//行业信息

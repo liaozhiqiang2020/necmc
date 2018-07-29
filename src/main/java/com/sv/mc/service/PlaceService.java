@@ -122,4 +122,9 @@ public interface PlaceService<T> extends BaseService<T>{
      * 不分页查询一级场地数据
      */
     List<PlaceEntity> findAllPlaceFirst();
+
+    /**
+     * 把图片存到数据库中
+     */
+    void saveFileToDB(int placeId,String uploadpath,String fileName);
 }

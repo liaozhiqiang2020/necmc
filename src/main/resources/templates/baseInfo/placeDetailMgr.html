@@ -20,6 +20,9 @@
     <div class="container-fluid">
 
         <div id="grid"></div>
+        <div id="window">
+            <input name="file" id="file" type="file"/>
+        </div>
 
         <script type="text/x-kendo-template" id="template">
             <div class="tabstrip">
@@ -40,6 +43,11 @@
 
         <script>
             $(document).ready(function() {
+                $("#file").kendoUpload({
+
+                });
+                $(".k-upload-empty").hide();
+
                 var dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
@@ -280,9 +288,94 @@
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
-                            command: ["edit","destroy"],
+                            command: ["edit","destroy",
+                                {
+                                    text: "上传协议",//名称
+                                    click: function (e) {
+                                        // e.target 是表示按钮的DOM元素
+                                        var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                        // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                        var data = this.dataItem(tr);
+                                        var placeId = data.id;
+                                        var file = data.file;
+                                        console.log(file);
+                                        if(file!=""){
+                                            return;
+                                        }
+
+                                        var myWindow = $("#window");
+                                        myWindow.kendoWindow({
+                                            width: "500px",
+                                            height: "300px",
+                                            title: "添加备注"
+                                        });
+
+                                        myWindow.data("kendoWindow").center().open();
+
+                                        $(".k-upload-empty").show();
+
+                                        $("#file").kendoUpload({
+                                            async: {
+                                                saveUrl: "./file/upload",
+                                                autoUpload: true
+                                            },
+                                            localization: {     //设置上传按钮名称
+                                                select: "上传"
+                                            },
+                                            success: function(e){//上传成功后执行的回调函数
+                                                var uploadpath = e.response.uploadpath;
+                                                var fileName = e.response.fileName;
+
+                                                $.ajax({
+                                                    type:"post",
+                                                    url:"./placeMgr/saveFileToDB",
+                                                    data:{
+                                                        uploadpath:uploadpath,
+                                                        placeId:placeId,
+                                                        fileName:fileName
+                                                    },
+                                                    success:function(res){
+                                                        // console.log(uploadpath);
+                                                        myWindow.data("kendoWindow").close();
+                                                        location.reload();
+                                                    }
+                                                })
+                                            }
+                                        });
+
+
+                                    }
+                                },
+                                {
+                                    text: "下载协议",//名称
+                                    click: function (e) {
+                                        // e.target 是表示按钮的DOM元素
+                                        var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                        // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                        var data = this.dataItem(tr);
+                                        var placeId = data.id;
+                                        var file = data.file;
+                                        var fileName = data.fileName;
+                                        console.log(file);
+
+                                        $.ajax({
+                                            type:"post",
+                                            url:"./file/download",
+                                            data:{
+                                                fileUrl:file,
+                                                fileName:fileName
+                                            },
+                                            success:function(res){
+                                               console.log(res);
+                                            }
+                                        })
+                                    }
+                                }
+
+
+                            ],
                             title: "操作",
-                            width: "200px"
+                            width: "300px"
                         }
                     ],
                     editable: {
@@ -294,6 +387,29 @@
                 });
             });
 
+
+            //字段修改格式化 修改框 转换为上传按钮
+            function categoryDropDownEditor(container, options) {
+                $('<input type="file" name="' + options.field + '" />')
+                    .appendTo(container)
+                    .kendoUpload({
+                        async: {    //异步上传图片到指定地址中
+                            saveUrl: "./file/upload",
+                            // removeUrl: "/Default1/remove",
+                            autoUpload: true
+                        },
+                        localization: {     //设置上传按钮名称
+                            select: "上传预览图片"
+                        },
+                        success: function(e){//上传成功后执行的回调函数
+                            var uploadpath = e.response.uploadpath;
+                            console.log(uploadpath);
+                            // console.log("suceess");
+                        }
+
+
+                    });
+            }
 
             //add tooltip
             $("#grid").kendoTooltip({
