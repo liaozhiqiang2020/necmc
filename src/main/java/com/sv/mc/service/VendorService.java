@@ -3,6 +3,8 @@ package com.sv.mc.service;
 import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.VendorEntity;
 
+import java.util.Map;
+
 /**
  * 接口
  * author:赵政博
@@ -32,14 +34,6 @@ public interface VendorService<T> extends BaseService<T>{
     VendorEntity updateVendorDataById(int id, VendorEntity vendor);
 
 
-
-    /**4
-     * 插入一条分代理商数据
-     * @param vendor
-     * @return VendorEntity
-     */
-    VendorEntity insertVendor(VendorEntity vendor);
-
     /**
      * 分页查询代理商数据
      */
@@ -48,10 +42,17 @@ public interface VendorService<T> extends BaseService<T>{
 
     /**
      * 根据代理商id更改对应的代理商数据
-     * @param vendorEntity
+     * @param
      * @return BranchEntity
      */
-    VendorEntity updateVendorDataById(VendorEntity vendorEntity);
+    VendorEntity updateVendorDataById(Map<String,Object> map);
+
+    /**4
+     * 插入一条分代理商数据
+     * @param
+     * @return VendorEntity
+     */
+    VendorEntity insertVendor(Map map);
 
     /**
      * 根据id修改状态

@@ -72,6 +72,7 @@
                                 return kendo.stringify(list);
                             }
                             if(operation ==="create"){
+                                console.log(options);
                                 var endDate =options.endDateTime;
                                 var startDate = options.startDateTime;
                                 options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
@@ -79,6 +80,7 @@
                                 return kendo.stringify(options);
                             }
                             if(operation ==="update"){
+                                console.log(options);
                                 var endDate =options.endDateTime;
                                 var startDate = options.startDateTime;
 
@@ -90,6 +92,11 @@
                                 }
 
                                 return kendo.stringify(options);
+                            }
+                            if(operation=="read"){
+                                var page = $("#grid").data("kendoGrid").dataSource.page();
+                                var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
+                                return {page:page,pageSize:pageSize};
                             }
                         }
                     },
@@ -107,22 +114,26 @@
                                 placeSn: {type: "string"},
                                 placeAddress: {type: "string"},
                                 principal: {type: "string"},
-                                latitude: {type: "number"},
-                                longitude: {type: "number"},
+                                // latitude: {type: "number"},
+                                // longitude: {type: "number"},
                                 startDateTime: {type: "timestamp"},
                                 endDateTime: {type: "timestamp"},
-                                levelFlag: {type: "number"},
-                                levelFlagName: {type: "string"},
-                                superiorId: {type: "number"},
+                                levelFlag: {type: "number",editable: false},
+                                levelFlagName: {type: "string",editable: false},
+                                superiorId: {type: "string"},
                                 superiorName: {type: "string"},
-                                businessEntity:{defaultValue: { id: 1, name: ""}},
-                                cityEntity:{defaultValue: { id: 1, name: ""}}
+                                businessId:{type: "number"},
+                                businessName: {type: "string"},
+                                cityId:{type: "number"},
+                                cityName:{type: "string"}
                             }
                         },
-                        data:function(response){
-                            var list = JSON.parse(response);
-
+                        data: function (response) {
+                            var list = JSON.parse(response).data;
                             return list;
+                        },
+                        total: function (response) {
+                            return JSON.parse(response).total;
                         }
                     }
                 });
@@ -142,6 +153,33 @@
                     toolbar: ["create"],
                     columnMenu: true,
                     resizable: true,
+                    pageable: {
+                        // empty:"没有要显示的数据",
+                        // //代表是否支持刷新
+                        // refresh: true,
+                        // //表示每页显示的记录数，默认为5,10,20
+                        pageSizes: true,
+                        // //表示显示的页数，5表示1,2,3,4,5
+                        buttonCount: 5,
+                        totalPages: true,
+                        // input: true,//表示是否可以输入数字
+                        refresh: true,
+                        pageSize: 5,
+                        pageSizes: [5, 10, 15, 20],
+                        numeric: true,
+                        input: true,
+                        messages: {
+                            display: "显示 {0}-{1} 条，共 {2} 条",
+                            empty: "没有数据",
+                            itemsPerPage: "每页显示数量",
+                            first: "第一页",
+                            last: "最后一页",
+                            next: "下一页",
+                            previous: "上一页",
+                            page: "页",
+                            of: "共 {0}页"
+                        }
+                    },
                     columns: [
                         {
                             field: "name",
@@ -163,24 +201,23 @@
                             title: "场地负责人",
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
-                        {
-                            field: "latitude",
-                            title: "纬度",
-                            format: "{0:n4}",
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                        },
-                        {
-                            field: "longitude",
-                            title: "经度",
-                            format: "{0:n4}",
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                        },
+                        // {
+                        //     field: "latitude",
+                        //     title: "纬度",
+                        //     format: "{0:n4}",
+                        //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        // },
+                        // {
+                        //     field: "longitude",
+                        //     title: "经度",
+                        //     format: "{0:n4}",
+                        //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        // },
                         {
                             field: "startDateTime",
                             title: "协议开始时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
                             editor: changeDate,
-                            //列数据过长时，不换行，简略为 " ... "
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
@@ -188,13 +225,11 @@
                             title: "协议结束时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
                             editor: changeDate,
-                            //列数据过长时，不换行，简略为 " ... "
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },{
-                            field: "levelFlag",
-                            title: "隶属单位",
+                            field: "levelFlagName",
+                            title: "隶属上级单位",
                             template:"#=levelFlagName#",
-                            editor:chooseBranchOrHead,
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
@@ -205,16 +240,16 @@
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
-                            field: "businessEntity",
+                            field: "businessId",
                             title: "行业分类名称",
-                            template:"#=businessEntity.name#",
+                            template:"#=businessName#",
                             editor:businessEditor,
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
-                            field: "cityEntity",
+                            field: "cityId",
                             title: "城市名称",
-                            template:"#=cityEntity.name#",
+                            template:"#=cityName#",
                             editor:cityEditor,
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
@@ -391,72 +426,10 @@
                 });
             }
 
-            var useFlag=false;
-            var testDataSource;
-            function chooseBranchOrHead(container, options){
-                var levelFlag = options.model.levelFlag;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-
-                input.kendoComboBox({
-                    autoBind: true,
-                    // enable: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: levelFlag,
-                    dataSource: [
-                        {
-                            "id":1,
-                            "name":"总部"
-                        },{
-                            "id":2,
-                            "name":"分公司"
-                        },{
-                            "id":3,
-                            "name":"代理商"
-                        }
-                    ],
-                    select:function(e){
-                        var item = e.dataItem.id;
-
-                        var flag=item;
-                        useFlag=true;
-
-
-                        if(flag==1){
-                            testDataSource = new kendo.data.DataSource({
-                                transport: {
-                                    read: {
-                                        url: "./headMgr/allHead"
-                                    }
-                                }
-                            });
-                        }else if(flag==2){
-                            testDataSource = new kendo.data.DataSource({
-                                transport: {
-                                    read: {
-                                        url: "./branchMgr/allBranch"
-                                    }
-                                }
-                            });
-                        } else if(flag==3){
-                            testDataSource = new kendo.data.DataSource({
-                                transport: {
-                                    read: {
-                                        url: "./vendorMgr/getAllVendor"
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-
             //行业分类下拉列表
             function businessEditor(container, options){
-                var businessId = options.model.businessEntity.id;
+                var businessId = options.model.businessId;
+                var businessName = options.model.businessName;
 
                 var input = $('<input required name="' + options.field + '"/>');
                 input.appendTo(container);
@@ -466,6 +439,9 @@
                     dataTextField: "name",
                     dataValueField: "id",
                     value: businessId,
+                    text:businessName,
+                    filter: "contains",
+                    suggest: true,
                     dataSource: {
                         transport: {
                             read: {
@@ -482,7 +458,8 @@
 
             //城市下拉列表
             function cityEditor(container, options){
-                var cityId = options.model.cityEntity.id;
+                var cityId = options.model.cityId;
+                var cityName = options.model.cityName;
 
                 var input = $('<input required name="' + options.field + '"/>');
                 input.appendTo(container);
@@ -491,7 +468,10 @@
                     placeholder: "请选择...",
                     dataTextField: "name",
                     dataValueField: "id",
-                    value: cityId,
+                    value:cityId,
+                    text:cityName,
+                    filter: "contains",
+                    suggest: true,
                     dataSource: {
                         transport: {
                             read: {
@@ -507,34 +487,36 @@
             }
 
 
-            //打开标记窗口时下拉列表展示
+            //隶属单位
             function roleListDropDownEditor(container, options) {
-                // var flag =options.model.levelFlag;
-
                 var branchId = options.model.superiorId;
                 var branchName = options.model.superiorName;
-                // console.log(options.model);
-                // console.log(branchName);
 
                 var input = $('<input required name="' + options.field + '"/>');
                 input.appendTo(container);
-
-                // input.kendoComboBox.
 
                 input.kendoComboBox({
                     autoBind: false,
                     placeholder: "请选择...",
                     dataTextField: "name",
                     dataValueField: "id",
-                    // value: branchId,
+                    value: branchId,
                     text:branchName,
-                    open: function(e) {
-                        if(useFlag==true){
-                            this.setDataSource(testDataSource);
-                        }else{
-                            return;
+                    filter: "contains",
+                    suggest: true,
+                    dataSource: {
+                        transport: {
+                            read: {
+                                type: "get",
+                                url: "./branchMgr/allBranchAndHeadAndVendor",
+                                dataType: "json",
+                                contentType: "application/json",
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                            }
                         }
-
+                    },
+                    dataBound: function(e) {
+                        console.log(e);
                     }
                 });
 

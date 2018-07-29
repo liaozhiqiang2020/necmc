@@ -20,11 +20,23 @@
 
     <div class="container-fluid">
 
+        <div id="window">
+            <textarea id="textarea" style="width:400px;height: 250px" rows="4" hidden="true"></textarea>
+            <!--<a id="btn" class="k-primary" hidden="true">提交</a>-->
+            <button id="btn" type="button" >提交</button>
+        </div>
+
         <div class="container-fluid">
             <div id="grid"></div>
             <script>
                 /*<![CDATA[*/
-                $(function () {loadUserList();});
+                $(function () {
+                    loadUserList();
+                    $("#btn").kendoButton({
+
+                    });
+                    $("#btn").hide();
+                });
 
                 //初始化表格数据
                 function loadUserList() {
@@ -51,13 +63,14 @@
                                     statusName:{type:"string"},
                                     createDateTime: {type: "timestamp"},
                                     payDateTime: {type: "timestamp"},
-                                    money: {type: "string"},
+                                    money: {type: "number"},
                                     mcStartDateTime: {type: "timestamp"},
                                     mcEndDateTime: {type: "timestamp"},
                                     mcStatus: {type: "int"},
                                     deviceId: {type: "int"},
-                                    mcTime: {type: "string"},
-                                    description:{type:"string"}
+                                    mcTime: {type: "number"},
+                                    description:{type:"string"},
+                                    cancelReason:{type:"string"}
                                 }
                             },
                             data: function (response) {
@@ -137,8 +150,9 @@
                             },
                             {
                                 field: "money",
-                                title: "订单金额",
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                title: "订单金额(￥)",
+                                format: "{0:n2}",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                             },
                             {
                                 field: "mcStartDateTime",
@@ -163,13 +177,74 @@
                             },
                             {
                                 field: "mcTime",
-                                title: "按摩时长",
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                title: "按摩时长(分钟)",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                             },
                             {
                                 field: "description",
                                 title: "取消订单原因",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                field: "cancelReason",
+                                title: "备注",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                command: [
+                                    {
+                                        text:"添加备注",//名称
+                                        click:function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+                                            var oldText = data.cancelReason;
+                                            var orderId = data.id;
+
+                                            var myWindow = $("#window");
+                                            myWindow.kendoWindow({
+                                                width: "500px",
+                                                height:"300px",
+                                                title: "添加备注"
+                                            });
+
+
+                                            myWindow.data("kendoWindow").center().open();
+
+                                            $("#textarea").show();
+                                            $("#btn").show();
+                                            $("#textarea").val(oldText);
+
+
+                                            $("#btn").kendoButton({
+                                                click: function(){
+
+                                                    var text = $("#textarea").val();
+
+                                                    $.ajax({
+                                                        type:"post",
+                                                        url:"./orderMgr/addOrderDescription",
+                                                        data:{
+                                                            orderId:orderId,
+                                                            description:text
+                                                        },
+                                                        success:function(res){
+                                                            myWindow.data("kendoWindow").close();
+                                                            $("#textarea").hide();
+                                                            $("#textarea").val("");
+                                                            // var grid = $("#grid").data("kendoGrid");
+                                                            // grid.dataSource.read();
+                                                            location.reload();
+                                                        }
+                                                    })
+                                                }
+                                            });
+
+                                        }
+                                    }],
+                                title: "操作",
+                                width: "100px"
                             }
                         ]
                     });

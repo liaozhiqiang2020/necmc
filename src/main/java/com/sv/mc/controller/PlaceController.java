@@ -4,6 +4,7 @@ import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -83,27 +84,25 @@ public class PlaceController {
     }
 
 
-
-
-//    /**
-//     * 全部查询
-//     * @return 返回所有场地内容
-//     */
-//    @GetMapping(value = "/getAllPlace")
-//    public @ResponseBody
-//    String getAllPlace(String page, String pageSize) {
-//        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
-//    }
-
     /**
      * 全部查询
      * @return 返回所有场地内容
      */
     @GetMapping(value = "/placeMgr/getAllPlace")
     public @ResponseBody
-    String getAllPlace() {
-        return this.placeService.findAllPlace();
+    String getAllPlace(@Param("page") String page, @Param("pageSize") String pageSize) {
+        return this.placeService.findAllPlaceByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
     }
+
+//    /**
+//     * 全部查询
+//     * @return 返回所有场地内容
+//     */
+//    @GetMapping(value = "/placeMgr/getAllPlace")
+//    public @ResponseBody
+//    String getAllPlace() {
+//        return this.placeService.findAllPlace();
+//    }
 
     /**
      * 全部查询
@@ -119,24 +118,24 @@ public class PlaceController {
 
     /**
      * 插入一条场地数据
-     * @param placeEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "/placeMgr/insertPlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity insertPlace(@RequestBody PlaceEntity placeEntity){
-        return  this.placeService.insertPlace(placeEntity);
+    PlaceEntity insertPlace(@RequestBody Map<String,Object> map){
+        return  this.placeService.insertPlace(map);
     }
 
     /**
      * 更改场地数据
-     * @param placeEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "/placeMgr/updatePlace",method = RequestMethod.POST)
     public @ResponseBody
-    PlaceEntity updatePlace(@RequestBody PlaceEntity placeEntity){
-        return this.placeService.updatePlace(placeEntity);
+    PlaceEntity updatePlace(@RequestBody Map<String,Object> map){
+        return this.placeService.updatePlace(map);
     }
 
     /**

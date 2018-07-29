@@ -143,4 +143,13 @@ public interface OrderService<T> extends BaseService<T>{
      * @return
      */
     String findAllOrdersByPage(int page, int pageSize);
+
+    /**
+     * 后台添加订单描述
+     * @param
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    void addOrderDescription(int orderId, String description);
 }

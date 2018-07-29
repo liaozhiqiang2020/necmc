@@ -1,11 +1,14 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.VendorEntity;
 import com.sv.mc.repository.BranchRepository;
 import com.sv.mc.repository.HeadQuartersRepository;
+import com.sv.mc.repository.VendorRepository;
 import com.sv.mc.service.BranchService;
 import com.sv.mc.util.DataSourceResult;
 import net.sf.json.JSONArray;
@@ -18,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class BranchServiceImpl implements BranchService {
@@ -25,6 +29,8 @@ public class BranchServiceImpl implements BranchService {
         private BranchRepository branchRepository;
         @Autowired
         private HeadQuartersRepository headQuartersRepository;
+        @Autowired
+        private VendorRepository vendorRepository;
 
         /**1
          * 保存缓存数据
@@ -127,5 +133,104 @@ public class BranchServiceImpl implements BranchService {
                 jsonObject1.put("total",total);
 
                 return jsonObject1.toString();
+        }
+
+
+        /**
+         * 查询所有总公司和分公司内容
+         */
+        @Override
+        public String allBranchAndHead() {
+                JSONArray jsonArray3 = new JSONArray();
+
+                List<HeadQuartersEntity> headQuartersEntities = this.headQuartersRepository.findAll();
+                JSONArray jsonArray1 = JSONArray.fromObject(headQuartersEntities);
+
+                for (int i = 0; i < jsonArray1.size(); i++) {
+                        JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
+                        JSONObject jsonObject3 = new JSONObject();
+                        int id = Integer.parseInt(jsonObject1.get("id").toString());
+                        String name = jsonObject1.get("name").toString();
+                        jsonObject3.put("id",id+"_"+name);
+                        jsonObject3.put("name",name);
+                        jsonArray3.add(jsonObject3);
+                }
+
+                List<BranchEntity> branchEntities = this.branchRepository.findAll();
+                JSONArray jsonArray2 = JSONArray.fromObject(branchEntities);
+                for (int y = 0; y < jsonArray2.size(); y++) {
+                        JSONObject jsonObject2 = jsonArray2.getJSONObject(y);
+                        JSONObject jsonObject4 = new JSONObject();
+                        int id = Integer.parseInt(jsonObject2.get("id").toString());
+                        String name = jsonObject2.get("name").toString();
+                        jsonObject4.put("id",id+"_"+name);
+                        jsonObject4.put("name",name);
+                        jsonArray3.add(jsonObject4);
+                }
+
+                return  jsonArray3.toString();
+        }
+
+
+
+        /**
+         * 查询所有总公司和分公司和代理商内容
+         */
+        @Override
+        public String allBranchAndHeadAndVendor() {
+//                List<HeadQuartersEntity> headQuartersEntities = this.headQuartersRepository.findAll();
+//                List<BranchEntity> branchEntities = this.branchRepository.findAll();
+//                List<VendorEntity> vendorEntities = this.vendorRepository.findAll();
+//
+//                List list = new ArrayList();
+//                list.addAll(headQuartersEntities);
+//                list.addAll(branchEntities);
+//                list.addAll(vendorEntities);
+//
+//                JSONArray jsonArray = JSONArray.fromObject(list);
+
+
+
+
+                JSONArray jsonArray3 = new JSONArray();
+
+                List<HeadQuartersEntity> headQuartersEntities = this.headQuartersRepository.findAll();
+                JSONArray jsonArray1 = JSONArray.fromObject(headQuartersEntities);
+
+                for (int i = 0; i < jsonArray1.size(); i++) {
+                        JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
+                        JSONObject jsonObject3 = new JSONObject();
+                        int id = Integer.parseInt(jsonObject1.get("id").toString());
+                        String name = jsonObject1.get("name").toString();
+                        jsonObject3.put("id",id+"_"+name);
+                        jsonObject3.put("name",name);
+                        jsonArray3.add(jsonObject3);
+                }
+
+                List<BranchEntity> branchEntities = this.branchRepository.findAll();
+                JSONArray jsonArray2 = JSONArray.fromObject(branchEntities);
+                for (int y = 0; y < jsonArray2.size(); y++) {
+                        JSONObject jsonObject2 = jsonArray2.getJSONObject(y);
+                        JSONObject jsonObject4 = new JSONObject();
+                        int id = Integer.parseInt(jsonObject2.get("id").toString());
+                        String name = jsonObject2.get("name").toString();
+                        jsonObject4.put("id",id+"_"+name);
+                        jsonObject4.put("name",name);
+                        jsonArray3.add(jsonObject4);
+                }
+
+                List<VendorEntity> vendorEntities = this.vendorRepository.findAll();
+                JSONArray jsonArray4 = JSONArray.fromObject(vendorEntities);
+                for (int x = 0; x < jsonArray4.size(); x++) {
+                        JSONObject jsonObject2 = jsonArray4.getJSONObject(x);
+                        JSONObject jsonObject4 = new JSONObject();
+                        int id = Integer.parseInt(jsonObject2.get("id").toString());
+                        String name = jsonObject2.get("name").toString();
+                        jsonObject4.put("id",id+"_"+name);
+                        jsonObject4.put("name",name);
+                        jsonArray3.add(jsonObject4);
+                }
+
+                return  jsonArray3.toString();
         }
 }

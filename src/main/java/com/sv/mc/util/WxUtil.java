@@ -56,7 +56,7 @@ public class WxUtil {
         int minute = c.get(Calendar.MINUTE);
         int second = c.get(Calendar.SECOND);
 
-        PaidOrderCode = "PaidOrder_"+year+month+date+hour+minute+second+"_"+openid+"_"+deviceCode;
+        PaidOrderCode = year+month+date+hour+minute+second+"_"+openid+"_"+deviceCode;
         System.out.println(PaidOrderCode);
         return PaidOrderCode;
     }
