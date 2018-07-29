@@ -89,16 +89,16 @@
                                 id: "id",
                                 fields: {
                                     id: { editable: false, nullable: true },
-                                    userName: { type: "string" ,validation:{required: true}},
-                                    name: { type: "string" ,validation:{required: true} },
-                                    authenticationString:{type:"string",validation:{required: true,min:8}},
+                                    userName: { type: "string" ,validation: {required: true, required: { message: "请您填写账号" }}},
+                                    name: { type: "string" ,validation: {required: true, required: { message: "请您填写姓名" }} },
+                                    authenticationString:{type:"string",validation: {required: true, required: { message: "请您填写密码" },min:8}},
                                     createDatetime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     email: { type: "string"},
-                                    cellphoneNumber: { type: "string",validation:{required: true,min:11,max:11} },
+                                    cellphoneNumber: { type: "string",validation: {required: true, required: { message: "请您填写手机号" },min:11,max:11} },
                                     fixedPhoneNumber: { type: "string" },
                                     latestLoginDatetime : {type : "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     latestLoginIp : {type : "string",editable:false},
-                                    company : {type : "string",validation:{required: true}},
+                                    company : {type : "string",validation: {required: true, required: { message: "请您选择所属单位" }}},
                                     roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },

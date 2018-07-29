@@ -22,9 +22,6 @@ public class PriceController {
     @Resource
     private PriceService priceService;
 
-    @Resource
-    private PriceHistoryService priceHistoryService;
-
     /**
      * 分页查询价格列表
      * @param page 当前开始页码（代码中从0开始）
@@ -70,19 +67,19 @@ public class PriceController {
         return priceList;
     }
 
-    /**
-     * 不分页查询历史价格列表
-     * @return 价格集合
-     */
-    @GetMapping("/price/allHistory")
-    public List<PriceHistoryEntity> findAllHistoryPrice(){
-        List<PriceHistoryEntity> priceList = priceHistoryService.findAllPrice();
-        for (PriceHistoryEntity priceEntity:priceList) {
-            int useTime = priceEntity.getUseTime()/60;
-            priceEntity.setUseTime(useTime);
-        }
-        return priceList;
-    }
+//    /**
+//     * 不分页查询历史价格列表
+//     * @return 价格集合
+//     */
+//    @GetMapping("/price/allHistory")
+//    public List<PriceHistoryEntity> findAllHistoryPrice(){
+//        List<PriceHistoryEntity> priceList = priceHistoryService.findAllPrice();
+//        for (PriceHistoryEntity priceEntity:priceList) {
+//            int useTime = priceEntity.getUseTime()/60;
+//            priceEntity.setUseTime(useTime);
+//        }
+//        return priceList;
+//    }
 
     /**
      * 新建价格

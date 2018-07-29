@@ -193,7 +193,7 @@ public class PlaceController {
      * @return
      */
     @GetMapping("/place/findDeviceByPlaceId")
-    public List<DeviceEntity> findDeviceByPlace(@RequestParam("placeId") int placeId){
+    public String findDeviceByPlace(@RequestParam("placeId") int placeId){
         return this.placeService.findDeviceByPlace(placeId);
     }
 
@@ -213,7 +213,7 @@ public class PlaceController {
      */
     @GetMapping("/place/findDevicesByPlaceId")
     public @ResponseBody
-    List<DeviceEntity> findDevicesByPlaceId(@RequestParam("placeId") int placeId){
+    String findDevicesByPlaceId(@RequestParam("placeId") int placeId){
         return this.placeService.findDeviceByPlace(placeId);
     }
 }

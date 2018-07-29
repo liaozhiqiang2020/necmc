@@ -71,16 +71,28 @@ public class UserServiceImpl implements UserService<UserEntity> {
             int pId =Integer.parseInt(jsonObject2.get("pId").toString());
             if(gradeId==1){
                 pName = "总公司";
-                company = vendorRepository.findHeadNameById(pId).getName();
+                if(vendorRepository.findHeadNameById(pId) == null){
+                    company = "";
+                }{
+                company = vendorRepository.findHeadNameById(pId).getName();}
             }else if(gradeId==2){
                 pName = "分公司";
-                company = vendorRepository.findBranchNameById(pId).getName();
+                if(vendorRepository.findBranchNameById(pId) == null){
+                    company = "";
+                }else {
+                company = vendorRepository.findBranchNameById(pId).getName();}
             } else if(gradeId==3){
                 pName = "代理商";
-                company = vendorRepository.findVendorById(pId).getName();
+                if(vendorRepository.findVendorById(pId) == null){
+                    company = "";
+                }else {
+                company = vendorRepository.findVendorById(pId).getName();}
             } else if(gradeId ==4){
                 pName="场地方";
-                company = this.placeRepository.findPlaceById(pId).getName();
+                if(this.placeRepository.findPlaceById(pId) == null){
+                    company = "";
+                }else {
+                company = this.placeRepository.findPlaceById(pId).getName();}
             }
             jsonObject2.put("company",company);
             jsonObject2.put("pName",pName);

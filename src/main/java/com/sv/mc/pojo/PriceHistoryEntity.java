@@ -17,10 +17,13 @@ import java.util.Set;
 @Table(name = "mc_price_history", schema = "mc", catalog = "")
 public class PriceHistoryEntity {
     private int id;                     //主键id
-    private BigDecimal price;           //价格
-    private int useTime;                //使用时间
+    private String priceName;              //价格名称
+    private BigDecimal newPrice;           //新价格
+    private BigDecimal oldPrice;           //新价格
+    private int newUseTime;                //新使用时间
+    private int oldUseTime;                //旧使用时间
     private Timestamp createDateTime;   //创建时间
-    private Timestamp latestDateTime;   //最后操作时间
+    private Timestamp editTime;   //最后操作时间
     private int status;                 //状态
     private Timestamp startDateTime;    //价格开始时间
     private Timestamp endDateTime;      //价格结束时间
@@ -64,23 +67,13 @@ public class PriceHistoryEntity {
     }
 
     @Basic
-    @Column(name = "price")
-    public BigDecimal getPrice() {
-        return price;
+    @Column(name = "price_name")
+    public String getPriceName() {
+        return priceName;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    @Basic
-    @Column(name = "use_time")
-    public int getUseTime() {
-        return useTime;
-    }
-
-    public void setUseTime(int useTime) {
-        this.useTime = useTime;
+    public void setPriceName(String priceName) {
+        this.priceName = priceName;
     }
 
     @Basic
@@ -93,15 +86,6 @@ public class PriceHistoryEntity {
         this.createDateTime = createDateTime;
     }
 
-    @Basic
-    @Column(name = "latest_date_time")
-    public Timestamp getLatestDateTime() {
-        return latestDateTime;
-    }
-
-    public void setLatestDateTime(Timestamp latestDateTime) {
-        this.latestDateTime = latestDateTime;
-    }
 
     @Basic
     @Column(name = "status")
@@ -134,24 +118,78 @@ public class PriceHistoryEntity {
         this.endDateTime = endDateTime;
     }
 
+    @Basic
+    @Column(name = "new_price")
+    public BigDecimal getNewPrice() {
+        return newPrice;
+    }
+
+    public void setNewPrice(BigDecimal newPrice) {
+        this.newPrice = newPrice;
+    }
+
+    @Basic
+    @Column(name = "old_price")
+    public BigDecimal getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(BigDecimal oldPrice) {
+        this.oldPrice = oldPrice;
+    }
+
+
+    @Basic
+    @Column(name = "old_use_time")
+    public int getOldUseTime() {
+        return oldUseTime;
+    }
+
+    public void setOldUseTime(int oldUseTime) {
+        this.oldUseTime = oldUseTime;
+    }
+
+    @Basic
+    @Column(name = "edit_time")
+    public Timestamp getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(Timestamp editTime) {
+        this.editTime = editTime;
+    }
+
+    @Basic
+    @Column(name = "new_use_time")
+    public int getNewUseTime() {
+        return newUseTime;
+    }
+
+    public void setNewUseTime(int newUseTime) {
+        this.newUseTime = newUseTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PriceHistoryEntity that = (PriceHistoryEntity) o;
         return id == that.id &&
-                useTime == that.useTime &&
+                newUseTime == that.newUseTime &&
+                oldUseTime == that.oldUseTime &&
                 status == that.status &&
-                Objects.equals(price, that.price) &&
+                Objects.equals(newPrice, that.newPrice) &&
+                Objects.equals(oldPrice, that.oldPrice) &&
                 Objects.equals(createDateTime, that.createDateTime) &&
-                Objects.equals(latestDateTime, that.latestDateTime) &&
+                Objects.equals(editTime, that.editTime) &&
                 Objects.equals(startDateTime, that.startDateTime) &&
-                Objects.equals(endDateTime, that.endDateTime);
+                Objects.equals(endDateTime, that.endDateTime) &&
+                Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, price, useTime, createDateTime, latestDateTime, status, startDateTime, endDateTime);
+        return Objects.hash(id, newPrice, oldPrice, newUseTime, oldUseTime, createDateTime, editTime, status, startDateTime, endDateTime, user);
     }
 }

@@ -84,8 +84,8 @@
                                 id: "id",
                                 fields: {
                                     id: { editable: false, nullable: true },
-                                   roleName: { type: "string" },
-                                    description : {type: "string"},
+                                   roleName: { type: "string", validation: {required: true, required: { message: "请您填写角色" }}},
+                                    description : {type: "string",validation: {required: true, required: { message: "请您填写角色权限描述" }}},
                                     createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }

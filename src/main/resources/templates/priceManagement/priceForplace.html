@@ -95,17 +95,26 @@
                             transport: {
                                 read:  {
                                     url: "./placeMgr/getAllPlace",
-                                    dataType: "json"
+                                    // dataType: "json"
                                 },
                                 parameterMap: function(options, operation) {
+
+                                    if(operation=="read"){
+                                        var page = $("#grid").data("kendoGrid").dataSource.page();
+                                        var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
+                                        return {page:page,pageSize:pageSize};
+                                    }
                                     if (operation !== "read" && options.models) {
                                         return  kendo.stringify(options.models);
                                     }
                                 }
+
                             },
                             pageSize: 10,
-                            // serverPaging: true,
-                            // serverSorting: true,
+                            serverPaging: true,    //设定服务器来实现分页功能
+                            serverFiltering: false,
+                            serverSorting: false,
+                            requestEnd: onRequestEnd,
                             filterable:true,
                             scrollable: true,
                             schema: {
@@ -119,6 +128,13 @@
                                         city: { type: "array",editable: false },
                                         principal:{type:"string",editable:false}
                                     }
+                                },
+                                data: function (response) {
+                                    var list = JSON.parse(response).data;
+                                    return list;
+                                },
+                                total: function (response) {
+                                    return JSON.parse(response).total;
                                 }
                             }
                         },
@@ -141,19 +157,19 @@
                              refresh: true,
                              pageSize: 10,
                              pageSizes: [5, 10, 15, 20],
-                             // numeric: true,
-                             // input: true,
-                             // messages: {
-                             //     display: "显示 {0}-{1} 条，共 {2} 条",
-                             //     empty: "没有数据",
-                             //     itemsPerPage: "每页显示数量",
-                             //     first: "第一页",
-                             //     last: "最后一页",
-                             //     next: "下一页",
-                             //     previous: "上一页",
-                             //     page: "页",
-                             //     of: "共 {0}页"
-                             // }
+                             numeric: true,
+                             input: true,
+                             messages: {
+                                 display: "显示 {0}-{1} 条，共 {2} 条",
+                                 empty: "没有数据",
+                                 itemsPerPage: "每页显示数量",
+                                 first: "第一页",
+                                 last: "最后一页",
+                                 next: "下一页",
+                                 previous: "上一页",
+                                 page: "页",
+                                 of: "共 {0}页"
+                             }
                          },
 
                         detailTemplate: kendo.template($("#template").html()),
@@ -245,19 +261,19 @@
                                                 refresh: true,
                                                 pageSize: 10,
                                                 pageSizes: [5, 10, 15, 20],
-                                                // numeric: true,
-                                                // input: true,
-                                                // messages: {
-                                                //     display: "显示 {0}-{1} 条，共 {2} 条",
-                                                //     empty: "没有数据",
-                                                //     itemsPerPage: "每页显示数量",
-                                                //     first: "第一页",
-                                                //     last: "最后一页",
-                                                //     next: "下一页",
-                                                //     previous: "上一页",
-                                                //     page: "页",
-                                                //     of: "共 {0}页"
-                                                // }
+                                                numeric: true,
+                                                input: true,
+                                                messages: {
+                                                    display: "显示 {0}-{1} 条，共 {2} 条",
+                                                    empty: "没有数据",
+                                                    itemsPerPage: "每页显示数量",
+                                                    first: "第一页",
+                                                    last: "最后一页",
+                                                    next: "下一页",
+                                                    previous: "上一页",
+                                                    page: "页",
+                                                    of: "共 {0}页"
+                                                }
                                             },
                                             schema: {
                                                 model: {
@@ -317,8 +333,12 @@
                                             columns: [
                                                 // { selectable: true, width: "50px" },
                                                 { field: "priceName", title: "价格名称",  width: "80px" },
-                                                { field: "price", title: "价格(元)", width: "80px" },
-                                                { field: "useTime", title:"使用时长(分钟)",width: "80px" },
+                                                { field: "price", title: "价格(元)", width: "80px",attributes: {
+                                                        style: "text-align: right"
+                                                    } },
+                                                { field: "useTime", title:"使用时长(分钟)",width: "80px" ,attributes: {
+                                                        style: "text-align: right"
+                                                    }},
                                                 { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
                                                 { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
                                                 { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
@@ -334,7 +354,7 @@
                                                             }
                                                             $.ajax({
                                                                 type: "POST",
-                                                                url: "./price/placeAddPrice",
+                                                                url: "/mc/price/placeAddPrice",
                                                                 data: kendo.stringify(list1),
                                                                 contentType: "application/json; charset=utf-8",
                                                                 dataType: "json",
@@ -566,9 +586,15 @@
                                             mcStatus: { type: "boolean",editable: false },
                                             mcSn: { type: "string" ,editable: false},
                                             loraId: { type: "string" ,editable: false},
-                                            placeEntity:{type:"array",editable: false},
-                                            priceEntities :{type:"array",editable: false},
+                                            model: { type: "string" ,editable: false},
+                                            placeName: { type: "string" ,editable: false},
+                                           type: { type: "string" ,editable: false},
+                                            // placeEntity:{type:"array",editable: false},
+                                            // priceEntities :{type:"array",editable: false},
                                         }
+                                    },
+                                    data: function (response) {
+                                        return JSON.parse(response);
                                     }
                                 }
 
@@ -610,10 +636,11 @@
                             columns: [
                                 { field: "mcSn", title:"按摩椅编号" ,width: "110px"},
                                 { field: "loraId", title:"模块编号" ,width: "110px"},
-                                { field: "deviceModelEntity", title:"所属型号", width: "110px",template:"#=deviceModelEntity.name#" },
-                                { field: "placeEntity", title:"所属场地", width: "110px",template:"#=placeEntity.name#" },
-                                { field: "latitude", title:"按摩椅所在经度", width: "110px" },
-                                { field: "longitude", title:"按摩椅所在纬度", width: "110px" },
+                                { field: "type", title:"所属型号", width: "110px" },
+                                { field: "model", title:"类型", width: "110px" },
+                                { field: "placeName", title:"所属场地", width: "110px" },
+                                // { field: "latitude", title:"按摩椅所在经度", width: "110px" },
+                                // { field: "longitude", title:"按摩椅所在纬度", width: "110px" },
                                 { command: [{text :"设备价格绑定",click:function (e) {
                                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                             var data = this.dataItem(tr);
@@ -632,7 +659,7 @@
                                                 transport: {
                                                     read: {
                                                         url: "./price/devicePrice?deviceId="+deviceId,
-                                                        dataType: "json"
+                                                        // dataType: "json"
                                                     },
                                                     destroy: {
                                                         url: "./price/deviceDeletePrice",
@@ -766,14 +793,18 @@
                                                 height: 300,
                                                 columns: [
                                                     { field: "priceName", title: "价格名称",  width: "50px" },
-                                                    { field: "price", title: "价格(元)", width: "50px" },
-                                                    { field: "useTime", title:"使用时长",width: "50px" },
+                                                    { field: "price", title: "价格(元)", width: "50px",attributes: {
+                                                            style: "text-align: right"
+                                                        } },
+                                                    { field: "useTime", title:"使用时长",width: "50px",attributes: {
+                                                            style: "text-align: right"
+                                                        } },
                                                     { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
                                                     { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" }],
                                                 editable: false
                                             });
                                             $("#edit-4").kendoGrid({
-                                                toolbar: [ "未绑定价格"],
+                                                toolbar: "未绑定价格",
                                                 dataSource: dataSource1,
                                                 sortable:true,
                                                 pageable: true,
@@ -782,7 +813,7 @@
                                                 scrollable: true,
                                                 height: 300,
                                                 columns: [
-                                                    { field: "priceName", title: "价格",  width: "50px" },
+                                                    { field: "priceName", title: "价格名称",  width: "50px" },
                                                     { field: "price", title: "价格", width: "50px" },
                                                     { field: "useTime", title:"使用时长",width: "50px" },
                                                     { field: "startDateTime", title:"开始时间",width: "50px",format: "{0: yyyy-MM-dd}" },
@@ -1021,7 +1052,31 @@
                         $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                     }
                 });
+                //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
+                function onRequestEnd(e) {
+                    if (e.type == "create") {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+                    else if (e.type == "update") {
+                        e.sender.read();
+                    }
+                    else if (e.type == "destroy") {
+                        e.sender.read();
+                    }
 
+                    //更新成功后弹出提示信息
+                    var response = e.response;
+                    if (response) {
+                        var type = e.type;
+                        if (type != 'read') {
+                            var status = response.status;
+                            if (status == 200) {this.read();}
+                            else {
+                                // alert(response.msg);
+                            }
+                        }
+                    }
+                }
 
             </script>
             <style>
