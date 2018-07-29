@@ -80,7 +80,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @param placeId
      * @return
      */
-    @Query(value="select d.* from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)))",nativeQuery = true)
+    @Query(value="select d.id,d.place_id,d.mc_type from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)))",nativeQuery = true)
     List<Object[]> findAllChildById(@Param("placeId") int placeId);
 
     /**

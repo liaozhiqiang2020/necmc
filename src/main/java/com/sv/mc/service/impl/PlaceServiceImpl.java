@@ -14,6 +14,7 @@ import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -34,6 +35,8 @@ public class PlaceServiceImpl implements PlaceService {
         private BusinessRepository businessRepository;
         @Autowired
         private CityRepository cityRepository;
+        @Resource
+        private DeviceModelRepository deviceModelRepository;
         @Autowired
         private UserRepository userRepository;
 
@@ -398,17 +401,46 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<DeviceEntity> findDeviceByPlace(int pId) {
+        public String findDeviceByPlace(int pId) {
                 List<Object[]> deviceEntities = this.placeRepository.findAllChildById(pId);
 //                List<Map<String,Object>> mapList = new ArrayList<>();
                 List<DeviceEntity> deviceList = new ArrayList<>();
+                String model = "";
+                String type = "";
+                String placeName = "";
                 for (int i = 0; i <deviceEntities.size() ; i++) {
                         Object[] object =deviceEntities.get(i);
                         int id = Integer.parseInt(object[0].toString());
+                        this.deviceRepository.findDeviceById(id).getPriceEntities().clear();
+                        this.deviceRepository.findDeviceById(id).setDeviceModelEntity(null);
+                        this.deviceRepository.findDeviceById(id).setPlaceEntity(null);
+                        this.deviceRepository.findDeviceById(id).setSupplierEntity(null);
                         deviceList.add(this.deviceRepository.findDeviceById(id));
                 }
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+//                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+                config.setExcludes(new String[] { "deviceModelEntity"});
+                config.setExcludes(new String[] { "placeEntity"});
+                config.setExcludes(new String[] { "supplierEntity"});
+                config.setExcludes(new String[] { "priceEntities"});
+                JSONArray jsonArray = JSONArray.fromObject(deviceList,config);//转化为jsonArray
+                JSONArray jsonArray1 = new JSONArray();//新建json数组
 
-                return deviceList;
+                for (int y = 0; y <jsonArray.size() ; y++) {
+                        JSONObject jsonObject2 =jsonArray.getJSONObject(y);
+                        Object[] object =deviceEntities.get(y);
+                        int typeId = Integer.parseInt(object[2].toString());
+                        int placeId = Integer.parseInt(object[1].toString());
+                        model = this.deviceModelRepository.findById(typeId).getName();
+                        type = this.deviceModelRepository.findById(typeId).getModel();
+                        placeName = this.placeRepository.findPlaceById(placeId).getName();
+                        jsonObject2.put("model",model);
+                        jsonObject2.put("type",type);
+                        jsonObject2.put("placeName",placeName);
+                        jsonArray1.add(jsonObject2);
+                }
+                return jsonArray1.toString();
 
         }
 

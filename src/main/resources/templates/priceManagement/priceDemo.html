@@ -86,16 +86,16 @@
                                 id: "id",
                                 fields: {
                                     id: { editable: false, nullable: true },
-                                    price: { type: "number", validation: { required: true, min: 1} },
-                                    useTime: { type: "number" ,validation: { required: true, min: 1} },
+                                    price: { type: "number", validation: {required: true, required: { message: "请您填写价格" }} },
+                                    useTime: { type: "number" ,validation: {required: true, required: { message: "请您填写使用时长" }} },
                                     createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     startDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                     endDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                     userId: { type: "int" ,editable: false},
                                     status: { type: "number",editable: false },
-                                    priceName : {type : "string"},
+                                    priceName : {type : "string",validation: {required: true, required: { message: "请您填写价格名称" }}},
                                     user :{type:"array",editable: false,defaultValue: { id: 1, name: ""}},
-                                    deviceModelEntity : {defaultValue: { id: 1, name: ""}},
+                                    deviceModelEntity : {defaultValue: { id: 1, name: ""},validation: {required: true, required: { message: "请您填写设备类型" }}},
                                 }
                             },
                             // data: function (response) {
@@ -150,7 +150,9 @@
                         },
                         columns: [
                             { field: "priceName",title: "价格名称", width: 100,filterable: { multi: true, search: true} },
-                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true } },
+                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true },headerAttributes: {
+                                    style: "text-align: right"
+                                }, },
                             { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
                             { field: "user", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'>#=user.name#</span>",editor:roleListDropDownEditor },
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
