@@ -123,9 +123,8 @@ public class PlaceController {
      */
     @GetMapping(value = "/placeMgr/getAllPlaceForTreelist")
     public @ResponseBody
-    List<PlaceEntity> getAllPlaceForTreelist() {
-        System.out.println(this.placeService.findAllPlaces());
-        return this.placeService.findAllPlaces();
+    String getAllPlaceForTreelist() {
+        return this.placeService.findAllPlace();
     }
 
 
@@ -151,6 +150,29 @@ public class PlaceController {
     public @ResponseBody
     PlaceEntity updatePlace(@RequestBody Map<String,Object> map){
         return this.placeService.updatePlace(map);
+    }
+
+
+    /**
+     * 插入一条场地数据
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/placeMgr/insertPlaceTree",method = RequestMethod.POST)
+    public @ResponseBody
+    PlaceEntity insertPlaceTree(@RequestBody Map<String,Object> map){
+        return  this.placeService.insertPlaceTree(map);
+    }
+
+    /**
+     * 更改场地数据
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/placeMgr/updatePlaceTree",method = RequestMethod.POST)
+    public @ResponseBody
+    PlaceEntity updatePlaceTree(@RequestBody Map<String,Object> map){
+        return this.placeService.updatePlaceTree(map);
     }
 
     /**

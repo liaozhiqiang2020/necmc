@@ -127,4 +127,19 @@ public interface PlaceService<T> extends BaseService<T>{
      * 把图片存到数据库中
      */
     void saveFileToDB(int placeId,String uploadpath,String fileName);
+
+
+    /**4
+     * 插入一条场地数据
+     * @param
+     * @return PlaceEntity
+     */
+    PlaceEntity insertPlaceTree(Map<String,Object> map);
+
+    /**
+     * 根据分公司id更改对应的场地数据
+     * @param
+     * @return placeEntity
+     */
+    PlaceEntity updatePlaceTree(Map<String,Object> map);
 }

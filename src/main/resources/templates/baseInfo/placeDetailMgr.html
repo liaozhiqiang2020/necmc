@@ -179,9 +179,6 @@
                     groupable: true,//表格标题
                     detailTemplate: kendo.template($("#template").html()),
                     detailInit: detailInit,
-                    // dataBound: function() {
-                    //     this.expandRow(this.tbody.find("tr.k-master-row").first());
-                    // },
                     toolbar: ["create"],
                     columnMenu: true,
                     resizable: true,
@@ -235,18 +232,6 @@
                             editor:chooseUser,
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
-                        // {
-                        //     field: "latitude",
-                        //     title: "纬度",
-                        //     format: "{0:n4}",
-                        //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                        // },
-                        // {
-                        //     field: "longitude",
-                        //     title: "经度",
-                        //     format: "{0:n4}",
-                        //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                        // },
                         {
                             field: "startDateTime",
                             title: "协议开始时间",
@@ -386,30 +371,6 @@
                     }
                 });
             });
-
-
-            //字段修改格式化 修改框 转换为上传按钮
-            function categoryDropDownEditor(container, options) {
-                $('<input type="file" name="' + options.field + '" />')
-                    .appendTo(container)
-                    .kendoUpload({
-                        async: {    //异步上传图片到指定地址中
-                            saveUrl: "./file/upload",
-                            // removeUrl: "/Default1/remove",
-                            autoUpload: true
-                        },
-                        localization: {     //设置上传按钮名称
-                            select: "上传预览图片"
-                        },
-                        success: function(e){//上传成功后执行的回调函数
-                            var uploadpath = e.response.uploadpath;
-                            console.log(uploadpath);
-                            // console.log("suceess");
-                        }
-
-
-                    });
-            }
 
             //add tooltip
             $("#grid").kendoTooltip({

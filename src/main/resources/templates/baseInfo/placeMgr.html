@@ -27,19 +27,113 @@
                     transport: {
                         read: {
                             url: "./placeMgr/getAllPlaceForTreelist"
+                        },
+                        create: {
+                            url: "./placeMgr/insertPlaceTree",
+                            dataType: "json",
+                            type: "post",
+                            contentType:"application/json;charset=UTF-8"
+                        },
+                        destroy: {
+                            url: "./placeMgr/deletePlace",
+                            dataType: "json",
+                            type: "post",
+                            contentType:"application/json;charset=UTF-8"
+                        },
+                        update: {
+                            url:  "./placeMgr/updatePlaceTree",
+                            dataType: "json",
+                            type: "post",
+                            contentType:"application/json;charset=UTF-8"
+                        },
+                        parameterMap:function(options, operation){
+                            if (operation === "destroy") {
+                                var placeId = options.id;
+                                var list = {
+                                    placeId:placeId
+                                }
+                                return kendo.stringify(list);
+                            }
+                            if(operation ==="create"){
+                                console.log(options);
+                                var endDate =options.endDateTime;
+                                var startDate = options.startDateTime;
+                                options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                return kendo.stringify(options);
+                            }
+                            if(operation ==="update"){
+                                console.log(options);
+                                var endDate =options.endDateTime;
+                                var startDate = options.startDateTime;
+
+                                if(endDate.length!==19){
+                                    options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                }
+                                if(startDate.length!==19){
+                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                }
+
+                                return kendo.stringify(options);
+                            }
                         }
                     },
                     serverPaging: false,    //设定服务器来实现分页功能
                     serverFiltering: false,
                     serverSorting: false,
+                    requestEnd: onRequestEnd,
                     schema: {
                         model: {
                             id: "id",
                             parentId: "pId",
                             fields: {
-                                id: {type: "number", nullable: false},
-                                pId: {field: "pId", nullable: true}
+                                id: {type: "number", editable: false},
+                                pId: {type: "number", editable: false},
+                                name: {type: "string",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "场地名称为必填项！"}
+                                    }
+                                },
+                                placeSn: {type: "string",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "场地编码为必填项！"}
+                                    }
+                                },
+                                placeAddress: {type: "string",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "场地地址为必填项！"}
+                                    }
+                                },
+                                startDateTime: {type: "timestamp",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "协议开始时间为必填项！"}
+                                    }
+                                },
+                                endDateTime: {type: "timestamp",
+                                    validation: {
+                                        required: true,
+                                        required: {message: "协议结束时间为必填项！"}
+                                    }
+                                },
+                                levelFlag: {type: "number",editable: false},
+                                levelFlagName: {type: "string",editable: false},
+                                superiorId: {type: "string"},
+                                superiorName: {type: "string"},
+                                businessId:{type: "number"},
+                                businessName: {type: "string"},
+                                cityId:{type: "number"},
+                                cityName:{type: "string"},
+                                userId:{type:"string"},
+                                userName:{type:"string"}
                             }
+                        },
+                        data: function (response) {
+                            var list = JSON.parse(response);
+                            return list;
                         }
                     }
                 });
@@ -53,48 +147,91 @@
                     groupable: true,//表格标题
                     columnMenu: true,
                     resizable: true,
+                    toolbar: [{
+                        name: "create", text:  "新增"
+                    }],
                     columns: [
                         {
                             field: "name",
                             title: "场地名称",
-                            expandable: true
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "placeSn",
-                            title: "场地编码"
+                            title: "场地编码",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "placeAddress",
-                            title: "地址"
+                            title: "地址",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
-                        // {
-                        //     field: "userId",
-                        //     title: "场地负责人"
-                        //     // template:"#=userName#"
-                        // },
-                        // {
-                        //     field: "latitude",
-                        //     title: "纬度",
-                        //     format: "{0:n4}"
-                        // },
-                        // {
-                        //     field: "longitude",
-                        //     title: "经度",
-                        //     format: "{0:n4}"
-                        // },
+                        {
+                            field: "userId",
+                            title: "场地负责人",
+                            template:"#=userName#",
+                            editor:chooseUser,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
                         {
                             field: "startDateTime",
                             title: "协议开始时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
+                            editor: changeDate,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             field: "endDateTime",
                             title: "协议结束时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate
+                            editor: changeDate,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },{
+                            field: "levelFlagName",
+                            title: "隶属上级单位",
+                            template:"#=levelFlagName#",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "superiorId",
+                            title: "隶属单位名称",
+                            template:"#=superiorName#",
+                            editor:roleListDropDownEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "businessId",
+                            title: "行业分类名称",
+                            template:"#=businessName#",
+                            editor:businessEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "cityId",
+                            title: "城市名称",
+                            template:"#=cityName#",
+                            editor:cityEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            command: [{
+                                        name: "edit", text:  "编辑"
+                                    },{
+                                        name: "destroy", text: "删除"
+                                    },{
+                                        name: "create", text:  "新增"
+                                    }
+                                    ],
+                            title: "操作",
+                            width: "270px"
                         }
-                    ]
+                    ],
+                    editable: {
+                        mode: "popup",
+                        window: {
+                            title: "场地管理"
+                        }
+                    }
                 });
 
 
@@ -105,6 +242,162 @@
                         format: "{0:yyyy-MM-dd HH:mm}"
                     });
                 }
+
+
+                //行业分类下拉列表
+                function businessEditor(container, options){
+                    var businessId = options.model.businessId;
+                    var businessName = options.model.businessName;
+
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: businessId,
+                        text:businessName,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./bussinessMgr/allBusiness",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+                //城市下拉列表
+                function cityEditor(container, options){
+                    var cityId = options.model.cityId;
+                    var cityName = options.model.cityName;
+
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value:cityId,
+                        text:cityName,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./allCity",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+
+                //隶属单位
+                function roleListDropDownEditor(container, options) {
+                    var branchId = options.model.superiorId;
+                    var branchName = options.model.superiorName;
+
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: branchId,
+                        text:branchName,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./branchMgr/allBranchAndHeadAndVendor",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        },
+                        dataBound: function(e) {
+                            console.log(e);
+                        }
+                    });
+
+                }
+
+
+                //打开标记窗口时下拉列表展示
+                function chooseUser(container, options) {
+                    var userId = options.model.userId;
+                    var userName = options.model.userName;
+
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: false,
+                        placeholder: "请选择...",
+                        dataTextField: "name",
+                        dataValueField: "id",
+                        value: userId,
+                        text:userName,
+                        filter: "contains",
+                        suggest: true,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./branchMgr/findAllByStatus",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+
+                //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
+                function onRequestEnd(e) {
+                    if (e.type == "create") {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+                    else if (e.type == "update") {
+                        e.sender.read();
+                    }
+                    else if (e.type == "destroy") {
+                        e.sender.read();
+                    }
+
+                    //更新成功后弹出提示信息
+                    var response = e.response;
+                    if (response) {
+                        var type = e.type;
+                        if (type != 'read') {
+                            var status = response.status;
+                            if (status == 200) {this.read();}
+                            else {
+                                // alert(response.msg);
+                            }
+                        }
+                    }
+                }
+
             })
 
         </script>
@@ -137,6 +430,49 @@
                 text-align: right;
                 font-style:normal;
                 font-weight:bold;
+            }
+        </style>
+        <style>
+            .k-detail-cell .k-tabstrip .k-content {
+                padding: 0.2em;
+            }
+            .employee-details ul
+            {
+                list-style:none;
+                font-style:italic;
+                margin: 15px;
+                padding: 0;
+            }
+            .employee-details ul li
+            {
+                margin: 0;
+                line-height: 1.7em;
+            }
+
+            .employee-details label
+            {
+                display:inline-block;
+                width:90px;
+                padding-right: 10px;
+                text-align: right;
+                font-style:normal;
+                font-weight:bold;
+            }
+        </style>
+        <!--设置tooltip的样式-->
+        <style>
+            div[role=tooltip].k-tooltip{
+                padding: 2px;
+                background: #5c9acf;
+            }
+            .k-tooltip-content{
+                padding: 4px;
+                text-align: left;
+                background: #fff;
+                color: #666;
+            }
+            .k-callout {
+                border-bottom-color: #5c9acf;
             }
         </style>
 

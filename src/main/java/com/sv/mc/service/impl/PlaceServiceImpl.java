@@ -142,33 +142,46 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public String findAllPlace() {
-                List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlaces();//查询所有pid为0的
+                List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlace();//查询所有
                 JsonConfig config = new JsonConfig();
                 config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
                 config.setExcludes(new String[] { "deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
-                JSONArray jsonArray = JSONArray.fromObject(placeEntityList,config);//转化为jsonArray
-                JSONArray jsonArray1 = new JSONArray();//新建json数组
 
+                JSONArray jsonArray = JSONArray.fromObject(placeEntityList,config);
+                JSONArray jsonArray1 = new JSONArray();
                 String superiorName="";
                 String levelFlagName="";
-                for (int y = 0; y <jsonArray.size() ; y++) {
-                        JSONObject jsonObject2 =jsonArray.getJSONObject(y);
-                        int superiorId =Integer.parseInt(jsonObject2.get("superiorId").toString());
-                        int levelFlag =Integer.parseInt(jsonObject2.get("levelFlag").toString());
-                        if(levelFlag==1){
-                                levelFlagName = "总部";
-                                superiorName = vendorRepository.findHeadNameById(superiorId).getName();
-                        }else if(levelFlag==2){
-                                levelFlagName = "分公司";
-                                superiorName = vendorRepository.findBranchNameById(superiorId).getName();
-                        } else if(levelFlag==3){
-                                levelFlagName = "代理商";
-                                superiorName = vendorRepository.findVendorById(superiorId).getName();
+                String userName="";
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        Integer superiorId =Integer.parseInt(jsonObject.get("superiorId").toString());
+                        int levelFlag =Integer.parseInt(jsonObject.get("levelFlag").toString());
+                        int businessId = Integer.parseInt(jsonObject.get("businessId").toString());
+                        int cityId = Integer.parseInt(jsonObject.get("cityId").toString());
+                        int userId = Integer.parseInt(jsonObject.get("userId").toString());
+                        if(superiorId!=null){
+                                if(levelFlag==1){
+                                        levelFlagName = "总部";
+                                        superiorName = this.vendorRepository.findHeadNameById(superiorId).getName();
+                                }else if(levelFlag==2){
+                                        levelFlagName = "分公司";
+                                        superiorName = this.vendorRepository.findBranchNameById(superiorId).getName();
+                                } else if(levelFlag==3){
+                                        levelFlagName = "代理商";
+                                        superiorName = this.vendorRepository.findVendorById(superiorId).getName();
+                                }
                         }
-                        jsonObject2.put("superiorId",superiorId+"_"+superiorName);
-                        jsonObject2.put("superiorName",superiorName);
-                        jsonObject2.put("levelFlagName",levelFlagName);
-                        jsonArray1.add(jsonObject2);
+                        String businessName=this.businessRepository.findBusinessById(businessId).getName();
+                        String cityName = this.cityRepository.findCityById(cityId).getName();
+
+                        userName = this.userRepository.findUserById(userId).getName();
+                        jsonObject.put("superiorId",superiorId+"_"+superiorName);
+                        jsonObject.put("userName",userName);
+                        jsonObject.put("superiorName",superiorName);
+                        jsonObject.put("levelFlagName",levelFlagName);
+                        jsonObject.put("businessName",businessName);
+                        jsonObject.put("cityName",cityName);
+                        jsonArray1.add(jsonObject);
                 }
                 return jsonArray1.toString();
         }
@@ -517,5 +530,126 @@ public class PlaceServiceImpl implements PlaceService {
                 placeEntity.setFile(uploadpath);
                 placeEntity.setFileName(fileName);
                 this.placeRepository.save(placeEntity);
+        }
+
+
+
+        /**4
+         * 插入一条场地数据
+         * @param
+         */
+        @Override
+        public PlaceEntity insertPlaceTree(Map map) {
+                PlaceEntity placeEntity = new PlaceEntity();
+                Object id = map.get("id");
+                Object pId = map.get("pId");
+                Object businessId = map.get("businessId");
+                Object cityId = map.get("cityId");
+                Object endDateTime = map.get("endDateTime");
+                Object startDateTime = map.get("startDateTime");
+                Object name = map.get("name");
+                Object placeAddress = map.get("placeAddress");
+                Object placeSn = map.get("placeSn");
+                int userId = Integer.parseInt(map.get("userId").toString());
+//                Object principal = map.get("principal");
+                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
+                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
+
+                placeEntity.setDiscardStatus(1);
+                if(id!=null){
+                        placeEntity.setId(Integer.parseInt(id.toString()));
+                }
+                if(pId!=null){
+                        placeEntity.setpId(Integer.parseInt(pId.toString()));
+                }
+                placeEntity.setName(name.toString());
+//                placeEntity.setPrincipal(principal.toString());
+                placeEntity.setPlaceAddress(placeAddress.toString());
+                placeEntity.setBusinessId(Integer.parseInt(businessId.toString()));
+                placeEntity.setCityId(Integer.parseInt(cityId.toString()));
+                placeEntity.setPlaceSn(placeSn.toString());
+                placeEntity.setUserId(userId);
+                placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
+                placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
+//                placeEntity.setpId(null);
+
+                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
+                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
+                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
+                        if(branchEntity==null){
+                                VendorEntity vendorEntity = this.vendorRepository.findVendorById(superiorId);//根据id查询代理商信息
+                                placeEntity.setLevelFlag(3);
+                                placeEntity.setSuperiorId(vendorEntity.getId());
+                        }else{
+                                placeEntity.setLevelFlag(2);
+                                placeEntity.setSuperiorId(branchEntity.getId());
+                        }
+                }else{
+                        placeEntity.setLevelFlag(1);
+                        placeEntity.setSuperiorId(headQuartersEntity.getId());
+                }
+
+                return this.placeRepository.save(placeEntity);
+        }
+
+
+        /**
+         * 修改场地数据
+         * @param
+         * @return
+         */
+        @Override
+        public PlaceEntity updatePlaceTree(Map map) {
+                PlaceEntity placeEntity = new PlaceEntity();
+                Object id = map.get("id");
+                Object pId = map.get("pId");
+                Object businessId = map.get("businessId");
+                Object cityId = map.get("cityId");
+                Object endDateTime = map.get("endDateTime");
+                Object startDateTime = map.get("startDateTime");
+                Object name = map.get("name");
+                Object placeAddress = map.get("placeAddress");
+                Object placeSn = map.get("placeSn");
+//                Object file = map.get("file");
+//                Object principal = map.get("principal");
+                int userId = Integer.parseInt(map.get("userId").toString());
+                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
+                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
+
+                placeEntity.setDiscardStatus(1);
+                if(id!=null){
+                        placeEntity.setId(Integer.parseInt(id.toString()));
+                }
+                if(pId!=null){
+                        placeEntity.setpId(Integer.parseInt(pId.toString()));
+                }
+                placeEntity.setName(name.toString());
+                placeEntity.setUserId(userId);
+                placeEntity.setPlaceAddress(placeAddress.toString());
+                placeEntity.setBusinessId(Integer.parseInt(businessId.toString()));
+                placeEntity.setCityId(Integer.parseInt(cityId.toString()));
+                placeEntity.setPlaceSn(placeSn.toString());
+                placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
+                placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
+//                placeEntity.setFile(file.toString());
+
+
+                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
+                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
+                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
+                        if(branchEntity==null){
+                                VendorEntity vendorEntity = this.vendorRepository.findVendorById(superiorId);//根据id查询代理商信息
+                                placeEntity.setLevelFlag(3);
+                                placeEntity.setSuperiorId(vendorEntity.getId());
+                        }else{
+                                placeEntity.setLevelFlag(2);
+                                placeEntity.setSuperiorId(branchEntity.getId());
+                        }
+                }else{
+                        placeEntity.setLevelFlag(1);
+                        placeEntity.setSuperiorId(headQuartersEntity.getId());
+                }
+
+                return this.placeRepository.save(placeEntity);
         }
 }
