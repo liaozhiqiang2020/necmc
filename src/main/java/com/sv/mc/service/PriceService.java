@@ -5,6 +5,7 @@ import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public interface PriceService{
      * @param priceEntity 价格对象
      * @return 消息
      */
-    PriceEntity addPrice(PriceEntity priceEntity);
+    PriceEntity addPrice(PriceEntity priceEntity, HttpServletRequest request);
 
     /**
      * 批量修改或者保存价格数据

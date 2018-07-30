@@ -172,7 +172,7 @@ public class UserEntity {
     }
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "mc_user_role",                       //指定第三张表
             joinColumns = {@JoinColumn(name = "user_id")},             //本表与中间表的外键对应

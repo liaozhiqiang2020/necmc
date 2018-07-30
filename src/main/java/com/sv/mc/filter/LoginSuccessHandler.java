@@ -42,11 +42,12 @@ public class LoginSuccessHandler extends
         this.userRepository.save(user);
         HttpSession session = request.getSession();
         session.setAttribute("user",user);
+
         //输出登录提示信息
-        System.out.println("管理员 " + userDetails.getUsername() + " 登录");
-
-        System.out.println("IP :"+getIpAddress(request));
-
+//        System.out.println("管理员 " + userDetails.getUsername() + " 登录");
+//
+//        System.out.println("IP :"+getIpAddress(request));
+//        response.sendRedirect("./index");
         super.onAuthenticationSuccess(request, response, authentication);
     }
 

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
@@ -145,13 +147,15 @@ public class PriceServiceImpl implements PriceService {
      */
     @Override
     @Transactional
-    public PriceEntity addPrice(PriceEntity priceEntity) {
+    public PriceEntity addPrice(PriceEntity priceEntity, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        UserEntity userEntity = this.userRepository.findUserById(user.getId());
         int oldTime = priceEntity.getUseTime();
         int useTime = oldTime*60;
         priceEntity.setUseTime(useTime);
         priceEntity.setStatus(1);
         priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
-        UserEntity userEntity =userRepository.findUserById(1);
         priceEntity.setUser(userEntity);
         PriceHistoryEntity history = new PriceHistoryEntity();
         history.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
@@ -159,14 +163,13 @@ public class PriceServiceImpl implements PriceService {
         history.setStartDateTime(priceEntity.getStartDateTime());
         history.setPriceName(priceEntity.getPriceName());
         history.setStatus(1);
-        history.setUser(priceEntity.getUser());
+        history.setUser(userEntity);
         history.setEditTime(new Timestamp(System.currentTimeMillis()));
         history.setNewPrice(priceEntity.getPrice());
         history.setNewUseTime(useTime);
         history.setOldPrice(priceEntity.getPrice());
         history.setOldUseTime(useTime);
         this.priceHistoryRepository.save(history);
-
         return   this.priceRepository.save(priceEntity);
 
     }
