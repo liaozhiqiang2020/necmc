@@ -5,10 +5,13 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 用户表
+ *
  * @author 魏帅志
  */
 @Entity
@@ -42,7 +45,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "user_name",unique =true, nullable =false)
+    @Column(name = "user_name", unique = true, nullable = false)
     public String getUserName() {
         return userName;
     }
@@ -56,6 +59,7 @@ public class UserEntity {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -168,7 +172,7 @@ public class UserEntity {
     }
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "mc_user_role",                       //指定第三张表
             joinColumns = {@JoinColumn(name = "user_id")},             //本表与中间表的外键对应

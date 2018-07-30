@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +36,33 @@ public class MyUserDetailService implements UserDetailsService {
                 GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getPermissionsName());
                 grantedAuthorities.add(grantedAuthority);
             }
-            return new User(user.getName(), user.getAuthenticationString(), grantedAuthorities);
+            return new User(user.getUserName(), user.getAuthenticationString(), grantedAuthorities);
         } else {
             throw new UsernameNotFoundException("admin: " + username + " do not exist!");
         }
     }
+
+    /**
+     * 获取登录用户IP地址
+     *
+     * @param request
+     * @return
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip.equals("0:0:0:0:0:0:0:1")) {
+            ip = "本地";
+        }
+        return ip;
+    }
 }
+
