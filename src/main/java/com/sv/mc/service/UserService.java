@@ -5,6 +5,7 @@ import com.sv.mc.pojo.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +34,7 @@ public interface UserService<T>  {
     String findAllByStatus();
     /**
      *更新user对象
-     * @param user user对象
+     * @param map user对象
      * @return 更新的user对象
      */
     UserEntity updateUser(Map<String,Object> map);

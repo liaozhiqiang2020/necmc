@@ -28,7 +28,6 @@ public class DeviceEntity {
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
     private PlaceEntity placeEntity;            //场地
     private SupplierEntity supplierEntity;  //供应商
-    @Transient
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
 
     @Id

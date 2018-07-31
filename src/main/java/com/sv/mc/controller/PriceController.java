@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -86,8 +87,8 @@ public class PriceController {
      * @param priceEntity 价格对象
      */
     @PostMapping("/price/save")
-    public PriceEntity addPrice(@RequestBody PriceEntity priceEntity){
-        return this.priceService.addPrice(priceEntity);
+    public PriceEntity addPrice(@RequestBody PriceEntity priceEntity, HttpServletRequest request){
+        return this.priceService.addPrice(priceEntity,request);
     }
 
     /**

@@ -36,7 +36,6 @@
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
 
-                var headName;
 
                 //初始化表格数据
                 function loadUserList() {
@@ -74,7 +73,7 @@
                                 // }
 
                                 if(operation !== "read"){
-                                    console.log(options);
+
                                     return kendo.stringify(options);
                                 }
                             }
@@ -82,6 +81,8 @@
                         // serverPaging: true,    //设定服务器来实现分页功能
                         // serverFiltering: true,
                         // serverSorting: true,
+                        filterable:true,
+                        scrollable: true,
                         requestEnd: onRequestEnd,
                         pageSize: 10,
                         schema: {
@@ -114,7 +115,6 @@
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
                         height: 600,
-                        scrollable: false,
                         resizable: true,
                         groupable: true,
                         sortable: true, //表示是否支持排序， boolean型

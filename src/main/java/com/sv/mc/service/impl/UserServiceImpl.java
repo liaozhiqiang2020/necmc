@@ -10,12 +10,16 @@ import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -125,19 +129,6 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setName(name);
         user.setUserName(userName);
         user.setLatestLoginIp(latestLoginIp);
-
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        try {
-//            Date date1 = simpleDateFormat.parse(createDateTime);
-//            Date date2 = simpleDateFormat.parse(latestLoginDatetime);
-//            long timeStamp1 = date1.getTime();
-//            long timeStamp2 = date2.getTime();
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            user.setCreateDatetime( (Timestamp) map.get("latestLoginDatetime"));
-//        }catch (ParseException e){
-//            System.out.println(e.getMessage());
-//        }
-
         user.setAuthenticationString( DigestUtils.md5DigestAsHex(password.getBytes()));
         if(this.headQuartersRepository.findHByName(company)!=null){
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
@@ -167,7 +158,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         String latestLoginIp = (String)map.get("latestLoginIp");
         String name = (String)map.get("name");
         String userName = (String)map.get("userName");
-        int status = (int)map.get("status");
+        int status = 1;
         String latestLoginDatetime = (String) map.get("latestLoginDatetime");
 
         UserEntity user = new UserEntity();
@@ -179,7 +170,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setUserName(userName);
         user.setLatestLoginIp(latestLoginIp);
         user.setCreateDatetime(new Timestamp(System.currentTimeMillis()));
-
+        user.setLatestLoginDatetime(new Timestamp(System.currentTimeMillis()));
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        try {
 //            Date date1 = simpleDateFormat.parse(createDateTime);

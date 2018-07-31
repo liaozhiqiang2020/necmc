@@ -9,10 +9,13 @@ import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,6 +28,7 @@ public class UserController {
 
 @GetMapping("/user/allPage")
     public String findAllUserPage(@Param("page") String page, @Param("pageSize") String pageSize){
+    System.out.println(page);
         PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
         DataSourceResult<UserEntity> UserEntityDataSourceResult = new DataSourceResult<>();
         Page<UserEntity> UserEntityPage = this.userService.findEntitiesPager(pageRequest);
@@ -39,6 +43,7 @@ public class UserController {
      */
     @GetMapping("/user/all")
     public List<UserEntity> findUserAll(){
+
         return this.userService.findAllUser();
     }
 
