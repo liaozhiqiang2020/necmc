@@ -448,6 +448,14 @@
 
 
     myChart2.setOption(option2);
+
+
+    $(document).ready(function(){
+        //获取昨日的订单数
+        $.get("./getYesterdayOrderCount", function(result){
+            $("#orderCount").text(result);
+        });
+    });
 </script>
 
 <footer th:replace="fragments/footer::footer"/>
