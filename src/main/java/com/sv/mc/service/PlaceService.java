@@ -142,4 +142,11 @@ public interface PlaceService<T> extends BaseService<T>{
      * @return placeEntity
      */
     PlaceEntity updatePlaceTree(Map<String,Object> map);
+
+    /**
+     * 根据场地Id查询该场地的所有设备
+     * @param placeId
+     * @return
+     */
+    String findDeviceBypId(int placeId);
 }

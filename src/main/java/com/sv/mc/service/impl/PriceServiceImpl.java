@@ -1,15 +1,18 @@
 package com.sv.mc.service.impl;
 
-import com.sv.mc.pojo.DeviceEntity;
-import com.sv.mc.pojo.PriceEntity;
-import com.sv.mc.pojo.PriceHistoryEntity;
-import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
 import com.sv.mc.service.PriceService;
+import com.sv.mc.util.DateJsonValueProcessor;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,15 +49,46 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 分页查询所有价格
-     * @param pageable 分页需要的条件
      * @return 所有价格
      */
 
     @Override
     @Transactional(readOnly = true)
-    public Page<PriceEntity> findAllPagePrice(Pageable pageable) {
+    public String findAllPagePrice(int page, int pageSize) {
+        int offset = ((page-1)*pageSize);
+        List<PriceEntity> priceList = this.priceRepository.findAllPriceByPage(offset,pageSize);
+        int total = this.priceRepository.findPriceTotal();
+        for (PriceEntity price: priceList
+                ) {
+            price.setUseTime(price.getUseTime()/60);
+        }
+        String userName = "";
+        String deviceModel = "";
+        String deviceType = "";
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+//        config.setIgnoreDefaultExcludes(false);  //设置默认忽略
+        config.setExcludes(new String[] { "deviceModelEntity","user","deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
 
-        return this.priceRepository.findAll(pageable);
+
+
+//        config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        JSONArray jsonArray = JSONArray.fromObject(priceList,config);//转化为jsonArray
+        JSONArray jsonArray1 = new JSONArray();//新建json数组
+        JSONObject jsonObject = new JSONObject();
+        for (int i = 0; i <jsonArray.size() ; i++) {
+            JSONObject jsonObject2 =jsonArray.getJSONObject(i);
+            userName = priceList.get(i).getUser().getName();
+            deviceModel = priceList.get(i).getDeviceModelEntity().getName();
+            deviceType = priceList.get(i).getDeviceModelEntity().getModel();
+            jsonObject2.put("userName",userName);
+            jsonObject2.put("deviceModel",deviceModel);
+            jsonObject2.put("deviceType",deviceType);
+            jsonArray1.add(jsonObject2);
+        }
+        jsonObject.put("data",jsonArray1);
+        jsonObject.put("total",total);
+        return jsonObject.toString();
     }
 
 
@@ -69,9 +103,40 @@ public class PriceServiceImpl implements PriceService {
         return this.priceRepository.findAll();
     }
 
+
+    /**
+     * 不分页查询所有可用价格
+     * @return 所有价格
+     */
     @Override
-    public List<PriceEntity> findStatusPrice() {
-        return this.priceRepository.findPriceEntitiesByStatus();
+    @Transactional
+    public String findStatusPrice() {
+        List<PriceEntity> priceList = this.priceRepository.findPriceEntitiesByStatus();
+        for (PriceEntity price: priceList
+             ) {
+            price.setUseTime(price.getUseTime()/60);
+        }
+        String userName = "";
+        String deviceModel = "";
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+//        config.setIgnoreDefaultExcludes(false);  //设置默认忽略
+        config.setExcludes(new String[] { "deviceModelEntity","user","deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+
+
+
+//        config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        JSONArray jsonArray = JSONArray.fromObject(priceList,config);//转化为jsonArray
+        JSONArray jsonArray1 = new JSONArray();//新建json数组
+        for (int i = 0; i <jsonArray.size() ; i++) {
+            JSONObject jsonObject2 =jsonArray.getJSONObject(i);
+          userName = priceList.get(i).getUser().getName();
+          deviceModel = priceList.get(i).getDeviceModelEntity().getName();
+            jsonObject2.put("userName",userName);
+            jsonObject2.put("deviceModel",deviceModel);
+            jsonArray1.add(jsonObject2);
+        }
+        return jsonArray1.toString();
     }
 
 
@@ -83,6 +148,8 @@ public class PriceServiceImpl implements PriceService {
     @Override
     @Transactional
     public PriceEntity updatePrice(PriceEntity priceEntity) {
+
+
         int oldTime = priceEntity.getUseTime();
         int useTime = oldTime*60;
         priceEntity.setUseTime(useTime);
@@ -142,32 +209,41 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 添加价格
-     * @param priceEntity 价格对象
+     * @param map 价格对象
      * @return 消息
      */
     @Override
     @Transactional
-    public PriceEntity addPrice(PriceEntity priceEntity, HttpServletRequest request) {
+    public PriceEntity addPrice( Map<String,Object> map, HttpServletRequest request) {
         HttpSession session = request.getSession();
         UserEntity user = (UserEntity) session.getAttribute("user");
         UserEntity userEntity = this.userRepository.findUserById(user.getId());
-        int oldTime = priceEntity.getUseTime();
-        int useTime = oldTime*60;
+        PriceEntity priceEntity = new PriceEntity();
+        int useTime = (int)map.get("useTime")*60;
+        int deviceModelId =Integer.parseInt((String) map.get("deviceModel"));
+        DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
+        BigDecimal price = new BigDecimal((int)map.get("price"));
         priceEntity.setUseTime(useTime);
         priceEntity.setStatus(1);
         priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
         priceEntity.setUser(userEntity);
+        priceEntity.setDeviceModelEntity(deviceModelEntity);
+        priceEntity.setPrice(price);
+        priceEntity.setEndDateTime(Timestamp.valueOf((String) map.get("endDateTime")));
+        priceEntity.setStartDateTime(Timestamp.valueOf(map.get("startDateTIme").toString()));
+        priceEntity.setPriceName((String)map.get("priceName"));
+//        priceEntity.setDeviceModelEntity();
         PriceHistoryEntity history = new PriceHistoryEntity();
         history.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
-        history.setEndDateTime(priceEntity.getEndDateTime());
-        history.setStartDateTime(priceEntity.getStartDateTime());
-        history.setPriceName(priceEntity.getPriceName());
+        history.setEndDateTime(Timestamp.valueOf(map.get("endDateTime").toString()));
+        history.setStartDateTime(Timestamp.valueOf(map.get("startDateTIme").toString()));
+        history.setPriceName((String)map.get("priceName"));
         history.setStatus(1);
         history.setUser(userEntity);
         history.setEditTime(new Timestamp(System.currentTimeMillis()));
-        history.setNewPrice(priceEntity.getPrice());
+        history.setNewPrice(price);
         history.setNewUseTime(useTime);
-        history.setOldPrice(priceEntity.getPrice());
+        history.setOldPrice(price);
         history.setOldUseTime(useTime);
         this.priceHistoryRepository.save(history);
         return   this.priceRepository.save(priceEntity);

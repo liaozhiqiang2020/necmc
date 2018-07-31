@@ -28,15 +28,8 @@ public class UserController {
 
 @GetMapping("/user/allPage")
     public String findAllUserPage(@Param("page") String page, @Param("pageSize") String pageSize){
-    System.out.println(page);
-        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
-        DataSourceResult<UserEntity> UserEntityDataSourceResult = new DataSourceResult<>();
-        Page<UserEntity> UserEntityPage = this.userService.findEntitiesPager(pageRequest);
-        UserEntityDataSourceResult.setData( UserEntityPage.getContent());
-        UserEntityDataSourceResult.setTotal( UserEntityPage.getTotalPages());
-        Gson gson = new Gson();
-        return gson.toJson( UserEntityPage);
-    }
+  return this.userService.findEntitiesPager(Integer.parseInt(page),Integer.parseInt(pageSize));
+}
     /**
      * 查询所有user
      * @return 返回User集合
