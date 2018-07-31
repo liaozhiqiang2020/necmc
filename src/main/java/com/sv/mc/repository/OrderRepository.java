@@ -122,4 +122,13 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     @Query(value="select count(*) from mc_order as b",nativeQuery = true)
     int findOrderTotal();
 
+    /**
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Query(value="select count(id) from mc_order where pay_date_time BETWEEN cast(:startTime as datetime ) and cast(:endTime as datetime)",nativeQuery = true)
+    int findOrderByPeriod(@Param("startTime")String startTime,@Param("endTime")String endTime);
+
 }
