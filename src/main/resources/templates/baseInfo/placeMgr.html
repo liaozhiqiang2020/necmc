@@ -26,7 +26,10 @@
                 var dataSource = new kendo.data.TreeListDataSource({
                     transport: {
                         read: {
-                            url: "./placeMgr/getAllPlaceForTreelist"
+                            url: "./placeMgr/getAllPlaceForTreelist",
+                            type: "post",
+                            dataType: "json",
+                            contentType:"application/json;charset=UTF-8"
                         },
                         create: {
                             url: "./placeMgr/insertPlaceTree",
@@ -55,7 +58,6 @@
                                 return kendo.stringify(list);
                             }
                             if(operation ==="create"){
-                                console.log(options);
                                 var endDate =options.endDateTime;
                                 var startDate = options.startDateTime;
                                 options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
@@ -63,7 +65,6 @@
                                 return kendo.stringify(options);
                             }
                             if(operation ==="update"){
-                                console.log(options);
                                 var endDate =options.endDateTime;
                                 var startDate = options.startDateTime;
 
@@ -74,6 +75,10 @@
                                     options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
                                 }
 
+                                return kendo.stringify(options);
+                            }
+                            if(operation ==="read"){
+                                console.log(options);
                                 return kendo.stringify(options);
                             }
                         }
@@ -130,11 +135,12 @@
                                 userId:{type:"string"},
                                 userName:{type:"string"}
                             }
-                        },
-                        data: function (response) {
-                            var list = JSON.parse(response);
-                            return list;
                         }
+                        // data: function (response) {
+                        //     console.log(response);
+                        //     var list = JSON.parse(response);
+                        //     return list;
+                        // }
                     }
                 });
 

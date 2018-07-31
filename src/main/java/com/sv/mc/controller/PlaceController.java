@@ -121,10 +121,10 @@ public class PlaceController {
      * 全部查询
      * @return 返回所有场地内容
      */
-    @GetMapping(value = "/placeMgr/getAllPlaceForTreelist")
+    @PostMapping(value = "/placeMgr/getAllPlaceForTreelist")
     public @ResponseBody
-    String getAllPlaceForTreelist() {
-        return this.placeService.findAllPlace();
+    String getAllPlaceForTreelist(@RequestBody Map<String,Object> map) {
+        return this.placeService.findAllPlace(map);
     }
 
 

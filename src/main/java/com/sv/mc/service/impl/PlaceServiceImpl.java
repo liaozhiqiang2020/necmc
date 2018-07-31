@@ -141,8 +141,14 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public String findAllPlace() {
-                List<PlaceEntity> placeEntityList = this.placeRepository.findAllPlace();//查询所有
+        public String findAllPlace(Map map) {
+                List<PlaceEntity> placeEntityList;
+                if(map.isEmpty()){
+                        placeEntityList = this.placeRepository.findAllPlaces();//查询所有
+                }else{
+                        int placeId = Integer.parseInt(map.get("id").toString());
+                        placeEntityList = this.placeRepository.findPlaceByParentId(placeId);
+                }
                 JsonConfig config = new JsonConfig();
                 config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
                 config.setExcludes(new String[] { "deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
@@ -181,6 +187,7 @@ public class PlaceServiceImpl implements PlaceService {
                         jsonObject.put("levelFlagName",levelFlagName);
                         jsonObject.put("businessName",businessName);
                         jsonObject.put("cityName",cityName);
+                        jsonObject.put("hasChildren",true);
                         jsonArray1.add(jsonObject);
                 }
                 return jsonArray1.toString();

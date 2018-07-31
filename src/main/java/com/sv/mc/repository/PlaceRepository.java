@@ -61,7 +61,6 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null")
     List<PlaceEntity> findAllPlaces();
 
-
     /**
      * 根据场地id查询他下一级的所有信息
      */

@@ -53,7 +53,7 @@ public interface PlaceService<T> extends BaseService<T>{
     /**
      * 不分页查询场地数据
      */
-    String findAllPlace();
+    String findAllPlace(Map<String,Object> map);
 
     /**
      * 不分页查询场地数据
