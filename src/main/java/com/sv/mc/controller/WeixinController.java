@@ -8,8 +8,11 @@ import com.sv.mc.weixinpay.vo.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.weixin4j.WeixinException;
 import org.weixin4j.WeixinSupport;
 
@@ -272,13 +275,5 @@ public class WeixinController extends WeixinSupport {
             jmsProducer.sendMessage("faaf0e17"+chairCode+"0000");
         }
     }
-
-
-
-
-
-
-
-
 
 }

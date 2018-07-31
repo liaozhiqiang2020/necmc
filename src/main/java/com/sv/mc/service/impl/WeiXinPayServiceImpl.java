@@ -1,9 +1,11 @@
 package com.sv.mc.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.zxing.NotFoundException;
 import com.sv.mc.pojo.WxUserInfoEntity;
 import com.sv.mc.service.WeiXinPayService;
 import com.sv.mc.service.WxUserInfoService;
+import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.config.WxPayConfig;
 import com.sv.mc.weixinpay.utils.AESDecodeUtils;
@@ -25,10 +27,9 @@ import org.weixin4j.http.Response;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,8 +45,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
 //    private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static final String appid = "wxef6b91b1a0f63519";        //微信小程序appid
-    private static final String secret = "0db1ee3366332ed66650ce0acce409a7";    //微信小程序密钥
+    private static final String appid = "wx17d911f9c0ab6c6f";        //微信小程序appid
+    private static final String secret = "1fa27d22609a18e37f1ed72b9b9ba62b";    //微信小程序密钥
     private static final String grant_type = "authorization_code";
 
 
@@ -92,8 +93,21 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                 ret.put("phoneNumber",wxUserInfoEntity.getPhoneNumber());//绑定手机号
             }
 
+
+            //---------------
+            String param2 = "?grant_type=client_credential" + "&appid=" + appid + "&secret=" + secret;
+            Response res2 = http.get("https://api.weixin.qq.com/cgi-bin/token" + param2);
+            JSONObject jsonObj2 = res2.asJSONObject();
+            System.out.println("access_token=====================================:"+jsonObj2.toString());
+            ret.put("access_token",jsonObj2.get("access_token"));
+            //*------------
+
             ret.put("openid", oauthJsToken.getOpenid());
             ret.put("sessionKey", oauthJsToken.getSession_key());
+
+//            BaseUtil baseUtil = new BaseUtil();
+//            //生成二维码图片
+//            baseUtil.getQrCode(jsonObj2.get("access_token").toString());
         }
         return ret;
     }
@@ -333,4 +347,5 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
         return userInfo;
     }
+
 }
