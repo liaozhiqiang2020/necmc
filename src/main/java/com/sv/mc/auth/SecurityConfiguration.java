@@ -27,6 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private MyUserDetailService myUserDetailService;
     @Resource
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
+    @Resource
+    private LoginSuccessHandler loginSuccessHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -35,12 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**")
                 .antMatchers("/fonts/**")
                 .antMatchers("/img/**")
-                .antMatchers("/js/**")
-                .antMatchers("/weixin/**")
-                .antMatchers("/wx/**")
-                .antMatchers("/JMNomfSJJT.txt")
-                .antMatchers("/wx/JMNomfSJJT.txt");
-
+                .antMatchers("/js/**");
+        super.configure(web);
     }
 
         @Override
@@ -61,30 +59,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .and()
                     .formLogin()
                     .loginPage("/login")
-                    .successHandler(loginSuccessHandler())
                     .failureUrl("/login?error")
                     .successForwardUrl("/index")
                     .permitAll()
+                    .successHandler(loginSuccessHandler())
                     .and()
                     .logout()
 //                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout")
-                    .permitAll();
+                    .permitAll()
+                    .invalidateHttpSession(true);
 //            http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         }
+
 
         @Autowired
                 public void configureGlobal(AuthenticationManagerBuilder auth)throws Exception{
             auth.userDetailsService(myUserDetailService);
         }
 
-    @Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
 
     @Bean
     public LoginSuccessHandler loginSuccessHandler(){
         return new LoginSuccessHandler();
     }
+
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
+
 }

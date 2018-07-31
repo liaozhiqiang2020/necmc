@@ -233,6 +233,16 @@ public class PlaceController {
     }
 
     /**
+     * 根据场地id查询所有设备分页
+     * @param placeId
+     * @return
+     */
+    @GetMapping("/place/findDeviceBypId")
+    public String findDeviceBypId(@RequestParam("placeId") int placeId){
+        return this.placeService.findDeviceBypId(placeId);
+    }
+
+    /**
      * 不分页查询第一级场地数据
      */
     @GetMapping("/place/findAllPlaceFirst")

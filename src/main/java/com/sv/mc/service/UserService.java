@@ -20,7 +20,7 @@ public interface UserService<T>  {
      * 分页查询所有user
      * @return 分页集合
      */
-    Page<UserEntity> findEntitiesPager(Pageable pageable);
+    String findEntitiesPager(int page, int pageSize);
 
     /**
      * 不分页查询所有user

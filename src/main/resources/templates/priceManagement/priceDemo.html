@@ -34,7 +34,7 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./price/status"
+                                url: "./price/pageAll"
                             },
                             create: {
                                 url: "./price/save",
@@ -56,11 +56,11 @@
                             },
                             parameterMap:function(options, operation){
 
-                                // if(operation=="read"){
-                                //     var page = $("#grid").data("kendoGrid").dataSource.page();
-                                //     var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                                //     return {page:page,pageSize:pageSize};
-                                // }
+                                if(operation=="read"){
+                                    var page = $("#grid").data("kendoGrid").dataSource.page();
+                                    var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
+                                    return {page:page,pageSize:pageSize};
+                                }
                                 // if(operation === "create"||operation ==="update"){
                                 //     var endDate =options.endDateTime;
                                 //     var startDate = options.startDateTime;
@@ -73,7 +73,7 @@
                                 }
                             }
                         },
-                        // serverPaging: true,    //设定服务器来实现分页功能
+                        serverPaging: true,    //设定服务器来实现分页功能
                         // serverFiltering: true,
                         // serverSorting: true,
                         filterable:true,
@@ -90,19 +90,21 @@
                                     createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     startDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                     endDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                                    userId: { type: "int" ,editable: false},
+                                    userName: { type: "string" ,editable: false},
+                                    deviceModel: { type: "string" },
+                                    deviceType: { type: "string" },
                                     status: { type: "number",editable: false },
                                     priceName : {type : "string",validation: {required: true, required: { message: "请您填写价格名称" }}},
                                     user :{type:"array",editable: false,defaultValue: { id: 1, name: ""}},
                                     deviceModelEntity : {defaultValue: { id: 1, name: ""},validation: {required: true, required: { message: "请您填写设备类型" }}},
                                 }
                             },
-                            // data: function (response) {
-                            //     return JSON.parse(response).content;
-                            // },
-                            // total: function (response) {
-                            //     return JSON.parse(response).total;
-                            // }
+                            data: function (response) {
+                                return JSON.parse(response).data;
+                            },
+                            total: function (response) {
+                                return JSON.parse(response).total;
+                            }
                         }
                     });
 
@@ -153,13 +155,14 @@
                                     style: "text-align: right"
                                 }, },
                             { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
-                            { field: "user", title: "创建人", width: 100, filterable: { multi: true },template:"<span class='product-preview'>#=user.name#</span>",editor:roleListDropDownEditor },
+                            { field: "userName", title: "创建人", width: 100, filterable: { multi: true } },
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             { field: "startDateTime",title: "生效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
                             { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
-                            { field: "deviceModelEntity", title: "按摩椅类型", width: 100, filterable: { multi: true },template:"#=deviceModelEntity.name#",editor:roleListDropDownEditor},
+                            { field: "deviceModel", title: "按摩椅型号", width: 100, filterable: { multi: true },editor:roleListDropDownEditor},
+                            { field: "deviceType", title: "类型", width: 100, filterable: { multi: true },editor:roleListDropDownEditor},
 
                             {
                                 command: [

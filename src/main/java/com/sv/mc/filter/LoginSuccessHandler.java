@@ -42,6 +42,7 @@ public class LoginSuccessHandler extends
         this.userRepository.save(user);
         HttpSession session = request.getSession();
         session.setAttribute("user",user);
+        session.setAttribute("userName",user.getName());
 
         //输出登录提示信息
 //        System.out.println("管理员 " + userDetails.getUsername() + " 登录");

@@ -44,7 +44,7 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./user/allStatus"
+                                url: "./user/allPage"
                             },
                             create: {
                                 url: "./user/save",
@@ -66,11 +66,11 @@
                             },
                             parameterMap:function(options, operation){
 
-                                // if(operation=="read"){
-                                //     var page = $("#grid").data("kendoGrid").dataSource.page();
-                                //     var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                                //     return {page:page,pageSize:pageSize};
-                                // }
+                                if(operation=="read"){
+                                    var page = $("#grid").data("kendoGrid").dataSource.page();
+                                    var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
+                                    return {page:page,pageSize:pageSize};
+                                }
 
                                 if(operation !== "read"){
 
@@ -78,7 +78,7 @@
                                 }
                             }
                         },
-                        // serverPaging: true,    //设定服务器来实现分页功能
+                        serverPaging: true,    //设定服务器来实现分页功能
                         // serverFiltering: true,
                         // serverSorting: true,
                         filterable:true,
@@ -104,11 +104,11 @@
                                 }
                             },
                             data: function (response) {
-                                return JSON.parse(response);
+                                return JSON.parse(response).data;
+                            },
+                            total: function (response) {
+                                return JSON.parse(response).total;
                             }
-                            // total: function (response) {
-                            //     return JSON.parse(response).total;
-                            // }
                         }
                     });
                     //dataSource是必填属性

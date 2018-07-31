@@ -37,7 +37,12 @@ public class DateJsonValueProcessor implements JsonValueProcessor {
             String str = new SimpleDateFormat(format).format((Date) value);
             return str;
         }
-        return value.toString();
+        if (value == null){
+            return null;
+        }else {
+            return value.toString();
+        }
+
     }
 
     public String getFormat() {

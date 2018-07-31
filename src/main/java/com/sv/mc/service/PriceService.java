@@ -4,6 +4,7 @@ package com.sv.mc.service;
 import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -13,10 +14,11 @@ public interface PriceService{
 
     /**
      * 分页查询所有数据
-     * @param pageable 分页规则
+     * @param page 分页规则
+     * @param pageSize 分页规则
      * @return 价格分页集合
      */
-    Page<PriceEntity> findAllPagePrice(Pageable pageable);
+    String findAllPagePrice(int page, int pageSize);
 
     /**
      * 查询所有价格数据
@@ -28,7 +30,7 @@ public interface PriceService{
      * 查询状态为使用中的价格
      * @return价格集合数组
      */
-    List<PriceEntity> findStatusPrice();
+    String findStatusPrice();
 
 
     /**
@@ -55,10 +57,11 @@ public interface PriceService{
     PriceEntity findPriceById(int Id);
     /**
      * 添加价格
-     * @param priceEntity 价格对象
+     * @param map 价格对象
+     * @param request 页面请求
      * @return 消息
      */
-    PriceEntity addPrice(PriceEntity priceEntity, HttpServletRequest request);
+    PriceEntity addPrice( Map<String,Object> map, HttpServletRequest request);
 
     /**
      * 批量修改或者保存价格数据
