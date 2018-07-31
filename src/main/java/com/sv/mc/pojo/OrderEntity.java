@@ -36,6 +36,7 @@ public class OrderEntity {
     private Integer mcTime;  //按摩时长
     private Integer strength;//按摩强度
     private String cancelReason;//取消原因
+    private String orderSource;//订单来源
 
     @Id
     @GeneratedValue
@@ -56,6 +57,16 @@ public class OrderEntity {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Basic
+    @Column(name = "order_source")
+    public String getOrderSource() {
+        return orderSource;
+    }
+
+    public void setOrderSource(String orderSource) {
+        this.orderSource = orderSource;
     }
 
     @Basic

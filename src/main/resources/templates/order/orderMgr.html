@@ -59,7 +59,7 @@
                                     id: {type: "number", editable: false},
                                     code: {type: "string"},
                                     codeWx: {type: "string"},
-                                    // status: {type: "string"},
+                                    orderSource: {type: "string"},
                                     statusName:{type:"string"},
                                     createDateTime: {type: "timestamp"},
                                     payDateTime: {type: "timestamp"},
@@ -125,14 +125,20 @@
                         },
                         columns: [
                             {
+                                field: "orderSource",
+                                title: "来源",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
                                 field: "code",
                                 title: "订单编号",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {
                                 field: "codeWx",
-                                title: "微信订单号",
+                                title: "订单号",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            },{
+                            },
+                            {
                                 field: "statusName",
                                 title: "订单状态",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}

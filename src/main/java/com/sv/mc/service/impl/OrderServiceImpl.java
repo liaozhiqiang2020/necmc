@@ -273,7 +273,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setCreateDateTime(ts);//订单创建时间
         orderEntity.setPayDateTime(ts);//支付时间
         orderEntity.setMcStartDateTime(ts);//开始计时时间
-        orderEntity.setCodeWx("66666666666");//微信订单号
+        orderEntity.setCodeWx("66666666666");//微信/支付宝/银联订单号
+        orderEntity.setOrderSource("微信");
         orderEntity.setDeviceId(deviceId);//设备id
 
         Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
