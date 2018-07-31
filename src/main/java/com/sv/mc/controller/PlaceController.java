@@ -287,47 +287,59 @@ public class PlaceController {
     /**
      * 下载文件
      */
-    @PostMapping("/file/download")
-    @ResponseBody
-    public String download(@RequestParam("fileUrl") String fileUrl, HttpServletRequest request, HttpServletResponse response,String fileName) throws Exception {
-            File file = new File(fileUrl);
-            if (file.exists()) {
-                response.setContentType("application/force-download");// 设置强制下载不打开
-                response.addHeader("Content-Disposition",
-                        "attachment;fileName=" + fileName);// 设置文件名
-                byte[] buffer = new byte[1024];
-                FileInputStream fis = null;
-                BufferedInputStream bis = null;
-                try {
-                    fis = new FileInputStream(file);
-                    bis = new BufferedInputStream(fis);
-                    OutputStream os = response.getOutputStream();
-                    int i = bis.read(buffer);
-                    while (i != -1) {
-                        os.write(buffer, 0, i);
-                        i = bis.read(buffer);
+    @GetMapping("/file/download")
+    public void download(@RequestParam("placeId") int placeId,HttpServletResponse response) throws Exception {
+//        //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
+//             String realPath = request.getServletContext().getRealPath("//fileUpload//");
+//            File file = new File(realPath, fileName);
+        PlaceEntity placeEntity = this.placeService.findPlaceById(placeId);
+        String fileUrl = placeEntity.getFile();
+        String fileName = placeEntity.getFileName();
+
+        File file = new File(fileUrl);
+        if (file.exists()) {
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+            response.addHeader("Pargam", "no-cache");
+            response.addHeader("Cache-Control", "no-cache");
+
+            byte[] buffer = new byte[1024];
+            FileInputStream fis = null;
+            BufferedInputStream bis = null;
+            try {
+                fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis);
+                OutputStream os = response.getOutputStream();
+                BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+                int i = bis.read(buffer);
+                while (i != -1) {
+                    os.write(buffer, 0, i);
+                    bos.write(buffer, 0, i);
+                    i = bis.read(buffer);
+                }
+                bos.flush();
+                bos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    System.out.println("下载成功!");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (bis != null) {
-                        try {
-                            bis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (fis != null) {
-                        try {
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                }
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
-        return null;
+        }
+
+
     }
 
 }
