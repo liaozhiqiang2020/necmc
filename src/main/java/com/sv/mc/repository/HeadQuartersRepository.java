@@ -2,6 +2,7 @@ package com.sv.mc.repository;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -56,6 +57,21 @@ public interface HeadQuartersRepository extends BaseRepository<HeadQuartersEntit
 
     @Query("from HeadQuartersEntity h where h.name = :name")
     HeadQuartersEntity findHByName(@Param("name") String name);
+
+
+    /**
+     * 根据总公司id查询下面的场地
+     */
+    @Query("from PlaceEntity p where p.levelFlag=1 and p.discardStatus=1 and p.superiorId=:headId")
+    List<PlaceEntity> findAllPlaceByHeadId(@Param("headId")int headId);
+
+    /**
+     * 查询所有未绑定的场地
+     */
+    @Query("from PlaceEntity p where p.levelFlag is null and p.discardStatus=1 and p.superiorId is null")
+    List<PlaceEntity> findAllUnboundPlace();
+
+
 }
 
 

@@ -3,7 +3,9 @@ package com.sv.mc.service.impl;
 import com.google.gson.Gson;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.repository.HeadQuartersRepository;
+import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.service.HeadQuartersService;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.List;
 public class HeadQuartersServiceImpl implements HeadQuartersService {
         @Autowired
         private HeadQuartersRepository headQuartersRepository;
+        @Autowired
+        private PlaceRepository placeRepository;
     /**
      * 保存
      * @param headQuarters 总公司数据
@@ -112,5 +116,44 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
     @Override
     public HeadQuartersEntity findHeadByBranchId(int branchId) {
         return this.headQuartersRepository.findHeadByBranchId(branchId);
+    }
+
+    /**
+     * 根据总公司id查询下面的场地
+     */
+    @Override
+    public List<PlaceEntity> findAllPlaceByHeadId(int headId) {
+        return this.headQuartersRepository.findAllPlaceByHeadId(headId);
+    }
+
+    /**
+     * 查询所有未绑定的场地
+     */
+    @Override
+    public List<PlaceEntity> findAllUnboundPlace() {
+        return this.headQuartersRepository.findAllUnboundPlace();
+    }
+
+    /**
+     * 总公司绑定场地
+     */
+    @Override
+    public void headBoundPlace(int headId, int placeId) {
+        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+        placeEntity.setLevelFlag(1);
+        placeEntity.setSuperiorId(headId);
+        this.placeRepository.save(placeEntity);
+    }
+
+    /**
+     * 解绑场地
+     * @param placeId
+     */
+    @Override
+    public void unboundPlace(int placeId) {
+        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+        placeEntity.setLevelFlag(null);
+        placeEntity.setSuperiorId(null);
+        this.placeRepository.save(placeEntity);
     }
 }

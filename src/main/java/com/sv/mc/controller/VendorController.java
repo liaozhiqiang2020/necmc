@@ -1,7 +1,9 @@
 package com.sv.mc.controller;
 
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.VendorEntity;
+import com.sv.mc.service.PlaceService;
 import com.sv.mc.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,8 @@ public class VendorController {
     //注入
     @Autowired
     private VendorService vendorService;
+    @Autowired
+    private PlaceService placeService;
 
     /**
      * 全部查询
@@ -118,103 +122,29 @@ public class VendorController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**                                                                         失效代码
-     *
-     * 更改分公司名称
-     * @param id 分公司id  , newName 新名字
-     * @return BranchEntity
-    @RequestMapping(value = "/branch/updateBranchName",method=RequestMethod.POST)
-    public @ResponseBody BranchEntity updateBranchNameById(@PathParam("id")int id ,@RequestBody String newName) {
-        BranchEntity result = new BranchEntity();
-            result = branchService.updateBranchNameById(id,newName);
-        return result;
-    }
     /**
-     * 更改分公司地址
-     * @param id 分公司id , newAddress 新办公地址
-     * @return BranchEntity
-    @RequestMapping(value = "/branch/updateBranchAddress",method=RequestMethod.POST)
+     * 根据代理商id查询下面的场地
+     */
+    @GetMapping(value = "/vendorMgr/findAllPlaceByVendorId")
     public @ResponseBody
-    BranchEntity updateBranchAddressById(@PathParam("id")int id ,@RequestBody String newAddress) {
-        BranchEntity result = new BranchEntity();
-        result = branchService.updateBranchAddressById(id,newAddress);
-        return result;
+    List<PlaceEntity> findAllPlaceByVendorId(@Param("vendorId")int vendorId) {
+        return this.vendorService.findAllPlaceByVendorId(vendorId);
     }
+
     /**
-     * 更改分公司负责人
-     * @param id 分公司id , newPrincipal 新分公司负责人
-     * @return BranchEntity
-    @RequestMapping(value = "/branch/updateBranchPrincipal",method=RequestMethod.POST)
+     * 代理商绑定场地
+     */
+    @PostMapping(value="/vendorMgr/vendorBoundPlace")
     public @ResponseBody
-    BranchEntity updateBranchPrincipalById(@PathParam("id")int id ,@RequestBody String newPrincipal) {
-        BranchEntity result = new BranchEntity();
-        result = branchService.updateBranchPrincipalById(id,newPrincipal);
+    String vendorBoundPlace(@Param("vendorId")int vendorId,@Param("placeId")int placeId){
+        String result = "绑定成功！";
+//        String agreement = this.placeService.findPlaceById(placeId).getFile();
+////        if(agreement==null){
+////            result="请上传协议后再进行绑定操作！";
+////            return result;
+////        }
+        this.vendorService.vendorBoundPlace(vendorId,placeId);
         return result;
     }
-    /**
-     * 更改分公司联系电话
-     * @param id 分公司id , newTelephone新分公司联系电话
-     * @return BranchEntity
-    @RequestMapping(value = "/branch/updateBranchTelephone",method=RequestMethod.POST)
-    public @ResponseBody
-    BranchEntity updateBranchTelephoneById(@PathParam("id")int id ,@RequestBody String newTelephone) {
-        BranchEntity result = new BranchEntity();
-        result = branchService.updateBranchTelephoneById(id,newTelephone);
-        return result;
-    }
-    /**
-     * 更改分公司联系邮箱
-     * @param id 分公司id , newEmail新分公司联系邮箱
-     * @return BranchEntity
-    @RequestMapping(value = "/branch/updateBranchEmail",method=RequestMethod.POST)
-    public @ResponseBody
-    BranchEntity updateBranchEmailById(@PathParam("id")int id ,@RequestBody String newEmail) {
-        BranchEntity result = new BranchEntity();
-        result = branchService.updateBranchEmailById(id,newEmail);
-        return result;
-    }
-    /**
-     * 更该分公司事物状态
-     * @param id 分公司id
-     * @param newDeleteID delete_id
-     * @return RequestBody
-    @RequestMapping(value = "/branch/updateBranchAffair",method =RequestMethod.POST)
-    public @ResponseBody
-    BranchEntity updateBranchAffairById(@PathParam("id") int id,@RequestBody int newDeleteID){
-        BranchEntity result = new BranchEntity();
-        result = branchService.updateBranchAffairById(id,newDeleteID);
-        return result;
-    }
-    */
 
 }

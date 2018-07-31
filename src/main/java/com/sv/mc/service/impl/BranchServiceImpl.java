@@ -2,14 +2,8 @@ package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.sv.mc.pojo.BranchEntity;
-import com.sv.mc.pojo.HeadQuartersEntity;
-import com.sv.mc.pojo.UserEntity;
-import com.sv.mc.pojo.VendorEntity;
-import com.sv.mc.repository.BranchRepository;
-import com.sv.mc.repository.HeadQuartersRepository;
-import com.sv.mc.repository.UserRepository;
-import com.sv.mc.repository.VendorRepository;
+import com.sv.mc.pojo.*;
+import com.sv.mc.repository.*;
 import com.sv.mc.service.BranchService;
 import com.sv.mc.util.DataSourceResult;
 import net.sf.json.JSONArray;
@@ -34,6 +28,8 @@ public class BranchServiceImpl implements BranchService {
         private VendorRepository vendorRepository;
         @Autowired
         private UserRepository userRepository;
+        @Autowired
+        private PlaceRepository placeRepository;
 
         /**1
          * 保存缓存数据
@@ -249,5 +245,24 @@ public class BranchServiceImpl implements BranchService {
         @Override
         public List<UserEntity> findAllByStatus() {
                 return this.userRepository.findAllByStatus();
+        }
+
+        /**
+         * 根据分公司id查询下面的场地
+         */
+        @Override
+        public List<PlaceEntity> findAllPlaceByBranchId(int branchId) {
+                return this.branchRepository.findAllPlaceByBranchId(branchId);
+        }
+
+        /**
+         * 分公司绑定场地
+         */
+        @Override
+        public void branchBoundPlace(int branchId, int placeId) {
+                PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+                placeEntity.setLevelFlag(2);
+                placeEntity.setSuperiorId(branchId);
+                this.placeRepository.save(placeEntity);
         }
 }

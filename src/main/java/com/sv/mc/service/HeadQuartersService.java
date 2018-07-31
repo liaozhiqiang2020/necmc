@@ -2,6 +2,8 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -60,4 +62,25 @@ public interface HeadQuartersService<T> extends BaseService<T>{
      * @return
      */
     HeadQuartersEntity findHeadByBranchId(int branchId);
+
+
+    /**
+     * 根据总公司id查询下面的场地
+     */
+    List<PlaceEntity> findAllPlaceByHeadId(int headId);
+
+    /**
+     * 查询所有未绑定的场地
+     */
+    List<PlaceEntity> findAllUnboundPlace();
+
+    /**
+     * 总公司绑定场地
+     */
+    void headBoundPlace(int headId,int placeId);
+
+    /**
+     * 解绑场地
+     */
+    void unboundPlace(int placeId);
 }

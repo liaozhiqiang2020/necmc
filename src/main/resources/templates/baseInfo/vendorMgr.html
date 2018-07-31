@@ -17,13 +17,30 @@
         </ol>
     </section>
 
+    <div id="window2">
+        <input name="file" id="file" type="file"/>
+    </div>
+
+    <div id="window">
+        <div id="placeGrid"></div>
+        <div><hr></div>
+        <div id="unboundPlaceGrid"></div>
+    </div>
+
     <div class="container-fluid">
 
         <div class="container-fluid">
             <div id="grid"></div>
             <script>
                 /*<![CDATA[*/
-                $(function () {loadUserList();});
+                $(function () {
+                    $("#file").kendoUpload({
+
+                    });
+                    $(".k-upload-empty").hide();
+
+                    loadUserList();}
+                 );
 
                 //初始化表格数据
                 function loadUserList() {
@@ -202,7 +219,286 @@
                                         name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
                                     }, {
                                         name: "destroy", text: "删除"
-                                    }],
+                                    },
+                                    {
+                                        name: "maintain",
+                                        text: "签约信息维护",//名称
+                                        click: function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+                                            var vendorId = data.id;//代理商id
+
+                                            var placeDataSource = new kendo.data.DataSource({
+                                                transport: {
+                                                    read: {
+                                                        url: "./vendorMgr/findAllPlaceByVendorId?vendorId="+vendorId
+                                                    }
+                                                },
+                                                serverPaging: false,    //设定服务器来实现分页功能
+                                                serverFiltering: false,
+                                                serverSorting: false,
+                                                pageSize: 10,
+                                                schema: {
+                                                    model: {
+                                                        id: "id",
+                                                        fields: {
+                                                            id: {type: "number", editable: false},
+                                                            name: {type: "string"}
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                            //dataSource是必填属性
+                                            $("#placeGrid").kendoGrid({
+                                                toolbar:"已签约场地",
+                                                dataSource: placeDataSource,
+                                                // height: 600,
+                                                sortable: true, //表示是否支持排序， boolean型
+                                                filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                                                columnMenu: true,
+                                                pageable: {
+                                                    // empty:"没有要显示的数据",
+                                                    // //代表是否支持刷新
+                                                    // refresh: true,
+                                                    // //表示每页显示的记录数，默认为5,10,20
+                                                    pageSizes: true,
+                                                    // //表示显示的页数，5表示1,2,3,4,5
+                                                    buttonCount: 5,
+                                                    totalPages: true,
+                                                    // input: true,//表示是否可以输入数字
+                                                    refresh: true,
+                                                    pageSize: 5,
+                                                    pageSizes: [5, 10, 15, 20],
+                                                    numeric: true,
+                                                    input: true,
+                                                    messages: {
+                                                        display: "显示 {0}-{1} 条，共 {2} 条",
+                                                        empty: "没有数据",
+                                                        itemsPerPage: "每页显示数量",
+                                                        first: "第一页",
+                                                        last: "最后一页",
+                                                        next: "下一页",
+                                                        previous: "上一页",
+                                                        page: "页",
+                                                        of: "共 {0}页"
+                                                    }
+                                                },
+                                                columns: [
+                                                    {
+                                                        field: "name",
+                                                        title: "场地名称"
+                                                    }, {
+                                                        command: [
+                                                            {
+                                                                text: "上传协议",//名称
+                                                                click: function (e) {
+                                                                    // e.target 是表示按钮的DOM元素
+                                                                    var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                                                    // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                                                    var data = this.dataItem(tr);
+                                                                    var placeId = data.id;
+                                                                    var file = data.file;
+
+                                                                    var myWindow2 = $("#window2");
+                                                                    myWindow2.kendoWindow({
+                                                                        width: "500px",
+                                                                        height: "300px",
+                                                                        title: "上传协议"
+                                                                    });
+
+                                                                    myWindow2.data("kendoWindow").center().open();
+
+                                                                    $(".k-upload-empty").show();
+
+                                                                    $("#file").kendoUpload({
+                                                                        async: {
+                                                                            saveUrl: "./file/upload",
+                                                                            autoUpload: true
+                                                                        },
+                                                                        localization: {     //设置上传按钮名称
+                                                                            select: "上传"
+                                                                        },
+                                                                        success: function(e){//上传成功后执行的回调函数
+                                                                            var uploadpath = e.response.uploadpath;
+                                                                            var fileName = e.response.fileName;
+
+                                                                            $.ajax({
+                                                                                type:"post",
+                                                                                url:"./placeMgr/saveFileToDB",
+                                                                                data:{
+                                                                                    uploadpath:uploadpath,
+                                                                                    placeId:placeId,
+                                                                                    fileName:fileName
+                                                                                },
+                                                                                success:function(res){
+                                                                                    // console.log(uploadpath);
+                                                                                    myWindow2.data("kendoWindow").close();
+                                                                                    location.reload();
+                                                                                }
+                                                                            })
+                                                                        }
+                                                                    });
+
+
+                                                                }
+                                                            },
+                                                            {
+                                                                text: "下载协议",//名称
+                                                                click: function (e) {
+                                                                    // e.target 是表示按钮的DOM元素
+                                                                    var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                                                    // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                                                    var data = this.dataItem(tr);
+                                                                    var placeId = data.id;
+                                                                    window.location="/mc/file/download?placeId="+placeId;
+                                                                }
+                                                            },
+                                                            {
+                                                                name :"解绑场地",click:function (e) {
+                                                                    var tr = $(e.target).closest("tr");
+                                                                    var data = this.dataItem(tr);
+                                                                    var placeId = data.id;
+
+                                                                    $.ajax({
+                                                                        type: "POST",
+                                                                        url: "./headMgr/unboundPlace",
+                                                                        data:{
+                                                                            placeId:placeId
+                                                                        },
+                                                                        // contentType: "application/json; charset=utf-8",
+                                                                        // dataType: "json",
+                                                                        success:function (data) {
+                                                                            alert(data);
+                                                                            var placeGrid = $("#placeGrid").data("kendoGrid");
+                                                                            placeGrid.dataSource.read();
+                                                                            var unboundPlaceGrid = $("#unboundPlaceGrid").data("kendoGrid");
+                                                                            unboundPlaceGrid.dataSource.read();
+                                                                            // myWindow2.data("kendoWindow").close();
+                                                                        }
+
+                                                                    })
+                                                                }
+                                                            }
+                                                        ],
+                                                        title: "操作",
+                                                        width: "250px"
+                                                    }
+                                                ]
+                                            });
+
+
+
+
+                                            var unboundPlaceDataSource = new kendo.data.DataSource({
+                                                transport: {
+                                                    read: {
+                                                        url: "./headMgr/findAllUnboundPlace"
+                                                    }
+                                                },
+                                                serverPaging: false,    //设定服务器来实现分页功能
+                                                serverFiltering: false,
+                                                serverSorting: false,
+                                                pageSize: 10,
+                                                schema: {
+                                                    model: {
+                                                        id: "id",
+                                                        fields: {
+                                                            id: {type: "number", editable: false},
+                                                            name: {type: "string"}
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                            //dataSource是必填属性
+                                            $("#unboundPlaceGrid").kendoGrid({
+                                                toolbar:"未签约场地",
+                                                dataSource: unboundPlaceDataSource,
+                                                // height: 600,
+                                                sortable: true, //表示是否支持排序， boolean型
+                                                filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                                                columnMenu: true,
+                                                pageable: {
+                                                    // empty:"没有要显示的数据",
+                                                    // //代表是否支持刷新
+                                                    // refresh: true,
+                                                    // //表示每页显示的记录数，默认为5,10,20
+                                                    pageSizes: true,
+                                                    // //表示显示的页数，5表示1,2,3,4,5
+                                                    buttonCount: 5,
+                                                    totalPages: true,
+                                                    // input: true,//表示是否可以输入数字
+                                                    refresh: true,
+                                                    pageSize: 5,
+                                                    pageSizes: [5, 10, 15, 20],
+                                                    numeric: true,
+                                                    input: true,
+                                                    messages: {
+                                                        display: "显示 {0}-{1} 条，共 {2} 条",
+                                                        empty: "没有数据",
+                                                        itemsPerPage: "每页显示数量",
+                                                        first: "第一页",
+                                                        last: "最后一页",
+                                                        next: "下一页",
+                                                        previous: "上一页",
+                                                        page: "页",
+                                                        of: "共 {0}页"
+                                                    }
+                                                },
+                                                columns: [
+                                                    {
+                                                        field: "name",
+                                                        title: "场地名称"
+                                                    }, {
+                                                        command: [
+                                                            {
+                                                                name :"绑定场地",click:function (e) {
+                                                                    var tr = $(e.target).closest("tr");
+                                                                    var data = this.dataItem(tr);
+                                                                    var placeId = data.id;
+
+                                                                    $.ajax({
+                                                                        type: "POST",
+                                                                        url: "./vendorMgr/vendorBoundPlace",
+                                                                        data:{
+                                                                            vendorId:vendorId,
+                                                                            placeId:placeId
+                                                                        },
+                                                                        // contentType: "application/json; charset=utf-8",
+                                                                        // dataType: "json",
+                                                                        success:function (data) {
+                                                                            alert(data);
+                                                                            var placeGrid = $("#placeGrid").data("kendoGrid");
+                                                                            placeGrid.dataSource.read();
+                                                                            var unboundPlaceGrid = $("#unboundPlaceGrid").data("kendoGrid");
+                                                                            unboundPlaceGrid.dataSource.read();
+                                                                            // myWindow2.data("kendoWindow").close();
+                                                                        }
+
+                                                                    })
+                                                                }
+                                                            }
+                                                        ],
+                                                        title: "操作",
+                                                        width: "250px"
+                                                    }
+                                                ]
+                                            });
+
+                                            var myWindow = $("#window");
+                                            myWindow.kendoWindow({
+                                                width: "700px",
+                                                height: "500px",
+                                                title: "签约信息维护"
+                                            });
+
+                                            myWindow.data("kendoWindow").center().open();
+                                        }
+                                    }
+                                    ],
                                 title: "操作",
                                 width: "250px"
                             }

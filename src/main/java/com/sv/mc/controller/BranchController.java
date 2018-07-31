@@ -1,8 +1,11 @@
 package com.sv.mc.controller;
 
 import com.sv.mc.pojo.BranchEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.BranchService;
+import com.sv.mc.service.HeadQuartersService;
+import com.sv.mc.service.PlaceService;
 import com.sv.mc.service.UserService;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,10 @@ public class BranchController {
     private BranchService branchService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PlaceService placeService;
+    @Autowired
+    private HeadQuartersService headQuartersService;
 
     /**
      * 跳转到分公司管理页面
@@ -126,5 +133,31 @@ public class BranchController {
     public @ResponseBody
     List<UserEntity> findAllByStatus(){
         return this.branchService.findAllByStatus();
+    }
+
+
+    /**
+     * 根据分公司id查询下面的场地
+     */
+    @GetMapping(value = "/branchMgr/findAllPlaceByBranchId")
+    public @ResponseBody
+    List<PlaceEntity> findAllPlaceByBranchId(@Param("branchId")int branchId) {
+        return this.branchService.findAllPlaceByBranchId(branchId);
+    }
+
+    /**
+     * 分公司绑定场地
+     */
+    @PostMapping(value="/branchMgr/branchBoundPlace")
+    public @ResponseBody
+    String branchBoundPlace(@Param("branchId")int branchId,@Param("placeId")int placeId){
+        String result = "绑定成功！";
+//        String agreement = this.placeService.findPlaceById(placeId).getFile();
+//        if(agreement==null){
+//            result="请上传协议后再进行绑定操作！";
+//            return result;
+//        }
+        this.branchService.branchBoundPlace(branchId,placeId);
+        return result;
     }
 }
