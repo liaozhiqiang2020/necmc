@@ -138,115 +138,115 @@ public class BaseUtil {
     }
 
 
-    /**
-     * 发送post请求
-     * @param url
-     * @param param
-     * @return
-     */
-    public static String sendPost(String url, String param) {
-        PrintWriter out = null;
-        BufferedReader in = null;
-        String result = "";
-        try {
-            java.net.URL realUrl = new URL(url);
-            // 打开和URL之间的连接
-            URLConnection conn = realUrl.openConnection();
-            // 设置通用的请求属性
-            conn.setRequestProperty("accept", "*/*");
-            conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            // 发送POST请求必须设置如下两行
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            // 获取URLConnection对象对应的输出流
-            out = new PrintWriter(conn.getOutputStream());
-            // 发送请求参数
-            out.print(param);
-            // flush输出流的缓冲
-            out.flush();
-            // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = in.readLine()) != null) {
-                result += line;
-            }
-        } catch (Exception e) {
-            System.out.println("[POST请求]向地址：" + url + " 发送数据：" + param + " 发生错误!");
-        } finally {// 使用finally块来关闭输出流、输入流
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                System.out.println("关闭流异常");
-            }
-        }
-        return result;
-    }
+//    /**
+//     * 发送post请求
+//     * @param url
+//     * @param param
+//     * @return
+//     */
+//    public static String sendPost(String url, String param) {
+//        PrintWriter out = null;
+//        BufferedReader in = null;
+//        String result = "";
+//        try {
+//            java.net.URL realUrl = new URL(url);
+//            // 打开和URL之间的连接
+//            URLConnection conn = realUrl.openConnection();
+//            // 设置通用的请求属性
+//            conn.setRequestProperty("accept", "*/*");
+//            conn.setRequestProperty("connection", "Keep-Alive");
+//            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+//            // 发送POST请求必须设置如下两行
+//            conn.setDoOutput(true);
+//            conn.setDoInput(true);
+//            // 获取URLConnection对象对应的输出流
+//            out = new PrintWriter(conn.getOutputStream());
+//            // 发送请求参数
+//            out.print(param);
+//            // flush输出流的缓冲
+//            out.flush();
+//            // 定义BufferedReader输入流来读取URL的响应
+//            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//            String line;
+//            while ((line = in.readLine()) != null) {
+//                result += line;
+//            }
+//        } catch (Exception e) {
+//            System.out.println("[POST请求]向地址：" + url + " 发送数据：" + param + " 发生错误!");
+//        } finally {// 使用finally块来关闭输出流、输入流
+//            try {
+//                if (out != null) {
+//                    out.close();
+//                }
+//                if (in != null) {
+//                    in.close();
+//                }
+//            } catch (IOException ex) {
+//                System.out.println("关闭流异常");
+//            }
+//        }
+//        return result;
+//    }
 
 
-    /**
-     * 流图片解码
-     * @param   input
-     * @return  String
-     */
-    public static String decodeQrcode(InputStream input) throws NotFoundException, IOException {
+//    /**
+//     * 流图片解码
+//     * @param   input
+//     * @return  String
+//     */
+//    public static String decodeQrcode(InputStream input) throws NotFoundException, IOException {
+//
+//        BufferedImage image = ImageIO.read(input);
+//        LuminanceSource source = new BufferedImageLuminanceSource(image);
+//        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+//
+//        Map<DecodeHintType,Object> hints = new LinkedHashMap<DecodeHintType,Object>();
+//        // 解码设置编码方式为：utf-8，
+//        hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
+//        //优化精度
+//        hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+//        //复杂模式，开启PURE_BARCODE模式
+//        hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+//        Result result = new MultiFormatReader().decode(bitmap,hints);
+//
+//
+//        return result.getText();
+//    }
+//
+//
+//    /**
+//     * 解析二维码（QRCode）
+//     * @param image
+//     * @return
+//     */
+//    public static String decodeQrcode(BufferedImage image) throws NotFoundException {
+//
+//        MultiFormatReader formatReader = new MultiFormatReader();
+//
+//        BinaryBitmap binaryBitmap=new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(image)));
+//
+//        //定义二维码的参数:
+//        Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
+//        hints.put(DecodeHintType.CHARACTER_SET,"utf-8");//定义字符集
+//        hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+//        Result result = formatReader.decode(binaryBitmap, hints);//开始解析
+//
+//        return result.getText();
+//    }
 
-        BufferedImage image = ImageIO.read(input);
-        LuminanceSource source = new BufferedImageLuminanceSource(image);
-        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-        Map<DecodeHintType,Object> hints = new LinkedHashMap<DecodeHintType,Object>();
-        // 解码设置编码方式为：utf-8，
-        hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
-        //优化精度
-        hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
-        //复杂模式，开启PURE_BARCODE模式
-        hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
-        Result result = new MultiFormatReader().decode(bitmap,hints);
-
-
-        return result.getText();
-    }
-
-
-    /**
-     * 解析二维码（QRCode）
-     * @param image
-     * @return
-     */
-    public static String decodeQrcode(BufferedImage image) throws NotFoundException {
-
-        MultiFormatReader formatReader = new MultiFormatReader();
-
-        BinaryBitmap binaryBitmap=new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(image)));
-
-        //定义二维码的参数:
-        Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
-        hints.put(DecodeHintType.CHARACTER_SET,"utf-8");//定义字符集
-        hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
-        Result result = formatReader.decode(binaryBitmap, hints);//开始解析
-
-        return result.getText();
-    }
-
-
-    public static void base64StringToImage(String base64String) {
-        BASE64Decoder decoder = new sun.misc.BASE64Decoder();
-        try {
-            byte[] bytes1 = decoder.decodeBuffer(base64String);
-            ByteArrayInputStream bais = new ByteArrayInputStream(bytes1);
-            BufferedImage bi1 = ImageIO.read(bais);
-            File f1 = new File("d://out.jfif");
-            ImageIO.write(bi1, "JFIF", f1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    public static void base64StringToImage(String base64String) {
+//        BASE64Decoder decoder = new sun.misc.BASE64Decoder();
+//        try {
+//            byte[] bytes1 = decoder.decodeBuffer(base64String);
+//            ByteArrayInputStream bais = new ByteArrayInputStream(bytes1);
+//            BufferedImage bi1 = ImageIO.read(bais);
+//            File f1 = new File("d://out.jfif");
+//            ImageIO.write(bi1, "JFIF", f1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     //获取小程序二维码图片
     public Map getQrCode(String accessToken) {
