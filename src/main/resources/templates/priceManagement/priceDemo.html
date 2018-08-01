@@ -7,7 +7,7 @@
 <div th:replace="fragments/header::header-body"/>
 
 <div class="content-wrapper">
-
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
     <section  class="content-header">
         <h1>
             价格管理
@@ -21,7 +21,10 @@
     <div class="container-fluid">
 
         <div class="container-fluid">
-            <div id="grid"></div>
+            <div id="grid">
+                <span id="toolbar"></span>
+
+            </div>
             <script>
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
@@ -121,6 +124,7 @@
                         //     virtual: true
                         // },
                         toolbar: [{name: "create", text: "新增"}],
+
                         columnMenu: true,
                         pageable: {
                             // empty:"没有要显示的数据",
@@ -274,6 +278,49 @@
     </div>
 </div>
 <!-- /.container -->
+<!--//导出-->
+
+<script>
+    $("#toolbar").kendoToolBar({
+        items: [
+            {
+                type: "button",
+                text: "导出Excel",
+                click: function(e) {
+                    //t, {name:"导出excel",click:function(){
+
+                    $.ajax({
+                        type: "GET",
+                        url: "./price/export1",
+
+                        contentType: "application/json; charset=utf-8",
+
+                        success:function () {
+
+                            window.location="./price/export1"
+
+                        }
+
+                    })
+
+                }
+
+            }
+
+        ]
+
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
 
 <footer th:replace="fragments/footer::footer"/>
 

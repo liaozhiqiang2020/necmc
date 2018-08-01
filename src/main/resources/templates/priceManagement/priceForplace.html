@@ -206,7 +206,7 @@
                                         var placeId = data.id;
                                         var myWindow = $("#window");
                                         myWindow.kendoWindow({
-                                            width: "900px",
+                                            width: "800px",
                                             height:"500px",
                                             title: data.name+"价格管理",
                                             // content: $("roleList").html
@@ -369,11 +369,16 @@
 
                                             editable: true,
                                     });
-                            }}], title: "&nbsp;", width: "160px" },
+                            }},{name:"导出Excel",click:excel
+
+                                        //================================================
+
+                                    }], title: "&nbsp;", width: "160px" },
                         ],
 
 
                     });
+
 
                     function detailInit(e) {
                         var detailRow = e.detailRow;
@@ -567,7 +572,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceBypId?placeId="+placeId,
+                                    read: "./place/findDeviceByPlaceId?placeId="+placeId,
                                 },
                                 // serverPaging: true,
                                 // serverSorting: true,
@@ -594,10 +599,7 @@
                                         }
                                     },
                                     data: function (response) {
-                                        return JSON.parse(response).data;
-                                    },
-                                    total: function (response) {
-                                        return JSON.parse(response).total;
+                                        return JSON.parse(response);
                                     }
                                 }
 
@@ -650,7 +652,7 @@
                                             var deviceId = data.id;
                                             var myWindow2 = $("#window2");
                                             myWindow2.kendoWindow({
-                                                width: "900px",
+                                                width: "800px",
                                                 height:"500px",
                                                 title: data.mcSn+"价格管理",
                                                 // content: $("roleList").html
@@ -1080,6 +1082,40 @@
                         }
                     }
                 }
+
+                  function excel(e){
+                      var tr = $(e.target).closest("tr");
+
+                      var data = this.dataItem(tr);
+                      var priceId = data. id;
+                      console.log(priceId)
+                      $.ajax({
+                          type: "GET",
+                          url: "/mc/price/export?id="+priceId,
+                          data:priceId,
+                          contentType: "application/json; charset=utf-8",
+
+                          success:function (data) {
+
+                              window.location="/mc/price/export?id="+priceId;
+                          }
+
+                      })
+
+
+
+
+                  }
+
+
+
+
+
+
+
+
+
+
 
             </script>
             <style>

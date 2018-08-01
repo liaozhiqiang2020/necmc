@@ -641,7 +641,7 @@ console.log(start,end,province,city,place)
 
     $(function () {
         $("#province").kendoDropDownList({
-            optionLabel: "--请选择省份--",
+            optionLabel: "请选择...",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {
@@ -655,15 +655,15 @@ console.log(start,end,province,city,place)
             change: onChange
         });
         $("#city").kendoDropDownList({
-            optionLabel: "--请选择城市--"
+            optionLabel: "请选择..."
         });
         $("#place").kendoDropDownList({
-            optionLabel: "--请选择场地--"
+            optionLabel: "请选择..."
         });
     });
     function onChange() {
         $("#city").kendoDropDownList({
-            optionLabel: "--请选择城市--",
+            optionLabel: "请选择...",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {
@@ -678,13 +678,13 @@ console.log(start,end,province,city,place)
             change: onChange1
         });
         $("#place").kendoDropDownList({
-            optionLabel: "--请选择场地--"
+            optionLabel: "请选择..."
         });
     }
 
     function onChange1() {
         $("#place").kendoDropDownList({
-            optionLabel: "--请选择场地--",
+            optionLabel: "请选择...",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {

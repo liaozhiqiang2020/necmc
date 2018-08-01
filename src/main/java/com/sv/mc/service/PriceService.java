@@ -123,4 +123,22 @@ public interface PriceService{
      * @return
      */
     List<Map<String,Object>> queryPriceAndTime(String deviceCode);
+
+
+
+    /**
+     * 分页查询所有数据
+
+     * @return 价格集合
+     */
+    List<PriceEntity> findAllPagePrice();
+
+
+
+
+
+
+
+
+
 }

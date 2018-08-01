@@ -68,4 +68,11 @@ public interface DeviceService<T> extends BaseService<T>{
      * 根据椅子sn修改椅子运行状态
      */
     void findChairRuningStatus(String deviceCode,int mcStatus);
+
+
+    /**
+     * 根据场地查询所有的设备编码
+     * @param id  场地id
+     */
+    List<String> getFill_SN(int id);
 }

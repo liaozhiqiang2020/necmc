@@ -59,4 +59,24 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
      */
     @Query(value="select count(*) from mc_price as p where p.status= 1",nativeQuery = true)
     int findPriceTotal();
+
+
+
+    /**
+     * 查询所有可用价格
+
+     * @return
+     */
+    @Query(value="select * from mc_price as p where p.status = 1 ",nativeQuery=true)
+    List<PriceEntity> findAllPrice();
+
+
+
+
+
+
+
+
+
+
 }

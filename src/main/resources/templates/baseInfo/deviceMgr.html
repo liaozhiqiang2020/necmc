@@ -5,7 +5,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
 <div class="content-wrapper">
     <section  class="content-header">
         <h1>
@@ -21,7 +21,11 @@
     <div class="container-fluid">
 
         <div class="container-fluid">
-            <div id="grid"></div>
+            <div id="grid">
+               <!-- <button>导出Excel</button>-->
+                <span id="toolbar"></span>
+
+            </div>
             <script>
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
@@ -129,7 +133,13 @@
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
-                        toolbar: [{name: "create", text: "新增"}],
+                        toolbar: [{name: "create", text: "新增"}],//
+                       /* excel: {
+                            fileName: "设备管理.xlsx",
+                            //proxyURL: "https://demos.telerik.com/kendo-ui/service/export,1",
+                            filterable: true,
+                            allPages:true//是否导出所有页中的数据
+                        },*/
                         columnMenu: true,
                         resizable: true,
                         pageable: {
@@ -406,6 +416,48 @@
     </div>
 </div>
 <!-- /.container -->
+
+<script>
+    $("#toolbar").kendoToolBar({
+        items: [
+            {
+                type: "button",
+                text: "导出Excel",
+                click: function(e) {
+                    //t, {name:"导出excel",click:function(){
+
+                    $.ajax({
+                        type: "GET",
+                        url: "./deviceMgr/getallDevice",
+
+                        contentType: "application/json; charset=utf-8",
+
+                        success:function () {
+
+                            window.location="./deviceMgr/getallDevice"
+
+                        }
+
+                    })
+
+                }
+
+            }
+
+        ]
+
+    });
+</script>
+<style>
+    #toolbar{
+
+
+
+
+
+
+    }
+</style>
 
 <footer th:replace="fragments/footer::footer"/>
 
