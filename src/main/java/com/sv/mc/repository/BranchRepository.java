@@ -51,7 +51,7 @@ public interface BranchRepository extends BaseRepository<BranchEntity, Long>, Pa
     /**
      * 根据分公司id查询下面的场地
      */
-    @Query("from PlaceEntity p where p.levelFlag=2 and p.discardStatus=1 and p.superiorId=:branchId")
+    @Query("from PlaceEntity p where p.levelFlag=2 and p.discardStatus=1 and p.superiorId=:branchId and p.pId is null")
     List<PlaceEntity> findAllPlaceByBranchId(@Param("branchId")int branchId);
 
 }

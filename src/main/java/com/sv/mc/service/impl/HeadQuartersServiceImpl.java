@@ -135,14 +135,18 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
     }
 
     /**
-     * 总公司绑定场地
+     * 总公司绑定场地(包括所有子场地)
      */
     @Override
     public void headBoundPlace(int headId, int placeId) {
-        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
-        placeEntity.setLevelFlag(1);
-        placeEntity.setSuperiorId(headId);
-        this.placeRepository.save(placeEntity);
+        List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+        for (int i = 0; i <list.size() ; i++) {
+            Integer placeChildId = list.get(i);
+            PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);
+            placeEntity.setLevelFlag(1);
+            placeEntity.setSuperiorId(headId);
+            this.placeRepository.save(placeEntity);
+        }
     }
 
     /**
@@ -151,9 +155,13 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      */
     @Override
     public void unboundPlace(int placeId) {
-        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
-        placeEntity.setLevelFlag(null);
-        placeEntity.setSuperiorId(null);
-        this.placeRepository.save(placeEntity);
+        List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+        for (int i = 0; i <list.size() ; i++) {
+            Integer placeChildId = list.get(i);
+            PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);
+            placeEntity.setLevelFlag(null);
+            placeEntity.setSuperiorId(null);
+            this.placeRepository.save(placeEntity);
+        }
     }
 }

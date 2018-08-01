@@ -68,11 +68,11 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
 
 
-//    /**
-//     * 查询所有子场地id
-//     */
-//    @Query(value="select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))",nativeQuery = true)
-//    List<Object> findAllChildById(@Param("placeId") int placeId);
+    /**
+     * 查询所有子场地id
+     */
+    @Query(value="select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))",nativeQuery = true)
+    List<Integer> findAllPlaceChildById(@Param("placeId") int placeId);
 
     /**
      * 查询场地下所有设备

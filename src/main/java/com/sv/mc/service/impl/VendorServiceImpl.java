@@ -211,9 +211,13 @@ public class VendorServiceImpl implements VendorService {
          */
         @Override
         public void vendorBoundPlace(int vendorId, int placeId) {
-                PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
-                placeEntity.setLevelFlag(3);
-                placeEntity.setSuperiorId(vendorId);
-                this.placeRepository.save(placeEntity);
+                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+                for (int i = 0; i <list.size() ; i++) {
+                        Integer placeChildId = list.get(i);
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);
+                        placeEntity.setLevelFlag(3);
+                        placeEntity.setSuperiorId(vendorId);
+                        this.placeRepository.save(placeEntity);
+                }
         }
 }

@@ -62,13 +62,13 @@ public interface HeadQuartersRepository extends BaseRepository<HeadQuartersEntit
     /**
      * 根据总公司id查询下面的场地
      */
-    @Query("from PlaceEntity p where p.levelFlag=1 and p.discardStatus=1 and p.superiorId=:headId")
+    @Query("from PlaceEntity p where p.levelFlag=1 and p.discardStatus=1 and p.superiorId=:headId and p.pId is null")
     List<PlaceEntity> findAllPlaceByHeadId(@Param("headId")int headId);
 
     /**
-     * 查询所有未绑定的场地
+     * 查询所有未绑定的场地(总场地)
      */
-    @Query("from PlaceEntity p where p.levelFlag is null and p.discardStatus=1 and p.superiorId is null")
+    @Query("from PlaceEntity p where p.levelFlag is null and p.discardStatus=1 and p.superiorId is null and p.pId is null")
     List<PlaceEntity> findAllUnboundPlace();
 
 

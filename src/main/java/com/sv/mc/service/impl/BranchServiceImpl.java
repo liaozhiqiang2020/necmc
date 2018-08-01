@@ -260,9 +260,13 @@ public class BranchServiceImpl implements BranchService {
          */
         @Override
         public void branchBoundPlace(int branchId, int placeId) {
-                PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
-                placeEntity.setLevelFlag(2);
-                placeEntity.setSuperiorId(branchId);
-                this.placeRepository.save(placeEntity);
+                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+                for (int i = 0; i <list.size() ; i++) {
+                        Integer placeChildId = list.get(i);
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);
+                        placeEntity.setLevelFlag(2);
+                        placeEntity.setSuperiorId(branchId);
+                        this.placeRepository.save(placeEntity);
+                }
         }
 }

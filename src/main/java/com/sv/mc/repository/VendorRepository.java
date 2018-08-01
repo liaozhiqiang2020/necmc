@@ -79,7 +79,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     /**
      * 根据代理商id查询下面的场地
      */
-    @Query("from PlaceEntity p where p.levelFlag=3 and p.discardStatus=1 and p.superiorId=:vendorId")
+    @Query("from PlaceEntity p where p.levelFlag=3 and p.discardStatus=1 and p.superiorId=:vendorId and p.pId is null")
     List<PlaceEntity> findAllPlaceByVendorId(@Param("vendorId")int vendorId);
 
 }
