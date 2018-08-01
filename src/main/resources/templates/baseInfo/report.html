@@ -34,7 +34,7 @@
 <div th:replace="fragments/header::header-body"/>
 
 <div class="content-wrapper">
-
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
     <section  class="content-header">
         <h1>
             销售报表
@@ -118,6 +118,8 @@ console.log(start,end,province,city,place)
         var  city=$("#city").val();//市
         var  place=$("#place").val();//场地
         var dataSource = new kendo.data.DataSource({
+
+
             transport: {
                 read: {
                     url: "./fillday?s="+start+"&e="+end+"&id="+province
@@ -164,6 +166,11 @@ console.log(start,end,province,city,place)
 
         $("#grid").kendoGrid({
         dataSource: dataSource,
+            toolbar: [{name: "excel"}],
+            excel: {
+                fileName: "销售报表.xlsx",
+                allPages:true
+            },
         height: 600,
         sortable: true, //表示是否支持排序， boolean型
         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
