@@ -37,7 +37,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**")
                 .antMatchers("/fonts/**")
                 .antMatchers("/img/**")
-                .antMatchers("/js/**");
+                .antMatchers("/js/**")
+                .antMatchers("/weixin/**")
+                .antMatchers("/wx/**")
+                .antMatchers("/JMNomfSJJT.txt")
+                .antMatchers("/wx/JMNomfSJJT.txt");
         super.configure(web);
     }
 
