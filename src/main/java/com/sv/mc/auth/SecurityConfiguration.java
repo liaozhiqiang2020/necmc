@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 
 @EnableWebSecurity
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled =true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 //@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -45,13 +45,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         super.configure(web);
     }
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception{
-            http
-                    .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
-                    .csrf().disable()
-                    .authorizeRequests()
-                    .antMatchers("/**").authenticated()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").authenticated()
 //                    .antMatchers("/**").authenticated()
 //                    .antMatchers("/css/**").permitAll()
 //                    .antMatchers("/js/**").permitAll()
@@ -60,31 +60,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                    .antMatchers("/role/**").hasAuthority("总公司权限")
 //                    .antMatchers("/user/**").hasAuthority("一级管理")
 //                    .anyRequest().permitAll()
-                    .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .failureUrl("/login?error")
-                    .successForwardUrl("/index")
-                    .permitAll()
-                    .successHandler(loginSuccessHandler())
-                    .and()
-                    .logout()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error")
+                .successForwardUrl("/index")
+                .permitAll()
+                .successHandler(loginSuccessHandler())
+                .and()
+                .logout()
 //                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll()
-                    .invalidateHttpSession(true);
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+                .invalidateHttpSession(true);
 //            http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
-        }
+    }
 
 
-        @Autowired
-                public void configureGlobal(AuthenticationManagerBuilder auth)throws Exception{
-            auth.userDetailsService(myUserDetailService);
-        }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(myUserDetailService);
+    }
 
 
     @Bean
-    public LoginSuccessHandler loginSuccessHandler(){
+    public LoginSuccessHandler loginSuccessHandler() {
         return new LoginSuccessHandler();
     }
 
