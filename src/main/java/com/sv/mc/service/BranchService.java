@@ -2,6 +2,7 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.BusinessEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
@@ -68,4 +69,16 @@ public interface BranchService<T> extends BaseService<T>{
      * 查询所有状态为1的用户
      */
     List<UserEntity> findAllByStatus();
+
+    /**
+     * 根据分公司id查询下面的场地
+     */
+    List<PlaceEntity> findAllPlaceByBranchId(int branchId);
+
+    /**
+     * 分公司绑定场地
+     * @param branchId
+     * @param placeId
+     */
+    void branchBoundPlace(int branchId, int placeId);
 }

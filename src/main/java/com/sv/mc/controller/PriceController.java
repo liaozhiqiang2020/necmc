@@ -30,28 +30,26 @@ public class PriceController {
      * @return
      */
     @GetMapping("/price/pageAll")
-    public String findAllPagePrice(@Param("page") String page, @Param("pageSize") String pageSize){
-        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
-        DataSourceResult<PriceEntity> PriceEntityDataSourceResult = new DataSourceResult<>();
-        Page<PriceEntity> PriceEntityPage = this.priceService.findAllPagePrice(pageRequest);
-        PriceEntityDataSourceResult.setData(PriceEntityPage.getContent());
-        PriceEntityDataSourceResult.setTotal(PriceEntityPage.getTotalPages());
-        Gson gson = new Gson();
-        return gson.toJson(PriceEntityPage);
+    public String findAllPagePrice(@RequestParam("page") String page, @RequestParam("pageSize") String pageSize){
+//        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
+//        DataSourceResult<PriceEntity> PriceEntityDataSourceResult = new DataSourceResult<>();
+//        Page<PriceEntity> PriceEntityPage = this.priceService.findAllPagePrice(pageRequest);
+//        PriceEntityDataSourceResult.setData(PriceEntityPage.getContent());
+//        PriceEntityDataSourceResult.setTotal(PriceEntityPage.getTotalPages());
+//        Gson gson = new Gson();
+//        return gson.toJson(PriceEntityPage);
+        return this.priceService.findAllPagePrice(Integer.parseInt(page),Integer.parseInt(pageSize));
     }
 
     /**
-     * 不分页查询价格列表,价格状态为正常的
+     * 不分页查询价格列表,价格状态为可用的
      * @return 价格集合
      */
     @GetMapping("/price/status")
-    public List<PriceEntity> findStatusPrice(){
-        List<PriceEntity> priceList = priceService.findStatusPrice();
-        for (PriceEntity priceEntity:priceList) {
-            int useTime = priceEntity.getUseTime()/60;
-            priceEntity.setUseTime(useTime);
-        }
-        return priceList;
+    public String findStatusPrice(){
+        String price = this.priceService.findStatusPrice();
+
+        return price;
     }
 
     /**
@@ -84,11 +82,11 @@ public class PriceController {
 
     /**
      * 新建价格
-     * @param priceEntity 价格对象
+     * @param map 价格对象
      */
     @PostMapping("/price/save")
-    public PriceEntity addPrice(@RequestBody PriceEntity priceEntity, HttpServletRequest request){
-        return this.priceService.addPrice(priceEntity,request);
+    public PriceEntity addPrice(@RequestBody Map<String,Object> map, HttpServletRequest request){
+        return this.priceService.addPrice(map,request);
     }
 
     /**

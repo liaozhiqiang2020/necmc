@@ -68,19 +68,27 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
 
 
-//    /**
-//     * 查询所有子场地id
-//     */
-//    @Query(value="select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))",nativeQuery = true)
-//    List<Object> findAllChildById(@Param("placeId") int placeId);
+    /**
+     * 查询所有子场地id
+     */
+    @Query(value="select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))",nativeQuery = true)
+    List<Integer> findAllPlaceChildById(@Param("placeId") int placeId);
 
     /**
      * 查询场地下所有设备
      * @param placeId
      * @return
      */
-    @Query(value="select d.id,d.place_id,d.mc_type from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)))",nativeQuery = true)
+    @Query(value="select d.id,d.place_id,d.mc_type from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)) )",nativeQuery = true)
     List<Object[]> findAllChildById(@Param("placeId") int placeId);
+
+    /**
+     * 分页查询场地下所有设备
+     * @param placeId
+     * @return
+     */
+    @Query(value="select d.id,d.place_id,d.mc_type from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)) )",nativeQuery = true)
+    List<Object[]> findAllDeviceBypId(@Param("placeId") int placeId);
 
     /**
      * 根据场地id查所有设备

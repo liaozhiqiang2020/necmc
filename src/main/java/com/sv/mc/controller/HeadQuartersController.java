@@ -2,7 +2,9 @@ package com.sv.mc.controller;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.HeadQuartersService;
+import com.sv.mc.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ public class HeadQuartersController {
     //注入
     @Autowired
     private HeadQuartersService headQuartersService;
+    @Autowired
+    private PlaceService placeService;
 
     /**
      * 全部查询
@@ -122,6 +126,52 @@ public class HeadQuartersController {
     public @ResponseBody
     String findHeadName(int headId) {
         return this.headQuartersService.findHeadQuartersById(headId).getName();
+    }
+
+
+    /**
+     * 根据总公司id查询下面的场地
+     */
+    @GetMapping(value = "/headMgr/findAllPlaceByHeadId")
+    public @ResponseBody
+    List<PlaceEntity> findAllPlaceByHeadId(@Param("headId")int headId) {
+        return this.headQuartersService.findAllPlaceByHeadId(headId);
+    }
+
+    /**
+     * 查询所有未绑定的场地
+     */
+    @GetMapping(value = "/headMgr/findAllUnboundPlace")
+    public @ResponseBody
+    List<PlaceEntity> findAllUnboundPlace() {
+        return this.headQuartersService.findAllUnboundPlace();
+    }
+
+    /**
+     * 总公司绑定场地
+     */
+    @PostMapping(value="/headMgr/headBoundPlace")
+    public @ResponseBody
+    String headBoundPlace(@Param("headId")int headId,@Param("placeId")int placeId){
+        String result = "绑定成功！";
+//        String agreement = this.placeService.findPlaceById(placeId).getFile();
+//        if(agreement==null){
+//            result="请上传协议后再进行绑定操作！";
+//            return result;
+//        }
+        this.headQuartersService.headBoundPlace(headId,placeId);
+        return result;
+    }
+
+    /**
+     * 解绑场地
+     */
+    @PostMapping(value="/headMgr/unboundPlace")
+    public @ResponseBody
+    String unboundPlace(@Param("placeId")int placeId){
+        String result = "解绑成功！";
+        this.headQuartersService.unboundPlace(placeId);
+        return result;
     }
 
 

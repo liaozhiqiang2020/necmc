@@ -206,7 +206,7 @@
                                         var placeId = data.id;
                                         var myWindow = $("#window");
                                         myWindow.kendoWindow({
-                                            width: "800px",
+                                            width: "900px",
                                             height:"500px",
                                             title: data.name+"价格管理",
                                             // content: $("roleList").html
@@ -567,7 +567,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceByPlaceId?placeId="+placeId,
+                                    read: "./place/findDeviceBypId?placeId="+placeId,
                                 },
                                 // serverPaging: true,
                                 // serverSorting: true,
@@ -594,7 +594,10 @@
                                         }
                                     },
                                     data: function (response) {
-                                        return JSON.parse(response);
+                                        return JSON.parse(response).data;
+                                    },
+                                    total: function (response) {
+                                        return JSON.parse(response).total;
                                     }
                                 }
 
@@ -647,7 +650,7 @@
                                             var deviceId = data.id;
                                             var myWindow2 = $("#window2");
                                             myWindow2.kendoWindow({
-                                                width: "800px",
+                                                width: "900px",
                                                 height:"500px",
                                                 title: data.mcSn+"价格管理",
                                                 // content: $("roleList").html

@@ -2,6 +2,7 @@ package com.sv.mc.repository;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.VendorEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -73,5 +74,12 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      */
     @Query("from VendorEntity v where v.name = :name")
     VendorEntity findVendorEntityByName(@Param("name")String name);
+
+
+    /**
+     * 根据代理商id查询下面的场地
+     */
+    @Query("from PlaceEntity p where p.levelFlag=3 and p.discardStatus=1 and p.superiorId=:vendorId and p.pId is null")
+    List<PlaceEntity> findAllPlaceByVendorId(@Param("vendorId")int vendorId);
 
 }

@@ -45,10 +45,58 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     @Override
     @Transactional
-    public Page<UserEntity> findEntitiesPager(Pageable pageable) {
-        return this.userRepository.findAll(pageable);
-    }
+    public String findEntitiesPager(int page, int pageSize) {
+        int offset = ((page - 1) * pageSize);
+        int total = this.userRepository.findPriceTotal();
+        List<UserEntity> userList = this.userRepository.findAllUserByPage(offset, pageSize);
+        String company = "";
+        String pName = "";
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        config.setExcludes(new String[] { "roleEntitySet"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+//        config.setIgnoreDefaultExcludes(false);  //设置默认忽略
+//        config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        JSONArray jsonArray = JSONArray.fromObject(userList,config);//转化为jsonArray
+        JSONArray jsonArray1 = new JSONArray();//新建json数组
+        JSONObject jsonObject = new JSONObject();
 
+        for (int y = 0; y <jsonArray.size() ; y++) {
+            JSONObject jsonObject2 =jsonArray.getJSONObject(y);
+            int gradeId =Integer.parseInt(jsonObject2.get("gradeId").toString());
+            int pId =Integer.parseInt(jsonObject2.get("pId").toString());
+            if(gradeId==1){
+                pName = "总公司";
+                if(vendorRepository.findHeadNameById(pId) == null){
+                    company = "";
+                }{
+                    company = vendorRepository.findHeadNameById(pId).getName();}
+            }else if(gradeId==2){
+                pName = "分公司";
+                if(vendorRepository.findBranchNameById(pId) == null){
+                    company = "";
+                }else {
+                    company = vendorRepository.findBranchNameById(pId).getName();}
+            } else if(gradeId==3){
+                pName = "代理商";
+                if(vendorRepository.findVendorById(pId) == null){
+                    company = "";
+                }else {
+                    company = vendorRepository.findVendorById(pId).getName();}
+            } else if(gradeId ==4){
+                pName="场地方";
+                if(this.placeRepository.findPlaceById(pId) == null){
+                    company = "";
+                }else {
+                    company = this.placeRepository.findPlaceById(pId).getName();}
+            }
+            jsonObject2.put("company",company);
+            jsonObject2.put("pName",pName);
+            jsonArray1.add(jsonObject2);
+        }
+        jsonObject.put("data",jsonArray1);
+        jsonObject.put("total",total);
+        return jsonObject.toString();
+    }
     @Override
     @Transactional
     public List<UserEntity> findAllUser() {

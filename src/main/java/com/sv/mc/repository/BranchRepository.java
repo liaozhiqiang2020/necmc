@@ -1,6 +1,7 @@
 package com.sv.mc.repository;
 
 import com.sv.mc.pojo.BranchEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -45,4 +46,12 @@ public interface BranchRepository extends BaseRepository<BranchEntity, Long>, Pa
      */
     @Query("from BranchEntity b where b.name = :name")
     BranchEntity findBByName(@Param("name") String name);
+
+
+    /**
+     * 根据分公司id查询下面的场地
+     */
+    @Query("from PlaceEntity p where p.levelFlag=2 and p.discardStatus=1 and p.superiorId=:branchId and p.pId is null")
+    List<PlaceEntity> findAllPlaceByBranchId(@Param("branchId")int branchId);
+
 }

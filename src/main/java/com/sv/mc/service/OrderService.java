@@ -152,4 +152,10 @@ public interface OrderService<T> extends BaseService<T>{
      * @date: 2018年7月6日
      */
     void addOrderDescription(int orderId, String description);
+
+    /**
+     * 根据时间段查询订单数量，例如：[2018/7/1 00:00:00, 2018/8/1 00:00:00)
+     * @return 订单数量
+     */
+    int findYesterDayOrderCount();
 }

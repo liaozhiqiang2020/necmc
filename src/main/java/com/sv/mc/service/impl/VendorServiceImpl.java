@@ -3,11 +3,10 @@ package com.sv.mc.service.impl;
 import com.google.gson.Gson;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.VendorEntity;
-import com.sv.mc.repository.BranchRepository;
-import com.sv.mc.repository.HeadQuartersRepository;
-import com.sv.mc.repository.UserRepository;
-import com.sv.mc.repository.VendorRepository;
+import com.sv.mc.repository.*;
+import com.sv.mc.service.PlaceService;
 import com.sv.mc.service.VendorService;
 import com.sv.mc.util.DataSourceResult;
 import net.sf.json.JSONArray;
@@ -33,6 +32,8 @@ public class VendorServiceImpl implements VendorService {
         private BranchRepository branchRepository;
         @Autowired
         private UserRepository userRepository;
+        @Autowired
+        private PlaceRepository placeRepository;
 
         /**
          * 提交数据
@@ -193,5 +194,30 @@ public class VendorServiceImpl implements VendorService {
                 }
 
                 return this.vendorRepository.save(vendorEntity);
+        }
+
+
+
+        /**
+         * 根据代理商id查询下面的场地
+         */
+        @Override
+        public List<PlaceEntity> findAllPlaceByVendorId(int vendorId) {
+                return this.vendorRepository.findAllPlaceByVendorId(vendorId);
+        }
+
+        /**
+         * 代理商绑定场地
+         */
+        @Override
+        public void vendorBoundPlace(int vendorId, int placeId) {
+                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+                for (int i = 0; i <list.size() ; i++) {
+                        Integer placeChildId = list.get(i);
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);
+                        placeEntity.setLevelFlag(3);
+                        placeEntity.setSuperiorId(vendorId);
+                        this.placeRepository.save(placeEntity);
+                }
         }
 }

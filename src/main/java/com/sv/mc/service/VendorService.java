@@ -1,8 +1,10 @@
 package com.sv.mc.service;
 
 import com.sv.mc.pojo.HeadQuartersEntity;
+import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.VendorEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,5 +61,18 @@ public interface VendorService<T> extends BaseService<T>{
      */
     void deleteVendor(int headId);
 
+    /**
+     * 根据代理商id查询下面的场地
+     * @param vendorId
+     * @return
+     */
+    List<PlaceEntity> findAllPlaceByVendorId(int vendorId);
 
+
+    /**
+     * 代理商绑定场地
+     * @param vendorId
+     * @param placeId
+     */
+    void vendorBoundPlace(int vendorId, int placeId);
 }
