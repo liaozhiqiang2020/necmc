@@ -12,8 +12,8 @@
     <section class="content-header">
         <h1>
             您好，<span sec:authorize="isAuthenticated()" class="hidden-xs">
-                            <span sec:authentication="name">11111</span>
-                        </span>，您的数据权限为：XXXX分公司（XXXX总公司、XXXX代理商）
+                            <span>[[${session.user.name}]]</span>
+                        </span>，您的所属公司为：<span style="color: darkcyan">[[${session.companyName}]]</span>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
