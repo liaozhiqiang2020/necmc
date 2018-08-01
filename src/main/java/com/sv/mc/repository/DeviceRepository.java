@@ -81,4 +81,12 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query(value="select count(*) from mc_device as b where b.discard_status=1",nativeQuery = true)
     int findDeviceTotal();
 
+    /**
+     * 根据场地ID 查询 设备SN
+     * @param id 场地ID
+     * @return  设备信息
+     */
+
+    @Query(value="select d.mc_sn from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:id)))",nativeQuery = true)
+    List<String> findAllByPlaceId(@Param("id") int id);
 }

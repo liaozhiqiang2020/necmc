@@ -3,6 +3,8 @@ package com.sv.mc.controller;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.service.DeviceService;
+import com.sv.mc.util.ExcelUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.repository.query.Param;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.parser.Entity;
 import javax.websocket.server.PathParam;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -269,5 +274,80 @@ public class DeviceController {
         return result;
     }
     */
+    /**
+     * 导出全部查询
+     * @return 返回所有设备内容
+     */
+    @GetMapping(value = "/deviceMgr/getallDevice")
+    public
+    void getAllExcel(HttpServletResponse response) {
+
+        List<Object> list =deviceService.findAllEntities();
+
+
+
+
+
+
+        //标题
+        String[] title = {"按摩椅编号", "模块编号","所属场地","所属型号","供应商","备注信息"};
+        //文件名
+        String fileName = "设备信息表" + System.currentTimeMillis() + ".xls";
+        //sheet 名
+        String sheetName = "设备信息表";
+        String[][] content = new String[list.size()][0];
+        for (int i = 0; i < list.size(); i++) {
+            content[i] = new String[title.length];
+            DeviceEntity deviceEntity=(DeviceEntity)list.get(i);
+
+            String obj = deviceEntity.getMcSn();
+            String obj1 = deviceEntity.getLoraId();
+            String obj2 =deviceEntity.getPlaceEntity().getName();
+            String obj3 = deviceEntity.getDeviceModelEntity().getName();
+            String obj4 = deviceEntity.getSupplierEntity().getSupplierName();
+            String obj5 = deviceEntity.getNote();
+
+            content[i][0] = obj;
+            content[i][1] = obj1;
+            content[i][2] = obj2;
+            content[i][3] = obj3;
+            content[i][4] = obj4;
+            content[i][5] = obj5;
+        }
+        //创建HSSFWorkbook
+        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
+        try {
+            this.setResponseHeader(response, fileName);
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void setResponseHeader(HttpServletResponse response, String fileName) {
+        try {
+            try {
+                fileName = new String(fileName.getBytes(),"ISO8859-1");
+            } catch (UnsupportedEncodingException e) {
+
+                e.printStackTrace();
+            }
+            response.setContentType("application/octet-stream;charset=ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
+            response.addHeader("Pargam", "no-cache");
+            response.addHeader("Cache-Control", "no-cache");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 
 }

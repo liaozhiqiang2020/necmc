@@ -3,9 +3,13 @@ package com.sv.mc.controller;
 import com.google.gson.Gson;
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
+import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.PriceHistoryService;
 import com.sv.mc.service.PriceService;
 import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.ExcelUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +29,8 @@ public class PriceController {
 
     @Resource
     private PriceService priceService;
+    @Autowired
+    private DeviceService deviceService;
 
     /**
      * 分页查询价格列表
@@ -247,6 +256,127 @@ public class PriceController {
 //        mv.setViewName("./login");
 //        return mv;
 //    }
+
+    @GetMapping(value = "/price/export")
+
+    public void exportReport(@RequestParam("id") int id, HttpServletResponse response) {
+        //获取数据
+
+        //System.out.println(id);
+        List<String> list = this.deviceService.getFill_SN(id);
+        //标题
+        String[] title = {"设备ID", "价格","使用时长"};
+        //文件名
+        String fileName = "设备价格表" + System.currentTimeMillis() + ".xls";
+        //sheet 名
+        String sheetName = "设备价格表";
+        String[][] content = new String[list.size()][0];
+        System.out.println(list.size());
+        for (int i = 0; i < list.size(); i++) {
+            content[i] = new String[title.length];
+            String obj = list.get(i);
+            content[i][0] = obj;
+        }
+        //创建HSSFWorkbook
+        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
+
+        //响应到客户端
+        try {
+            this.setResponseHeader(response, fileName);
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setResponseHeader(HttpServletResponse response, String fileName) {
+        try {
+            try {
+                fileName = new String(fileName.getBytes(),"ISO8859-1");
+            } catch (UnsupportedEncodingException e) {
+
+                e.printStackTrace();
+            }
+            response.setContentType("application/octet-stream;charset=ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
+            response.addHeader("Pargam", "no-cache");
+            response.addHeader("Cache-Control", "no-cache");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
+
+
+    @GetMapping(value = "/price/export1")
+
+    public void exportReport( HttpServletResponse response) {
+        //获取数据
+
+        //System.out.println(id);
+        List<PriceEntity> list = this.priceService.findAllPagePrice();
+
+        //标题
+        String[] title = {"价格名称", "价格","时长","创建人","生效时间","失效时间","按摩椅型号","类型"};
+        //文件名
+        String fileName = "价格管理" + System.currentTimeMillis() + ".xls";
+        //sheet 名
+        String sheetName = "价格管理";
+        String[][] content = new String[list.size()][0];
+        System.out.println(list.size());
+        for (int i = 0; i < list.size(); i++) {
+            content[i] = new String[title.length];
+            PriceEntity priceEntity=(PriceEntity)list.get(i);
+            String obj = priceEntity.getPriceName();//价格名称
+            String obj1 = priceEntity.getPrice().toString();//价格
+            int  a=priceEntity.getUseTime();
+            String obj2 =String.valueOf(a/60);//使用时长
+            String obj3 =priceEntity.getUser().getName();
+            String obj4= priceEntity.getStartDateTime().toString();
+            String obj5=priceEntity.getEndDateTime().toString();
+            String obj6 =priceEntity.getDeviceModelEntity().getName();
+            String obj7=priceEntity.getDeviceModelEntity().getModel();
+            content[i][0] = obj;
+            content[i][1] = obj1;
+            content[i][2] = obj2;
+            content[i][3] = obj3;
+            content[i][4] = obj4;
+            content[i][5] = obj5;
+            content[i][6] = obj6;
+            content[i][7] = obj7;
+        }
+        //创建HSSFWorkbook
+        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
+
+        //响应到客户端
+        try {
+            this.setResponseHeader(response, fileName);
+            OutputStream os = response.getOutputStream();
+            wb.write(os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

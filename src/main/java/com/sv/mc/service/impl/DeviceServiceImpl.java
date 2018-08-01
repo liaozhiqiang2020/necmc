@@ -132,4 +132,15 @@ public class DeviceServiceImpl implements DeviceService {
                 deviceEntity.setMcStatus(mcStatus);
                 this.deviceRepository.save(deviceEntity);
         }
+
+
+        /**
+         * 根据场地查询所有的设备编码
+         * @param id  场地id
+         */
+        @Override
+        public List<String> getFill_SN(int id) {
+                List<String> deviceEntities = this.deviceRepository.findAllByPlaceId(id);
+                return deviceEntities;
+        }
 }

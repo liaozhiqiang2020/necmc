@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.repository.UserRepository;
+import com.sv.mc.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -24,8 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginSuccessHandler extends
         SavedRequestAwareAuthenticationSuccessHandler {
 
+    //TODO 修改为使用Service
     @Resource
     UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
     @Override
     @Transactional
@@ -35,14 +41,17 @@ public class LoginSuccessHandler extends
         //获得授权后可得到用户信息   可使用SUserService进行数据库操作
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         /* Set<SysRole> roles = userDetails.getSysRoles();*/
+        //TODO 修改为使用Service
         UserEntity user = userRepository.findUserByUserName(userDetails.getUsername());
         user.setLatestLoginDatetime(new Timestamp(System.currentTimeMillis()));
         String ip = this.getIpAddress(request);
+        String companyName = this.userService.findCompanyNameByGradeType(user.getGradeId(), user.getpId());
         user.setLatestLoginIp(ip);
         this.userRepository.save(user);
         HttpSession session = request.getSession();
         session.setAttribute("user",user);
         session.setAttribute("userName",user.getName());
+        session.setAttribute("companyName", companyName);
 
         //输出登录提示信息
 //        System.out.println("管理员 " + userDetails.getUsername() + " 登录");

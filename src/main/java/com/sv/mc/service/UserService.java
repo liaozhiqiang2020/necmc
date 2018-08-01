@@ -89,4 +89,12 @@ public interface UserService<T>  {
     List<RoleEntity> userUnRole(int userId);
 
     List<Object> findAllplace();
+
+    /**
+     * 根据用户所在公司分类查询公司名称
+     * @param gradeId 公司分类
+     * @param pId 公司分类
+     * @return 公司名称
+     */
+    String findCompanyNameByGradeType(int gradeId, int pId);
 }

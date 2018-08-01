@@ -29,15 +29,12 @@
 
 
 
-
-
-
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
 
 <div class="content-wrapper">
-
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
     <section  class="content-header">
         <h1>
             销售报表
@@ -59,8 +56,8 @@
                         <h5>截至日期:   <input id="end" style="width: 270px;" value="截至日期"/></h5>
                     <h5>省份:  <input id="province" />
                     城市:   <input id="city" />
-                    场地:   <input id="place" /> <!--下拉框-->
-                    <button class="login-button" onclick="grid()">查询</button></h5>
+                    场地:   <input id="place" /> <!--下拉框--><button class="k-button  k-primary" onclick="grid()">查询</button>
+                    </h5>
                 </div>
 
 
@@ -82,15 +79,15 @@
      alert("缺少时间条件")
  }else{
       if (place!=''){
-         alert('场地方')
+        // alert('场地方')
 
           placeGrid();
       }else if(place==''&&city!=''){
-          alert('市')
+        //  alert('市')
 
           cityGrid();
       } else{
-          alert('省')
+        //  alert('省')
 
           provinceGrid();
       }
@@ -121,6 +118,8 @@ console.log(start,end,province,city,place)
         var  city=$("#city").val();//市
         var  place=$("#place").val();//场地
         var dataSource = new kendo.data.DataSource({
+
+
             transport: {
                 read: {
                     url: "./fillday?s="+start+"&e="+end+"&id="+province
@@ -167,6 +166,11 @@ console.log(start,end,province,city,place)
 
         $("#grid").kendoGrid({
         dataSource: dataSource,
+            toolbar: [{name: "excel"}],
+            excel: {
+                fileName: "销售报表.xlsx",
+                allPages:true
+            },
         height: 600,
         sortable: true, //表示是否支持排序， boolean型
         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
@@ -576,6 +580,7 @@ console.log(start,end,province,city,place)
 
 
     $(document).ready(function() {
+        kendo.culture("zh-CN");
         function startChange() {
             var startDate = start.value(),
                 endDate = end.value();
@@ -643,7 +648,7 @@ console.log(start,end,province,city,place)
 
     $(function () {
         $("#province").kendoDropDownList({
-            optionLabel: "--请选择省份--",
+            optionLabel: "请选择...",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {
@@ -657,15 +662,15 @@ console.log(start,end,province,city,place)
             change: onChange
         });
         $("#city").kendoDropDownList({
-            optionLabel: "--请选择城市--"
+            optionLabel: "请选择..."
         });
         $("#place").kendoDropDownList({
-            optionLabel: "--请选择场地--"
+            optionLabel: "请选择..."
         });
     });
     function onChange() {
         $("#city").kendoDropDownList({
-            optionLabel: "--请选择城市--",
+            optionLabel: "请选择...",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {
@@ -680,13 +685,13 @@ console.log(start,end,province,city,place)
             change: onChange1
         });
         $("#place").kendoDropDownList({
-            optionLabel: "--请选择场地--"
+            optionLabel: "请选择..."
         });
     }
 
     function onChange1() {
         $("#place").kendoDropDownList({
-            optionLabel: "--请选择场地--",
+            optionLabel: "请选择...",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: {

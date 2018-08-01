@@ -413,4 +413,14 @@ public class PriceServiceImpl implements PriceService {
         }
         return listmap;
     }
+
+    /**
+     * 查询所有导出数据
+     * @return
+     */
+    @Override
+    public List<PriceEntity> findAllPagePrice() {
+
+        return this.priceRepository.findAllPrice();
+    }
 }
