@@ -206,7 +206,7 @@
                                         var placeId = data.id;
                                         var myWindow = $("#window");
                                         myWindow.kendoWindow({
-                                            width: "800px",
+                                            width: "900px",
                                             height:"500px",
                                             title: data.name+"价格管理",
                                             // content: $("roleList").html
@@ -286,6 +286,8 @@
                                                         startDateTime: { type: "Date" ,editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                                         endDateTime: { type: "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                                         userId: { type: "string" ,editable: false},
+                                                        deviceModel: { type: "string",editable:false},
+                                                        deviceType: { type: "string",editable: false  },
                                                         status: { type: "number",editable: false },
                                                         priceName : {type : "string",editable: false},
                                                         user :{type:"array",editable: false},
@@ -339,7 +341,8 @@
                                                 { field: "useTime", title:"使用时长(分钟)",width: "80px" ,attributes: {
                                                         style: "text-align: right"
                                                     }},
-                                                { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
+                                                { field: "deviceModel", title: "按摩椅类型", width: "100px", filterable: { multi: true }},
+                                                { field: "deviceType", title: "按摩椅类型", width: "100px", filterable: { multi: true }},
                                                 { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
                                                 { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
                                                 { command: [{
@@ -378,7 +381,6 @@
 
 
                     });
-
 
                     function detailInit(e) {
                         var detailRow = e.detailRow;
@@ -572,7 +574,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceByPlaceId?placeId="+placeId,
+                                    read: "./place/findDeviceBypId?placeId="+placeId,
                                 },
                                 // serverPaging: true,
                                 // serverSorting: true,
@@ -599,7 +601,10 @@
                                         }
                                     },
                                     data: function (response) {
-                                        return JSON.parse(response);
+                                        return JSON.parse(response).data;
+                                    },
+                                    total: function (response) {
+                                        return JSON.parse(response).total;
                                     }
                                 }
 
@@ -652,7 +657,7 @@
                                             var deviceId = data.id;
                                             var myWindow2 = $("#window2");
                                             myWindow2.kendoWindow({
-                                                width: "800px",
+                                                width: "900px",
                                                 height:"500px",
                                                 title: data.mcSn+"价格管理",
                                                 // content: $("roleList").html

@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class PriceController {
@@ -100,11 +101,11 @@ public class PriceController {
 
     /**
      * 更新价格
-     * @param priceEntity 价格对象
+     * @param map 价格对象
      */
     @PostMapping("/price/update")
-    public PriceEntity updatePrice(@RequestBody PriceEntity priceEntity){
-        return this.priceService.updatePrice(priceEntity);
+    public PriceEntity updatePrice(@RequestBody Map<String,Object> map){
+        return this.priceService.updatePrice(map);
     }
 
     /**
@@ -158,12 +159,12 @@ public class PriceController {
      * @return
      */
     @GetMapping("/price/devicePrice")
-    public List<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId){
-       List<PriceEntity> priceList= this.priceService.findDevicePrice(deviceId);
-
-        for (PriceEntity priceEntity:priceList) {
-            int useTime = priceEntity.getUseTime()/60;
-            priceEntity.setUseTime(useTime);
+    public Set<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId){
+       Set<PriceEntity> priceList= this.priceService.findDevicePrice(deviceId);
+        for (PriceEntity price:priceList
+                ) {
+            int useTime = price.getUseTime()/60;
+            price.setUseTime(useTime);
         }
         return priceList;
     }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface PriceService{
 
@@ -35,10 +36,10 @@ public interface PriceService{
 
     /**
      * 更新价格
-     * @param priceEntity 价格对象（价格对象必须包含主键ID）
+     * @param map 价格对象（价格对象必须包含主键ID）
      * @return 消息
      */
-    PriceEntity updatePrice(PriceEntity priceEntity);
+    PriceEntity updatePrice(Map<String,Object> map);
 
 
     /**
@@ -88,7 +89,7 @@ public interface PriceService{
      * @param deviceId 设备Id
      * @return 价格集合
      */
-    List<PriceEntity> findDevicePrice(int deviceId);
+    Set<PriceEntity> findDevicePrice(int deviceId);
 
     /**
      * 根据当前设备查询所有未绑定的价格方案
