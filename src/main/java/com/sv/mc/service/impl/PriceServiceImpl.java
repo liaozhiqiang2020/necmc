@@ -1,6 +1,7 @@
 package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.*;
+import com.sv.mc.pojo.vo.DevicePriceImport;
 import com.sv.mc.repository.*;
 import com.sv.mc.service.PriceService;
 import com.sv.mc.util.DateJsonValueProcessor;
@@ -8,21 +9,30 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static javax.xml.bind.JAXBIntrospector.getValue;
 
 /**
  * 价格逻辑层
@@ -209,7 +219,7 @@ public class PriceServiceImpl implements PriceService {
         history.setOldPrice(price.getPrice());
         history.setOldUseTime(price.getUseTime());
         this.priceHistoryRepository.save(history);
-        this.priceRepository.save(price);
+        this.priceRepository.save(priceEntity);
     }
 
     /**
@@ -434,4 +444,94 @@ public class PriceServiceImpl implements PriceService {
 
         return this.priceRepository.findAllPrice();
     }
+
+
+
+    /**
+     * 导入价格绑定数据
+     * @param file
+     * @throws IOException
+     */
+    @Override
+    public void getExcel(MultipartFile file) throws IOException {
+        String name=file.getOriginalFilename();
+        String excelName=name.substring(name.indexOf("."));
+        //System.out.println(excelName);获取文件名
+        if(excelName.toLowerCase().equals(".xls")){//判断文件版本
+            //System.out.println(name.toLowerCase());
+            HSSFWorkbook hssfWorkbook=  new HSSFWorkbook(file.getInputStream());
+            HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
+            List<DevicePriceImport> devicePriceImport= new ArrayList<DevicePriceImport>();
+            DevicePriceImport dp = new DevicePriceImport();
+            if(hssfSheet == null){
+                return;
+            }
+            //遍历行row
+            for(int rowNum = 0; rowNum<=hssfSheet.getLastRowNum();rowNum++){
+                //获取每一行
+                HSSFRow row = hssfSheet.getRow(rowNum+1);
+                if(row == null){
+                    continue;
+                }
+                //遍历列cell
+                for(int cellNum = 0; cellNum<=row.getLastCellNum();cellNum++){
+                    //获取每一列
+                    HSSFCell cell = row.getCell(cellNum);
+                    Object sn = getValue(row.getCell(0));
+                    Object price = getValue(row.getCell(1));
+                    Object useTime =getValue( row.getCell(2));
+                    int userTime=(Integer.parseInt(useTime.toString()))*60;
+                    //判断sn 是否存在
+                    DeviceEntity deviceEntity=   this.deviceRepository.getDeviceBySN((String) sn);
+                    PriceEntity priceEntity=this.priceRepository.findAllFlag
+                            (userTime,Integer.parseInt(price.toString()),deviceEntity.getDeviceModelEntity());
+                    if (deviceEntity.getMcSn()!=null){//如果sn编号之前没有
+                        //判断此设备 时长价格是否存在
+                        if(priceEntity.getPrice().equals(Integer.parseInt(price.toString()))){
+                            Date d = new Date();
+                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Timestamp endtime=priceEntity.getEndDateTime();//截止时间
+                            Timestamp newtime =new Timestamp(d.getTime());//当前时间
+                            //判断价格优惠是不是已经截止
+                            if(newtime.getTime()>endtime.getTime()){
+
+                                if(deviceEntity.getPriceEntities().contains(Integer.parseInt(price.toString()))!=true){
+                                    BigDecimal bigDecimal=(BigDecimal)price;
+                                    PriceEntity priceEntity1=new PriceEntity();
+                                    priceEntity1.setPrice(bigDecimal);
+                                    deviceEntity.getPriceEntities().add(priceEntity1);
+                                    this.priceRepository.save(priceEntity1);
+                                }
+                            }
+                        }//判断价格是否存在
+                        System.out.println("存在");
+                    }
+                    if(cell == null){
+                        continue;
+                    }
+                    System.out.print(rowNum+" "+getValue(cell));
+                }
+                System.out.println();
+            }
+
+        }
+        if(excelName.toLowerCase().equals(".xlsx")){
+            XSSFWorkbook xssfWorkbook=  new XSSFWorkbook(file.getInputStream());
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
 }
