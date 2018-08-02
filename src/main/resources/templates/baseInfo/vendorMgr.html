@@ -255,7 +255,7 @@
                                             $("#placeGrid").kendoGrid({
                                                 toolbar:"已签约场地",
                                                 dataSource: placeDataSource,
-                                                // height: 600,
+                                                height: 215,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 columnMenu: true,
@@ -293,7 +293,7 @@
                                                     }, {
                                                         command: [
                                                             {
-                                                                text: "上传协议",//名称
+                                                                text: "上传",//名称
                                                                 click: function (e) {
                                                                     // e.target 是表示按钮的DOM元素
                                                                     var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
@@ -346,14 +346,25 @@
                                                                 }
                                                             },
                                                             {
-                                                                text: "下载协议",//名称
+                                                                text: "下载",//名称
                                                                 click: function (e) {
                                                                     // e.target 是表示按钮的DOM元素
                                                                     var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.id;
-                                                                    window.location="/mc/file/download?placeId="+placeId;
+                                                                    window.location="/mc/file/download?placeId="+placeId+"&type=1";
+                                                                }
+                                                            },
+                                                            {
+                                                                text: "预览",//名称
+                                                                click: function (e) {
+                                                                    // e.target 是表示按钮的DOM元素
+                                                                    var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                                                    // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                                                    var data = this.dataItem(tr);
+                                                                    var placeId = data.id;
+                                                                    window.open("/mc/file/download?placeId="+placeId+"&type=2");
                                                                 }
                                                             },
                                                             {
@@ -384,7 +395,7 @@
                                                             }
                                                         ],
                                                         title: "操作",
-                                                        width: "250px"
+                                                        width: "300px"
                                                     }
                                                 ]
                                             });
@@ -417,7 +428,7 @@
                                             $("#unboundPlaceGrid").kendoGrid({
                                                 toolbar:"未签约场地",
                                                 dataSource: unboundPlaceDataSource,
-                                                // height: 600,
+                                                height: 215,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 columnMenu: true,

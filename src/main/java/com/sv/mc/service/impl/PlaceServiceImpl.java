@@ -182,9 +182,9 @@ public class PlaceServiceImpl implements PlaceService {
 
                         userName = this.userRepository.findUserById(userId).getName();
                         jsonObject.put("superiorId",superiorId+"_"+superiorName);
-                        jsonObject.put("userName",userName);
                         jsonObject.put("superiorName",superiorName);
                         jsonObject.put("levelFlagName",levelFlagName);
+                         jsonObject.put("userName",userName);
                         jsonObject.put("businessName",businessName);
                         jsonObject.put("cityName",cityName);
                         jsonObject.put("hasChildren",true);
@@ -457,8 +457,20 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<DeviceEntity> findDeviceByPlaceId(int placeId) {
-                return this.placeRepository.findAllDeviceByPlaceId(placeId);
+        public List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId) {
+                List<DeviceEntity> deviceEntityList=new ArrayList<>();
+                if(deviceId.equals("0")){
+                        List<Object[]> deviceEntities = this.placeRepository.findAllChildById(placeId);
+                        for (int i = 0; i <deviceEntities.size() ; i++) {
+                                Object[] object =deviceEntities.get(i);
+                                int id = Integer.parseInt(object[0].toString());
+                                deviceEntityList.add(this.deviceRepository.findDeviceById(id));
+                        }
+                }else{
+                        int device = this.deviceRepository.queryDeviceIdByDeviceCode(deviceId);
+                        deviceEntityList =  this.deviceRepository.findDevicesById(device);
+                }
+                 return deviceEntityList;
         }
 
 
@@ -578,53 +590,57 @@ public class PlaceServiceImpl implements PlaceService {
         @Override
         public PlaceEntity insertPlaceTree(Map map) {
                 PlaceEntity placeEntity = new PlaceEntity();
-                Object id = map.get("id");
-                Object pId = map.get("pId");
+                int id = Integer.parseInt(map.get("id").toString());
+                int pId = Integer.parseInt(map.get("pId").toString());
                 Object businessId = map.get("businessId");
                 Object cityId = map.get("cityId");
-                Object endDateTime = map.get("endDateTime");
-                Object startDateTime = map.get("startDateTime");
+//                Object endDateTime = map.get("endDateTime");
+//                Object startDateTime = map.get("startDateTime");
                 Object name = map.get("name");
                 Object placeAddress = map.get("placeAddress");
                 Object placeSn = map.get("placeSn");
                 int userId = Integer.parseInt(map.get("userId").toString());
-//                Object principal = map.get("principal");
-                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
-                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
 
+
+//                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
+//                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
+//
                 placeEntity.setDiscardStatus(1);
-                if(id!=null){
-                        placeEntity.setId(Integer.parseInt(id.toString()));
+                if(id!=0){
+                        placeEntity.setId(id);
+                }else{
+                        placeEntity.setpId(null);
                 }
-                if(pId!=null){
-                        placeEntity.setpId(Integer.parseInt(pId.toString()));
+                if(pId!=0){
+                        placeEntity.setpId(pId);
+                }else{
+                        placeEntity.setpId(null);
                 }
+
                 placeEntity.setName(name.toString());
-//                placeEntity.setPrincipal(principal.toString());
                 placeEntity.setPlaceAddress(placeAddress.toString());
                 placeEntity.setBusinessId(Integer.parseInt(businessId.toString()));
                 placeEntity.setCityId(Integer.parseInt(cityId.toString()));
                 placeEntity.setPlaceSn(placeSn.toString());
                 placeEntity.setUserId(userId);
-                placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
-                placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
-//                placeEntity.setpId(null);
+//                placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
+//                placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
 
-                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
-                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
-                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
-                        if(branchEntity==null){
-                                VendorEntity vendorEntity = this.vendorRepository.findVendorById(superiorId);//根据id查询代理商信息
-                                placeEntity.setLevelFlag(3);
-                                placeEntity.setSuperiorId(vendorEntity.getId());
-                        }else{
-                                placeEntity.setLevelFlag(2);
-                                placeEntity.setSuperiorId(branchEntity.getId());
-                        }
-                }else{
-                        placeEntity.setLevelFlag(1);
-                        placeEntity.setSuperiorId(headQuartersEntity.getId());
-                }
+//                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
+//                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
+//                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
+//                        if(branchEntity==null){
+//                                VendorEntity vendorEntity = this.vendorRepository.findVendorById(superiorId);//根据id查询代理商信息
+//                                placeEntity.setLevelFlag(3);
+//                                placeEntity.setSuperiorId(vendorEntity.getId());
+//                        }else{
+//                                placeEntity.setLevelFlag(2);
+//                                placeEntity.setSuperiorId(branchEntity.getId());
+//                        }
+//                }else{
+//                        placeEntity.setLevelFlag(1);
+//                        placeEntity.setSuperiorId(headQuartersEntity.getId());
+//                }
 
                 return this.placeRepository.save(placeEntity);
         }
@@ -638,27 +654,31 @@ public class PlaceServiceImpl implements PlaceService {
         @Override
         public PlaceEntity updatePlaceTree(Map map) {
                 PlaceEntity placeEntity = new PlaceEntity();
-                Object id = map.get("id");
-                Object pId = map.get("pId");
+                int id = Integer.parseInt(map.get("id").toString());
+                int pId = Integer.parseInt(map.get("pId").toString());
                 Object businessId = map.get("businessId");
                 Object cityId = map.get("cityId");
-                Object endDateTime = map.get("endDateTime");
-                Object startDateTime = map.get("startDateTime");
+//                Object endDateTime = map.get("endDateTime");
+//                Object startDateTime = map.get("startDateTime");
                 Object name = map.get("name");
                 Object placeAddress = map.get("placeAddress");
                 Object placeSn = map.get("placeSn");
 //                Object file = map.get("file");
 //                Object principal = map.get("principal");
                 int userId = Integer.parseInt(map.get("userId").toString());
-                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
-                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
+//                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
+//                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
 
                 placeEntity.setDiscardStatus(1);
-                if(id!=null){
-                        placeEntity.setId(Integer.parseInt(id.toString()));
+                if(id!=0){
+                        placeEntity.setId(id);
+                }else{
+                        placeEntity.setpId(null);
                 }
-                if(pId!=null){
-                        placeEntity.setpId(Integer.parseInt(pId.toString()));
+                if(pId!=0){
+                        placeEntity.setpId(pId);
+                }else{
+                        placeEntity.setpId(null);
                 }
                 placeEntity.setName(name.toString());
                 placeEntity.setUserId(userId);
@@ -666,26 +686,26 @@ public class PlaceServiceImpl implements PlaceService {
                 placeEntity.setBusinessId(Integer.parseInt(businessId.toString()));
                 placeEntity.setCityId(Integer.parseInt(cityId.toString()));
                 placeEntity.setPlaceSn(placeSn.toString());
-                placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
-                placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
+//                placeEntity.setEndDateTime(Timestamp.valueOf(endDateTime.toString()));
+//                placeEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
 //                placeEntity.setFile(file.toString());
 
 
-                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
-                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
-                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
-                        if(branchEntity==null){
-                                VendorEntity vendorEntity = this.vendorRepository.findVendorById(superiorId);//根据id查询代理商信息
-                                placeEntity.setLevelFlag(3);
-                                placeEntity.setSuperiorId(vendorEntity.getId());
-                        }else{
-                                placeEntity.setLevelFlag(2);
-                                placeEntity.setSuperiorId(branchEntity.getId());
-                        }
-                }else{
-                        placeEntity.setLevelFlag(1);
-                        placeEntity.setSuperiorId(headQuartersEntity.getId());
-                }
+//                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
+//                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
+//                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
+//                        if(branchEntity==null){
+//                                VendorEntity vendorEntity = this.vendorRepository.findVendorById(superiorId);//根据id查询代理商信息
+//                                placeEntity.setLevelFlag(3);
+//                                placeEntity.setSuperiorId(vendorEntity.getId());
+//                        }else{
+//                                placeEntity.setLevelFlag(2);
+//                                placeEntity.setSuperiorId(branchEntity.getId());
+//                        }
+//                }else{
+//                        placeEntity.setLevelFlag(1);
+//                        placeEntity.setSuperiorId(headQuartersEntity.getId());
+//                }
 
                 return this.placeRepository.save(placeEntity);
         }

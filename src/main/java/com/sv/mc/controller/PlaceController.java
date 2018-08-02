@@ -218,8 +218,8 @@ public class PlaceController {
 
 
     @GetMapping("/place/findDeviceByPlace")
-    public List<DeviceEntity> findDeviceByPlace1(@RequestParam("placeId") int placeId){
-        return this.placeService.findDeviceByPlaceId(placeId);
+    public List<DeviceEntity> findDeviceByPlace1(@RequestParam("placeId") int placeId,@RequestParam("deviceId") String deviceId){
+        return this.placeService.findDeviceByPlaceId(placeId,deviceId);
     }
 
     /**
@@ -298,7 +298,7 @@ public class PlaceController {
      * 下载文件
      */
     @GetMapping("/file/download")
-    public void download(@RequestParam("placeId") int placeId,HttpServletResponse response) throws Exception {
+    public void download(@RequestParam("placeId") int placeId,@RequestParam("type")int type, HttpServletResponse response) throws Exception {
 //        //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
 //             String realPath = request.getServletContext().getRealPath("//fileUpload//");
 //            File file = new File(realPath, fileName);
@@ -308,8 +308,23 @@ public class PlaceController {
 
         File file = new File(fileUrl);
         if (file.exists()) {
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+//            response.setContentType("application/octet-stream");//如果设置了octet-stream，一定会弹框下载，必须指定类型
+//            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+//            if(fileName.endsWith(".jpg")){
+//                response.setContentType("application/x-jpg");
+//            }else if(fileName.endsWith(".png")){
+//                response.setContentType("application/x-png");
+//            }else{
+//                response.setContentType("image/jpeg");//只有设置jpeg才能预览图片，图片类型必须为png
+//            }
+            if(type==1){
+                response.setContentType("application/octet-stream");//如果设置了octet-stream，一定会弹框下载，必须指定类型
+                response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+            }else if(type==2){
+                response.setContentType("image/jpeg");//只有设置jpeg才能预览图片，图片类型必须为png,jpg只显示1/3
+                response.setHeader("Content-Disposition", "inline;filename=" + fileName);
+            }
+
             response.addHeader("Pargam", "no-cache");
             response.addHeader("Cache-Control", "no-cache");
 

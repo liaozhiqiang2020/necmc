@@ -15,6 +15,14 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     DeviceEntity findDeviceById(@Param("id") int id);
 
     /**
+     * 根据设备id查询
+     * @param id
+     * @return
+     */
+    @Query("from DeviceEntity as d where d.id = :id")
+    List<DeviceEntity> findDevicesById(@Param("id") int id);
+
+    /**
      * 根据设备编号查询设备id
      */
     @Query("select d.id from DeviceEntity d where d.mcSn=:deviceCode")

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header::header-css">
-    <title>场地方树状图</title>
+    <title>场地方管理</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
@@ -9,11 +9,11 @@
 <div class="content-wrapper">
     <section  class="content-header">
         <h1>
-            场地方树状图
+            场地方管理
         </h1>
         <ol class="breadcrumb">
             <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
-            <li class="active">场地方树状图</li>
+            <li class="active">场地方管理</li>
         </ol>
     </section>
 
@@ -68,11 +68,13 @@
                                 var endDate =options.endDateTime;
                                 var startDate = options.startDateTime;
 
-                                if(endDate.length!==19){
-                                    options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
-                                }
-                                if(startDate.length!==19){
-                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                if(endDate!=null || startDate!=null){
+                                    if(endDate.length!==19){
+                                        options.endDateTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    }
+                                    if(startDate.length!==19){
+                                        options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                    }
                                 }
 
                                 return kendo.stringify(options);
@@ -112,22 +114,12 @@
                                         required: {message: "场地地址为必填项！"}
                                     }
                                 },
-                                startDateTime: {type: "timestamp",
-                                    validation: {
-                                        required: true,
-                                        required: {message: "协议开始时间为必填项！"}
-                                    }
-                                },
-                                endDateTime: {type: "timestamp",
-                                    validation: {
-                                        required: true,
-                                        required: {message: "协议结束时间为必填项！"}
-                                    }
-                                },
+                                startDateTime: {type: "timestamp",editable: false},
+                                endDateTime: {type: "timestamp",editable: false},
                                 levelFlag: {type: "number",editable: false},
                                 levelFlagName: {type: "string",editable: false},
-                                superiorId: {type: "string"},
-                                superiorName: {type: "string"},
+                                superiorId: {type: "string",editable: false},
+                                superiorName: {type: "string",editable: false},
                                 businessId:{type: "number"},
                                 businessName: {type: "string"},
                                 cityId:{type: "number"},
@@ -165,59 +157,68 @@
                         {
                             field: "placeSn",
                             title: "场地编码",
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "placeAddress",
                             title: "地址",
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "userId",
                             title: "场地负责人",
                             template:"#=userName#",
                             editor:chooseUser,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "startDateTime",
                             title: "协议开始时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
                             editor: changeDate,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "endDateTime",
                             title: "协议结束时间",
                             format: "{0:yyyy-MM-dd HH:mm}",
                             editor: changeDate,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },{
                             field: "levelFlagName",
                             title: "隶属上级单位",
                             template:"#=levelFlagName#",
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "superiorId",
                             title: "隶属单位名称",
                             template:"#=superiorName#",
                             editor:roleListDropDownEditor,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "businessId",
                             title: "行业分类名称",
                             template:"#=businessName#",
                             editor:businessEditor,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             field: "cityId",
                             title: "城市名称",
                             template:"#=cityName#",
                             editor:cityEditor,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                            hidden:true
                         },
                         {
                             command: [{

@@ -45,6 +45,7 @@
                 <div id="fieldlist" style="background-color:#EDF0F4">
                     <h5>
                         场地:   <input id="place" /> <!--下拉框-->
+                        设备:   <input id="device" class="k-input k-textbox"/> <!--下拉框-->
                         <button class="k-button  k-primary" onclick="grid()">查询</button></h5>
                 </div>
 
@@ -74,66 +75,9 @@
                             }
                         }
                     });
-                });
-
-                //点击查询按钮
-                function grid(){
-                    var placeId = $("#place").data("kendoComboBox").value();//场地id
-
-                    loadUserList(placeId);
-                }
-
-                //初始化表格数据
-                function loadUserList(placeId) {
-
-                    var dataSource = new kendo.data.DataSource({
-                        transport: {
-                            read: {
-                                url: "./place/findDeviceByPlace?placeId="+placeId
-                            }
-                        },
-                        serverPaging: false,    //设定服务器来实现分页功能
-                        serverFiltering: false,
-                        serverSorting: false,
-                        requestEnd: onRequestEnd,
-                        pageSize: 10,
-                        schema: {
-                            model: {
-                                id: "id",
-                                fields: {
-                                    id: {type: "number", editable: false},
-                                    mcSn: {type: "string"},
-                                    // maintainDateTime: {type: "timestamp"},
-                                    latitude: {type: "number"},
-                                    longitude: {type: "number"},
-                                    mcStatus: {type: "int"},
-                                    statusName:{type:"string"},
-                                    note: {type: "string"},
-                                    placeEntity:{defaultValue: { id: 1, name: ""}},
-                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}},
-                                    supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
-                                }
-                            },
-                            data: function (response) {
-                                var list = response;
-                                for(var i=0;i<list.length;i++){
-                                    var content2 = list[i];
-                                    var flag = content2.mcStatus;
-                                    // console.log(flag);
-                                    if(flag==0){
-                                        content2.mcStatus="运行中";
-                                    }else if(flag==1){
-                                        content2.mcStatus="空闲中";
-                                    }
-                                }
-                                return response;
-                            }
-                        }
-                    });
 
                     //dataSource是必填属性
                     $("#grid").kendoGrid({
-                        dataSource: dataSource,
                         height: 600,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
@@ -176,18 +120,18 @@
                                 title: "按摩椅编号",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
-                            {
-                                field: "latitude",
-                                title: "按摩椅所在纬度",
-                                format: "{0:n4}",
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            },
-                            {
-                                field: "longitude",
-                                title: "按摩椅所在经度",
-                                format: "{0:n4}",
-                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            },
+                            // {
+                            //     field: "latitude",
+                            //     title: "按摩椅所在纬度",
+                            //     format: "{0:n4}",
+                            //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            // },
+                            // {
+                            //     field: "longitude",
+                            //     title: "按摩椅所在经度",
+                            //     format: "{0:n4}",
+                            //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            // },
                             {
                                 field: "mcStatus",
                                 title: "按摩椅状态",
@@ -281,6 +225,80 @@
                             }
                         }
                     });
+
+
+                });
+
+                //点击查询按钮
+                function grid(){
+                    var placeId = $("#place").data("kendoComboBox").value();//场地id
+                    var deviceId = $("#device").val();//设备id
+
+                    if(placeId=="" && deviceId==""){
+                        alert("请选择场地或输入设备编号！");
+                        return;
+                    }
+                    if(placeId==""){
+                        placeId=0;
+                    }
+                    if(deviceId==""){
+                        deviceId=0;
+                    }
+                    console.log(placeId);
+                    console.log(deviceId);
+
+                    loadUserList(placeId,deviceId);
+                }
+
+                //初始化表格数据
+                function loadUserList(placeId,deviceId) {
+
+                    var dataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: "./place/findDeviceByPlace?placeId="+placeId+"&deviceId="+deviceId
+                            }
+                        },
+                        serverPaging: false,    //设定服务器来实现分页功能
+                        serverFiltering: false,
+                        serverSorting: false,
+                        requestEnd: onRequestEnd,
+                        pageSize: 10,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    mcSn: {type: "string"},
+                                    // maintainDateTime: {type: "timestamp"},
+                                    // latitude: {type: "number"},
+                                    // longitude: {type: "number"},
+                                    mcStatus: {type: "int"},
+                                    statusName:{type:"string"},
+                                    note: {type: "string"},
+                                    placeEntity:{defaultValue: { id: 1, name: ""}},
+                                    deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                                    supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                                }
+                            },
+                            data: function (response) {
+                                var list = response;
+                                for(var i=0;i<list.length;i++){
+                                    var content2 = list[i];
+                                    var flag = content2.mcStatus;
+                                    // console.log(flag);
+                                    if(flag==0){
+                                        content2.mcStatus="运行中";
+                                    }else if(flag==1){
+                                        content2.mcStatus="空闲中";
+                                    }
+                                }
+                                return response;
+                            }
+                        }
+                    });
+
+                    $("#grid").data("kendoGrid").setDataSource(dataSource);
                 }
 
                 //add tooltip
