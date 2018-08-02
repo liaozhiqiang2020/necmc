@@ -3,6 +3,7 @@ package com.sv.mc.util;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,6 +44,19 @@ public class DateJsonValueProcessor implements JsonValueProcessor {
             return value.toString();
         }
 
+    }
+    public String dateString(String UTCString) {
+        try{
+            UTCString = UTCString.replace("Z", " UTC");
+            SimpleDateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+            SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = utcFormat.parse(UTCString);
+            return defaultFormat.format(date);
+        } catch(ParseException pe)
+        {
+            pe.printStackTrace();
+            return null;
+        }
     }
 
     public String getFormat() {

@@ -10,6 +10,7 @@ import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -58,10 +61,6 @@ public class PriceServiceImpl implements PriceService {
         int offset = ((page-1)*pageSize);
         List<PriceEntity> priceList = this.priceRepository.findAllPriceByPage(offset,pageSize);
         int total = this.priceRepository.findPriceTotal();
-        for (PriceEntity price: priceList
-                ) {
-            price.setUseTime(price.getUseTime()/60);
-        }
         String userName = "";
         String deviceModel = "";
         String deviceType = "";
@@ -79,6 +78,9 @@ public class PriceServiceImpl implements PriceService {
         for (int i = 0; i <jsonArray.size() ; i++) {
             JSONObject jsonObject2 =jsonArray.getJSONObject(i);
             userName = priceList.get(i).getUser().getName();
+            int useTime = (int)jsonObject2.get("useTime");
+            int newUseTime = useTime/60;
+            jsonObject2.replace("useTime",newUseTime);
             deviceModel = priceList.get(i).getDeviceModelEntity().getName();
             deviceType = priceList.get(i).getDeviceModelEntity().getModel();
             jsonObject2.put("userName",userName);
@@ -112,10 +114,6 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     public String findStatusPrice() {
         List<PriceEntity> priceList = this.priceRepository.findPriceEntitiesByStatus();
-        for (PriceEntity price: priceList
-             ) {
-            price.setUseTime(price.getUseTime()/60);
-        }
         String userName = "";
         String deviceModel = "";
         JsonConfig config = new JsonConfig();
@@ -130,6 +128,9 @@ public class PriceServiceImpl implements PriceService {
         JSONArray jsonArray1 = new JSONArray();//新建json数组
         for (int i = 0; i <jsonArray.size() ; i++) {
             JSONObject jsonObject2 =jsonArray.getJSONObject(i);
+            int useTime = (int)jsonObject2.get("useTime");
+            int newUseTime = useTime/60;
+            jsonObject2.replace("useTime",newUseTime);
           userName = priceList.get(i).getUser().getName();
           deviceModel = priceList.get(i).getDeviceModelEntity().getName();
             jsonObject2.put("userName",userName);
@@ -142,30 +143,42 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 更新价格
-     * @param priceEntity 价格对象（价格对象必须包含主键ID）
+     * @param map 价格对象（价格对象必须包含主键ID）
      * @return 消息
      */
     @Override
     @Transactional
-    public PriceEntity updatePrice(PriceEntity priceEntity) {
-
-
-        int oldTime = priceEntity.getUseTime();
-        int useTime = oldTime*60;
+    public PriceEntity updatePrice(Map<String,Object> map) {
+        PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById((int)map.get("id"));
+        int useTime = (int)map.get("useTime")*60;
+        String end = (String) map.get("endDateTime");
+        String start = (String) map.get("startDateTime");
+        String endDate1 = new DateJsonValueProcessor().dateString(end);
+        String startDate1 = new DateJsonValueProcessor().dateString(start);
+        int deviceModelId =Integer.parseInt((String) map.get("deviceModel"));
+        DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
+        BigDecimal price = new BigDecimal((int)map.get("price"));
         priceEntity.setUseTime(useTime);
-        PriceEntity priceEntity1 = this.priceRepository.findPriceEntitiesById(priceEntity.getId());
+        priceEntity.setStatus(1);
+        priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
+        priceEntity.setDeviceModelEntity(deviceModelEntity);
+        priceEntity.setPrice(price);
+        priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
+        priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
+        priceEntity.setPriceName((String)map.get("priceName"));
+
         PriceHistoryEntity history = new PriceHistoryEntity();
-        history.setPriceName(priceEntity.getPriceName());
-        history.setCreateDateTime(priceEntity1.getCreateDateTime());
-        history.setEndDateTime(priceEntity.getEndDateTime());
-        history.setStartDateTime(priceEntity.getStartDateTime());
-        history.setStatus(priceEntity.getStatus());
+        history.setPriceName((String)map.get("priceName"));
+        history.setCreateDateTime(priceEntity.getCreateDateTime());
+        history.setEndDateTime(Timestamp.valueOf(endDate1));
+        history.setStartDateTime(Timestamp.valueOf(startDate1));
+        history.setStatus(1);
         history.setUser(priceEntity.getUser());
         history.setEditTime(new Timestamp(System.currentTimeMillis()));
-        history.setNewPrice(priceEntity.getPrice());
-        history.setNewUseTime(priceEntity.getUseTime());
-        history.setOldPrice(priceEntity1.getPrice());
-        history.setOldUseTime(priceEntity1.getUseTime());
+        history.setNewPrice(price);
+        history.setNewUseTime(useTime);
+        history.setOldPrice(priceEntity.getPrice());
+        history.setOldUseTime(priceEntity.getUseTime());
         this.priceHistoryRepository.save(history);
         return priceRepository.save(priceEntity);
 
@@ -180,21 +193,23 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     @Override
     public void deletePrice(PriceEntity priceEntity) {
-        priceEntity.setStatus(0);
+        int id = priceEntity.getId();
+       PriceEntity price = this.priceRepository.findPriceEntitiesById(id);
+       price.setStatus(0);
         PriceHistoryEntity history = new PriceHistoryEntity();
-        history.setPriceName(priceEntity.getPriceName());
-        history.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
-        history.setEndDateTime(priceEntity.getEndDateTime());
-        history.setStartDateTime(priceEntity.getStartDateTime());
+        history.setPriceName(price.getPriceName());
+        history.setCreateDateTime(price.getCreateDateTime());
+        history.setEndDateTime(price.getEndDateTime());
+        history.setStartDateTime(price.getStartDateTime());
         history.setStatus(0);
-        history.setUser(priceEntity.getUser());
+        history.setUser(price.getUser());
         history.setEditTime(new Timestamp(System.currentTimeMillis()));
-        history.setNewPrice(priceEntity.getPrice());
-        history.setNewUseTime(priceEntity.getUseTime());
-        history.setOldPrice(priceEntity.getPrice());
-        history.setOldUseTime(priceEntity.getUseTime());
+        history.setNewPrice(price.getPrice());
+        history.setNewUseTime(price.getUseTime());
+        history.setOldPrice(price.getPrice());
+        history.setOldUseTime(price.getUseTime());
         this.priceHistoryRepository.save(history);
-        this.priceRepository.save(priceEntity);
+        this.priceRepository.save(price);
     }
 
     /**
@@ -214,12 +229,16 @@ public class PriceServiceImpl implements PriceService {
      */
     @Override
     @Transactional
-    public PriceEntity addPrice( Map<String,Object> map, HttpServletRequest request) {
+    public PriceEntity addPrice( Map<String,Object> map, HttpServletRequest request)  {
         HttpSession session = request.getSession();
         UserEntity user = (UserEntity) session.getAttribute("user");
         UserEntity userEntity = this.userRepository.findUserById(user.getId());
         PriceEntity priceEntity = new PriceEntity();
         int useTime = (int)map.get("useTime")*60;
+        String end = (String) map.get("endDateTime");
+        String start = (String) map.get("startDateTime");
+        String endDate1 = new DateJsonValueProcessor().dateString(end);
+        String startDate1 = new DateJsonValueProcessor().dateString(start);
         int deviceModelId =Integer.parseInt((String) map.get("deviceModel"));
         DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
         BigDecimal price = new BigDecimal((int)map.get("price"));
@@ -229,14 +248,14 @@ public class PriceServiceImpl implements PriceService {
         priceEntity.setUser(userEntity);
         priceEntity.setDeviceModelEntity(deviceModelEntity);
         priceEntity.setPrice(price);
-        priceEntity.setEndDateTime(Timestamp.valueOf((String) map.get("endDateTime")));
-        priceEntity.setStartDateTime(Timestamp.valueOf(map.get("startDateTIme").toString()));
+        priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
+        priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
         priceEntity.setPriceName((String)map.get("priceName"));
 //        priceEntity.setDeviceModelEntity();
         PriceHistoryEntity history = new PriceHistoryEntity();
         history.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
-        history.setEndDateTime(Timestamp.valueOf(map.get("endDateTime").toString()));
-        history.setStartDateTime(Timestamp.valueOf(map.get("startDateTIme").toString()));
+        history.setEndDateTime(Timestamp.valueOf(endDate1));
+        history.setStartDateTime(Timestamp.valueOf(startDate1));
         history.setPriceName((String)map.get("priceName"));
         history.setStatus(1);
         history.setUser(userEntity);
@@ -288,9 +307,11 @@ public class PriceServiceImpl implements PriceService {
 
     @Transactional
     @Override
-    public List<PriceEntity> findDevicePrice(int deviceId) {
-
-        return priceRepository.findDevicePrice(deviceId);
+    public Set<PriceEntity> findDevicePrice(int deviceId) {
+        Set<PriceEntity> priceSet = new HashSet<>();
+        List<PriceEntity> priceList1 =  priceRepository.findDevicePrice(deviceId);
+        priceSet.addAll(priceList1);
+        return priceSet;
     }
 
     //查询该设备当前未绑定的价格
@@ -359,7 +380,6 @@ public class PriceServiceImpl implements PriceService {
             int id = Integer.parseInt(object[0].toString());
             deviceList.add(this.deviceRepository.findDeviceById(id));
         }
-        System.out.println(deviceList);
         for (DeviceEntity device: deviceList
                 ) {
                 if (device.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()){
@@ -372,15 +392,6 @@ public class PriceServiceImpl implements PriceService {
                      }
                         device.getPriceEntities().add(priceEntity);
                     }
-
-//                    List<PriceEntity> priceEntityList = device.getPriceEntities();
-//                        for  ( int  i  =   0 ; i  <  priceEntityList.size()  -   1 ; i ++ )  {
-//                            for  ( int  j  =  priceEntityList.size()  -   1 ; j  >  i; j -- )  {
-//                                if  (priceEntityList.get(j).equals(priceEntityList.get(i)))  {
-//                                    priceEntityList.remove(j);
-//                                }
-//                            }
-//                        }
             }
             }
 

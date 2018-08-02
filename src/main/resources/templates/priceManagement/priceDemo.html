@@ -95,7 +95,7 @@
                                     endDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
                                     userName: { type: "string" ,editable: false},
                                     deviceModel: { type: "string" },
-                                    deviceType: { type: "string" },
+                                    deviceType: { type: "string",editable: false  },
                                     status: { type: "number",editable: false },
                                     priceName : {type : "string",validation: {required: true, required: { message: "请您填写价格名称" }}},
                                     user :{type:"array",editable: false,defaultValue: { id: 1, name: ""}},
@@ -124,7 +124,6 @@
                         //     virtual: true
                         // },
                         toolbar: [{name: "create", text: "新增"}],
-
                         columnMenu: true,
                         pageable: {
                             // empty:"没有要显示的数据",
@@ -155,10 +154,8 @@
                         },
                         columns: [
                             { field: "priceName",title: "价格名称", width: 100,filterable: { multi: true, search: true} },
-                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true },headerAttributes: {
-                                    style: "text-align: right"
-                                }, },
-                            { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } },
+                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true },attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}, },
+                            { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } ,attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}},
                             { field: "userName", title: "创建人", width: 100, filterable: { multi: true } },
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             { field: "startDateTime",title: "生效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
@@ -166,7 +163,7 @@
                             { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
                                 editor: changeDate },
                             { field: "deviceModel", title: "按摩椅型号", width: 100, filterable: { multi: true },editor:roleListDropDownEditor},
-                            { field: "deviceType", title: "类型", width: 100, filterable: { multi: true },editor:roleListDropDownEditor},
+                            { field: "deviceType", title: "类型", width: 100, filterable: { multi: true },editor:deviceListDropDownEditor},
 
                             {
                                 command: [
@@ -245,7 +242,7 @@
 
                 function roleListDropDownEditor(container, options) {
                     // console.log(options.model);
-                    var typeId = options.model.deviceModelEntity.id;
+                    var typeId = options.model.deviceModel;
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
@@ -256,12 +253,45 @@
                         filter: "contains",
                         suggest: true,
                         dataValueField: "id",
+                        change: function(e) {
+                            modelId = this.text();
+
+                        },
                         value: typeId,
                         dataSource: {
                             transport: {
                                 read: {
                                     type: "get",
                                     url: "./deviceModel/all",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                }
+                            }
+                        }
+                    });
+                }
+
+                function deviceListDropDownEditor(container, options) {
+                    // console.log(options.model);
+                    var typeId = options.model.deviceType;
+                    console.log(options);
+
+                    var input = $('<input required name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoComboBox({
+                        autoBind: true,
+                        placeholder: "请选择...",
+                        dataTextField: "model",
+                        filter: "contains",
+                        suggest: true,
+                        dataValueField: "id",
+                        value: typeId,
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    type: "get",
+                                    url: "./deviceModel/type?id="+modelId,
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}

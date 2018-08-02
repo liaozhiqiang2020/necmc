@@ -2,6 +2,7 @@ package com.sv.mc.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -24,10 +25,10 @@ public class PriceEntity {
     private Timestamp createDateTime;           //创建时间
     private int status;         //状态
 //    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp startDateTime;            //价格开始时间
 //    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp endDateTime;              //价格结束时间
     private String priceName;                   //价格名称
     private DeviceModelEntity deviceModelEntity; //价格对应机器类型
