@@ -382,14 +382,8 @@ public class PriceServiceImpl implements PriceService {
 
         Object placeId = listMap.get("placeId");
         Object priceId = listMap.get("price");
-        List<Object[]> deviceEntities = this.placeRepository.findAllChildById((int)placeId);
-        List<DeviceEntity> deviceList = new ArrayList<>();
+        List<DeviceEntity> deviceList = this.deviceRepository.findDevicesByPlaceId((int)placeId);
         PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById((int)priceId);
-        for (int i = 0; i <deviceEntities.size() ; i++) {
-            Object[] object =deviceEntities.get(i);
-            int id = Integer.parseInt(object[0].toString());
-            deviceList.add(this.deviceRepository.findDeviceById(id));
-        }
         for (DeviceEntity device: deviceList
                 ) {
                 if (device.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()){
@@ -477,41 +471,33 @@ public class PriceServiceImpl implements PriceService {
                 for(int cellNum = 0; cellNum<=row.getLastCellNum();cellNum++){
                     //获取每一列
                     HSSFCell cell = row.getCell(cellNum);
+                    if(cell == null){
+                        continue;
+                    }
                     Object sn = getValue(row.getCell(0));
                     Object price = getValue(row.getCell(1));
                     Object useTime =getValue( row.getCell(2));
                     int userTime=(Integer.parseInt(useTime.toString()))*60;
                     //判断sn 是否存在
                     DeviceEntity deviceEntity=   this.deviceRepository.getDeviceBySN((String) sn);
-                    PriceEntity priceEntity=this.priceRepository.findAllFlag
-                            (userTime,Integer.parseInt(price.toString()),deviceEntity.getDeviceModelEntity());
-                    if (deviceEntity.getMcSn()!=null){//如果sn编号之前没有
-                        //判断此设备 时长价格是否存在
-                        if(priceEntity.getPrice().equals(Integer.parseInt(price.toString()))){
-                            Date d = new Date();
-                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            Timestamp endtime=priceEntity.getEndDateTime();//截止时间
-                            Timestamp newtime =new Timestamp(d.getTime());//当前时间
-                            //判断价格优惠是不是已经截止
-                            if(newtime.getTime()>endtime.getTime()){
-
-                                if(deviceEntity.getPriceEntities().contains(Integer.parseInt(price.toString()))!=true){
-                                    BigDecimal bigDecimal=(BigDecimal)price;
-                                    PriceEntity priceEntity1=new PriceEntity();
-                                    priceEntity1.setPrice(bigDecimal);
-                                    deviceEntity.getPriceEntities().add(priceEntity1);
-                                    this.priceRepository.save(priceEntity1);
+                    PriceEntity priceEntity=this.priceRepository.findAllFlag(userTime,Integer.parseInt(price.toString()),deviceEntity.getDeviceModelEntity());
+                    if (deviceEntity != null && priceEntity!=null){
+                            if (priceEntity.getEndDateTime()==null || priceEntity.getEndDateTime().getTime()>new Date().getTime()){
+                                if(!deviceEntity.getPriceEntities().contains(priceEntity)){
+                                    deviceEntity.getPriceEntities().add(priceEntity);
+                                    Set<PriceEntity> priceSet = new HashSet<>();
+                                    priceSet.addAll(deviceEntity.getPriceEntities());
+                                    deviceEntity.getPriceEntities().clear();
+                                    deviceEntity.getPriceEntities().addAll(priceSet);
+                                    this.deviceRepository.save(deviceEntity);
                                 }
                             }
-                        }//判断价格是否存在
-                        System.out.println("存在");
-                    }
-                    if(cell == null){
+                    }else {
                         continue;
                     }
-                    System.out.print(rowNum+" "+getValue(cell));
+
+
                 }
-                System.out.println();
             }
 
         }

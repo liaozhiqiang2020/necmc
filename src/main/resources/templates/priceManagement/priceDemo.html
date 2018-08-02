@@ -96,6 +96,7 @@
                                     userName: { type: "string" ,editable: false},
                                     deviceModel: { type: "string" },
                                     deviceType: { type: "string",editable: false  },
+                                    deviceModelId:{ type: "number" },
                                     status: { type: "number",editable: false },
                                     priceName : {type : "string",validation: {required: true, required: { message: "请您填写价格名称" }}},
                                     user :{type:"array",editable: false,defaultValue: { id: 1, name: ""}},
@@ -183,16 +184,6 @@
                             }
                         },
 
-                        // dataBound: function () {
-                        //     var rows = this.items();
-                        //     var page = this.pager.page() - 1;
-                        //     var pagesize = this.pager.pageSize();
-                        //     $(rows).each(function () {
-                        //         var index = $(this).index() + 1 + page * pagesize;
-                        //         var rowLabel = $(this).find(".row-number");
-                        //         $(rowLabel).html(index);
-                        //     });
-                        // }
                     });
 
                 }
@@ -225,13 +216,6 @@
                     }
                 }
 
-                //编辑时boolean类型复选框样式修改
-                // function customBoolEditor(container, options) {
-                //     var guid = kendo.guid();
-                //     $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
-                //     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
-                // }
-
                 function changeDate(container, options) {
                     var input = $('<input name="' + options.field + '"/>');
                     input.appendTo(container);
@@ -242,22 +226,19 @@
 
                 function roleListDropDownEditor(container, options) {
                     // console.log(options.model);
-                    var typeId = options.model.deviceModel;
-
+                    var typeId = options.model.deviceModelId;
+                    var model = options.model.deviceModel;
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
-                        autoBind: true,
+                        template: '<span class="order-id">#= name #, #= model #</span>' ,
                         placeholder: "请选择...",
+                        value: typeId,
+                        text:options.model.deviceModelId,
                         dataTextField: "name",
+                        dataValueField: "id",
                         filter: "contains",
                         suggest: true,
-                        dataValueField: "id",
-                        change: function(e) {
-                            modelId = this.text();
-
-                        },
-                        value: typeId,
                         dataSource: {
                             transport: {
                                 read: {
@@ -266,6 +247,15 @@
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                },
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            id: { type: "number" },
+                                            model: { type: "sting" },
+                                            name: { type: "string" },
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -274,8 +264,7 @@
 
                 function deviceListDropDownEditor(container, options) {
                     // console.log(options.model);
-                    var typeId = options.model.deviceType;
-                    console.log(options);
+                    var typeId = options.model.deviceModelId;
 
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);

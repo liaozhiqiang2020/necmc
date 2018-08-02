@@ -75,7 +75,7 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     /**
      * 查询价格是否存在
      */
-    @Query(value="from PriceEntity AS P where p.useTime=:userTime and p.price=:price and p.deviceModelEntity = :deviceModelEntity ")
+    @Query(value="from PriceEntity AS p where p.useTime=:userTime and p.price=:price and p.deviceModelEntity = :deviceModelEntity and p.status= 1 ")
     PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price")int price, @Param("deviceModelEntity")DeviceModelEntity deviceModelEntity);
 
 
