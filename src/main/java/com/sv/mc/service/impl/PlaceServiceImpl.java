@@ -548,32 +548,24 @@ public class PlaceServiceImpl implements PlaceService {
         @Override
         public String findDeviceBypId(int placeId) {
                 int total = this.placeRepository.findPlaceTotal();
-                List<Object[]> deviceEntities = this.placeRepository.findAllDeviceBypId(placeId);
-                List<DeviceEntity> deviceList = new ArrayList<>();
+                List<DeviceEntity> deviceEntities = this.deviceRepository.findDevicesByPlaceId(placeId);
                 String model = "";
                 String type = "";
                 String placeName = "";
-                for (int i = 0; i <deviceEntities.size() ; i++) {
-                        Object[] object =deviceEntities.get(i);
-                        int id = Integer.parseInt(object[0].toString());
-                        deviceList.add(this.deviceRepository.findDeviceById(id));
-                }
                 JsonConfig config = new JsonConfig();
                 config.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 //                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
                 config.setExcludes(new String[] { "deviceModelEntity","placeEntity","supplierEntity","priceEntities"});
-                JSONArray jsonArray = JSONArray.fromObject(deviceList,config);//转化为jsonArray
+                JSONArray jsonArray = JSONArray.fromObject(deviceEntities,config);//转化为jsonArray
                 JSONArray jsonArray1 = new JSONArray();//新建json数组
                 JSONObject jsonObject = new JSONObject();
 
                 for (int y = 0; y <jsonArray.size() ; y++) {
                         JSONObject jsonObject2 =jsonArray.getJSONObject(y);
-                        Object[] object =deviceEntities.get(y);
-                        int typeId = Integer.parseInt(object[2].toString());
-                        int placeId1 = Integer.parseInt(object[1].toString());
-                        model = this.deviceModelRepository.findById(typeId).getName();
-                        type = this.deviceModelRepository.findById(typeId).getModel();
-                        placeName = this.placeRepository.findPlaceById(placeId1).getName();
+                        DeviceEntity deviceEntity = deviceEntities.get(y);
+                        model = deviceEntity.getDeviceModelEntity().getName();
+                        type = deviceEntity.getDeviceModelEntity().getModel();
+                        placeName = deviceEntity.getPlaceEntity().getName();
                         jsonObject2.put("model",model);
                         jsonObject2.put("type",type);
                         jsonObject2.put("placeName",placeName);
