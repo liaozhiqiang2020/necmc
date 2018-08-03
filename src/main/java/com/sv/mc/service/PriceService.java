@@ -127,7 +127,12 @@ public interface PriceService{
      */
     List<Map<String,Object>> queryPriceAndTime(String deviceCode);
 
-
+    /**
+     * 查询所有可用的价格
+     * @param
+     * @return
+     */
+    List<PriceEntity> findPriceEntitiesByEnd();
 
     /**
      * 分页查询所有数据

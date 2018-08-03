@@ -1,9 +1,12 @@
 package com.sv.mc.service.impl;
 
+import com.mysql.cj.api.Session;
 import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
+import com.sv.mc.util.intUtil;
 import com.sv.mc.service.UserService;
 import com.sv.mc.util.DateJsonValueProcessor;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -111,8 +114,12 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     @Override
     @Transactional
-    public String findAllByStatus() {
-        List<UserEntity> userList = this.userRepository.findAllByStatus();
+    public String findAllByStatus(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserEntity  user1 = (UserEntity) session.getAttribute("user");
+        int uid = user1.getId();
+        List<UserEntity> userList = this.userRepository.findAllByStatusId(uid);
+        int total = this.userRepository.findPriceTotal();
         String company = "";
         String pName = "";
         JsonConfig config = new JsonConfig();
@@ -122,6 +129,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
 //        config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         JSONArray jsonArray = JSONArray.fromObject(userList, config);//转化为jsonArray
         JSONArray jsonArray1 = new JSONArray();//新建json数组
+        JSONObject jsonObject = new JSONObject();
 
         for (int y = 0; y < jsonArray.size(); y++) {
             JSONObject jsonObject2 = jsonArray.getJSONObject(y);
@@ -161,7 +169,9 @@ public class UserServiceImpl implements UserService<UserEntity> {
             jsonObject2.put("pName", pName);
             jsonArray1.add(jsonObject2);
         }
-        return jsonArray1.toString();
+        jsonObject.put("data", jsonArray1);
+        jsonObject.put("total", total);
+        return jsonObject.toString();
     }
 
     @Override
@@ -179,6 +189,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         int status = (int) map.get("status");
         String createDateTime = (String) map.get("createDatetime");
         String latestLoginDatetime = (String) map.get("latestLoginDatetime");
+        String lastTime = intUtil.dateString(latestLoginDatetime);
 
         UserEntity user = this.userRepository.findUserById(id);
         user.setStatus(status);
@@ -188,6 +199,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setName(name);
         user.setUserName(userName);
         user.setLatestLoginIp(latestLoginIp);
+//        user.setLatestLoginDatetime(Timestamp.valueOf(lastTime));
         user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
@@ -228,7 +240,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setUserName(userName);
         user.setLatestLoginIp(latestLoginIp);
         user.setCreateDatetime(new Timestamp(System.currentTimeMillis()));
-        user.setLatestLoginDatetime(new Timestamp(System.currentTimeMillis()));
+//        user.setLatestLoginDatetime(new Timestamp(System.currentTimeMillis()));
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        try {
 //            Date date1 = simpleDateFormat.parse(createDateTime);
@@ -280,13 +292,12 @@ public class UserServiceImpl implements UserService<UserEntity> {
     @Override
     public Set<RoleEntity> deleteUserRole(Map<String, Object> listMap) {
         Object userId = listMap.get("userId");
-        Object roleIds = listMap.get("roleId");
+        Object roleId = listMap.get("roleId");
         UserEntity user = this.userRepository.findUserById((int) userId);
-        for (int roleId : (ArrayList<Integer>) roleIds
-        ) {
-            RoleEntity role = this.roleRepository.findById(roleId);
+
+            RoleEntity role = this.roleRepository.findById((int)roleId);
             user.getRoleEntitySet().remove(role);
-        }
+
         this.userRepository.save(user);
         return user.getRoleEntitySet();
     }

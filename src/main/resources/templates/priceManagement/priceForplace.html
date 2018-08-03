@@ -149,7 +149,7 @@
                                         name: { type: "string",editable: false },
                                         placeAddress: { type: "string",editable: false },
                                         city: { type: "array",editable: false },
-                                        principal:{type:"string",editable:false}
+                                        userName:{type:"string",editable:false}
                                     }
                                 },
                                 data: function (response) {
@@ -219,7 +219,7 @@
                                 title:"场地编码",
                                 width: "120px"
                             },{
-                                field: "principal",
+                                field: "userName",
                                 title:"场地负责人",
                                 width: "120px"
                             },
@@ -229,7 +229,7 @@
                                         var placeId = data.id;
                                         var myWindow = $("#window");
                                         myWindow.kendoWindow({
-                                            width: "800px",
+                                            width: "900px",
                                             height:"500px",
                                             title: data.name+"价格管理",
                                             // content: $("roleList").html
@@ -241,7 +241,7 @@
                                         let  dataSource = new kendo.data.DataSource({
                                             transport: {
                                                 read: {
-                                                    url: "./price/status",
+                                                    url: "./price/statusOrDate",
                                                     dataType: "json"
                                                 },
                                                 destroy: {
@@ -309,6 +309,8 @@
                                                         startDateTime: { type: "Date" ,editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                                         endDateTime: { type: "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                                         userId: { type: "string" ,editable: false},
+                                                        deviceModel: { type: "string",editable:false},
+                                                        deviceType: { type: "string",editable: false  },
                                                         status: { type: "number",editable: false },
                                                         priceName : {type : "string",editable: false},
                                                         user :{type:"array",editable: false},
@@ -362,7 +364,8 @@
                                                 { field: "useTime", title:"使用时长(分钟)",width: "80px" ,attributes: {
                                                         style: "text-align: right"
                                                     }},
-                                                { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
+                                                { field: "deviceModel", title: "按摩椅类型", width: "100px", filterable: { multi: true }},
+                                                { field: "deviceType", title: "按摩椅类型", width: "100px", filterable: { multi: true }},
                                                 { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
                                                 { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
                                                 { command: [{
@@ -384,6 +387,7 @@
                                                                 success:function (data) {
                                                                     alert("保存成功");
                                                                     myWindow.data("kendoWindow").close();
+                                                                    location.reload();
                                                                 }
 
                                                             })
@@ -401,7 +405,6 @@
 
 
                     });
-
 
                     function detailInit(e) {
                         var detailRow = e.detailRow;
@@ -595,7 +598,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceByPlaceId?placeId="+placeId,
+                                    read: "./place/findDeviceBypId?placeId="+placeId,
                                 },
                                 // serverPaging: true,
                                 // serverSorting: true,
@@ -622,7 +625,10 @@
                                         }
                                     },
                                     data: function (response) {
-                                        return JSON.parse(response);
+                                        return JSON.parse(response).data;
+                                    },
+                                    total: function (response) {
+                                        return JSON.parse(response).total;
                                     }
                                 }
 
@@ -675,7 +681,7 @@
                                             var deviceId = data.id;
                                             var myWindow2 = $("#window2");
                                             myWindow2.kendoWindow({
-                                                width: "800px",
+                                                width: "900px",
                                                 height:"500px",
                                                 title: data.mcSn+"价格管理",
                                                 // content: $("roleList").html
@@ -835,6 +841,7 @@
                                                 toolbar: "未绑定价格",
                                                 dataSource: dataSource1,
                                                 sortable:true,
+                                                columnMenu:true,
                                                 pageable: true,
                                                 filterable:true,
                                                 resizable: true,
@@ -865,6 +872,7 @@
                                                                     success:function (data) {
                                                                         alert("保存成功");
                                                                         myWindow2.data("kendoWindow").close();
+                                                                        location.reload();
                                                                     }
 
                                                                 })

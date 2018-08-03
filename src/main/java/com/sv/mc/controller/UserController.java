@@ -45,8 +45,8 @@ public class UserController {
      * @return 返回User集合
      */
     @GetMapping("/user/allStatus")
-    public String findAllByStatus(){
-        return this.userService.findAllByStatus();
+    public String findAllByStatus(HttpServletRequest request){
+        return this.userService.findAllByStatus(request);
     }
 
 

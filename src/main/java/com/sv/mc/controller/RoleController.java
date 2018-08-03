@@ -99,10 +99,10 @@ public class RoleController {
      * @param mapList
      */
     @PostMapping("/role/roleDeletePermission")
-    public void roleDeletePermission (@RequestBody Map<String,Object> mapList){
+    public Set<PermissionEntity> roleDeletePermission (@RequestBody Map<String,Object> mapList){
         Object roleId = mapList.get("roleId");
         Object pId = mapList.get("pId");
-        this.roleService.roleDeletePermission((int)roleId,(int)pId);
+        return this.roleService.roleDeletePermission((int)roleId,(int)pId);
     }
 
     /**

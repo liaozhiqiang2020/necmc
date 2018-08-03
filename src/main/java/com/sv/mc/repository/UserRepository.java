@@ -24,6 +24,10 @@ public interface UserRepository extends BaseRepository<UserEntity, Long>, Paging
     @Query("from UserEntity as u where u.status = 1")
     List<UserEntity> findAllByStatus();
 
+    //查询所有状态为正常的用户
+    @Query("from UserEntity as u where u.status = 1 and u.id != :id")
+    List<UserEntity> findAllByStatusId(@Param("id") int id);
+
     /**
      * 分页查询所有可用价格
      * @param page

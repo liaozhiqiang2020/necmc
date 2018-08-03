@@ -44,7 +44,7 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./user/allPage"
+                                url: "./user/allStatus"
                             },
                             create: {
                                 url: "./user/save",
@@ -66,11 +66,11 @@
                             },
                             parameterMap:function(options, operation){
 
-                                if(operation=="read"){
-                                    var page = $("#grid").data("kendoGrid").dataSource.page();
-                                    var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                                    return {page:page,pageSize:pageSize};
-                                }
+                                // if(operation=="read"){
+                                //     var page = $("#grid").data("kendoGrid").dataSource.page();
+                                //     var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
+                                //     return {page:page,pageSize:pageSize};
+                                // }
 
                                 if(operation !== "read"){
 
@@ -78,7 +78,7 @@
                                 }
                             }
                         },
-                        serverPaging: true,    //设定服务器来实现分页功能
+                        // serverPaging: true,    //设定服务器来实现分页功能
                         // serverFiltering: true,
                         // serverSorting: true,
                         filterable:true,
@@ -163,7 +163,7 @@
                             { field: "fixedPhoneNumber", title: "固话", width: 80, filterable: { multi: true } },
                             { field: "latestLoginIp", title: "上次登录ip", width: 80, filterable: { multi: true } },
                             { field: "latestLoginDatetime",title: "上次登录时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                            { field: "createDatetime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+                            // { field: "createDatetime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             {
                                 command: [
                                     {
@@ -174,11 +174,7 @@
                                             var data = this.dataItem(tr);
                                             var userId = data.id;
                                             var myWindow = $("#window");
-                                                // undo = $("#undo");
 
-                                            // function onClose() {
-                                            //     undo.fadeIn();
-                                            // }
 
                                             var dataSource1 = new kendo.data.DataSource({
                                                 transport: {
@@ -195,10 +191,10 @@
 
 
                                                         if (operation === "destroy" && options) {
-                                                            var array = [options.id];
+                                                            var roleId = options.id;
 
                                                             var list1 = {
-                                                                roleId :  array,
+                                                                roleId :  roleId,
                                                                 userId : userId
                                                             }
                                                             return kendo.stringify(list1);
@@ -213,7 +209,7 @@
                                                 // serverSorting: true,
                                                 filterable:true,
                                                 scrollable: true,
-                                                requestEnd: onRequestEnd,
+                                                requestEnd: onRequestEnd1,
                                                 pageSize: 5,
                                                 schema: {
                                                     model: {
@@ -236,11 +232,12 @@
                                             });
 
                                             //dataSource是必填属性
-                                            $("#roleList").kendoGrid({
+                                            var roleList =$("#roleList").kendoGrid({
                                                 dataSource: dataSource1,
                                                 height: 300,
                                                 groupable: true,
                                                 resizable: true,
+                                                requestEnd: onRequestEnd1,
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 // groupable: true,//表格标题
@@ -284,7 +281,30 @@
                                                      {
                                                         command: [
                                                             {
-                                                                name: "destroy", text: "解绑"
+                                                                name: "解绑", click:function (e) {
+                                                                    var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                                                                    var data = this.dataItem(tr);
+                                                                    var roleId = this.dataItem(tr).id;
+                                                                    var list1 = {
+                                                                        userId :  userId,
+                                                                        roleId : roleId
+                                                                    };
+                                                                    $.ajax({
+                                                                        type: "POST",
+                                                                        url: "./user/deleteRole",
+                                                                        data: kendo.stringify(list1),
+                                                                        contentType: "application/json; charset=utf-8",
+                                                                        dataType: "json",
+                                                                        success:function (data) {
+                                                                            // myWindow.data("kendoWindow").close();
+                                                                            var roleGrid = $("#roleList1").data("kendoGrid");
+                                                                            roleGrid.dataSource.read();
+                                                                            var roleGrid1 = $("#roleList").data("kendoGrid");
+                                                                            roleGrid1.dataSource.read();
+                                                                        }
+
+                                                                    })
+                                                                }
                                                             }],
                                                         title: "操作",
                                                         width: "200px"
@@ -339,7 +359,7 @@
                                             });
 
                                             //dataSource是必填属性
-                                            $("#roleList1").kendoGrid({
+                                          var  roleList1 = $("#roleList1").kendoGrid({
                                                 dataSource: dataSource2,
                                                 height: 300,
                                                 groupable: true,
@@ -390,7 +410,7 @@
                                                                 name: "绑定", click:function (e) {
                                                                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                                                     var data = this.dataItem(tr);
-                                                                    var roleId = data.id;
+                                                                    var roleId = this.dataItem(tr).id;
                                                                     var list1 = {
                                                                         userId :  userId,
                                                                         roleId : roleId
@@ -402,7 +422,11 @@
                                                                         contentType: "application/json; charset=utf-8",
                                                                         dataType: "json",
                                                                         success:function (data) {
-                                                                            myWindow.data("kendoWindow").close();
+                                                                            // myWindow.data("kendoWindow").close();
+                                                                            var roleGrid = $("#roleList1").data("kendoGrid");
+                                                                            roleGrid.dataSource.read();
+                                                                            var roleGrid1 = $("#roleList").data("kendoGrid");
+                                                                            roleGrid1.dataSource.read();
                                                                 }
 
                                                                     })
@@ -422,7 +446,7 @@
 
                                             myWindow.kendoWindow({
                                                 width: "615px",
-                                                title: data.userName+"用户角色管理",
+                                                title: "用户角色管理",
                                                 // content: $("roleList").html
                                                 // close: onClose
 
@@ -478,6 +502,21 @@
                             }
                         }
                     }
+                }
+                function onRequestEnd1(e) {
+                    if (e.type == "create") {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+                    else if (e.type == "update") {
+                        e.sender.read();
+                    }
+                    else if (e.type == "destroy") {
+                        var roleGrid = $("#roleList1").data("kendoGrid");
+                        roleGrid.dataSource.read();
+                        var roleGrid1 = $("#roleList").data("kendoGrid");
+                        roleGrid1.dataSource.read();
+                    }
+
                 }
                 function roleListDropDownEditor(container, options) {
                     // console.log(options.model);
