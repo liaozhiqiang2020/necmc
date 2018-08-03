@@ -31,7 +31,7 @@ public interface UserService<T>  {
     /**
      * 返回所有状态为正常的用户
      */
-    String findAllByStatus();
+    String findAllByStatus(HttpServletRequest request);
     /**
      *更新user对象
      * @param map user对象

@@ -43,13 +43,6 @@ public class PriceController {
      */
     @GetMapping("/price/pageAll")
     public String findAllPagePrice(@RequestParam("page") String page, @RequestParam("pageSize") String pageSize){
-//        PageRequest pageRequest = PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(pageSize));
-//        DataSourceResult<PriceEntity> PriceEntityDataSourceResult = new DataSourceResult<>();
-//        Page<PriceEntity> PriceEntityPage = this.priceService.findAllPagePrice(pageRequest);
-//        PriceEntityDataSourceResult.setData(PriceEntityPage.getContent());
-//        PriceEntityDataSourceResult.setTotal(PriceEntityPage.getTotalPages());
-//        Gson gson = new Gson();
-//        return gson.toJson(PriceEntityPage);
         return this.priceService.findAllPagePrice(Integer.parseInt(page),Integer.parseInt(pageSize));
     }
 
@@ -62,6 +55,15 @@ public class PriceController {
         String price = this.priceService.findStatusPrice();
 
         return price;
+    }
+
+    /**
+     * 不分页查询价格列表,价格状态为可用的并不过期可绑定的
+     * @return 价格集合
+     */
+    @GetMapping("/price/statusOrDate")
+    public List<PriceEntity> findEndPrice(){
+        return this.priceService.findPriceEntitiesByEnd();
     }
 
     /**

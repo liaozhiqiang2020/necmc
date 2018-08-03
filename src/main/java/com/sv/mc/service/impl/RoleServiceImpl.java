@@ -82,7 +82,17 @@ public class RoleServiceImpl implements RoleService {
     public Set<PermissionEntity> roleDeletePermission(int roleId, int pId) {
         RoleEntity role = this.roleRepository.findById(roleId);
         PermissionEntity permission = this.permissionRepository.findByPermissionId(pId);
+
+        Set<PermissionEntity> permissionEntities = role.getPermissionEntityHashSet();
+        String des = "" ;
+        for (PermissionEntity p:permissionEntities
+                ) {
+            des = des+ p.getPermissionsName() + " ";
+        }
+        des = des + permission.getPermissionsName();
+        role.setDescription(des);
         role.getPermissionEntityHashSet().remove(permission);
+
         this.roleRepository.save(role);
         return role.getPermissionEntityHashSet();
     }
@@ -91,6 +101,14 @@ public class RoleServiceImpl implements RoleService {
     public Set<PermissionEntity> roleAddPermission(int roleId, int pId) {
         RoleEntity role = this.roleRepository.findById(roleId);
         PermissionEntity permission = this.permissionRepository.findByPermissionId(pId);
+        Set<PermissionEntity> permissionEntities = role.getPermissionEntityHashSet();
+        String des = "" ;
+        for (PermissionEntity p:permissionEntities
+                ) {
+            des = des+ p.getPermissionsName() + " ";
+        }
+        des = des + permission.getPermissionsName();
+        role.setDescription(des);
         role.getPermissionEntityHashSet().add(permission);
         this.roleRepository.save(role);
         return role.getPermissionEntityHashSet();

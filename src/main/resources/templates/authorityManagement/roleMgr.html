@@ -85,7 +85,7 @@
                                 fields: {
                                     id: { editable: false, nullable: true },
                                    roleName: { type: "string", validation: {required: true, required: { message: "请您填写角色" }}},
-                                    description : {type: "string",validation: {required: true, required: { message: "请您填写角色权限描述" }}},
+                                    description : {type: "string",editable: false ,validation: {required: true, required: { message: "请您填写角色权限描述" }}},
                                     createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
@@ -152,7 +152,7 @@
                                         name :"权限管理",click:function (e) {
                                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                             var data = this.dataItem(tr);
-                                            var roleId = data.id;
+                                            var roleId = this.dataItem(tr).id;
                                             var myWindow = $("#window");
 
                                             var dataSource1 = new kendo.data.DataSource({
@@ -257,8 +257,34 @@
                                                     {
                                                         command: [
                                                             {
-                                                                name: "destroy", text: "解绑"
-                                                            }],
+                                                                name: "解绑", click:function (e) {
+                                                                    var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                                                                    var data = this.dataItem(tr);
+                                                                    var pId = data.id;
+                                                                    let list1 = {
+                                                                        pId :  pId,
+                                                                        roleId : roleId
+                                                                    };
+                                                                    $.ajax({
+                                                                        type: "POST",
+                                                                        url: "./role/roleDeletePermission",
+                                                                        data: kendo.stringify(list1),
+                                                                        contentType: "application/json; charset=utf-8",
+                                                                        dataType: "json",
+                                                                        success:function (data) {
+                                                                            var roleGrid = $("#roleList1").data("kendoGrid");
+                                                                            roleGrid.dataSource.read();
+                                                                            var roleGrid1 = $("#roleList").data("kendoGrid");
+                                                                            roleGrid1.dataSource.read();
+                                                                            var Grid1 = $("#grid").data("kendoGrid");
+                                                                            Grid1.dataSource.read();
+                                                                            // myWindow.data("kendoWindow").close();
+                                                                        }
+
+                                                                    })
+                                                                }
+                                                            }
+                                                           ],
                                                         title: "操作",
                                                         width: "200px"
                                                     }
@@ -375,7 +401,13 @@
                                                                         contentType: "application/json; charset=utf-8",
                                                                         dataType: "json",
                                                                         success:function (data) {
-                                                                            myWindow.data("kendoWindow").close();
+                                                                            var roleGrid = $("#roleList1").data("kendoGrid");
+                                                                            roleGrid.dataSource.read();
+                                                                            var roleGrid1 = $("#roleList").data("kendoGrid");
+                                                                            roleGrid1.dataSource.read();
+                                                                            var Grid1 = $("#grid").data("kendoGrid");
+                                                                            Grid1.dataSource.read();
+                                                                            // myWindow.data("kendoWindow").close();
                                                                         }
 
                                                                     })
@@ -395,10 +427,11 @@
 
                                             myWindow.kendoWindow({
                                                 width: "615px",
-                                                title: data.roleName+"权限管理",
+                                                title: "权限管理",
                                                 // content: $("roleList").html
-                                                // close: onClose
                                             });
+
+
 
                                             myWindow.data("kendoWindow").center().open();
                                             // undo.fadeOut();
@@ -456,6 +489,21 @@
                             }
                         }
                     }
+                }
+
+                function onClose() {
+                    $("#window").empty();
+                }
+                function onRequestEnd1(e) {
+                    if (e.type == "destroy") {
+                        var roleGrid = $("#roleList1").data("kendoGrid");
+                        roleGrid.dataSource.read();
+                        var roleGrid1 = $("#roleList").data("kendoGrid");
+                        roleGrid1.dataSource.read();
+                        var Grid1 = $("#grid").data("kendoGrid");
+                        Grid1.dataSource.read();
+                    }
+
                 }
 
                 //编辑时boolean类型复选框样式修改
