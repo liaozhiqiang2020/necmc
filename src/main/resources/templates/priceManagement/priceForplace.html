@@ -45,17 +45,45 @@
                 <div id = "edit-4"></div>
             </div>
             </div>
-                 <div id="window3" style="display: none">
-                    <form  method="post" action="./price/setexcel" enctype="multipart/form-data">
+            <div id="window3" style="display: none">
 
-                        <input  name="file" id="files" type="file">
 
-                        <input id="box_relative"  type="submit" value="导入" class="k-button k-primary">
-                    </form>
+                <input  name="file" id="files" type="file">
+                <!--<button id="box_relative" type="submit" class="k-button k-primary" >导入</button>-->
 
-                 </div>
-               <!--导入弹窗-->
 
+            </div>
+            <script>
+
+                $(document).ready(function() {
+                    $("#files").kendoUpload();
+                    //window.location="/mc/priceTest1";
+
+                    $("#files").kendoUpload({
+                        async: {
+                            saveUrl: "./price/setexcel",
+                            autoUpload: true
+
+                        },localization: {     //设置上传按钮名称
+                            select: "上传"
+                        },
+                        success:function(e){
+                            var flag=  e.response
+                            if(flag==1){
+                                alert('上传成功')
+                            }else{
+                                alert('上传失败')
+                            }
+
+                            location.reload();
+                        }
+
+                    })
+
+
+
+                });   <!--导入弹窗-->
+</script>
 
 
 

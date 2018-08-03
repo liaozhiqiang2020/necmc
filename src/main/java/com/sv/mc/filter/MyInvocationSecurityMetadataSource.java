@@ -2,6 +2,8 @@ package com.sv.mc.filter;
 
 import com.sv.mc.pojo.PermissionEntity;
 import com.sv.mc.repository.PermissionRepository;
+import com.sv.mc.service.PermissionService;
+import com.sv.mc.service.impl.PermissionServiceImpl;
 import groovy.util.logging.Log4j;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -19,7 +21,7 @@ import java.util.*;
 public class MyInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     @Resource
-    PermissionRepository permissionRepository;
+    PermissionService permissionService;
     private HashMap<String, Collection<ConfigAttribute>> map =null;
 
     //tomcat启动时实例化一次
@@ -34,7 +36,7 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
         map = new HashMap<>();
         Collection<ConfigAttribute> array;
         ConfigAttribute cfg;
-        List<PermissionEntity> permissions = permissionRepository.findAll();
+        List<PermissionEntity> permissions = permissionService.findAllPermission();
         for(PermissionEntity permission : permissions) {
             array = new ArrayList<>();
             cfg = new SecurityConfig(permission.getPermissionsName());

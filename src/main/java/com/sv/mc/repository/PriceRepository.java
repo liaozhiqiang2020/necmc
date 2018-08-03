@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -79,8 +80,9 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     /**
      * 查询价格是否存在
      */
-    @Query(value="from PriceEntity AS p where p.useTime=:userTime and p.price=:price and p.deviceModelEntity = :deviceModelEntity and p.status= 1 ")
-    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price")int price, @Param("deviceModelEntity")DeviceModelEntity deviceModelEntity);
+    @Query(value="select p.* from mc_price as p , mc_device AS d where p.use_time=:userTime and p.price=:price and p.mc_type = d.mc_type  and p.status= 1 and d.mc_sn=:mc ",
+            nativeQuery = true)
+    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price")BigDecimal price, @Param("mc")String mc);
 
 
 

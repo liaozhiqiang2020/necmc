@@ -1,6 +1,7 @@
 package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.PermissionEntity;
+import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.repository.PermissionRepository;
 import com.sv.mc.repository.UserRepository;
@@ -16,7 +17,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MyUserDetailService implements UserDetailsService {
@@ -29,9 +32,15 @@ public class MyUserDetailService implements UserDetailsService {
     //并返回User放到spring的全局缓存SecurityContextHolder中，以供授权器使用
     public UserDetails loadUserByUsername(String username) {
         UserEntity user = userRepository.findUserByUserName(username);
+        Set<PermissionEntity> permissions = new HashSet<>();
         if (user != null) {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            List<PermissionEntity> permissions = this.permissionRepository.findPermissionByUser(user.getId());
+            Set<RoleEntity> roleEntities =  user.getRoleEntitySet();
+            for (RoleEntity roleEntity : roleEntities){
+                Set<PermissionEntity> permission = roleEntity.getPermissionEntityHashSet();
+                permissions.addAll(permission);
+            }
+
             for (PermissionEntity permission : permissions) {
                 GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getPermissionsName());
                 grantedAuthorities.add(grantedAuthority);

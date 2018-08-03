@@ -83,4 +83,14 @@ public class DeviceModelEntity {
 
         return Objects.hash(id, name, model, deviceType);
     }
+
+    @Override
+    public String toString() {
+        return "DeviceModelEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", model='" + model + '\'' +
+                ", deviceType=" + deviceType +
+                '}';
+    }
 }
