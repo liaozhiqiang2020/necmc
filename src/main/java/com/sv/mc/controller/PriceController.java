@@ -348,8 +348,17 @@ public class PriceController {
             int  a=priceEntity.getUseTime();
             String obj2 =String.valueOf(a/60);//使用时长
             String obj3 =priceEntity.getUser().getName();
-            String obj4= priceEntity.getStartDateTime().toString();
-            String obj5=priceEntity.getEndDateTime().toString();
+            String obj4=null;
+            if(priceEntity.getStartDateTime()==null){
+                 obj4= "";
+            }else{
+            obj4=priceEntity.getStartDateTime().toString();}
+            String obj5 = null;
+            if(priceEntity.getEndDateTime()==null) {
+                 obj5 = "";
+            } else{
+              obj5=  priceEntity.getEndDateTime().toString();
+            }
             String obj6 =priceEntity.getDeviceModelEntity().getName();
             String obj7=priceEntity.getDeviceModelEntity().getModel();
             content[i][0] = obj;
