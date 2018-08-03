@@ -2,6 +2,8 @@ package com.sv.mc.filter;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -16,8 +18,13 @@ import com.sv.mc.repository.UserRepository;
 import com.sv.mc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginSuccessHandler extends
         SavedRequestAwareAuthenticationSuccessHandler {
+
+    private Map<String, String> authDispatcherMap;
+    private RequestCache requestCache = new HttpSessionRequestCache();
+
 
     //TODO 修改为使用Service
     @Resource
@@ -38,6 +49,11 @@ public class LoginSuccessHandler extends
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response, Authentication authentication) throws IOException,
             ServletException {
+        // 获取用户权限
+        Collection<? extends GrantedAuthority> authCollection = authentication
+                .getAuthorities();
+
+
         //获得授权后可得到用户信息   可使用SUserService进行数据库操作
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         /* Set<SysRole> roles = userDetails.getSysRoles();*/
@@ -53,13 +69,42 @@ public class LoginSuccessHandler extends
         session.setAttribute("userName",user.getName());
         session.setAttribute("companyName", companyName);
 
-        //输出登录提示信息
-//        System.out.println("管理员 " + userDetails.getUsername() + " 登录");
-//
-//        System.out.println("IP :"+getIpAddress(request));
-//        response.sendRedirect("./index");
+        String url = null;
+        // 从别的请求页面跳转过来的情况，savedRequest不为空
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
+        if (savedRequest != null) {
+            url = savedRequest.getRedirectUrl();
+        }
+
+        // 直接点击登录页面，根据登录用户的权限跳转到不同的页面
+        if (url == null) {
+            for (GrantedAuthority auth : authCollection) {
+                url = "/index";
+            }
+            getRedirectStrategy().sendRedirect(request, response, url);
+        }
+
+
         super.onAuthenticationSuccess(request, response, authentication);
     }
+
+    public RequestCache getRequestCache() {
+        return requestCache;
+    }
+
+    public void setRequestCache(RequestCache requestCache) {
+        this.requestCache = requestCache;
+    }
+
+
+    public Map<String, String> getAuthDispatcherMap() {
+        return authDispatcherMap;
+    }
+
+    public void setAuthDispatcherMap(Map<String, String> authDispatcherMap) {
+        this.authDispatcherMap = authDispatcherMap;
+    }
+
 
     public String getIpAddress(HttpServletRequest request){
         String ip = request.getHeader("x-forwarded-for");
