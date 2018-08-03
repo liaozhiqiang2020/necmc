@@ -70,18 +70,16 @@ public class LoginSuccessHandler extends
         session.setAttribute("companyName", companyName);
 
         String url = null;
-        // 从别的请求页面跳转过来的情况，savedRequest不为空
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if (savedRequest != null) {
+        SavedRequest savedRequest = requestCache.getRequest(request,response);
+        String aa = savedRequest.getRedirectUrl();
+        System.out.println(aa);
+        System.out.println(savedRequest);
+
+        if(savedRequest != null){
             url = savedRequest.getRedirectUrl();
         }
-
-        // 直接点击登录页面，根据登录用户的权限跳转到不同的页面
-        if (url == null) {
-            for (GrantedAuthority auth : authCollection) {
-                url = "/index";
-            }
-            getRedirectStrategy().sendRedirect(request, response, url);
+        if(url == null){
+            getRedirectStrategy().sendRedirect(request,response,"/index");
         }
 
 
