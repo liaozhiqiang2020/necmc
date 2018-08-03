@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -272,7 +274,9 @@ public class PriceController {
         //标题
         String[] title = {"设备ID", "价格","使用时长"};
         //文件名
-        String fileName = "设备价格表" + System.currentTimeMillis() + ".xls";
+        Date d = new Date();
+        String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
+        String fileName = "设备价格表" + time + ".xls";
         //sheet 名
         String sheetName = "设备价格表";
         String[][] content = new String[list.size()][0];
@@ -329,7 +333,9 @@ public class PriceController {
         //标题
         String[] title = {"价格名称", "价格","时长","创建人","生效时间","失效时间","按摩椅型号","类型"};
         //文件名
-        String fileName = "价格管理" + System.currentTimeMillis() + ".xls";
+        Date d = new Date();
+        String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
+        String fileName = "价格管理" + time + ".xls";
         //sheet 名
         String sheetName = "价格管理";
         String[][] content = new String[list.size()][0];
@@ -373,8 +379,14 @@ public class PriceController {
 
 
     @PostMapping(value = "/price/setexcel")
-    public void setExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        this.priceService.getExcel(file);
+    public int setExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        boolean flag= this.priceService.getExcel(file);
+        if(flag==true){
+            return 1;
+
+        }{
+            return 0;
+        }
     };
 
 

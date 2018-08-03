@@ -146,8 +146,7 @@ public interface PriceService{
      * 解析用户上传的excel 文件
      */
 
-    void getExcel(MultipartFile multipartFile) throws IOException;
-
+    boolean getExcel(MultipartFile multipartFile) throws IOException;
 
 
 
