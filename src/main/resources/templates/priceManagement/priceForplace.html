@@ -3,7 +3,7 @@
 <head th:replace="fragments/header::header-css">
     <meta charset="UTF-8">
     <base href="https://demos.telerik.com/kendo-ui/grid/detailtemplate">
-    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8"/>
     <title>价格绑定</title>
 </head>
 
@@ -11,7 +11,7 @@
 <div th:replace="fragments/header :: header-body"/>
 <div class="content-wrapper">
 
-    <section  class="content-header">
+    <section class="content-header">
         <h1>
             价格绑定
         </h1>
@@ -24,9 +24,10 @@
     <div class="container-fluid">
         <div id="example">
             <div id="grid"></div>
-            <div> <div id="window">
-                <div id ="edit-1"></div>
-            </div>
+            <div>
+                <div id="window">
+                    <div id="edit-1"></div>
+                </div>
 
                 <!--<div class="responsive-message"></div>-->
             </div>
@@ -39,23 +40,24 @@
                 }
             </style>
 
-            <div> <div id="window2">
+            <div>
+                <div id="window2">
 
-                <div id ="edit-3"></div>
-                <div id = "edit-4"></div>
-            </div>
+                    <div id="edit-3"></div>
+                    <div id="edit-4"></div>
+                </div>
             </div>
             <div id="window3" style="display: none">
 
 
-                <input  name="file" id="files" type="file">
+                <input name="file" id="files" type="file">
                 <!--<button id="box_relative" type="submit" class="k-button k-primary" >导入</button>-->
 
 
             </div>
             <script>
 
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $("#files").kendoUpload();
                     //window.location="/mc/priceTest1";
 
@@ -64,16 +66,16 @@
                             saveUrl: "./price/setexcel",
                             autoUpload: true
 
-                        },localization: {     //设置上传按钮名称
+                        }, localization: {     //设置上传按钮名称
                             select: "上传"
                         },
-                        success:function(e){
-                            var flag=  e.response
-                            if(flag==1){
+                        success: function (e) {
+                            var flag = e.response
+                            if (flag == 1) {
                                 alert('上传成功')
-                            }else{
+                            } else {
                                 alert('上传失败')
-                             }
+                            }
 
                             location.reload();
                         }
@@ -81,35 +83,33 @@
                     })
 
 
+                });
+                <!--导入弹窗-->
+            </script>
 
-                });   <!--导入弹窗-->
-</script>
 
-
-
-                   <!--<div class="responsive-message"></div>-->
+            <!--<div class="responsive-message"></div>-->
             <!--<script type="text/x-kendo-template" id="template1">-->
-                <!--&lt;!&ndash;#if(data.isNew()) {#&ndash;&gt;-->
-                <!--&lt;!&ndash;#var createTemp = kendo.template($("\#createTemplate").html());#&ndash;&gt;-->
-                <!--&lt;!&ndash;#=createTemp(data)#&ndash;&gt;-->
-                <!--&lt;!&ndash;#} else {#&ndash;&gt;-->
-                <!--&lt;!&ndash;#var createTemp = kendo.template($("\#editTemplate").html());#&ndash;&gt;-->
-                <!--&lt;!&ndash;#=createTemp(data)#&ndash;&gt;-->
-                <!--&lt;!&ndash;#}#&ndash;&gt;-->
-                <!--<div id ="edit-1"></div>-->
-                <!--<div id = "edit-2"></div>-->
+            <!--&lt;!&ndash;#if(data.isNew()) {#&ndash;&gt;-->
+            <!--&lt;!&ndash;#var createTemp = kendo.template($("\#createTemplate").html());#&ndash;&gt;-->
+            <!--&lt;!&ndash;#=createTemp(data)#&ndash;&gt;-->
+            <!--&lt;!&ndash;#} else {#&ndash;&gt;-->
+            <!--&lt;!&ndash;#var createTemp = kendo.template($("\#editTemplate").html());#&ndash;&gt;-->
+            <!--&lt;!&ndash;#=createTemp(data)#&ndash;&gt;-->
+            <!--&lt;!&ndash;#}#&ndash;&gt;-->
+            <!--<div id ="edit-1"></div>-->
+            <!--<div id = "edit-2"></div>-->
             <!--</script>-->
 
             <!--<script type="text/x-kendo-template" id="template2">-->
 
-                <!--&lt;!&ndash;<div id ="edit-3"></div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div id = "edit-4"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div id ="edit-3"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div id = "edit-4"></div>&ndash;&gt;-->
 
             <!--&lt;!&ndash;</script>&ndash;&gt;-->
             <!--&lt;!&ndash;<script type="text/x-kendo-template" id="editTemplate" >&ndash;&gt;-->
 
             <!--</script>-->
-
 
 
             <script type="text/x-kendo-template" id="template">
@@ -119,7 +119,7 @@
                             按摩椅
                         </li>
                         <!--<li>-->
-                            <!--子场地-->
+                        <!--子场地-->
                         <!--</li>-->
                     </ul>
                     <div>
@@ -128,7 +128,7 @@
                     <div>
                         <div class='employee-details'>
                             <!--<ul>-->
-                              <!--<div class="son"></div>-->
+                            <!--<div class="son"></div>-->
                             <!--</ul>-->
                         </div>
                     </div>
@@ -138,25 +138,25 @@
 
             <script>
 
-                $(document).ready(function() {
-                 $("#imp").hidden;
-                     $("#grid").kendoGrid({
+                $(document).ready(function () {
+                    $("#imp").hidden;
+                    $("#grid").kendoGrid({
                         dataSource: {
                             type: "json",
                             transport: {
-                                read:  {
+                                read: {
                                     url: "./placeMgr/getAllPlace",
                                     // dataType: "json"
                                 },
-                                parameterMap: function(options, operation) {
+                                parameterMap: function (options, operation) {
 
-                                    if(operation=="read"){
+                                    if (operation == "read") {
                                         var page = $("#grid").data("kendoGrid").dataSource.page();
                                         var pageSize = $("#grid").data("kendoGrid").dataSource.pageSize();
-                                        return {page:page,pageSize:pageSize};
+                                        return {page: page, pageSize: pageSize};
                                     }
                                     if (operation !== "read" && options.models) {
-                                        return  kendo.stringify(options.models);
+                                        return kendo.stringify(options.models);
                                     }
                                 }
 
@@ -166,18 +166,18 @@
                             serverFiltering: false,
                             serverSorting: false,
                             requestEnd: onRequestEnd,
-                            filterable:true,
+                            filterable: true,
                             scrollable: true,
                             schema: {
                                 model: {
                                     id: "id",
                                     fields: {
-                                        id: { editable: false, nullable: true },
-                                        placeSn: { type: "string",editable: false},
-                                        name: { type: "string",editable: false },
-                                        placeAddress: { type: "string",editable: false },
-                                        city: { type: "array",editable: false },
-                                        userName:{type:"string",editable:false}
+                                        id: {editable: false, nullable: true},
+                                        placeSn: {type: "string", editable: false},
+                                        name: {type: "string", editable: false},
+                                        placeAddress: {type: "string", editable: false},
+                                        city: {type: "array", editable: false},
+                                        userName: {type: "string", editable: false}
                                     }
                                 },
                                 data: function (response) {
@@ -190,41 +190,41 @@
                             }
                         },
                         height: 600,
-                         groupable: true,
-                         resizable: true,
-                         columnMenu:true,
-                         sortable: true, //表示是否支持排序， boolean型
-                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
-                         pageable: {
-                             // empty:"没有要显示的数据",
-                             // //代表是否支持刷新
-                             // refresh: true,
-                             // //表示每页显示的记录数，默认为5,10,20
-                             pageSizes: true,
-                             // //表示显示的页数，5表示1,2,3,4,5
-                             buttonCount: 5,
-                             totalPages: true,
-                             // input: true,//表示是否可以输入数字
-                             refresh: true,
-                             pageSize: 10,
-                             pageSizes: [5, 10, 15, 20],
-                             numeric: true,
-                             input: true,
-                             messages: {
-                                 display: "显示 {0}-{1} 条，共 {2} 条",
-                                 empty: "没有数据",
-                                 itemsPerPage: "每页显示数量",
-                                 first: "第一页",
-                                 last: "最后一页",
-                                 next: "下一页",
-                                 previous: "上一页",
-                                 page: "页",
-                                 of: "共 {0}页"
-                             }
-                         },
+                        groupable: true,
+                        resizable: true,
+                        columnMenu: true,
+                        sortable: true, //表示是否支持排序， boolean型
+                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                        pageable: {
+                            // empty:"没有要显示的数据",
+                            // //代表是否支持刷新
+                            // refresh: true,
+                            // //表示每页显示的记录数，默认为5,10,20
+                            pageSizes: true,
+                            // //表示显示的页数，5表示1,2,3,4,5
+                            buttonCount: 5,
+                            totalPages: true,
+                            // input: true,//表示是否可以输入数字
+                            refresh: true,
+                            pageSize: 10,
+                            pageSizes: [5, 10, 15, 20],
+                            numeric: true,
+                            input: true,
+                            messages: {
+                                display: "显示 {0}-{1} 条，共 {2} 条",
+                                empty: "没有数据",
+                                itemsPerPage: "每页显示数量",
+                                first: "第一页",
+                                last: "最后一页",
+                                next: "下一页",
+                                previous: "上一页",
+                                page: "页",
+                                of: "共 {0}页"
+                            }
+                        },
 
                         detailTemplate: kendo.template($("#template").html()),
-                         detailInit: detailInit,
+                        detailInit: detailInit,
 
 
                         // dataBound: function() {
@@ -244,29 +244,31 @@
 
                             {
                                 field: "placeSn",
-                                title:"场地编码",
+                                title: "场地编码",
                                 width: "120px"
-                            },{
+                            }, {
                                 field: "userName",
-                                title:"场地负责人",
+                                title: "场地负责人",
                                 width: "120px"
                             },
-                            { command: [{name :"场地价格绑定",click:function (e) {
+                            {
+                                command: [{
+                                    name: "场地价格绑定", click: function (e) {
                                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                         var data = this.dataItem(tr);
                                         var placeId = data.id;
                                         var myWindow = $("#window");
                                         myWindow.kendoWindow({
                                             width: "900px",
-                                            height:"500px",
-                                            title: data.name+"价格管理",
+                                            height: "500px",
+                                            title: data.name + "价格管理",
                                             // content: $("roleList").html
                                             // close: onClose
 
                                         });
                                         myWindow.data("kendoWindow").center().open();
                                         // let placeId = e.model.id;
-                                        let  dataSource = new kendo.data.DataSource({
+                                        let dataSource = new kendo.data.DataSource({
                                             transport: {
                                                 read: {
                                                     url: "./price/statusOrDate",
@@ -275,23 +277,23 @@
                                                     url: "./price/placeAddPrice",
                                                     dataType: "json",
                                                     type: "post",
-                                                    contentType : "application/json"
+                                                    contentType: "application/json"
                                                 },
                                                 parameterMap: function (options, operation) {
                                                     if (operation === "destroy" && options.models) {
                                                         let array = [];
-                                                        for (let j =0 ;j<options.models.length;j++){
+                                                        for (let j = 0; j < options.models.length; j++) {
                                                             array[j] = options.models[j].id;
                                                         }
 
                                                         let list1 = {
-                                                            price :  array,
-                                                            placeId : placeId
+                                                            price: array,
+                                                            placeId: placeId
                                                         }
                                                         return kendo.stringify(list1);
                                                     }
                                                     if (operation !== "read" && options.models) {
-                                                        return kendo.stringify(options.models) ;
+                                                        return kendo.stringify(options.models);
                                                     }
                                                 }
                                             },
@@ -329,19 +331,39 @@
                                                 model: {
                                                     id: "id",
                                                     fields: {
-                                                        id: { editable: false, nullable: true },
-                                                        price: { type: "number", validation: { required: true, min: 1} ,editable: false},
-                                                        useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                                                        createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                                                        startDateTime: { type: "Date" ,editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                                                        endDateTime: { type: "Date",editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                                                        userId: { type: "string" ,editable: false},
-                                                        deviceModel: { type: "string",editable:false},
-                                                        deviceType: { type: "string",editable: false  },
-                                                        status: { type: "number",editable: false },
-                                                        priceName : {type : "string",editable: false},
-                                                        user :{type:"array",editable: false},
-                                                        deviceModelEntity:{type:"array",editable: false}
+                                                        id: {editable: false, nullable: true},
+                                                        price: {
+                                                            type: "number",
+                                                            validation: {required: true, min: 1},
+                                                            editable: false
+                                                        },
+                                                        useTime: {
+                                                            type: "number",
+                                                            validation: {required: true, min: 1},
+                                                            editable: false
+                                                        },
+                                                        createDateTime: {
+                                                            type: "Date",
+                                                            editable: false,
+                                                            format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                                        },
+                                                        startDateTime: {
+                                                            type: "Date",
+                                                            editable: false,
+                                                            format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                                        },
+                                                        endDateTime: {
+                                                            type: "Date",
+                                                            editable: false,
+                                                            format: "{0:yyyy-MM-dd HH:mm:ss}"
+                                                        },
+                                                        userId: {type: "string", editable: false},
+                                                        deviceModel: {type: "string", editable: false},
+                                                        deviceType: {type: "string", editable: false},
+                                                        status: {type: "number", editable: false},
+                                                        priceName: {type: "string", editable: false},
+                                                        user: {type: "array", editable: false},
+                                                        deviceModelEntity: {type: "array", editable: false}
                                                     }
                                                 },
                                                 data: function (response) {
@@ -382,34 +404,59 @@
                                                 //     of: "共 {0}页"
                                                 // }
                                             },
-                                            columnMenu:true,
-                                            sortable:true,
-                                            filterable:true,
+                                            columnMenu: true,
+                                            sortable: true,
+                                            filterable: true,
                                             resizable: true,
                                             scrollable: true,
                                             height: 480,
                                             columns: [
                                                 // { selectable: true, width: "50px" },
-                                                { field: "priceName", title: "价格名称",  width: "80px" },
-                                                { field: "price", title: "价格(元)", width: "80px",attributes: {
+                                                {field: "priceName", title: "价格名称", width: "80px"},
+                                                {
+                                                    field: "price", title: "价格(元)", width: "80px", attributes: {
                                                         style: "text-align: right"
-                                                    } },
-                                                { field: "useTime", title:"使用时长(分钟)",width: "80px" ,attributes: {
+                                                    }
+                                                },
+                                                {
+                                                    field: "useTime", title: "使用时长(分钟)", width: "80px", attributes: {
                                                         style: "text-align: right"
-                                                    }},
-                                                { field: "deviceModel", title: "按摩椅类型", width: "100px", filterable: { multi: true }},
-                                                { field: "deviceType", title: "按摩椅类型", width: "100px", filterable: { multi: true }},
-                                                { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
-                                                { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
-                                                { command: [{
-                                                        name :"价格绑定",click:function (e) {
+                                                    }
+                                                },
+                                                {
+                                                    field: "deviceModel",
+                                                    title: "按摩椅类型",
+                                                    width: "100px",
+                                                    filterable: {multi: true}
+                                                },
+                                                {
+                                                    field: "deviceType",
+                                                    title: "按摩椅类型",
+                                                    width: "100px",
+                                                    filterable: {multi: true}
+                                                },
+                                                {
+                                                    field: "startDateTime",
+                                                    title: "开始时间",
+                                                    width: "100px",
+                                                    format: "{0: yyyy-MM-dd}"
+                                                },
+                                                {
+                                                    field: "endDateTime",
+                                                    title: "结束时间",
+                                                    width: "100px",
+                                                    format: "{0: yyyy-MM-dd}"
+                                                },
+                                                {
+                                                    command: [{
+                                                        name: "价格绑定", click: function (e) {
                                                             var tr = $(e.target).closest("tr");
                                                             var data = this.dataItem(tr);
-                                                            var priceId = data. id;
+                                                            var priceId = data.id;
                                                             var array = priceId;
                                                             let list1 = {
-                                                                price :  array,
-                                                                placeId : placeId
+                                                                price: array,
+                                                                placeId: placeId
                                                             }
                                                             $.ajax({
                                                                 type: "POST",
@@ -417,7 +464,7 @@
                                                                 data: kendo.stringify(list1),
                                                                 contentType: "application/json; charset=utf-8",
                                                                 dataType: "json",
-                                                                success:function (data) {
+                                                                success: function (data) {
                                                                     alert("保存成功");
                                                                     myWindow.data("kendoWindow").close();
                                                                     location.reload();
@@ -425,15 +472,19 @@
 
                                                             })
                                                         }
-                                                    }], title: "&nbsp;", width: "50px" },],
+                                                    }], title: "&nbsp;", width: "50px"
+                                                },],
 
                                             editable: true,
-                                    });
-                            }},{name:"导出Excel",click:excel
+                                        });
+                                    }
+                                }, {
+                                    name: "导出Excel", click: excel
 
-                                        //================================================
+                                    //================================================
 
-                                    },{name:"导入Excel",click:importexcel}], title: "&nbsp;", width: "160px" },
+                                }, {name: "导入Excel", click: importexcel}], title: "&nbsp;", width: "160px"
+                            },
                         ],
 
 
@@ -445,7 +496,7 @@
 
                         detailRow.find(".tabstrip").kendoTabStrip({
                             animation: {
-                                open: { effects: "fadeIn" }
+                                open: {effects: "fadeIn"}
                             }
                         });
                         //
@@ -631,7 +682,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceBypId?placeId="+placeId,
+                                    read: "./place/findDeviceBypId?placeId=" + placeId,
                                 },
                                 // serverPaging: true,
                                 // serverSorting: true,
@@ -641,18 +692,22 @@
                                     model: {
                                         id: "id",
                                         fields: {
-                                            id: { editable: false, nullable: true },
-                                            maintainDateTime: { type: "timestamp"},
-                                            latitude: { type: "number" ,editable: false,validation: { required: true, min: 1} },
-                                            longitude: { type: "number",editable: false },
-                                            deviceModelEntity: { type: "array",editable: false },
-                                            supplierEntity: { type: "array",editable: false },
-                                            mcStatus: { type: "boolean",editable: false },
-                                            mcSn: { type: "string" ,editable: false},
-                                            loraId: { type: "string" ,editable: false},
-                                            model: { type: "string" ,editable: false},
-                                            placeName: { type: "string" ,editable: false},
-                                           type: { type: "string" ,editable: false},
+                                            id: {editable: false, nullable: true},
+                                            maintainDateTime: {type: "timestamp"},
+                                            latitude: {
+                                                type: "number",
+                                                editable: false,
+                                                validation: {required: true, min: 1}
+                                            },
+                                            longitude: {type: "number", editable: false},
+                                            deviceModelEntity: {type: "array", editable: false},
+                                            supplierEntity: {type: "array", editable: false},
+                                            mcStatus: {type: "boolean", editable: false},
+                                            mcSn: {type: "string", editable: false},
+                                            loraId: {type: "string", editable: false},
+                                            model: {type: "string", editable: false},
+                                            placeName: {type: "string", editable: false},
+                                            type: {type: "string", editable: false},
                                             // placeEntity:{type:"array",editable: false},
                                             // priceEntities :{type:"array",editable: false},
                                         }
@@ -696,27 +751,29 @@
                                 //     of: "共 {0}页"
                                 // }
                             },
-                            columnMenu:true,
+                            columnMenu: true,
                             groupable: true,
                             filterable: true,
                             // filterable: true,
                             columns: [
-                                { field: "mcSn", title:"按摩椅编号" ,width: "110px"},
-                                { field: "loraId", title:"模块编号" ,width: "110px"},
-                                { field: "type", title:"所属型号", width: "110px" },
-                                { field: "model", title:"类型", width: "110px" },
-                                { field: "placeName", title:"所属场地", width: "110px" },
+                                {field: "mcSn", title: "按摩椅编号", width: "110px"},
+                                {field: "loraId", title: "模块编号", width: "110px"},
+                                {field: "type", title: "所属型号", width: "110px"},
+                                {field: "model", title: "类型", width: "110px"},
+                                {field: "placeName", title: "所属场地", width: "110px"},
                                 // { field: "latitude", title:"按摩椅所在经度", width: "110px" },
                                 // { field: "longitude", title:"按摩椅所在纬度", width: "110px" },
-                                { command: [{text :"设备价格绑定",click:function (e) {
+                                {
+                                    command: [{
+                                        text: "设备价格绑定", click: function (e) {
                                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                             var data = this.dataItem(tr);
                                             var deviceId = data.id;
                                             var myWindow2 = $("#window2");
                                             myWindow2.kendoWindow({
                                                 width: "900px",
-                                                height:"500px",
-                                                title: data.mcSn+"价格管理",
+                                                height: "500px",
+                                                title: data.mcSn + "价格管理",
                                                 // content: $("roleList").html
                                                 // close: onClose
 
@@ -725,30 +782,30 @@
                                             var dataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./price/devicePrice?deviceId="+deviceId,
+                                                        url: "./price/devicePrice?deviceId=" + deviceId,
                                                         // dataType: "json"
                                                     },
                                                     destroy: {
                                                         url: "./price/deviceDeletePrice",
                                                         dataType: "json",
                                                         type: "post",
-                                                        contentType : "application/json"
+                                                        contentType: "application/json"
                                                     },
                                                     parameterMap: function (options, operation) {
                                                         if (operation === "destroy" && options.models) {
                                                             let array = [];
-                                                            for (let j =0 ;j<options.models.length;j++){
+                                                            for (let j = 0; j < options.models.length; j++) {
                                                                 array[j] = options.models[j].id;
                                                             }
 
                                                             let list1 = {
-                                                                price :  array,
-                                                                deviceId : deviceId
+                                                                price: array,
+                                                                deviceId: deviceId
                                                             }
                                                             return kendo.stringify(list1);
                                                         }
                                                         if (operation !== "read" && options.models) {
-                                                            return kendo.stringify(options.models) ;
+                                                            return kendo.stringify(options.models);
                                                         }
                                                     }
                                                 },
@@ -758,16 +815,24 @@
                                                     model: {
                                                         id: "id",
                                                         fields: {
-                                                            id: { editable: false, nullable: true },
-                                                            price: { type: "number", validation: { required: true, min: 1},editable: false },
-                                                            useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                                                            createDateTime: { type: "Date",editable: false },
-                                                            startDateTime: { type: "Date" ,editable: false},
-                                                            endDateTime: { type: "Date" ,editable: false},
-                                                            userId: { type: "string" ,editable: false},
-                                                            status: { type: "number" ,editable: false},
-                                                            priceName : {type : "string",editable: false},
-                                                            user :{type:"array"}
+                                                            id: {editable: false, nullable: true},
+                                                            price: {
+                                                                type: "number",
+                                                                validation: {required: true, min: 1},
+                                                                editable: false
+                                                            },
+                                                            useTime: {
+                                                                type: "number",
+                                                                validation: {required: true, min: 1},
+                                                                editable: false
+                                                            },
+                                                            createDateTime: {type: "Date", editable: false},
+                                                            startDateTime: {type: "Date", editable: false},
+                                                            endDateTime: {type: "Date", editable: false},
+                                                            userId: {type: "string", editable: false},
+                                                            status: {type: "number", editable: false},
+                                                            priceName: {type: "string", editable: false},
+                                                            user: {type: "array"}
                                                         }
                                                     }
                                                 }
@@ -782,23 +847,23 @@
                                                         url: "./price/deviceSavePrice",
                                                         dataType: "json",
                                                         type: "post",
-                                                        contentType : "application/json"
+                                                        contentType: "application/json"
                                                     },
                                                     parameterMap: function (options, operation) {
                                                         if (operation === "destroy" && options.models) {
                                                             var array = [];
-                                                            for (let j =0 ;j<options.models.length;j++){
+                                                            for (let j = 0; j < options.models.length; j++) {
                                                                 array[j] = options.models[j].id;
                                                             }
 
                                                             var list1 = {
-                                                                price :  array,
-                                                                deviceId : deviceId
+                                                                price: array,
+                                                                deviceId: deviceId
                                                             }
                                                             return kendo.stringify(list1);
                                                         }
                                                         if (operation !== "read" && options.models) {
-                                                            return kendo.stringify(options.models) ;
+                                                            return kendo.stringify(options.models);
                                                         }
                                                     }
                                                 },
@@ -808,22 +873,30 @@
                                                     model: {
                                                         id: "id",
                                                         fields: {
-                                                            id: { editable: false, nullable: true },
-                                                            price: { type: "number", validation: { required: true, min: 1},editable: false },
-                                                            useTime: { type: "number" ,validation: { required: true, min: 1},editable: false },
-                                                            createDateTime: { type: "Date",editable: false },
-                                                            startDateTime: { type: "Date",editable: false },
-                                                            endDateTime: { type: "Date",editable: false },
-                                                            userId: { type: "string" ,editable: false},
-                                                            status: { type: "number" ,editable: false},
-                                                            priceName : {type : "string",editable: false},
-                                                            user :{type:"array",editable: false}
+                                                            id: {editable: false, nullable: true},
+                                                            price: {
+                                                                type: "number",
+                                                                validation: {required: true, min: 1},
+                                                                editable: false
+                                                            },
+                                                            useTime: {
+                                                                type: "number",
+                                                                validation: {required: true, min: 1},
+                                                                editable: false
+                                                            },
+                                                            createDateTime: {type: "Date", editable: false},
+                                                            startDateTime: {type: "Date", editable: false},
+                                                            endDateTime: {type: "Date", editable: false},
+                                                            userId: {type: "string", editable: false},
+                                                            status: {type: "number", editable: false},
+                                                            priceName: {type: "string", editable: false},
+                                                            user: {type: "array", editable: false}
                                                         }
                                                     }
                                                 }
                                             });
                                             $("#edit-3").kendoGrid({
-                                                toolbar:"已绑定价格",
+                                                toolbar: "已绑定价格",
                                                 dataSource: dataSource,
                                                 pageable: {
                                                     // empty:"没有要显示的数据",
@@ -852,49 +925,74 @@
                                                     //     of: "共 {0}页"
                                                     // }
                                                 },
-                                                columnMenu:true,
-                                                filterable:true,
+                                                columnMenu: true,
+                                                filterable: true,
                                                 resizable: true,
                                                 scrollable: true,
-                                                sortable:true,
+                                                sortable: true,
                                                 height: 300,
                                                 columns: [
-                                                    { field: "priceName", title: "价格名称",  width: "50px" },
-                                                    { field: "price", title: "价格(元)", width: "50px",attributes: {
+                                                    {field: "priceName", title: "价格名称", width: "50px"},
+                                                    {
+                                                        field: "price", title: "价格(元)", width: "50px", attributes: {
                                                             style: "text-align: right"
-                                                        } },
-                                                    { field: "useTime", title:"使用时长",width: "50px",attributes: {
+                                                        }
+                                                    },
+                                                    {
+                                                        field: "useTime", title: "使用时长", width: "50px", attributes: {
                                                             style: "text-align: right"
-                                                        } },
-                                                    { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
-                                                    { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" }],
+                                                        }
+                                                    },
+                                                    {
+                                                        field: "startDateTime",
+                                                        title: "开始时间",
+                                                        width: "50px",
+                                                        format: "{0: yyyy-MM-dd}"
+                                                    },
+                                                    {
+                                                        field: "endDateTime",
+                                                        title: "结束时间",
+                                                        width: "50px",
+                                                        format: "{0: yyyy-MM-dd}"
+                                                    }],
                                                 editable: false
                                             });
                                             $("#edit-4").kendoGrid({
                                                 toolbar: "未绑定价格",
                                                 dataSource: dataSource1,
-                                                sortable:true,
-                                                columnMenu:true,
+                                                sortable: true,
+                                                columnMenu: true,
                                                 pageable: true,
-                                                filterable:true,
+                                                filterable: true,
                                                 resizable: true,
                                                 scrollable: true,
                                                 height: 300,
                                                 columns: [
-                                                    { field: "priceName", title: "价格名称",  width: "50px" },
-                                                    { field: "price", title: "价格", width: "50px" },
-                                                    { field: "useTime", title:"使用时长",width: "50px" },
-                                                    { field: "startDateTime", title:"开始时间",width: "50px",format: "{0: yyyy-MM-dd}" },
-                                                    { field: "endDateTime", title:"结束时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
+                                                    {field: "priceName", title: "价格名称", width: "50px"},
+                                                    {field: "price", title: "价格", width: "50px"},
+                                                    {field: "useTime", title: "使用时长", width: "50px"},
+                                                    {
+                                                        field: "startDateTime",
+                                                        title: "开始时间",
+                                                        width: "50px",
+                                                        format: "{0: yyyy-MM-dd}"
+                                                    },
+                                                    {
+                                                        field: "endDateTime",
+                                                        title: "结束时间",
+                                                        width: "50px",
+                                                        format: "{0: yyyy-MM-dd}"
+                                                    },
                                                     // { title: "绑定", width: 80,template: "<button class='row-number'>绑定</button>"},
-                                                    { command: [{
-                                                            name :"价格绑定",click:function (e) {
+                                                    {
+                                                        command: [{
+                                                            name: "价格绑定", click: function (e) {
                                                                 var tr = $(e.target).closest("tr");
                                                                 var data = this.dataItem(tr);
-                                                                var priceId = data. id;
+                                                                var priceId = data.id;
                                                                 let list1 = {
-                                                                    price :  priceId,
-                                                                    deviceId : deviceId
+                                                                    price: priceId,
+                                                                    deviceId: deviceId
                                                                 };
                                                                 $.ajax({
                                                                     type: "POST",
@@ -902,7 +1000,7 @@
                                                                     data: kendo.stringify(list1),
                                                                     contentType: "application/json; charset=utf-8",
                                                                     dataType: "json",
-                                                                    success:function (data) {
+                                                                    success: function (data) {
                                                                         alert("保存成功");
                                                                         myWindow2.data("kendoWindow").close();
                                                                         location.reload();
@@ -910,16 +1008,15 @@
 
                                                                 })
                                                             }
-                                                        }], title: "&nbsp;", width: "50px" },],
+                                                        }], title: "&nbsp;", width: "50px"
+                                                    },],
                                                 editable: false
                                             });
-                                }
+                                        }
 
 
-
-
-
-                                }], title: "&nbsp;", width: "160px" },
+                                    }], title: "&nbsp;", width: "160px"
+                                },
                             ],
                             editable: {
                                 mode: "popup",
@@ -1121,6 +1218,7 @@
                         $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                     }
                 });
+
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
                 function onRequestEnd(e) {
                     if (e.type == "create") {
@@ -1139,7 +1237,9 @@
                         var type = e.type;
                         if (type != 'read') {
                             var status = response.status;
-                            if (status == 200) {this.read();}
+                            if (status == 200) {
+                                this.read();
+                            }
                             else {
                                 // alert(response.msg);
                             }
@@ -1147,124 +1247,106 @@
                     }
                 }
 
-                  function excel(e){
-                      var tr = $(e.target).closest("tr");
+                function excel(e) {
+                    var tr = $(e.target).closest("tr");
 
-                      var data = this.dataItem(tr);
-                      var priceId = data. id;
-                      console.log(priceId)
-                      $.ajax({
-                          type: "GET",
-                          url: "/mc/price/export?id="+priceId,
-                          data:priceId,
-                          contentType: "application/json; charset=utf-8",
+                    var data = this.dataItem(tr);
+                    var priceId = data.id;
+                    console.log(priceId)
+                    $.ajax({
+                        type: "GET",
+                        url: "/mc/price/export?id=" + priceId,
+                        data: priceId,
+                        contentType: "application/json; charset=utf-8",
 
-                          success:function (data) {
+                        success: function (data) {
 
-                              window.location="/mc/price/export?id="+priceId;
-                          }
+                            window.location = "/mc/price/export?id=" + priceId;
+                        }
 
-                      })
-                  }
+                    })
+                }
 
-         function importexcel() {
+                function importexcel() {
 
-             $(document).ready(function() {
-                 var myWindow = $("#window3"),
-                     undo = $("#undo");
+                    $(document).ready(function () {
+                        var myWindow = $("#window3"),
+                            undo = $("#undo");
 
-                 undo.click(function() {
-                     myWindow.data("kendoWindow").open();
-                     undo.fadeOut();
+                        undo.click(function () {
+                            myWindow.data("kendoWindow").open();
+                            undo.fadeOut();
 
-                     $(document).ready(function() {
-                         $("#files").kendoUpload({
-                             async: {
-                                 saveUrl: "save",
-                                 removeUrl: "remove",
-                                 autoUpload: true
-                             }
-                         });
-                     });
-
-
-
-                 });
-
-                 function onClose() {
-                     undo.fadeIn();
-                 }
-
-                 myWindow.kendoWindow({
-                     width: "600px",
-                     title: "导入填写好的Excel",
-                     visible: false,
-                     actions: [
-                         "Pin",
-                         "Minimize",
-                         "Maximize",
-                         "Close"
-                     ],
-                     close: onClose
-                 }).data("kendoWindow").center().open();
-             });
+                            $(document).ready(function () {
+                                $("#files").kendoUpload({
+                                    async: {
+                                        saveUrl: "save",
+                                        removeUrl: "remove",
+                                        autoUpload: true
+                                    }
+                                });
+                            });
 
 
+                        });
+
+                        function onClose() {
+                            undo.fadeIn();
+                        }
+
+                        myWindow.kendoWindow({
+                            width: "600px",
+                            title: "导入填写好的Excel",
+                            visible: false,
+                            actions: [
+                                "Pin",
+                                "Minimize",
+                                "Maximize",
+                                "Close"
+                            ],
+                            close: onClose
+                        }).data("kendoWindow").center().open();
+                    });
 
 
-
-
-
-
-
-
-
-         }
-
-
-
-
-
-
-
+                }
 
 
             </script>
             <style>
-                .k-edit-form-container
-                {
+                .k-edit-form-container {
                     width: 700px;
                 }
+
                 .k-detail-cell .k-tabstrip .k-content {
                     padding: 0.2em;
                 }
-                .employee-details ul
-                {
-                    list-style:none;
-                    font-style:italic;
+
+                .employee-details ul {
+                    list-style: none;
+                    font-style: italic;
                     margin: 15px;
                     padding: 0;
                 }
-                .employee-details ul li
-                {
+
+                .employee-details ul li {
                     margin: 0;
                     line-height: 1.7em;
                 }
 
-                .employee-details label
-                {
-                    display:inline-block;
-                    width:90px;
+                .employee-details label {
+                    display: inline-block;
+                    width: 90px;
                     padding-right: 10px;
                     text-align: right;
-                    font-style:normal;
-                    font-weight:bold;
+                    font-style: normal;
+                    font-weight: bold;
                 }
             </style>
         </div>
 
-        </div>
-        </div>
+    </div>
+</div>
 
 <footer th:replace="fragments/footer::footer"/>
 <aside th:replace="fragments/menu"/>

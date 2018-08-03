@@ -8,7 +8,7 @@
 
 <div class="content-wrapper">
 
-    <section  class="content-header">
+    <section class="content-header">
         <h1>
             权限管理
         </h1>
@@ -24,7 +24,9 @@
             <div id="grid"></div>
             <script>
                 /*<![CDATA[*/
-                $(function () {loadUserList();});
+                $(function () {
+                    loadUserList();
+                });
 
                 var headName;
 
@@ -41,15 +43,15 @@
                                 url: "/mc/permission/save",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "/mc/permission/update",
+                                url: "/mc/permission/update",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
-                            parameterMap:function(options, operation){
+                            parameterMap: function (options, operation) {
 
                                 // if(operation=="read"){
                                 //     var page = $("#grid").data("kendoGrid").dataSource.page();
@@ -57,7 +59,7 @@
                                 //     return {page:page,pageSize:pageSize};
                                 // }
 
-                                if(operation !== "read"){
+                                if (operation !== "read") {
                                     return kendo.stringify(options);
                                 }
                             }
@@ -71,10 +73,10 @@
                             model: {
                                 id: "id",
                                 fields: {
-                                    id: { editable: false, nullable: true },
-                                    permissionsName: { type: "string" },
-                                    url: { type: "string"},
-                                    description : {type: "string"},
+                                    id: {editable: false, nullable: true},
+                                    permissionsName: {type: "string"},
+                                    url: {type: "string"},
+                                    description: {type: "string"},
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },
@@ -131,8 +133,13 @@
                         },
                         columns: [
                             // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                            { field: "permissionsName",title: "权限名称", width: 100,filterable: { multi: true, search: true} },
-                            { field: "description",title: "权限描述", width: 100,filterable: { multi: true, search: true}},
+                            {
+                                field: "permissionsName",
+                                title: "权限名称",
+                                width: 100,
+                                filterable: {multi: true, search: true}
+                            },
+                            {field: "description", title: "权限描述", width: 100, filterable: {multi: true, search: true}},
                             // { field: "roleEntities", title: "角色", width: 80, filterable: { multi: true },template:"#=roleEntities.name#，" },
                             // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                             {
@@ -166,7 +173,6 @@
                 }
 
 
-
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
                 function onRequestEnd(e) {
                     if (e.type == "create") {
@@ -185,7 +191,9 @@
                         var type = e.type;
                         if (type != 'read') {
                             var status = response.status;
-                            if (status == 200) {this.read();}
+                            if (status == 200) {
+                                this.read();
+                            }
                             else {
                                 // alert(response.msg);
                             }
@@ -196,7 +204,7 @@
                 //编辑时boolean类型复选框样式修改
                 function customBoolEditor(container, options) {
                     var guid = kendo.guid();
-                    $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
+                    $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="' + options.field + '" data-type="boolean" data-bind="checked:' + options.field + '">').appendTo(container);
                     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                 }
 

@@ -8,7 +8,7 @@
 
 <div class="content-wrapper">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
-    <section  class="content-header">
+    <section class="content-header">
         <h1>
             价格管理
         </h1>
@@ -27,7 +27,9 @@
             </div>
             <script>
                 /*<![CDATA[*/
-                $(function () {loadUserList();});
+                $(function () {
+                    loadUserList();
+                });
 
 
                 //初始化表格数据
@@ -44,21 +46,21 @@
                                 url: "./price/save",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
                             destroy: {
                                 url: "./price/delete",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./price/update",
+                                url: "./price/update",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
-                            parameterMap:function(options, operation){
+                            parameterMap: function (options, operation) {
                                 //
                                 // if(operation=="read"){
                                 //     var page = $("#grid").data("kendoGrid").dataSource.page();
@@ -72,7 +74,7 @@
                                 //     options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
                                 //     return kendo.stringify(options);
                                 // }
-                                if(operation !== "read"){
+                                if (operation !== "read") {
                                     return kendo.stringify(options);
                                 }
                             }
@@ -80,7 +82,7 @@
                         // serverPaging: true,    //设定服务器来实现分页功能
                         // serverFiltering: true,
                         // serverSorting: true,
-                        filterable:true,
+                        filterable: true,
                         scrollable: true,
                         requestEnd: onRequestEnd,
                         pageSize: 10,
@@ -88,20 +90,32 @@
                             model: {
                                 id: "id",
                                 fields: {
-                                    id: { editable: false, nullable: true },
-                                    price: { type: "number", validation: {required: true, required: { message: "请您填写价格" }} },
-                                    useTime: { type: "number" ,validation: {required: true, required: { message: "请您填写使用时长" }} },
-                                    createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                                    startDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                                    endDateTime: { type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                                    userName: { type: "string" ,editable: false},
-                                    deviceModel: { type: "string" },
-                                    deviceType: { type: "string",editable: false  },
-                                    deviceModelId:{ type: "number" },
-                                    status: { type: "number",editable: false },
-                                    priceName : {type : "string",validation: {required: true, required: { message: "请您填写价格名称" }}},
-                                    user :{type:"array",editable: false,defaultValue: { id: 1, name: ""}},
-                                    deviceModelEntity : {defaultValue: { id: 1, name: ""},validation: {required: true, required: { message: "请您填写设备类型" }}},
+                                    id: {editable: false, nullable: true},
+                                    price: {
+                                        type: "number",
+                                        validation: {required: true, required: {message: "请您填写价格"}}
+                                    },
+                                    useTime: {
+                                        type: "number",
+                                        validation: {required: true, required: {message: "请您填写使用时长"}}
+                                    },
+                                    createDateTime: {type: "Date", editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                    startDateTime: {type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                    endDateTime: {type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}"},
+                                    userName: {type: "string", editable: false},
+                                    deviceModel: {type: "string"},
+                                    deviceType: {type: "string", editable: false},
+                                    deviceModelId: {type: "number"},
+                                    status: {type: "number", editable: false},
+                                    priceName: {
+                                        type: "string",
+                                        validation: {required: true, required: {message: "请您填写价格名称"}}
+                                    },
+                                    user: {type: "array", editable: false, defaultValue: {id: 1, name: ""}},
+                                    deviceModelEntity: {
+                                        defaultValue: {id: 1, name: ""},
+                                        validation: {required: true, required: {message: "请您填写设备类型"}}
+                                    },
                                 }
                             },
                             data: function (response) {
@@ -155,17 +169,53 @@
                             }
                         },
                         columns: [
-                            { field: "priceName",title: "价格名称", width: 100,filterable: { multi: true, search: true} },
-                            { field: "price", title: "价格(元)", width: 80, filterable: { multi: true,search: true },attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}, },
-                            { field: "useTime", title: "时长(分钟)", width: 80, filterable: { multi: true } ,attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}},
-                            { field: "userName", title: "创建人", width: 100, filterable: { multi: true } },
+                            {field: "priceName", title: "价格名称", width: 100, filterable: {multi: true, search: true}},
+                            {
+                                field: "price",
+                                title: "价格(元)",
+                                width: 80,
+                                filterable: {multi: true, search: true},
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"},
+                            },
+                            {
+                                field: "useTime",
+                                title: "时长(分钟)",
+                                width: 80,
+                                filterable: {multi: true},
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
+                            },
+                            {field: "userName", title: "创建人", width: 100, filterable: {multi: true}},
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
-                            { field: "startDateTime",title: "生效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
-                                editor: changeDate },
-                            { field: "endDateTime",title: "失效时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}",
-                                editor: changeDate },
-                            { field: "deviceModel", title: "按摩椅型号", width: 100, filterable: { multi: true },editor:roleListDropDownEditor},
-                            { field: "deviceType", title: "类型", width: 100, filterable: { multi: true },editor:deviceListDropDownEditor},
+                            {
+                                field: "startDateTime",
+                                title: "生效时间",
+                                width: 120,
+                                filterable: {multi: true, search: true},
+                                format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                editor: changeDate
+                            },
+                            {
+                                field: "endDateTime",
+                                title: "失效时间",
+                                width: 120,
+                                filterable: {multi: true, search: true},
+                                format: "{0:yyyy-MM-dd HH:mm:ss}",
+                                editor: changeDate
+                            },
+                            {
+                                field: "deviceModel",
+                                title: "按摩椅型号",
+                                width: 100,
+                                filterable: {multi: true},
+                                editor: roleListDropDownEditor
+                            },
+                            {
+                                field: "deviceType",
+                                title: "类型",
+                                width: 100,
+                                filterable: {multi: true},
+                                editor: deviceListDropDownEditor
+                            },
 
                             {
                                 command: [
@@ -190,7 +240,6 @@
                 }
 
 
-
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
                 function onRequestEnd(e) {
                     if (e.type == "create") {
@@ -209,7 +258,9 @@
                         var type = e.type;
                         if (type != 'read') {
                             var status = response.status;
-                            if (status == 200) {this.read();}
+                            if (status == 200) {
+                                this.read();
+                            }
                             else {
                                 // alert(response.msg);
                             }
@@ -232,10 +283,10 @@
                     var input = $('<input required name="' + options.field + '"/>');
                     input.appendTo(container);
                     input.kendoComboBox({
-                        template: '<span class="order-id">#= name #, #= model #</span>' ,
+                        template: '<span class="order-id">#= name #, #= model #</span>',
                         placeholder: "请选择...",
                         value: typeId,
-                        text:options.model.deviceModelId,
+                        text: options.model.deviceModelId,
                         dataTextField: "name",
                         dataValueField: "id",
                         filter: "contains",
@@ -252,9 +303,9 @@
                                 schema: {
                                     model: {
                                         fields: {
-                                            id: { type: "number" },
-                                            model: { type: "sting" },
-                                            name: { type: "string" },
+                                            id: {type: "number"},
+                                            model: {type: "sting"},
+                                            name: {type: "string"},
                                         }
                                     }
                                 }
@@ -281,7 +332,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./deviceModel/type?id="+modelId,
+                                    url: "./deviceModel/type?id=" + modelId,
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -306,7 +357,7 @@
             {
                 type: "button",
                 text: "导出Excel",
-                click: function(e) {
+                click: function (e) {
                     //t, {name:"导出excel",click:function(){
 
                     $.ajax({
@@ -315,9 +366,9 @@
 
                         contentType: "application/json; charset=utf-8",
 
-                        success:function () {
+                        success: function () {
 
-                            window.location="./price/export1"
+                            window.location = "./price/export1"
 
                         }
 
@@ -331,15 +382,6 @@
 
     });
 </script>
-
-
-
-
-
-
-
-
-
 
 
 <footer th:replace="fragments/footer::footer"/>

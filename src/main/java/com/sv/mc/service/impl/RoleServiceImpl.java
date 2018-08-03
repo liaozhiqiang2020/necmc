@@ -84,10 +84,10 @@ public class RoleServiceImpl implements RoleService {
         PermissionEntity permission = this.permissionRepository.findByPermissionId(pId);
 
         Set<PermissionEntity> permissionEntities = role.getPermissionEntityHashSet();
-        String des = "" ;
-        for (PermissionEntity p:permissionEntities
+        String des = "";
+        for (PermissionEntity p : permissionEntities
                 ) {
-            des = des+ p.getPermissionsName() + " ";
+            des = des + p.getPermissionsName() + " ";
         }
         des = des + permission.getPermissionsName();
         role.setDescription(des);
@@ -102,10 +102,10 @@ public class RoleServiceImpl implements RoleService {
         RoleEntity role = this.roleRepository.findById(roleId);
         PermissionEntity permission = this.permissionRepository.findByPermissionId(pId);
         Set<PermissionEntity> permissionEntities = role.getPermissionEntityHashSet();
-        String des = "" ;
-        for (PermissionEntity p:permissionEntities
+        String des = "";
+        for (PermissionEntity p : permissionEntities
                 ) {
-            des = des+ p.getPermissionsName() + " ";
+            des = des + p.getPermissionsName() + " ";
         }
         des = des + permission.getPermissionsName();
         role.setDescription(des);

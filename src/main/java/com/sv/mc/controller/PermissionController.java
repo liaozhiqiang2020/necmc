@@ -3,7 +3,6 @@ package com.sv.mc.controller;
 import com.sv.mc.pojo.PermissionEntity;
 import com.sv.mc.service.PermissionService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,27 +13,27 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @GetMapping("/permission/all")
-    List<PermissionEntity> findAll(){
+    List<PermissionEntity> findAll() {
         return this.permissionService.findAllPermission();
     }
 
     @PostMapping("/permission/update")
-    PermissionEntity updatePermission(@RequestBody PermissionEntity permissionEntity){
+    PermissionEntity updatePermission(@RequestBody PermissionEntity permissionEntity) {
         return this.permissionService.updatePermission(permissionEntity);
     }
 
     @PostMapping("/permission/save")
-    PermissionEntity savePermission(@RequestBody PermissionEntity permissionEntity){
+    PermissionEntity savePermission(@RequestBody PermissionEntity permissionEntity) {
         return this.permissionService.savePermission(permissionEntity);
     }
 
     @PostMapping("/permission/findByName")
-    PermissionEntity findPermissionByName(@RequestParam("permissionName") String name){
+    PermissionEntity findPermissionByName(@RequestParam("permissionName") String name) {
         return this.permissionService.findPermissionByPermissionName(name);
     }
 
     @GetMapping("/permission/findById")
-    PermissionEntity findPermissionById(@RequestParam("permissionId") int id){
+    PermissionEntity findPermissionById(@RequestParam("permissionId") int id) {
         return this.permissionService.findPermissionById(id);
     }
 

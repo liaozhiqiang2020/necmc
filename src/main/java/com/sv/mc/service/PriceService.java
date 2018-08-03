@@ -2,9 +2,6 @@ package com.sv.mc.service;
 
 
 import com.sv.mc.pojo.PriceEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface PriceService{
+public interface PriceService {
 
     /**
      * 分页查询所有数据
-     * @param page 分页规则
+     *
+     * @param page     分页规则
      * @param pageSize 分页规则
      * @return 价格分页集合
      */
@@ -25,12 +23,14 @@ public interface PriceService{
 
     /**
      * 查询所有价格数据
+     *
      * @return 价格集合
      */
     List<PriceEntity> findAllPrice();
 
     /**
      * 查询状态为使用中的价格
+     *
      * @return价格集合数组
      */
     String findStatusPrice();
@@ -38,14 +38,16 @@ public interface PriceService{
 
     /**
      * 更新价格
+     *
      * @param map 价格对象（价格对象必须包含主键ID）
      * @return 消息
      */
-    PriceEntity updatePrice(Map<String,Object> map);
+    PriceEntity updatePrice(Map<String, Object> map);
 
 
     /**
      * 删除价格
+     *
      * @param priceEntity 价格
      * @return 消息
      */
@@ -54,20 +56,24 @@ public interface PriceService{
 
     /**
      * 根据id查询价格
-     * @param Id    价格ID
+     *
+     * @param Id 价格ID
      * @return
      */
     PriceEntity findPriceById(int Id);
+
     /**
      * 添加价格
-     * @param map 价格对象
+     *
+     * @param map     价格对象
      * @param request 页面请求
      * @return 消息
      */
-    PriceEntity addPrice( Map<String,Object> map, HttpServletRequest request);
+    PriceEntity addPrice(Map<String, Object> map, HttpServletRequest request);
 
     /**
      * 批量修改或者保存价格数据
+     *
      * @param priceEntityList
      * @return 页面需要回显新的价格数据
      */
@@ -75,12 +81,15 @@ public interface PriceService{
 
     /**
      * 批量删除
+     *
      * @param priceEntityList
      * @return 页面需要回显新的价格数据
      */
     List<PriceEntity> batchDeletePrice(List<PriceEntity> priceEntityList);
+
     /**
      * 根据设备id的价格进行查询
+     *
      * @param deviceId 设备Id
      * @return 当前机器的价格集合
      */
@@ -88,6 +97,7 @@ public interface PriceService{
 
     /**
      * 根据设备Id查询出当前设备的所有绑定的价格
+     *
      * @param deviceId 设备Id
      * @return 价格集合
      */
@@ -95,6 +105,7 @@ public interface PriceService{
 
     /**
      * 根据当前设备查询所有未绑定的价格方案
+     *
      * @param deviceId 当前设备
      * @return 未绑定的价格集合
      */
@@ -102,12 +113,14 @@ public interface PriceService{
 
     /**
      * 给机器绑定价格
+     *
      * @return 成功消息
      */
     List<PriceEntity> deviceSavePrice(Map<String, Object> listMap);
 
     /**
      * 给机器解绑价格方案
+     *
      * @param listMap 设备实体类
      * @return 设备
      */
@@ -115,6 +128,7 @@ public interface PriceService{
 
     /**
      * 给场地上的某种类型的所有机器绑定价格
+     *
      * @param listMap 场地id 与 价格id集合
      * @return
      */
@@ -122,13 +136,15 @@ public interface PriceService{
 
     /**
      * 根据设备编号查询价格列表
+     *
      * @param deviceCode
      * @return
      */
-    List<Map<String,Object>> queryPriceAndTime(String deviceCode);
+    List<Map<String, Object>> queryPriceAndTime(String deviceCode);
 
     /**
      * 查询所有可用的价格
+     *
      * @param
      * @return
      */
@@ -136,7 +152,7 @@ public interface PriceService{
 
     /**
      * 分页查询所有数据
-
+     *
      * @return 价格集合
      */
     List<PriceEntity> findAllPagePrice();
@@ -147,9 +163,6 @@ public interface PriceService{
      */
 
     boolean getExcel(MultipartFile multipartFile) throws IOException;
-
-
-
 
 
 }
