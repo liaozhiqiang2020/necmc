@@ -147,20 +147,41 @@ public class HeadQuartersController {
         return this.headQuartersService.findAllUnboundPlace();
     }
 
+
+
+    /**
+     * 根据总公司id查询下面的合同
+     */
+    @GetMapping(value = "/headMgr/findContractByHeadId")
+    public @ResponseBody
+    String findContractByHeadId(@Param("headId")int headId) {
+        return this.headQuartersService.findContractByHeadId(headId);
+    }
+
+    /**
+     * 根据总公司id查询历史合同
+     */
+    @GetMapping(value = "/headMgr/findHistoryContractByHeadId")
+    public @ResponseBody
+    String findHistoryContractByHeadId(@Param("headId")int headId) {
+        return this.headQuartersService.findHistoryContractByHeadId(headId);
+    }
+
+
     /**
      * 总公司绑定场地
      */
     @PostMapping(value="/headMgr/headBoundPlace")
     public @ResponseBody
-    String headBoundPlace(@Param("headId")int headId,@Param("placeId")int placeId){
-        String result = "绑定成功！";
+    void headBoundPlace(@Param("headId")int headId,@Param("placeId")int placeId){
+//        String result = "绑定成功！";
 //        String agreement = this.placeService.findPlaceById(placeId).getFile();
 //        if(agreement==null){
 //            result="请上传协议后再进行绑定操作！";
 //            return result;
 //        }
         this.headQuartersService.headBoundPlace(headId,placeId);
-        return result;
+//        return result;
     }
 
     /**
@@ -168,10 +189,10 @@ public class HeadQuartersController {
      */
     @PostMapping(value="/headMgr/unboundPlace")
     public @ResponseBody
-    String unboundPlace(@Param("placeId")int placeId){
-        String result = "解绑成功！";
-        this.headQuartersService.unboundPlace(placeId);
-        return result;
+    void unboundPlace(@Param("placeId")int placeId,@Param("supId")int supId,@Param("flagId")int flagId){
+//        String result = "解绑成功！";
+        this.headQuartersService.unboundPlace(placeId,supId,flagId);
+//        return result;
     }
 
 

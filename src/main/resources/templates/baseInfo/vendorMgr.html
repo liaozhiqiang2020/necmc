@@ -17,14 +17,15 @@
         </ol>
     </section>
 
-    <div id="window2">
-        <input name="file" id="file" type="file"/>
-    </div>
-
     <div id="window">
+        <button id="history" class="k-button  k-primary">历史记录</button>
         <div id="placeGrid"></div>
         <div><hr></div>
         <div id="unboundPlaceGrid"></div>
+    </div>
+
+    <div id="window2">
+        <div id="historyGrid"></div>
     </div>
 
     <div class="container-fluid">
@@ -34,10 +35,7 @@
             <script>
                 /*<![CDATA[*/
                 $(function () {
-                    $("#file").kendoUpload({
-
-                    });
-                    $(".k-upload-empty").hide();
+                    $("#history").hide();
 
                     loadUserList();}
                  );
@@ -230,23 +228,93 @@
                                             var data = this.dataItem(tr);
                                             var vendorId = data.id;//代理商id
 
+                                            $("#history").show();
+                                            $("#history").click(function(){
+                                                history(vendorId);
+                                            });
+
                                             var placeDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./vendorMgr/findAllPlaceByVendorId?vendorId="+vendorId
+                                                        url: "./vendorMgr/findContractByVendorId?vendorId="+vendorId
+                                                    },
+                                                    update: {
+                                                        url:  "./contract/updateContract",
+                                                        dataType: "json",
+                                                        type: "post",
+                                                        contentType:"application/json;charset=UTF-8"
+                                                    },
+                                                    parameterMap:function(options, operation){
+                                                        if(operation == "update"){
+                                                            var endDate =options.endDeteTime;
+                                                            var startDate = options.startDateTime;
+                                                            var effectDate = options.effectDateTime;
+
+                                                            if(endDate!=null){
+                                                                if(endDate.length!==19){
+                                                                    options.endDeteTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                                                }
+                                                            }
+                                                            if(startDate!=null){
+                                                                if(startDate.length!==19){
+                                                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                                                }
+                                                            }
+
+                                                            if(effectDate!=null){
+                                                                if(effectDate.length!==19){
+                                                                    options.effectDateTime=  kendo.toString(kendo.parseDate(effectDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                                                }
+                                                            }
+
+                                                            var list = {
+                                                                id:options.id,
+                                                                contractCode:options.contractCode,
+                                                                startDateTime:options.startDateTime,
+                                                                endDateTime:options.endDeteTime,
+                                                                effectDateTime:options.effectDateTime
+                                                            }
+                                                            return kendo.stringify(list);
+                                                        }
                                                     }
                                                 },
                                                 serverPaging: false,    //设定服务器来实现分页功能
                                                 serverFiltering: false,
                                                 serverSorting: false,
+                                                requestEnd: function(e){
+                                                    if (e.type == undefined) {
+                                                        e.sender.read();
+                                                    }
+
+                                                    //更新成功后弹出提示信息
+                                                    var response = e.response;
+                                                    if (response) {
+                                                        var type = e.type;
+                                                        if (type != 'read') {
+                                                            var status = response.status;
+                                                            if (status == 200) {this.read();}
+                                                            else {
+                                                                // alert(response.msg);
+                                                            }
+                                                        }
+                                                    }
+                                                },
                                                 pageSize: 10,
                                                 schema: {
                                                     model: {
                                                         id: "id",
                                                         fields: {
                                                             id: {type: "number", editable: false},
-                                                            name: {type: "string"}
+                                                            placeName: {type: "string",editable: false},
+                                                            contractCode: {type: "string"},
+                                                            effectDateTime:{type: "timestamp"},
+                                                            startDateTime: {type: "timestamp"},
+                                                            endDeteTime: {type: "timestamp"}
                                                         }
+                                                    },
+                                                    data: function (response) {
+                                                        var list = JSON.parse(response);
+                                                        return list;
                                                     }
                                                 }
                                             });
@@ -259,91 +327,49 @@
                                                 sortable: true, //表示是否支持排序， boolean型
                                                 filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
                                                 columnMenu: true,
-                                                pageable: {
-                                                    // empty:"没有要显示的数据",
-                                                    // //代表是否支持刷新
-                                                    // refresh: true,
-                                                    // //表示每页显示的记录数，默认为5,10,20
-                                                    pageSizes: true,
-                                                    // //表示显示的页数，5表示1,2,3,4,5
-                                                    buttonCount: 5,
-                                                    totalPages: true,
-                                                    // input: true,//表示是否可以输入数字
-                                                    refresh: true,
-                                                    pageSize: 5,
-                                                    pageSizes: [5, 10, 15, 20],
-                                                    numeric: true,
-                                                    input: true,
-                                                    messages: {
-                                                        display: "显示 {0}-{1} 条，共 {2} 条",
-                                                        empty: "没有数据",
-                                                        itemsPerPage: "每页显示数量",
-                                                        first: "第一页",
-                                                        last: "最后一页",
-                                                        next: "下一页",
-                                                        previous: "上一页",
-                                                        page: "页",
-                                                        of: "共 {0}页"
-                                                    }
-                                                },
+                                                resizable: true,
                                                 columns: [
                                                     {
-                                                        field: "name",
-                                                        title: "场地名称"
-                                                    }, {
+                                                        field: "placeName",
+                                                        title: "场地名称",
+                                                        attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                                    },
+                                                    {
+                                                        field: "contractCode",
+                                                        title: "合同编号",
+                                                        attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                                    },
+                                                    {
+                                                        field: "effectDateTime",
+                                                        title: "签约时间",
+                                                        format: "{0:yyyy-MM-dd HH:mm}",
+                                                        editor: changeDate,
+                                                        attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                                    },
+                                                    {
+                                                        field: "startDateTime",
+                                                        title: "开始时间",
+                                                        format: "{0:yyyy-MM-dd HH:mm}",
+                                                        editor: changeDate,
+                                                        attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                                    },
+                                                    {
+                                                        field: "endDeteTime",
+                                                        title: "结束时间",
+                                                        format: "{0:yyyy-MM-dd HH:mm}",
+                                                        editor: changeDate,
+                                                        attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                                    },
+                                                    {
+                                                        field: "image",
+                                                        title: "上传",
+                                                        editor: categoryDropDownEditor,
+                                                        hidden:true
+                                                    },
+                                                    {
                                                         command: [
                                                             {
-                                                                text: "上传",//名称
-                                                                click: function (e) {
-                                                                    // e.target 是表示按钮的DOM元素
-                                                                    var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
-                                                                    // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
-                                                                    var data = this.dataItem(tr);
-                                                                    var placeId = data.id;
-                                                                    var file = data.file;
-
-                                                                    var myWindow2 = $("#window2");
-                                                                    myWindow2.kendoWindow({
-                                                                        width: "500px",
-                                                                        height: "300px",
-                                                                        title: "上传协议"
-                                                                    });
-
-                                                                    myWindow2.data("kendoWindow").center().open();
-
-                                                                    $(".k-upload-empty").show();
-
-                                                                    $("#file").kendoUpload({
-                                                                        async: {
-                                                                            saveUrl: "./file/upload",
-                                                                            autoUpload: true
-                                                                        },
-                                                                        localization: {     //设置上传按钮名称
-                                                                            select: "上传"
-                                                                        },
-                                                                        success: function(e){//上传成功后执行的回调函数
-                                                                            var uploadpath = e.response.uploadpath;
-                                                                            var fileName = e.response.fileName;
-
-                                                                            $.ajax({
-                                                                                type:"post",
-                                                                                url:"./placeMgr/saveFileToDB",
-                                                                                data:{
-                                                                                    uploadpath:uploadpath,
-                                                                                    placeId:placeId,
-                                                                                    fileName:fileName
-                                                                                },
-                                                                                success:function(res){
-                                                                                    // console.log(uploadpath);
-                                                                                    myWindow2.data("kendoWindow").close();
-                                                                                    location.reload();
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    });
-
-
-                                                                }
+                                                                name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
                                                             },
                                                             {
                                                                 text: "下载",//名称
@@ -352,7 +378,7 @@
                                                                     var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
-                                                                    var placeId = data.id;
+                                                                    var placeId = data.placeId;
                                                                     window.location="/mc/file/download?placeId="+placeId+"&type=1";
                                                                 }
                                                             },
@@ -363,26 +389,31 @@
                                                                     var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
-                                                                    var placeId = data.id;
-                                                                    window.open("/mc/file/download?placeId="+placeId+"&type=2");
+                                                                    var placeId = data.placeId;
+                                                                    window.open("/mc/file/download?placeId="+placeId+"&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+                                                                    // window.open("/mc/file/download?placeId="+placeId+"&type=2");
                                                                 }
                                                             },
                                                             {
                                                                 name :"解约场地",click:function (e) {
                                                                     var tr = $(e.target).closest("tr");
                                                                     var data = this.dataItem(tr);
-                                                                    var placeId = data.id;
+                                                                    var placeId = data.placeId;
+                                                                    var supId=data.owner;
+                                                                    var flagId=3;
 
                                                                     $.ajax({
                                                                         type: "POST",
                                                                         url: "./headMgr/unboundPlace",
                                                                         data:{
-                                                                            placeId:placeId
+                                                                            placeId:placeId,
+                                                                            supId:supId,
+                                                                            flagId:flagId
                                                                         },
                                                                         // contentType: "application/json; charset=utf-8",
                                                                         // dataType: "json",
                                                                         success:function (data) {
-                                                                            alert(data);
+                                                                            // alert(data);
                                                                             var placeGrid = $("#placeGrid").data("kendoGrid");
                                                                             placeGrid.dataSource.read();
                                                                             var unboundPlaceGrid = $("#unboundPlaceGrid").data("kendoGrid");
@@ -397,7 +428,13 @@
                                                         title: "操作",
                                                         width: "300px"
                                                     }
-                                                ]
+                                                ],
+                                                editable: {
+                                                    mode: "popup",
+                                                    window: {
+                                                        title: "签约信息管理"
+                                                    }
+                                                }
                                             });
 
 
@@ -478,15 +515,12 @@
                                                                             vendorId:vendorId,
                                                                             placeId:placeId
                                                                         },
-                                                                        // contentType: "application/json; charset=utf-8",
-                                                                        // dataType: "json",
                                                                         success:function (data) {
-                                                                            alert(data);
                                                                             var placeGrid = $("#placeGrid").data("kendoGrid");
                                                                             placeGrid.dataSource.read();
                                                                             var unboundPlaceGrid = $("#unboundPlaceGrid").data("kendoGrid");
                                                                             unboundPlaceGrid.dataSource.read();
-                                                                            // myWindow2.data("kendoWindow").close();
+                                                                            location.reload();
                                                                         }
 
                                                                     })
@@ -636,6 +670,167 @@
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                 }
+                            }
+                        }
+                    });
+                }
+
+
+                function changeDate(container, options) {
+                    var input = $('<input name="' + options.field + '"/>');
+                    input.appendTo(container);
+                    input.kendoDateTimePicker({
+                        format: "{0:yyyy-MM-dd HH:mm}"
+                    });
+                }
+
+                //字段修改格式化 修改框 转换为上传按钮
+                function categoryDropDownEditor(container, options) {
+                    var placeId = options.model.placeId;
+                    // $('<input type="file" name="' + options.field + '"/>')
+                    $('<input type="file" name="file" id="file"/>')
+                        .appendTo(container)
+                        .kendoUpload({
+                            async: {
+                                saveUrl: "./file/upload",
+                                autoUpload: true
+                            },
+                            localization: {     //设置上传按钮名称
+                                select: "上传"
+                            },
+                            success: function(e){//上传成功后执行的回调函数
+                                var uploadpath = e.response.uploadpath;
+                                var fileName = e.response.fileName;
+
+                                $.ajax({
+                                    type:"post",
+                                    url:"./placeMgr/saveFileToDB",
+                                    data:{
+                                        uploadpath:uploadpath,
+                                        placeId:placeId,
+                                        fileName:fileName
+                                    },
+                                    success:function(res){
+                                        console.log(uploadpath);
+                                        // myWindow2.data("kendoWindow").close();
+                                        // location.reload();
+                                    }
+                                })
+                            }
+                        });
+                }
+
+                function history(vendorId){
+                    var myWindow2 = $("#window2");
+                    myWindow2.kendoWindow({
+                        width: "700px",
+                        height: "520px",
+                        title: "历史签约信息"
+                    });
+
+                    myWindow2.data("kendoWindow").center().open();
+
+                    var historyDataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: "./vendorMgr/findHistoryContractByVendorId?vendorId="+vendorId
+                            }
+                        },
+                        pageSize: 10,
+                        schema: {
+                            model: {
+                                id: "id",
+                                fields: {
+                                    id: {type: "number", editable: false},
+                                    placeName: {type: "string",editable: false},
+                                    contractCode: {type: "string"},
+                                    effectDateTime:{type: "timestamp"},
+                                    startDateTime: {type: "timestamp"},
+                                    endDeteTime: {type: "timestamp"}
+                                }
+                            },
+                            data: function (response) {
+                                var list = JSON.parse(response);
+                                return list;
+                            }
+                        }
+                    });
+
+                    //dataSource是必填属性
+                    $("#historyGrid").kendoGrid({
+                        toolbar:"历史签约信息",
+                        dataSource: historyDataSource,
+                        height: 500,
+                        sortable: true, //表示是否支持排序， boolean型
+                        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                        columnMenu: true,
+                        resizable: true,
+                        columns: [
+                            {
+                                field: "placeName",
+                                title: "场地名称",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                field: "contractCode",
+                                title: "合同编号",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                field: "effectDateTime",
+                                title: "签约时间",
+                                format: "{0:yyyy-MM-dd HH:mm}",
+                                editor: changeDate,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                field: "startDateTime",
+                                title: "开始时间",
+                                format: "{0:yyyy-MM-dd HH:mm}",
+                                editor: changeDate,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                field: "endDeteTime",
+                                title: "结束时间",
+                                format: "{0:yyyy-MM-dd HH:mm}",
+                                editor: changeDate,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
+                                command: [
+                                    {
+                                        text: "下载",//名称
+                                        click: function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+                                            var placeId = data.placeId;
+                                            window.location="/mc/file/download?placeId="+placeId+"&type=1";
+                                        }
+                                    },
+                                    {
+                                        text: "预览",//名称
+                                        click: function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+                                            var placeId = data.placeId;
+                                            window.open("/mc/file/download?placeId="+placeId+"&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+                                            // window.location="/mc/file/download?placeId="+placeId+"&type=2";
+                                        }
+                                    }
+                                ],
+                                title: "操作",
+                                width: "300px"
+                            }
+                        ],
+                        editable: {
+                            mode: "popup",
+                            window: {
+                                title: "历史签约信息"
                             }
                         }
                     });

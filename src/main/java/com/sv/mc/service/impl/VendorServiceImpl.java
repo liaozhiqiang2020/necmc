@@ -1,20 +1,20 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
-import com.sv.mc.pojo.BranchEntity;
-import com.sv.mc.pojo.HeadQuartersEntity;
-import com.sv.mc.pojo.PlaceEntity;
-import com.sv.mc.pojo.VendorEntity;
+import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
 import com.sv.mc.service.PlaceService;
 import com.sv.mc.service.VendorService;
 import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.DateJsonValueProcessor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +34,8 @@ public class VendorServiceImpl implements VendorService {
         private UserRepository userRepository;
         @Autowired
         private PlaceRepository placeRepository;
+        @Autowired
+        private ContractRepository contractRepository;
 
         /**
          * 提交数据
@@ -211,7 +213,16 @@ public class VendorServiceImpl implements VendorService {
          */
         @Override
         public void vendorBoundPlace(int vendorId, int placeId) {
-                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);//查出placeId下的所有场地id
+
+                ContractEntity contractEntity=new ContractEntity();
+                contractEntity.setOwner(vendorId);//甲方
+                contractEntity.setSecond(placeId);//乙方
+                contractEntity.setFlag(3);//代理商签约
+                contractEntity.setUseFlag(1);//使用中
+                contractEntity.setPlaceId(placeId);
+                this.contractRepository.save(contractEntity);
+
                 for (int i = 0; i <list.size() ; i++) {
                         Integer placeChildId = list.get(i);
                         PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);
@@ -219,5 +230,67 @@ public class VendorServiceImpl implements VendorService {
                         placeEntity.setSuperiorId(vendorId);
                         this.placeRepository.save(placeEntity);
                 }
+        }
+
+        /**
+         * 根据代理商id查询下面的合同
+         */
+        @Override
+        public String findContractByVendorId(int vendorId) {
+                List<ContractEntity> list = this.contractRepository.findContractsByVendorId(vendorId);
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+
+                JSONArray jsonArray = JSONArray.fromObject(list,config);
+                JSONArray jsonArray1 = new JSONArray();
+                String placeName = "";
+                String fileUrl = "";
+                String fileName = "";
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+                        placeName=placeEntity.getName();
+                        fileUrl = placeEntity.getFile();
+                        fileName=placeEntity.getFileName();
+                        jsonObject.put("placeName",placeName);
+                        jsonObject.put("fileUrl",fileUrl);
+                        jsonObject.put("fileName",fileName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                return jsonArray1.toString();
+        }
+
+        /**
+         * 根据代理商id查询合同历史
+         */
+        @Override
+        public String findHistoryContractByVendorId(int vendorId) {
+                List<ContractEntity> list = this.contractRepository.findHistoryContractByVendorId(vendorId);
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+
+                JSONArray jsonArray = JSONArray.fromObject(list,config);
+                JSONArray jsonArray1 = new JSONArray();
+                String placeName = "";
+                String fileUrl = "";
+                String fileName = "";
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+                        placeName=placeEntity.getName();
+                        fileUrl = placeEntity.getFile();
+                        fileName=placeEntity.getFileName();
+                        jsonObject.put("placeName",placeName);
+                        jsonObject.put("fileUrl",fileUrl);
+                        jsonObject.put("fileName",fileName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                return jsonArray1.toString();
         }
 }

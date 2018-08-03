@@ -5,9 +5,13 @@ import com.google.gson.JsonArray;
 import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
 import com.sv.mc.service.BranchService;
+import com.sv.mc.service.ContractService;
 import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.DateJsonValueProcessor;
+import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import net.sf.json.groovy.GJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -30,6 +35,8 @@ public class BranchServiceImpl implements BranchService {
         private UserRepository userRepository;
         @Autowired
         private PlaceRepository placeRepository;
+        @Autowired
+        private ContractRepository contractRepository;
 
         /**1
          * 保存缓存数据
@@ -248,6 +255,69 @@ public class BranchServiceImpl implements BranchService {
         }
 
         /**
+         * 根据分公司id查询下面的合同
+         */
+        @Override
+        public String findContractsByBranchId(int branchId) {
+                List<ContractEntity> list = this.contractRepository.findContractsByBranchId(branchId);
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+
+                JSONArray jsonArray = JSONArray.fromObject(list,config);
+                JSONArray jsonArray1 = new JSONArray();
+                String placeName = "";
+                String fileUrl = "";
+                String fileName = "";
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+                        placeName=placeEntity.getName();
+                        fileUrl = placeEntity.getFile();
+                        fileName=placeEntity.getFileName();
+                        jsonObject.put("placeName",placeName);
+                        jsonObject.put("fileUrl",fileUrl);
+                        jsonObject.put("fileName",fileName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                return jsonArray1.toString();
+        }
+
+
+        /**
+         * 根据分公司id查询历史合同
+         */
+        @Override
+        public String findHistoryContractByBranchId(int branchId) {
+                List<ContractEntity> list = this.contractRepository.findHistoryContractByBranchId(branchId);
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+
+                JSONArray jsonArray = JSONArray.fromObject(list,config);
+                JSONArray jsonArray1 = new JSONArray();
+                String placeName = "";
+                String fileUrl = "";
+                String fileName = "";
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+                        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
+                        placeName=placeEntity.getName();
+                        fileUrl = placeEntity.getFile();
+                        fileName=placeEntity.getFileName();
+                        jsonObject.put("placeName",placeName);
+                        jsonObject.put("fileUrl",fileUrl);
+                        jsonObject.put("fileName",fileName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                return jsonArray1.toString();
+        }
+
+        /**
          * 根据分公司id查询下面的场地
          */
         @Override
@@ -260,7 +330,16 @@ public class BranchServiceImpl implements BranchService {
          */
         @Override
         public void branchBoundPlace(int branchId, int placeId) {
-                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);
+                List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);//查出placeId下的所有场地id
+
+                ContractEntity contractEntity=new ContractEntity();
+                contractEntity.setOwner(branchId);//甲方
+                contractEntity.setSecond(placeId);//乙方
+                contractEntity.setFlag(2);//分公司签约
+                contractEntity.setUseFlag(1);//使用中
+                contractEntity.setPlaceId(placeId);
+                this.contractRepository.save(contractEntity);
+
                 for (int i = 0; i <list.size() ; i++) {
                         Integer placeChildId = list.get(i);
                         PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeChildId);

@@ -140,7 +140,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             packageParams.put("nonce_str", nonce_str);
             packageParams.put("body", body);
             packageParams.put("out_trade_no", orderNo);//商户订单号
-            packageParams.put("total_fee", money);//支付金额，这边需要转成字符串类型，否则后面的签名会失败
+            packageParams.put("total_fee", money+"");//支付金额，这边需要转成字符串类型，否则后面的签名会失败
             packageParams.put("spbill_create_ip", spbill_create_ip);
             packageParams.put("notify_url", WxPayConfig.notify_url);
             packageParams.put("trade_type", WxPayConfig.TRADETYPE);

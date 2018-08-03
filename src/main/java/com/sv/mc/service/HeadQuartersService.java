@@ -82,5 +82,16 @@ public interface HeadQuartersService<T> extends BaseService<T>{
     /**
      * 解绑场地
      */
-    void unboundPlace(int placeId);
+    void unboundPlace(int placeId,int supId,int flagId);
+
+    /**
+     * 根据总公司id查询下面的合同
+     */
+    String findContractByHeadId(int headId);
+
+
+    /**
+     * 根据总公司id查询合同历史
+     */
+    String findHistoryContractByHeadId(int headId);
 }

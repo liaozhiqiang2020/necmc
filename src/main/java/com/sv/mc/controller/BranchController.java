@@ -1,6 +1,7 @@
 package com.sv.mc.controller;
 
 import com.sv.mc.pojo.BranchEntity;
+import com.sv.mc.pojo.ContractEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.BranchService;
@@ -146,18 +147,38 @@ public class BranchController {
     }
 
     /**
+     * 根据分公司id查询下面的合同
+     */
+    @GetMapping(value = "/branchMgr/findContractByBranchId")
+    public @ResponseBody
+    String findContractsByBranchId(@Param("branchId")int branchId) {
+        return this.branchService.findContractsByBranchId(branchId);
+    }
+
+    /**
+     * 根据分公司id查询历史合同
+     */
+    @GetMapping(value = "/branchMgr/findHistoryContractByBranchId")
+    public @ResponseBody
+    String findHistoryContractByBranchId(@Param("branchId")int branchId) {
+        return this.branchService.findHistoryContractByBranchId(branchId);
+    }
+
+
+
+    /**
      * 分公司绑定场地
      */
     @PostMapping(value="/branchMgr/branchBoundPlace")
     public @ResponseBody
-    String branchBoundPlace(@Param("branchId")int branchId,@Param("placeId")int placeId){
-        String result = "绑定成功！";
+    void branchBoundPlace(@Param("branchId")int branchId,@Param("placeId")int placeId){
+//        String result = "绑定成功！";
 //        String agreement = this.placeService.findPlaceById(placeId).getFile();
 //        if(agreement==null){
 //            result="请上传协议后再进行绑定操作！";
 //            return result;
 //        }
         this.branchService.branchBoundPlace(branchId,placeId);
-        return result;
+//        return result;
     }
 }

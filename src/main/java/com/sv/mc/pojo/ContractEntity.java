@@ -13,8 +13,8 @@ import java.util.Objects;
 @Table(name = "mc_contract", schema = "mc", catalog = "")
 public class ContractEntity {
     private int id;
-    private String owner;           //甲方
-    private String second;          //乙方
+    private int owner;           //甲方
+    private int second;          //乙方
     private Timestamp effectDateTime;//签约时间
     private Timestamp startDateTime; //开始时间
     private Timestamp endDeteTime;   //结束时间
@@ -22,6 +22,9 @@ public class ContractEntity {
     private int earningsRatio;       //收益比例
     private BigDecimal minimum;     //保底（最低是多少钱，低于这个这个标准没收益）
     private BigDecimal adminiFee;   //管理费（基础收益扣除合同额的百分之多少，相当于管理费）
+    private int flag;
+    private int useFlag;
+    private int placeId;
 
     @Id
     @GeneratedValue
@@ -33,25 +36,73 @@ public class ContractEntity {
     public void setId(int id) {
         this.id = id;
     }
+//
+//    @Basic
+//    @Column(name = "owner")
+//    public String getOwner() {
+//        return owner;
+//    }
+//
+//    public void setOwner(String owner) {
+//        this.owner = owner;
+//    }
+//
+//    @Basic
+//    @Column(name = "second")
+//    public String getSecond() {
+//        return second;
+//    }
+//
+//    public void setSecond(String second) {
+//        this.second = second;
+//    }
 
     @Basic
     @Column(name = "owner")
-    public String getOwner() {
+    public int getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(int owner) {
         this.owner = owner;
     }
 
     @Basic
     @Column(name = "second")
-    public String getSecond() {
+    public int getSecond() {
         return second;
     }
 
-    public void setSecond(String second) {
+    public void setSecond(int second) {
         this.second = second;
+    }
+    @Basic
+    @Column(name = "flag")
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+    @Basic
+    @Column(name = "use_flag")
+    public int getUseFlag() {
+        return useFlag;
+    }
+
+    public void setUseFlag(int useFlag) {
+        this.useFlag = useFlag;
+    }
+
+    @Basic
+    @Column(name = "place_id")
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     @Basic

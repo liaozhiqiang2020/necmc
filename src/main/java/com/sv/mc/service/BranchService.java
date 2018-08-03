@@ -1,9 +1,6 @@
 package com.sv.mc.service;
 
-import com.sv.mc.pojo.BranchEntity;
-import com.sv.mc.pojo.BusinessEntity;
-import com.sv.mc.pojo.PlaceEntity;
-import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.*;
 import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,6 +71,16 @@ public interface BranchService<T> extends BaseService<T>{
      * 根据分公司id查询下面的场地
      */
     List<PlaceEntity> findAllPlaceByBranchId(int branchId);
+
+    /**
+     * 根据分公司id查询下面的合同
+     */
+    String findContractsByBranchId(int branchId);
+
+    /**
+     * 根据分公司id查询历史合同
+     */
+    String findHistoryContractByBranchId(int branchId);
 
     /**
      * 分公司绑定场地

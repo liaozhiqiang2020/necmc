@@ -6,13 +6,15 @@ import com.sv.mc.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ContractSeviceImpl implements ContractService {
 
     @Autowired
-    private ContractRepository signRepository;
+    private ContractRepository contractRepository;
 
     /**
      * 保存数据
@@ -21,7 +23,7 @@ public class ContractSeviceImpl implements ContractService {
      */
     @Override
     public ContractEntity save(ContractEntity contractEntity) {
-        return signRepository.save(contractEntity);
+        return contractRepository.save(contractEntity);
     }
 
     /**
@@ -31,7 +33,7 @@ public class ContractSeviceImpl implements ContractService {
      */
     @Override
     public ContractEntity findSignById(int id) {
-        return signRepository.findSignById(id);
+        return contractRepository.findSignById(id);
     }
 
     /**
@@ -41,7 +43,7 @@ public class ContractSeviceImpl implements ContractService {
      */
     @Override
     public ContractEntity insertSign(ContractEntity contractEntity) {
-        return signRepository.save(contractEntity);
+        return contractRepository.save(contractEntity);
     }
 
     /**
@@ -50,6 +52,45 @@ public class ContractSeviceImpl implements ContractService {
      */
     @Override
     public List<ContractEntity> findAllEntities() {
-        return signRepository.findAll();
+        return contractRepository.findAll();
+    }
+
+    /**
+     * 修改签约信息
+     * @param map
+     * @return
+     */
+    @Override
+    public void  updateContract(Map map) {
+        ContractEntity contractEntity = this.contractRepository.findSignById(Integer.parseInt(map.get("id").toString()));
+        Object startDateTime = map.get("startDateTime");
+        Object endDateTime = map.get("endDateTime");
+        Object effectDateTime = map.get("effectDateTime");
+        Object contractCode = map.get("contractCode");
+        if(startDateTime==null){
+            contractEntity.setStartDateTime(null);
+        }else{
+            contractEntity.setStartDateTime(Timestamp.valueOf(startDateTime.toString()));
+        }
+
+        if(endDateTime==null){
+            contractEntity.setEndDeteTime(null);
+        }else {
+             contractEntity.setEndDeteTime(Timestamp.valueOf(endDateTime.toString()));
+        }
+
+        if(effectDateTime==null){
+            contractEntity.setEffectDateTime(null);
+        }else{
+            contractEntity.setEffectDateTime(Timestamp.valueOf(effectDateTime.toString()));
+        }
+
+        if(contractCode==null){
+            contractEntity.setContractCode(null);
+        }else{
+            contractEntity.setContractCode(contractCode.toString());
+        }
+
+         this.contractRepository.save(contractEntity);
     }
 }

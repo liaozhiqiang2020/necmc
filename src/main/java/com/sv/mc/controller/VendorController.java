@@ -136,15 +136,34 @@ public class VendorController {
      */
     @PostMapping(value="/vendorMgr/vendorBoundPlace")
     public @ResponseBody
-    String vendorBoundPlace(@Param("vendorId")int vendorId,@Param("placeId")int placeId){
-        String result = "绑定成功！";
+    void vendorBoundPlace(@Param("vendorId")int vendorId,@Param("placeId")int placeId){
+//        String result = "绑定成功！";
 //        String agreement = this.placeService.findPlaceById(placeId).getFile();
 ////        if(agreement==null){
 ////            result="请上传协议后再进行绑定操作！";
 ////            return result;
 ////        }
         this.vendorService.vendorBoundPlace(vendorId,placeId);
-        return result;
+//        return result;
+    }
+
+
+    /**
+     * 根据代理商id查询下面的合同
+     */
+    @GetMapping(value = "/vendorMgr/findContractByVendorId")
+    public @ResponseBody
+    String findContractByVendorId(@Param("vendorId")int vendorId) {
+        return this.vendorService.findContractByVendorId(vendorId);
+    }
+
+    /**
+     * 根据代理商id查询历史合同
+     */
+    @GetMapping(value = "/vendorMgr/findHistoryContractByVendorId")
+    public @ResponseBody
+    String findHistoryContractByVendorId(@Param("vendorId")int vendorId) {
+        return this.vendorService.findHistoryContractByVendorId(vendorId);
     }
 
 }

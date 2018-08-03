@@ -75,4 +75,16 @@ public interface VendorService<T> extends BaseService<T>{
      * @param placeId
      */
     void vendorBoundPlace(int vendorId, int placeId);
+
+
+    /**
+     * 根据代理商id查询下面的合同
+     */
+    String findContractByVendorId(int vendorId);
+
+
+    /**
+     * 根据代理商id查询合同历史
+     */
+    String findHistoryContractByVendorId(int vendorId);
 }
