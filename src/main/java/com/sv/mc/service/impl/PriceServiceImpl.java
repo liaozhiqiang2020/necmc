@@ -234,7 +234,7 @@ public class PriceServiceImpl implements PriceService {
         history.setOldPrice(price.getPrice());
         history.setOldUseTime(price.getUseTime());
         this.priceHistoryRepository.save(history);
-        this.priceRepository.save(priceEntity);
+        this.priceRepository.save(price);
     }
 
     /**
