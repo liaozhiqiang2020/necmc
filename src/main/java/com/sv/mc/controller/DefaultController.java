@@ -16,6 +16,11 @@ public class DefaultController {
         return new ModelAndView("./home");
     }
 
+    @RequestMapping("/")
+    public ModelAndView home() {
+        return new ModelAndView("./home");
+    }
+
     @GetMapping("/login")
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout) {

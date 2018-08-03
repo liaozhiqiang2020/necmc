@@ -100,4 +100,12 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
 
     @Query("from PlaceEntity p where p.name = :name")
     PlaceEntity findPByName(@Param("name")String name);
+//
+//    /**
+//     * 不分页查询所有场地
+//     * @param uId
+//     * @return
+//     */
+//    @Query(value="select * from mc_place as b where b.discard_status=1 and b.p_id is null LIMIT :offset,:pageSize",nativeQuery = true)
+//    List<PlaceEntity> findAllPlaceById(@Param("uId") int uId);
 }
