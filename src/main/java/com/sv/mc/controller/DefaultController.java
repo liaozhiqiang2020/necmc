@@ -13,7 +13,7 @@ public class DefaultController {
 
     @RequestMapping("/index")
     public ModelAndView index() {
-        return new ModelAndView("/home");
+        return new ModelAndView("./home");
     }
 
     @GetMapping("/login")

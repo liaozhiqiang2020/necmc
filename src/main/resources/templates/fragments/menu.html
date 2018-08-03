@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <!-- logo和导航条 -->
 <!-- Left side column. contains the logo and sidebar -->
@@ -31,7 +31,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">导航栏</li>
 
-            <li class="treeview">
+            <li class="treeview" sec:authorize="hasAnyAuthority('总公司管理','分公司管理','代理商管理','行业分类管理','场地方管理','大区管理','设备管理')">
                 <a href="#">
                     <i class="fa fa-files-o"></i>
                     <span>基础数据管理</span>
@@ -41,20 +41,20 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/mc/turnToHeadMgr"><i class="fa fa-circle-o"></i> 总公司管理</a></li>
-                    <li><a href="/mc/turnToBranchMgr"><i class="fa fa-circle-o"></i> 分公司管理</a></li>
-                    <li><a href="/mc/turnToVendorMgr"><i class="fa fa-circle-o"></i> 代理商管理</a></li>
-                    <li><a href="/mc/turnToBussinessMgr"><i class="fa fa-circle-o"></i> 行业分类管理</a></li>
-                    <li><a href="/mc/turnToPlaceMgr"><i class="fa fa-circle-o"></i> 场地方管理</a></li>
+                    <li sec:authorize="hasAuthority('总公司管理')"><a href="/mc/turnToHeadMgr"><i class="fa fa-circle-o"></i> 总公司管理</a></li>
+                    <li sec:authorize="hasAuthority('分公司管理')"><a href="/mc/turnToBranchMgr"><i class="fa fa-circle-o"></i> 分公司管理</a></li>
+                    <li sec:authorize="hasAuthority('代理商管理')"><a href="/mc/turnToVendorMgr"><i class="fa fa-circle-o"></i> 代理商管理</a></li>
+                    <li sec:authorize="hasAuthority('行业分类管理')"><a href="/mc/turnToBussinessMgr"><i class="fa fa-circle-o"></i> 行业分类管理</a></li>
+                    <li sec:authorize="hasAuthority('场地方管理')"><a href="/mc/turnToPlaceMgr"><i class="fa fa-circle-o"></i> 场地方管理</a></li>
                     <!--<li><a href="/mc/turnToPlaceDetailMgr"><i class="fa fa-circle-o"></i> 场地方管理</a></li>-->
-                    <li><a href="/mc/turnToregion"><i class="fa fa-circle-o"></i> 大区管理</a></li>
+                    <li sec:authorize="hasAuthority('大区管理')"><a href="/mc/turnToregion"><i class="fa fa-circle-o"></i> 大区管理</a></li>
                     <!--<li><a href="./turnToInventoryMgr"><i class="fa fa-circle-o"></i> 库存管理</a></li>-->
-                    <li><a href="/mc/turnToDeviceMgr"><i class="fa fa-circle-o"></i> 设备管理</a></li>
+                    <li sec:authorize="hasAuthority('设备管理')"><a href="/mc/turnToDeviceMgr"><i class="fa fa-circle-o"></i> 设备管理</a></li>
                     <!--<li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> 客户信息管理</a></li>-->
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview" sec:authorize="hasAnyAuthority('价格管理','价格绑定')">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
                     <span>价格管理</span>
@@ -63,12 +63,12 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/mc/priceTest"><i class="fa fa-circle-o"></i> 价格管理</a></li>
-                    <li><a href="/mc/priceTest1"><i class="fa fa-circle-o"></i> 价格绑定</a></li>
+                    <li sec:authorize="hasAuthority('价格管理')"><a href="/mc/priceTest"><i class="fa fa-circle-o"></i> 价格管理</a></li>
+                    <li sec:authorize="hasAuthority('价格绑定')"><a href="/mc/priceTest1"><i class="fa fa-circle-o"></i> 价格绑定</a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview" sec:authorize="hasAnyAuthority('销售报表')">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
                     <span>销售管理</span>
@@ -80,10 +80,10 @@
                     <!--<li><a href="/mc/priceTest"><i class="fa fa-circle-o"></i> 价格管理</a></li>-->
                     <!--<li><a href="/mc/priceTest1"><i class="fa fa-circle-o"></i> 价格绑定</a></li>-->
                     <!--<li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> 价格查询统计</a></li>-->
-                    <li><a href="/mc/turnToreport"><i class="fa fa-circle-o"></i> 销售报表</a></li>
+                    <li sec:authorize="hasAuthority('销售报表')"><a href="/mc/turnToreport"><i class="fa fa-circle-o"></i> 销售报表</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview" sec:authorize="hasAnyAuthority('订单查询')">
                 <a href="#">
                     <i class="fa fa-laptop"></i>
                     <span>交易管理</span>
@@ -92,11 +92,11 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/mc/turnToOrderMgr"><i class="fa fa-circle-o"></i> 订单查询</a></li>
+                    <li sec:authorize="hasAuthority('订单查询')"><a href="/mc/turnToOrderMgr"><i class="fa fa-circle-o"></i> 订单查询</a></li>
                     <!--<li><a href="#"><i class="fa fa-circle-o"></i> 异常管理</a></li>-->
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview" sec:authorize="hasAnyAuthority('控制设备')">
                 <a href="#">
                     <i class="fa fa-edit"></i> <span>设备管理</span>
                     <span class="pull-right-container">
@@ -105,10 +105,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <!--<li><a href="#"><i class="fa fa-circle-o"></i> 设备列表</a></li>-->
-                    <li><a href="/mc/turnToDeviceCtrl"><i class="fa fa-circle-o"></i> 控制设备</a></li>
+                    <li sec:authorize="hasAuthority('控制设备')"><a href="/mc/turnToDeviceCtrl"><i class="fa fa-circle-o"></i> 控制设备</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview" sec:authorize="hasAnyAuthority('用户信息管理','角色绑定')">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>用户管理</span>
                     <span class="pull-right-container">
@@ -116,8 +116,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/mc/userManagement"><i class="fa fa-circle-o"></i> 用户信息管理</a></li>
-                    <li><a href="/mc/roleManagement"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                    <li sec:authorize="hasAuthority('用户信息管理')"><a href="/mc/userManagement"><i class="fa fa-circle-o"></i> 用户信息管理</a></li>
+                    <li sec:authorize="hasAuthority('角色管理')"><a href="/mc/roleManagement"><i class="fa fa-circle-o"></i> 角色管理</a></li>
                     <!--<li ><a href="/mc/user/permissionManagement"><i class="fa fa-circle-o"></i> 权限管理</a></li>-->
                 </ul>
             </li>
