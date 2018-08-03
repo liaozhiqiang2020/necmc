@@ -1,6 +1,7 @@
 package com.sv.mc.repository;
 
 import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.DeviceModelEntity;
 import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -71,7 +72,11 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     List<PriceEntity> findAllPrice();
 
 
-
+    /**
+     * 查询价格是否存在
+     */
+    @Query(value="from PriceEntity AS p where p.useTime=:userTime and p.price=:price and p.deviceModelEntity = :deviceModelEntity and p.status= 1 ")
+    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price")int price, @Param("deviceModelEntity")DeviceModelEntity deviceModelEntity);
 
 
 

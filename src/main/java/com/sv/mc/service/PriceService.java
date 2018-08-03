@@ -5,8 +5,10 @@ import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -135,7 +137,11 @@ public interface PriceService{
     List<PriceEntity> findAllPagePrice();
 
 
+    /**
+     * 解析用户上传的excel 文件
+     */
 
+    void getExcel(MultipartFile multipartFile) throws IOException;
 
 
 
