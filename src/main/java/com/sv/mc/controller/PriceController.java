@@ -64,7 +64,7 @@ public class PriceController {
      * @return 价格集合
      */
     @GetMapping("/price/statusOrDate")
-    public List<PriceEntity> findEndPrice(){
+    public String findEndPrice(){
         return this.priceService.findPriceEntitiesByEnd();
     }
 

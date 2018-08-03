@@ -270,7 +270,6 @@
                                             transport: {
                                                 read: {
                                                     url: "./price/statusOrDate",
-                                                    dataType: "json"
                                                 },
                                                 destroy: {
                                                     url: "./price/placeAddPrice",
@@ -344,6 +343,12 @@
                                                         user :{type:"array",editable: false},
                                                         deviceModelEntity:{type:"array",editable: false}
                                                     }
+                                                },
+                                                data: function (response) {
+                                                    return JSON.parse(response).data;
+                                                },
+                                                total: function (response) {
+                                                    return JSON.parse(response).total;
                                                 }
                                             }
                                         });

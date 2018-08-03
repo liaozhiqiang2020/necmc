@@ -132,7 +132,7 @@ public interface PriceService{
      * @param
      * @return
      */
-    List<PriceEntity> findPriceEntitiesByEnd();
+    String findPriceEntitiesByEnd();
 
     /**
      * 分页查询所有数据

@@ -453,8 +453,40 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public List<PriceEntity> findPriceEntitiesByEnd() {
-        return this.priceRepository.findPriceEntitiesByEnd();
+    public String findPriceEntitiesByEnd() {
+       List<PriceEntity> priceList=  this.priceRepository.findPriceEntitiesByEnd();
+
+        int total = this.priceRepository.findPriceTotal();
+        String userName = "";
+        String deviceModel = "";
+        String deviceType = "";
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+//        config.setIgnoreDefaultExcludes(false);  //设置默认忽略
+        config.setExcludes(new String[] { "deviceModelEntity","user","deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+
+
+
+//        config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        JSONArray jsonArray = JSONArray.fromObject(priceList,config);//转化为jsonArray
+        JSONArray jsonArray1 = new JSONArray();//新建json数组
+        JSONObject jsonObject = new JSONObject();
+        for (int i = 0; i <jsonArray.size() ; i++) {
+            JSONObject jsonObject2 =jsonArray.getJSONObject(i);
+            userName = priceList.get(i).getUser().getName();
+            int useTime = (int)jsonObject2.get("useTime");
+            int newUseTime = useTime/60;
+            jsonObject2.replace("useTime",newUseTime);
+            deviceModel = priceList.get(i).getDeviceModelEntity().getName();
+            deviceType = priceList.get(i).getDeviceModelEntity().getModel();
+            jsonObject2.put("userName",userName);
+            jsonObject2.put("deviceModel",deviceModel);
+            jsonObject2.put("deviceType",deviceType);
+            jsonArray1.add(jsonObject2);
+        }
+        jsonObject.put("data",jsonArray1);
+        jsonObject.put("total",total);
+        return jsonObject.toString();
     }
 
     /**
