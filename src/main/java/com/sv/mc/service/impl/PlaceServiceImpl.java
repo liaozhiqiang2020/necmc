@@ -157,10 +157,10 @@ public class PlaceServiceImpl implements PlaceService {
 
                 JSONArray jsonArray = JSONArray.fromObject(placeEntityList,config);
                 JSONArray jsonArray1 = new JSONArray();
-                String superiorName="";
-                String levelFlagName="";
-                String userName="";
                 for (int i = 0; i <jsonArray.size() ; i++) {
+                        String superiorName="";
+                        String levelFlagName="";
+                        String userName="";
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
                         Integer superiorId =Integer.parseInt(jsonObject.get("superiorId").toString());
                         int levelFlag =Integer.parseInt(jsonObject.get("levelFlag").toString());
@@ -183,10 +183,21 @@ public class PlaceServiceImpl implements PlaceService {
                         String cityName = this.cityRepository.findCityById(cityId).getName();
 
                         userName = this.userRepository.findUserById(userId).getName();
+
                         jsonObject.put("superiorId",superiorId+"_"+superiorName);
-                        jsonObject.put("superiorName",superiorName);
-                        jsonObject.put("levelFlagName",levelFlagName);
-                         jsonObject.put("userName",userName);
+                        if(jsonObject.get("superiorId")!=null){
+                                jsonObject.put("superiorName",superiorName);
+                        }else{
+                                jsonObject.put("superiorName","");
+                        }
+
+                        if(jsonObject.get("levelFlag")!=null){
+                                jsonObject.put("levelFlagName",levelFlagName);
+                        }else{
+                                jsonObject.put("levelFlagName","");
+                        }
+
+                        jsonObject.put("userName",userName);
                         jsonObject.put("businessName",businessName);
                         jsonObject.put("cityName",cityName);
                         jsonObject.put("hasChildren",true);

@@ -114,8 +114,8 @@
                                         required: {message: "场地地址为必填项！"}
                                     }
                                 },
-                                startDateTime: {type: "timestamp",editable: false},
-                                endDateTime: {type: "timestamp",editable: false},
+                                // startDateTime: {type: "timestamp",editable: false},
+                                // endDateTime: {type: "timestamp",editable: false},
                                 levelFlag: {type: "number",editable: false},
                                 levelFlagName: {type: "string",editable: false},
                                 superiorId: {type: "string",editable: false},
@@ -174,22 +174,23 @@
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
                             hidden:true
                         },
+                        // {
+                        //     field: "startDateTime",
+                        //     title: "协议开始时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate,
+                        //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                        //     hidden:true
+                        // },
+                        // {
+                        //     field: "endDateTime",
+                        //     title: "协议结束时间",
+                        //     format: "{0:yyyy-MM-dd HH:mm}",
+                        //     editor: changeDate,
+                        //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
+                        //     hidden:true
+                        // },
                         {
-                            field: "startDateTime",
-                            title: "协议开始时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
-                            hidden:true
-                        },
-                        {
-                            field: "endDateTime",
-                            title: "协议结束时间",
-                            format: "{0:yyyy-MM-dd HH:mm}",
-                            editor: changeDate,
-                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"},
-                            hidden:true
-                        },{
                             field: "levelFlagName",
                             title: "隶属上级单位",
                             template:"#=levelFlagName#",
