@@ -514,8 +514,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         String yestedayDate = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(calendar.getTime());
         String today = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(new Date());
-        System.out.println(yestedayDate);
-        System.out.println(today);
+//        System.out.println(yestedayDate);
+//        System.out.println(today);
 
 //        return 56;
         return this.orderRepository.findOrderByPeriod(yestedayDate, today);
