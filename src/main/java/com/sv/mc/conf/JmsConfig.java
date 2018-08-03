@@ -2,6 +2,7 @@ package com.sv.mc.conf;
 
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
@@ -10,6 +11,7 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.jms.Topic;
+import javax.servlet.MultipartConfigElement;
 
 @Configuration
 public class JmsConfig {
@@ -40,5 +42,8 @@ public class JmsConfig {
         bean.setConnectionFactory(activeMQConnectionFactory);
         return bean;
     }
+
+
+
 
 }

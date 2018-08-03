@@ -478,6 +478,7 @@ public class PriceServiceImpl implements PriceService {
     public boolean getExcel(MultipartFile file) throws IOException {
         boolean flag=false;
         String name=file.getOriginalFilename();
+
         String excelName=name.substring(name.indexOf("."));
         //System.out.println(excelName);获取文件名
         if(excelName.toLowerCase().equals(".xls")){//判断文件版本
