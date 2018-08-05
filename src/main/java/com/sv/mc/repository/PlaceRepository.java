@@ -134,12 +134,12 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
 
     @Query("from PlaceEntity p where p.name = :name")
     PlaceEntity findPByName(@Param("name")String name);
-//
-//    /**
-//     * 不分页查询所有场地
-//     * @param uId
-//     * @return
-//     */
-//    @Query(value="select * from mc_place as b where b.discard_status=1 and b.p_id is null LIMIT :offset,:pageSize",nativeQuery = true)
-//    List<PlaceEntity> findAllPlaceById(@Param("uId") int uId);
+
+    /**
+     * 不分页查询当前用户管理的所有场地
+     * @param pId
+     * @return
+     */
+    @Query(value="select * from mc_place as p where p.discard_status=1 AND p.p_id is null AND p.level_flag = :plevel and p.superior_id = :pId",nativeQuery = true)
+    List<PlaceEntity> findAllPlaceById(@Param("pId") int pId,@Param("plevel") int level);
 }

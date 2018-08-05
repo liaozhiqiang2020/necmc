@@ -1,18 +1,11 @@
 package com.sv.mc.controller;
 
-import com.google.gson.Gson;
 import com.sv.mc.pojo.PriceEntity;
-import com.sv.mc.pojo.PriceHistoryEntity;
 import com.sv.mc.service.DeviceService;
-import com.sv.mc.service.PriceHistoryService;
 import com.sv.mc.service.PriceService;
-import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.ExcelUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,21 +32,23 @@ public class PriceController {
 
     /**
      * 分页查询价格列表
-     * @param page 当前开始页码（代码中从0开始）
+     *
+     * @param page     当前开始页码（代码中从0开始）
      * @param pageSize 页号
      * @return
      */
     @GetMapping("/price/pageAll")
-    public String findAllPagePrice(@RequestParam("page") String page, @RequestParam("pageSize") String pageSize){
-        return this.priceService.findAllPagePrice(Integer.parseInt(page),Integer.parseInt(pageSize));
+    public String findAllPagePrice(@RequestParam("page") String page, @RequestParam("pageSize") String pageSize) {
+        return this.priceService.findAllPagePrice(Integer.parseInt(page), Integer.parseInt(pageSize));
     }
 
     /**
      * 不分页查询价格列表,价格状态为可用的
+     *
      * @return 价格集合
      */
     @GetMapping("/price/status")
-    public String findStatusPrice(){
+    public String findStatusPrice() {
         String price = this.priceService.findStatusPrice();
 
         return price;
@@ -61,22 +56,24 @@ public class PriceController {
 
     /**
      * 不分页查询价格列表,价格状态为可用的并不过期可绑定的
+     *
      * @return 价格集合
      */
     @GetMapping("/price/statusOrDate")
-    public String findEndPrice(){
+    public String findEndPrice() {
         return this.priceService.findPriceEntitiesByEnd();
     }
 
     /**
      * 不分页查询价格列表
+     *
      * @return 价格集合
      */
     @GetMapping("/price/all")
-    public List<PriceEntity> findAllPrice(){
+    public List<PriceEntity> findAllPrice() {
         List<PriceEntity> priceList = priceService.findAllPrice();
-        for (PriceEntity priceEntity:priceList) {
-            int useTime = priceEntity.getUseTime()/60;
+        for (PriceEntity priceEntity : priceList) {
+            int useTime = priceEntity.getUseTime() / 60;
             priceEntity.setUseTime(useTime);
         }
         return priceList;
@@ -98,62 +95,69 @@ public class PriceController {
 
     /**
      * 新建价格
+     *
      * @param map 价格对象
      */
     @PostMapping("/price/save")
-    public PriceEntity addPrice(@RequestBody Map<String,Object> map, HttpServletRequest request){
-        return this.priceService.addPrice(map,request);
+    public PriceEntity addPrice(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+        return this.priceService.addPrice(map, request);
     }
 
     /**
      * 更新价格
+     *
      * @param map 价格对象
      */
     @PostMapping("/price/update")
-    public PriceEntity updatePrice(@RequestBody Map<String,Object> map){
+    public PriceEntity updatePrice(@RequestBody Map<String, Object> map) {
         return this.priceService.updatePrice(map);
     }
 
     /**
      * 批量更新或保存价格
+     *
      * @param models 价格对象集合
      */
     @PostMapping("/price/updateList")
-    public @ResponseBody List<PriceEntity> updatePrice(@RequestBody List<PriceEntity> models) {
+    public @ResponseBody
+    List<PriceEntity> updatePrice(@RequestBody List<PriceEntity> models) {
         List<PriceEntity> priceEntityList = this.priceService.batchSaveOrUpdatePrice(models);
-        for (PriceEntity price:priceEntityList
+        for (PriceEntity price : priceEntityList
                 ) {
-            price.setUseTime(price.getUseTime()/60);
+            price.setUseTime(price.getUseTime() / 60);
         }
         return priceEntityList;
     }
 
     /**
      * 批量删除价格
+     *
      * @param models 价格对象集合
      */
     @PostMapping("/price/batchDelete")
-    public  List<PriceEntity> batchDeletePrice(@RequestBody List<PriceEntity> models) {
+    public List<PriceEntity> batchDeletePrice(@RequestBody List<PriceEntity> models) {
         List<PriceEntity> priceEntityList = this.priceService.batchDeletePrice(models);
         return priceEntityList;
     }
 
     /**
      * 删除价格
+     *
      * @param priceEntity 价格Id
      */
     @PostMapping("/price/delete")
-    public void deletePrice(@RequestBody PriceEntity priceEntity){
+    public void deletePrice(@RequestBody PriceEntity priceEntity) {
         this.priceService.deletePrice(priceEntity);
     }
 
     /**
      * 根据设备id查询价格和时长
+     *
      * @param deviceId
      * @return 当前设备的价格，时长集合
      */
     @PostMapping("/price/deviceUse")
-    public List<Object[]> findPriceByDeviceId(@RequestParam int deviceId){
+    public List<Object[]> findPriceByDeviceId(@RequestParam int deviceId) {
 
         return this.priceService.findPriceByDeviceId(deviceId);
 
@@ -161,15 +165,16 @@ public class PriceController {
 
     /**
      * 根据机器查询当前机器已绑定价格
+     *
      * @param deviceId
      * @return
      */
     @GetMapping("/price/devicePrice")
-    public Set<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId){
-       Set<PriceEntity> priceList= this.priceService.findDevicePrice(deviceId);
-        for (PriceEntity price:priceList
+    public Set<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId) {
+        Set<PriceEntity> priceList = this.priceService.findDevicePrice(deviceId);
+        for (PriceEntity price : priceList
                 ) {
-            int useTime = price.getUseTime()/60;
+            int useTime = price.getUseTime() / 60;
             price.setUseTime(useTime);
         }
         return priceList;
@@ -177,14 +182,15 @@ public class PriceController {
 
     /**
      * 查询当前设备可绑定的未绑定价格
+     *
      * @param deviceId
      * @return 价格集合
      */
     @GetMapping("/price/deviceUnPrice")
-    public List<PriceEntity> findDeviceUnPrice(@RequestParam int deviceId){
-        List<PriceEntity> priceList= this.priceService.findUnDevicePrice(deviceId);
-        for (PriceEntity priceEntity:priceList) {
-            int useTime = priceEntity.getUseTime()/60;
+    public List<PriceEntity> findDeviceUnPrice(@RequestParam int deviceId) {
+        List<PriceEntity> priceList = this.priceService.findUnDevicePrice(deviceId);
+        for (PriceEntity priceEntity : priceList) {
+            int useTime = priceEntity.getUseTime() / 60;
             priceEntity.setUseTime(useTime);
         }
         return priceList;
@@ -192,31 +198,34 @@ public class PriceController {
 
     /**
      * 给对应机器绑定价格
+     *
      * @param listMap 价格id集合与机器Id
      * @return 保存成功消息
      */
     @PostMapping("/price/deviceSavePrice")
-    public List<PriceEntity> deviceSavePrice(@RequestBody Map<String,Object> listMap){
+    public List<PriceEntity> deviceSavePrice(@RequestBody Map<String, Object> listMap) {
         return this.priceService.deviceSavePrice(listMap);
     }
 
     /**
      * 为机器删除其绑定的价格
+     *
      * @param listMap 价格Id与机器Id
      * @return 该机器已绑定集合
      */
     @PostMapping("/price/deviceDeletePrice")
-    public List<PriceEntity> deviceDeletePrice(@RequestBody Map<String,Object> listMap){
-        return  this.priceService.deviceDeletePrice(listMap);
+    public List<PriceEntity> deviceDeletePrice(@RequestBody Map<String, Object> listMap) {
+        return this.priceService.deviceDeletePrice(listMap);
     }
 
     /**
      * 为场地上某种类型的所有的机器进行价格绑定
+     *
      * @param listMap 场地id 与 价格id集合
      * @return 可绑定价格集合
      */
     @PostMapping("/price/placeAddPrice")
-    public List<PriceEntity> placeAddPrice(@RequestBody Map<String,Object> listMap){
+    public List<PriceEntity> placeAddPrice(@RequestBody Map<String, Object> listMap) {
         return this.priceService.placeAddPrice(listMap);
     }
 
@@ -228,6 +237,7 @@ public class PriceController {
 
     /**
      * 跳转到priceTest页面
+     *
      * @return
      */
     @GetMapping(value = "/priceTest")
@@ -272,7 +282,7 @@ public class PriceController {
         //System.out.println(id);
         List<String> list = this.deviceService.getFill_SN(id);
         //标题
-        String[] title = {"设备ID", "价格","使用时长"};
+        String[] title = {"设备ID", "价格", "使用时长"};
         //文件名
         Date d = new Date();
         String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
@@ -304,13 +314,13 @@ public class PriceController {
     private void setResponseHeader(HttpServletResponse response, String fileName) {
         try {
             try {
-                fileName = new String(fileName.getBytes(),"UTF-8");
+                fileName = new String(fileName.getBytes(), "UTF-8");
             } catch (UnsupportedEncodingException e) {
 
                 e.printStackTrace();
             }
             response.setContentType("application/octet-stream;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName+"\"");
             response.addHeader("Pargam", "no-cache");
             response.addHeader("Cache-Control", "no-cache");
         } catch (Exception ex) {
@@ -319,19 +329,16 @@ public class PriceController {
     }
 
 
-
-
-
     @GetMapping(value = "/price/export1")
 
-    public void exportReport( HttpServletResponse response) {
+    public void exportReport(HttpServletResponse response) {
         //获取数据
 
         //System.out.println(id);
         List<PriceEntity> list = this.priceService.findAllPagePrice();
 
         //标题
-        String[] title = {"价格名称", "价格","时长","创建人","生效时间","失效时间","按摩椅型号","类型"};
+        String[] title = {"价格名称", "价格", "时长", "创建人", "生效时间", "失效时间", "按摩椅型号", "类型"};
         //文件名
         Date d = new Date();
         String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
@@ -342,25 +349,26 @@ public class PriceController {
         System.out.println(list.size());
         for (int i = 0; i < list.size(); i++) {
             content[i] = new String[title.length];
-            PriceEntity priceEntity=(PriceEntity)list.get(i);
+            PriceEntity priceEntity = (PriceEntity) list.get(i);
             String obj = priceEntity.getPriceName();//价格名称
             String obj1 = priceEntity.getPrice().toString();//价格
-            int  a=priceEntity.getUseTime();
-            String obj2 =String.valueOf(a/60);//使用时长
-            String obj3 =priceEntity.getUser().getName();
-            String obj4=null;
-            if(priceEntity.getStartDateTime()==null){
-                 obj4= "";
-            }else{
-            obj4=priceEntity.getStartDateTime().toString();}
-            String obj5 = null;
-            if(priceEntity.getEndDateTime()==null) {
-                 obj5 = "";
-            } else{
-              obj5=  priceEntity.getEndDateTime().toString();
+            int a = priceEntity.getUseTime();
+            String obj2 = String.valueOf(a / 60);//使用时长
+            String obj3 = priceEntity.getUser().getName();
+            String obj4 = null;
+            if (priceEntity.getStartDateTime() == null) {
+                obj4 = "";
+            } else {
+                obj4 = priceEntity.getStartDateTime().toString();
             }
-            String obj6 =priceEntity.getDeviceModelEntity().getName();
-            String obj7=priceEntity.getDeviceModelEntity().getModel();
+            String obj5 = null;
+            if (priceEntity.getEndDateTime() == null) {
+                obj5 = "";
+            } else {
+                obj5 = priceEntity.getEndDateTime().toString();
+            }
+            String obj6 = priceEntity.getDeviceModelEntity().getName();
+            String obj7 = priceEntity.getDeviceModelEntity().getModel();
             content[i][0] = obj;
             content[i][1] = obj1;
             content[i][2] = obj2;
@@ -386,27 +394,19 @@ public class PriceController {
     }
 
 
-
     @PostMapping(value = "/price/setexcel")
     public int setExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        boolean flag= this.priceService.getExcel(file);
-        if(flag==true){
+        boolean flag = this.priceService.getExcel(file);
+        if (flag == true) {
             return 1;
 
-        }{
+        }
+        {
             return 0;
         }
-    };
+    }
 
-
-
-
-
-
-
-
-
-
+    ;
 
 
 }

@@ -2,6 +2,7 @@ package com.sv.mc.controller;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.util.ExcelUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.html.parser.Entity;
@@ -133,6 +136,8 @@ public class DeviceController {
     List<DeviceEntity> getAllDevice(HttpSession session) {
         return this.deviceService.findAllDevice(session);
     }
+
+
 
     /**
      * 插入一条设备数据
@@ -281,14 +286,16 @@ public class DeviceController {
      */
     @GetMapping(value = "/deviceMgr/getallDevice")
     public
-    void getAllExcel(HttpServletResponse response) {
-
-        List<Object> list =deviceService.findAllEntities();
-
-
-
-
-
+    void getAllExcel(HttpServletRequest request,HttpServletResponse response) {
+        UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+        List<Object> list = null;
+        if (user.getGradeId()==1){
+             list =    this.deviceService.findAllDevice();
+        }if(user.getGradeId()==4) {
+             list = this.deviceService.getDeviceByplace_id(user.getpId());
+        }else{
+             list =    this.deviceService.geyDeviceByPid(user.getGradeId());
+        }
 
         //标题
         String[] title = {"按摩椅编号", "模块编号","所属场地","所属型号","供应商","备注信息"};

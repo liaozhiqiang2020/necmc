@@ -1,7 +1,5 @@
 package com.sv.mc.repository;
 
-import com.sv.mc.pojo.DeviceEntity;
-import com.sv.mc.pojo.DeviceModelEntity;
 import com.sv.mc.pojo.PriceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -38,56 +36,52 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
 
     //根据价格里的机器类型查询出所有该设备可绑定价格
     @Query("select p from PriceEntity as p,DeviceEntity as d where p.deviceModelEntity = d.deviceModelEntity and p.status = 1 and d.id = :deviceId and (p.endDateTime > :date  or p.endDateTime = null)")
-    List<PriceEntity> findPriceEntitiesByMcType(@Param("deviceId") int deviceId,@Param("date") Timestamp date);
+    List<PriceEntity> findPriceEntitiesByMcType(@Param("deviceId") int deviceId, @Param("date") Timestamp date);
 
 
     //根据机器ID查询价格
-    @Query(value = "select price,use_time FROM mc_price as p join mc_price_device on p.id = price_id  join mc_device as d on d.id=device_id where d.id = :dId",nativeQuery = true)
+    @Query(value = "select price,use_time FROM mc_price as p join mc_price_device on p.id = price_id  join mc_device as d on d.id=device_id where d.id = :dId", nativeQuery = true)
     List<Object[]> findPriceEntitiesByDeviceID(@Param("dId") int deviceId);
 
     //根据设备id查询价格和时间
-    @Query(value = "select p.* from mc_price p,mc_device d,mc_price_device pd where p.id=pd.price_id and d.id=pd.device_id and p.status=1 and d.id=:deviceId ORDER BY p.price DESC",nativeQuery = true)
+    @Query(value = "select p.* from mc_price p,mc_device d,mc_price_device pd where p.id=pd.price_id and d.id=pd.device_id and p.status=1 and d.id=:deviceId ORDER BY p.price DESC", nativeQuery = true)
     List<PriceEntity> queryPriceAndTime(@Param("deviceId") int deviceId);
 
 
     /**
      * 分页查询所有可用价格
+     *
      * @param page
      * @param pageSize
      * @return
      */
-    @Query(value="select * from mc_price as p where p.status = 1 and p.end_date_time > now() or p.end_date_time is null LIMIT :offset,:pageSize",nativeQuery=true)
+    @Query(value = "select * from mc_price as p where p.status = 1 and p.end_date_time > now() or p.end_date_time is null LIMIT :offset,:pageSize", nativeQuery = true)
     List<PriceEntity> findAllPriceByPage(@Param("offset") Integer page, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询数量
+     *
      * @return
      */
-    @Query(value="select count(*) from mc_price as p where p.status= 1",nativeQuery = true)
+    @Query(value = "select count(*) from mc_price as p where p.status= 1", nativeQuery = true)
     int findPriceTotal();
-
 
 
     /**
      * 查询所有可用价格
-
+     *
      * @return
      */
-    @Query(value="select * from mc_price as p where p.status = 1 ",nativeQuery=true)
+    @Query(value = "select * from mc_price as p where p.status = 1 ", nativeQuery = true)
     List<PriceEntity> findAllPrice();
 
 
     /**
      * 查询价格是否存在
      */
-    @Query(value="select p.* from mc_price as p , mc_device AS d where p.use_time=:userTime and p.price=:price and p.mc_type = d.mc_type  and p.status= 1 and d.mc_sn=:mc ",
+    @Query(value = "select p.* from mc_price as p , mc_device AS d where p.use_time=:userTime and p.price=:price and p.mc_type = d.mc_type  and p.status= 1 and d.mc_sn=:mc ",
             nativeQuery = true)
-    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price")BigDecimal price, @Param("mc")String mc);
-
-
-
-
-
+    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price") BigDecimal price, @Param("mc") String mc);
 
 
 }

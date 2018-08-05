@@ -4,6 +4,7 @@ import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -150,4 +151,12 @@ public interface PlaceService<T> extends BaseService<T>{
      * @return
      */
     String findDeviceBypId(int placeId);
+
+    /**
+     * 根据用户查询该用户权限下的所有从场地
+     * @param pId
+     * @param level
+     * @return
+     */
+    String findDeviceByUser(HttpServletRequest request);
 }

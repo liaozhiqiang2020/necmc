@@ -1,20 +1,13 @@
 package com.sv.mc.service.impl;
 
-import com.mysql.cj.api.Session;
 import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
-import com.sv.mc.util.intUtil;
 import com.sv.mc.service.UserService;
 import com.sv.mc.util.DateJsonValueProcessor;
-
+import com.sv.mc.util.intUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import net.sf.json.util.CycleDetectionStrategy;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -24,9 +17,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService<UserEntity> {
@@ -116,7 +110,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
     @Transactional
     public String findAllByStatus(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserEntity  user1 = (UserEntity) session.getAttribute("user");
+        UserEntity user1 = (UserEntity) session.getAttribute("user");
         int uid = user1.getId();
         List<UserEntity> userList = this.userRepository.findAllByStatusId(uid);
         int total = this.userRepository.findPriceTotal();
@@ -295,8 +289,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
         Object roleId = listMap.get("roleId");
         UserEntity user = this.userRepository.findUserById((int) userId);
 
-            RoleEntity role = this.roleRepository.findById((int)roleId);
-            user.getRoleEntitySet().remove(role);
+        RoleEntity role = this.roleRepository.findById((int) roleId);
+        user.getRoleEntitySet().remove(role);
 
         this.userRepository.save(user);
         return user.getRoleEntitySet();

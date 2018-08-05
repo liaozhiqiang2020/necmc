@@ -75,11 +75,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(myUserDetailService);
     }
 
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(myUserDetailService).passwordEncoder(new PasswordEncoder(){
+//
+//            @Override
+//            public String encode(CharSequence rawPassword) {
+//                return MD5Util.encode((String)rawPassword);
+//            }
+//
+//            @Override
+//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+//                return encodedPassword.equals(MD5Util.encode((String)rawPassword));
+//            }}); //user Details Service验证
+//    }
+
 
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
         return new LoginSuccessHandler();
     }
+
 
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {

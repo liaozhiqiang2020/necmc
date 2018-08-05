@@ -8,7 +8,7 @@
 
 <div class="content-wrapper">
 
-    <section  class="content-header">
+    <section class="content-header">
         <h1>
             角色管理
         </h1>
@@ -20,17 +20,20 @@
 
     <div class="container-fluid">
         <div class="container-fluid">
-            <div> <div id="window">
-                <div id = "roleList"></div>
-                <div id = "roleList1"></div>
-            </div>
+            <div>
+                <div id="window">
+                    <div id="roleList"></div>
+                    <div id="roleList1"></div>
+                </div>
 
                 <div class="responsive-message"></div>
             </div>
             <div id="grid"></div>
             <script>
                 /*<![CDATA[*/
-                $(function () {loadUserList();});
+                $(function () {
+                    loadUserList();
+                });
 
                 var headName;
 
@@ -47,21 +50,21 @@
                                 url: "./role/save",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
                             destroy: {
                                 url: "./role/delete",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./role/update",
+                                url: "./role/update",
                                 dataType: "json",
                                 type: "post",
-                                contentType:"application/json;charset=UTF-8"
+                                contentType: "application/json;charset=UTF-8"
                             },
-                            parameterMap:function(options, operation){
+                            parameterMap: function (options, operation) {
 
                                 // if(operation=="read"){
                                 //     var page = $("#grid").data("kendoGrid").dataSource.page();
@@ -69,7 +72,7 @@
                                 //     return {page:page,pageSize:pageSize};
                                 // }
 
-                                if(operation !== "read"){
+                                if (operation !== "read") {
                                     return kendo.stringify(options);
                                 }
                             }
@@ -83,10 +86,17 @@
                             model: {
                                 id: "id",
                                 fields: {
-                                    id: { editable: false, nullable: true },
-                                   roleName: { type: "string", validation: {required: true, required: { message: "请您填写角色" }}},
-                                    description : {type: "string",editable: false ,validation: {required: true, required: { message: "请您填写角色权限描述" }}},
-                                    createDateTime: { type: "Date",editable: false , format: "{0:yyyy-MM-dd HH:mm:ss}"}
+                                    id: {editable: false, nullable: true},
+                                    roleName: {
+                                        type: "string",
+                                        validation: {required: true, required: {message: "请您填写角色"}}
+                                    },
+                                    description: {
+                                        type: "string",
+                                        editable: false,
+                                        validation: {required: true, required: {message: "请您填写角色权限描述"}}
+                                    },
+                                    createDateTime: {type: "Date", editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"}
                                     // roleEntities : {defaultValue: { id: 1, name: ""}}
                                 }
                             },
@@ -141,15 +151,20 @@
                         },
                         columns: [
                             // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                            { field: "roleName",title: "角色", width: 100,filterable: { multi: true, search: true} },
-                            { field: "description",title: "角色权限描述", width: 100,filterable: { multi: true, search: true}},
+                            {field: "roleName", title: "角色", width: 100, filterable: {multi: true, search: true}},
+                            {
+                                field: "description",
+                                title: "角色权限描述",
+                                width: 100,
+                                filterable: {multi: true, search: true}
+                            },
                             // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             {
                                 command: [
                                     {
                                         name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
-                                    },{
-                                        name :"权限管理",click:function (e) {
+                                    }, {
+                                        name: "权限管理", click: function (e) {
                                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                             var data = this.dataItem(tr);
                                             var roleId = this.dataItem(tr).id;
@@ -158,21 +173,21 @@
                                             var dataSource1 = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/role/findRolePermission?roleId="+roleId
+                                                        url: "/mc/role/findRolePermission?roleId=" + roleId
                                                     },
                                                     destroy: {
                                                         url: "/mc/role/roleDeletePermission",
                                                         dataType: "json",
                                                         type: "post",
-                                                        contentType:"application/json;charset=UTF-8"
+                                                        contentType: "application/json;charset=UTF-8"
                                                     },
-                                                    parameterMap:function(options, operation){
+                                                    parameterMap: function (options, operation) {
 
 
                                                         if (operation === "destroy" && options) {
                                                             let list1 = {
-                                                                roleId :  roleId,
-                                                                pId : options.id
+                                                                roleId: roleId,
+                                                                pId: options.id
                                                             }
                                                             return kendo.stringify(list1);
                                                         }
@@ -184,7 +199,7 @@
                                                 // serverPaging: true,    //设定服务器来实现分页功能
                                                 // serverFiltering: true,
                                                 // serverSorting: true,
-                                                filterable:true,
+                                                filterable: true,
                                                 scrollable: true,
                                                 requestEnd: onRequestEnd,
                                                 pageSize: 5,
@@ -192,10 +207,10 @@
                                                     model: {
                                                         id: "id",
                                                         fields: {
-                                                            id: { editable: false, nullable: true },
-                                                            permissionsName: { type: "string" },
-                                                            url: { type: "string"},
-                                                            description : {type: "string"},
+                                                            id: {editable: false, nullable: true},
+                                                            permissionsName: {type: "string"},
+                                                            url: {type: "string"},
+                                                            description: {type: "string"},
                                                             // roleEntities : {defaultValue: { id: 1, name: ""}}
                                                         }
                                                     },
@@ -251,19 +266,24 @@
                                                 },
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                                                    { field: "permissionsName",title: "权限", width: 100,filterable: { multi: true, search: true} },
+                                                    {
+                                                        field: "permissionsName",
+                                                        title: "权限",
+                                                        width: 100,
+                                                        filterable: {multi: true, search: true}
+                                                    },
                                                     // { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
                                                     // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                                                     {
                                                         command: [
                                                             {
-                                                                name: "解绑", click:function (e) {
+                                                                name: "解绑", click: function (e) {
                                                                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                                                     var data = this.dataItem(tr);
                                                                     var pId = data.id;
                                                                     let list1 = {
-                                                                        pId :  pId,
-                                                                        roleId : roleId
+                                                                        pId: pId,
+                                                                        roleId: roleId
                                                                     };
                                                                     $.ajax({
                                                                         type: "POST",
@@ -271,7 +291,7 @@
                                                                         data: kendo.stringify(list1),
                                                                         contentType: "application/json; charset=utf-8",
                                                                         dataType: "json",
-                                                                        success:function (data) {
+                                                                        success: function (data) {
                                                                             var roleGrid = $("#roleList1").data("kendoGrid");
                                                                             roleGrid.dataSource.read();
                                                                             var roleGrid1 = $("#roleList").data("kendoGrid");
@@ -284,7 +304,7 @@
                                                                     })
                                                                 }
                                                             }
-                                                           ],
+                                                        ],
                                                         title: "操作",
                                                         width: "200px"
                                                     }
@@ -300,12 +320,12 @@
                                             var dataSource2 = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/role/findRoleUnPermission?roleId="+roleId
+                                                        url: "/mc/role/findRoleUnPermission?roleId=" + roleId
                                                     },
 
-                                                    parameterMap:function(options, operation){
+                                                    parameterMap: function (options, operation) {
 
-                                                        if(operation !== "read"){
+                                                        if (operation !== "read") {
                                                             return kendo.stringify(options);
                                                         }
                                                     }
@@ -313,7 +333,7 @@
                                                 // serverPaging: true,    //设定服务器来实现分页功能
                                                 // serverFiltering: true,
                                                 // serverSorting: true,
-                                                filterable:true,
+                                                filterable: true,
                                                 scrollable: true,
                                                 requestEnd: onRequestEnd,
                                                 pageSize: 5,
@@ -321,10 +341,10 @@
                                                     model: {
                                                         id: "id",
                                                         fields: {
-                                                            id: { editable: false, nullable: true },
-                                                            permissionsName: { type: "string" },
-                                                            url: { type: "string"},
-                                                            description : {type: "string"},
+                                                            id: {editable: false, nullable: true},
+                                                            permissionsName: {type: "string"},
+                                                            url: {type: "string"},
+                                                            description: {type: "string"},
                                                             // roleEntities : {defaultValue: { id: 1, name: ""}}
                                                         }
                                                     },
@@ -380,19 +400,24 @@
                                                 },
                                                 columns: [
                                                     // {field: "rowNumber", title: "序号", width: 80,template: "<span class='row-number'></span>"},
-                                                    { field: "permissionsName",title: "权限", width: 100,filterable: { multi: true, search: true} },
+                                                    {
+                                                        field: "permissionsName",
+                                                        title: "权限",
+                                                        width: 100,
+                                                        filterable: {multi: true, search: true}
+                                                    },
                                                     // { field: "description",title: "权限", width: 100,filterable: { multi: true, search: true}},
                                                     // { field: "url",title: "url",width: 120, filterable: { multi: true, search: true} },
                                                     {
                                                         command: [
                                                             {
-                                                                name: "绑定", click:function (e) {
+                                                                name: "绑定", click: function (e) {
                                                                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                                                     var data = this.dataItem(tr);
                                                                     var pId = data.id;
                                                                     let list1 = {
-                                                                        pId :  pId,
-                                                                        roleId : roleId
+                                                                        pId: pId,
+                                                                        roleId: roleId
                                                                     };
                                                                     $.ajax({
                                                                         type: "POST",
@@ -400,7 +425,7 @@
                                                                         data: kendo.stringify(list1),
                                                                         contentType: "application/json; charset=utf-8",
                                                                         dataType: "json",
-                                                                        success:function (data) {
+                                                                        success: function (data) {
                                                                             var roleGrid = $("#roleList1").data("kendoGrid");
                                                                             roleGrid.dataSource.read();
                                                                             var roleGrid1 = $("#roleList").data("kendoGrid");
@@ -430,7 +455,6 @@
                                                 title: "权限管理",
                                                 // content: $("roleList").html
                                             });
-
 
 
                                             myWindow.data("kendoWindow").center().open();
@@ -464,7 +488,6 @@
                 }
 
 
-
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
                 function onRequestEnd(e) {
                     if (e.type == "create") {
@@ -483,7 +506,9 @@
                         var type = e.type;
                         if (type != 'read') {
                             var status = response.status;
-                            if (status == 200) {this.read();}
+                            if (status == 200) {
+                                this.read();
+                            }
                             else {
                                 // alert(response.msg);
                             }
@@ -494,6 +519,7 @@
                 function onClose() {
                     $("#window").empty();
                 }
+
                 function onRequestEnd1(e) {
                     if (e.type == "destroy") {
                         var roleGrid = $("#roleList1").data("kendoGrid");
@@ -509,10 +535,9 @@
                 //编辑时boolean类型复选框样式修改
                 function customBoolEditor(container, options) {
                     var guid = kendo.guid();
-                    $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="'+options.field+'" data-type="boolean" data-bind="checked:'+options.field+'">').appendTo(container);
+                    $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="' + options.field + '" data-type="boolean" data-bind="checked:' + options.field + '">').appendTo(container);
                     $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                 }
-
 
 
                 /*]]>*/

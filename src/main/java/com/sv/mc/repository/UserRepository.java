@@ -1,6 +1,5 @@
 package com.sv.mc.repository;
 
-import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.UserEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -30,17 +29,19 @@ public interface UserRepository extends BaseRepository<UserEntity, Long>, Paging
 
     /**
      * 分页查询所有可用价格
+     *
      * @param page
      * @param pageSize
      * @return
      */
-    @Query(value="select * from mc_user as u where u.status = 1 LIMIT :offset,:pageSize",nativeQuery=true)
+    @Query(value = "select * from mc_user as u where u.status = 1 LIMIT :offset,:pageSize", nativeQuery = true)
     List<UserEntity> findAllUserByPage(@Param("offset") Integer page, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询数量
+     *
      * @return
      */
-    @Query(value="select count(*) from mc_user as u where u.status= 1",nativeQuery = true)
+    @Query(value = "select count(*) from mc_user as u where u.status= 1", nativeQuery = true)
     int findPriceTotal();
 }
