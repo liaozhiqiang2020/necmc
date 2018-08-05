@@ -143,4 +143,24 @@ public class DeviceServiceImpl implements DeviceService {
                 List<String> deviceEntities = this.deviceRepository.findAllByPlaceId(id);
                 return deviceEntities;
         }
+
+        /**
+         * 根据权限查询设备
+         * @param id
+         * @return
+         */
+        @Override
+        public List<DeviceEntity> geyDeviceByPid(int id) {
+                return this.deviceRepository.getDeviceByPid(id);
+        }
+
+        /**
+         * 根据场地查询设备
+         * @param id
+         * @return
+         */
+        @Override
+        public List<DeviceEntity> getDeviceByplace_id(int id) {
+                return this.deviceRepository.findDevicesByPlaceId(id);
+        }
 }

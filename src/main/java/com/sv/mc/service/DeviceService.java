@@ -75,4 +75,17 @@ public interface DeviceService<T> extends BaseService<T>{
      * @param id  场地id
      */
     List<String> getFill_SN(int id);
+
+    /**
+     * 根据权限查询设备
+     */
+
+    List<DeviceEntity>geyDeviceByPid(int id);
+
+    /**
+     * 根据场地ID查询所有设备
+     */
+    List<DeviceEntity> getDeviceByplace_id(int id);
+
+
 }
