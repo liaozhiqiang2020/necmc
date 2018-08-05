@@ -3,6 +3,7 @@ package com.sv.mc.service.impl;
 import com.google.gson.Gson;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.UserEntity;
 import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.util.BaseUtil;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -117,8 +119,23 @@ public class DeviceServiceImpl implements DeviceService {
 
         @Override
         @Transactional
-        public List<DeviceEntity> findAllDevice() {
-                return this.deviceRepository.findAllDevice();
+        public List<DeviceEntity> findAllDevice(HttpSession session) {
+                UserEntity userEntity = (UserEntity) session.getAttribute("user");
+                int superId = userEntity.getGradeId();//1.2.3.4
+                int flag = userEntity.getpId();//上级id
+                List<DeviceEntity> deviceEntityList;
+
+                if(superId==1){
+                     deviceEntityList=this.deviceRepository.findAllDevice2();
+                }else if(superId==2){
+                     deviceEntityList= this.deviceRepository.findAllDevice3(flag);
+                }else if(superId==3){
+                     deviceEntityList= this.deviceRepository.findAllDevice4(flag);
+                }else{
+                     deviceEntityList= this.deviceRepository.findAllDevice5(flag);
+                }
+
+                return deviceEntityList;
         }
 
 

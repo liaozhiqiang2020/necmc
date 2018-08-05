@@ -3,6 +3,7 @@ package com.sv.mc.service;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public interface DeviceService<T> extends BaseService<T>{
     /**
      * 不分页查询设备数据
      */
-    List<DeviceEntity> findAllDevice();
+    List<DeviceEntity> findAllDevice(HttpSession session);
 
 
     /**

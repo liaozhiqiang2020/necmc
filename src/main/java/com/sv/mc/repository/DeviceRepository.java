@@ -79,8 +79,38 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      * 查询所有设备
      * @return
      */
-    @Query("from DeviceEntity as b where b.discardStatus=1")
-    List<DeviceEntity> findAllDevice();
+    @Query(value = "select d.* from mc_device d,mc_place p where d.place_id = p.Id and d.discard_status=1 and p.user_id=:userId",nativeQuery = true)
+    List<DeviceEntity> findAllDevice(@Param("userId") Integer userId);
+
+    /**
+     * 查询所有设备
+     * @return
+     */
+    @Query(value = "select d.* from mc_device d,mc_place p where d.place_id = p.Id and d.discard_status=1 and p.level_flag=2 and p.superior_id=:superId",nativeQuery = true)
+    List<DeviceEntity> findAllDevice3(@Param("superId") Integer superId);
+
+    /**
+     * 查询所有设备
+     * @return
+     */
+    @Query(value = "select d.* from mc_device d,mc_place p where d.place_id = p.Id and d.discard_status=1 and p.level_flag=3 and p.superior_id=:superId",nativeQuery = true)
+    List<DeviceEntity> findAllDevice4(@Param("superId") Integer superId);
+
+    /**
+     * 查询所有设备
+     * @return
+     */
+    @Query(value = "select d.* from mc_device d,mc_place p where d.place_id = p.Id and d.discard_status=1 and place_id=:placeId",nativeQuery = true)
+    List<DeviceEntity> findAllDevice5(@Param("placeId") Integer placeId);
+
+
+
+    /**
+     * 查询所有设备
+     * @return
+     */
+    @Query(value = "select d.* from mc_device d,mc_place p where d.place_id = p.Id and d.discard_status=1",nativeQuery = true)
+    List<DeviceEntity> findAllDevice2();
 
     /**
      * 查询数量

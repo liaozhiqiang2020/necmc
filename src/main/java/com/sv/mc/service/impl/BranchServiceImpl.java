@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,10 +119,20 @@ public class BranchServiceImpl implements BranchService {
          */
         @Override
         @Transactional
-        public String findAllBranchByPage(int page, int pageSize) {
+        public String findAllBranchByPage(int page, int pageSize,HttpSession session) {
+                UserEntity userEntity = (UserEntity) session.getAttribute("user");
+                int superId = userEntity.getGradeId();
+                List<BranchEntity> branchEntityList;
+                int total;
+
                 int offset = ((page - 1) * pageSize);
-                List<BranchEntity> branchEntityList = this.branchRepository.findAllBranchByPage(offset, pageSize);//记录
-                int total = this.branchRepository.findBranchTotal();//数量
+                if(superId==1){
+                        branchEntityList = this.branchRepository.findAllBranchByPage2(offset, pageSize);//记录
+                        total = this.branchRepository.findBranchTotal2();//数量
+                }else{
+                        branchEntityList = this.branchRepository.findAllBranchByPage(offset, pageSize,userEntity.getId());//记录
+                        total = this.branchRepository.findBranchTotal(userEntity.getId());//数量
+                }
 
                 JSONArray jsonArray1 = new JSONArray();//新建json数组
                 JSONObject jsonObject1 = new JSONObject();

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -85,11 +86,20 @@ public class VendorServiceImpl implements VendorService {
          * @return
          */
         @Override
-        public String findAllVendorByPage(int page, int pageSize) {
-                int offset = ((page-1)*pageSize);
-                List<VendorEntity> vendorEntities = this.vendorRepository.findAllVendorByPage(offset,pageSize);
+        public String findAllVendorByPage(int page, int pageSize,HttpSession session) {
+                UserEntity userEntity = (UserEntity) session.getAttribute("user");
+                int superId = userEntity.getGradeId();
+                List<VendorEntity> vendorEntities;
+                int total;
 
-                int total = this.vendorRepository.findVendorTotal();
+                int offset = ((page-1)*pageSize);
+                if(superId==1){
+                        vendorEntities = this.vendorRepository.findAllVendorByPage2(offset,pageSize);
+                        total = this.vendorRepository.findVendorTotal2();
+                }else{
+                        vendorEntities = this.vendorRepository.findAllVendorByPage(offset,pageSize,userEntity.getId());
+                        total = this.vendorRepository.findVendorTotal(userEntity.getId());
+                }
 
                 JSONArray jsonArray = JSONArray.fromObject(vendorEntities);
                 JSONArray jsonArray1 = new JSONArray();

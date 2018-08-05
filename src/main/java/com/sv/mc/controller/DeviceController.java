@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.html.parser.Entity;
 import javax.websocket.server.PathParam;
 import java.io.OutputStream;
@@ -129,8 +130,8 @@ public class DeviceController {
      */
     @GetMapping(value = "/deviceMgr/getAllDevice")
     public @ResponseBody
-    List<DeviceEntity> getAllDevice() {
-        return this.deviceService.findAllDevice();
+    List<DeviceEntity> getAllDevice(HttpSession session) {
+        return this.deviceService.findAllDevice(session);
     }
 
     /**

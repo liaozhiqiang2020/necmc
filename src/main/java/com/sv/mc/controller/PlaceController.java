@@ -1,5 +1,6 @@
 package com.sv.mc.controller;
 
+import com.sun.xml.internal.ws.resources.HttpserverMessages;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.PlaceService;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.io.*;
 import java.sql.Timestamp;
@@ -122,8 +124,8 @@ public class PlaceController {
      */
     @PostMapping(value = "/placeMgr/getAllPlaceForTreelist")
     public @ResponseBody
-    String getAllPlaceForTreelist(@RequestBody Map<String,Object> map) {
-        return this.placeService.findAllPlace(map);
+    String getAllPlaceForTreelist(@RequestBody Map<String,Object> map, HttpSession session) {
+        return this.placeService.findAllPlace(map,session);
     }
 
 
@@ -217,8 +219,8 @@ public class PlaceController {
 
 
     @GetMapping("/place/findDeviceByPlace")
-    public List<DeviceEntity> findDeviceByPlace1(@RequestParam("placeId") int placeId,@RequestParam("deviceId") String deviceId){
-        return this.placeService.findDeviceByPlaceId(placeId,deviceId);
+    public List<DeviceEntity> findDeviceByPlace1(@RequestParam("placeId") int placeId,@RequestParam("deviceId") String deviceId,HttpSession session){
+        return this.placeService.findDeviceByPlaceId(placeId,deviceId,session);
     }
 
     /**

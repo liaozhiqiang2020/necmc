@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
@@ -61,8 +63,8 @@ public class HeadQuartersController {
      */
     @GetMapping(value = "/headMgr/allHeadByPage")
     public @ResponseBody
-    String getAllHeadByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
-        return this.headQuartersService.findAllHeadByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    String getAllHeadByPage(@Param("page") String page, @Param("pageSize") String pageSize, HttpSession session) {
+        return this.headQuartersService.findAllHeadByPage(Integer.parseInt(page),Integer.parseInt(pageSize),session);
     }
 
     /**

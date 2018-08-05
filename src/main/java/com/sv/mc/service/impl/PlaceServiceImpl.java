@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -143,13 +144,25 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public String findAllPlace(Map map) {
+        public String findAllPlace(Map map,HttpSession session) {
+                UserEntity userEntity = (UserEntity) session.getAttribute("user");
+                int superId = userEntity.getGradeId();
+                int pId = userEntity.getpId();//隶属单位id
+
                 List<PlaceEntity> placeEntityList;
                 if(map.isEmpty()){
-                        placeEntityList = this.placeRepository.findAllPlaces();//查询所有
+                        if(superId==1){
+                                placeEntityList = this.placeRepository.findAllPlaces2();//查询所有场地
+                        }else if(superId==2){
+                                placeEntityList = this.placeRepository.findAllPlaces3(pId);//查询分公司下的所有场地
+                        }else if(superId==3){
+                                placeEntityList = this.placeRepository.findAllPlaces4(pId);//查询代理商下的所有场地
+                        }else{
+                                placeEntityList = this.placeRepository.findAllPlaces5(pId);//查询场地
+                        }
                 }else{
                         int placeId = Integer.parseInt(map.get("id").toString());
-                        placeEntityList = this.placeRepository.findPlaceByParentId(placeId);
+                        placeEntityList = this.placeRepository.findPlaceByParentId2(placeId);
                 }
                 JsonConfig config = new JsonConfig();
                 config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
@@ -470,7 +483,7 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId) {
+        public List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId,HttpSession session) {
                 List<DeviceEntity> deviceEntityList=new ArrayList<>();
                 if(deviceId.equals("0")){
                         List<Object[]> deviceEntities = this.placeRepository.findAllChildById(placeId);
@@ -489,7 +502,7 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public String findPlaceByParentId(int placeId) {
-                List<PlaceEntity> placeEntityList = this.placeRepository.findPlaceByParentId(placeId);
+                List<PlaceEntity> placeEntityList = this.placeRepository.findPlaceByParentId2(placeId);
                 JsonConfig config = new JsonConfig();
                 config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
                 config.setExcludes(new String[] { "deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
@@ -539,7 +552,7 @@ public class PlaceServiceImpl implements PlaceService {
          */
         @Override
         public List<PlaceEntity> findAllPlaceFirst() {
-                return this.placeRepository.findAllPlaces();
+                return this.placeRepository.findAllPlaces2();
         }
 
 

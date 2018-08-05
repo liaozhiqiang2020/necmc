@@ -1,10 +1,7 @@
 package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
-import com.sv.mc.pojo.BranchEntity;
-import com.sv.mc.pojo.ContractEntity;
-import com.sv.mc.pojo.HeadQuartersEntity;
-import com.sv.mc.pojo.PlaceEntity;
+import com.sv.mc.pojo.*;
 import com.sv.mc.repository.ContractRepository;
 import com.sv.mc.repository.HeadQuartersRepository;
 import com.sv.mc.repository.PlaceRepository;
@@ -18,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -70,15 +68,21 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      */
     @Override
     @Transactional
-    public String findAllHeadByPage(int page, int pageSize) {
-        Gson gson = new Gson();
-        DataSourceResult<HeadQuartersEntity> branchEntityDataSourceResult = new DataSourceResult<>();
-        int offset = ((page-1)*pageSize);
-        List<HeadQuartersEntity> headQuartersEntities = this.headQuartersRepository.findAllHeadByPage(offset,pageSize);
-        int total = this.headQuartersRepository.findHeadTotal();
-        branchEntityDataSourceResult.setData(headQuartersEntities);
-        branchEntityDataSourceResult.setTotal(total);
-        return gson.toJson(branchEntityDataSourceResult);
+    public String findAllHeadByPage(int page, int pageSize,HttpSession session) {
+        String result = "[]";
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        int superId = userEntity.getGradeId();
+        if(superId==1){
+            Gson gson = new Gson();
+            DataSourceResult<HeadQuartersEntity> branchEntityDataSourceResult = new DataSourceResult<>();
+            int offset = ((page-1)*pageSize);
+            List<HeadQuartersEntity> headQuartersEntities = this.headQuartersRepository.findAllHeadByPage(offset,pageSize);
+            int total = this.headQuartersRepository.findHeadTotal();
+            branchEntityDataSourceResult.setData(headQuartersEntities);
+            branchEntityDataSourceResult.setTotal(total);
+            result = gson.toJson(branchEntityDataSourceResult);
+        }
+        return result;
     }
 
     /**

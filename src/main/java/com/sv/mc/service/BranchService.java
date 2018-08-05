@@ -5,6 +5,7 @@ import com.sv.mc.util.DataSourceResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public interface BranchService<T> extends BaseService<T>{
     /**
      * 分页查询分公司数据
      */
-    String findAllBranchByPage(int page, int pageSize);
+    String findAllBranchByPage(int page, int pageSize,HttpSession session);
 
     /**
      * 根据分公司id更改对应的分公司数据

@@ -58,14 +58,48 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * 不分页查询场地方信息(pId为0，第一级)
      * @return
      */
+    @Query("from PlaceEntity as b where b.discardStatus=1 and b.userId=:userId and b.pId is null")
+    List<PlaceEntity> findAllPlaces(@Param("userId") int userId);
+
+    /**
+     * 不分页查询场地方信息(pId为0，第一级)
+     * @return
+     */
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null")
-    List<PlaceEntity> findAllPlaces();
+    List<PlaceEntity> findAllPlaces2();
+
+    /**
+     * 不分页查询场地方信息(pId为0，第一级)
+     * @return
+     */
+    @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null and b.levelFlag=2 and b.superiorId=:superiorId")
+    List<PlaceEntity> findAllPlaces3(@Param("superiorId") int superiorId);
+
+    /**
+     * 不分页查询场地方信息(pId为0，第一级)
+     * @return
+     */
+    @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null and b.levelFlag=3 and b.superiorId=:superiorId")
+    List<PlaceEntity> findAllPlaces4(@Param("superiorId") int superiorId);
+
+    /**
+     * 不分页查询场地方信息(pId为0，第一级)
+     * @return
+     */
+    @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null and id=:placeId")
+    List<PlaceEntity> findAllPlaces5(@Param("placeId") int placeId);
+
+    /**
+     * 根据场地id查询他下一级的所有信息
+     */
+    @Query("from PlaceEntity where pId=:placeId and discardStatus=1 and userId=:userId")
+    List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId,@Param("userId") int userId);
 
     /**
      * 根据场地id查询他下一级的所有信息
      */
     @Query("from PlaceEntity where pId=:placeId and discardStatus=1")
-    List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId);
+    List<PlaceEntity> findPlaceByParentId2(@Param("placeId") int placeId);
 
 
     /**

@@ -32,15 +32,31 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @param pageSize
      * @return
      */
+    @Query(value="select * from mc_vendor where discard_status=1 and user_id=:userId  LIMIT :offset,:pageSize",nativeQuery = true)
+    List<VendorEntity> findAllVendorByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("userId") Integer userId);
+
+    /**
+     * 分页查询代理商信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
     @Query(value="select * from mc_vendor where discard_status=1 LIMIT :offset,:pageSize",nativeQuery = true)
-    List<VendorEntity> findAllVendorByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<VendorEntity> findAllVendorByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Query(value="select count(*) from VendorEntity where discardStatus=1 and userId=:userId")
+    int findVendorTotal(@Param("userId") Integer userId);
 
     /**
      * 查询数量
      * @return
      */
     @Query(value="select count(*) from VendorEntity where discardStatus=1")
-    int findVendorTotal();
+    int findVendorTotal2();
 
     /**
      * 使用branchId查分公司名

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
 @RestController
@@ -48,8 +49,8 @@ public class BranchController {
      */
     @GetMapping(value = "/branchMgr/allBranchByPage")
     public @ResponseBody
-    String getAllBranchsByPage(@Param("page") String page, @Param("pageSize") String pageSize) {
-        return this.branchService.findAllBranchByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    String getAllBranchsByPage(@Param("page") String page, @Param("pageSize") String pageSize, HttpSession session) {
+        return this.branchService.findAllBranchByPage(Integer.parseInt(page),Integer.parseInt(pageSize),session);
     }
 
     /**

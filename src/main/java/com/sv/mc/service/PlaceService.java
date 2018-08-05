@@ -4,6 +4,7 @@ import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public interface PlaceService<T> extends BaseService<T>{
     /**
      * 不分页查询场地数据
      */
-    String findAllPlace(Map<String,Object> map);
+    String findAllPlace(Map<String,Object> map,HttpSession session);
 
     /**
      * 不分页查询场地数据
@@ -106,7 +107,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param placeId
      * @return
      */
-    List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId);
+    List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId,HttpSession session);
 
     /**
      * 根据场地id查下一级信息

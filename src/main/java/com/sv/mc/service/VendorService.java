@@ -4,6 +4,7 @@ import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.pojo.VendorEntity;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public interface VendorService<T> extends BaseService<T>{
     /**
      * 分页查询代理商数据
      */
-    String findAllVendorByPage(int page, int pageSize);
+    String findAllVendorByPage(int page, int pageSize,HttpSession session);
 
 
     /**

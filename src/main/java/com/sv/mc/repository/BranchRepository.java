@@ -24,20 +24,35 @@ public interface BranchRepository extends BaseRepository<BranchEntity, Long>, Pa
     BranchEntity findBranchById(@Param("id") int id);
 
     /**
-     * 分页查询分公司信息
+     * 分页查询分公司信息分公司，代理商，场地
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_branch as b where b.discard_status=1 and b.user_id=:userId LIMIT :offset,:pageSize",nativeQuery=true)
+    List<BranchEntity> findAllBranchByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("userId") Integer userId);
+    /**
+     * 分页查询分公司信息，总公司
      * @param offset
      * @param pageSize
      * @return
      */
     @Query(value="select * from mc_branch as b where b.discard_status=1 LIMIT :offset,:pageSize",nativeQuery=true)
-    List<BranchEntity> findAllBranchByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<BranchEntity> findAllBranchByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询数量
      * @return
      */
     @Query(value="select count(*) from mc_branch as b where b.discard_status=1",nativeQuery = true)
-    int findBranchTotal();
+    int findBranchTotal2();
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Query(value="select count(*) from mc_branch as b where b.discard_status=1 and b.user_id=:userId",nativeQuery = true)
+    int findBranchTotal(@Param("userId") Integer userId);
 
     /**
      * 根据场地名查询场地

@@ -5,6 +5,7 @@ import com.sv.mc.pojo.HeadQuartersEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import org.springframework.data.repository.query.Param;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public interface HeadQuartersService<T> extends BaseService<T>{
     /**
      * 分页查询总公司数据
      */
-    String findAllHeadByPage(int page, int pageSize);
+    String findAllHeadByPage(int page, int pageSize,HttpSession session);
 
     /**
      * 分页查询总公司数据
