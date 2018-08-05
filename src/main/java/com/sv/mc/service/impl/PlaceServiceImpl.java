@@ -611,7 +611,7 @@ public class PlaceServiceImpl implements PlaceService {
                 int pId = user.getpId();
                 int level = user.getGradeId();
                 if (level == 1){
-                        placeEntityList = this.placeRepository.findAllPlaces();
+                        placeEntityList = this.placeRepository.findAllPlaces2();
                 }
 //                else if (level == 2){
 //                        List<VendorEntity> vendorEntities = this.vendorRepository.findVendorEntityByPid(pId);

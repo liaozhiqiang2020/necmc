@@ -286,11 +286,11 @@ public class DeviceController {
      */
     @GetMapping(value = "/deviceMgr/getallDevice")
     public
-    void getAllExcel(HttpServletRequest request,HttpServletResponse response) {
+    void getAllExcel(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
         UserEntity user= (UserEntity) request.getSession().getAttribute("user");
         List<Object> list = null;
         if (user.getGradeId()==1){
-             list =    this.deviceService.findAllDevice();
+             list =    this.deviceService.findAllDevice(session);
         }if(user.getGradeId()==4) {
              list = this.deviceService.getDeviceByplace_id(user.getpId());
         }else{
