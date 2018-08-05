@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
@@ -300,6 +301,11 @@ public class PlaceController {
     public @ResponseBody
     void saveFileToDB(int placeId,String uploadpath,String fileName){
         this.placeService.saveFileToDB(placeId,uploadpath,fileName);
+    }
+
+    @GetMapping("/placeMgr/userPlace")
+    public String findAllPlaceByPlace(HttpServletRequest request){
+        return this.placeService.findDeviceByUser(request);
     }
 
     /**

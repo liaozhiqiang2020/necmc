@@ -71,9 +71,6 @@ public class LoginSuccessHandler extends
 
         String url = null;
         SavedRequest savedRequest = requestCache.getRequest(request,response);
-        String aa = savedRequest.getRedirectUrl();
-        System.out.println(aa);
-        System.out.println(savedRequest);
 
         if(savedRequest != null){
             url = savedRequest.getRedirectUrl();

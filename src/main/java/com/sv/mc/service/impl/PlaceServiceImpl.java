@@ -17,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import javax.jms.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -585,6 +588,76 @@ public class PlaceServiceImpl implements PlaceService {
                 jsonObject.put("data",jsonArray1);
                 jsonObject.put("total",total);
                 return jsonObject.toString();
+        }
+
+        @Override
+        public String findDeviceByUser(HttpServletRequest request) {
+                List<PlaceEntity> placeEntityList = new ArrayList<>();
+                HttpSession session = request.getSession();
+                UserEntity user = (UserEntity) session.getAttribute("user");
+                int pId = user.getpId();
+                int level = user.getGradeId();
+                if (level == 1){
+                        placeEntityList = this.placeRepository.findAllPlaces();
+                }
+//                else if (level == 2){
+//                        List<VendorEntity> vendorEntities = this.vendorRepository.findVendorEntityByPid(pId);
+//                        if (vendorEntities.size() != 0)
+//                }
+                else if(level == 2||level == 3){
+                        placeEntityList = this.placeRepository.findAllPlaceById(pId,level);
+                }else if(level == 4){
+                        PlaceEntity place = this.placeRepository.findPlaceById(pId);
+                        placeEntityList = new ArrayList<>();
+                        placeEntityList.add(place);
+                }
+                int total = this.placeRepository.findPlaceTotal();
+
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+                config.setExcludes(new String[] { "deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+
+                JSONArray jsonArray = JSONArray.fromObject(placeEntityList,config);
+                JSONArray jsonArray1 = new JSONArray();
+                JSONObject jsonObject2 = new JSONObject();
+                String superiorName="";
+                String levelFlagName="";
+                String userName="";
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        Integer superiorId =Integer.parseInt(jsonObject.get("superiorId").toString());
+                        int levelFlag =Integer.parseInt(jsonObject.get("levelFlag").toString());
+                        int businessId = Integer.parseInt(jsonObject.get("businessId").toString());
+                        int cityId = Integer.parseInt(jsonObject.get("cityId").toString());
+                        int userId = Integer.parseInt(jsonObject.get("userId").toString());
+                        if(superiorId!=null){
+                                if(levelFlag==1){
+                                        levelFlagName = "总部";
+                                        superiorName = this.vendorRepository.findHeadNameById(superiorId).getName();
+                                }else if(levelFlag==2){
+                                        levelFlagName = "分公司";
+                                        superiorName = this.vendorRepository.findBranchNameById(superiorId).getName();
+                                } else if(levelFlag==3){
+                                        levelFlagName = "代理商";
+                                        superiorName = this.vendorRepository.findVendorById(superiorId).getName();
+                                }
+                        }
+                        String businessName=this.businessRepository.findBusinessById(businessId).getName();
+                        String cityName = this.cityRepository.findCityById(cityId).getName();
+
+                        userName = this.userRepository.findUserById(userId).getName();
+                        jsonObject.put("superiorId",superiorId+"_"+superiorName);
+                        jsonObject.put("userName",userName);
+                        jsonObject.put("superiorName",superiorName);
+                        jsonObject.put("levelFlagName",levelFlagName);
+                        jsonObject.put("businessName",businessName);
+                        jsonObject.put("cityName",cityName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                jsonObject2.put("data",jsonArray1);
+                jsonObject2.put("total",total);
+                return jsonObject2.toString();
         }
 
 

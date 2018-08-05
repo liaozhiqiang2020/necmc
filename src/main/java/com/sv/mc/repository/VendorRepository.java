@@ -82,4 +82,11 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
     @Query("from PlaceEntity p where p.levelFlag=3 and p.discardStatus=1 and p.superiorId=:vendorId and p.pId is null")
     List<PlaceEntity> findAllPlaceByVendorId(@Param("vendorId")int vendorId);
 
+    /**
+     * 根据分公司Id查出其下所有代理商
+     * @param bId 分公司id
+     * @return
+     */
+    @Query(value="select * from mc_vendor where discard_status=1 AND superior_id = :bId",nativeQuery = true)
+    List<VendorEntity> findVendorEntityByPid(@Param("bId") int bId);
 }
