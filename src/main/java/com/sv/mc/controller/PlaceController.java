@@ -5,6 +5,7 @@ import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.PlaceService;
 import com.sv.mc.util.FileUtil2;
 import com.sv.mc.util.SpringContextUtils;
+import com.sv.mc.util.WxUtil;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -18,12 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 import java.io.*;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class PlaceController {
@@ -273,9 +272,18 @@ public class PlaceController {
     @ResponseBody
     public Map<String, Object> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
-            String contentType = file.getContentType();
-            String fileName = file.getOriginalFilename();
+//            String contentType = file.getContentType();
+            WxUtil wxUtil = new WxUtil();
+            Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
+            DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String timer = sdf.format(ts);
+//            Date d = new Date();
+//            String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
+
+
+            String fileName = timer+"_"+file.getOriginalFilename();
             String filePath = request.getSession().getServletContext().getRealPath("/fileUpload/");
+            System.out.println(filePath);
 
             FileUtil2.uploadFile(file.getBytes(), filePath, fileName);
 
@@ -305,6 +313,7 @@ public class PlaceController {
         PlaceEntity placeEntity = this.placeService.findPlaceById(placeId);
         String fileUrl = placeEntity.getFile();
         String fileName = placeEntity.getFileName();
+//        fileName = new String(fileName.getBytes(),"UTF-8");
 
         File file = new File(fileUrl);
         if (file.exists()) {
@@ -318,11 +327,11 @@ public class PlaceController {
 //                response.setContentType("image/jpeg");//只有设置jpeg才能预览图片，图片类型必须为png
 //            }
             if(type==1){
-                response.setContentType("application/octet-stream");//如果设置了octet-stream，一定会弹框下载，必须指定类型
-                response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+                response.setContentType("application/octet-stream;charset=UTF-8");//如果设置了octet-stream，一定会弹框下载，必须指定类型
+                response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
             }else if(type==2){
-                response.setContentType("image/jpeg");//只有设置jpeg才能预览图片，图片类型必须为png,jpg只显示1/3
-                response.setHeader("Content-Disposition", "inline;filename=" + fileName);
+                response.setContentType("image/jpeg;charset=UTF-8");//只有设置jpeg才能预览图片，图片类型必须为png,jpg只显示1/3
+                response.setHeader("Content-Disposition", "inline;filename=\""+ fileName+"\"");
             }
 
             response.addHeader("Pargam", "no-cache");

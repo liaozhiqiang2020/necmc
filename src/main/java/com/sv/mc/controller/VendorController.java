@@ -116,8 +116,8 @@ public class VendorController {
      */
     @RequestMapping(value = "/vendorMgr/deleteVendor",method = RequestMethod.POST)
     public @ResponseBody
-    void deleteVendor(@RequestBody VendorEntity vendorEntity){
-        this.vendorService.deleteVendor(vendorEntity.getId());
+    void deleteVendor(@RequestBody Map<String,Object> map){
+        this.vendorService.deleteVendor(Integer.parseInt(map.get("id").toString()));
     }
 
 
