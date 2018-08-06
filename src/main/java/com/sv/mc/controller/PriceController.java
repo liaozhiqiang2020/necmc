@@ -314,7 +314,7 @@ public class PriceController {
     private void setResponseHeader(HttpServletResponse response, String fileName) {
         try {
             try {
-                fileName = new String(fileName.getBytes(), "UTF-8");
+                fileName = new String(fileName.getBytes(), "iso-8859-1");
             } catch (UnsupportedEncodingException e) {
 
                 e.printStackTrace();
