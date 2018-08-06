@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -56,11 +57,30 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      */
     @Override
     @Transactional
-    public String findAllOrdersByPage(int page, int pageSize) {
-        DataSourceResult<OrderEntity> branchEntityDataSourceResult = new DataSourceResult<>();
+    public String findAllOrdersByPage(int page, int pageSize,HttpSession session) {
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        int superId = userEntity.getGradeId();//1.2.3.4
+        int flag = userEntity.getpId();//上级id
+        List<OrderEntity> branchEntityList;
         int offset = ((page - 1) * pageSize);
-        List<OrderEntity> branchEntityList = this.orderRepository.findAllOrdersByPage(offset, pageSize);//记录
-        int total = this.orderRepository.findOrderTotal();//数量
+        int total = 0;
+
+        if(superId==1){
+            branchEntityList=this.orderRepository.findAllOrdersByPage(offset, pageSize);//记录
+            total = this.orderRepository.findOrderTotal();//数量
+        }else if(superId==2){
+            branchEntityList= this.orderRepository.findAllOrdersByPage2(offset, pageSize,flag);
+            total = this.orderRepository.findOrderTotal2(flag);//数量
+        }else if(superId==3){
+            branchEntityList= this.orderRepository.findAllOrdersByPage3(offset, pageSize,flag);
+            total = this.orderRepository.findOrderTotal3(flag);//数量
+        }else{
+            branchEntityList= this.orderRepository.findAllOrdersByPage4(offset, pageSize,flag);
+            total = this.orderRepository.findOrderTotal4(flag);//数量
+        }
+
+        DataSourceResult<OrderEntity> branchEntityDataSourceResult = new DataSourceResult<>();
+
         branchEntityDataSourceResult.setData(branchEntityList);
         branchEntityDataSourceResult.setTotal(total);
         JsonConfig config = new JsonConfig();

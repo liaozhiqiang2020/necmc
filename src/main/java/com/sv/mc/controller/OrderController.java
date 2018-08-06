@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,8 +40,8 @@ public class OrderController {
      */
     @GetMapping(value = "/orderMgr/allOrder")
     public @ResponseBody
-    String getAll(@Param("page") String page, @Param("pageSize") String pageSize) {
-        return this.orderService.findAllOrdersByPage(Integer.parseInt(page),Integer.parseInt(pageSize));
+    String getAll(@Param("page") String page, @Param("pageSize") String pageSize, HttpSession session) {
+        return this.orderService.findAllOrdersByPage(Integer.parseInt(page),Integer.parseInt(pageSize),session);
     }
 
     /**

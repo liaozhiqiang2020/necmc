@@ -116,11 +116,47 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**
+     * 分页查询订单信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("branchId") int branchId);
+
+    /**
+     * 分页查询订单信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId);
+
+    /**
+     * 分页查询订单信息
+     * @param offset
+     * @param pageSize
+     * @return
+     */
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId);
+
+    /**
      * 查询订单数量
      * @return
      */
     @Query(value="select count(*) from mc_order as b",nativeQuery = true)
     int findOrderTotal();
+
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId",nativeQuery = true)
+    int findOrderTotal2(@Param("branchId") int branchId);
+
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId",nativeQuery = true)
+    int findOrderTotal3(@Param("vendorId") int vendorId);
+
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId",nativeQuery = true)
+    int findOrderTotal4(@Param("placeId") int placeId);
 
     /**
      *

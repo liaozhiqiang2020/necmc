@@ -2,6 +2,7 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.OrderEntity;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -142,7 +143,7 @@ public interface OrderService<T> extends BaseService<T>{
      * 分页查询所有订单(后台查询)
      * @return
      */
-    String findAllOrdersByPage(int page, int pageSize);
+    String findAllOrdersByPage(int page, int pageSize,HttpSession session);
 
     /**
      * 后台添加订单描述

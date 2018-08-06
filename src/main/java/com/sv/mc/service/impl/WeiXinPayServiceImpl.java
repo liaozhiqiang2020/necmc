@@ -127,7 +127,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             String nonce_str = StringUtils.getRandomStringByLength(32);
 //            System.out.println(nonce_str);
             //商品名称
-            String body = "测试商品名称";
+            String body = "";
             //获取本机的ip地址
             String spbill_create_ip = IpUtils.getIpAddr(request);
 
