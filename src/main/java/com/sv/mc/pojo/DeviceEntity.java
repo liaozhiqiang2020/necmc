@@ -187,22 +187,5 @@ public class DeviceEntity {
         return Objects.hash(id, maintainDateTime, latitude, longitude, mcStatus, mcSn, note, discardStatus);
     }
 
-    @Override
-    public String toString() {
-        return "DeviceEntity{" +
-                "id=" + id +
-                ", maintainDateTime=" + maintainDateTime +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", mcStatus=" + mcStatus +
-                ", mcSn='" + mcSn + '\'' +
-                ", loraId='" + loraId + '\'' +
-                ", note='" + note + '\'' +
-                ", discardStatus=" + discardStatus +
-                ", deviceModelEntity=" + deviceModelEntity +
-                ", placeEntity=" + placeEntity +
-                ", supplierEntity=" + supplierEntity +
-                ", priceEntities=" + priceEntities +
-                '}';
-    }
+
 }

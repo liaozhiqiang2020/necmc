@@ -287,76 +287,9 @@ public class DeviceController {
     @GetMapping(value = "/deviceMgr/getallDevice")
     public
     void getAllExcel(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
-        UserEntity user= (UserEntity) request.getSession().getAttribute("user");
-        List<Object> list = null;
-        if (user.getGradeId()==1){
-             list =    this.deviceService.findAllDevice(session);
-        }if(user.getGradeId()==4) {
-             list = this.deviceService.getDeviceByplace_id(user.getpId());
-        }else{
-             list =    this.deviceService.geyDeviceByPid(user.getGradeId());
-        }
 
-        //标题
-        String[] title = {"按摩椅编号", "模块编号","所属场地","所属型号","供应商","备注信息"};
-        //文件名
-        Date d = new Date();
-        String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
-        String fileName = "设备信息表" + time + ".xls";
-        //sheet 名
-        String sheetName = "设备信息表";
-        String[][] content = new String[list.size()][0];
-        for (int i = 0; i < list.size(); i++) {
-            content[i] = new String[title.length];
-            DeviceEntity deviceEntity=(DeviceEntity)list.get(i);
-
-            String obj = deviceEntity.getMcSn();
-            String obj1 = deviceEntity.getLoraId();
-            String obj2 =deviceEntity.getPlaceEntity().getName();
-            String obj3 = deviceEntity.getDeviceModelEntity().getName();
-            String obj4 = deviceEntity.getSupplierEntity().getSupplierName();
-            String obj5 = deviceEntity.getNote();
-
-            content[i][0] = obj;
-            content[i][1] = obj1;
-            content[i][2] = obj2;
-            content[i][3] = obj3;
-            content[i][4] = obj4;
-            content[i][5] = obj5;
-        }
-        //创建HSSFWorkbook
-        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
-        try {
-            this.setResponseHeader(response, fileName);
-            OutputStream os = response.getOutputStream();
-            wb.write(os);
-            os.flush();
-            os.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+     this.deviceService.getAllExcel(request,response,session);
     }
-    private void setResponseHeader(HttpServletResponse response, String fileName) {
-        try {
-            try {
-                fileName = new String(fileName.getBytes(),"iso-8859-1");
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-            }
-            response.setContentType("application/octet-stream;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
-            response.addHeader("Pargam", "no-cache");
-            response.addHeader("Cache-Control", "no-cache");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-
-
-
-
 
 
 
