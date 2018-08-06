@@ -164,4 +164,13 @@ public interface OrderService<T> extends BaseService<T>{
      * @return 订单信息
      */
     String findYesterDayOrderInfo(int page,int pageSize);
+
+
+
+    /**
+     * 查询所有订单信息
+     * @return
+     */
+
+    public List<OrderEntity> findAllExcelOrder();
 }

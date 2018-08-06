@@ -3,6 +3,8 @@ package com.sv.mc.service;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -88,5 +90,16 @@ public interface DeviceService<T> extends BaseService<T>{
      */
     List<DeviceEntity> getDeviceByplace_id(int id);
 
+    /**
+     * 无条件查询所有设备
+     */
+    List<DeviceEntity> findDevice2();
+
+
+    /**
+     * 导出设备Excel
+     */
+
+     void getAllExcel(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
 }

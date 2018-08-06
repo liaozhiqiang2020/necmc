@@ -27,7 +27,7 @@
         </div>
 
         <div class="container-fluid">
-            <div id="grid"></div>
+            <div id="grid"> <span id="toolbar"></span></div>
             <script>
                 /*<![CDATA[*/
                 $(function () {
@@ -311,6 +311,38 @@
                 }
 
                 /*]]>*/
+            </script>
+
+            <script>
+                $("#toolbar").kendoToolBar({
+                    items: [
+                        {
+                            type: "button",
+                            text: "导出Excel",
+                            click: function(e) {
+                                //t, {name:"导出excel",click:function(){
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "./orderMgr/getExcelOrder",
+
+                                    contentType: "application/json; charset=utf-8",
+
+                                    success:function () {
+
+                                        window.location="./orderMgr/getExcelOrder"
+
+                                    }
+
+                                })
+
+                            }
+
+                        }
+
+                    ]
+
+                });
             </script>
 
             <!--设置tooltip的样式-->

@@ -563,4 +563,15 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         return jsonObject1.toString();
     }
+
+    /**
+     * 不分页查询所有订单信息
+     * @return
+     */
+    @Override
+    public List<OrderEntity> findAllExcelOrder() {
+        return this.orderRepository.getExcelOrder();
+    }
+
+
 }

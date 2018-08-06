@@ -149,12 +149,20 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     /**
      * 根据权限查询设备
      */
-@Query(value = "SELECT d.* from mc_device AS d,mc_place as p ,mc_user as u where d.place_id=p.id and u.grade_id=p.level_flag and d.place_id=p.Id and u.grade_id=:pid",nativeQuery = true)
+@Query(value = "SELECT d.* from mc_device AS d,mc_place as p ,mc_user as u where d.place_id=p.id and u.grade_id=p.level_flag and d.place_id=p.Id and u.grade_id=:pid and d.discard_status=1",nativeQuery = true)
     List<DeviceEntity> getDeviceByPid(@Param("pid")int id);
 
     /**
      * 根据场地查询设备
      */
-    @Query(value = "select d.* from mc_device as d where d.p_id=:pid",nativeQuery = true)
+    @Query(value = "select d.* from mc_device as d where d.p_id=:pid and d.discard_status=1",nativeQuery = true)
     List<DeviceEntity> getDeviceByPlaceId(@Param("pid")int id );
+
+    /**
+     *
+     */
+    @Query(value = "SELECT d.* from mc_device as d where d.discard_status=1",nativeQuery = true)
+  List<DeviceEntity> getAllDevice();
+
+
 }

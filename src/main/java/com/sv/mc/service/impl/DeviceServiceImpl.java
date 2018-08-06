@@ -8,14 +8,21 @@ import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.ExcelUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -168,7 +175,7 @@ public class DeviceServiceImpl implements DeviceService {
          */
         @Override
         public List<DeviceEntity> geyDeviceByPid(int id) {
-                return this.deviceRepository.getDeviceByPid(id);
+                return this.deviceRepository.findAllDevice3(id);
         }
 
         /**
@@ -180,4 +187,97 @@ public class DeviceServiceImpl implements DeviceService {
         public List<DeviceEntity> getDeviceByplace_id(int id) {
                 return this.deviceRepository.findDevicesByPlaceId(id);
         }
-}
+
+
+        /**
+         * 无条件查询所有设备
+         * @return
+         */
+
+        @Override
+        public List<DeviceEntity> findDevice2() {
+                return  this.deviceRepository.getAllDevice();
+        }
+
+
+        //Excel导出
+
+        @Override
+        public void getAllExcel(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+
+                UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+                List<DeviceEntity> list = null;
+                int id=user.getGradeId();
+                System.out.println(id);
+                if (user.getGradeId()==1){
+                        list =   this.deviceRepository.getAllDevice();
+                }else if(user.getGradeId()==4) {
+                        list = this.deviceRepository.findDevicesByPlaceId(user.getpId());
+
+                }else{
+                        list =    this.deviceRepository.findAllDevice3(user.getpId());
+                }
+
+                //标题
+                String[] title = {"按摩椅编号", "模块编号","所属场地","所属型号","供应商","备注信息"};
+                //文件名
+                Date d = new Date();
+                String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
+                String fileName = "设备信息表" + time + ".xls";
+                //sheet 名
+                String sheetName = "设备信息表";
+                String[][] content = new String[list.size()][0];
+                for (int i = 0; i < list.size(); i++) {
+                        System.out.println("进入了循环");
+                        content[i] = new String[title.length];
+                        DeviceEntity deviceEntity=list.get(i);
+                        String obj = deviceEntity.getMcSn();
+                        System.out.println(obj);
+                        String obj1 = deviceEntity.getLoraId();
+                        String obj2 =deviceEntity.getPlaceEntity().getName();
+                        String obj3 = deviceEntity.getDeviceModelEntity().getName();
+                        String obj4 = deviceEntity.getSupplierEntity().getSupplierName();
+                        String obj5 = deviceEntity.getNote();
+
+                        content[i][0] = obj;
+                        content[i][1] = obj1;
+                        content[i][2] = obj2;
+                        content[i][3] = obj3;
+                        content[i][4] = obj4;
+                        content[i][5] = obj5;
+                }
+                //创建HSSFWorkbook
+                HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
+                try {
+                        this.setResponseHeader(response, fileName);
+                        OutputStream os = response.getOutputStream();
+                        wb.write(os);
+                        os.flush();
+                        os.close();
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
+        private void setResponseHeader(HttpServletResponse response, String fileName) {
+                try {
+                        try {
+                                fileName = new String(fileName.getBytes(),"iso-8859-1");
+                        } catch (UnsupportedEncodingException e) {
+
+                                e.printStackTrace();
+                        }
+                        response.setContentType("application/octet-stream;charset=UTF-8");
+                        response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
+                        response.addHeader("Pargam", "no-cache");
+                        response.addHeader("Cache-Control", "no-cache");
+                } catch (Exception ex) {
+                        ex.printStackTrace();
+                }
+        }
+
+
+
+
+        }
+
