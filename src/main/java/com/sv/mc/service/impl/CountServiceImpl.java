@@ -19,13 +19,12 @@ public class CountServiceImpl implements CountService {
     @Override
     public ProvinceQo findProvinceById(int pId, Date start , Date end) {
 
-        List<Object> list = this.repository.findCountById(pId,start,end);
-        ArrayList<Object> array = (ArrayList<Object>) list.get(0);
-
-        String name = (String)array.get(0);
-        int orderCount = (int)array.get(1);
-        int userCount = (int)array.get(2);
-        int income = (int)array.get(3);
+        List<Object[]> list = this.repository.findCountById(pId,start,end);
+        Object[] array = list.get(0);
+        String name = (String)array[0];
+        int orderCount = Integer.valueOf(array[1].toString());
+        int userCount = Integer.valueOf(array[2].toString());
+        int income = Integer.valueOf(array[3].toString());
         ProvinceQo ProvinceQo = new ProvinceQo();
         ProvinceQo.setName(name);
         ProvinceQo.setIncome(income);
