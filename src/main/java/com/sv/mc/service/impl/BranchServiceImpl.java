@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -161,6 +163,7 @@ public class BranchServiceImpl implements BranchService {
          * 查询所有总公司和分公司内容
          */
         @Override
+        @Transactional
         public String allBranchAndHead() {
                 JSONArray jsonArray3 = new JSONArray();
 
@@ -198,6 +201,7 @@ public class BranchServiceImpl implements BranchService {
          * 查询所有总公司和分公司和代理商内容
          */
         @Override
+        @Transactional
         public String allBranchAndHeadAndVendor() {
 //                List<HeadQuartersEntity> headQuartersEntities = this.headQuartersRepository.findAll();
 //                List<BranchEntity> branchEntities = this.branchRepository.findAll();
@@ -261,6 +265,7 @@ public class BranchServiceImpl implements BranchService {
          * @return
          */
         @Override
+        @Transactional
         public List<UserEntity> findAllByStatus() {
                 return this.userRepository.findAllByStatus();
         }
@@ -269,6 +274,7 @@ public class BranchServiceImpl implements BranchService {
          * 根据分公司id查询下面的合同
          */
         @Override
+        @Transactional
         public String findContractsByBranchId(int branchId) {
                 List<ContractEntity> list = this.contractRepository.findContractsByBranchId(branchId);
                 JsonConfig config = new JsonConfig();
@@ -301,6 +307,7 @@ public class BranchServiceImpl implements BranchService {
          * 根据分公司id查询历史合同
          */
         @Override
+        @Transactional
         public String findHistoryContractByBranchId(int branchId) {
                 List<ContractEntity> list = this.contractRepository.findHistoryContractByBranchId(branchId);
                 JsonConfig config = new JsonConfig();
@@ -332,6 +339,7 @@ public class BranchServiceImpl implements BranchService {
          * 根据分公司id查询下面的场地
          */
         @Override
+        @Transactional
         public List<PlaceEntity> findAllPlaceByBranchId(int branchId) {
                 return this.branchRepository.findAllPlaceByBranchId(branchId);
         }
@@ -340,14 +348,22 @@ public class BranchServiceImpl implements BranchService {
          * 分公司绑定场地
          */
         @Override
+        @Transactional
         public void branchBoundPlace(int branchId, int placeId) {
                 List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);//查出placeId下的所有场地id
+
+                WxUtil wxUtil = new WxUtil();
+                Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
+                DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                String timer = sdf.format(ts);
+                String contractCode = "合同_"+timer;
 
                 ContractEntity contractEntity=new ContractEntity();
                 contractEntity.setOwner(branchId);//甲方
                 contractEntity.setSecond(placeId);//乙方
                 contractEntity.setFlag(2);//分公司签约
                 contractEntity.setUseFlag(1);//使用中
+                contractEntity.setContractCode(contractCode);//合同编号
                 contractEntity.setPlaceId(placeId);
                 this.contractRepository.save(contractEntity);
 

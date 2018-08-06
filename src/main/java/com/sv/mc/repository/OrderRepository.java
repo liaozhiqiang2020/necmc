@@ -131,4 +131,12 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     @Query(value="select count(id) from mc_order where pay_date_time BETWEEN cast(:startTime as datetime ) and cast(:endTime as datetime)",nativeQuery = true)
     int findOrderByPeriod(@Param("startTime")String startTime,@Param("endTime")String endTime);
 
+    /**
+     *
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Query(value="select * from mc_order where pay_date_time BETWEEN cast(:startTime as datetime ) and cast(:endTime as datetime) order by create_date_time DESC LIMIT :offset,:pageSize",nativeQuery = true)
+    List<OrderEntity> findOrdersInfo(@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 }

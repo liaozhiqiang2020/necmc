@@ -10,13 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import sun.misc.BASE64Decoder;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
+
 import java.sql.*;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;

@@ -520,4 +520,47 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 //        return 56;
         return this.orderRepository.findOrderByPeriod(yestedayDate, today);
     }
+
+
+    @Override
+    public String findYesterDayOrderInfo(int page,int pageSize) {
+        Calendar calendar = Calendar.getInstance();//此时打印它获取的是系统当前时间
+        calendar.add(Calendar.DATE, -1);    //得到前一天
+
+        String yestedayDate = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(calendar.getTime());
+        String today = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(new Date());
+
+        int offset = ((page - 1) * pageSize);
+        List<OrderEntity> orderEntityList = this.orderRepository.findOrdersInfo(yestedayDate, today,offset,pageSize);
+        int total = this.orderRepository.findOrderByPeriod(yestedayDate, today);//数量
+
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        JSONArray jsonArray= JSONArray.fromObject(orderEntityList, config);//转化为jsonArray
+
+        JSONObject jsonObject1 = new JSONObject();
+        JSONArray jsonArray1 = new JSONArray();//新建json数组
+
+        String statusName = "";
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject12 = jsonArray.getJSONObject(i);
+            int status = Integer.parseInt(jsonObject12.get("status").toString());
+            if (status == 0) {
+                statusName = "未付款";
+            } else if (status == 1) {
+                statusName = "服务中";
+            } else if (status == 2) {
+                statusName = "已完成";
+            } else if (status == 3) {
+                statusName = "已取消";
+            }
+            jsonObject12.put("statusName", statusName);
+            jsonArray1.add(jsonObject12);
+        }
+        jsonObject1.put("data", jsonArray1);
+        jsonObject1.put("total", total);
+
+
+        return jsonObject1.toString();
+    }
 }

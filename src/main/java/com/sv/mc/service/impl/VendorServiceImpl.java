@@ -7,15 +7,19 @@ import com.sv.mc.service.PlaceService;
 import com.sv.mc.service.VendorService;
 import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.DateJsonValueProcessor;
+import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +48,7 @@ public class VendorServiceImpl implements VendorService {
          * @return VendorEntity
          */
         @Override
+        @Transactional
         public VendorEntity save(VendorEntity vendor) {
                 return vendorRepository.save(vendor);
         }
@@ -54,6 +59,7 @@ public class VendorServiceImpl implements VendorService {
          * @return VendorEntity
          */
         @Override
+        @Transactional
         public VendorEntity findVendorById(int id) {
                 return vendorRepository.findVendorById(id);
         }
@@ -65,6 +71,7 @@ public class VendorServiceImpl implements VendorService {
          * @return VendorEntity
          */
         @Override
+        @Transactional
         public VendorEntity updateVendorDataById(int id, VendorEntity vendor) {
                 return vendorRepository.save(vendor);
         }
@@ -74,6 +81,7 @@ public class VendorServiceImpl implements VendorService {
          * @return List<VendorEntity>
          */
         @Override
+        @Transactional
         public List<VendorEntity> findAllEntities() {
                 return vendorRepository.findAll();
         }
@@ -86,6 +94,7 @@ public class VendorServiceImpl implements VendorService {
          * @return
          */
         @Override
+        @Transactional
         public String findAllVendorByPage(int page, int pageSize,HttpSession session) {
                 UserEntity userEntity = (UserEntity) session.getAttribute("user");
                 int superId = userEntity.getGradeId();
@@ -142,6 +151,7 @@ public class VendorServiceImpl implements VendorService {
          * @return VendorEntity
          */
         @Override
+        @Transactional
         public VendorEntity insertVendor(Map map) {
                 return saveData(map);
         }
@@ -152,6 +162,7 @@ public class VendorServiceImpl implements VendorService {
          * @return
          */
         @Override
+        @Transactional
         public VendorEntity updateVendorDataById(Map map) {
                 return saveData(map);
         }
@@ -161,6 +172,7 @@ public class VendorServiceImpl implements VendorService {
          * @param headId
          */
         @Override
+        @Transactional
         public void deleteVendor(int headId) {
                 VendorEntity vendorEntity = findVendorById(headId);
                 vendorEntity.setDiscardStatus(0);
@@ -214,6 +226,7 @@ public class VendorServiceImpl implements VendorService {
          * 根据代理商id查询下面的场地
          */
         @Override
+        @Transactional
         public List<PlaceEntity> findAllPlaceByVendorId(int vendorId) {
                 return this.vendorRepository.findAllPlaceByVendorId(vendorId);
         }
@@ -222,14 +235,22 @@ public class VendorServiceImpl implements VendorService {
          * 代理商绑定场地
          */
         @Override
+        @Transactional
         public void vendorBoundPlace(int vendorId, int placeId) {
                 List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);//查出placeId下的所有场地id
+
+                WxUtil wxUtil = new WxUtil();
+                Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
+                DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                String timer = sdf.format(ts);
+                String contractCode = "合同_"+timer;
 
                 ContractEntity contractEntity=new ContractEntity();
                 contractEntity.setOwner(vendorId);//甲方
                 contractEntity.setSecond(placeId);//乙方
                 contractEntity.setFlag(3);//代理商签约
                 contractEntity.setUseFlag(1);//使用中
+                contractEntity.setContractCode(contractCode);//合同编号
                 contractEntity.setPlaceId(placeId);
                 this.contractRepository.save(contractEntity);
 
@@ -246,6 +267,7 @@ public class VendorServiceImpl implements VendorService {
          * 根据代理商id查询下面的合同
          */
         @Override
+        @Transactional
         public String findContractByVendorId(int vendorId) {
                 List<ContractEntity> list = this.contractRepository.findContractsByVendorId(vendorId);
                 JsonConfig config = new JsonConfig();
@@ -277,6 +299,7 @@ public class VendorServiceImpl implements VendorService {
          * 根据代理商id查询合同历史
          */
         @Override
+        @Transactional
         public String findHistoryContractByVendorId(int vendorId) {
                 List<ContractEntity> list = this.contractRepository.findHistoryContractByVendorId(vendorId);
                 JsonConfig config = new JsonConfig();

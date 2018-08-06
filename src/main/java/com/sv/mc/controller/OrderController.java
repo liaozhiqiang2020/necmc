@@ -51,4 +51,22 @@ public class OrderController {
         this.orderService.addOrderDescription(orderId,description);
     }
 
+    /**
+     * 跳转到昨日订单信息页面
+     */
+    @GetMapping(value="/turnToOrderMgrByYesterday")
+    public ModelAndView turnToOrderMgrByYesterday(){
+        return new ModelAndView("./order/orderMgrYesterday");
+    }
+
+    /**
+     * 全部查询
+     * @return 返回昨日订单内容
+     */
+    @GetMapping(value = "/orderMgr/allOrderYesterday")
+    public @ResponseBody
+    String allOrderYesterday(@Param("page") String page, @Param("pageSize") String pageSize) {
+        return this.orderService.findYesterDayOrderInfo(Integer.parseInt(page),Integer.parseInt(pageSize));
+    }
+
 }

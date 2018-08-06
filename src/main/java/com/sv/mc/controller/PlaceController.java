@@ -1,22 +1,16 @@
 package com.sv.mc.controller;
 
-import com.sun.xml.internal.ws.resources.HttpserverMessages;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
 import com.sv.mc.service.PlaceService;
 import com.sv.mc.util.FileUtil2;
-import com.sv.mc.util.SpringContextUtils;
 import com.sv.mc.util.WxUtil;
-import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -321,7 +315,7 @@ public class PlaceController {
         PlaceEntity placeEntity = this.placeService.findPlaceById(placeId);
         String fileUrl = placeEntity.getFile();
         String fileName = placeEntity.getFileName();
-//        fileName = new String(fileName.getBytes(),"UTF-8");
+        fileName = new String(fileName.getBytes("utf-8"),"iso-8859-1");
 
         File file = new File(fileUrl);
         if (file.exists()) {

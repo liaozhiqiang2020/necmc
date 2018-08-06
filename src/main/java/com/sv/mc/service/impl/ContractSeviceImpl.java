@@ -5,6 +5,7 @@ import com.sv.mc.repository.ContractRepository;
 import com.sv.mc.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ContractSeviceImpl implements ContractService {
      * @return
      */
     @Override
+    @Transactional
     public ContractEntity save(ContractEntity contractEntity) {
         return contractRepository.save(contractEntity);
     }
@@ -32,6 +34,7 @@ public class ContractSeviceImpl implements ContractService {
      * @return
      */
     @Override
+    @Transactional
     public ContractEntity findSignById(int id) {
         return contractRepository.findSignById(id);
     }
@@ -42,6 +45,7 @@ public class ContractSeviceImpl implements ContractService {
      * @return
      */
     @Override
+    @Transactional
     public ContractEntity insertSign(ContractEntity contractEntity) {
         return contractRepository.save(contractEntity);
     }
@@ -51,6 +55,7 @@ public class ContractSeviceImpl implements ContractService {
      * @return
      */
     @Override
+    @Transactional
     public List<ContractEntity> findAllEntities() {
         return contractRepository.findAll();
     }
@@ -61,6 +66,7 @@ public class ContractSeviceImpl implements ContractService {
      * @return
      */
     @Override
+    @Transactional
     public void  updateContract(Map map) {
         ContractEntity contractEntity = this.contractRepository.findSignById(Integer.parseInt(map.get("id").toString()));
         Object startDateTime = map.get("startDateTime");

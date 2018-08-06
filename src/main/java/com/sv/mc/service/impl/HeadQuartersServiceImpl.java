@@ -8,6 +8,7 @@ import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.service.HeadQuartersService;
 import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.DateJsonValueProcessor;
+import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -17,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -122,11 +125,13 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
 
     @Override
+    @Transactional
     public List<HeadQuartersEntity> findAllHead() {
         return this.headQuartersRepository.findAllHead();
     }
 
     @Override
+    @Transactional
     public HeadQuartersEntity findHeadByBranchId(int branchId) {
         return this.headQuartersRepository.findHeadByBranchId(branchId);
     }
@@ -135,6 +140,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * 根据总公司id查询下面的场地
      */
     @Override
+    @Transactional
     public List<PlaceEntity> findAllPlaceByHeadId(int headId) {
         return this.headQuartersRepository.findAllPlaceByHeadId(headId);
     }
@@ -143,6 +149,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * 查询所有未绑定的场地
      */
     @Override
+    @Transactional
     public List<PlaceEntity> findAllUnboundPlace() {
         return this.headQuartersRepository.findAllUnboundPlace();
     }
@@ -151,14 +158,22 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * 总公司绑定场地(包括所有子场地)
      */
     @Override
+    @Transactional
     public void headBoundPlace(int headId, int placeId) {
         List<Integer> list = this.placeRepository.findAllPlaceChildById(placeId);//查出placeId下的所有场地id
+
+        WxUtil wxUtil = new WxUtil();
+        Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
+        DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timer = sdf.format(ts);
+        String contractCode = "合同_"+timer;
 
         ContractEntity contractEntity=new ContractEntity();
         contractEntity.setOwner(headId);//甲方
         contractEntity.setSecond(placeId);//乙方
         contractEntity.setFlag(1);//分公司签约
         contractEntity.setUseFlag(1);//使用中
+        contractEntity.setContractCode(contractCode);//合同编号
         contractEntity.setPlaceId(placeId);
         this.contractRepository.save(contractEntity);
 
@@ -176,6 +191,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * @param placeId
      */
     @Override
+    @Transactional
     public void unboundPlace(int placeId,int supId,int flagId) {
         ContractEntity contractEntity = this.contractRepository.findContractEntityBeforeUnBound(placeId,supId,flagId);
         contractEntity.setUseFlag(0);
@@ -196,6 +212,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * 根据总公司id查询下面的合同
      */
     @Override
+    @Transactional
     public String findContractByHeadId(int headId) {
         List<ContractEntity> list = this.contractRepository.findContractsByHeadId(headId);
         JsonConfig config = new JsonConfig();
@@ -228,6 +245,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
      * 根据总公司id查询合同历史
      */
     @Override
+    @Transactional
     public String findHistoryContractByHeadId(int headId) {
         List<ContractEntity> list = this.contractRepository.findHistoryContractByHeadId(headId);
         JsonConfig config = new JsonConfig();
