@@ -828,4 +828,12 @@ public class PlaceServiceImpl implements PlaceService {
 
                 return this.placeRepository.save(placeEntity);
         }
+
+
+        @Override
+        public PlaceEntity getPlaceByName(String name) {
+                return this.placeRepository.getPlaceName(name);
+        }
+
+
 }

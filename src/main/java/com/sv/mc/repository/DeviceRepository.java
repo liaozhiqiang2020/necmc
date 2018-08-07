@@ -174,4 +174,12 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
   List<DeviceEntity> getAllDevice();
 
 
+    /**
+     * 根据sn查询设备
+     */
+    @Query(value = "from DeviceEntity as d where d.mcSn=:sn")
+    DeviceEntity getDeviceBySn(@Param("sn") String sn);
+
+
+
 }

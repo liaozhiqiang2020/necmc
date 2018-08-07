@@ -66,6 +66,10 @@
 
 
 <script>
+          var   gradeId=  '[[${session.user.gradeId}]]'   //隶属单位
+          var   p_id='[[${session.user.pId}]]'  //权限
+         // alert(gradeId)
+        //  alert(p_id)
 
     function grid(){
         $("#grid").html("")
@@ -75,27 +79,23 @@
         var  city=$("#city").val();//市
         var  place=$("#place").val();//场地
 
- if (start=='起始日期'||end=='截至日期'){
-     alert("缺少时间条件")
- }else{
-      if (place!=''){
-        // alert('场地方')
-
-          placeGrid();
-      }else if(place==''&&city!=''){
-        //  alert('市')
-
-          cityGrid();
-      } else{
-        //  alert('省')
-
-          provinceGrid();
-      }
- }
-
-
-
-
+             if (start=='起始日期'||end=='截至日期'){
+                 alert("缺少时间条件")
+             }else{
+                  if (place!=''){
+                  //  alert('一个场地方')
+                      placeGrid();
+                  }else if(place==''&&city!=''){
+                  //   alert('一个市')
+                      cityGrid();
+                  } else if(place==''&&city==''&&province!=''){
+                   //   alert('一个省')
+                      provinceGrid();
+                  }else{
+                      allprovince();
+                  //    alert('所有省')
+                  }
+             }
 console.log(start,end,province,city,place)
 
 
@@ -118,29 +118,24 @@ console.log(start,end,province,city,place)
         var  city=$("#city").val();//市
         var  place=$("#place").val();//场地
         var dataSource = new kendo.data.DataSource({
-
-
             transport: {
                 read: {
-                    url: "./fillday?s="+start+"&e="+end+"&id="+province
+                    url: "./findProvinceByPid?start="+start+"&end="+end+"&pId="+province
                 },
                 parameterMap:function(options, operation){
                     if (operation === "") {
-
                         var deviceId = options.id;
-
                         var list = {
                             id:deviceId
                         }
                         return kendo.stringify(list);
                     }
-
                 }
             },
             serverPaging: false,    //设定服务器来实现分页功能
             serverFiltering: true,
             serverSorting: true,
-            pageSize: 15,
+            pageSize: 10,
             schema: {
                 model: {
                     id: "id",
@@ -162,8 +157,6 @@ console.log(start,end,province,city,place)
                 }
             }
         });
-
-
         $("#grid").kendoGrid({
         dataSource: dataSource,
             toolbar: [{name: "excel"}],
@@ -174,18 +167,14 @@ console.log(start,end,province,city,place)
         height: 600,
         sortable: true, //表示是否支持排序， boolean型
         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
-
         columnMenu: true,
         pageable: {
 
-        pageSizes: true,
-
         buttonCount: 5,
         totalPages: true,
-
         refresh: true,
         pageSize: 5,
-        pageSizes: [5, 10, 15, 20],
+
         numeric: true,
         input: true,
         messages: {
@@ -202,59 +191,136 @@ console.log(start,end,province,city,place)
         },
         columns: [
         {
-        field: "site",
-        title: "省"
+        field: "name",
+        title: "地区"
         },
+        {
+        field: "userCount",
+        title: "用户数",
+        },
+        {
+        field: "orderCount",
+        title: "订单总数",
+        },
+        {
+        field: "income",
+        title: "收入"
+        },{
+            command: [
+                {
+                    name :"详情",click:function (e) {
+                        kendo.culture("zh-CN");
+                        var start=$("#start").val();//开始时间
+                        var end=$("#end").val();//结束时间
+                        var  province =$("#province").val();//省
+                        var  city=$("#city").val();//市
+                        var  place=$("#place").val();//场地
+//==============================================================
+                        $("#grid").html("")
+                        var dataSource2 = new kendo.data.DataSource({
+                            transport: {
+                                read: {
+                                    url: "./findCityByPid?pId="+province+"&start="+start+"&end="+end
+                                },
+                                parameterMap:function(options, operation){
+                                    if (operation === "") {
 
-        {
-        field: "dm_name",
-        title: "按摩椅类型",
-        },
-        {
-        field: "chairType",
-        title: "按摩椅型号",
-        },
-        {
-        field: "userNumber",
-        title: "用户数"
-        },
-        {
-        field: "payment",
-        title: "未付款"
-        },
-        {
-        field: "accountpaid",
-        title: "已付款",
-        },
-        {
-        field: "offthestocks",
-        title: "已完成",
-        },
-        {
-        field: "canceled",
-        title: "已取消",
-        },
-            {
-                field: "orderTotal",
-                title: "订单总量",
-            },
-            {
-                field: "income",
-                title: "收入总额",
-            },
-            {
-                field: "expend",
-                title: "支出总额",
-            },
-            {
-                field: "profit",
-                title: "利润",
-            },
-            {
-                field: "unitException",
-                title: "异常设备",
-            },
-        ],
+                                        var deviceId = options.id;
+
+                                        var list = {
+                                            id:deviceId
+                                        }
+                                        return kendo.stringify(list);
+                                    }
+                                }
+                            },
+                            serverPaging: false,    //设定服务器来实现分页功能
+                            serverFiltering: true,
+                            serverSorting: true,
+                            pageSize: 10,
+                            schema: {
+                                model: {
+                                    id: "id",
+                                    fields: {
+                                        id: {type: "number", editable: false},
+                                        mcSn: {type: "string"},
+                                        // maintainDateTime: {type: "timestamp"},
+                                        latitude: {type: "number"},
+                                        longitude: {type: "number"},
+                                        mcStatus: {type: "int"},
+                                        note: {type: "string"},
+                                        placeEntity:{defaultValue: { id: 1, name: ""}},
+                                        deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                                        supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                                    }
+                                },
+                                data: function (response) {
+                                    return response;
+                                }
+                            }
+                        });
+                        $("#grid").kendoGrid({
+                            dataSource: dataSource2,
+                            toolbar: [{name: "excel"}],
+                            excel: {
+                                fileName: "销售报表.xlsx",
+                                allPages:true
+                            },
+                            height: 600,
+                            sortable: true, //表示是否支持排序， boolean型
+                            filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                            columnMenu: true,
+                            pageable: {
+
+                                buttonCount: 5,
+                                totalPages: true,
+                                refresh: true,
+                                pageSize: 10,
+
+                                numeric: true,
+                                input: true,
+                                messages: {
+                                    display: "显示 {0}-{1} 条，共 {2} 条",
+                                    empty: "没有数据",
+                                    itemsPerPage: "每页显示数量",
+                                    first: "第一页",
+                                    last: "最后一页",
+                                    next: "下一页",
+                                    previous: "上一页",
+                                    page: "页",
+                                    of: "共 {0}页"
+                                }
+                            },
+                            columns: [
+                                {
+                                    field: "name",
+                                    title: "地区"
+                                },
+                                {
+                                    field: "userCount",
+                                    title: "用户数",
+                                },
+                                {
+                                    field: "orderCount",
+                                    title: "订单总数",
+                                },
+                                {
+                                    field: "income",
+                                    title: "收入"
+                                },
+                            ],
+                            editable: {
+                                mode: "popup",
+                                window: {
+                                    title: "设备管理"
+                                }
+                            }
+                        })
+                        ;}
+                }
+            ],   title: "操作",
+                width: "100px"}
+    ],
         editable: {
         mode: "popup",
         window: {
@@ -264,311 +330,347 @@ console.log(start,end,province,city,place)
         });}
 
 
-//------------------------------------------------------------------------------------------------------------
-//市查询
-
-    //初始化表格数据
-    function cityGrid() {
-        kendo.culture("zh-CN");
-        var start=$("#start").val();//开始时间
-        var end=$("#end").val();//结束时间
-        var  province =$("#province").val();//省
-        var  city=$("#city").val();//市
-        var  place=$("#place").val();//场地
-        var dataSource = new kendo.data.DataSource({
-            transport: {
-                read: {
-                    url: "./fillcity?s="+start+"&e="+end+"&id="+city
-                },
-                parameterMap:function(options, operation){
-                    if (operation === "") {
-
-                        var deviceId = options.id;
-
-                        var list = {
-                            id:deviceId
-                        }
-                        return kendo.stringify(list);
-                    }
-
-                }
-            },
-            serverPaging: false,    //设定服务器来实现分页功能
-            serverFiltering: true,
-            serverSorting: true,
-            pageSize: 15,
-            schema: {
-                model: {
-                    id: "id",
-                    fields: {
-                        id: {type: "number", editable: false},
-                        mcSn: {type: "string"},
-                        // maintainDateTime: {type: "timestamp"},
-                        latitude: {type: "number"},
-                        longitude: {type: "number"},
-                        mcStatus: {type: "int"},
-                        note: {type: "string"},
-                        placeEntity:{defaultValue: { id: 1, name: ""}},
-                        deviceModelEntity:{defaultValue: { id: 1, name: ""}},
-                        supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
-                    }
-                },
-                data: function (response) {
-                    return response;
-                }
-            }
-        });
+//========================================================================================================================================================
 
 
-        $("#grid").kendoGrid({
-            dataSource: dataSource,
-            height: 600,
-            sortable: true, //表示是否支持排序， boolean型
-            filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+          //市查询
 
-            columnMenu: true,
-            pageable: {
+          //初始化表格数据
+          function cityGrid() {
+              kendo.culture("zh-CN");
+              var start=$("#start").val();//开始时间
+              var end=$("#end").val();//结束时间
+              var  province =$("#province").val();//省
+              var  city=$("#city").val();//市
+              var  place=$("#place").val();//场地
+              var dataSource = new kendo.data.DataSource({
+                  transport: {
+                      read: {
+                          url: "./findPlaceByCity?start="+start+"&end="+end+"&cId="+city
+                      },
+                      parameterMap:function(options, operation){
+                          if (operation === "") {
+                              var deviceId = options.id;
+                              var list = {
+                                  id:deviceId
+                              }
+                              return kendo.stringify(list);
+                          }
+                      }
+                  },
+                  serverPaging: false,    //设定服务器来实现分页功能
+                  serverFiltering: true,
+                  serverSorting: true,
+                  pageSize: 10,
+                  schema: {
+                      model: {
+                          id: "id",
+                          fields: {
+                              id: {type: "number", editable: false},
+                              mcSn: {type: "string"},
+                              // maintainDateTime: {type: "timestamp"},
+                              latitude: {type: "number"},
+                              longitude: {type: "number"},
+                              mcStatus: {type: "int"},
+                              note: {type: "string"},
+                              placeEntity:{defaultValue: { id: 1, name: ""}},
+                              deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                              supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                          }
+                      },
+                      data: function (response) {
+                          return response;
+                      }
+                  }
+              });
+              $("#grid").kendoGrid({
+                  dataSource: dataSource,
+                  toolbar: [{name: "excel"}],
+                  excel: {
+                      fileName: "销售报表.xlsx",
+                      allPages:true
+                  },
+                  height: 600,
+                  sortable: true, //表示是否支持排序， boolean型
+                  filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                  columnMenu: true,
+                  pageable: {
 
-                pageSizes: true,
+                      buttonCount: 5,
+                      totalPages: true,
+                      refresh: true,
+                      pageSize: 10,
 
-                buttonCount: 5,
-                totalPages: true,
-
-                refresh: true,
-                pageSize: 5,
-                pageSizes: [5, 10, 15, 20],
-                numeric: true,
-                input: true,
-                messages: {
-                    display: "显示 {0}-{1} 条，共 {2} 条",
-                    empty: "没有数据",
-                    itemsPerPage: "每页显示数量",
-                    first: "第一页",
-                    last: "最后一页",
-                    next: "下一页",
-                    previous: "上一页",
-                    page: "页",
-                    of: "共 {0}页"
-                }
-            },
-            columns: [
-                {
-                    field: "site",
-                    title: "市"
-                },
-
-                {
-                    field: "dm_name",
-                    title: "按摩椅类型",
-                },
-                {
-                    field: "chairType",
-                    title: "按摩椅型号",
-                },
-                {
-                    field: "userNumber",
-                    title: "用户数"
-                },
-                {
-                    field: "payment",
-                    title: "未付款"
-                },
-                {
-                    field: "accountpaid",
-                    title: "已付款",
-                },
-                {
-                    field: "offthestocks",
-                    title: "已完成",
-                },
-                {
-                    field: "canceled",
-                    title: "已取消",
-                },
-                {
-                    field: "orderTotal",
-                    title: "订单总量",
-                },
-                {
-                    field: "income",
-                    title: "收入总额",
-                },
-                {
-                    field: "expend",
-                    title: "支出总额",
-                },
-                {
-                    field: "profit",
-                    title: "利润",
-                },
-                {
-                    field: "unitException",
-                    title: "异常设备",
-                },
-            ],
-            editable: {
-                mode: "popup",
-                window: {
-                    title: "设备管理"
-                }
-            }
-        });}
-
-//======================================================================================================
-
-// 场地查询
-
-    //初始化表格数据
-    function placeGrid() {
-        var start=$("#start").val();//开始时间
-        var end=$("#end").val();//结束时间
-        var  province =$("#province").val();//省
-        var  city=$("#city").val();//市
-        var  place=$("#place").val();//场地
-        kendo.culture("zh-CN");
-
-        var dataSource = new kendo.data.DataSource({
-            transport: {
-                read: {
-                    url: "./fillplace?s="+start+"&e="+end+"&id="+place
-                },
-                parameterMap:function(options, operation){
-                    if (operation === "") {
-
-                        var deviceId = options.id;
-
-                        var list = {
-                            id:deviceId
-                        }
-                        return kendo.stringify(list);
-                    }
-
-                }
-            },
-            serverPaging: false,    //设定服务器来实现分页功能
-            serverFiltering: true,
-            serverSorting: true,
-            pageSize: 15,
-            schema: {
-                model: {
-                    id: "id",
-                    fields: {
-                        id: {type: "number", editable: false},
-                        mcSn: {type: "string"},
-                        // maintainDateTime: {type: "timestamp"},
-                        latitude: {type: "number"},
-                        longitude: {type: "number"},
-                        mcStatus: {type: "int"},
-                        note: {type: "string"},
-                        placeEntity:{defaultValue: { id: 1, name: ""}},
-                        deviceModelEntity:{defaultValue: { id: 1, name: ""}},
-                        supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
-                    }
-                },
-                data: function (response) {
-                    return response;
-                }
-            }
-        });
+                      numeric: true,
+                      input: true,
+                      messages: {
+                          display: "显示 {0}-{1} 条，共 {2} 条",
+                          empty: "没有数据",
+                          itemsPerPage: "每页显示数量",
+                          first: "第一页",
+                          last: "最后一页",
+                          next: "下一页",
+                          previous: "上一页",
+                          page: "页",
+                          of: "共 {0}页"
+                      }
+                  },
+                  columns: [
+                      {
+                          field: "name",
+                          title: "地区"
+                      },
+                      {
+                          field: "userCount",
+                          title: "用户数",
+                      },
+                      {
+                          field: "orderCount",
+                          title: "订单总数",
+                      },
+                      {
+                          field: "income",
+                          title: "收入"
+                      },{
+                          command: [
+                              {
+                                  name :"详情",click:function (e) {
 
 
-        $("#grid").kendoGrid({
-            dataSource: dataSource,
-            height: 600,
-            sortable: true, //表示是否支持排序， boolean型
-            filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                                      var start=$("#start").val();//开始时间
+                                      var end=$("#end").val();//结束时间
+                                      var  province =$("#province").val();//省
+                                      var  city=$("#city").val();//市
+                                      var  place=$("#place").val();//场地
+//==============================================================
+                                      $("#grid").html("")
+                                      var dataSource1 = new kendo.data.DataSource({
+                                          transport: {
+                                              read: {
+                                                  url: "./findPlaceBycid?cId="+city+"&start="+start+"&end="+end
+                                              },
+                                              /*parameterMap:function(options, operation){
+                                                  if (operation === "") {
 
-            columnMenu: true,
-            pageable: {
+                                                      var deviceId = options.id;
 
-                pageSizes: true,
+                                                      var list = {
+                                                          id:deviceId
+                                                      }
+                                                      return kendo.stringify(list);
+                                                  }
+                                              }*/
+                                          },
+                                          serverPaging: false,    //设定服务器来实现分页功能
+                                          serverFiltering: true,
+                                          serverSorting: true,
+                                          pageSize: 10,
+                                          schema: {
+                                              model: {
+                                                  id: "id",
+                                                  fields: {
+                                                      id: {type: "number", editable: false},
+                                                      mcSn: {type: "string"},
+                                                      // maintainDateTime: {type: "timestamp"},
+                                                      latitude: {type: "number"},
+                                                      longitude: {type: "number"},
+                                                      mcStatus: {type: "int"},
+                                                      note: {type: "string"},
+                                                      placeEntity:{defaultValue: { id: 1, name: ""}},
+                                                      deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                                                      supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                                                  }
+                                              },
+                                              data: function (response) {
+                                                  return response;
+                                              }
+                                          }
+                                      });
+                                      $("#grid").kendoGrid({
+                                          dataSource: dataSource1,
+                                          toolbar: [{name: "excel"}],
+                                          excel: {
+                                              fileName: "销售报表.xlsx",
+                                              allPages:true
+                                          },
+                                          height: 600,
+                                          sortable: true, //表示是否支持排序， boolean型
+                                          filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                                          columnMenu: true,
+                                          pageable: {
 
-                buttonCount: 5,
-                totalPages: true,
+                                              buttonCount: 5,
+                                              totalPages: true,
+                                              refresh: true,
+                                              pageSize: 10,
 
-                refresh: true,
-                pageSize: 5,
-                pageSizes: [5, 10, 15, 20],
-                numeric: true,
-                input: true,
-                messages: {
-                    display: "显示 {0}-{1} 条，共 {2} 条",
-                    empty: "没有数据",
-                    itemsPerPage: "每页显示数量",
-                    first: "第一页",
-                    last: "最后一页",
-                    next: "下一页",
-                    previous: "上一页",
-                    page: "页",
-                    of: "共 {0}页"
-                }
-            },
-            columns: [
-                {
-                    field: "site",
-                    title: "场地"
-                },
+                                              numeric: true,
+                                              input: true,
+                                              messages: {
+                                                  display: "显示 {0}-{1} 条，共 {2} 条",
+                                                  empty: "没有数据",
+                                                  itemsPerPage: "每页显示数量",
+                                                  first: "第一页",
+                                                  last: "最后一页",
+                                                  next: "下一页",
+                                                  previous: "上一页",
+                                                  page: "页",
+                                                  of: "共 {0}页"
+                                              }
+                                          },
+                                          columns: [
+                                              {
+                                                  field: "name",
+                                                  title: "地区"
+                                              },
+                                              {
+                                                  field: "userCount",
+                                                  title: "用户数",
+                                              },
+                                              {
+                                                  field: "orderCount",
+                                                  title: "订单总数",
+                                              },
+                                              {
+                                                  field: "income",
+                                                  title: "收入"
+                                              },
+                                          ],
+                                          editable: {
+                                              mode: "popup",
+                                              window: {
+                                                  title: "设备管理"
+                                              }
+                                          }
+                                      })
+                                      ;}
+                              }
+                          ],   title: "操作",
+                          width: "100px"}
+                  ],
+                  editable: {
+                      mode: "popup",
+                      window: {
+                          title: "设备管理"
+                      }
+                  }
+              });}
 
-                {
-                    field: "dm_name",
-                    title: "按摩椅类型",
-                },
-                {
-                    field: "chairType",
-                    title: "按摩椅型号",
-                },
-                {
-                    field: "userNumber",
-                    title: "用户数"
-                },
-                {
-                    field: "payment",
-                    title: "未付款"
-                },
-                {
-                    field: "accountpaid",
-                    title: "已付款",
-                },
-                {
-                    field: "offthestocks",
-                    title: "已完成",
-                },
-                {
-                    field: "canceled",
-                    title: "已取消",
-                },
-                {
-                    field: "orderTotal",
-                    title: "订单总量",
-                },
-                {
-                    field: "income",
-                    title: "收入总额",
-                },
-                {
-                    field: "expend",
-                    title: "支出总额",
-                },
-                {
-                    field: "profit",
-                    title: "利润",
-                },
-                {
-                    field: "unitException",
-                    title: "异常设备",
-                },
-            ],
-            editable: {
-                mode: "popup",
-                window: {
-                    title: "设备管理"
-                }
-            }
-        });}
+//==========================================================================================================================================
 
 
 
 
+//================================================================================================================================================
+
+
+          //所有省查询
+
+          //初始化表格数据
+          function allprovince() {
+              kendo.culture("zh-CN");
+              var start=$("#start").val();//开始时间
+              var end=$("#end").val();//结束时间
+              var  province =$("#province").val();//省
+              var  city=$("#city").val();//市
+              var  place=$("#place").val();//场地
+              var dataSource = new kendo.data.DataSource({
+                  transport: {
+                      read: {
+                          url: "./findoneProvince?start="+start+"&end="+end
+                      },
+                      parameterMap:function(options, operation){
+                          if (operation === "") {
+                              var deviceId = options.id;
+                              var list = {
+                                  id:deviceId
+                              }
+                              return kendo.stringify(list);
+                          }
+                      }
+                  },
+                  serverPaging: false,    //设定服务器来实现分页功能
+                  serverFiltering: true,
+                  serverSorting: true,
+                  pageSize: 10,
+                  schema: {
+                      model: {
+                          id: "id",
+                          fields: {
+                              id: {type: "number", editable: false},
+                              mcSn: {type: "string"},
+                              // maintainDateTime: {type: "timestamp"},
+                              latitude: {type: "number"},
+                              longitude: {type: "number"},
+                              mcStatus: {type: "int"},
+                              note: {type: "string"},
+                              placeEntity:{defaultValue: { id: 1, name: ""}},
+                              deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                              supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                          }
+                      },
+                      data: function (response) {
+                          return response;
+                      }
+                  }
+              });
+              $("#grid").kendoGrid({
+                  dataSource: dataSource,
+                  toolbar: [{name: "excel"}],
+                  excel: {
+                      fileName: "销售报表.xlsx",
+                      allPages:true
+                  },
+                  height: 600,
+                  sortable: true, //表示是否支持排序， boolean型
+                  filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                  columnMenu: true,
+                  pageable: {
+
+                      buttonCount: 5,
+                      totalPages: true,
+                      refresh: true,
+                      pageSize: 5,
+
+                      numeric: true,
+                      input: true,
+                      messages: {
+                          display: "显示 {0}-{1} 条，共 {2} 条",
+                          empty: "没有数据",
+                          itemsPerPage: "每页显示数量",
+                          first: "第一页",
+                          last: "最后一页",
+                          next: "下一页",
+                          previous: "上一页",
+                          page: "页",
+                          of: "共 {0}页"
+                      }
+                  },
+                  columns: [
+                      {
+                          field: "name",
+                          title: "地区"
+                      },
+                      {
+                          field: "userCount",
+                          title: "用户数",
+                      },
+                      {
+                          field: "orderCount",
+                          title: "订单总数",
+                      },
+                      {
+                          field: "income",
+                          title: "收入"
+                      },
+                  ],
+                  editable: {
+                      mode: "popup",
+                      window: {
+                          title: "设备管理"
+                      }
+                  }
+              });}
 
 
 
@@ -578,8 +680,114 @@ console.log(start,end,province,city,place)
 
 
 
+          //场地方查询
 
-    $(document).ready(function() {
+          //初始化表格数据
+          function placeGrid() {
+              kendo.culture("zh-CN");
+              var start=$("#start").val();//开始时间
+              var end=$("#end").val();//结束时间
+              var  province =$("#province").val();//省
+              var  city=$("#city").val();//市
+              var  place=$("#place").val();//场地
+              var dataSource = new kendo.data.DataSource({
+                  transport: {
+                      read: {
+                          url: "./findonePlace?start="+start+"&end="+end+"&pId="+place
+                      },
+                      parameterMap:function(options, operation){
+                          if (operation === "") {
+                              var deviceId = options.id;
+                              var list = {
+                                  id:deviceId
+                              }
+                              return kendo.stringify(list);
+                          }
+                      }
+                  },
+                  serverPaging: false,    //设定服务器来实现分页功能
+                  serverFiltering: true,
+                  serverSorting: true,
+                  pageSize: 10,
+                  schema: {
+                      model: {
+                          id: "id",
+                          fields: {
+                              id: {type: "number", editable: false},
+                              mcSn: {type: "string"},
+                              // maintainDateTime: {type: "timestamp"},
+                              latitude: {type: "number"},
+                              longitude: {type: "number"},
+                              mcStatus: {type: "int"},
+                              note: {type: "string"},
+                              placeEntity:{defaultValue: { id: 1, name: ""}},
+                              deviceModelEntity:{defaultValue: { id: 1, name: ""}},
+                              supplierEntity:{defaultValue: { id: 1, supplierName: ""}}
+                          }
+                      },
+                      data: function (response) {
+                          return response;
+                      }
+                  }
+              });
+              $("#grid").kendoGrid({
+                  dataSource: dataSource,
+                  toolbar: [{name: "excel"}],
+                  excel: {
+                      fileName: "销售报表.xlsx",
+                      allPages:true
+                  },
+                  height: 600,
+                  sortable: true, //表示是否支持排序， boolean型
+                  filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                  columnMenu: true,
+                  pageable: {
+                      buttonCount: 5,
+                      totalPages: true,
+                      refresh: true,
+                      pageSize: 10,
+                      numeric: true,
+                      input: true,
+                      messages: {
+                          display: "显示 {0}-{1} 条，共 {2} 条",
+                          empty: "没有数据",
+                          itemsPerPage: "每页显示数量",
+                          first: "第一页",
+                          last: "最后一页",
+                          next: "下一页",
+                          previous: "上一页",
+                          page: "页",
+                          of: "共 {0}页"
+                      }
+                  },
+                  columns: [
+                      {
+                          field: "name",
+                          title: "地区"
+                      },
+                      {
+                          field: "userCount",
+                          title: "用户数",
+                      },
+                      {
+                          field: "orderCount",
+                          title: "订单总数",
+                      },
+                      {
+                          field: "income",
+                          title: "收入"
+                      },
+                  ],
+                  editable: {
+                      mode: "popup",
+                      window: {
+                          title: "设备管理"
+                      }
+                  }
+              });}
+
+
+          $(document).ready(function() {
         kendo.culture("zh-CN");
         function startChange() {
             var startDate = start.value(),
@@ -602,23 +810,10 @@ console.log(start,end,province,city,place)
         function endChange() {
             var endDate = end.value(),
                 startDate = start.value();
-
             if (endDate) {
                 endDate = new Date(endDate);
-
                 endDate.setDate(endDate.getDate());
-
-
-
                           endDate=format(endDate,'yyyy-MM-dd');
-
-
-
-
-
-
-
-
                 start.max(endDate);
                 console.log(endDate);            //输出2017-10-30
             } else if (startDate) {
@@ -647,6 +842,8 @@ console.log(start,end,province,city,place)
 
 
     $(function () {
+
+
         $("#province").kendoDropDownList({
             optionLabel: "请选择...",
             dataTextField: "name",
@@ -669,49 +866,98 @@ console.log(start,end,province,city,place)
         });
     });
     function onChange() {
-        $("#city").kendoDropDownList({
-            optionLabel: "请选择...",
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: {
-                transport: {
-                    read: {
-                        dataType: "json",
-                        url: "./city1",
-                        data: { id: $("#province").data("kendoDropDownList").value() }
+      //alert($("#province").data("kendoDropDownList").value())
+        if ($("#province").data("kendoDropDownList").value()==""){
+            $("#city").kendoDropDownList({
+                optionLabel: "请选择..."
+            });
+            $("#place").kendoDropDownList({
+                optionLabel: "请选择..."
+            });
+        }else{
+
+            $("#city").kendoDropDownList({
+
+                //autoBind: false,
+                optionLabel: "请选择...",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "./city1",
+                            data: { id: $("#province").data("kendoDropDownList").value() }
+                        }
                     }
-                }
-            },
-            change: onChange1
-        });
+                },
+                change: onChange1
+            });
+
+        }
+
+
+
+
         $("#place").kendoDropDownList({
             optionLabel: "请选择..."
+
+
         });
     }
 
     function onChange1() {
-        $("#place").kendoDropDownList({
-            optionLabel: "请选择...",
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: {
-                transport: {
-                    read: {
-                        dataType: "json",
-                        url: "./place",
-                        data: { id: $("#province").data("kendoDropDownList").value() }
+        if ($("#city").data("kendoDropDownList").value()=="") {
+
+            $("#place").kendoDropDownList({
+                optionLabel: "请选择..."
+
+
+            });
+        }else{
+
+            $("#place").kendoDropDownList({
+
+                //autoBind: false,
+                optionLabel: "请选择...",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "./place",
+                            data: { id: $("#province").data("kendoDropDownList").value() }
+                        }
                     }
                 }
-            }
 
-        });
+            });
+
+
+        }
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
 
     function format(time, format) {
         var t = new Date(time);
+
         var tf = function (i) {
             return (i < 10 ? '0' : '') + i
         };
@@ -739,19 +985,7 @@ console.log(start,end,province,city,place)
         })
     }
 
-
-
-
-
-
-
-
 </script>
-
-
-
-
-
     </div>
 </div>
 <!-- /.container -->

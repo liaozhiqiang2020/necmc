@@ -2,11 +2,15 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.vo.ExcelSetDeviceResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 接口
@@ -102,4 +106,20 @@ public interface DeviceService<T> extends BaseService<T>{
 
      void getAllExcel(HttpServletRequest request, HttpServletResponse response, HttpSession session);
 
+    /**
+     * 导入设备Excel
+     */
+    Set<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException;
+
+
+    /**
+     * 提供导入设备模板
+     */
+
+     void getExcelModel(HttpServletResponse response);
+
+    /**
+     * 根据椅子SN查询椅子是否存在
+     */
+     DeviceEntity selectDeviceBYSN(String sn);
 }

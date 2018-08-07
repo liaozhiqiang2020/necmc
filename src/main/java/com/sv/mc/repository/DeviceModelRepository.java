@@ -17,4 +17,20 @@ public interface DeviceModelRepository extends BaseRepository<DeviceModelEntity,
 
     @Query(value = "select distinct d.model from mc_device_model d ",nativeQuery = true)
     List<String> findDeviceModelAll();
+
+    /**
+     * 根据
+     * @param name 设备类型名称
+     * @param model  设备型号
+     * @return  查询设备
+     */
+    @Query(value = "from DeviceModelEntity AS d where d.name=:name and d.model=:model")
+    DeviceModelEntity getDeviceByName(@Param("name") String name,@Param("model") String model);
+
+
+
+
+
+
+
 }

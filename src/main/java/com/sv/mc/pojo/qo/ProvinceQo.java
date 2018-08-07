@@ -1,12 +1,13 @@
 package com.sv.mc.pojo.qo;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class ProvinceQo {
     private String name;
     private int userCount;
     private int orderCount;
-    private int income;
+    private BigDecimal income;
 
 
     public String getName() {
@@ -33,11 +34,11 @@ public class ProvinceQo {
         this.orderCount = orderCount;
     }
 
-    public int getIncome() {
+    public BigDecimal getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(BigDecimal income) {
         this.income = income;
     }
 

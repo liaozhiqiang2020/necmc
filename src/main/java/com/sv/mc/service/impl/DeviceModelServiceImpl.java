@@ -37,4 +37,14 @@ public class DeviceModelServiceImpl implements DeviceModelService {
         }
         return map;
     }
+
+    @Override
+    public DeviceModelEntity getDeviceByType(String name, String model) {
+
+      return  this.deviceModelRepository.getDeviceByName(name,model);
+
+
+    }
+
+
 }

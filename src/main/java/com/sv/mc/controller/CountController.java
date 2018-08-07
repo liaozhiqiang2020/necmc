@@ -8,14 +8,72 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class CountController {
     @Resource
-    private CountService countService;
+    CountService countService;
 
-    @GetMapping("/user/service")
-    public ProvinceQo findProvinceById(@RequestParam int pId, @RequestParam Date start ,@RequestParam Date end){
-        return this.countService.findProvinceById(pId,start,end);
+    /**
+     *   根据省ID查询一个省
+     * @param pId
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping(value = "/findProvinceByPid")
+    private ProvinceQo findProvinceById(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end){
+        ProvinceQo p=   this.countService.findProvinceById(pId,start,end);
+        return p;
     }
+
+    /**
+     * 根据省ID查询所有市
+     */
+    @GetMapping(value = "/findCityByPid")
+    private List<ProvinceQo> findCTByPId(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end){
+        List<ProvinceQo> p=   this.countService.findCityByProvinceID(pId,start,end);
+        return p;
+    }
+
+    /**
+     * 查询一个市区
+     */
+    @GetMapping(value = "/findPlaceByCity")
+    private ProvinceQo findCityBycityID(@RequestParam("cId") int cId, @RequestParam("start") Date start ,@RequestParam("end") Date end){
+        ProvinceQo p=   this.countService.findCityById(cId,start,end);
+        return p;
+    }
+
+
+    /**
+     * 根据市ID查询所有场地
+     */
+    @GetMapping(value = "/findPlaceBycid")
+    private List<ProvinceQo> findByplacecId(@RequestParam("cId") int cId, @RequestParam("start") Date start ,@RequestParam("end") Date end){
+        List<ProvinceQo> p=   this.countService.findPlaceByCityID(cId, start, end);
+        return p;
+    }
+
+    /**
+     * 查询一个场地 根据场地ID
+     */
+
+    @GetMapping(value = "/findonePlace")
+    private ProvinceQo getplaceByplaceID(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end){
+        ProvinceQo p=   this.countService.getONEPlaceById(pId, start, end);
+        return p;
+    }
+
+
+    /**
+     * 查询所有省
+     */
+    @GetMapping(value = "/findoneProvince")
+    private List<ProvinceQo> getprovinceByplaceID( @RequestParam("start") Date start ,@RequestParam("end") Date end){
+        List<ProvinceQo> p=   this.countService.getALLProvince(start, end);
+        return p;
+    }
+
 }

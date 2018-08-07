@@ -1,16 +1,16 @@
 package com.sv.mc.controller;
 
-import com.sv.mc.pojo.CityEntity;
-import com.sv.mc.pojo.PlaceEntity;
-import com.sv.mc.pojo.ProvinceEntity;
-import com.sv.mc.pojo.ReportViewEntity;
+import com.sv.mc.pojo.*;
 import com.sv.mc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +25,8 @@ public class ReportController1 {
    private PlaceService pls;
    @Autowired
    private ReportViewService rvs;
+   @Autowired
+   private  CountService countService;
     /**
      * 跳转到report页面
      *
@@ -41,8 +43,19 @@ public class ReportController1 {
      */
 
     @GetMapping(value = "/province")
-    public List<ProvinceEntity> getProvince(){
-  return  ps.selectProvince();
+    public List<ProvinceEntity> getProvince(HttpServletRequest request){
+     List<ProvinceEntity> list= new ArrayList<>();
+        UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+        int pId=user.getpId();
+        if (user.getGradeId()==1) {
+            list=ps.selectProvince();
+        }else{
+            list=this.countService.getProvinceByP_ID(pId);
+        }
+
+
+
+        return list;
     }
 
     /**
@@ -50,16 +63,32 @@ public class ReportController1 {
      */
 
     @GetMapping(value = "/city1")
-    public List<CityEntity> getCity2(@Param("id") int id){
-        return  rs.getRegionityCity(id);
+    public List<CityEntity> getCity2(HttpServletRequest request,@Param("id") int id){
+        UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+       List<CityEntity>list=new ArrayList<>();
+        int pId=user.getpId();
+        if (user.getGradeId()==1) {
+            list= rs.getRegionityCity(id);
+        }else{
+            list=this.countService.getCityByP_ID(pId);
+        }
+        return  list;
     }
 
     /**
      * 查询所有地区
      */
     @GetMapping(value = "/place")
-    public List<PlaceEntity> getPlace(@Param("id") int id){
-        return  pls.getPlace(id);
+    public List<PlaceEntity> getPlace(HttpServletRequest request,@Param("id") int id){
+        UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+        int pId=user.getpId();
+       List<PlaceEntity> list= new ArrayList<>();
+        if (user.getGradeId()==1){
+        list=  pls.getPlace(id);
+       }else{
+            list=this.countService.getPlaceByP_ID(pId);
+        }
+        return list;
     }
 
 

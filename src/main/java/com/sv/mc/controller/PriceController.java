@@ -282,7 +282,7 @@ public class PriceController {
         //System.out.println(id);
         List<String> list = this.deviceService.getFill_SN(id);
         //标题
-        String[] title = {"设备ID", "价格", "使用时长"};
+        String[] title = {"设备ID", "价格", "使用时长(分)"};
         //文件名
         Date d = new Date();
         String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);

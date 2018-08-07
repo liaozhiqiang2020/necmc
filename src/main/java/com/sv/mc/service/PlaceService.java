@@ -154,9 +154,15 @@ public interface PlaceService<T> extends BaseService<T>{
 
     /**
      * 根据用户查询该用户权限下的所有从场地
-     * @param pId
-     * @param level
+
      * @return
      */
     String findDeviceByUser(HttpServletRequest request);
+
+    /**
+     * 根据场地名称查询场地
+     */
+
+    PlaceEntity getPlaceByName(String name);
+
 }

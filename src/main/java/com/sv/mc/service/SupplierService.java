@@ -29,5 +29,10 @@ public interface SupplierService<T> extends BaseService<T> {
      */
     SupplierEntity insertSupplier(SupplierEntity supplier);
 
+    /**
+     * 根据供应商名称查询供应商
+     */
+    SupplierEntity getSupplierBySName(String name);
+
 
 }

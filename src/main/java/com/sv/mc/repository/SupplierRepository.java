@@ -17,4 +17,11 @@ public interface SupplierRepository extends BaseRepository<SupplierEntity, Long>
     @Query("from SupplierEntity as s where s.id = :id")
     SupplierEntity findSupplierById(@Param("id") int id);
 
+
+    /**
+     * 根据供应商名称查询供应商信息
+     */
+
+    @Query("from SupplierEntity as s where s.supplierName=:name")
+    SupplierEntity getSupplierBySName(@Param("name")String name);
 }

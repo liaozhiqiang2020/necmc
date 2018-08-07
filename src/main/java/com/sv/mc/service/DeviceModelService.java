@@ -19,4 +19,16 @@ public interface DeviceModelService {
      * @return
      */
    Map<String,String> findDeviceModelAll();
+
+
+
+
+
+
+    /**
+     * 根据设备名称型号大小查询是否存在
+     */
+
+    DeviceModelEntity getDeviceByType(String name,String model);
+
 }

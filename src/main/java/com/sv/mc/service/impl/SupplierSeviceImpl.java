@@ -48,6 +48,8 @@ public class SupplierSeviceImpl implements SupplierService {
         return supplierRepository.save(supplier);
     }
 
+
+
     /**
      * 查询所有生产商数据
      * @return
@@ -56,4 +58,26 @@ public class SupplierSeviceImpl implements SupplierService {
     public List<SupplierEntity> findAllEntities() {
         return supplierRepository.findAll();
     }
+
+
+    /**
+     * 根据供应商名称查询 供应商信息
+     * @param name 供应商名称
+     * @return
+     */
+
+    @Override
+    public SupplierEntity getSupplierBySName(String name) {
+        return this.supplierRepository.getSupplierBySName(name);
+    }
+
+
+
+
+
+
+
+
+
+
 }

@@ -135,4 +135,22 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      */
     @Query(value="select * from mc_place as p where p.discard_status=1 AND p.p_id is null AND p.level_flag = :plevel and p.superior_id = :pId",nativeQuery = true)
     List<PlaceEntity> findAllPlaceById(@Param("pId") int pId,@Param("plevel") int level);
+
+
+    /**
+     * 根据场地名称查询场地
+     */
+    @Query(value = "from PlaceEntity  as p where p.name=:name")
+    PlaceEntity getPlaceName(@Param("name")String name);
+
+
+
+    /**
+     * 根据p_id查询场地
+     */
+    @Query(value = "select * from mc_place as p where p.p_id=:pid",nativeQuery = true)
+    List<PlaceEntity>getPlaceByP_ID(@Param("pid")int pid);
+
+
+
 }
