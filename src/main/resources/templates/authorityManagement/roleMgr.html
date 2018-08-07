@@ -454,6 +454,7 @@
                                                 width: "615px",
                                                 title: "权限管理",
                                                 // content: $("roleList").html
+                                                close: onClose
                                             });
 
 
@@ -463,7 +464,7 @@
                                         }
                                     }],
                                 title: "操作",
-                                width: "200px"
+                                width: "100px"
                             }
                         ],
                         editable: {
@@ -517,7 +518,8 @@
                 }
 
                 function onClose() {
-                    $("#window").empty();
+                    $("#roleList").empty();
+                    $("#roleList1").empty();
                 }
 
                 function onRequestEnd1(e) {

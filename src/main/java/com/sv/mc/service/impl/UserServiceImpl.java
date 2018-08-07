@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
             jsonArray1.add(jsonObject2);
         }
         jsonObject.put("data", jsonArray1);
-        jsonObject.put("total", total);
+        jsonObject.put("total", total-1);
         return jsonObject.toString();
     }
 
@@ -194,7 +194,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setUserName(userName);
         user.setLatestLoginIp(latestLoginIp);
 //        user.setLatestLoginDatetime(Timestamp.valueOf(lastTime));
-        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
+//        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
+        user.setAuthenticationString(password);
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
             user.setGradeId(1);
@@ -247,7 +248,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
 //            System.out.println(e.getMessage());
 //        }
 
-        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
+//        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
+        user.setAuthenticationString(password);
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
             user.setGradeId(1);

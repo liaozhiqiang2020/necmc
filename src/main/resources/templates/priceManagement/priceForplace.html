@@ -162,9 +162,9 @@
 
                             },
                             pageSize: 10,
-                            serverPaging: true,    //设定服务器来实现分页功能
-                            serverFiltering: false,
-                            serverSorting: false,
+                            // serverPaging: true,    //设定服务器来实现分页功能
+                            // serverFiltering: false,
+                            // serverSorting: false,
                             requestEnd: onRequestEnd,
                             filterable: true,
                             scrollable: true,
@@ -261,9 +261,9 @@
                                         myWindow.kendoWindow({
                                             width: "900px",
                                             height: "500px",
-                                            title: data.name + "价格管理",
+                                            title:  "价格管理",
                                             // content: $("roleList").html
-                                            // close: onClose
+                                            close: onClose1
 
                                         });
                                         myWindow.data("kendoWindow").center().open();
@@ -298,7 +298,7 @@
                                                 }
                                             },
                                             batch: true,
-                                            pageSize: 5,
+                                            pageSize: 10,
                                             persistSelection: true,
                                             pageable: {
                                                 // empty:"没有要显示的数据",
@@ -773,9 +773,9 @@
                                             myWindow2.kendoWindow({
                                                 width: "900px",
                                                 height: "500px",
-                                                title: data.mcSn + "价格管理",
+                                                title: "价格管理",
                                                 // content: $("roleList").html
-                                                // close: onClose
+                                                close: onClose2
 
                                             });
                                             myWindow2.data("kendoWindow").center().open();
@@ -907,7 +907,7 @@
                                                     // //表示显示的页数，5表示1,2,3,4,5
                                                     buttonCount: 5,
                                                     totalPages: true,
-                                                    // input: true,//表示是否可以输入数字
+                                                    input: true,//表示是否可以输入数字
                                                     refresh: true,
                                                     pageSize: 10,
                                                     pageSizes: [5, 10, 15, 20],
@@ -1218,6 +1218,16 @@
                         $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
                     }
                 });
+
+
+                function onClose1() {
+                    $("#edit-1").empty();
+                }
+
+                function onClose2() {
+                    $("#edit-3").empty();
+                    $("#edit-4").empty();
+                }
 
                 //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
                 function onRequestEnd(e) {

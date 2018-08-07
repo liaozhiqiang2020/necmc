@@ -107,7 +107,7 @@
                                 },
                                 fixedPhoneNumber: {type: "string"},
                                 latestLoginDatetime: {type: "Date", editable: false, format: "{0:yyyy-MM-dd HH:mm:ss}"},
-                                latestLoginIp: {type: "string", editable: false},
+                                // latestLoginIp: {type: "string", editable: false},
                                 company: {
                                     type: "string",
                                     validation: {required: true, required: {message: "请您选择所属单位"}}
@@ -266,7 +266,7 @@
                                         });
 
                                         //dataSource是必填属性
-                                        var roleList = $("#roleList").kendoGrid({
+                                        $("#roleList").kendoGrid({
                                             dataSource: dataSource1,
                                             height: 300,
                                             groupable: true,
@@ -312,13 +312,13 @@
                                                 {
                                                     field: "roleName",
                                                     title: "角色",
-                                                    width: 100,
+                                                    width: 80,
                                                     filterable: {multi: true, search: true}
                                                 },
                                                 {
                                                     field: "description",
                                                     title: "角色权限描述",
-                                                    width: 150,
+                                                    width: 200,
                                                     filterable: {multi: true, search: true}
                                                 },
                                                 // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
@@ -351,7 +351,7 @@
                                                             }
                                                         }],
                                                     title: "操作",
-                                                    width: "200px"
+                                                    width: "80px"
                                                 }
                                             ],
                                             editable: {
@@ -452,13 +452,13 @@
                                                 {
                                                     field: "roleName",
                                                     title: "角色",
-                                                    width: 100,
+                                                    width: 80,
                                                     filterable: {multi: true, search: true}
                                                 },
                                                 {
                                                     field: "description",
                                                     title: "角色权限描述",
-                                                    width: 100,
+                                                    width: 200,
                                                     filterable: {multi: true, search: true}
                                                 },
                                                 // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
@@ -491,7 +491,7 @@
                                                             }
                                                         }],
                                                     title: "操作",
-                                                    width: "200px"
+                                                    width: "80px"
                                                 }
                                             ],
                                             editable: {
@@ -506,7 +506,7 @@
                                             width: "615px",
                                             title: "用户角色管理",
                                             // content: $("roleList").html
-                                            // close: onClose
+                                            close: onClose
 
                                         });
 
@@ -564,6 +564,10 @@
                 }
             }
 
+            function onClose() {
+                $("#roleList").empty();
+                $("#roleList1").empty();
+            }
             function onRequestEnd1(e) {
                 if (e.type == "create") {
                     e.sender.read();       //调用read方法 重新读取表格
