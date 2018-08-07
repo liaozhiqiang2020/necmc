@@ -48,6 +48,13 @@ public interface BusinessService<T> extends BaseService<T>{
      */
     String findAllBusinessByPage(int page, int pageSize);
 
+    /**
+     * 使用中的行业
+     * @return
+     */
+    List<BusinessEntity> allUseBusiness();
+
+
 
      /*
       查询一级行业

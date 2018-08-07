@@ -295,6 +295,8 @@
                         dataTextField: "name",
                         dataValueField: "id",
                         value:placeId,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: [
                             {
                                 "id":0,
@@ -324,6 +326,8 @@
                         dataTextField: "name",
                         dataValueField: "id",
                         value: placeId,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: {
                             transport: {
                                 read: {
@@ -349,6 +353,8 @@
                         dataTextField: "name",
                         dataValueField: "id",
                         value: deviceId,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: {
                             transport: {
                                 read: {
@@ -374,6 +380,8 @@
                         dataTextField: "supplierName",
                         dataValueField: "id",
                         value: deviceId,
+                        filter: "contains",
+                        suggest: true,
                         dataSource: {
                             transport: {
                                 read: {

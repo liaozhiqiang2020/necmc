@@ -52,9 +52,11 @@ public interface BusinessRepository extends BaseRepository<BusinessEntity, Long>
     List<BusinessEntity> findBusinessByParentId2(@Param("id") int id);
 
 
-
-
-
+    /**
+     * 未删除的行业
+     */
+    @Query(value="from BusinessEntity where discardStatus=1")
+    List<BusinessEntity> allUseBusiness();
 
 
 

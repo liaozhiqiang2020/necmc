@@ -140,12 +140,8 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
 
-
-
-
-
-
-
-
-
+    @Override
+    public List<BusinessEntity> allUseBusiness() {
+        return this.businessRepository.allUseBusiness();
+    }
 }

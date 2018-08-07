@@ -26,6 +26,17 @@ public class BusinessController {
     List<BusinessEntity> getAll() {
         return this.businessService.findAllEntities();
     }
+
+    /**
+     * 全部查询(未删除的)
+     * @return 返回所有行业内容
+     */
+    @GetMapping(value = "/bussinessMgr/allUseBusiness")
+    public @ResponseBody
+    List<BusinessEntity> allUseBusiness() {
+        return this.businessService.allUseBusiness();
+    }
+
     /**
      * 根据id查询行业
      * @return 返回所有行业内容p
@@ -199,5 +210,8 @@ public class BusinessController {
         return this.businessService.upadateBussiness2(business);
 
     }
+
+
+
 
 }
