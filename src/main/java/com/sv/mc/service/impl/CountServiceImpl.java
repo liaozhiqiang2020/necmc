@@ -1,12 +1,11 @@
 package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.qo.ProvinceQo;
-import com.sv.mc.repository.countRepository;
+import com.sv.mc.repository.CountRepository;
 import com.sv.mc.service.CountService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class CountServiceImpl implements CountService {
 
     @Resource
-    private countRepository repository;
+    private CountRepository repository;
 
     @Override
     public ProvinceQo findProvinceById(int pId, Date start , Date end) {
