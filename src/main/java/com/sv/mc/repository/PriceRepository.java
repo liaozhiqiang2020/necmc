@@ -63,7 +63,7 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
      *
      * @return
      */
-    @Query(value = "select count(*) from mc_price as p where p.status= 1", nativeQuery = true)
+    @Query(value = "select count(*) from mc_price as p where p.status= 1 and p.end_date_time > now() or p.end_date_time is null", nativeQuery = true)
     int findPriceTotal();
 
 

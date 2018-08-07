@@ -12,10 +12,10 @@ import java.util.Date;
 @RestController
 public class CountController {
     @Resource
-    CountService countService;
+    private CountService countService;
 
-    @GetMapping
-    private ProvinceQo findProvinceById(@RequestParam int pId, @RequestParam Date start ,@RequestParam Date end){
+    @GetMapping("/user/service")
+    public ProvinceQo findProvinceById(@RequestParam int pId, @RequestParam Date start ,@RequestParam Date end){
         return this.countService.findProvinceById(pId,start,end);
     }
 }
