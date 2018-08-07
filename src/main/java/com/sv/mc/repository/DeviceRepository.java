@@ -22,6 +22,15 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query("from DeviceEntity as d where d.id = :id")
     List<DeviceEntity> findDevicesById(@Param("id") int id);
 
+    @Query(value="select d.* from mc_device d,mc_place p where d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and d.Id=:id",nativeQuery = true)
+    List<DeviceEntity> findDevicesById2(@Param("id") int id,@Param("branchId") int branchId);
+
+    @Query(value="select d.* from mc_device d,mc_place p where d.place_id=p.Id and p.level_flag=2 and p.superior_id=:vendorId and d.Id=:id",nativeQuery = true)
+    List<DeviceEntity> findDevicesById3(@Param("id") int id,@Param("vendorId") int vendorId);
+
+    @Query(value="select d.* from mc_device d,mc_place p where d.place_id=p.Id and p.Id=:placeId and d.Id=:id",nativeQuery = true)
+    List<DeviceEntity> findDevicesById4(@Param("id") int id,@Param("placeId") int placeId);
+
     /**
      * 根据设备编号查询设备id
      */

@@ -123,7 +123,7 @@ public interface PlaceService<T> extends BaseService<T>{
     /**
      * 不分页查询一级场地数据
      */
-    List<PlaceEntity> findAllPlaceFirst();
+    List<PlaceEntity> findAllPlaceFirst(HttpSession session);
 
     /**
      * 把图片存到数据库中

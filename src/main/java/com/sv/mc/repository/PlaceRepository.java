@@ -58,13 +58,6 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * 不分页查询场地方信息(pId为0，第一级)
      * @return
      */
-    @Query("from PlaceEntity as b where b.discardStatus=1 and b.userId=:userId and b.pId is null")
-    List<PlaceEntity> findAllPlaces(@Param("userId") int userId);
-
-    /**
-     * 不分页查询场地方信息(pId为0，第一级)
-     * @return
-     */
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null")
     List<PlaceEntity> findAllPlaces2();
 

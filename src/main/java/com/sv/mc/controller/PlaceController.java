@@ -243,8 +243,8 @@ public class PlaceController {
      */
     @GetMapping("/place/findAllPlaceFirst")
     public @ResponseBody
-    List<PlaceEntity> findAllPlaceFirst(){
-        return this.placeService.findAllPlaceFirst();
+    List<PlaceEntity> findAllPlaceFirst(HttpSession session){
+        return this.placeService.findAllPlaceFirst(session);
     }
 
     /**

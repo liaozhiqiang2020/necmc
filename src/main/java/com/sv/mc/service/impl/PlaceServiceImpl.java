@@ -487,6 +487,10 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId,HttpSession session) {
+                UserEntity userEntity = (UserEntity) session.getAttribute("user");
+                int superId = userEntity.getGradeId();
+                int pId = userEntity.getpId();//隶属单位id
+
                 List<DeviceEntity> deviceEntityList=new ArrayList<>();
                 if(deviceId.equals("0")){
                         List<Object[]> deviceEntities = this.placeRepository.findAllChildById(placeId);
@@ -497,7 +501,16 @@ public class PlaceServiceImpl implements PlaceService {
                         }
                 }else{
                         int device = this.deviceRepository.queryDeviceIdByDeviceCode(deviceId);
-                        deviceEntityList =  this.deviceRepository.findDevicesById(device);
+
+                        if(superId==1){
+                                deviceEntityList =  this.deviceRepository.findDevicesById(device);
+                        }else if(superId==2){
+                                deviceEntityList =  this.deviceRepository.findDevicesById2(device,pId);
+                        }else if(superId==3){
+                                deviceEntityList =  this.deviceRepository.findDevicesById3(device,pId);
+                        }else{
+                                deviceEntityList =  this.deviceRepository.findDevicesById4(device,pId);
+                        }
                 }
                  return deviceEntityList;
         }
@@ -554,8 +567,23 @@ public class PlaceServiceImpl implements PlaceService {
          * 不分页查询第一级场地数据
          */
         @Override
-        public List<PlaceEntity> findAllPlaceFirst() {
-                return this.placeRepository.findAllPlaces2();
+        public List<PlaceEntity> findAllPlaceFirst(HttpSession session) {
+                UserEntity userEntity = (UserEntity) session.getAttribute("user");
+                int superId = userEntity.getGradeId();
+                int pId = userEntity.getpId();//隶属单位id
+                List<PlaceEntity> placeEntities;
+
+                if(superId==1){
+                        placeEntities = this.placeRepository.findAllPlaces2();
+                }else if(superId==2){
+                        placeEntities = this.placeRepository.findAllPlaces3(pId);
+                }else if(superId==3){
+                        placeEntities = this.placeRepository.findAllPlaces4(pId);
+                }else{
+                        placeEntities = this.placeRepository.findAllPlaces5(pId);
+                }
+
+                return placeEntities;
         }
 
 
