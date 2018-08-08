@@ -4,6 +4,7 @@ import com.sv.mc.pojo.*;
 import com.sv.mc.repository.*;
 import com.sv.mc.service.UserService;
 import com.sv.mc.util.DateJsonValueProcessor;
+import com.sv.mc.util.MD5Util;
 import com.sv.mc.util.intUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -195,7 +196,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setLatestLoginIp(latestLoginIp);
 //        user.setLatestLoginDatetime(Timestamp.valueOf(lastTime));
 //        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
-        user.setAuthenticationString(password);
+        user.setAuthenticationString(MD5Util.encode(password));
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
             user.setGradeId(1);
@@ -249,7 +250,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
 //        }
 
 //        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
-        user.setAuthenticationString(password);
+        user.setAuthenticationString(MD5Util.encode(password));
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
             user.setGradeId(1);
