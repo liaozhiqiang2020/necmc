@@ -254,4 +254,250 @@ public class CountServiceImpl implements CountService {
     }
 
 
+
+
+
+
+
+
+
+
+
+    /**
+     * 无条件查询所有所在省数据
+     * @param level
+     * @param pid
+     * @param start
+     * @param end
+     */
+    @Override
+    public List<ProvinceQo> getProvinceBypId(int level, int pid, Date start, Date end) {
+        List<Object[]>list =this.repository.getProvinceBypId(level, pid, start, end);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo>plist=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String)array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income =null;
+            if(array[3]!=null){
+                income= new BigDecimal(Double.valueOf(array[3].toString()));
+            }else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+    }
+
+    /**
+     * 根据省ID查询所在省
+     * @param level
+     * @param pid
+     * @return
+     */
+    @Override
+    public List<ProvinceQo> getProvinceBypIdANDprovinceID(int level, int pid, Date start, Date end, int provinceId) {
+        List<Object[]>list =this.repository.getProvinceBypIdANDprovinceID(level, pid, start, end, provinceId);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo>plist=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String)array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income =null;
+            if(array[3]!=null){
+                income= new BigDecimal(Double.valueOf(array[3].toString()));
+            }else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+    }
+    /**
+     * 根据省ID查询所有所在市数据
+     */
+
+    @Override
+    public List<ProvinceQo> getCBypIdANDprovinceID(int level, int pid, Date start, Date end, int provinceId) {
+        List<Object[]> list = this.repository.getCBypIdANDprovinceID(level, pid, start, end, provinceId);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo> plist = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String) array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income = null;
+            if (array[3] != null) {
+                income = new BigDecimal(Double.valueOf(array[3].toString()));
+            } else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+    }
+    /**
+     * 根据市ID查询所有所在市数据
+     */
+
+
+    @Override
+    public List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, Date start, Date end, int cityId) {
+        List<Object[]>list =this.repository.getCityBypIdANDcityID(level, pid, start, end, cityId);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo>plist=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String)array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income =null;
+            if(array[3]!=null){
+                income= new BigDecimal(Double.valueOf(array[3].toString()));
+            }else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+    }
+
+
+    /**
+     * 根据市Id 查询所有所在场地数据
+     */
+
+    @Override
+    public List<ProvinceQo> getPlacyBypIdANDcityID(int level, int pid, Date start, Date end, int cityId) {
+        List<Object[]>list =this.repository.getPlacyBypIdANDcityID(level, pid, start, end, cityId);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo>plist=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String)array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income =null;
+            if(array[3]!=null){
+                income= new BigDecimal(Double.valueOf(array[3].toString()));
+            }else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+    }
+
+    /**
+     * 根据场地Id 查询所有所在场地数据
+     */
+    @Override
+    public List<ProvinceQo> getPlacyBypIdANDplaceID(int level, int pid, Date start, Date end, int placeId) {
+        List<Object[]>list =this.repository.getPlacyBypIdANDplaceID(level, pid, start, end, placeId);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo>plist=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String)array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income =null;
+            if(array[3]!=null){
+                income= new BigDecimal(Double.valueOf(array[3].toString()));
+            }else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+    }
+
+
+    /**
+     * 最小权限查询场地
+     * @param start
+     * @param end
+     * @param placeId
+     * @return
+     */
+    @Override
+    public List<ProvinceQo> getPlacyByANDplaceID(Date start, Date end, int placeId) {
+        List<Object[]>list =this.repository.getPlacyByANDplaceID(start, end, placeId);
+        // ProvinceQo ProvinceQo = new ProvinceQo();
+        List<ProvinceQo>plist=new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            ProvinceQo ProvinceQo = new ProvinceQo();
+            Object[] array = list.get(i);
+
+            String name = (String)array[0];
+
+            int orderCount = Integer.valueOf(array[1].toString());
+            int userCount = Integer.valueOf(array[2].toString());
+            BigDecimal income =null;
+            if(array[3]!=null){
+                income= new BigDecimal(Double.valueOf(array[3].toString()));
+            }else {
+                income = new BigDecimal(0.0000);
+            }
+            ProvinceQo.setName(name);
+            ProvinceQo.setIncome(income);
+            ProvinceQo.setOrderCount(orderCount);
+            ProvinceQo.setUserCount(userCount);
+            plist.add(ProvinceQo);
+        }
+        return plist;
+
+
+
+
+    }
+
+
 }

@@ -16,8 +16,18 @@ import java.util.List;
 @Repository
 public interface CountRepository extends BaseRepository<AreaEntity, Long>, PagingAndSortingRepository<AreaEntity, Long> {
 
-
-    @Query(value = "select s.name,count(o.id),count(o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) from mc_order o left join mc_device d on d.id = o.device_Id left join mc_place p on d.place_id = p.id left join mc_city c on c.id = p.city_id left join mc_province s on c.province_id = s.id left join mc_account_detail ad on ad.from_id = o.id where s.id = :provinceId  and o.create_date_time BETWEEN :startDate AND :endDate",nativeQuery = true)
+   //查询一个省数据
+    @Query(value = "" +
+            "      select s.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            " from  mc_city c " +
+            " left  join mc_place p on c.id = p.city_id " +
+            " left  join mc_device d on d.place_id = p.id " +
+            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_province s on c.province_id = s.id " +
+            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+            " where s.id=:provinceId " +
+            " group by s.name " +
+            "",nativeQuery = true)
     List<Object[]> findCountById(@Param("provinceId") int pId,@Param("startDate") Date start ,@Param("endDate") Date end);
 
 
@@ -86,7 +96,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
      * 根据场地ID查询一个场地
      */
     @Query(value = " " +
-            "         select p.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0))" +
+            "         select p.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0))" +
             "  from  mc_city c" +
             "  left  join mc_place p on c.id = p.city_id" +
             "  left  join mc_device d on d.place_id = p.id" +
@@ -123,7 +133,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
      * @return
      */
     @Query(value = " " +
-            "     select c.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0))" +
+            "     select c.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0))" +
             "  from  mc_city c " +
             "  left  join mc_place p on c.id = p.city_id " +
             "  left  join mc_device d on d.place_id = p.id " +
@@ -136,9 +146,145 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             List<Object[]>findcityByProvince(@Param("provinceId") int pId,@Param("startDate") Date start ,@Param("endDate") Date end);
 
 
+//==================================================================================================================================================================
+//=========================================2 ,3 级权限增加============================================================================================================
+//==================================================================================================================================================================
+//==================================================================================================================================================================
+
+    /**
+     * 无条件查询所有所在省数据
+     * @return
+     */
+
+@Query(value = "" +
+        "  select s.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+        " from  mc_city c " +
+        "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.p_id = :p_Id " +
+        " left  join mc_device d on d.place_id = p.id " +
+        " left  join mc_order o on o.device_id = d.id " +
+        " left  join mc_province s on c.province_id = s.id " +
+        " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+        " group by s.name " +
+        "",nativeQuery = true)
+    List<Object[]> getProvinceBypId(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start") Date start,@Param("end1") Date end);
+
+
+    /**
+     * 根据省ID 查询所在省数据
+     * @return
+     */
+
+    @Query(value = "" +
+            "  select s.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            " from  mc_city c " +
+            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.p_id = :p_Id " +
+            " left  join mc_device d on d.place_id = p.id " +
+            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_province s on c.province_id = s.id " +
+            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " where s.id=:provinceId" +
+            " group by s.name " +
+            "",nativeQuery = true)
+    List<Object[]> getProvinceBypIdANDprovinceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
+            Date start,@Param("end1") Date end,@Param("provinceId")int provinceId);
+
+    /**
+     * 根据省ID查询所有所在市数据
+     */
+    @Query(value = "" +
+            "  select c.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            " from  mc_city c " +
+            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.p_id = :p_Id " +
+            " left  join mc_device d on d.place_id = p.id " +
+            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_province s on c.province_id = s.id " +
+            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " where s.id=:provinceId" +
+            " group by c.name " +
+            "",nativeQuery = true)
+    List<Object[]> getCBypIdANDprovinceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
+            Date start,@Param("end1") Date end,@Param("provinceId")int provinceId);
 
 
 
+
+    /**
+     * 根据市ID查询所有所在市数据
+     */
+    @Query(value = "" +
+            "  select c.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            " from  mc_city c " +
+            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.p_id = :p_Id " +
+            " left  join mc_device d on d.place_id = p.id " +
+            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_province s on c.province_id = s.id " +
+            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " where c.id=:cityId" +
+            " group by c.name " +
+            "",nativeQuery = true)
+    List<Object[]> getCityBypIdANDcityID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
+            Date start,@Param("end1") Date end,@Param("cityId")int cityId);
+
+
+    /**
+     * 根据市Id 查询所有所在场地数据
+     */
+
+
+    @Query(value = "" +
+            "  select p.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            " from  mc_city c " +
+            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.p_id = :p_Id " +
+            " left  join mc_device d on d.place_id = p.id " +
+            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_province s on c.province_id = s.id " +
+            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " where c.id=:cityId" +
+            " group by p.name " +
+            "",nativeQuery = true)
+    List<Object[]> getPlacyBypIdANDcityID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
+            Date start,@Param("end1") Date end,@Param("cityId")int cityId);
+
+
+
+
+    /**
+     * 根据场地Id 查询所有所在场地数据
+     */
+
+
+    @Query(value = "" +
+            "    select p.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            "  from  mc_city c " +
+            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.p_id = :p_Id " +
+            "  left  join mc_device d on d.place_id = p.id " +
+            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_province s on c.province_id = s.id " +
+            "  left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time <:end1  " +
+            "  where p.id=:placeId " +
+            "  group by p.name " +
+            "",nativeQuery = true)
+    List<Object[]> getPlacyBypIdANDplaceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
+            Date start,@Param("end1") Date end,@Param("placeId")int placeId);
+
+
+
+
+
+
+   // 最低级权限查询场地
+    @Query(value = "" +
+            "   select p.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0))"
+            + "   from  mc_city c "
+            + "   join mc_place p on c.id = p.city_id "
+            + "    left  join mc_device d on d.place_id = p.id "
+            + "    left  join mc_order o on o.device_id = d.id "
+            + "    left  join mc_province s on c.province_id = s.id "
+            + "    left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 "
+            + "    where p.id=:placeId "
+            +"    group by p.name "+
+     "",nativeQuery = true)
+    List<Object[]> getPlacyByANDplaceID(@Param("start") Date start,@Param("end1") Date end,@Param("placeId")int placeId);
 
 
 

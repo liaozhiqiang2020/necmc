@@ -1,6 +1,9 @@
 package com.sv.mc.service;
 
 import com.sv.mc.pojo.CityEntity;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * 接口
@@ -20,5 +23,10 @@ public interface CityService<T> extends BaseService<T>{
      * @return CityEntity
      */
     CityEntity findCityById(int id);
+
+    /**
+     * 四级权限查询市
+     */
+    List<CityEntity> getCityByPlace_ID( int pid);
 
 }

@@ -3,6 +3,7 @@ package com.sv.mc.service;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PlaceEntity;
+import org.springframework.data.repository.query.Param;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -164,5 +165,8 @@ public interface PlaceService<T> extends BaseService<T>{
      */
 
     PlaceEntity getPlaceByName(String name);
-
+    /**
+     * 四级权限查询场地
+     */
+    List<PlaceEntity>getPlaceBy_ID(int pid);
 }

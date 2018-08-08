@@ -122,4 +122,11 @@ public interface DeviceService<T> extends BaseService<T>{
      * 根据椅子SN查询椅子是否存在
      */
      DeviceEntity selectDeviceBYSN(String sn);
+
+
+    /**
+     * 导出ExcEL 失败数据
+     */
+    void getExcelError(Set excelError1,HttpServletResponse response);
+
 }

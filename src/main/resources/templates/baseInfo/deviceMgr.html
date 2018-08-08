@@ -23,9 +23,29 @@
         <div class="container-fluid">
             <div id="grid">
                <!-- <button>导出Excel</button>-->
-                <span id="toolbar"></span>
+                <div> <span id="toolbar"></span><span id="toolbar1"></span></div>
+
+                <div id="window3" style="display: none">
+
+
+                    <input name="file" id="files" type="file">
+                    <!--<button id="box_relative" type="submit" class="k-button k-primary" >导入</button>-->
+
+
+                </div>
+
+
+
+
 
             </div>
+
+
+
+
+
+
+
             <script>
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
@@ -450,11 +470,132 @@
 
                 }
 
-            }
+            },/*{
+                type: "button",
+                text: "导出模板",
+                click: function(e) {
+                    //t, {name:"导出excel",click:function(){
+
+                    $.ajax({
+                        type: "GET",
+                        url: "./deviceMgr/getmodel",
+
+                        contentType: "application/json; charset=utf-8",
+
+                        success:function () {
+
+                            window.location="./deviceMgr/getmodel"
+
+                        }
+
+                    })
+
+                }
+
+            }, {
+                type: "button",
+                text: "导入设备",
+                click: function (e) {
+                    //t, {name:"导出excel",click:function(){
+
+                    importexcel()
+
+                }
+            }*/
 
         ]
 
     });
+
+
+    $(document).ready(function () {
+        $("#files").kendoUpload();
+        //window.location="/mc/priceTest1";
+
+        $("#files").kendoUpload({
+            async: {
+                saveUrl: "./deviceMgr/setExcel",
+                autoUpload: true
+
+            }, localization: {     //设置上传按钮名称
+                select: "上传"
+            },
+            success: function (e) {
+
+
+                location.reload();
+            }
+
+        })
+
+
+    });
+
+    function importexcel() {
+
+        $(document).ready(function () {
+            var myWindow = $("#window3"),
+                undo = $("#undo");
+
+            undo.click(function () {
+                myWindow.data("kendoWindow").open();
+                undo.fadeOut();
+
+                $(document).ready(function () {
+                    $("#files").kendoUpload({
+                        async: {
+                            saveUrl: "save",
+                            removeUrl: "remove",
+                            autoUpload: true
+                        }
+                    });
+                });
+
+
+            });
+
+            function onClose() {
+                undo.fadeIn();
+            }
+
+            myWindow.kendoWindow({
+                width: "600px",
+                title: "导入填写好的Excel",
+                visible: false,
+                actions: [
+                    "Pin",
+                    "Minimize",
+                    "Maximize",
+                    "Close"
+                ],
+                close: onClose
+            }).data("kendoWindow").center().open();
+        });
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 <style>
     #toolbar{

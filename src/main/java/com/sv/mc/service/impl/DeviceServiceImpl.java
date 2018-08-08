@@ -637,6 +637,77 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
 
+
+
+        //导出失败结果Excel
+        @Override
+        public void getExcelError(Set excelError1, HttpServletResponse response) {
+              Set<ExcelSetDeviceResult>list= excelError1;
+                String[] title = {"场地名称", "坐标纬度","坐标经度","设备型号名称","型号大小","设备编号","备注","供应商","导入结果"};
+                //文件名
+                Date d = new Date();
+                String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
+                String fileName = "绑定结果" + time + ".xls";
+                String sheetName = "设备绑定结果";
+
+                String[][] content = new String[excelError1.size()][0];
+                for (int i = 0; i < excelError1.size(); i++) {
+                        System.out.println("进入了循环");
+                        content[i] = new String[title.length];
+                        for(ExcelSetDeviceResult e :list){
+                                String obj = e.getName();
+                                String obj1 = e.getWeidu();
+                                String obj2 =e.getJingdu();
+                                String obj3 = e.getDeviceType();
+                                String obj4 = e.getType();
+                                String obj5 = e.getSn();
+                                String obj6=e.getBeizhu();
+                                String obj7=e.getSupplier();
+                                String obj8=e.getMsg();
+                                content[i][0] = obj;
+                                content[i][1] = obj1;
+                                content[i][2] = obj2;
+                                content[i][3] = obj3;
+                                content[i][4] = obj4;
+                                content[i][5] = obj5;
+                                content[i][6] = obj6;
+                                content[i][7] = obj7;
+                                content[i][8] = obj8;
+                        }
+                        //创建HSSFWorkbook
+                        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
+                        try {
+                                this.setResponseHeader(response, fileName);
+                                OutputStream os = response.getOutputStream();
+                                wb.write(os);
+                                os.flush();
+                                os.close();
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                        }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
 }
 
 

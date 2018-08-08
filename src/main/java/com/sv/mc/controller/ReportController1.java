@@ -27,6 +27,12 @@ public class ReportController1 {
    private ReportViewService rvs;
    @Autowired
    private  CountService countService;
+   @Autowired
+   private ProvinceService provinceService;
+   @Autowired
+   private  CityService cityService;
+   @Autowired
+   private  PlaceService placeService;
     /**
      * 跳转到report页面
      *
@@ -49,8 +55,12 @@ public class ReportController1 {
         int pId=user.getpId();
         if (user.getGradeId()==1) {
             list=ps.selectProvince();
-        }else{
+        }else if(user.getGradeId()==2||user.getGradeId()==3){
             list=this.countService.getProvinceByP_ID(pId);
+        }else{
+
+            list=this.provinceService.getProvinceByID(pId);
+
         }
 
 
@@ -69,8 +79,10 @@ public class ReportController1 {
         int pId=user.getpId();
         if (user.getGradeId()==1) {
             list= rs.getRegionityCity(id);
-        }else{
+        }else if (user.getGradeId()==2||user.getGradeId()==3){
             list=this.countService.getCityByP_ID(pId);
+        }else{
+            list=this.cityService.getCityByPlace_ID(pId);
         }
         return  list;
     }
@@ -85,8 +97,10 @@ public class ReportController1 {
        List<PlaceEntity> list= new ArrayList<>();
         if (user.getGradeId()==1){
         list=  pls.getPlace(id);
-       }else{
+       }else if (user.getGradeId()==2||user.getGradeId()==3){
             list=this.countService.getPlaceByP_ID(pId);
+        }else {
+            list=this.placeService.getPlaceBy_ID(pId);
         }
         return list;
     }

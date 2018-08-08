@@ -835,5 +835,10 @@ public class PlaceServiceImpl implements PlaceService {
                 return this.placeRepository.getPlaceName(name);
         }
 
+        @Override
+        public List<PlaceEntity> getPlaceBy_ID(int pid) {
+                return this.placeRepository.getPlaceBy_ID(pid);
+        }
+
 
 }

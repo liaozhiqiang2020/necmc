@@ -52,12 +52,18 @@
             <div class="demo-section k-content">
 
                 <div id="fieldlist" style="background-color:#EDF0F4">
-                    <h5>起始日期:   <input id="start" style="width: 270px;" value="起始日期" /></h5>
-                        <h5>截至日期:   <input id="end" style="width: 270px;" value="截至日期"/></h5>
-                    <h5>省份:  <input id="province" />
-                    城市:   <input id="city" />
-                    场地:   <input id="place" /> <!--下拉框--><button class="k-button  k-primary" onclick="grid()">查询</button>
-                    </h5>
+                    <br>
+                    <div>
+
+                        <label for="start">起始日期 :</label>   <input id="start" style="width: 150px;" value="起始日期" />
+                        <label for="end">截至日期 :</label>  <input id="end" style="width: 150px;" value="截至日期"/>
+                    </div>
+                    <br>
+                    <label for="province">省&nbsp &nbsp份 :</label>
+                    <input id="province" />
+                    <label for="city">城&nbsp &nbsp市 :</label>  <input id="city" />&nbsp &nbsp
+                    <label for="place">场&nbsp &nbsp地: </label>  <input id="place" /> <!--下拉框--><button class="k-button  k-primary" onclick="grid()">查询</button>
+
                 </div>
 
 
@@ -71,6 +77,22 @@
          // alert(gradeId)
         //  alert(p_id)
 
+
+          $(function () {
+
+              a()
+
+          })
+
+
+
+
+
+
+
+
+
+
     function grid(){
         $("#grid").html("")
         var start=$("#start").val();//开始时间
@@ -81,6 +103,7 @@
 
              if (start=='起始日期'||end=='截至日期'){
                  alert("缺少时间条件")
+                 a()
              }else{
                   if (place!=''){
                   //  alert('一个场地方')
@@ -858,6 +881,7 @@ console.log(start,end,province,city,place)
             },
             change: onChange
         });
+
         $("#city").kendoDropDownList({
             optionLabel: "请选择..."
         });
@@ -866,6 +890,7 @@ console.log(start,end,province,city,place)
         });
     });
     function onChange() {
+
       //alert($("#province").data("kendoDropDownList").value())
         if ($("#province").data("kendoDropDownList").value()==""){
             $("#city").kendoDropDownList({
@@ -984,6 +1009,88 @@ console.log(start,end,province,city,place)
             }
         })
     }
+
+
+
+          function a(){
+              $("#grid").kendoGrid({
+                  // dataSource: dataSource1,
+                  toolbar: [{name: "excel"}],
+                  excel: {
+                      fileName: "销售报表.xlsx",
+                      allPages:true
+                  },
+                  height: 600,
+                  sortable: true, //表示是否支持排序， boolean型
+                  filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                  columnMenu: true,
+                  pageable: {
+
+                      buttonCount: 5,
+                      totalPages: true,
+                      refresh: true,
+                      pageSize: 10,
+
+                      numeric: true,
+                      input: true,
+                      messages: {
+                          display: "显示 {0}-{1} 条，共 {2} 条",
+                          empty: "没有数据",
+                          itemsPerPage: "每页显示数量",
+                          first: "第一页",
+                          last: "最后一页",
+                          next: "下一页",
+                          previous: "上一页",
+                          page: "页",
+                          of: "共 {0}页"
+                      }
+                  },
+                  columns: [
+                      {
+                          field: "name",
+                          title: "地区"
+                      },
+                      {
+                          field: "userCount",
+                          title: "用户数",
+                      },
+                      {
+                          field: "orderCount",
+                          title: "订单总数",
+                      },
+                      {
+                          field: "income",
+                          title: "收入"
+                      },
+                  ],
+                  editable: {
+                      mode: "popup",
+                      window: {
+                          title: "设备管理"
+                      }
+                  }
+              })
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
     </div>

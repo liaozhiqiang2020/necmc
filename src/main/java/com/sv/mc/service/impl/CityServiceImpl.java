@@ -33,6 +33,8 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findCityById(id);
     }
 
+
+
     /**
      * 查询所有市
      * @return List
@@ -42,6 +44,9 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findAll();
     }
 
-
+    @Override
+    public List<CityEntity> getCityByPlace_ID(int pid) {
+        return this.cityRepository.getCityByPlace_ID(pid);
+    }
 
 }

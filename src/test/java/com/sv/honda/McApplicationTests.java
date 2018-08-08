@@ -3,6 +3,8 @@ package com.sv.honda;
 import com.sv.mc.MCApplication;
 import com.sv.mc.pojo.DeviceEntity;
 
+import com.sv.mc.pojo.ProvinceEntity;
+import com.sv.mc.service.CountService;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.ProvinceService;
 import org.junit.Test;
@@ -20,6 +22,8 @@ import java.util.List;
 public class McApplicationTests {
 @Autowired
     DeviceService d;
+@Autowired
+CountService countService;
 
     @Test
     public void contextLoads() {
@@ -30,7 +34,7 @@ public class McApplicationTests {
 
     @Test
     public void text2(){
-        List<DeviceEntity> D=d.findDevice2();
-        System.out.println(D);
+       List<ProvinceEntity>l= countService.getProvinceByP_ID(71);
+        System.out.println(l);
     }
 }

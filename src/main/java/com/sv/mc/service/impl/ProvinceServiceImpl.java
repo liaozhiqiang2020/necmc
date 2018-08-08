@@ -78,5 +78,10 @@ public class ProvinceServiceImpl implements ProvinceService {
         return this.provinceRepository.selectProvince();
     }
 
+    @Override
+    public List<ProvinceEntity> getProvinceByID(int pid) {
+        return this.provinceRepository.getProvinceByID(pid);
+    }
+
 
 }

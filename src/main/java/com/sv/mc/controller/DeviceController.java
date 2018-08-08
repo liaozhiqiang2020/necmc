@@ -3,6 +3,7 @@ package com.sv.mc.controller;
 import com.sv.mc.pojo.BranchEntity;
 import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.vo.ExcelSetDeviceResult;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.util.ExcelUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.html.parser.Entity;
 import javax.websocket.server.PathParam;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -29,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class DeviceController {
@@ -179,8 +183,17 @@ public class DeviceController {
 //        dateFormat.setLenient(false);
 //        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));   //true:允许输入空值，false:不能为空值
 //    }
+    /**
+     * 导入Excel 增加设备
+     */
 
+   @PostMapping("/deviceMgr/setExcel")
+   public void setAllExcel(@RequestParam("file") MultipartFile file,HttpServletResponse response) throws IOException{
 
+       Set<ExcelSetDeviceResult> set=  this.deviceService.setAllExcel(file);
+
+      this.deviceService.getExcelError(set,response);
+   }
 
 
 
@@ -291,6 +304,19 @@ public class DeviceController {
      this.deviceService.getAllExcel(request,response,session);
     }
 
+
+    /**
+     * 导出模板
+     * @param response
+     */
+
+
+    @GetMapping(value = "/deviceMgr/getmodel")
+    public
+    void getmodelExcel(HttpServletResponse response) {
+
+        this.deviceService.getExcelModel(response);
+    }
 
 
 }

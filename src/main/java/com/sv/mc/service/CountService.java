@@ -80,8 +80,61 @@ public interface CountService {
       */
      List<PlaceEntity>getPlaceByP_ID(int pid);
 
+//==================================================================================================================================================================
+//=========================================2 ,3 级权限增加============================================================================================================
+//==================================================================================================================================================================
+//==================================================================================================================================================================
+
+     /**
+      * 无条件查询所有所在省数据
+      * @param level
+      * @param pid
+      * @param start
+      * @param end
+      */
+
+     List<ProvinceQo> getProvinceBypId( int level, int pid, Date start, Date end);
+
+
+     /**
+      * 根据省ID查询所在省
+      * @param level
+      * @param pid
+      * @return
+      */
+
+     List<ProvinceQo> getProvinceBypIdANDprovinceID( int level, int pid,Date start, Date end,int provinceId);
+
+
+     /**
+      * 根据省ID查询所有所在市数据
+      */
+     List<ProvinceQo> getCBypIdANDprovinceID( int level, int pid, Date start, Date end,int provinceId);
+
+
+     /**
+      * 根据市ID查询所有所在市数据
+      */
+
+     List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, Date start, Date end,int cityId);
 
 
 
+     /**
+      * 根据市Id 查询所有所在场地数据
+      */
+     List<ProvinceQo> getPlacyBypIdANDcityID( int level, int pid, Date start, Date end,int cityId);
+
+
+     /**
+      * 根据场地Id 查询所有所在场地数据
+      */
+     List<ProvinceQo> getPlacyBypIdANDplaceID( int level, int pid, Date start, Date end,int placeId);
+
+
+     /**
+      * 最低级权限查询场地
+      */
+     List<ProvinceQo> getPlacyByANDplaceID( Date start, Date end,int placeId);
 
 }

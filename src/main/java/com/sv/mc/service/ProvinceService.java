@@ -2,6 +2,7 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.AreaEntity;
 import com.sv.mc.pojo.ProvinceEntity;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -44,6 +45,12 @@ public interface ProvinceService<T> extends BaseService<T>{
      */
       List<ProvinceEntity> selectProvince();
 
+
+    /**
+     * 四级权限查询省
+     */
+
+    List<ProvinceEntity>getProvinceByID(int pid);
 
 
 }
