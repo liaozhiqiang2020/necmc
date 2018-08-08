@@ -231,7 +231,7 @@ public class DeviceServiceImpl implements DeviceService {
                 UserEntity user= (UserEntity) request.getSession().getAttribute("user");
                 List<DeviceEntity> list = null;
                 int id=user.getGradeId();
-                System.out.println(id);
+//                System.out.println(id);
                 if (user.getGradeId()==1){
                         list =   this.deviceRepository.getAllDevice();
                 }else if(user.getGradeId()==4) {
@@ -251,11 +251,11 @@ public class DeviceServiceImpl implements DeviceService {
                 String sheetName = "设备信息表";
                 String[][] content = new String[list.size()][0];
                 for (int i = 0; i < list.size(); i++) {
-                        System.out.println("进入了循环");
+//                        System.out.println("进入了循环");
                         content[i] = new String[title.length];
                         DeviceEntity deviceEntity=list.get(i);
                         String obj = deviceEntity.getMcSn();
-                        System.out.println(obj);
+//                        System.out.println(obj);
                         String obj1 = deviceEntity.getLoraId();
                         String obj2 =deviceEntity.getPlaceEntity().getName();
                         String obj3 = deviceEntity.getDeviceModelEntity().getName();
@@ -652,7 +652,7 @@ public class DeviceServiceImpl implements DeviceService {
 
                 String[][] content = new String[excelError1.size()][0];
                 for (int i = 0; i < excelError1.size(); i++) {
-                        System.out.println("进入了循环");
+//                        System.out.println("进入了循环");
                         content[i] = new String[title.length];
                         for(ExcelSetDeviceResult e :list){
                                 String obj = e.getName();
