@@ -87,31 +87,6 @@
                 <!--导入弹窗-->
             </script>
 
-
-            <!--<div class="responsive-message"></div>-->
-            <!--<script type="text/x-kendo-template" id="template1">-->
-            <!--&lt;!&ndash;#if(data.isNew()) {#&ndash;&gt;-->
-            <!--&lt;!&ndash;#var createTemp = kendo.template($("\#createTemplate").html());#&ndash;&gt;-->
-            <!--&lt;!&ndash;#=createTemp(data)#&ndash;&gt;-->
-            <!--&lt;!&ndash;#} else {#&ndash;&gt;-->
-            <!--&lt;!&ndash;#var createTemp = kendo.template($("\#editTemplate").html());#&ndash;&gt;-->
-            <!--&lt;!&ndash;#=createTemp(data)#&ndash;&gt;-->
-            <!--&lt;!&ndash;#}#&ndash;&gt;-->
-            <!--<div id ="edit-1"></div>-->
-            <!--<div id = "edit-2"></div>-->
-            <!--</script>-->
-
-            <!--<script type="text/x-kendo-template" id="template2">-->
-
-            <!--&lt;!&ndash;<div id ="edit-3"></div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div id = "edit-4"></div>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;</script>&ndash;&gt;-->
-            <!--&lt;!&ndash;<script type="text/x-kendo-template" id="editTemplate" >&ndash;&gt;-->
-
-            <!--</script>-->
-
-
             <script type="text/x-kendo-template" id="template">
                 <div class="tabstrip">
                     <ul>
@@ -969,8 +944,8 @@
                                                 height: 300,
                                                 columns: [
                                                     {field: "priceName", title: "价格名称", width: "50px"},
-                                                    {field: "price", title: "价格", width: "50px"},
-                                                    {field: "useTime", title: "使用时长", width: "50px"},
+                                                    {field: "price", title: "价格", width: "50px",attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"},},
+                                                    {field: "useTime", title: "使用时长", width: "50px",attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"},},
                                                     {
                                                         field: "startDateTime",
                                                         title: "开始时间",

@@ -34,7 +34,7 @@ public class UserEntity {
     private Set<RoleEntity> roleEntitySet = new HashSet<>();
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "Id")
     public int getId() {
         return id;

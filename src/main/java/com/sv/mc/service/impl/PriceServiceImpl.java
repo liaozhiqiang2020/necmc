@@ -262,6 +262,10 @@ public class PriceServiceImpl implements PriceService {
         String start = (String) map.get("startDateTime");
         String endDate1 = new DateJsonValueProcessor().dateString(end);
         String startDate1 = new DateJsonValueProcessor().dateString(start);
+        if (endDate1 == startDate1){
+            endDate1 = null;
+            startDate1 = null;
+        }
         int deviceModelId = Integer.parseInt((String) map.get("deviceModel"));
         DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
         BigDecimal price = intUtil.getBigDecimal(map.get("price"));

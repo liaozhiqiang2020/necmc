@@ -29,13 +29,16 @@
                 <div class="responsive-message"></div>
             </div>
             <div id="grid"></div>
+
+            <script id="popup-editor" type="text/x-kendo-template">
+                <div class="k-edit-label"><label for="roleName"><span style="color:red;">*</span> 角色</label></div>
+                <div data-container-for="roleName" class="k-edit-field"><input type="text" class="k-input k-textbox" name="roleName" required="required" data-required-msg="请您填写角色" data-bind="value:roleName"></div>
+            </script>
             <script>
                 /*<![CDATA[*/
                 $(function () {
                     loadUserList();
                 });
-
-                var headName;
 
                 //初始化表格数据
                 function loadUserList() {
@@ -158,7 +161,6 @@
                                 width: 100,
                                 filterable: {multi: true, search: true}
                             },
-                            // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             {
                                 command: [
                                     {
@@ -469,20 +471,10 @@
                         ],
                         editable: {
                             mode: "popup",
+                            template: kendo.template($("#popup-editor").html()),
                             window: {
                                 title: "角色管理"
                             }
-                        },
-
-                        dataBound: function () {
-                            var rows = this.items();
-                            var page = this.pager.page() - 1;
-                            var pagesize = this.pager.pageSize();
-                            $(rows).each(function () {
-                                var index = $(this).index() + 1 + page * pagesize;
-                                var rowLabel = $(this).find(".row-number");
-                                $(rowLabel).html(index);
-                            });
                         }
                     });
 
