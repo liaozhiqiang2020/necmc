@@ -24,6 +24,7 @@ public class DeviceEntity {
     private String mcSn;//按摩椅SN
     private String loraId;//按摩椅模块编号
     private String note;//备注
+    private int strength;//按摩强度(0弱，1中，2强)
     private Integer discardStatus;
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
     private PlaceEntity placeEntity;            //场地
@@ -53,6 +54,17 @@ public class DeviceEntity {
 
     public void setPriceEntities(List<PriceEntity> priceEntities) {
         this.priceEntities = priceEntities;
+    }
+
+
+    @Basic
+    @Column(name = "strength")
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
     }
 
     @ManyToOne

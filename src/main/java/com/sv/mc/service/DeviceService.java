@@ -76,6 +76,11 @@ public interface DeviceService<T> extends BaseService<T>{
      */
     void findChairRuningStatus(String deviceCode,int mcStatus);
 
+    /**
+     * 根据椅子sn修改椅子按摩强度
+     */
+    void findChairStrength(String deviceCode,int strength);
+
 
     /**
      * 根据场地查询所有的设备编码

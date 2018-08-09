@@ -241,7 +241,17 @@ public class WeixinController extends WeixinSupport {
     public void sendStartChairMsg(String chairId) throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        jmsProducer.sendMessage("faaf0f09"+chairCode+"3c0000");//按摩椅20000002，60min
+//        String message = "faaf0f09"+chairCode+"3c0000";//按摩椅20000002，60min
+        String message = "faaf0f09"+chairCode+"3c";//按摩椅20000002，60min
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        message = message+res;
+
+        System.out.println(message);
+
+        jmsProducer.sendMessage(message);
         deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
 
     }
@@ -254,7 +264,17 @@ public class WeixinController extends WeixinSupport {
     public void sendEndChairMsg(String chairId)throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002
+//        jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002
+
+        String message = "faaf0e10"+chairCode;//按摩椅20000002，60min
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+
         deviceService.findChairRuningStatus(chairId,1);//如果设备停止成功，修改椅子状态为空闲中
     }
 
@@ -267,13 +287,88 @@ public class WeixinController extends WeixinSupport {
     public void sendStrengthChairMsg(String chairId,int strength) throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String message="";
+
         if(strength==0){//弱
-            jmsProducer.sendMessage("faaf0e15"+chairCode+"0000");
+            message = "faaf0e15"+chairCode;
         }else if(strength==1){//中
-            jmsProducer.sendMessage("faaf0e16"+chairCode+"0000");
+            message = "faaf0e16"+chairCode;
         }else if(strength==2){//强
-            jmsProducer.sendMessage("faaf0e17"+chairCode+"0000");
+            message = "faaf0e17"+chairCode;
         }
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+        deviceService.findChairStrength(chairId,strength);
+    }
+
+    /**
+     * 发送充电指令
+     */
+    @RequestMapping("/sendChargeMsg")
+    @ResponseBody
+    public void sendChargeMsg(String chairId,int chargeState) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String message = "";
+
+        if(chargeState==0){//充电
+            message="faaf0f13"+chairCode+"3c";
+        }else if(chargeState==1){//断电
+            message="faaf0e14"+chairCode;
+        }
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+
+    /**
+     * 校验和
+     *
+     * @param msg 需要计算校验和的byte数组
+     * @param length 校验和位数
+     * @return 计算出的校验和数组
+     */
+    private byte[] SumCheck(byte[] msg, int length) {
+        long mSum = 0;
+        byte[] mByte = new byte[length];
+
+        /** 逐Byte添加位数和 */
+        for (byte byteMsg : msg) {
+            long mNum = ((long)byteMsg >= 0) ? (long)byteMsg : ((long)byteMsg + 256);
+            mSum += mNum;
+        } /** end of for (byte byteMsg : msg) */
+
+        /** 位数和转化为Byte数组 */
+        for (int liv_Count = 0; liv_Count < length; liv_Count++) {
+            mByte[length - liv_Count - 1] = (byte)(mSum >> (liv_Count * 8) & 0xff);
+        } /** end of for (int liv_Count = 0; liv_Count < length; liv_Count++) */
+
+        return mByte;
+    }
+
+    public static byte[] toByteArray(String hexString) {
+        hexString = hexString.toLowerCase();
+        final byte[] byteArray = new byte[hexString.length() / 2];
+        int k = 0;
+        for (int i = 0; i < byteArray.length; i++) {// 因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
+            byte high = (byte) (Character.digit(hexString.charAt(k), 16) & 0xff);
+            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) & 0xff);
+            byteArray[i] = (byte) (high << 4 | low);
+            k += 2;
+        }
+        return byteArray;
     }
 
 }

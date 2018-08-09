@@ -179,6 +179,16 @@ public class DeviceServiceImpl implements DeviceService {
                 this.deviceRepository.save(deviceEntity);
         }
 
+        /**
+         * 根据椅子sn修改椅子按摩强度
+         */
+        @Override
+        public void findChairStrength(String deviceCode, int strength) {
+                int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
+                DeviceEntity deviceEntity = this.findDeviceById(deviceId);
+                deviceEntity.setStrength(strength);
+                this.deviceRepository.save(deviceEntity);
+        }
 
         /**
          * 根据场地查询所有的设备编码

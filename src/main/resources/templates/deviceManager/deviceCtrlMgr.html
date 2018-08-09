@@ -138,6 +138,12 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;#=mcStatus === '空闲中' ? 'background-color:lime;' : 'background-color:gold;'#"}
                             },
                             {
+                                field: "strength",
+                                title: "按摩强度",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+
+                            {
                                 field: "placeEntity",
                                 title: "所属场地",
                                 template:"#=placeEntity.name#",
@@ -163,7 +169,7 @@
                             {
                                 command: [
                                     {
-                                        text:"开启设备",//名称
+                                        text:"开启",//名称
                                         click:function (e) {
                                             // e.target 是表示按钮的DOM元素
                                             var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
@@ -189,7 +195,7 @@
                                         }
                                     },
                                     {
-                                        text:"停止设备",//名称
+                                        text:"停止",//名称
                                         click:function (e) {
                                             // e.target 是表示按钮的DOM元素
                                             var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
@@ -213,9 +219,79 @@
                                                 })
                                             }
                                         }
-                                    }],
+                                    },
+                                    {
+                                        text:"弱",//名称
+                                        click:function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+
+                                            $.ajax({
+                                                type:"post",
+                                                url:"./weixin/sendStrengthChairMsg",
+                                                data:{
+                                                    chairId:data.mcSn,
+                                                    strength:0
+                                                },
+                                                success:function(res){
+                                                    alert("按摩椅强度已设置为弱!");
+                                                    var grid = $("#grid").data("kendoGrid");
+                                                    grid.dataSource.read();
+                                                }
+                                            })
+                                        }
+                                    },
+                                    {
+                                        text:"中",//名称
+                                        click:function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+
+                                            $.ajax({
+                                                type:"post",
+                                                url:"./weixin/sendStrengthChairMsg",
+                                                data:{
+                                                    chairId:data.mcSn,
+                                                    strength:1
+                                                },
+                                                success:function(res){
+                                                    alert("按摩椅强度已设置为中!");
+                                                    var grid = $("#grid").data("kendoGrid");
+                                                    grid.dataSource.read();
+                                                }
+                                            })
+                                        }
+                                    },
+                                    {
+                                        text:"强",//名称
+                                        click:function (e) {
+                                            // e.target 是表示按钮的DOM元素
+                                            var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
+                                            // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
+                                            var data = this.dataItem(tr);
+
+                                            $.ajax({
+                                                type:"post",
+                                                url:"./weixin/sendStrengthChairMsg",
+                                                data:{
+                                                    chairId:data.mcSn,
+                                                    strength:2
+                                                },
+                                                success:function(res){
+                                                    alert("按摩椅强度已设置为强!");
+                                                    var grid = $("#grid").data("kendoGrid");
+                                                    grid.dataSource.read();
+                                                }
+                                            })
+                                        }
+                                    }
+                                    ],
                                 title: "操作",
-                                width: "250px"
+                                width: "360px"
                             }
                         ],
                         editable: {
@@ -274,6 +350,7 @@
                                     // latitude: {type: "number"},
                                     // longitude: {type: "number"},
                                     mcStatus: {type: "int"},
+                                    strength:{type:"int"},
                                     statusName:{type:"string"},
                                     note: {type: "string"},
                                     placeEntity:{defaultValue: { id: 1, name: ""}},
@@ -286,11 +363,20 @@
                                 for(var i=0;i<list.length;i++){
                                     var content2 = list[i];
                                     var flag = content2.mcStatus;
+                                    var str = content2.strength;
                                     // console.log(flag);
                                     if(flag==0){
                                         content2.mcStatus="运行中";
                                     }else if(flag==1){
                                         content2.mcStatus="空闲中";
+                                    }
+
+                                    if(str==0){
+                                        content2.strength="弱";
+                                    }else if(str==1){
+                                        content2.strength="中";
+                                    }else if(str==2){
+                                        content2.strength="强";
                                     }
                                 }
                                 return response;

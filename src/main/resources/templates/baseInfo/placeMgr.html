@@ -145,6 +145,17 @@
                     groupable: true,//表格标题
                     columnMenu: true,
                     resizable: true,
+                    edit:function(e){
+                        if (e.model.isNew()) {
+                            $(".k-window-title").text("新增");
+
+                        } else {
+                            $(".k-window-title").text("修改");
+                            $("#name").value="555";
+                        }
+
+
+                    },
                     toolbar: [{
                         name: "create", text:  "新增"
                     }],
@@ -240,6 +251,7 @@
                         window: {
                             title: "场地管理"
                         },
+                        template: $("#template").html()
                         // confirmation : "您确定要进行删除操作吗？",
                         //createAt : "top",// 添加位置，默认是top：从第一行进行添加
                         // destroy : true// 不允许删除,
@@ -437,7 +449,35 @@
 
         </script>
 
-
+        <script type="text/x-kendo-template" id="template">
+            #if(data.isNew()) {#
+            #var createTemp = kendo.template($("\#createTemplate").html());#
+            #=createTemp(data)#
+            #} else {#
+            #var createTemp = kendo.template($("\#editTemplate").html());#
+            #=createTemp(data)#
+            #}#
+        </script>
+        <script type="text/x-kendo-template" id="createTemplate">
+            * 场地名称：<input id="name"  class="k-input k-textbox" /><br>
+            * 场地编码：<input id="placeSn"  class="k-input k-textbox" /><br>
+            * 地址：<input id="placeAddress"  class="k-input k-textbox"><br>
+            * 场地负责人：<input id="userId"  class="k-input k-textbox"><br>
+            * 隶属上级单位：<input id="levelFlagName"  class="k-input k-textbox"><br>
+            * 隶属单位名称：<input id="superiorId"  class="k-input k-textbox"><br>
+            * 行业分类名称：<input id="businessId"  class="k-input k-textbox"><br>
+            * 城市名称：<input id="cityId"  class="k-input k-textbox"><br>
+        </script>
+        <script type="text/x-kendo-template" id="editTemplate" >
+            * 场地名称：<input id="name"  class="k-input k-textbox" /><br>
+            * 场地编码：<input id="placeSn"  class="k-input k-textbox" /><br>
+            * 地址：<input id="placeAddress"  class="k-input k-textbox"><br>
+            * 场地负责人：<input id="userId"  class="k-input k-textbox"><br>
+            * 隶属上级单位：<input id="levelFlagName"  class="k-input k-textbox"><br>
+            * 隶属单位名称：<input id="superiorId"  class="k-input k-textbox"><br>
+            * 行业分类名称：<input id="businessId"  class="k-input k-textbox"><br>
+            * 城市名称：<input id="cityId"  class="k-input k-textbox"><br>
+        </script>
 
 
         <style>

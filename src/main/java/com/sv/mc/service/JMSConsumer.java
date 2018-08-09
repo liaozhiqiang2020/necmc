@@ -15,6 +15,7 @@ public class JMSConsumer {
     @JmsListener(destination = "youTopic",containerFactory = "jmsListenerContainerTopic")
     public void onTopicMessage(String msg) {
         System.out.println(msg);
+        WxUtil wxUtil = new WxUtil();
         String s2 = "";
         String[] newMsg = msg.split(",");
         for (int i = 0; i <newMsg.length ; i++) {
@@ -29,6 +30,10 @@ public class JMSConsumer {
             String s3 = Integer.toString(s1);
             s2=s2+s3;
         }
+
+        System.out.println(s2);
+
+
         logger.error("接收到topic消息：{}",s2);
     }
 
