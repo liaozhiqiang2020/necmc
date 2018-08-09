@@ -1,6 +1,7 @@
 package com.sv.mc.util;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,16 +48,20 @@ public class WxUtil {
     public String createPaidOrderCode(String openid,String deviceCode){
         String PaidOrderCode;
 
-        Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+//        Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
 
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int date = c.get(Calendar.DATE);
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
-        int second = c.get(Calendar.SECOND);
+//        int year = c.get(Calendar.YEAR);
+//        int month = c.get(Calendar.MONTH);
+//        int date = c.get(Calendar.DATE);
+//        int hour = c.get(Calendar.HOUR_OF_DAY);
+//        int minute = c.get(Calendar.MINUTE);
+//        int second = c.get(Calendar.SECOND);
 
-        PaidOrderCode = year+month+date+hour+minute+second+"_"+openid+"_"+deviceCode;
+        Timestamp ts = getNowDate();//获取当前时间(时间戳)
+        DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timer = sdf.format(ts);
+
+        PaidOrderCode = timer+"_"+openid+"_"+deviceCode;
         System.out.println(PaidOrderCode);
         return PaidOrderCode;
     }

@@ -3,6 +3,7 @@ package com.sv.mc.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.NotFoundException;
 import com.sv.mc.pojo.WxUserInfoEntity;
+import com.sv.mc.service.OrderService;
 import com.sv.mc.service.WeiXinPayService;
 import com.sv.mc.service.WxUserInfoService;
 import com.sv.mc.util.BaseUtil;
@@ -42,6 +43,8 @@ import java.util.Map;
 public class WeiXinPayServiceImpl implements WeiXinPayService{
     @Autowired
     private WxUserInfoService wxUserInfoService;
+    @Autowired
+    private OrderService orderService;
 
 //    private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -120,19 +123,20 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
      * @date: 2018年7月3日
      */
     @Override
-    public Json wxPay(String openid,HttpServletRequest request) {
+    public Json wxPay(String openid,HttpServletRequest request,String paidOrderId,String money) {
         Json json = new Json();
         try {
             //生成的随机字符串
             String nonce_str = StringUtils.getRandomStringByLength(32);
 //            System.out.println(nonce_str);
             //商品名称
-            String body = "";
+            String body = "无限科技共享按摩椅";
+//            body = new String(body.toString().getBytes(), "ISO8859-1");
             //获取本机的ip地址
             String spbill_create_ip = IpUtils.getIpAddr(request);
 
-            String orderNo = "123456789";
-            String money = "1";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
+            String orderNo = paidOrderId;
+            money = "1";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
 
             Map<String, String> packageParams = new HashMap<String, String>();
             packageParams.put("appid", WxPayConfig.appid);
@@ -140,7 +144,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             packageParams.put("nonce_str", nonce_str);
             packageParams.put("body", body);
             packageParams.put("out_trade_no", orderNo);//商户订单号
-            packageParams.put("total_fee", money+"");//支付金额，这边需要转成字符串类型，否则后面的签名会失败
+            packageParams.put("total_fee", money);//支付金额，这边需要转成字符串类型，否则后面的签名会失败
             packageParams.put("spbill_create_ip", spbill_create_ip);
             packageParams.put("notify_url", WxPayConfig.notify_url);
             packageParams.put("trade_type", WxPayConfig.TRADETYPE);
@@ -199,8 +203,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
                 response.put("paySign", paySign);
 
-                //更新订单信息
-                //业务逻辑代码
+                //更新订单表中的微信code
+                this.orderService.updateOrderByCode(paidOrderId,prepay_id);
             }
 
             response.put("appid", WxPayConfig.appid);

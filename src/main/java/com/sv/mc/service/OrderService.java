@@ -46,6 +46,13 @@ public interface OrderService<T> extends BaseService<T>{
     OrderEntity findPaidOrderByOrderId(int paidOrderId);
 
     /**
+     * 根据订单code修改微信订单号
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    void updateOrderByCode(String orderId,String codeWx);
+
+    /**
      * 根据订单code修改订单状态
      * @author: lzq
      * @date: 2018年7月6日

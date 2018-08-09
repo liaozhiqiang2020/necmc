@@ -72,8 +72,8 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/wxPay")
     @ResponseBody
-    public Json wxPay(String openid, HttpServletRequest request) {
-       return this.weiXinPayService.wxPay(openid,request);
+    public Json wxPay(String openid, HttpServletRequest request,String paidOrderId,String money) {
+       return this.weiXinPayService.wxPay(openid,request,paidOrderId,money);
     }
 
     /**

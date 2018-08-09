@@ -30,7 +30,7 @@ public interface WeiXinPayService {
      * @author: lzq
      * @date: 2018年7月3日
      */
-    Json wxPay(String openid, HttpServletRequest request);
+    Json wxPay(String openid, HttpServletRequest request,String paidOrderId,String money);
 
     /**
      * 微信支付

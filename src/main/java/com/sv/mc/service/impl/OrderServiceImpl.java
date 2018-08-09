@@ -230,6 +230,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     }
 
+
+
     /**
      * 根据订单id修改订单状态
      *
@@ -304,7 +306,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setCreateDateTime(ts);//订单创建时间
         orderEntity.setPayDateTime(ts);//支付时间
         orderEntity.setMcStartDateTime(ts);//开始计时时间
-        orderEntity.setCodeWx("66666666666");//微信/支付宝/银联订单号
+        orderEntity.setCodeWx("");//微信/支付宝/银联订单号
         orderEntity.setOrderSource("微信");
         orderEntity.setDeviceId(deviceId);//设备id
 
@@ -336,7 +338,6 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setPayDateTime(ts);//支付时间
 
         orderEntity.setMcStartDateTime(ts);//开始计时时间
-        orderEntity.setCodeWx("66666666666");//微信订单号
 
         Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
         orderEntity.setMcEndDateTime(afterTs);//结束计时时间
@@ -346,8 +347,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         if (state == 1) {//插入账单信息
             AccountDetailEntity accountDetailEntity = new AccountDetailEntity();
-            int deviceId = orderEntity.getDeviceId();//按摩椅编号
-            DeviceEntity deviceEntity = this.deviceRepository.findDeviceById(deviceId);//设备信息
+//            int deviceId = orderEntity.getDeviceId();//按摩椅编号
+//            DeviceEntity deviceEntity = this.deviceRepository.findDeviceById(deviceId);//设备信息
 //            int placeId = deviceEntity.getPlaceEntity().getId();//场地id
 //            int superiorId = deviceEntity.getPlaceEntity().getSuperiorId();//上级单位id
 //            int typeFlag = deviceEntity.getPlaceEntity().getLevelFlag();//上级单位
@@ -594,4 +595,15 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
 
+    /**
+     * 修改微信订单号
+     * @param orderId
+     * @param codeWx
+     */
+    @Override
+    public void updateOrderByCode(String orderId,String codeWx) {
+        OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(Integer.parseInt(orderId));//查询订单信息
+        orderEntity.setCodeWx(codeWx);
+        this.orderRepository.save(orderEntity);
+    }
 }
