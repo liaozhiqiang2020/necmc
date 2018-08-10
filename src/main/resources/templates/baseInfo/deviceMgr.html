@@ -50,6 +50,34 @@
                 <a class="k-button"  onclick="inExcel()">导入设备</a>
             </script>
 
+                <script id="popup_editor" type="text/x-kendo-template">
+                    <div class="k-edit-label">  <label for="mcSn"><span style="color:red;">* </span>按摩椅编号</label></div>
+                    <div><div data-container-for="mcSn" class="k-edit-field"><input type="text" class="k-input k-textbox" name="mcSn" required="required" data-required-msg="按摩椅编号为必填项！" data-bind="value:mcSn"></div></div>
+
+                    <div class="k-edit-label"><label for="loraId"><span style="color:red;">* </span>模块编号</label></div>
+                    <div data-container-for="loraId" class="k-edit-field"><input type="text" class="k-input k-textbox" name="loraId" required="required" data-required-msg="模块编号为必填项！" data-bind="value:loraId"></div>
+
+                    <div class="k-edit-label"><label for="placeEntity"><span style="color:red;">* </span>所属场地</label></div>
+                    <div data-container-for="placeEntity" class="k-edit-field">
+                        <input  id="placeEntity" data-role="combobox"   data-bind="value:placeEntity" required="required" data-required-msg="所属场地为必填项！">
+                    </div>
+
+                    <div class="k-edit-label"><label for="deviceModelEntity"><span style="color:red;">* </span>所属型号</label></div>
+                    <div data-container-for="deviceModelEntity" class="k-edit-field">
+                        <input  id="deviceModelEntity" data-role="combobox"   data-bind="value:deviceModelEntity" required="required" data-required-msg="所属型号为必填项！">
+                    </div>
+
+                    <div class="k-edit-label"><label for="supplierEntity"><span style="color:red;">* </span>供应商</label></div>
+                    <div data-container-for="supplierEntity" class="k-edit-field">
+                        <input  id="supplierEntity" data-role="combobox"   data-bind="value:supplierEntity" required="required" data-required-msg="供应商为必填项！">
+                    </div>
+
+                    <div class="k-edit-label"><label for="note">备注信息</label></div>
+                    <div data-container-for="note" class="k-edit-field"><input type="text" class="k-input k-textbox" name="note" data-bind="value:note"></div>
+                </script>
+
+
+
 
 
             <script>
@@ -250,9 +278,83 @@
                         ],
                         editable: {
                             mode: "popup",
+                            template: kendo.template($("#popup_editor").html()),
                             window: {
                                 title: "设备管理"
                             }
+                        },edit:function(e){
+
+                            $("#placeEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "name",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./placeMgr/allPlace",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+
+                            $("#deviceModelEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "name",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./deviceModel/all",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+                            $("#supplierEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "supplierName",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./supplierMgr/allSupplier",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+
+
+
+
+
+
+
+
+
+
                         }
                     });
                 }

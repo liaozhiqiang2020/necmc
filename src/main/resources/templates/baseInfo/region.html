@@ -38,6 +38,22 @@
                 </div>
 
             </script>
+
+            <script id="popup_editor" type="text/x-kendo-template">
+                <div class="k-edit-label"><label for="name"><span style="color:red;">* </span>地区管理</label></div>
+                <div data-container-for="name" class="k-edit-field"><input type="text" class="k-input k-textbox" name="name" data-bind="value:name"></div>
+            </script>
+
+            <script id="province1" type="text/x-kendo-template">
+                <div class="k-edit-label"><label for="name"><span style="color:red;">* </span>省</label></div>
+                <div data-container-for="name" class="k-edit-field">
+                    <input id="pro" data-role="combobox" data-bind="value:name" required="required" data-required-msg="请选择场地"/>
+                </div>
+            </script>>
+
+
+
+
             <script>
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
@@ -133,6 +149,7 @@
                         ],
                         editable: {
                             mode: "popup",
+                            template: kendo.template($("#popup_editor").html()),
                             window: {
                                 title: "地区"
                             }
@@ -237,9 +254,36 @@
                         ],
                         editable: {
                             mode: "popup",
+                            template: kendo.template($("#province1").html()),
                             window: {
                                 title: "省"
                             }
+                        },edit:function(e){
+                            $("#pro").kendoComboBox({
+
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "name",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./bussinessMgr/allProvince",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+
+
+
+
+
+
                         },
                         schema: {
                             model: {
