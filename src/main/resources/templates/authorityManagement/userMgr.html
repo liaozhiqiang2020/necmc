@@ -44,23 +44,23 @@
 
         <script id="popup_editor" type="text/x-kendo-template">
             <div class="k-edit-label"><label for="userName"><span style="color:red;">*</span> 账号</label></div>
-            <div data-container-for="userName" class="k-edit-field"><input type="text" class="k-input k-textbox" name="userName" required="required" data-required-msg="请您填写账号" data-bind="value:userName"></div>
+            <div data-container-for="userName" class="k-edit-field"><input type="text" onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')" class="k-input k-textbox" name="userName" required="required" data-required-msg="请您填写账号" data-bind="value:userName"></div>
 
             <div class="k-edit-label"><label for="name"><span style="color:red;">*</span> 姓名</label></div>
             <div data-container-for="name" class="k-edit-field"><input type="text" class="k-input k-textbox" name="name" required="required" data-required-msg="请您填写姓名" data-bind="value:name"></div>
 
             <div class="k-edit-label"><label for="email">邮箱</label></div>
-            <div data-container-for="email" class="k-edit-field"><input type="text" class="k-input k-textbox" name="email" data-bind="value:email"></div>
+            <div data-container-for="email" class="k-edit-field"><input type="text" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\@\.]/g,'')" class="k-input k-textbox" name="email" data-bind="value:email"></div>
 
             <div class="k-edit-label"><label for="company"><span style="color:red;">*</span> 所属公司</label></div>
             <div data-container-for="company" class="k-edit-field">
                 <input id="company1" data-role="combobox" data-bind="value:company" required="required" data-required-msg="请您选择所属单位"/>
             </div>
             <div class="k-edit-label"><label for="authenticationString"><span style="color:red;">*</span> 密码</label></div>
-            <div data-container-for="authenticationString" class="k-edit-field"><input type="text" class="k-input k-textbox" name="authenticationString" required="required" data-required-msg="请您填写密码" min="8" data-bind="value:authenticationString"></div>
+            <div data-container-for="authenticationString" class="k-edit-field"><input type="text" class="k-input k-textbox" maxlength="16" name="authenticationString" required="required" data-required-msg="请您填写密码" min="8" data-bind="value:authenticationString"></div>
 
             <div class="k-edit-label"><label for="cellphoneNumber"><span style="color:red;">*</span> 手机</label></div>
-            <div data-container-for="cellphoneNumber" class="k-edit-field"><input type="text" class="k-input k-textbox" name="cellphoneNumber" required="required" data-required-msg="请您填写手机号" min="11" max="11" data-bind="value:cellphoneNumber"></div>
+            <div data-container-for="cellphoneNumber" class="k-edit-field"><input type="text" class="k-input k-textbox" maxlength="11" name="cellphoneNumber" required="required" data-required-msg="请您填写手机号" data-bind="value:cellphoneNumber"></div>
 
             <div class="k-edit-label"><label for="fixedPhoneNumber">固话</label></div>
             <div data-container-for="fixedPhoneNumber" class="k-edit-field"><input type="text" class="k-input k-textbox" name="fixedPhoneNumber" data-bind="value:fixedPhoneNumber"></div>
