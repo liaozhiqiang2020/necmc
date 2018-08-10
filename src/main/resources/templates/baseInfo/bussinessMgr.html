@@ -11,16 +11,24 @@
         <h1>
             行业分类管理
         </h1>
+        <br/>
         <ol class="breadcrumb">
             <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">行业分类管理</li>
         </ol>
     </section>
-
     <div class="container-fluid">
 
         <div class="container-fluid">
             <div id="grid"></div>
+            <script id="popup_editor1" type="text/x-kendo-template">
+                <div class="k-edit-label"><label for="name"><span style="color:red;">*</span> 行业分类名称</label></div>
+                <div data-container-for="name" class="k-edit-field"><input type="text" class="k-input k-textbox" name="name" data-bind="value:name" required="required" data-required-msg="请您填写行业分类名称"></div>
+                </script>
+            <script id="popup_editor2" type="text/x-kendo-template">
+                <div class="k-edit-label"><label for="name"><span style="color:red;">*</span> 行业</label></div>
+                <div data-container-for="name" class="k-edit-field"><input type="text" class="k-input k-textbox" name="name" data-bind="value:name" required="required" data-required-msg="请您填写行业"></div>
+                </script>
             <script>
                 /*<![CDATA[*/
                 $(function () {loadUserList();});
@@ -116,6 +124,7 @@
                     ],
                     editable: {
                         mode: "popup",
+                        template: kendo.template($("#popup_editor1").html()),
                         window: {
                             title: "行业"
                         }
@@ -219,6 +228,7 @@
                         ],
                         editable: {
                             mode: "popup",
+                            template: kendo.template($("#popup_editor2").html()),
                             window: {
                                 title: "省"
                             }

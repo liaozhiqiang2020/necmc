@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8"/>
     <title>价格绑定</title>
 </head>
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header :: header-body"/>
 <div class="content-wrapper">
@@ -15,6 +15,7 @@
         <h1>
             价格绑定
         </h1>
+        <br/>
         <ol class="breadcrumb">
             <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">价格绑定</li>
@@ -55,10 +56,13 @@
 
 
             </div>
+            <div id="windows" style="display: none">
+                <div id="grids">
+                </div>
             <script>
 
-                $(document).ready(function () {
-                    $("#files").kendoUpload();
+
+
                     //window.location="/mc/priceTest1";
 
                     $("#files").kendoUpload({
@@ -71,20 +75,137 @@
                         },
                         success: function (e) {
                             var flag = e.response
-                            if (flag == 1) {
-                                alert('上传成功')
-                            } else {
-                                alert('上传失败')
+                         console.log(flag)
+                            var my= $("#window3");
+                            my.data("kendoWindow").close();
+
+                            var myWindow = $("#windows"),
+                                undo = $("#undo");
+
+
+
+                            function onClose() {
+                                undo.fadeIn();
+                                window.location="/mc/priceTest1";
                             }
 
-                            location.reload();
+                            myWindow.kendoWindow({
+                                width: "600px",
+                                title: "导入结果",
+                                visible: false,
+                                actions: [
+                                    "Pin",
+                                    "Minimize",
+                                    "Maximize",
+                                    "Close"
+                                ],
+                                close: onClose
+                            }).data("kendoWindow").center().open();
+
+
+                               $("#grids").kendoGrid({
+                                dataSource: flag,
+                                height: 600,
+                                sortable: true, //表示是否支持排序， boolean型
+                                filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                                groupable: true,//表格标题
+                                // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
+                                //     virtual: true
+                                // },
+                                toolbar: [{name: "excel", text: "导出结果"},
+
+                            ],
+                                excel: {
+                                fileName: "导入结果.xlsx",
+                                    allPages:true
+                            },//
+                            /* excel: {
+                                 fileName: "设备管理.xlsx",
+                                 //proxyURL: "https://demos.telerik.com/kendo-ui/service/export,1",
+                                 filterable: true,
+                                 allPages:true//是否导出所有页中的数据
+                             },*/
+                            columnMenu: true,
+                                resizable: true,
+                                pageable: {
+                                // empty:"没有要显示的数据",
+                                // //代表是否支持刷新
+                                // refresh: true,
+                                // //表示每页显示的记录数，默认为5,10,20
+                                pageSizes: true,
+                                    // //表示显示的页数，5表示1,2,3,4,5
+                                    buttonCount: 5,
+                                    totalPages: true,
+                                    // input: true,//表示是否可以输入数字
+                                    refresh: true,
+                                    pageSize: 10,
+                                    pageSizes: [5, 10, 15, 20],
+                                    numeric: true,
+                                    input: true,
+                                    messages: {
+                                    display: "显示 {0}-{1} 条，共 {2} 条",
+                                        empty: "没有数据",
+                                        itemsPerPage: "每页显示数量",
+                                        first: "第一页",
+                                        last: "最后一页",
+                                        next: "下一页",
+                                        previous: "上一页",
+                                        page: "页",
+                                        of: "共 {0}页"
+                                }
+                            },
+                            columns: [
+                                {
+                                    field: "id",
+                                    title: "设备编号",
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                },
+                                {
+                                    field: "price",
+                                    title: "价格",
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                },
+                                {
+                                    field: "time",
+                                    title: "按摩时间",
+                                    // template:"#=placeEntity.name#",
+                                    //editor:placeEditor,
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                },
+                                {
+                                    field: "msg",
+                                    title: "绑定结果",
+                                    //  template:"#=deviceModelEntity.name#",
+                                    //   editor:deviceEditor,
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                                }
+                            ],
+                                editable: {
+                                mode: "popup",
+                                    window: {
+                                    title: "价格绑定"
+                                }
+                            }
+                        });
+
+
+
+
+
+
+
+
+
+
+
+
                         }
 
                     })
 
 
-                });
-                <!--导入弹窗-->
+
+               //<!--导入弹窗-->
             </script>
 
             <script type="text/x-kendo-template" id="template">

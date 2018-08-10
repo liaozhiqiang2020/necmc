@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,25 +26,30 @@ public class CountController {
      * @return
      */
     @GetMapping(value = "/findProvinceByPid")
-    private ProvinceQo findProvinceById(@RequestParam("pId") int pId, @RequestParam("start") Date start , @RequestParam("end") Date end, HttpServletRequest request){
+    private List<ProvinceQo> findProvinceById(@RequestParam("pId") int pId, @RequestParam("start") Date start , @RequestParam("end") Date end, HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
          int p_Id= user.getpId();
          int gid=user.getGradeId();
-         ProvinceQo p=null;
+         List<ProvinceQo> p1=  new ArrayList();
+        ProvinceQo p=null;
        if(gid==1){
            p=   this.countService.findProvinceById(pId,start,end);
+           p1.add(p);
        }else if(gid==4){
            p=null;
+           p1.add(p);
        }else{
         List<ProvinceQo>   plist=this.countService.getProvinceBypIdANDprovinceID(gid,p_Id,start,end,pId);
         if (plist!=null){
             p=plist.get(0);
+            p1.add(p);
 
         }else {
             p=null;
         }
        }
-        return p;
+
+        return p1;
     }
 
     /**
@@ -69,24 +75,30 @@ public class CountController {
      * 查询一个市区
      */
     @GetMapping(value = "/findPlaceByCity")
-    private ProvinceQo findCityBycityID(@RequestParam("cId") int cId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> findCityBycityID(@RequestParam("cId") int cId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();
+        List<ProvinceQo> p1=  new ArrayList();
         ProvinceQo p =null;
         if(gid==1){
          p=  this.countService.findCityById(cId,start,end);
+            p1.add(p);
          }else if (gid==4){
             p=null;
+            p1.add(p);
         }else{
           List<ProvinceQo>  pist=this.countService.getCityBypIdANDcityID(gid,p_Id,start,end,cId);
           if (pist!=null){
               p=pist.get(0);
+              p1.add(p);
           }else{
               p=null;
+              p1.add(p);
           }
         }
-        return p;
+
+        return p1;
     }
 
 
@@ -114,30 +126,37 @@ public class CountController {
      */
 
     @GetMapping(value = "/findonePlace")
-    private ProvinceQo getplaceByplaceID(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> getplaceByplaceID(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();
+        List<ProvinceQo> p1=  new ArrayList();
         ProvinceQo p=null;
         if (gid==1){
          p=   this.countService.getONEPlaceById(pId, start, end);
+            p1.add(p);
         }else if (gid==2||gid==3){
            List<ProvinceQo> plist=this.countService.getPlacyBypIdANDplaceID(gid,p_Id,start,end,pId);
             if (plist!=null){
                 p= plist.get(0);
+                p1.add(p);
             }else {
                 p=null;
+                p1.add(p);
             }
         }else {
 
             List<ProvinceQo> plist=this.countService.getPlacyByANDplaceID(start,end,pId);
             if (plist!=null){
                 p= plist.get(0);
+                p1.add(p);
             }else {
                 p=null;
+                p1.add(p);
             }
         }
-        return p;
+
+        return p1;
     }
 
 

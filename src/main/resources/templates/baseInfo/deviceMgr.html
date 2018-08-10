@@ -11,6 +11,7 @@
         <h1>
             设备管理
         </h1>
+        <br/>
         <ol class="breadcrumb">
             <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">设备管理</li>
@@ -26,14 +27,12 @@
                 <div> <span id="toolbar"></span><span id="toolbar1"></span></div>
 
                 <div id="window3" style="display: none">
-
-
                     <input name="file" id="files" type="file">
                     <!--<button id="box_relative" type="submit" class="k-button k-primary" >导入</button>-->
-
-
                 </div>
-
+                <div id="window" style="display: none">
+                    <div id="grids">
+                </div>
 
 
 
@@ -41,6 +40,41 @@
             </div>
 
 
+            <script id="template" type="text/x-kendo-template" >
+                <a class="k-button"  onclick="getExcel1()">导出Excel</a>
+            </script>
+            <script id="template1" type="text/x-kendo-template" >
+                <a class="k-button"  onclick="getModel1()">导出模板</a>
+            </script>
+            <script id="template2" type="text/x-kendo-template" >
+                <a class="k-button"  onclick="inExcel()">导入设备</a>
+            </script>
+
+                <script id="popup_editor" type="text/x-kendo-template">
+                    <div class="k-edit-label">  <label for="mcSn"><span style="color:red;">* </span>按摩椅编号</label></div>
+                    <div><div data-container-for="mcSn" class="k-edit-field"><input type="text" class="k-input k-textbox" name="mcSn" required="required" data-required-msg="按摩椅编号为必填项！" data-bind="value:mcSn"></div></div>
+
+                    <div class="k-edit-label"><label for="loraId"><span style="color:red;">* </span>模块编号</label></div>
+                    <div data-container-for="loraId" class="k-edit-field"><input type="text" class="k-input k-textbox" name="loraId" required="required" data-required-msg="模块编号为必填项！" data-bind="value:loraId"></div>
+
+                    <div class="k-edit-label"><label for="placeEntity"><span style="color:red;">* </span>所属场地</label></div>
+                    <div data-container-for="placeEntity" class="k-edit-field">
+                        <input  id="placeEntity" data-role="combobox"   data-bind="value:placeEntity" required="required" data-required-msg="所属场地为必填项！">
+                    </div>
+
+                    <div class="k-edit-label"><label for="deviceModelEntity"><span style="color:red;">* </span>所属型号</label></div>
+                    <div data-container-for="deviceModelEntity" class="k-edit-field">
+                        <input  id="deviceModelEntity" data-role="combobox"   data-bind="value:deviceModelEntity" required="required" data-required-msg="所属型号为必填项！">
+                    </div>
+
+                    <div class="k-edit-label"><label for="supplierEntity"><span style="color:red;">* </span>供应商</label></div>
+                    <div data-container-for="supplierEntity" class="k-edit-field">
+                        <input  id="supplierEntity" data-role="combobox"   data-bind="value:supplierEntity" required="required" data-required-msg="供应商为必填项！">
+                    </div>
+
+                    <div class="k-edit-label"><label for="note">备注信息</label></div>
+                    <div data-container-for="note" class="k-edit-field"><input type="text" class="k-input k-textbox" name="note" data-bind="value:note"></div>
+                </script>
 
 
 
@@ -153,7 +187,12 @@
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
-                        toolbar: [{name: "create", text: "新增"}],//
+                        toolbar: [{name: "create", text: "新增"},
+                            {template: kendo.template($("#template").html())},
+                            {template: kendo.template($("#template1").html())},
+                            {template: kendo.template($("#template2").html())}
+
+                        ],//
                        /* excel: {
                             fileName: "设备管理.xlsx",
                             //proxyURL: "https://demos.telerik.com/kendo-ui/service/export,1",
@@ -239,9 +278,83 @@
                         ],
                         editable: {
                             mode: "popup",
+                            template: kendo.template($("#popup_editor").html()),
                             window: {
                                 title: "设备管理"
                             }
+                        },edit:function(e){
+
+                            $("#placeEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "name",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./placeMgr/allPlace",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+
+                            $("#deviceModelEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "name",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./deviceModel/all",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+                            $("#supplierEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "supplierName",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "./supplierMgr/allSupplier",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+
+
+
+
+
+
+
+
+
+
                         }
                     });
                 }
@@ -446,12 +559,7 @@
 <!-- /.container -->
 
 <script>
-    $("#toolbar").kendoToolBar({
-        items: [
-            {
-                type: "button",
-                text: "导出Excel",
-                click: function(e) {
+    function getExcel1() {
                     //t, {name:"导出excel",click:function(){
 
                     $.ajax({
@@ -470,10 +578,8 @@
 
                 }
 
-            },/*{
-                type: "button",
-                text: "导出模板",
-                click: function(e) {
+
+                 function getModel1() {
                     //t, {name:"导出excel",click:function(){
 
                     $.ajax({
@@ -492,24 +598,17 @@
 
                 }
 
-            }, {
-                type: "button",
-                text: "导入设备",
-                click: function (e) {
+             function inExcel() {
                     //t, {name:"导出excel",click:function(){
 
                     importexcel()
 
                 }
-            }*/
 
-        ]
-
-    });
 
 
     $(document).ready(function () {
-        $("#files").kendoUpload();
+      //  $("#files").kendoUpload();
         //window.location="/mc/priceTest1";
 
         $("#files").kendoUpload({
@@ -521,9 +620,165 @@
                 select: "上传"
             },
             success: function (e) {
+            console.log(e.response)
+////////
+                var my= $("#window3");
+                my.data("kendoWindow").close();
+
+                var myWindow = $("#window"),
+                    undo = $("#undo");
 
 
-                location.reload();
+
+                function onClose() {
+                    undo.fadeIn();
+                    window.location="/mc/turnToDeviceMgr";
+                }
+
+                myWindow.kendoWindow({
+                    width: "600px",
+                    title: "导入结果",
+                    visible: false,
+                    actions: [
+                        "Pin",
+                        "Minimize",
+                        "Maximize",
+                        "Close"
+                    ],
+                    close: onClose
+                }).data("kendoWindow").center().open();
+
+
+//写grid
+
+                $("#grids").kendoGrid({
+                    dataSource: e.response,
+                    height: 600,
+                    sortable: true, //表示是否支持排序， boolean型
+                    filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+                    groupable: true,//表格标题
+                    // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
+                    //     virtual: true
+                    // },
+                    toolbar: [{name: "excel", text: "导出Excel"},
+
+                    ],
+                    excel: {
+                        fileName: "导入结果.xlsx",
+                        allPages:true
+                    },//
+                    /* excel: {
+                         fileName: "设备管理.xlsx",
+                         //proxyURL: "https://demos.telerik.com/kendo-ui/service/export,1",
+                         filterable: true,
+                         allPages:true//是否导出所有页中的数据
+                     },*/
+                    columnMenu: true,
+                    resizable: true,
+                    pageable: {
+                        // empty:"没有要显示的数据",
+                        // //代表是否支持刷新
+                        // refresh: true,
+                        // //表示每页显示的记录数，默认为5,10,20
+                        pageSizes: true,
+                        // //表示显示的页数，5表示1,2,3,4,5
+                        buttonCount: 5,
+                        totalPages: true,
+                        // input: true,//表示是否可以输入数字
+                        refresh: true,
+                        pageSize: 10,
+                        pageSizes: [5, 10, 15, 20],
+                        numeric: true,
+                        input: true,
+                        messages: {
+                            display: "显示 {0}-{1} 条，共 {2} 条",
+                            empty: "没有数据",
+                            itemsPerPage: "每页显示数量",
+                            first: "第一页",
+                            last: "最后一页",
+                            next: "下一页",
+                            previous: "上一页",
+                            page: "页",
+                            of: "共 {0}页"
+                        }
+                    },
+                    columns: [
+                        {
+                            field: "name",
+                            title: "地区名称",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "weidu",
+                            title: "坐标纬度",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "jingdu",
+                            title: "坐标精度",
+                           // template:"#=placeEntity.name#",
+                            //editor:placeEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "type",
+                            title: "型号",
+                          //  template:"#=deviceModelEntity.name#",
+                         //   editor:deviceEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "sn",
+                            title: "设备编号",
+                           // template:"#=supplierEntity.supplierName#",
+                          //  editor:supplierEditor,
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "deviceType",
+                            title: "设备类型",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "beizhu",
+                            title: "备注",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "msg",
+                            title: "导入结果",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        /*{
+                            command: [
+                                {
+                                    name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
+                                }, {
+                                    name: "destroy", text: "删除"
+                                }],
+                            title: "操作",
+                            width: "250px"
+                        }*/
+                    ],
+                    editable: {
+                        mode: "popup",
+                        window: {
+                            title: "设备管理"
+                        }
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
             }
 
         })
@@ -556,6 +811,7 @@
 
             function onClose() {
                 undo.fadeIn();
+              //  window.location;
             }
 
             myWindow.kendoWindow({
@@ -579,6 +835,33 @@
 
 
 
+
+
+
+
+
+
+
+   /* function getError(e) {
+        //t, {name:"导出excel",click:function(){
+        e.response
+      var  list =  new Array();
+        list.push(e.response)
+        $.ajax({
+            type: "GET",
+            url: "./deviceMgr/getExcelError?result="+list,
+
+            contentType: "application/json; charset=utf-8",
+
+            success:function () {
+
+                window.location="./deviceMgr/getExcelError?result="+list
+
+            }
+
+        })
+
+    }*/
 
 
 

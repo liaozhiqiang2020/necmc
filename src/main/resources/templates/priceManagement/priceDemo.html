@@ -12,6 +12,7 @@
         <h1>
             价格管理
         </h1>
+        <br/>
         <ol class="breadcrumb">
             <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">价格管理</li>
@@ -22,9 +23,6 @@
 
         <div class="container-fluid">
             <div id="grid">
-                <span id="toolbar"></span>
-
-            </div>
 
             <script id="popup-editor" type="text/x-kendo-template">
                 <div class="k-edit-label"><label for="priceName"><span style="color:red">＊</span> 价格名称</label></div>
@@ -47,6 +45,9 @@
                     <input id="model1" data-role="combobox" data-bind="value:deviceModel" />
                 </div>
             </script>
+                <script id="template" type="text/x-kendo-template" >
+                    <a class="k-button"  onclick="getExcel()">导出Excel</a>
+                </script>
             <script>
                 /*<![CDATA[*/
                 $(function () {
@@ -161,7 +162,8 @@
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
-                        toolbar: [{name: "create", text: "新增"}],
+                        toolbar: [{name: "create", text: "新增"},{template: kendo.template($("#template").html())}
+                        ],
                         columnMenu: true,
                         pageable: {
                             // empty:"没有要显示的数据",
@@ -236,8 +238,7 @@
                                 filterable: {multi: true},
                                 editor: deviceListDropDownEditor
                             },
-                            // {field: "userName", title: "创建人", width: 100, filterable: {multi: true}},
-                            // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+
                             {
                                 command: [
                                     {
@@ -408,12 +409,7 @@
 <!--//导出-->
 
 <script>
-    $("#toolbar").kendoToolBar({
-        items: [
-            {
-                type: "button",
-                text: "导出Excel",
-                click: function (e) {
+    function getExcel() {
                     //t, {name:"导出excel",click:function(){
 
                     $.ajax({
@@ -432,11 +428,6 @@
 
                 }
 
-            }
-
-        ]
-
-    });
 </script>
 
 

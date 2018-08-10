@@ -188,14 +188,26 @@ public class DeviceController {
      */
 
    @PostMapping("/deviceMgr/setExcel")
-   public void setAllExcel(@RequestParam("file") MultipartFile file,HttpServletResponse response) throws IOException{
+   public Set<ExcelSetDeviceResult> setAllExcel(@RequestParam("file") MultipartFile file,HttpServletResponse response) throws IOException{
 
-       Set<ExcelSetDeviceResult> set=  this.deviceService.setAllExcel(file);
 
-      this.deviceService.getExcelError(set,response);
+       Set<ExcelSetDeviceResult> result= this.deviceService.setAllExcel(file);
+
+       //this.deviceService.getExcelError(result,response);
+
+       //response.sendRedirect("./turnToDeviceMgr");
+       return this.deviceService.setAllExcel(file);
    }
 
-
+    /**
+     *
+     * @param result
+     * @param response
+     */
+   @GetMapping(value = "/deviceMgr/getExcelError")
+   public void getExcelError(@RequestParam("result") Set result,HttpServletResponse response){
+       this.deviceService.getExcelError(result,response);
+   }
 
 
 
