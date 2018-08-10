@@ -238,11 +238,16 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendStartChairMsg")
     @ResponseBody
-    public void sendStartChairMsg(String chairId) throws Exception{
+    public void sendStartChairMsg(String chairId,Integer mcTime) throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
+        String time = mcTime.toHexString(mcTime);
+//        String time = wxUtil.convertStringToHex(String.valueOf(mcTime));
 //        String message = "faaf0f09"+chairCode+"3c0000";//按摩椅20000002，60min
-        String message = "faaf0f09"+chairCode+"3c";//按摩椅20000002，60min
+        if(time.length()<2){
+            time = "0"+time;
+        }
+        String message = "faaf0f09"+chairCode+time;//按摩椅20000002，60min
 
         byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
