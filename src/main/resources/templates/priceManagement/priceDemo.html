@@ -22,30 +22,11 @@
 
         <div class="container-fluid">
             <div id="grid">
-                <span id="toolbar"></span>
+
 
             </div>
-
-            <script id="popup-editor" type="text/x-kendo-template">
-                <div class="k-edit-label"><label for="priceName"><span style="color:red">＊</span> 价格名称</label></div>
-                <div data-container-for="priceName" class="k-edit-field"><input onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" type="text" class="k-input k-textbox" name="priceName" required="required" data-required-msg="请您填写价格名称" data-bind="value:priceName"></div>
-
-                <div class="k-edit-label"><label for="price"><span style="color:red;">＊</span> 价格(元)</label></div>
-                <div data-container-for="price" class="k-edit-field"><input type="text"  name="price" required="required" data-required-msg="请您填写价格" data-type="number" data-bind="value:price" data-role="numerictextbox" /></div>
-
-                <div class="k-edit-label"><label for="useTime"><span style="color:red;">＊</span> 时长(分钟)</label></div>
-                <div data-container-for="useTime" title='请输入整数' class="k-edit-field"><input type="text"  name="useTime"  required="required" data-required-msg="请您填写时长" data-type="number" data-bind="value:useTime" data-role="numerictextbox" /></div>
-
-                <div class="k-edit-label"><label for="startDateTime">生效时间</label></div>
-                <div data-container-for="startDateTime" class="k-edit-field"><input type="text" name="startDateTime" data-bind="value:startDateTime" data-role="datetimepicker"></div>
-
-                <div class="k-edit-label"><label for="endDateTime">失效时间</label></div>
-                <div data-container-for="endDateTime" class="k-edit-field"><input type="text" name="endDateTime" data-bind="value:endDateTime" data-role="datetimepicker"></div>
-
-                <div class="k-edit-label"><label for="deviceModel"><span style="color:red;">＊</span> 按摩椅型号</label></div>
-                <div data-container-for="deviceModel" class="k-edit-field">
-                    <input id="model1" data-role="combobox" data-bind="value:deviceModel" />
-                </div>
+            <script id="template" type="text/x-kendo-template" >
+                <a class="k-button"  onclick="getExcel()">导出Excel</a>
             </script>
             <script>
                 /*<![CDATA[*/
@@ -161,7 +142,8 @@
                         // scrollable: {//表示是否有下拉条，boolean型(虚拟分页)
                         //     virtual: true
                         // },
-                        toolbar: [{name: "create", text: "新增"}],
+                        toolbar: [{name: "create", text: "新增"},{template: kendo.template($("#template").html())}
+                        ],
                         columnMenu: true,
                         pageable: {
                             // empty:"没有要显示的数据",
@@ -206,6 +188,8 @@
                                 filterable: {multi: true},
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                             },
+                            // {field: "userName", title: "创建人", width: 100, filterable: {multi: true}},
+                            // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
                             {
                                 field: "startDateTime",
                                 title: "生效时间",
@@ -236,8 +220,7 @@
                                 filterable: {multi: true},
                                 editor: deviceListDropDownEditor
                             },
-                            // {field: "userName", title: "创建人", width: 100, filterable: {multi: true}},
-                            // { field: "createDateTime",title: "创建时间",width: 120, filterable: { multi: true, search: true}, format: "{0:yyyy-MM-dd HH:mm:ss}" },
+
                             {
                                 command: [
                                     {
@@ -251,44 +234,10 @@
                         ],
                         editable: {
                             mode: "popup",
-                            template: kendo.template($("#popup-editor").html()),
                             window: {
                                 title: "价格管理"
                             }
                         },
-
-                        edit:function(e){
-                            $("#model1").kendoComboBox({
-                                template: '<span class="order-id">#= name #, #= model #</span>',
-                                placeholder: "请选择...",
-                                // value: typeId,
-                                // text: options.model.deviceModelId,
-                                dataTextField: "name",
-                                dataValueField: "id",
-                                filter: "contains",
-                                suggest: true,
-                                dataSource: {
-                                    transport: {
-                                        read: {
-                                            type: "get",
-                                            url: "./deviceModel/all",
-                                            dataType: "json",
-                                            contentType: "application/json",
-                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                                        },
-                                        schema: {
-                                            model: {
-                                                fields: {
-                                                    id: {type: "number"},
-                                                    model: {type: "sting"},
-                                                    name: {type: "string"},
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            })
-                        }
 
                     });
 
@@ -408,12 +357,7 @@
 <!--//导出-->
 
 <script>
-    $("#toolbar").kendoToolBar({
-        items: [
-            {
-                type: "button",
-                text: "导出Excel",
-                click: function (e) {
+    function getExcel() {
                     //t, {name:"导出excel",click:function(){
 
                     $.ajax({
@@ -432,11 +376,6 @@
 
                 }
 
-            }
-
-        ]
-
-    });
 </script>
 
 

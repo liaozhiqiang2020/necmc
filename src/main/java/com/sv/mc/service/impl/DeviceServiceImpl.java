@@ -3,8 +3,10 @@ package com.sv.mc.service.impl;
 import com.google.gson.Gson;
 import com.sv.mc.pojo.*;
 import com.sv.mc.pojo.vo.ExcelSetDeviceResult;
+import com.sv.mc.repository.DeviceModelRepository;
 import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.repository.PlaceRepository;
+import com.sv.mc.repository.SupplierRepository;
 import com.sv.mc.service.DeviceModelService;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.SupplierService;
@@ -54,6 +56,10 @@ public class DeviceServiceImpl implements DeviceService {
         private DeviceModelService deviceModelService;
         @Autowired
         private SupplierService supplierService;
+        @Autowired
+        private SupplierRepository supplierRepository;
+        @Autowired
+        private DeviceModelRepository deviceModelRepository;
 
         /**
          * 保存数据
@@ -315,25 +321,36 @@ public class DeviceServiceImpl implements DeviceService {
          * @param file 用户上传的Excel 文件
          * @return
          */
+        /**
+         * 导入Excel
+         * @param file 用户上传的Excel 文件
+         * @return
+         */
         @Override
         public Set<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException {
                 boolean flag = false;
                 String name = file.getOriginalFilename();
                 Set<ExcelSetDeviceResult> result = new HashSet<>();
-                ExcelSetDeviceResult edr = new ExcelSetDeviceResult();
+
                 String excelName = name.substring(name.indexOf("."));
-                DeviceEntity deviceEntity = new DeviceEntity();
+
                 //System.out.println(excelName);获取文件名
                 if (excelName.toLowerCase().equals(".xls")) {//判断文件版本
                         //System.out.println(name.toLowerCase());
                         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(file.getInputStream());
+                        // HSSFCellStyle cellStyle = hssfWorkbook.createCellStyle();
+                        // HSSFDataFormat format = hssfWorkbook.createDataFormat();
+                        //  cellStyle.setDataFormat(format.getFormat("@"));
+
+
                         HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(0);
                         if (hssfSheet == null) {
-                                edr.setMsg("上传文件没有内容");
+                                return null;
                         }
                         //遍历行row
                         for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
                                 //获取每一行
+                                ExcelSetDeviceResult edr = new ExcelSetDeviceResult();
                                 HSSFRow row = hssfSheet.getRow(rowNum);
 
                                 if (row == null) {
@@ -342,12 +359,15 @@ public class DeviceServiceImpl implements DeviceService {
                                 //遍历列cell
                                 for (int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {
                                         //获取每一列
+
                                         HSSFCell cell = row.getCell(cellNum);
+                                        DeviceEntity deviceEntity = new DeviceEntity();
                                         if (cell == null) {
 
                                                 continue;
                                         }
                                         Object placeName = getValue(row.getCell(0));// 1 扫描到的场地名称
+                                        System.out.println(placeName);
                                         // 2 维修时间不需要插入,直接生成null
                                         String jingdu = null;
                                         if (getValue(row.getCell(1)) != null) {
@@ -363,7 +383,12 @@ public class DeviceServiceImpl implements DeviceService {
                                         //如果设备型号名称查不到  设备型号表创建一条新设备型号数据
                                         Object type = getValue(row.getCell(4));//型号 大中小
                                         //设备状态刚导入的一律为空闲
+                                        Object sn1=row.getCell(5);
+
                                         Object sn = getValue(row.getCell(5));//设备编号
+
+
+
                                         String remark = "";     //备注
                                         if (getValue(row.getCell(6)) != null) {
                                                 remark = row.getCell(6).toString();
@@ -371,43 +396,52 @@ public class DeviceServiceImpl implements DeviceService {
 
                                         Object supplierName = getValue(row.getCell(7));//供应商
 
-                                        if (this.placeRepository.getPlaceName(placeName.toString()) == null) {
-                                                //失败地区返回集合
-                                                edr.setName(placeName.toString());
-                                                edr.setWeidu(weidu);
-                                                edr.setJingdu(jingdu);
-                                                edr.setDeviceType(deviceType.toString());
-                                                edr.setType(type.toString());
-                                                edr.setSn(sn.toString());
-                                                edr.setBeizhu(remark);
-                                                edr.setSupplier(supplierName.toString());
-                                                edr.setMsg("绑定失败");
-                                                result.add(edr);
-                                                if (this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()) == null) {
-                                                        //失败类型返回集合
-                                                        edr.setName(placeName.toString());
-                                                        edr.setWeidu(weidu);
-                                                        edr.setJingdu(jingdu);
-                                                        edr.setDeviceType(deviceType.toString());
-                                                        edr.setType(type.toString());
-                                                        edr.setSn(sn.toString());
-                                                        edr.setBeizhu(remark);
-                                                        edr.setSupplier(supplierName.toString());
-                                                        edr.setMsg("绑定失败");
-                                                        result.add(edr);
-                                                        if (this.supplierService.getSupplierBySName(supplierName.toString()) == null) {
-                                                                //失败供应商返回集合
-                                                                edr.setName(placeName.toString());
-                                                                edr.setWeidu(weidu);
-                                                                edr.setJingdu(jingdu);
-                                                                edr.setDeviceType(deviceType.toString());
-                                                                edr.setType(type.toString());
-                                                                edr.setSn(sn.toString());
-                                                                edr.setBeizhu(remark);
-                                                                edr.setSupplier(supplierName.toString());
-                                                                edr.setMsg("绑定失败");
-                                                                result.add(edr);
-                                                                if (/*设备编号重复*/sn.toString().equals(this.deviceRepository.getDeviceBySn(sn.toString()).getMcSn())) {
+
+                                        if (placeName!=null&&deviceType!=null&&type!=null&&sn!=null&&supplierName!=null){
+                                                // System.out.println("内容不为空");
+                                                if (this.placeRepository.getPlaceName(placeName.toString()) != null) {
+                                                        //    System.out.println("场地存在");
+                                                        if (this.deviceModelRepository.getDeviceByName(deviceType.toString(), type.toString()) != null) {
+                                                                //   System.out.println("设备类型存在");
+                                                                if (this.supplierRepository.getSupplierBySName(supplierName.toString()) != null) {
+                                                                        //失败供应商返回集合
+                                                                        //     System.out.println("供应商存在");
+                                                                        if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
+                                                                                //        System.out.println("SN不重复");
+                                                                                if(weidu!=null){
+                                                                                        BigDecimal bweidu = new BigDecimal(weidu);
+
+                                                                                        deviceEntity.setLatitude(bweidu);
+                                                                                }
+                                                                                if (jingdu!=null){
+                                                                                        BigDecimal bjingdu = new BigDecimal(jingdu);
+                                                                                        deviceEntity.setLongitude(bjingdu);
+                                                                                }
+                                                                                deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
+                                                                                deviceEntity.setMaintainDateTime(null);
+
+                                                                                deviceEntity.setMcStatus(1);
+                                                                                deviceEntity.setDeviceModelEntity(this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()));
+                                                                                deviceEntity.setMcSn(sn.toString());
+                                                                                deviceEntity.setNote(remark);
+                                                                                deviceEntity.setDiscardStatus(1);
+                                                                                deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
+                                                                                deviceEntity.setLoraId(sn.toString());
+                                                                                this.deviceRepository.save(deviceEntity);
+
+                                                                                edr.setName(placeName.toString());
+                                                                                edr.setWeidu(weidu);
+                                                                                edr.setJingdu(jingdu);
+                                                                                edr.setDeviceType(deviceType.toString());
+                                                                                edr.setType(type.toString());
+                                                                                edr.setSn(sn.toString());
+                                                                                edr.setBeizhu(remark);
+                                                                                edr.setSupplier(supplierName.toString());
+                                                                                edr.setMsg("绑定成功");
+                                                                                result.add(edr);
+                                                                        }
+
+                                                                }else {
                                                                         edr.setName(placeName.toString());
                                                                         edr.setWeidu(weidu);
                                                                         edr.setJingdu(jingdu);
@@ -418,39 +452,35 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         edr.setSupplier(supplierName.toString());
                                                                         edr.setMsg("绑定失败");
                                                                         result.add(edr);
-
-                                                                } else {
-                                                                        BigDecimal bweidu = new BigDecimal(weidu);
-                                                                        BigDecimal bjingdu = new BigDecimal(jingdu);
-                                                                        deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
-                                                                        deviceEntity.setMaintainDateTime(null);
-                                                                        deviceEntity.setLatitude(bweidu);
-                                                                        deviceEntity.setLongitude(bjingdu);
-                                                                        deviceEntity.setMcStatus(1);
-                                                                        deviceEntity.setDeviceModelEntity(this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()));
-                                                                        deviceEntity.setMcSn(sn.toString());
-                                                                        deviceEntity.setNote(remark);
-                                                                        deviceEntity.setDiscardStatus(1);
-                                                                        deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
-                                                                        this.deviceRepository.save(deviceEntity);
-                                                                        edr.setName(placeName.toString());
-                                                                        edr.setWeidu(weidu);
-                                                                        edr.setJingdu(jingdu);
-                                                                        edr.setDeviceType(deviceType.toString());
-                                                                        edr.setType(type.toString());
-                                                                        edr.setSn(sn.toString());
-                                                                        edr.setBeizhu(remark);
-                                                                        edr.setSupplier(supplierName.toString());
-                                                                        edr.setMsg("绑定成功");
-                                                                        result.add(edr);
                                                                 }
 
+                                                        }else {
+                                                                edr.setName(placeName.toString());
+                                                                edr.setWeidu(weidu);
+                                                                edr.setJingdu(jingdu);
+                                                                edr.setDeviceType(deviceType.toString());
+                                                                edr.setType(type.toString());
+                                                                edr.setSn(sn.toString());
+                                                                edr.setBeizhu(remark);
+                                                                edr.setSupplier(supplierName.toString());
+                                                                edr.setMsg("绑定失败");
+                                                                result.add(edr);
                                                         }
 
+                                                }else {
+                                                        edr.setName(placeName.toString());
+                                                        edr.setWeidu(weidu);
+                                                        edr.setJingdu(jingdu);
+                                                        edr.setDeviceType(deviceType.toString());
+                                                        edr.setType(type.toString());
+                                                        edr.setSn(sn.toString());
+                                                        edr.setBeizhu(remark);
+                                                        edr.setSupplier(supplierName.toString());
+                                                        edr.setMsg("绑定失败");
+                                                        result.add(edr);
                                                 }
-
+//
                                         }
-
                                 }
 
                         }
@@ -461,84 +491,102 @@ public class DeviceServiceImpl implements DeviceService {
                         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file.getInputStream());
                         XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
                         if (xssfSheet == null) {
-                                edr.setMsg("上传文件没有内容");
+                                return null;
                         }
-                        //遍历行row
                         for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
                                 //获取每一行
+                                ExcelSetDeviceResult edr = new ExcelSetDeviceResult();
                                 XSSFRow row = xssfSheet.getRow(rowNum);
+
                                 if (row == null) {
                                         continue;
                                 }
                                 //遍历列cell
                                 for (int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {
                                         //获取每一列
+
                                         XSSFCell cell = row.getCell(cellNum);
+                                        DeviceEntity deviceEntity = new DeviceEntity();
                                         if (cell == null) {
 
                                                 continue;
                                         }
                                         Object placeName = getValue(row.getCell(0));// 1 扫描到的场地名称
+                                        System.out.println(placeName);
                                         // 2 维修时间不需要插入,直接生成null
-                                        String jingdu =null;
-                                        if(getValue(row.getCell(1))!=null){
-                                                jingdu= row.getCell(1).toString();
+                                        String jingdu = null;
+                                        if (getValue(row.getCell(1)) != null) {
+                                                jingdu = row.getCell(1).toString();
                                         }
                                         String weidu = null;
-                                        if (getValue(row.getCell(2))!=null){
-                                                weidu=row.getCell(2).toString();//经度纬度如果不输入为null
+                                        if (getValue(row.getCell(2)) != null) {
+                                                weidu = row.getCell(2).toString();//经度纬度如果不输入为null
                                         }
 
 
                                         Object deviceType = getValue(row.getCell(3));//设备型号名称
                                         //如果设备型号名称查不到  设备型号表创建一条新设备型号数据
-                                        Object type=getValue(row.getCell(4));//型号 大中小
+                                        Object type = getValue(row.getCell(4));//型号 大中小
                                         //设备状态刚导入的一律为空闲
-                                        Object sn=getValue(row.getCell(5));//设备编号
-                                        String remark="";     //备注
-                                        if (getValue(row.getCell(6))!=null){
-                                                remark=row.getCell(6).toString();
+                                        Object sn1=row.getCell(5);
+
+                                        Object sn = getValue(row.getCell(5));//设备编号
+
+
+
+                                        String remark = "";     //备注
+                                        if (getValue(row.getCell(6)) != null) {
+                                                remark = row.getCell(6).toString();
                                         }
 
-                                        Object supplierName=getValue(row.getCell(7));//供应商
+                                        Object supplierName = getValue(row.getCell(7));//供应商
 
-                                        if (this.placeRepository.getPlaceName(placeName.toString())==null){
-                                                //失败地区返回集合
-                                                edr.setName(placeName.toString());
-                                                edr.setWeidu(weidu);
-                                                edr.setJingdu(jingdu);
-                                                edr.setDeviceType(deviceType.toString());
-                                                edr.setType(type.toString());
-                                                edr.setSn(sn.toString());
-                                                edr.setBeizhu(remark);
-                                                edr.setSupplier(supplierName.toString());
-                                                edr.setMsg("绑定失败");
-                                                result.add(edr);
-                                                if(this.deviceModelService.getDeviceByType(deviceType.toString(),type.toString())==null){
-                                                        //失败类型返回集合
-                                                        edr.setName(placeName.toString());
-                                                        edr.setWeidu(weidu);
-                                                        edr.setJingdu(jingdu);
-                                                        edr.setDeviceType(deviceType.toString());
-                                                        edr.setType(type.toString());
-                                                        edr.setSn(sn.toString());
-                                                        edr.setBeizhu(remark);
-                                                        edr.setSupplier(supplierName.toString());
-                                                        edr.setMsg("绑定失败");
-                                                        result.add(edr);
-                                                        if (this.supplierService.getSupplierBySName(supplierName.toString())==null){
-                                                                //失败供应商返回集合
-                                                                edr.setName(placeName.toString());
-                                                                edr.setWeidu(weidu);
-                                                                edr.setJingdu(jingdu);
-                                                                edr.setDeviceType(deviceType.toString());
-                                                                edr.setType(type.toString());
-                                                                edr.setSn(sn.toString());
-                                                                edr.setBeizhu(remark);
-                                                                edr.setSupplier(supplierName.toString());
-                                                                edr.setMsg("绑定失败");
-                                                                result.add(edr);
-                                                                if (/*设备编号重复*/sn.toString().equals(this.deviceRepository.getDeviceBySn(sn.toString()).getMcSn())) {
+
+                                        if (placeName!=null&&deviceType!=null&&type!=null&&sn!=null&&supplierName!=null){
+                                                // System.out.println("内容不为空");
+                                                if (this.placeRepository.getPlaceName(placeName.toString()) != null) {
+                                                        //    System.out.println("场地存在");
+                                                        if (this.deviceModelRepository.getDeviceByName(deviceType.toString(), type.toString()) != null) {
+                                                                //   System.out.println("设备类型存在");
+                                                                if (this.supplierRepository.getSupplierBySName(supplierName.toString()) != null) {
+                                                                        //失败供应商返回集合
+                                                                        //     System.out.println("供应商存在");
+                                                                        if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
+                                                                                //        System.out.println("SN不重复");
+                                                                                if(weidu!=null){
+                                                                                        BigDecimal bweidu = new BigDecimal(weidu);
+
+                                                                                        deviceEntity.setLatitude(bweidu);
+                                                                                }
+                                                                                if (jingdu!=null){
+                                                                                        BigDecimal bjingdu = new BigDecimal(jingdu);
+                                                                                        deviceEntity.setLongitude(bjingdu);
+                                                                                }
+                                                                                deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
+                                                                                deviceEntity.setMaintainDateTime(null);
+
+                                                                                deviceEntity.setMcStatus(1);
+                                                                                deviceEntity.setDeviceModelEntity(this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()));
+                                                                                deviceEntity.setMcSn(sn.toString());
+                                                                                deviceEntity.setNote(remark);
+                                                                                deviceEntity.setDiscardStatus(1);
+                                                                                deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
+                                                                                deviceEntity.setLoraId(sn.toString());
+                                                                                this.deviceRepository.save(deviceEntity);
+
+                                                                                edr.setName(placeName.toString());
+                                                                                edr.setWeidu(weidu);
+                                                                                edr.setJingdu(jingdu);
+                                                                                edr.setDeviceType(deviceType.toString());
+                                                                                edr.setType(type.toString());
+                                                                                edr.setSn(sn.toString());
+                                                                                edr.setBeizhu(remark);
+                                                                                edr.setSupplier(supplierName.toString());
+                                                                                edr.setMsg("绑定成功");
+                                                                                result.add(edr);
+                                                                        }
+
+                                                                }else {
                                                                         edr.setName(placeName.toString());
                                                                         edr.setWeidu(weidu);
                                                                         edr.setJingdu(jingdu);
@@ -549,49 +597,45 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         edr.setSupplier(supplierName.toString());
                                                                         edr.setMsg("绑定失败");
                                                                         result.add(edr);
-
-                                                                } else {
-                                                                        BigDecimal bweidu = new BigDecimal(weidu);
-                                                                        BigDecimal bjingdu = new BigDecimal(jingdu);
-                                                                        deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
-                                                                        deviceEntity.setMaintainDateTime(null);
-                                                                        deviceEntity.setLatitude(bweidu);
-                                                                        deviceEntity.setLongitude(bjingdu);
-                                                                        deviceEntity.setMcStatus(1);
-                                                                        deviceEntity.setDeviceModelEntity(this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()));
-                                                                        deviceEntity.setMcSn(sn.toString());
-                                                                        deviceEntity.setNote(remark);
-                                                                        deviceEntity.setDiscardStatus(1);
-                                                                        deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
-                                                                        this.deviceRepository.save(deviceEntity);
-                                                                        edr.setName(placeName.toString());
-                                                                        edr.setWeidu(weidu);
-                                                                        edr.setJingdu(jingdu);
-                                                                        edr.setDeviceType(deviceType.toString());
-                                                                        edr.setType(type.toString());
-                                                                        edr.setSn(sn.toString());
-                                                                        edr.setBeizhu(remark);
-                                                                        edr.setSupplier(supplierName.toString());
-                                                                        edr.setMsg("绑定成功");
-                                                                        result.add(edr);
                                                                 }
 
-
-
-
+                                                        }else {
+                                                                edr.setName(placeName.toString());
+                                                                edr.setWeidu(weidu);
+                                                                edr.setJingdu(jingdu);
+                                                                edr.setDeviceType(deviceType.toString());
+                                                                edr.setType(type.toString());
+                                                                edr.setSn(sn.toString());
+                                                                edr.setBeizhu(remark);
+                                                                edr.setSupplier(supplierName.toString());
+                                                                edr.setMsg("绑定失败");
+                                                                result.add(edr);
                                                         }
 
+                                                }else {
+                                                        edr.setName(placeName.toString());
+                                                        edr.setWeidu(weidu);
+                                                        edr.setJingdu(jingdu);
+                                                        edr.setDeviceType(deviceType.toString());
+                                                        edr.setType(type.toString());
+                                                        edr.setSn(sn.toString());
+                                                        edr.setBeizhu(remark);
+                                                        edr.setSupplier(supplierName.toString());
+                                                        edr.setMsg("绑定失败");
+                                                        result.add(edr);
                                                 }
-
+//
                                         }
                                 }
+
                         }
                 }
+
+                System.out.println(result);
                 return result;
 
 
         }
-
         /**
          * 导出设备模板
          * @param response

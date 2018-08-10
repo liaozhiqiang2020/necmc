@@ -28,6 +28,10 @@
 
         <div class="container-fluid">
             <div id="grid"> <span id="toolbar"></span></div>
+
+            <script id="template" type="text/x-kendo-template" >
+                <a class="k-button"  onclick="getExcel()">导出Excel</a>
+            </script>
             <script>
                 /*<![CDATA[*/
                 $(function () {
@@ -90,6 +94,10 @@
                     //dataSource是必填属性
                     $("#grid").kendoGrid({
                         dataSource: dataSource,
+                        toolbar: [
+                            {template: kendo.template($("#template").html())}
+
+                        ],
                         height: 600,
                         sortable: true, //表示是否支持排序， boolean型
                         filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
@@ -314,12 +322,8 @@
             </script>
 
             <script>
-                $("#toolbar").kendoToolBar({
-                    items: [
-                        {
-                            type: "button",
-                            text: "导出Excel",
-                            click: function(e) {
+
+                            function getExcel() {
                                 //t, {name:"导出excel",click:function(){
 
                                 $.ajax({
@@ -338,11 +342,7 @@
 
                             }
 
-                        }
 
-                    ]
-
-                });
             </script>
 
             <!--设置tooltip的样式-->

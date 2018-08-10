@@ -70,6 +70,10 @@
             </div >
             <div id="grid"></div>
 
+            <script id="template" type="text/x-kendo-template" >
+            <a class="k-button"  onclick="grid()">&nbsp返&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp回&nbsp</a>
+            </script>
+
 
 <script>
           var   gradeId=  '[[${session.user.gradeId}]]'   //隶属单位
@@ -77,11 +81,9 @@
          // alert(gradeId)
         //  alert(p_id)
 
-
+//起始页面
           $(function () {
-
               a()
-
           })
 
 
@@ -138,8 +140,8 @@ console.log(start,end,province,city,place)
         var start=$("#start").val();//开始时间
         var end=$("#end").val();//结束时间
         var  province =$("#province").val();//省
-        var  city=$("#city").val();//市
-        var  place=$("#place").val();//场地
+       /* var  city=$("#city").val();//市
+        var  place=$("#place").val();//场地*/
         var dataSource = new kendo.data.DataSource({
             transport: {
                 read: {
@@ -148,6 +150,7 @@ console.log(start,end,province,city,place)
                 parameterMap:function(options, operation){
                     if (operation === "") {
                         var deviceId = options.id;
+
                         var list = {
                             id:deviceId
                         }
@@ -156,8 +159,8 @@ console.log(start,end,province,city,place)
                 }
             },
             serverPaging: false,    //设定服务器来实现分页功能
-            serverFiltering: true,
-            serverSorting: true,
+           // serverFiltering: true,
+           // serverSorting: true,
             pageSize: 10,
             schema: {
                 model: {
@@ -187,29 +190,29 @@ console.log(start,end,province,city,place)
                 fileName: "销售报表.xlsx",
                 allPages:true
             },
-        height: 600,
-        sortable: true, //表示是否支持排序， boolean型
-        filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
-        columnMenu: true,
-        pageable: {
+            height: 600,
+            sortable: true, //表示是否支持排序， boolean型
+            filterable: true,//filterable表示过滤，即能进行等于，不等于，包含，已开头等过滤操作，boolean型
+            columnMenu: true,
+            pageable: {
 
-        buttonCount: 5,
-        totalPages: true,
-        refresh: true,
-        pageSize: 5,
+                buttonCount: 5,
+                totalPages: true,
+                refresh: true,
+                pageSize: 10,
 
-        numeric: true,
-        input: true,
-        messages: {
-        display: "显示 {0}-{1} 条，共 {2} 条",
-        empty: "没有数据",
-        itemsPerPage: "每页显示数量",
-        first: "第一页",
-        last: "最后一页",
-        next: "下一页",
-        previous: "上一页",
-        page: "页",
-        of: "共 {0}页"
+                numeric: true,
+                input: true,
+                messages: {
+                    display: "显示 {0}-{1} 条，共 {2} 条",
+                    empty: "没有数据",
+                    itemsPerPage: "每页显示数量",
+                    first: "第一页",
+                    last: "最后一页",
+                    next: "下一页",
+                    previous: "上一页",
+                    page: "页",
+                    of: "共 {0}页"
         }
         },
         columns: [
@@ -219,25 +222,28 @@ console.log(start,end,province,city,place)
         },
         {
         field: "userCount",
-        title: "用户数",
+        title: "用户数(人)",
+            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
         },
         {
         field: "orderCount",
         title: "订单总数",
+            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
         },
         {
         field: "income",
-        title: "收入"
+        title: "收入金额(￥)",
+        format: "{0:n2}",
+        attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
         },{
             command: [
                 {
-                    name :"详情",click:function (e) {
+                    name :"市详情",click:function (e) {
                         kendo.culture("zh-CN");
                         var start=$("#start").val();//开始时间
                         var end=$("#end").val();//结束时间
                         var  province =$("#province").val();//省
-                        var  city=$("#city").val();//市
-                        var  place=$("#place").val();//场地
+
 //==============================================================
                         $("#grid").html("")
                         var dataSource2 = new kendo.data.DataSource({
@@ -258,8 +264,8 @@ console.log(start,end,province,city,place)
                                 }
                             },
                             serverPaging: false,    //设定服务器来实现分页功能
-                            serverFiltering: true,
-                            serverSorting: true,
+                          //  serverFiltering: true,
+                           // serverSorting: true,
                             pageSize: 10,
                             schema: {
                                 model: {
@@ -284,7 +290,10 @@ console.log(start,end,province,city,place)
                         });
                         $("#grid").kendoGrid({
                             dataSource: dataSource2,
-                            toolbar: [{name: "excel"}],
+                            toolbar: [{name: "excel"},
+                                {template: kendo.template($("#template").html())}
+
+                            ],
                             excel: {
                                 fileName: "销售报表.xlsx",
                                 allPages:true
@@ -321,16 +330,22 @@ console.log(start,end,province,city,place)
                                 },
                                 {
                                     field: "userCount",
-                                    title: "用户数",
+                                    title: "用户数(人)",
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                                 },
                                 {
                                     field: "orderCount",
                                     title: "订单总数",
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                                 },
                                 {
                                     field: "income",
-                                    title: "收入"
+                                    title: "收入金额(￥)",
+                                    format: "{0:n2}",
+                                    attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                                 },
+
+
                             ],
                             editable: {
                                 mode: "popup",
@@ -381,9 +396,9 @@ console.log(start,end,province,city,place)
                           }
                       }
                   },
-                  serverPaging: false,    //设定服务器来实现分页功能
+                 /* serverPaging: false,    //设定服务器来实现分页功能
                   serverFiltering: true,
-                  serverSorting: true,
+                  serverSorting: true,*/
                   pageSize: 10,
                   schema: {
                       model: {
@@ -445,19 +460,23 @@ console.log(start,end,province,city,place)
                       },
                       {
                           field: "userCount",
-                          title: "用户数",
+                          title: "用户数(人)",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "orderCount",
                           title: "订单总数",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "income",
-                          title: "收入"
+                          title: "收入金额(￥)",
+                          format: "{0:n2}",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },{
                           command: [
                               {
-                                  name :"详情",click:function (e) {
+                                  name :"场地详情",click:function (e) {
 
 
                                       var start=$("#start").val();//开始时间
@@ -472,7 +491,7 @@ console.log(start,end,province,city,place)
                                               read: {
                                                   url: "./findPlaceBycid?cId="+city+"&start="+start+"&end="+end
                                               },
-                                              /*parameterMap:function(options, operation){
+                                              parameterMap:function(options, operation){
                                                   if (operation === "") {
 
                                                       var deviceId = options.id;
@@ -482,11 +501,11 @@ console.log(start,end,province,city,place)
                                                       }
                                                       return kendo.stringify(list);
                                                   }
-                                              }*/
+                                              }
                                           },
                                           serverPaging: false,    //设定服务器来实现分页功能
-                                          serverFiltering: true,
-                                          serverSorting: true,
+                                         // serverFiltering: true,
+                                         // serverSorting: true,
                                           pageSize: 10,
                                           schema: {
                                               model: {
@@ -511,7 +530,10 @@ console.log(start,end,province,city,place)
                                       });
                                       $("#grid").kendoGrid({
                                           dataSource: dataSource1,
-                                          toolbar: [{name: "excel"}],
+                                          toolbar: [{name: "excel"},
+                                              {template: kendo.template($("#template").html())}
+
+                                          ],
                                           excel: {
                                               fileName: "销售报表.xlsx",
                                               allPages:true
@@ -548,16 +570,21 @@ console.log(start,end,province,city,place)
                                               },
                                               {
                                                   field: "userCount",
-                                                  title: "用户数",
+                                                  title: "用户数(人)",
+                                                  attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                                               },
                                               {
                                                   field: "orderCount",
                                                   title: "订单总数",
+                                                  attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                                               },
                                               {
                                                   field: "income",
-                                                  title: "收入"
+                                                  title: "收入金额(￥)",
+                                                  format: "{0:n2}",
+                                                  attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                                               },
+
                                           ],
                                           editable: {
                                               mode: "popup",
@@ -613,8 +640,8 @@ console.log(start,end,province,city,place)
                       }
                   },
                   serverPaging: false,    //设定服务器来实现分页功能
-                  serverFiltering: true,
-                  serverSorting: true,
+                 // serverFiltering: true,
+                 // serverSorting: true,
                   pageSize: 10,
                   schema: {
                       model: {
@@ -676,15 +703,19 @@ console.log(start,end,province,city,place)
                       },
                       {
                           field: "userCount",
-                          title: "用户数",
+                          title: "用户数(人)",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "orderCount",
                           title: "订单总数",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "income",
-                          title: "收入"
+                          title: "收入金额(￥)",
+                          format: "{0:n2}",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                   ],
                   editable: {
@@ -729,8 +760,8 @@ console.log(start,end,province,city,place)
                       }
                   },
                   serverPaging: false,    //设定服务器来实现分页功能
-                  serverFiltering: true,
-                  serverSorting: true,
+                 // serverFiltering: true,
+                 // serverSorting: true,
                   pageSize: 10,
                   schema: {
                       model: {
@@ -790,15 +821,19 @@ console.log(start,end,province,city,place)
                       },
                       {
                           field: "userCount",
-                          title: "用户数",
+                          title: "用户数(人)",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "orderCount",
                           title: "订单总数",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "income",
-                          title: "收入"
+                          title: "收入金额(￥)",
+                          format: "{0:n2}",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                   ],
                   editable: {
@@ -885,6 +920,7 @@ console.log(start,end,province,city,place)
         $("#city").kendoDropDownList({
             optionLabel: "请选择..."
         });
+        city=
         $("#place").kendoDropDownList({
             optionLabel: "请选择..."
         });
@@ -1052,15 +1088,19 @@ console.log(start,end,province,city,place)
                       },
                       {
                           field: "userCount",
-                          title: "用户数",
+                          title: "用户数(人)",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "orderCount",
                           title: "订单总数",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                       {
                           field: "income",
-                          title: "收入"
+                          title: "收入金额(￥)",
+                          format: "{0:n2}",
+                          attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                       },
                   ],
                   editable: {
