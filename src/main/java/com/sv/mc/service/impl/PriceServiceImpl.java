@@ -167,6 +167,7 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     public PriceEntity updatePrice(Map<String, Object> map) {
         PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById((int) map.get("id"));
+        PriceHistoryEntity history = new PriceHistoryEntity();
         int useTime = (int) map.get("useTime") * 60;
         String end = (String) map.get("endDateTime");
         String start = (String) map.get("startDateTime");
@@ -178,21 +179,28 @@ public class PriceServiceImpl implements PriceService {
             priceEntity.setDeviceModelEntity(deviceModelEntity);
         }
         BigDecimal price = intUtil.getBigDecimal(map.get("price"));
-//        price=price.setScale(4, BigDecimal.ROUND_HALF_UP);
-//        BigDecimal price = new BigDecimal((int)map.get("price"));
         priceEntity.setUseTime(useTime);
         priceEntity.setStatus(1);
         priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
         priceEntity.setPrice(price);
-        priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
-        priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
         priceEntity.setPriceName((String) map.get("priceName"));
+        if (endDate1.equals(startDate1)){
+//            endDate1 = null;
+//            startDate1 = null;
+            priceEntity.setEndDateTime(null);
+            priceEntity.setStartDateTime(null);
+            history.setEndDateTime(null);
+            history.setStartDateTime(null);
+        }else{
+            priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
+            priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
+            history.setEndDateTime(Timestamp.valueOf(endDate1));
+            history.setStartDateTime(Timestamp.valueOf(startDate1));
+        }
 
-        PriceHistoryEntity history = new PriceHistoryEntity();
+
         history.setPriceName((String) map.get("priceName"));
         history.setCreateDateTime(priceEntity.getCreateDateTime());
-        history.setEndDateTime(Timestamp.valueOf(endDate1));
-        history.setStartDateTime(Timestamp.valueOf(startDate1));
         history.setStatus(1);
         history.setUser(priceEntity.getUser());
         history.setEditTime(new Timestamp(System.currentTimeMillis()));
@@ -257,15 +265,25 @@ public class PriceServiceImpl implements PriceService {
         HttpSession session = request.getSession();
         UserEntity user = (UserEntity) session.getAttribute("user");
         UserEntity userEntity = this.userRepository.findUserById(user.getId());
+        PriceHistoryEntity history = new PriceHistoryEntity();
         PriceEntity priceEntity = new PriceEntity();
         int useTime = (int) map.get("useTime") * 60;
         String end = (String) map.get("endDateTime");
         String start = (String) map.get("startDateTime");
         String endDate1 = new DateJsonValueProcessor().dateString(end);
         String startDate1 = new DateJsonValueProcessor().dateString(start);
-        if (endDate1 == startDate1){
-            endDate1 = null;
-            startDate1 = null;
+        if (endDate1.equals(startDate1)){
+//            endDate1 = null;
+//            startDate1 = null;
+            priceEntity.setEndDateTime(null);
+            priceEntity.setStartDateTime(null);
+            history.setEndDateTime(null);
+            history.setStartDateTime(null);
+        }else{
+            priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
+            priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
+            history.setEndDateTime(Timestamp.valueOf(endDate1));
+            history.setStartDateTime(Timestamp.valueOf(startDate1));
         }
         int deviceModelId = Integer.parseInt((String) map.get("deviceModel"));
         DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
@@ -276,14 +294,10 @@ public class PriceServiceImpl implements PriceService {
         priceEntity.setUser(userEntity);
         priceEntity.setDeviceModelEntity(deviceModelEntity);
         priceEntity.setPrice(price);
-        priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
-        priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
         priceEntity.setPriceName((String) map.get("priceName"));
 //        priceEntity.setDeviceModelEntity();
-        PriceHistoryEntity history = new PriceHistoryEntity();
+
         history.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
-        history.setEndDateTime(Timestamp.valueOf(endDate1));
-        history.setStartDateTime(Timestamp.valueOf(startDate1));
         history.setPriceName((String) map.get("priceName"));
         history.setStatus(1);
         history.setUser(userEntity);
