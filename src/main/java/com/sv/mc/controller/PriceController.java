@@ -395,15 +395,9 @@ public class PriceController {
 
 
     @PostMapping(value = "/price/setexcel")
-    public int setExcel(@RequestParam("file") MultipartFile file) throws IOException {
-        boolean flag = this.priceService.getExcel(file);
-        if (flag == true) {
-            return 1;
+    public Set setExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        return this.priceService.getExcel(file);
 
-        }
-        {
-            return 0;
-        }
     }
 
     ;
