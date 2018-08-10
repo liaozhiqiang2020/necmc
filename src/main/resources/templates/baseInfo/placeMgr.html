@@ -5,6 +5,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
 
 <div class="content-wrapper">
     <section  class="content-header">
@@ -147,7 +148,13 @@
                     resizable: true,
                     toolbar: [{
                         name: "create", text:  "新增"
-                    }],
+                    },{name:"excel",text:"导出Excel"}
+                    ],
+                    excel: {
+                        fileName: "场地.xlsx",
+                        filterable: true
+                       // allPages:true
+                    },
                     columns: [
                         {
                             field: "name",
