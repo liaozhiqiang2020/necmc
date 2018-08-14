@@ -171,8 +171,7 @@ public class PriceServiceImpl implements PriceService {
         int useTime = (int) map.get("useTime") * 60;
         String end = (String) map.get("endDateTime");
         String start = (String) map.get("startDateTime");
-        String endDate1 = new DateJsonValueProcessor().dateString(end);
-        String startDate1 = new DateJsonValueProcessor().dateString(start);
+        priceDate(history, priceEntity, end, start);
         if (com.sv.mc.util.intUtil.isInteger((String) map.get("deviceModel"))) {
             int deviceModelId = Integer.parseInt((String) map.get("deviceModel"));
             DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
@@ -184,21 +183,6 @@ public class PriceServiceImpl implements PriceService {
         priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
         priceEntity.setPrice(price);
         priceEntity.setPriceName((String) map.get("priceName"));
-        if (endDate1.equals(startDate1)){
-//            endDate1 = null;
-//            startDate1 = null;
-            priceEntity.setEndDateTime(null);
-            priceEntity.setStartDateTime(null);
-            history.setEndDateTime(null);
-            history.setStartDateTime(null);
-        }else{
-            priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
-            priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
-            history.setEndDateTime(Timestamp.valueOf(endDate1));
-            history.setStartDateTime(Timestamp.valueOf(startDate1));
-        }
-
-
         history.setPriceName((String) map.get("priceName"));
         history.setCreateDateTime(priceEntity.getCreateDateTime());
         history.setStatus(1);
@@ -270,21 +254,7 @@ public class PriceServiceImpl implements PriceService {
         int useTime = (int) map.get("useTime") * 60;
         String end = (String) map.get("endDateTime");
         String start = (String) map.get("startDateTime");
-        String endDate1 = new DateJsonValueProcessor().dateString(end);
-        String startDate1 = new DateJsonValueProcessor().dateString(start);
-        if (endDate1.equals(startDate1)){
-//            endDate1 = null;
-//            startDate1 = null;
-            priceEntity.setEndDateTime(null);
-            priceEntity.setStartDateTime(null);
-            history.setEndDateTime(null);
-            history.setStartDateTime(null);
-        }else{
-            priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
-            priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
-            history.setEndDateTime(Timestamp.valueOf(endDate1));
-            history.setStartDateTime(Timestamp.valueOf(startDate1));
-        }
+        priceDate(history, priceEntity, end, start);
         int deviceModelId = Integer.parseInt((String) map.get("deviceModel"));
         DeviceModelEntity deviceModelEntity = this.deviceModelRepository.findById(deviceModelId);
         BigDecimal price = intUtil.getBigDecimal(map.get("price"));
@@ -309,6 +279,47 @@ public class PriceServiceImpl implements PriceService {
         this.priceHistoryRepository.save(history);
         return this.priceRepository.save(priceEntity);
 
+    }
+
+    /**
+     * 价格方案起止结束时间判断
+     *
+     * @param history
+     * @param priceEntity
+     * @param end
+     * @param start
+     */
+    private void priceDate(PriceHistoryEntity history, PriceEntity priceEntity, String end, String start) {
+        if (end == null && start == null) {
+            priceEntity.setEndDateTime(null);
+            priceEntity.setStartDateTime(null);
+            history.setEndDateTime(null);
+            history.setStartDateTime(null);
+        } else if (end.equals(start)) {
+            priceEntity.setEndDateTime(null);
+            priceEntity.setStartDateTime(null);
+            history.setEndDateTime(null);
+            history.setStartDateTime(null);
+        } else if (end != null && start != null) {
+            String endDate1 = new DateJsonValueProcessor().dateString(end);
+            String startDate1 = new DateJsonValueProcessor().dateString(start);
+            priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
+            priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
+            history.setEndDateTime(Timestamp.valueOf(endDate1));
+            history.setStartDateTime(Timestamp.valueOf(startDate1));
+        } else if (end == null && start != null) {
+            String startDate1 = new DateJsonValueProcessor().dateString(start);
+            priceEntity.setEndDateTime(null);
+            priceEntity.setStartDateTime(Timestamp.valueOf(startDate1));
+            history.setStartDateTime(Timestamp.valueOf(startDate1));
+            history.setEndDateTime(null);
+        } else if (end != null && start == null) {
+            String endDate1 = new DateJsonValueProcessor().dateString(end);
+            priceEntity.setStartDateTime(null);
+            history.setStartDateTime(null);
+            priceEntity.setEndDateTime(Timestamp.valueOf(endDate1));
+            history.setEndDateTime(Timestamp.valueOf(endDate1));
+        }
     }
 
     /**
@@ -358,7 +369,7 @@ public class PriceServiceImpl implements PriceService {
         Timestamp date = new Timestamp(System.currentTimeMillis());
         for (PriceEntity p : priceSet
                 ) {
-            if (p.getEndDateTime().getTime() < date.getTime() && p.getEndDateTime() != null) {
+            if ((p.getEndDateTime() != null && p.getEndDateTime().getTime() < date.getTime()) || p.getStatus() == 0) {
                 priceSet.remove(p);
             }
         }
@@ -370,7 +381,6 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     public List<PriceEntity> findUnDevicePrice(int deviceId) {
         List<PriceEntity> priceAll = this.priceRepository.findPriceEntitiesByMcType(deviceId, new Timestamp(System.currentTimeMillis()));
-        System.out.println(priceAll);
         List<PriceEntity> priceEntityList = this.priceRepository.findDevicePrice(deviceId);
         List<PriceEntity> priceList = new ArrayList<>();
         for (PriceEntity price : priceAll
@@ -530,7 +540,7 @@ public class PriceServiceImpl implements PriceService {
     public Set getExcel(MultipartFile file) throws IOException {
         boolean flag = false;
         String name = file.getOriginalFilename();
-        Set<ExcelSetPriceResult> set=new HashSet<>();
+        Set<ExcelSetPriceResult> set = new HashSet<>();
         String excelName = name.substring(name.indexOf("."));
         //System.out.println(excelName);获取文件名
         if (excelName.toLowerCase().equals(".xls")) {//判断文件版本
@@ -544,7 +554,7 @@ public class PriceServiceImpl implements PriceService {
             for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
                 //获取每一行
                 HSSFRow row = hssfSheet.getRow(rowNum);
-                ExcelSetPriceResult result =new ExcelSetPriceResult();
+                ExcelSetPriceResult result = new ExcelSetPriceResult();
                 if (row == null) {
                     continue;
                 }
@@ -560,7 +570,7 @@ public class PriceServiceImpl implements PriceService {
                     Object sn = getValue(row.getCell(0));
                     Object price = getValue(row.getCell(1));
                     Object useTime = getValue(row.getCell(2));
-                    if(sn!=null&&price!=null&useTime!=null) {
+                    if (sn != null && price != null & useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
                         int userTime = userTime1 * 60;//时间
@@ -629,7 +639,7 @@ public class PriceServiceImpl implements PriceService {
             for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
                 //获取每一行
                 XSSFRow row = xssfSheet.getRow(rowNum);
-                ExcelSetPriceResult result =new ExcelSetPriceResult();
+                ExcelSetPriceResult result = new ExcelSetPriceResult();
                 if (row == null) {
                     continue;
                 }
@@ -647,62 +657,61 @@ public class PriceServiceImpl implements PriceService {
                     Object useTime = getValue(row.getCell(2));
 
 
+                    if (sn != null && price != null & useTime != null) {
+                        Double ut = Double.parseDouble(useTime.toString());
+                        int userTime1 = Double.valueOf(ut).intValue();
+                        int userTime = userTime1 * 60;//时间
+                        BigDecimal bigDecimal = new BigDecimal(price.toString());//价格
+                        bigDecimal = bigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP);
 
-                    if(sn!=null&&price!=null&useTime!=null){
-                    Double ut = Double.parseDouble(useTime.toString());
-                    int userTime1 = Double.valueOf(ut).intValue();
-                    int userTime = userTime1 * 60;//时间
-                    BigDecimal bigDecimal = new BigDecimal(price.toString());//价格
-                    bigDecimal = bigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP);
+                        //测试数据
 
-                    //测试数据
+                        //判断sn 是否存在
+                        DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(sn.toString());
 
-                    //判断sn 是否存在
-                    DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(sn.toString());
-
-                    //判断 price 是否存在
-                    // DeviceModelEntity d=deviceEntity.getDeviceModelEntity();
-                    PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString());
-                    if (deviceEntity != null && priceEntity != null) {
-                        //  System.out.println("进来了1");
-                        if (priceEntity.getEndDateTime() == null || priceEntity.getEndDateTime().getTime() > new Date().getTime()) {
-                            //    System.out.println("进来了2");
-                            if (!deviceEntity.getPriceEntities().contains(priceEntity)) {
-                                //    System.out.println("进来了3");
-                                deviceEntity.getPriceEntities().add(priceEntity);
-                                Set<PriceEntity> priceSet = new HashSet<>();
-                                priceSet.addAll(deviceEntity.getPriceEntities());
-                                deviceEntity.getPriceEntities().clear();
-                                deviceEntity.getPriceEntities().addAll(priceSet);
-                                this.deviceRepository.save(deviceEntity);
-                                result.setId(sn.toString());
-                                result.setPrice(bigDecimal);
-                                result.setTime(userTime1);
-                                result.setMsg("绑定成功");
-                                set.add(result);
-                            }else {
+                        //判断 price 是否存在
+                        // DeviceModelEntity d=deviceEntity.getDeviceModelEntity();
+                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString());
+                        if (deviceEntity != null && priceEntity != null) {
+                            //  System.out.println("进来了1");
+                            if (priceEntity.getEndDateTime() == null || priceEntity.getEndDateTime().getTime() > new Date().getTime()) {
+                                //    System.out.println("进来了2");
+                                if (!deviceEntity.getPriceEntities().contains(priceEntity)) {
+                                    //    System.out.println("进来了3");
+                                    deviceEntity.getPriceEntities().add(priceEntity);
+                                    Set<PriceEntity> priceSet = new HashSet<>();
+                                    priceSet.addAll(deviceEntity.getPriceEntities());
+                                    deviceEntity.getPriceEntities().clear();
+                                    deviceEntity.getPriceEntities().addAll(priceSet);
+                                    this.deviceRepository.save(deviceEntity);
+                                    result.setId(sn.toString());
+                                    result.setPrice(bigDecimal);
+                                    result.setTime(userTime1);
+                                    result.setMsg("绑定成功");
+                                    set.add(result);
+                                } else {
+                                    result.setId(sn.toString());
+                                    result.setPrice(bigDecimal);
+                                    result.setTime(userTime1);
+                                    result.setMsg("绑定失败");
+                                    set.add(result);
+                                }
+                            } else {
                                 result.setId(sn.toString());
                                 result.setPrice(bigDecimal);
                                 result.setTime(userTime1);
                                 result.setMsg("绑定失败");
                                 set.add(result);
                             }
-                        }else {
+
+                        } else {
                             result.setId(sn.toString());
                             result.setPrice(bigDecimal);
                             result.setTime(userTime1);
                             result.setMsg("绑定失败");
                             set.add(result);
+
                         }
-
-                    } else {
-                        result.setId(sn.toString());
-                        result.setPrice(bigDecimal);
-                        result.setTime(userTime1);
-                        result.setMsg("绑定失败");
-                        set.add(result);
-
-                    }
 
                     }
                 }
