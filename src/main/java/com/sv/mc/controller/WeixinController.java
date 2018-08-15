@@ -251,7 +251,7 @@ public class WeixinController extends WeixinSupport {
 
         byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         System.out.println(message);
@@ -275,7 +275,7 @@ public class WeixinController extends WeixinSupport {
 
         byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         jmsProducer.sendMessage(message);
@@ -305,12 +305,59 @@ public class WeixinController extends WeixinSupport {
 
         byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         jmsProducer.sendMessage(message);
         deviceService.findChairStrength(chairId,strength);
     }
+
+    /**
+     * 发送继续和暂停按摩椅命令
+     */
+    @RequestMapping("/sendContinueChairMsg")
+    @ResponseBody
+    public void sendContinueChairMsg(String chairId,int continueType)throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String message="";
+        if(continueType==1){//继续
+            message = "faaf0e19"+chairCode;
+        }else if(continueType==0){//暂停
+            message = "faaf0e18"+chairCode;
+        }
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+    /**
+     * 查询按摩椅状态
+     * @param chairId
+     * @throws Exception
+     */
+    @RequestMapping("/selectMcStatus")
+    @ResponseBody
+    public void selectMcStatus(String chairId) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String message="faaf0e08"+chairCode;
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+
 
     /**
      * 发送充电指令
@@ -331,7 +378,7 @@ public class WeixinController extends WeixinSupport {
 
         byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte);  //byte[]转16进制字符串
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         jmsProducer.sendMessage(message);
@@ -374,6 +421,22 @@ public class WeixinController extends WeixinSupport {
             k += 2;
         }
         return byteArray;
+    }
+
+    /**转大写**/
+    private char charToUpperCase(char ch){
+        if(ch <= 122 && ch >= 97){
+            ch -= 32;
+        }
+        return ch;
+    }
+
+    /***转小写**/
+    private char charToLowerCase(char ch){
+        if(ch <= 90 && ch >= 65){
+            ch += 32;
+        }
+        return ch;
     }
 
 }

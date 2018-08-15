@@ -27,23 +27,23 @@ public class JMSConsumer {
 //            b.append(s);
 //        }
 //        byte[] byteStr =b.toString().getBytes();
+        int mcStatus=0;
         String res = wxUtil.bytesToHexString(byteStr);
         int type = Integer.parseInt(res.substring(14,16));//获取协议类型
         String chairCode = res.substring(16,32);//获取设备ascii
+        String returnMsg = res.substring(32,34);//返回类型
         String chairId = wxUtil.convertHexToString(chairCode);//ascii转16进制
-        if(type==9){//开启设备
-            deviceService.findChairRuningStatus(chairId,2);
-        }else if(type==10){//关闭设备
-            deviceService.findChairRuningStatus(chairId,2);
-        }else if(type==15){//按摩强度弱
-            deviceService.findChairRuningStatus(chairId,2);
-            deviceService.findChairStrength(chairId,3);
-        }else if(type==16){//按摩强度中
-            deviceService.findChairRuningStatus(chairId,2);
-            deviceService.findChairStrength(chairId,3);
-        }else if(type==17){//按摩强度强
-            deviceService.findChairRuningStatus(chairId,2);
-            deviceService.findChairStrength(chairId,3);
+        if(type==8){//查询状态
+            if(returnMsg.equals("01")){
+                mcStatus=1;
+            }else if(returnMsg.equals("02")){
+                mcStatus=2;
+            }else if(returnMsg.equals("03")){
+                mcStatus=3;
+            }else{
+                mcStatus=4;
+            }
+            deviceService.findChairRuningStatus(chairId,mcStatus);
         }
 
 
