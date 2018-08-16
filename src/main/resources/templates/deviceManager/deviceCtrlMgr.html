@@ -40,54 +40,29 @@
     <div class="container-fluid">
         <div id="window">
             <table>
-                <tr>
-                    <td>
-                        使用时长(分钟):<input type="text" id="textarea" class="k-input k-textbox" placeholder="请输入使用时长..." onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');">
-                    </td>
-                    <td>
-                        <button id="btnOpenDevice" type="button" class="k-button  k-primary">开启设备</button>
-                    </td>
-                </tr>
-               <tr>
-                   <td>
-
-                   </td>
-                   <td>
-                       <button id="btnCloseDevice" type="button" class="k-button  k-primary">关闭设备</button>
-                   </td>
-               </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <button id="btnRuo" type="button" class="k-button  k-primary">设备强度[弱]</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <button id="btnZhong" type="button" class="k-button  k-primary">设备强度[中]</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <button id="btnQiang" type="button" class="k-button  k-primary">设备强度[强]</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <button id="btnStatus" type="button" class="k-button  k-primary">查询设备状态</button>
-                    </td>
-                </tr>
+                <div>
+                    <button id="btnStatus" type="button" class="k-button  k-primary" style="margin-left: 170px">查询设备状态</button>
+                </div>
+                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
+                <div style="padding-top: 5px">
+                    按摩时长(分钟):<input type="text" id="textarea" class="k-input k-textbox" placeholder="请输入按摩时长..." onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"> <button id="btnOpenDevice" type="button" class="k-button  k-primary">开启设备</button>  <button id="btnCloseDevice" type="button" class="k-button  k-primary">关闭设备</button>
+                </div>
+                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
+                <div style="padding-top: 5px">
+                    <button id="btnZanting" type="button" class="k-button  k-primary">暂停按摩</button>
+                    <button id="btnContinue" type="button" class="k-button  k-primary" style="margin-left: 230px">继续按摩</button>
+                </div>
+                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
+                <div style="padding-top: 5px">
+                    <button id="btnRuo" type="button" class="k-button  k-primary">按摩强度[弱]</button>
+                    <button id="btnZhong" type="button" class="k-button  k-primary" style="margin-left: 55px">按摩强度[中]</button>
+                    <button id="btnQiang" type="button" class="k-button  k-primary" style="margin-left: 55px">按摩强度[强]</button>
+                </div>
+                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
+                <div style="padding-top: 5px">
+                    充电时长(分钟):<input type="text" id="chongdian" class="k-input k-textbox" placeholder="请输入充电时长..." onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');"> <button id="btnOpenCharge" type="button" class="k-button  k-primary">开启充电</button>  <button id="btnCloseCharge" type="button" class="k-button  k-primary">关闭充电</button>
+                </div>
+                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
             </table>
         </div>
 
@@ -175,18 +150,6 @@
                                 title: "按摩椅编号",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
-                            // {
-                            //     field: "latitude",
-                            //     title: "按摩椅所在纬度",
-                            //     format: "{0:n4}",
-                            //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            // },
-                            // {
-                            //     field: "longitude",
-                            //     title: "按摩椅所在经度",
-                            //     format: "{0:n4}",
-                            //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
-                            // },
                             {
                                 field: "mcStatus",
                                 title: "按摩椅状态",
@@ -230,30 +193,24 @@
                                             var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
-                                            // var mcStatus = data.mcStatus;
 
                                             $("#window").show();
 
                                             var myWindow = $("#window");
                                             myWindow.kendoWindow({
-                                                width: "500px",
+                                                width: "450px",
                                                 height:"300px",
                                                 title: "控制设备"
                                             });
 
                                             myWindow.data("kendoWindow").center().open();
 
-                                            // $("#btnOpenDevice").show();
-                                            // $("#textarea").show();
-                                            // $("#btn").show();
-
-
                                             $("#btnOpenDevice").kendoButton({
                                                 click: function(){
 
                                                     var text = $("#textarea").val();
                                                     if(text==""){
-                                                        alert("请输入使用时长！");
+                                                        alert("请输入按摩时长！");
                                                         return;
                                                     }
 
@@ -267,8 +224,6 @@
                                                         success:function(res){
                                                             alert("设备开启成功！");
                                                             myWindow.data("kendoWindow").close();
-                                                            // var grid = $("#grid").data("kendoGrid");
-                                                            // grid.dataSource.read();
                                                             location.reload();
                                                         }
                                                     })
@@ -286,8 +241,48 @@
                                                         success:function(res){
                                                             alert("设备停止成功！");
                                                             myWindow.data("kendoWindow").close();
-                                                            // var grid = $("#grid").data("kendoGrid");
-                                                            // grid.dataSource.read();
+                                                            location.reload();
+                                                        }
+                                                    })
+                                                }
+                                            });
+
+                                            $("#btnOpenCharge").kendoButton({
+                                                click: function(){
+
+                                                    var text = $("#chongdian").val();
+                                                    if(text==""){
+                                                        alert("请输入充电时长！");
+                                                        return;
+                                                    }
+
+                                                    $.ajax({
+                                                        type:"post",
+                                                        url:"./weixin/sendChargeMsg",
+                                                        data:{
+                                                            chairId:data.mcSn,
+                                                            mcTime:text
+                                                        },
+                                                        success:function(res){
+                                                            alert("充电开启成功！");
+                                                            myWindow.data("kendoWindow").close();
+                                                            location.reload();
+                                                        }
+                                                    })
+                                                }
+                                            });
+
+                                            $("#btnCloseCharge").kendoButton({
+                                                click: function(){
+                                                    $.ajax({
+                                                        type:"post",
+                                                        url:"./weixin/sendUnChargeMsg",
+                                                        data:{
+                                                            chairId:data.mcSn
+                                                        },
+                                                        success:function(res){
+                                                            alert("充电停止成功！");
+                                                            myWindow.data("kendoWindow").close();
                                                             location.reload();
                                                         }
                                                     })
@@ -306,13 +301,11 @@
                                                         success:function(res){
                                                             alert("按摩椅强度已设置为弱!");
                                                             myWindow.data("kendoWindow").close();
-                                                            // var grid = $("#grid").data("kendoGrid");
-                                                            // grid.dataSource.read();
                                                             location.reload();
                                                         }
                                                     })
                                                 }
-                                            })
+                                            });
 
                                             $("#btnZhong").kendoButton({
                                                 click:function(){
@@ -326,13 +319,11 @@
                                                         success:function(res){
                                                             alert("按摩椅强度已设置为中!");
                                                             myWindow.data("kendoWindow").close();
-                                                            // var grid = $("#grid").data("kendoGrid");
-                                                            // grid.dataSource.read();
                                                             location.reload();
                                                         }
                                                     })
                                                 }
-                                            })
+                                            });
 
                                             $("#btnQiang").kendoButton({
                                                 click:function(){
@@ -346,13 +337,11 @@
                                                         success:function(res){
                                                             alert("按摩椅强度已设置为强!");
                                                             myWindow.data("kendoWindow").close();
-                                                            // var grid = $("#grid").data("kendoGrid");
-                                                            // grid.dataSource.read();
                                                             location.reload();
                                                         }
                                                     })
                                                 }
-                                            })
+                                            });
 
                                             $("#btnStatus").kendoButton({
                                                 click:function(){
@@ -364,129 +353,47 @@
                                                         },
                                                         success:function(res){
                                                             myWindow.data("kendoWindow").close();
-                                                            // var grid = $("#grid").data("kendoGrid");
-                                                            // grid.dataSource.read();
+                                                            location.reload();
+                                                        }
+                                                    })
+                                                }
+                                            });
+
+                                            $("#btnZanting").kendoButton({
+                                                click:function(){
+                                                    $.ajax({
+                                                        type:"post",
+                                                        url:"./weixin/sendContinueChairMsg",
+                                                        data:{
+                                                            chairId:data.mcSn,
+                                                            continueType:0
+                                                        },
+                                                        success:function(res){
+                                                            myWindow.data("kendoWindow").close();
+                                                            location.reload();
+                                                        }
+                                                    })
+                                                }
+                                            });
+
+                                            $("#btnContinue").kendoButton({
+                                                click:function(){
+                                                    $.ajax({
+                                                        type:"post",
+                                                        url:"./weixin/sendContinueChairMsg",
+                                                        data:{
+                                                            chairId:data.mcSn,
+                                                            continueType:1
+                                                        },
+                                                        success:function(res){
+                                                            myWindow.data("kendoWindow").close();
                                                             location.reload();
                                                         }
                                                     })
                                                 }
                                             })
-
-
-
-                                            // if(mcStatus=="运行中"){
-                                            //     alert("当前设备正在运行中，请勿重复操作！");
-                                            // }else{
-                                            //     $.ajax({
-                                            //         type:"post",
-                                            //         url:"./weixin/sendStartChairMsg",
-                                            //         data:{
-                                            //             chairId:data.mcSn
-                                            //         },
-                                            //         success:function(res){
-                                            //             alert("设备开启成功！");
-                                            //             var grid = $("#grid").data("kendoGrid");
-                                            //             grid.dataSource.read();
-                                            //         }
-                                            //     })
-                                            // }
                                         }
                                     }
-                                    // {
-                                    //     text:"停止",//名称
-                                    //     click:function (e) {
-                                    //         // e.target 是表示按钮的DOM元素
-                                    //         var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
-                                    //         // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
-                                    //         var data = this.dataItem(tr);
-                                    //         var mcStatus = data.mcStatus;
-                                    //         if(mcStatus=="空闲中"){
-                                    //             alert("当前设备空闲中，请开启设备！");
-                                    //         }else{
-                                    //             $.ajax({
-                                    //                 type:"post",
-                                    //                 url:"./weixin/sendEndChairMsg",
-                                    //                 data:{
-                                    //                     chairId:data.mcSn
-                                    //                 },
-                                    //                 success:function(res){
-                                    //                     alert("设备停止成功！");
-                                    //                     var grid = $("#grid").data("kendoGrid");
-                                    //                     grid.dataSource.read();
-                                    //                 }
-                                    //             })
-                                    //         }
-                                    //     }
-                                    // },
-                                    // {
-                                    //     text:"弱",//名称
-                                    //     click:function (e) {
-                                    //         // e.target 是表示按钮的DOM元素
-                                    //         var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
-                                    //         // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
-                                    //         var data = this.dataItem(tr);
-                                    //
-                                    //         $.ajax({
-                                    //             type:"post",
-                                    //             url:"./weixin/sendStrengthChairMsg",
-                                    //             data:{
-                                    //                 chairId:data.mcSn,
-                                    //                 strength:0
-                                    //             },
-                                    //             success:function(res){
-                                    //                 alert("按摩椅强度已设置为弱!");
-                                    //                 var grid = $("#grid").data("kendoGrid");
-                                    //                 grid.dataSource.read();
-                                    //             }
-                                    //         })
-                                    //     }
-                                    // },
-                                    // {
-                                    //     text:"中",//名称
-                                    //     click:function (e) {
-                                    //         // e.target 是表示按钮的DOM元素
-                                    //         var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
-                                    //         // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
-                                    //         var data = this.dataItem(tr);
-                                    //
-                                    //         $.ajax({
-                                    //             type:"post",
-                                    //             url:"./weixin/sendStrengthChairMsg",
-                                    //             data:{
-                                    //                 chairId:data.mcSn,
-                                    //                 strength:1
-                                    //             },
-                                    //             success:function(res){
-                                    //                 alert("按摩椅强度已设置为中!");
-                                    //                 var grid = $("#grid").data("kendoGrid");
-                                    //                 grid.dataSource.read();
-                                    //             }
-                                    //         })
-                                    //     }
-                                    // },
-                                    // {
-                                    //     text:"强",//名称
-                                    //     click:function (e) {
-                                    //         // e.target 是表示按钮的DOM元素
-                                    //         var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
-                                    //         // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
-                                    //         var data = this.dataItem(tr);
-                                    //
-                                    //         $.ajax({
-                                    //             type:"post",
-                                    //             url:"./weixin/sendStrengthChairMsg",
-                                    //             data:{
-                                    //                 chairId:data.mcSn,
-                                    //                 strength:2
-                                    //             },
-                                    //             success:function(res){
-                                    //                 alert("按摩椅强度已设置为强!");
-                                    //                 var grid = $("#grid").data("kendoGrid");
-                                    //                 grid.dataSource.read();
-                                    //             }
-                                    //         })
-                                    //     }
-                                    // }
                                     ],
                                 title: "操作",
                                 width: "100px"

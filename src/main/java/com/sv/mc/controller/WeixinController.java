@@ -364,17 +364,34 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendChargeMsg")
     @ResponseBody
-    public void sendChargeMsg(String chairId,int chargeState) throws Exception{
+    public void sendChargeMsg(String chairId,Integer mcTime) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+        String time = mcTime.toHexString(mcTime);
+        if(time.length()<2){
+            time = "0"+time;
+        }
+
+        String message ="faaf0f13"+chairCode+time;
+
+        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+    /**
+     * 发送断电指令
+     */
+    @RequestMapping("/sendUnChargeMsg")
+    @ResponseBody
+    public void sendUnChargeMsg(String chairId) throws Exception{
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
 
-        String message = "";
-
-        if(chargeState==0){//充电
-            message="faaf0f13"+chairCode+"3c";
-        }else if(chargeState==1){//断电
-            message="faaf0e14"+chairCode;
-        }
+        String message = "faaf0e14"+chairCode;
 
         byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
