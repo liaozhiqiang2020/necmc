@@ -84,14 +84,14 @@ public class RoleServiceImpl implements RoleService {
         PermissionEntity permission = this.permissionRepository.findByPermissionId(pId);
 
         Set<PermissionEntity> permissionEntities = role.getPermissionEntityHashSet();
+        role.getPermissionEntityHashSet().remove(permission);
         String des = "";
         for (PermissionEntity p : permissionEntities
                 ) {
             des = des + p.getPermissionsName() + " ";
         }
-        des = des + permission.getPermissionsName();
         role.setDescription(des);
-        role.getPermissionEntityHashSet().remove(permission);
+
 
         this.roleRepository.save(role);
         return role.getPermissionEntityHashSet();

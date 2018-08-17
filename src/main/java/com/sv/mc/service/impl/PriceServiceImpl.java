@@ -402,11 +402,21 @@ public class PriceServiceImpl implements PriceService {
 
         PriceEntity price = findPriceById((int) priceId);
         List<PriceEntity> devicePrice = device.getPriceEntities();
-        for (int i = 0; i < devicePrice.size(); i++) {
-            if (devicePrice.get(i).getUseTime() == price.getUseTime()) {
+        if(price.getEndDateTime() == null && price.getStartDateTime() == null){
+            for (int i = 0; i < devicePrice.size(); i++) {
+                if (devicePrice.get(i).getUseTime() == price.getUseTime() && (devicePrice.get(i).getStartDateTime() == null && devicePrice.get(i).getEndDateTime() == null)) {
+                    device.getPriceEntities().remove(devicePrice.get(i));
+                }
+            }
+
+        }else {
+
+            for (int i = 0; i < devicePrice.size(); i++) {
+            if (devicePrice.get(i).getUseTime() == price.getUseTime() && (devicePrice.get(i).getStartDateTime() != null || devicePrice.get(i).getEndDateTime() != null)) {
                 device.getPriceEntities().remove(devicePrice.get(i));
             }
-        }
+        }}
+
 
         device.getPriceEntities().add(price);
         this.deviceRepository.save(device);
@@ -434,22 +444,41 @@ public class PriceServiceImpl implements PriceService {
 
         Object placeId = listMap.get("placeId");
         Object priceId = listMap.get("price");
-        List<DeviceEntity> deviceList = this.deviceRepository.findDevicesByPlaceId((int) placeId);
         PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById((int) priceId);
-        for (DeviceEntity device : deviceList
-                ) {
-            if (device.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()) {
+        int modelId = priceEntity.getDeviceModelEntity().getId();
+        List<DeviceEntity> deviceList = this.deviceRepository.findDeviceByPlace((int)placeId,modelId);
+
+        if (priceEntity.getEndDateTime() == null && priceEntity.getStartDateTime() == null){
+
+            for (DeviceEntity device : deviceList
+                    ) {
                 List<PriceEntity> priceEntityList = device.getPriceEntities();
                 if (!priceEntityList.contains(priceEntity)) {
                     for (int i = 0; i < priceEntityList.size(); i++) {
-                        if (priceEntityList.get(i).getUseTime() == priceEntity.getUseTime()) {
+                        if (priceEntityList.get(i).getUseTime() == priceEntity.getUseTime() && (priceEntityList.get(i).getStartDateTime() == null && priceEntityList.get(i).getEndDateTime() == null)) {
                             device.getPriceEntities().remove(priceEntityList.get(i));
                         }
                     }
                     device.getPriceEntities().add(priceEntity);
                 }
+
+            }
+        }else {
+            for (DeviceEntity device : deviceList
+                    ) {
+                List<PriceEntity> priceEntityList = device.getPriceEntities();
+                if (!priceEntityList.contains(priceEntity)) {
+                    for (int i = 0; i < priceEntityList.size(); i++) {
+                        if (priceEntityList.get(i).getUseTime() == priceEntity.getUseTime() &&(priceEntityList.get(i).getEndDateTime() != null || priceEntityList.get(i).getStartDateTime() != null)) {
+                            device.getPriceEntities().remove(priceEntityList.get(i));
+                        }
+                    }
+                    device.getPriceEntities().add(priceEntity);
+                }
+
             }
         }
+
 
         this.deviceRepository.saveAll(deviceList);
         return this.priceRepository.findPriceEntitiesByStatus();

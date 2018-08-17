@@ -21,26 +21,17 @@
 
     <div class="container-fluid">
 
-        <div>
-            <div id="window">
-                <div id="roleList"></div>
-                <div id="roleList1"></div>
-            </div>
+        <!--<div>-->
+            <!--<div id="window">-->
+                <!--<div id="roleList"></div>-->
+                <!--<div id="roleList1"></div>-->
+            <!--</div>-->
 
-            <div class="responsive-message"></div>
-        </div>
+            <!--<div class="responsive-message"></div>-->
+        <!--</div>-->
 
         <div id="grid"></div>
 
-        <!--<script type="text/x-kendo-template" id="template">-->
-            <!--#if(data.isNew()) {#-->
-            <!--#var createTemp = kendo.template($("\#createTemplate").html());#-->
-            <!--#=createTemp(data)#-->
-            <!--#} else {#-->
-            <!--#var createTemp = kendo.template($("\#editTemplate").html());#-->
-            <!--#=createTemp(data)#-->
-            <!--#}#-->
-        <!--</script>-->
 
         <script id="popup_editor" type="text/x-kendo-template">
             <div class="k-edit-label"><label for="userName"><span style="color:red;">*</span> 账号</label></div>
@@ -66,30 +57,6 @@
             <div data-container-for="fixedPhoneNumber" class="k-edit-field"><input type="text" class="k-input k-textbox" name="fixedPhoneNumber" data-bind="value:fixedPhoneNumber"></div>
 
         </script>
-
-        <!--<script>-->
-            <!--$("#company1").kendoComboBox({-->
-                <!--autoBind: true,-->
-                <!--placeholder: "请选择...",-->
-                <!--dataTextField: "name",-->
-                <!--dataValueField: "name",-->
-                <!--filter: "contains",-->
-                <!--suggest: true,-->
-                <!--dataSource: {-->
-                    <!--transport: {-->
-                        <!--read: {-->
-                            <!--type: "get",-->
-                            <!--url: "./user/allplace1",-->
-                            <!--dataType: "json",-->
-                            <!--contentType: "application/json",-->
-                            <!--headers: {'Content-Type': 'application/x-www-form-urlencoded'}-->
-                        <!--}-->
-                    <!--}-->
-                <!--}-->
-            <!--});-->
-
-        <!--</script>-->
-
         <script>
 
             /*<![CDATA[*/
@@ -261,8 +228,19 @@
                                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                         var data = this.dataItem(tr);
                                         var userId = data.id;
-                                        var myWindow = $("#window");
+                                        var detailWindow = $("<div id='DetailWindow'><div id='roleList'></div><div id='roleList1'></div></div>");
+                                        $("body").append(detailWindow);
+                                        var myWindow = $("#DetailWindow");
+                                        myWindow.kendoWindow({
+                                            width: "500px",
+                                            height: "500px",
+                                            title:data.name+ "用户角色管理",
+                                            close: function () {
+                                                myWindow.data("kendoWindow").destroy();
+                                            }
 
+                                        });
+                                        myWindow.data("kendoWindow").center().open();
 
                                         var dataSource1 = new kendo.data.DataSource({
                                             transport: {
@@ -398,7 +376,6 @@
                                                                     contentType: "application/json; charset=utf-8",
                                                                     dataType: "json",
                                                                     success: function (data) {
-                                                                        // myWindow.data("kendoWindow").close();
                                                                         var roleGrid = $("#roleList1").data("kendoGrid");
                                                                         roleGrid.dataSource.read();
                                                                         var roleGrid1 = $("#roleList").data("kendoGrid");
@@ -465,7 +442,7 @@
                                         });
 
                                         //dataSource是必填属性
-                                        var roleList1 = $("#roleList1").kendoGrid({
+                                        $("#roleList1").kendoGrid({
                                             dataSource: dataSource2,
                                             height: 300,
                                             groupable: true,
@@ -538,7 +515,6 @@
                                                                     contentType: "application/json; charset=utf-8",
                                                                     dataType: "json",
                                                                     success: function (data) {
-                                                                        // myWindow.data("kendoWindow").close();
                                                                         var roleGrid = $("#roleList1").data("kendoGrid");
                                                                         roleGrid.dataSource.read();
                                                                         var roleGrid1 = $("#roleList").data("kendoGrid");
@@ -559,19 +535,6 @@
                                                 }
                                             }
                                         });
-
-                                        myWindow.kendoWindow({
-                                            width: "615px",
-                                            title: "用户角色管理",
-                                            // content: $("roleList").html
-                                            close: onClose
-
-                                        });
-
-
-                                        myWindow.data("kendoWindow").center().open();
-
-                                        // undo.fadeOut();
 
                                     }
                                 }, {
@@ -643,10 +606,10 @@
                 }
             }
 
-            function onClose() {
-                $("#roleList").empty();
-                $("#roleList1").empty();
-            }
+            // function onClose() {
+            //     $("#roleList").empty();
+            //     $("#roleList1").empty();
+            // }
             function onRequestEnd1(e) {
                 if (e.type == "create") {
                     e.sender.read();       //调用read方法 重新读取表格

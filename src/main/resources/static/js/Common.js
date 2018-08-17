@@ -22,6 +22,7 @@ function showPopupWindow(primaryKeyName, primaryKeyValue, controllerName, action
 function showCreatNewPopupWindow(controllerName, actionName, windowWidth, titleText) {
     var detailWindow = $("<div id='DetailWindow'></div>");
     $("body").append(detailWindow);
+    $("body").remove(detailWindow);
     var myWindow = $("#DetailWindow");
     myWindow.kendoWindow({
         width: windowWidth,

@@ -21,14 +21,6 @@
 
     <div class="container-fluid">
         <div class="container-fluid">
-            <div>
-                <div id="window">
-                    <div id="roleList"></div>
-                    <div id="roleList1"></div>
-                </div>
-
-                <div class="responsive-message"></div>
-            </div>
             <div id="grid"></div>
 
             <script id="popup-editor" type="text/x-kendo-template">
@@ -171,8 +163,18 @@
                                             var tr = $(e.target).closest("tr"); // get the current table row (tr)
                                             var data = this.dataItem(tr);
                                             var roleId = this.dataItem(tr).id;
-                                            var myWindow = $("#window");
-
+                                            var detailWindow = $("<div id='DetailWindow'><div id='roleList'></div><div id='roleList1'></div></div>");
+                                            $("body").append(detailWindow);
+                                            var myWindow = $("#DetailWindow");
+                                            myWindow.kendoWindow({
+                                                width: "500px",
+                                                height: "500px",
+                                                title: data.roleName+"权限管理",
+                                                close: function () {
+                                                    myWindow.data("kendoWindow").destroy();
+                                                }
+                                            });
+                                            myWindow.data("kendoWindow").center().open();
                                             var dataSource1 = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
@@ -453,17 +455,6 @@
                                                 }
                                             });
 
-                                            myWindow.kendoWindow({
-                                                width: "615px",
-                                                title: "权限管理",
-                                                // content: $("roleList").html
-                                                close: onClose
-                                            });
-
-
-                                            myWindow.data("kendoWindow").center().open();
-                                            // undo.fadeOut();
-
                                         }
                                     }],
                                 title: "操作",
@@ -510,10 +501,6 @@
                     }
                 }
 
-                function onClose() {
-                    $("#roleList").empty();
-                    $("#roleList1").empty();
-                }
 
                 function onRequestEnd1(e) {
                     if (e.type == "destroy") {

@@ -145,7 +145,8 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query(value="select d.* from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:id)))",nativeQuery = true)
     List<DeviceEntity> findDevicesByPlaceId(@Param("id") int id);
 
-
+    @Query(value="select d.* from mc_place p,mc_device d where p.id=d.place_id and d.mc_type = :type1 and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:id)))",nativeQuery = true)
+    List<DeviceEntity> findDeviceByPlace(@Param("id") int id , @Param("type1") int type);
     /**
      * 查询设备是否存在
      * @param sn
