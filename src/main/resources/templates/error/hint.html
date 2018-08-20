@@ -3,7 +3,6 @@
     <title>提示</title>
     <script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Lato|Russo+One");
         *,
         *:after,
         *:before {
@@ -919,7 +918,7 @@
             transform: translate(-50%, -50%);
             position: absolute;
             color: white;
-            line-height: 1;
+            line-height: 0.5em;
             font-weight: 700;
             text-align: center;
             justify-content: center;
@@ -1451,7 +1450,7 @@
             }
 
             .subtitle {
-                font-size: 20px;
+                font-size: 75px;
                 padding: 0 1em;
             }
 
@@ -1607,20 +1606,20 @@
             </div>
             <div class="number"></div>
         </div>
-        <div id = "pay1" class="subtitle" style=font-size:35px>支付功能维护中,请您使用微信支付</div>
-
+        <div id = "pay1" class="subtitle" style="margin-bottom:1px;font-size:75px">支付功能开发中</div>
+        <div id = "pay2" class="subtitle" style="margin-bottom:1px;font-size:75px">请使用微信支付</div>
     </div>
 </div>
 
 <script>
 
-    $(function () {
-        if(IsWeixinOrAlipay != "WeiXIN"){
-            $("#pay1").html("支付功能维护中,请您使用微信支付");
-        }else {
-            $("#pay1").html("请使用微信扫描二维码");
-        }
-    });
+    // $(function () {
+    //     if(IsWeixinOrAlipay != "WeiXIN"){
+    //         $("#pay1").html("支付功能维护中 请使用微信支付");
+    //     }else {
+    //         $("#pay1").html("请使用微信扫描二维码");
+    //     }
+    // });
 
 
     function IsWeixinOrAlipay(){
