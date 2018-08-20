@@ -6,6 +6,7 @@ public class ExcelSetPriceResult {
 
   private String id;   //用户输入的设备ID
   private BigDecimal price; //用户输入的价格
+    private String priceName;//用户输入价格名称
   private int time;  //时长
   private String msg; //结果
 
@@ -19,6 +20,14 @@ public class ExcelSetPriceResult {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public String getPriceName() {
+        return priceName;
+    }
+
+    public void setPriceName(String priceName) {
+        this.priceName = priceName;
     }
 
     public void setPrice(BigDecimal price) {

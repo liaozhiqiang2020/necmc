@@ -567,7 +567,7 @@ public class PriceServiceImpl implements PriceService {
      */
     @Override
     public Set getExcel(MultipartFile file) throws IOException {
-        boolean flag = false;
+
         String name = file.getOriginalFilename();
         Set<ExcelSetPriceResult> set = new HashSet<>();
         String excelName = name.substring(name.indexOf("."));
@@ -596,10 +596,12 @@ public class PriceServiceImpl implements PriceService {
 
                         continue;
                     }
+                    Object pricename=getValue(row.getCell(1));
                     Object sn = getValue(row.getCell(0));
-                    Object price = getValue(row.getCell(1));
-                    Object useTime = getValue(row.getCell(2));
-                    if (sn != null && price != null & useTime != null) {
+                    Object price = getValue(row.getCell(2));
+                    Object useTime = getValue(row.getCell(3));
+
+                    if (pricename!=null&& sn != null && price != null && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
                         int userTime = userTime1 * 60;//时间
@@ -613,47 +615,68 @@ public class PriceServiceImpl implements PriceService {
 
                         //判断 price 是否存在
                         // DeviceModelEntity d=deviceEntity.getDeviceModelEntity();
-                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString());
+                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString(),pricename.toString());
                         if (deviceEntity != null && priceEntity != null) {
-                            //  System.out.println("进来了1");
                             if (priceEntity.getEndDateTime() == null || priceEntity.getEndDateTime().getTime() > new Date().getTime()) {
-                                //    System.out.println("进来了2");
                                 if (!deviceEntity.getPriceEntities().contains(priceEntity)) {
-                                    //    System.out.println("进来了3");
-                                    deviceEntity.getPriceEntities().add(priceEntity);
-                                    Set<PriceEntity> priceSet = new HashSet<>();
-                                    priceSet.addAll(deviceEntity.getPriceEntities());
-                                    deviceEntity.getPriceEntities().clear();
-                                    deviceEntity.getPriceEntities().addAll(priceSet);
-                                    this.deviceRepository.save(deviceEntity);
+                                    if (deviceEntity.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()) {
+                                        // 1 先判断保存的价格起始截至时间是否为空
+                                        List<PriceEntity> priceEntities = deviceEntity.getPriceEntities();
+                                        if (priceEntity.getStartDateTime() == null && priceEntity.getEndDateTime() == null) {
+                                            //为空
+
+                                            for (int i = 0; i < priceEntities.size(); i++) {
+                                                if (priceEntities.get(i).getUseTime() == userTime &&
+                                                        (priceEntities.get(i).getStartDateTime() == null && priceEntities.get(i).getEndDateTime() == null)) {
+                                                    priceEntities.remove(priceEntities.get(i));
+                                                }
+                                            }
+                                        } else {
+
+                                            for (int i = 0; i < priceEntities.size(); i++) {
+                                                if (priceEntities.get(i).getUseTime() == userTime &&
+                                                        (priceEntities.get(i).getStartDateTime() != null || priceEntities.get(i).getEndDateTime() != null)) {
+                                                    priceEntities.remove(priceEntities.get(i));
+                                                }
+                                            }
+                                        }
+                                        priceEntities.add(priceEntity);
+                                        System.out.println(deviceEntity);
+                                        this.deviceRepository.save(deviceEntity);
+
+                                    }else{
+                                        result.setId(sn.toString());
+                                        result.setPrice(bigDecimal);
+                                        result.setTime(userTime1);
+                                        result.setPriceName(pricename.toString());
+                                        result.setMsg("绑定失败");
+                                        set.add(result);
+                                    }
+                                }else{
                                     result.setId(sn.toString());
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
-                                    result.setMsg("绑定成功");
-                                    set.add(result);
-                                } else {
-                                    result.setId(sn.toString());
-                                    result.setPrice(bigDecimal);
-                                    result.setTime(userTime1);
-                                    result.setMsg("绑定失败");
+                                    result.setPriceName(pricename.toString());
+                                    result.setMsg("价格已绑定");
                                     set.add(result);
                                 }
-                            } else {
+                            }else{
                                 result.setId(sn.toString());
                                 result.setPrice(bigDecimal);
                                 result.setTime(userTime1);
+                                result.setPriceName(pricename.toString());
                                 result.setMsg("绑定失败");
                                 set.add(result);
                             }
 
-                        } else {
+                        }else{
                             result.setId(sn.toString());
                             result.setPrice(bigDecimal);
                             result.setTime(userTime1);
+                            result.setPriceName(pricename.toString());
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-
                     }
                 }
             }
@@ -681,12 +704,12 @@ public class PriceServiceImpl implements PriceService {
 
                         continue;
                     }
+                    Object pricename=getValue(row.getCell(1));
                     Object sn = getValue(row.getCell(0));
-                    Object price = getValue(row.getCell(1));
-                    Object useTime = getValue(row.getCell(2));
+                    Object price = getValue(row.getCell(2));
+                    Object useTime = getValue(row.getCell(3));
 
-
-                    if (sn != null && price != null & useTime != null) {
+                    if (pricename!=null&& sn != null && price != null && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
                         int userTime = userTime1 * 60;//时间
@@ -700,52 +723,71 @@ public class PriceServiceImpl implements PriceService {
 
                         //判断 price 是否存在
                         // DeviceModelEntity d=deviceEntity.getDeviceModelEntity();
-                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString());
+                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString(),pricename.toString());
                         if (deviceEntity != null && priceEntity != null) {
-                            //  System.out.println("进来了1");
                             if (priceEntity.getEndDateTime() == null || priceEntity.getEndDateTime().getTime() > new Date().getTime()) {
-                                //    System.out.println("进来了2");
                                 if (!deviceEntity.getPriceEntities().contains(priceEntity)) {
-                                    //    System.out.println("进来了3");
-                                    deviceEntity.getPriceEntities().add(priceEntity);
-                                    Set<PriceEntity> priceSet = new HashSet<>();
-                                    priceSet.addAll(deviceEntity.getPriceEntities());
-                                    deviceEntity.getPriceEntities().clear();
-                                    deviceEntity.getPriceEntities().addAll(priceSet);
-                                    this.deviceRepository.save(deviceEntity);
+                                    if (deviceEntity.getDeviceModelEntity() == priceEntity.getDeviceModelEntity()) {
+                                        // 1 先判断保存的价格起始截至时间是否为空
+                                        List<PriceEntity> priceEntities = deviceEntity.getPriceEntities();
+                                        if (priceEntity.getStartDateTime() == null && priceEntity.getEndDateTime() == null) {
+                                            //为空
+
+                                            for (int i = 0; i < priceEntities.size(); i++) {
+                                                if (priceEntities.get(i).getUseTime() == userTime &&
+                                                        (priceEntities.get(i).getStartDateTime() == null && priceEntities.get(i).getEndDateTime() == null)) {
+                                                    priceEntities.remove(priceEntities.get(i));
+                                                }
+                                            }
+                                        } else {
+
+                                            for (int i = 0; i < priceEntities.size(); i++) {
+                                                if (priceEntities.get(i).getUseTime() == userTime &&
+                                                        (priceEntities.get(i).getStartDateTime() != null || priceEntities.get(i).getEndDateTime() != null)) {
+                                                    priceEntities.remove(priceEntities.get(i));
+                                                }
+                                            }
+                                        }
+                                        priceEntities.add(priceEntity);
+                                        System.out.println(deviceEntity);
+                                        this.deviceRepository.save(deviceEntity);
+
+                                    }else{
+                                        result.setId(sn.toString());
+                                        result.setPrice(bigDecimal);
+                                        result.setTime(userTime1);
+                                        result.setPriceName(pricename.toString());
+                                        result.setMsg("绑定失败");
+                                        set.add(result);
+                                    }
+                                }else{
                                     result.setId(sn.toString());
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
-                                    result.setMsg("绑定成功");
-                                    set.add(result);
-                                } else {
-                                    result.setId(sn.toString());
-                                    result.setPrice(bigDecimal);
-                                    result.setTime(userTime1);
-                                    result.setMsg("绑定失败");
+                                    result.setPriceName(pricename.toString());
+                                    result.setMsg("价格已绑定");
                                     set.add(result);
                                 }
-                            } else {
+                            }else{
                                 result.setId(sn.toString());
                                 result.setPrice(bigDecimal);
                                 result.setTime(userTime1);
+                                result.setPriceName(pricename.toString());
                                 result.setMsg("绑定失败");
                                 set.add(result);
                             }
 
-                        } else {
+                        }else{
                             result.setId(sn.toString());
                             result.setPrice(bigDecimal);
                             result.setTime(userTime1);
+                            result.setPriceName(pricename.toString());
                             result.setMsg("绑定失败");
                             set.add(result);
-
                         }
-
                     }
                 }
             }
-
         }
         return set;
 

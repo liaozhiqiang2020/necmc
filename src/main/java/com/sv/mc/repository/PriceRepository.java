@@ -79,9 +79,9 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     /**
      * 查询价格是否存在
      */
-    @Query(value = "select p.* from mc_price as p , mc_device AS d where p.use_time=:userTime and p.price=:price and p.mc_type = d.mc_type  and p.status= 1 and d.mc_sn=:mc ",
+    @Query(value = "select p.* from mc_price as p , mc_device AS d where p.use_time=:userTime and p.price=:price and p.mc_type = d.mc_type  and p.status= 1 and d.mc_sn=:mc and p.price_name=:name",
             nativeQuery = true)
-    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price") BigDecimal price, @Param("mc") String mc);
+    PriceEntity findAllFlag(@Param("userTime") int userTime, @Param("price") BigDecimal price, @Param("mc") String mc,@Param("name")String name);
 
 
 }
