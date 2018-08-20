@@ -1,7 +1,7 @@
 <html><head>
     <meta charset="utf-8">
     <title>提示</title>
-
+    <script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
     <style>
         @import url("https://fonts.googleapis.com/css?family=Lato|Russo+One");
         *,
@@ -1607,11 +1607,37 @@
             </div>
             <div class="number"></div>
         </div>
-        <div class="subtitle">支付功能维护中,请您使用微信支付</div>
+        <div id = "pay1" class="subtitle">支付功能维护中,请您使用微信支付</div>
 
     </div>
 </div>
 
+<script>
+
+    $(function () {
+        if(IsWeixinOrAlipay != "WeiXIN"){
+            $("#pay1").html("支付功能维护中,请您使用微信支付");
+        }else {
+            $("#pay1").html("请使用微信扫描二维码");
+        }
+    });
+
+
+    function IsWeixinOrAlipay(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        //判断是不是微信
+        if ( ua.match(/MicroMessenger/i) == 'micromessenger' ) {
+            return "WeiXIN";
+        }
+        //判断是不是支付宝
+        if (ua.match(/AlipayClient/i) == 'alipayclient') {
+            return "Alipay";
+        }
+        //哪个都不是
+        return "false";
+    }
+
+</script>
 
 
 </body></html>
