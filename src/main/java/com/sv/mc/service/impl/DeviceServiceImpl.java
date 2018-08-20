@@ -651,14 +651,14 @@ public class DeviceServiceImpl implements DeviceService {
                 //sheet 名
                 String sheetName = "设备信息表";
                 String[][] content = new String[1][8];
-                content[0][0] = "请输入地址";
-                content[0][1] = "纬度(可以不填)";
-                content[0][2] = "经度(可以不填)";
-                content[0][3] = "设备型号名称";
-                content[0][4] = "型号(大中小)";
-                content[0][5] = "设备编号(请勿重复)";
-                content[0][6] = "备注(可以不填)";
-                content[0][7] = "供应商";
+                content[0][0] = "*必填";
+                content[0][1] = "";
+                content[0][2] = "";
+                content[0][3] = "*必填";
+                content[0][4] = "*必填";
+                content[0][5] = "*必填(请勿重复)";
+                content[0][6] = "";
+                content[0][7] = "*必填";
 
               /*  content[1][0] = "请输入地址";
                 content[1][1] = "纬度(可以不填)";

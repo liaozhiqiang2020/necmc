@@ -686,7 +686,7 @@ public class PriceServiceImpl implements PriceService {
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file.getInputStream());
             XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
             if (xssfSheet == null) {
-                return null;
+                 return null;
             }
             for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
                 //获取每一行
