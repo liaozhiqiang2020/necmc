@@ -96,7 +96,6 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                 ret.put("phoneNumber",wxUserInfoEntity.getPhoneNumber());//绑定手机号
             }
 
-
             //---------------
             String param2 = "?grant_type=client_credential" + "&appid=" + appid + "&secret=" + secret;
             Response res2 = http.get("https://api.weixin.qq.com/cgi-bin/token" + param2);
@@ -114,6 +113,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
         }
         return ret;
     }
+
+
 
     /**
      * @param openid
