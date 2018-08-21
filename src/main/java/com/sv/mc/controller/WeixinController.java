@@ -2,7 +2,9 @@ package com.sv.mc.controller;
 
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
+import com.sv.mc.pojo.WxUserInfoEntity;
 import com.sv.mc.service.*;
+import com.sv.mc.util.SingletonHungary;
 import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.vo.Json;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class WeixinController extends WeixinSupport {
     private PriceService priceService;
     @Autowired
     private DeviceService deviceService;
+    @Autowired
+    private WxUserInfoService wxUserInfoService;
 
     @Resource
     private JMSProducer jmsProducer;
@@ -101,6 +105,85 @@ public class WeixinController extends WeixinSupport {
     @ResponseBody
     public String getUserInfo(String sessionkey, String encryptedData, String iv, String openid, String userInfos) {
        return this.weiXinPayService.getUserInfo(sessionkey,encryptedData,iv,openid,userInfos);
+    }
+
+    /**
+     *保存用户信息
+     */
+    @RequestMapping("/saveUserInfo")
+    @ResponseBody
+    public void saveUserInfo(String openId, String userInfo) {
+
+        this.wxUserInfoService.saveUserInfoAndPhoneAndOpenId(openId,userInfo);
+    }
+
+    /**
+     * 查询用户信息
+     */
+    @RequestMapping("/findWxUserInfoByOpenId")
+    @ResponseBody
+    public WxUserInfoEntity findWxUserInfoByOpenId(String openId) {
+        WxUserInfoEntity wxUserInfoEntity = this.wxUserInfoService.findWxUserInfoByOpenId(openId);
+        return wxUserInfoEntity;
+    }
+
+
+    /**
+     * 发送查询查询设备状态指令
+     */
+    @RequestMapping("/sendFindChairStatus")
+    @ResponseBody
+    public void sendFindChairStatus(String chairId) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String message = "faaf0e08"+chairCode;
+
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+    /**
+     * 查询设备状态
+     * @return
+     */
+    @RequestMapping("/findChairStatus")
+    @ResponseBody
+    public int findChairStatus(String chairId){
+        Object object = SingletonHungary.getSingleTon().get(chairId+"status");//从map中取值
+        int mcStatus = 5;//没有收到返回的消息
+        if(object!=null){
+            String info = object.toString();
+            String chairId2 = info.split("_")[0];
+            if(chairId2.equals(chairId)) {
+                mcStatus = Integer.parseInt(info.split("_")[1]);
+            }
+        }
+        return mcStatus;
+    }
+
+
+    /**
+     * 查询设备是否开启成功
+     * @return
+     */
+    @RequestMapping("/findChairRuning")
+    @ResponseBody
+    public int findChairRuning(String chairId){
+        Object object = SingletonHungary.getSingleTon().get(chairId+"runing");//从map中取值
+        int mcRuning = 4;//没有收到返回的消息
+        if(object!=null){
+            String info = object.toString();
+            String chairId2 = info.split("_")[0];
+            if(chairId2.equals(chairId)) {
+                mcRuning = Integer.parseInt(info.split("_")[1]);
+            }
+        }
+        return mcRuning;
     }
 
 
@@ -249,15 +332,15 @@ public class WeixinController extends WeixinSupport {
         }
         String message = "faaf0f09"+chairCode+time;//按摩椅20000002，60min
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         System.out.println(message);
 
         jmsProducer.sendMessage(message);
-        deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
+//        deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
 
     }
 
@@ -273,14 +356,14 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf0e10"+chairCode;//按摩椅20000002，60min
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         jmsProducer.sendMessage(message);
 
-        deviceService.findChairRuningStatus(chairId,1);//如果设备停止成功，修改椅子状态为空闲中
+//        deviceService.findChairRuningStatus(chairId,1);//如果设备停止成功，修改椅子状态为空闲中
     }
 
 
@@ -303,8 +386,8 @@ public class WeixinController extends WeixinSupport {
             message = "faaf0e17"+chairCode;
         }
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
@@ -328,8 +411,8 @@ public class WeixinController extends WeixinSupport {
             message = "faaf0e18"+chairCode;
         }
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
@@ -349,8 +432,8 @@ public class WeixinController extends WeixinSupport {
 
         String message="faaf0e08"+chairCode;
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
@@ -374,8 +457,8 @@ public class WeixinController extends WeixinSupport {
 
         String message ="faaf0f13"+chairCode+time;
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
@@ -393,67 +476,12 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf0e14"+chairCode;
 
-        byte[] srtbyte = toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = SumCheck(srtbyte,2);  //计算校验和
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res;
 
         jmsProducer.sendMessage(message);
-    }
-
-
-    /**
-     * 校验和
-     *
-     * @param msg 需要计算校验和的byte数组
-     * @param length 校验和位数
-     * @return 计算出的校验和数组
-     */
-    private byte[] SumCheck(byte[] msg, int length) {
-        long mSum = 0;
-        byte[] mByte = new byte[length];
-
-        /** 逐Byte添加位数和 */
-        for (byte byteMsg : msg) {
-            long mNum = ((long)byteMsg >= 0) ? (long)byteMsg : ((long)byteMsg + 256);
-            mSum += mNum;
-        } /** end of for (byte byteMsg : msg) */
-
-        /** 位数和转化为Byte数组 */
-        for (int liv_Count = 0; liv_Count < length; liv_Count++) {
-            mByte[length - liv_Count - 1] = (byte)(mSum >> (liv_Count * 8) & 0xff);
-        } /** end of for (int liv_Count = 0; liv_Count < length; liv_Count++) */
-
-        return mByte;
-    }
-
-    public static byte[] toByteArray(String hexString) {
-        hexString = hexString.toLowerCase();
-        final byte[] byteArray = new byte[hexString.length() / 2];
-        int k = 0;
-        for (int i = 0; i < byteArray.length; i++) {// 因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
-            byte high = (byte) (Character.digit(hexString.charAt(k), 16) & 0xff);
-            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) & 0xff);
-            byteArray[i] = (byte) (high << 4 | low);
-            k += 2;
-        }
-        return byteArray;
-    }
-
-    /**转大写**/
-    private char charToUpperCase(char ch){
-        if(ch <= 122 && ch >= 97){
-            ch -= 32;
-        }
-        return ch;
-    }
-
-    /***转小写**/
-    private char charToLowerCase(char ch){
-        if(ch <= 90 && ch >= 65){
-            ch += 32;
-        }
-        return ch;
     }
 
 }

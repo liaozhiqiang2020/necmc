@@ -228,6 +228,69 @@ public class WxUtil {
         return sb.toString();
     }
 
-    
+    public static String strTo16(String s) {
+        String str = "";
+        for (int i = 0; i < s.length(); i++) {
+            int ch = (int) s.charAt(i);
+            String s4 = Integer.toHexString(ch);
+            str = str + s4;
+        }
+        return str;
+    }
+
+
+    /**
+     * 校验和
+     *
+     * @param msg 需要计算校验和的byte数组
+     * @param length 校验和位数
+     * @return 计算出的校验和数组
+     */
+    public byte[] SumCheck(byte[] msg, int length) {
+        long mSum = 0;
+        byte[] mByte = new byte[length];
+
+        /** 逐Byte添加位数和 */
+        for (byte byteMsg : msg) {
+            long mNum = ((long)byteMsg >= 0) ? (long)byteMsg : ((long)byteMsg + 256);
+            mSum += mNum;
+        } /** end of for (byte byteMsg : msg) */
+
+        /** 位数和转化为Byte数组 */
+        for (int liv_Count = 0; liv_Count < length; liv_Count++) {
+            mByte[length - liv_Count - 1] = (byte)(mSum >> (liv_Count * 8) & 0xff);
+        } /** end of for (int liv_Count = 0; liv_Count < length; liv_Count++) */
+
+        return mByte;
+    }
+
+    public static byte[] toByteArray(String hexString) {
+        hexString = hexString.toLowerCase();
+        final byte[] byteArray = new byte[hexString.length() / 2];
+        int k = 0;
+        for (int i = 0; i < byteArray.length; i++) {// 因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
+            byte high = (byte) (Character.digit(hexString.charAt(k), 16) & 0xff);
+            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) & 0xff);
+            byteArray[i] = (byte) (high << 4 | low);
+            k += 2;
+        }
+        return byteArray;
+    }
+
+    /**转大写**/
+    private char charToUpperCase(char ch){
+        if(ch <= 122 && ch >= 97){
+            ch -= 32;
+        }
+        return ch;
+    }
+
+    /***转小写**/
+    private char charToLowerCase(char ch){
+        if(ch <= 90 && ch >= 65){
+            ch += 32;
+        }
+        return ch;
+    }
 
 }

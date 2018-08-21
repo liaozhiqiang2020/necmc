@@ -2,6 +2,8 @@ package com.sv.mc.service;
 
 import com.sv.mc.pojo.WxUserInfoEntity;
 
+import java.util.Map;
+
 /**
  * 微信用户信息
  * @author: lzq
@@ -39,4 +41,9 @@ public interface WxUserInfoService<T> extends BaseService<T> {
      * @date: 2018年7月6日
      */
     WxUserInfoEntity findWxUserInfoByOpenId(String openId);
+
+    /**
+     * 插入用户信息，手机号，openId
+     */
+    void saveUserInfoAndPhoneAndOpenId(String openId, String userInfo);
 }

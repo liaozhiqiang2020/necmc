@@ -9,6 +9,7 @@ import com.sv.mc.repository.WxUserInfoRepository;
 import com.sv.mc.service.*;
 import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.DateJsonValueProcessor;
+import com.sv.mc.util.SingletonHungary;
 import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -378,6 +379,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         String devideCode = getMcCode(orderId);
         String chairCode = wxUtil.convertStringToHex(devideCode);
 
+        SingletonHungary.getSingleTon().remove(devideCode+"runing");
+        SingletonHungary.getSingleTon().remove(devideCode+"status");
+//        SingletonHungary.getSingleTon().put(devideCode+"status",devideCode+"_"+2);
+
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         //参数：1、任务体 2、首次执行的延时时间
         //      3、任务执行间隔 4、间隔时间单位
@@ -388,6 +393,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
                 e.printStackTrace();
             }
         }, 0, 1, TimeUnit.SECONDS);//开始计时
+
     }
 
     /**
