@@ -40,22 +40,22 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./role/all"
+                                url: "./all"
                             },
                             create: {
-                                url: "./role/save",
+                                url: "./save",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "./role/delete",
+                                url: "./delete",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json;charset=UTF-8"
                             },
                             update: {
-                                url: "./role/update",
+                                url: "./update",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json;charset=UTF-8"
@@ -292,7 +292,7 @@
                                                                     };
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./role/roleDeletePermission",
+                                                                        url: "./roleDeletePermission",
                                                                         data: kendo.stringify(list1),
                                                                         contentType: "application/json; charset=utf-8",
                                                                         dataType: "json",
@@ -426,7 +426,7 @@
                                                                     };
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./role/roleAddPermission",
+                                                                        url: "./roleAddPermission",
                                                                         data: kendo.stringify(list1),
                                                                         contentType: "application/json; charset=utf-8",
                                                                         dataType: "json",

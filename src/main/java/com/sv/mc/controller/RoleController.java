@@ -132,7 +132,7 @@ public class RoleController {
      *
      * @return
      */
-    @GetMapping(value = "/roleManagement")
+    @GetMapping(value = "/role/roleManagement")
     public ModelAndView turnToUserManagement() {
         ModelAndView mv = new ModelAndView();
 

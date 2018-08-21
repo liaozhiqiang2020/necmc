@@ -55,7 +55,7 @@
 
                     $("#files").kendoUpload({
                         async: {
-                            saveUrl: "./price/setexcel",
+                            saveUrl: "./setexcel",
                             autoUpload: true
 
                         }, localization: {     //设置上传按钮名称
@@ -222,7 +222,7 @@
                             type: "json",
                             transport: {
                                 read: {
-                                    url: "./placeMgr/userPlace",
+                                    url: "../placeMgr/userPlace",
                                     // dataType: "json"
                                 },
                                 parameterMap: function (options, operation) {
@@ -535,7 +535,7 @@
                             dataSource: {
                                 type: "json",
                                 transport: {
-                                    read: "./place/findDeviceBypId?placeId=" + placeId,
+                                    read: "../place/findDeviceBypId?placeId=" + placeId,
                                 },
                                 // serverPaging: true,
                                 // serverSorting: true,
@@ -844,10 +844,10 @@
                     let dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./price/statusOrDate",
+                                url: "./statusOrDate",
                             },
                             destroy: {
-                                url: "./price/placeAddPrice",
+                                url: "./placeAddPrice",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json"
@@ -1070,11 +1070,11 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./price/devicePrice?deviceId=" + deviceId,
+                                url: "./devicePrice?deviceId=" + deviceId,
                                 // dataType: "json"
                             },
                             destroy: {
-                                url: "./price/deviceDeletePrice",
+                                url: "./deviceDeletePrice",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json"
@@ -1128,11 +1128,11 @@
                     var dataSource1 = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./price/deviceUnPrice?deviceId=" + deviceId,
+                                url: "./deviceUnPrice?deviceId=" + deviceId,
                                 dataType: "json"
                             },
                             destroy: {
-                                url: "./price/deviceSavePrice",
+                                url: "./deviceSavePrice",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json"
@@ -1284,7 +1284,7 @@
                                         };
                                         $.ajax({
                                             type: "POST",
-                                            url: "./price/deviceSavePrice",
+                                            url: "./deviceSavePrice",
                                             data: kendo.stringify(list1),
                                             contentType: "application/json; charset=utf-8",
                                             dataType: "json",

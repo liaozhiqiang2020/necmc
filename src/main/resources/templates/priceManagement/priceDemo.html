@@ -62,23 +62,23 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                // url: "./price/pageAll"
-                                url: "./price/status"
+                                // url: "./pageAll"
+                                url: "./status"
                             },
                             create: {
-                                url: "./price/save",
+                                url: "./save",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "./price/delete",
+                                url: "./delete",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json;charset=UTF-8"
                             },
                             update: {
-                                url: "./price/update",
+                                url: "./update",
                                 dataType: "json",
                                 type: "post",
                                 contentType: "application/json;charset=UTF-8"
@@ -272,7 +272,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./deviceModel/all",
+                                            url: "../deviceModel/all",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -352,7 +352,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./deviceModel/all",
+                                    url: "../deviceModel/all",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -389,7 +389,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./deviceModel/type?id=" + modelId,
+                                    url: "../deviceModel/type?id=" + modelId,
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -414,13 +414,13 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "./price/export1",
+                        url: "./export1",
 
                         contentType: "application/json; charset=utf-8",
 
                         success: function () {
 
-                            window.location = "./price/export1"
+                            window.location = "./export1"
 
                         }
 

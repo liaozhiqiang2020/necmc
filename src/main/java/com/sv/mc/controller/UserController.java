@@ -141,7 +141,7 @@ public class UserController {
      *
      * @return
      */
-    @GetMapping(value = "/userManagement")
+    @GetMapping(value = "/user/userManagement")
     public ModelAndView turnToUserManagement() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("./authorityManagement/userMgr");

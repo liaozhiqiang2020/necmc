@@ -72,22 +72,22 @@
                 var dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: "./user/allStatus"
+                            url: "./allStatus"
                         },
                         create: {
-                            url: "./user/save",
+                            url: "./save",
                             dataType: "json",
                             type: "post",
                             contentType: "application/json;charset=UTF-8"
                         },
                         destroy: {
-                            url: "./user/delete",
+                            url: "./delete",
                             dataType: "json",
                             type: "post",
                             contentType: "application/json;charset=UTF-8"
                         },
                         update: {
-                            url: "./user/update",
+                            url: "./update",
                             dataType: "json",
                             type: "post",
                             contentType: "application/json;charset=UTF-8"
@@ -248,7 +248,7 @@
                                                     url: "/mc/user/role?userId=" + userId
                                                 },
                                                 destroy: {
-                                                    url: "./user/deleteRole",
+                                                    url: "./deleteRole",
                                                     dataType: "json",
                                                     type: "post",
                                                     contentType: "application/json;charset=UTF-8"
@@ -371,7 +371,7 @@
                                                                 };
                                                                 $.ajax({
                                                                     type: "POST",
-                                                                    url: "./user/deleteRole",
+                                                                    url: "./deleteRole",
                                                                     data: kendo.stringify(list1),
                                                                     contentType: "application/json; charset=utf-8",
                                                                     dataType: "json",
@@ -510,7 +510,7 @@
                                                                 };
                                                                 $.ajax({
                                                                     type: "POST",
-                                                                    url: "./user/userAddRole",
+                                                                    url: "./userAddRole",
                                                                     data: kendo.stringify(list1),
                                                                     contentType: "application/json; charset=utf-8",
                                                                     dataType: "json",
@@ -563,7 +563,7 @@
                                 transport: {
                                     read: {
                                         type: "get",
-                                        url: "./user/allplace1",
+                                        url: "./allplace1",
                                         dataType: "json",
                                         contentType: "application/json",
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -643,7 +643,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./user/allplace1",
+                                url: "./allplace1",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

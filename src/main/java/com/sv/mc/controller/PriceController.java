@@ -240,7 +240,7 @@ public class PriceController {
      *
      * @return
      */
-    @GetMapping(value = "/priceTest")
+    @GetMapping(value = "/price/priceTest")
     public ModelAndView turnToRoleMgrTest() {
         ModelAndView mv = new ModelAndView();
 
@@ -253,7 +253,7 @@ public class PriceController {
      *
      * @return
      */
-    @GetMapping(value = "/priceTest1")
+    @GetMapping(value = "/price/priceTest1")
     public ModelAndView turnTopriceMgrTest() {
         ModelAndView mv = new ModelAndView();
 
