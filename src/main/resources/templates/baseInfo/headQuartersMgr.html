@@ -56,20 +56,20 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./headMgr/allHeadByPage"
+                                url: "./allHeadByPage"
                             },
                             create: {
-                                url: "./headMgr/insertHead",
+                                url: "./insertHead",
                                 dataType: "json",
                                 type: "post"
                             },
                             destroy: {
-                                url: "./headMgr/deleteHead",
+                                url: "./deleteHead",
                                 dataType: "json",
                                 type: "post"
                             },
                             update: {
-                                url: "./headMgr/updateHead",
+                                url: "./updateHead",
                                 dataType: "json",
                                 type: "post"
                             }
@@ -195,10 +195,10 @@
                                             var placeDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./headMgr/findContractByHeadId?headId="+headId
+                                                        url: "/mc/headMgr/findContractByHeadId?headId="+headId
                                                     },
                                                     update: {
-                                                        url:  "./contract/updateContract",
+                                                        url:  "/mc/contract/updateContract",
                                                         dataType: "json",
                                                         type: "post",
                                                         contentType:"application/json;charset=UTF-8"
@@ -363,7 +363,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./headMgr/unboundPlace",
+                                                                        url: "/mc/headMgr/unboundPlace",
                                                                         data:{
                                                                             placeId:placeId,
                                                                             supId:supId,
@@ -402,7 +402,7 @@
                                             var unboundPlaceDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./headMgr/findAllUnboundPlace"
+                                                        url: "/mc/headMgr/findAllUnboundPlace"
                                                     }
                                                 },
                                                 serverPaging: false,    //设定服务器来实现分页功能
@@ -443,7 +443,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./headMgr/headBoundPlace",
+                                                                        url: "/mc/headMgr/headBoundPlace",
                                                                         data:{
                                                                             headId:headId,
                                                                             placeId:placeId
@@ -562,7 +562,7 @@
                         .appendTo(container)
                         .kendoUpload({
                             async: {
-                                saveUrl: "./file/upload",
+                                saveUrl: "/mc/file/upload",
                                 autoUpload: true
                             },
                             localization: {     //设置上传按钮名称
@@ -574,7 +574,7 @@
 
                                 $.ajax({
                                     type:"post",
-                                    url:"./placeMgr/saveFileToDB",
+                                    url:"/mc/placeMgr/saveFileToDB",
                                     data:{
                                         uploadpath:uploadpath,
                                         placeId:placeId,
@@ -603,7 +603,7 @@
                     var historyDataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./headMgr/findHistoryContractByHeadId?headId="+headId
+                                url: "/mc/headMgr/findHistoryContractByHeadId?headId="+headId
                             }
                         },
                         pageSize: 10,

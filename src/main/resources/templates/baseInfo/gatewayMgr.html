@@ -75,15 +75,15 @@
                 var dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: "./gatewayMgr/allGateway"
+                            url: "./allGateway"
                         },
                         create: {
-                            url: "./gatewayMgr/insertGateway",
+                            url: "./insertGateway",
                             dataType: "json",
                             type: "post"
                         },
                         update: {
-                            url: "./gatewayMgr/updateGateway",
+                            url: "./updateGateway",
                             dataType: "json",
                             type: "post"
                         }
@@ -207,7 +207,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./gatewayMgr/updateGatewayPort",
+                                                    url: "/mc/gatewayMgr/updateGatewayPort",
                                                     data: {
                                                         domainName: domainName,
                                                         port: port
@@ -232,7 +232,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./gatewayMgr/updateGatewayChannel",
+                                                    url: "/mc/gatewayMgr/updateGatewayChannel",
                                                     data: {
                                                         channel: channel
                                                     },
@@ -249,7 +249,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./gatewayMgr/restartGateway",
+                                                    url: "/mc/gatewayMgr/restartGateway",
                                                     data: {
                                                     },
                                                     success: function (res) {

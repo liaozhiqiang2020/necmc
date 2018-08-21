@@ -66,22 +66,22 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./branchMgr/allBranchByPage"
+                                url: "./allBranchByPage"
                             },
                             create: {
-                                url: "./branchMgr/insertBranch",
+                                url: "./insertBranch",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "./branchMgr/deleteBranch",
+                                url: "./deleteBranch",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./branchMgr/updateBranch",
+                                url:  "./updateBranch",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -415,7 +415,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./headMgr/unboundPlace",
+                                                                        url: "./unboundPlace",
                                                                         data:{
                                                                             placeId:placeId,
                                                                             supId:supId,
@@ -450,7 +450,7 @@
                                             var unboundPlaceDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./headMgr/findAllUnboundPlace"
+                                                        url: "./findAllUnboundPlace"
                                                     }
                                                 },
                                                 serverPaging: false,    //设定服务器来实现分页功能
@@ -490,7 +490,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./branchMgr/branchBoundPlace",
+                                                                        url: "./branchBoundPlace",
                                                                         data:{
                                                                             branchId:branchId,
                                                                             placeId:placeId
@@ -548,7 +548,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./branchMgr/findAllByStatus",
+                                            url: "./findAllByStatus",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -570,7 +570,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./headMgr/allHead",
+                                            url: "./allHead",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -669,7 +669,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./headMgr/allHead",
+                                    url: "./allHead",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -700,7 +700,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./branchMgr/findAllByStatus",
+                                    url: "./findAllByStatus",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -731,7 +731,7 @@
 
                                 $.ajax({
                                     type:"post",
-                                    url:"./placeMgr/saveFileToDB",
+                                    url:"./saveFileToDB",
                                     data:{
                                         uploadpath:uploadpath,
                                         placeId:placeId,
@@ -760,7 +760,7 @@
                     var historyDataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./branchMgr/findHistoryContractByBranchId?branchId="+branchId
+                                url: "./findHistoryContractByBranchId?branchId="+branchId
                             }
                         },
                         pageSize: 10,

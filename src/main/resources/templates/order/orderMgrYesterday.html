@@ -45,7 +45,7 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./orderMgr/allOrderYesterday"
+                                url: "./allOrderYesterday"
                             }
                         },
                         serverPaging: true,    //设定服务器来实现分页功能
@@ -231,7 +231,7 @@
 
                                                     $.ajax({
                                                         type:"post",
-                                                        url:"./orderMgr/addOrderDescription",
+                                                        url:"/mc/orderMgr/addOrderDescription",
                                                         data:{
                                                             orderId:orderId,
                                                             description:text

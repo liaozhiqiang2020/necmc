@@ -52,7 +52,7 @@ public class HeadQuartersController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToHeadMgr")
+    @GetMapping(value="/headMgr/turnToHeadMgr")
     public ModelAndView turnToHeadMgr(){
         return new ModelAndView("./baseInfo/headQuartersMgr");
     }

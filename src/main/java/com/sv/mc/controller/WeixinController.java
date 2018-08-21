@@ -1,5 +1,6 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.PriceHistoryEntity;
 import com.sv.mc.pojo.WxUserInfoEntity;
@@ -475,6 +476,56 @@ public class WeixinController extends WeixinSupport {
         String chairCode = wxUtil.convertStringToHex(chairId);
 
         String message = "faaf0e14"+chairCode;
+
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+    /**
+     * 发送修改椅子频道指令
+     */
+    @RequestMapping("/sendUpdateChannel")
+    @ResponseBody
+    public void sendUpdateChannel(String chairId,Integer channel) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String time = channel.toString();
+        if(time.length()<2){
+            time = "0"+time;
+        }
+
+        String message = "faaf0f11"+chairCode+time;
+
+        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        message = message+res;
+
+        jmsProducer.sendMessage(message);
+    }
+
+
+    /**
+     * 发送修改椅子编号指令
+     */
+    @RequestMapping("/sendUpdateCode")
+    @ResponseBody
+    public void sendUpdateCode(String chairId,String newChairId) throws Exception{
+        DeviceEntity deviceEntity = new DeviceEntity();
+        deviceEntity.setLoraId(newChairId);
+        this.deviceService.save(deviceEntity);
+
+        WxUtil wxUtil = new WxUtil();
+        String chairCode = wxUtil.convertStringToHex(chairId);
+
+        String newChairCode = wxUtil.convertStringToHex(newChairId);
+
+        String message = "faaf1612"+chairCode+newChairCode;
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和

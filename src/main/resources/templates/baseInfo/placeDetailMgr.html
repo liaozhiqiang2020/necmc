@@ -52,22 +52,22 @@
                 var dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: "./placeMgr/getAllPlace"
+                            url: "./getAllPlace"
                         },
                         create: {
-                            url: "./placeMgr/insertPlace",
+                            url: "./insertPlace",
                             dataType: "json",
                             type: "post",
                             contentType:"application/json;charset=UTF-8"
                         },
                         destroy: {
-                            url: "./placeMgr/deletePlace",
+                            url: "./deletePlace",
                             dataType: "json",
                             type: "post",
                             contentType:"application/json;charset=UTF-8"
                         },
                         update: {
-                            url:  "./placeMgr/updatePlace",
+                            url:  "./updatePlace",
                             dataType: "json",
                             type: "post",
                             contentType:"application/json;charset=UTF-8"
@@ -302,7 +302,7 @@
 
                                         $("#file").kendoUpload({
                                             async: {
-                                                saveUrl: "./file/upload",
+                                                saveUrl: "/mc/file/upload",
                                                 autoUpload: true
                                             },
                                             localization: {     //设置上传按钮名称
@@ -314,7 +314,7 @@
 
                                                 $.ajax({
                                                     type:"post",
-                                                    url:"./placeMgr/saveFileToDB",
+                                                    url:"/mc/placeMgr/saveFileToDB",
                                                     data:{
                                                         uploadpath:uploadpath,
                                                         placeId:placeId,
@@ -346,7 +346,7 @@
 
                                         $.ajax({
                                             type:"post",
-                                            url:"./file/download",
+                                            url:"/mc/file/download",
                                             data:{
                                                 fileUrl:file,
                                                 fileName:fileName
@@ -409,22 +409,22 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url: "./placeMgr/findPlaceByParentId?placeId="+place_index2_Id
+                                url: "/mc/placeMgr/findPlaceByParentId?placeId="+place_index2_Id
                             },
                             create: {
-                                url: "./placeMgr/insertPlaceChild",
+                                url: "/mc/placeMgr/insertPlaceChild",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "./placeMgr/deletePlace",
+                                url: "/mc/placeMgr/deletePlace",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./placeMgr/updatePlaceChild",
+                                url:  "/mc/placeMgr/updatePlaceChild",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -579,7 +579,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./bussinessMgr/allBusiness",
+                                url: "/mc/bussinessMgr/allBusiness",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -609,7 +609,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./allCity",
+                                url: "/mc/allCity",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -641,7 +641,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./branchMgr/allBranchAndHeadAndVendor",
+                                url: "/mc/branchMgr/allBranchAndHeadAndVendor",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -676,7 +676,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./branchMgr/findAllByStatus",
+                                url: "/mc/branchMgr/findAllByStatus",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

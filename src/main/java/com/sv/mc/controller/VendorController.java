@@ -75,7 +75,7 @@ public class VendorController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToVendorMgr")
+    @GetMapping(value="/vendorMgr/turnToVendorMgr")
     public ModelAndView turnToVendorMgr(){
         return new ModelAndView("./baseInfo/vendorMgr");
     }

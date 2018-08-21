@@ -37,7 +37,7 @@ public class OrderController {
     /**
      * 跳转到订单管理页面
      */
-    @GetMapping(value="/turnToOrderMgr")
+    @GetMapping(value="/orderMgr/turnToOrderMgr")
     public ModelAndView turnToOrderMgr(){
         return new ModelAndView("./order/orderMgr");
     }

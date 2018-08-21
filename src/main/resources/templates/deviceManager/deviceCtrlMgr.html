@@ -52,6 +52,14 @@
                     <button id="btnOpenDevice" type="button" class="k-button  k-primary">开启设备</button>
                     <button id="btnCloseDevice" type="button" class="k-button  k-primary">关闭设备</button>
                 </div>
+                <div style="padding-top: 5px">
+                    椅子接收频道:<input type="text" id="channel" class="k-input k-textbox" placeholder="请输入椅子接收频道">
+                    <button id="btnUpdateChannel" type="button" class="k-button  k-primary">修改频道</button>
+                </div>
+                <div style="padding-top: 5px">
+                    椅子编号:<input type="text" id="code" class="k-input k-textbox" placeholder="请输入椅子编号">
+                    <button id="btnUpdateCode" type="button" class="k-button  k-primary">修改编号</button>
+                </div>
                 <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
                 <div style="padding-top: 5px">
                     <button id="btnZanting" type="button" class="k-button  k-primary">暂停按摩</button>
@@ -105,7 +113,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./place/findAllPlaceFirst",
+                                url: "/mc/place/findAllPlaceFirst",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -185,6 +193,12 @@
                             field: "supplierEntity",
                             title: "供应商",
                             template: "#=supplierEntity.supplierName#",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "gatewayEntity",
+                            title: "所属网关",
+                            template:"#=gatewayEntity.gatewaySn#",
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
@@ -400,6 +414,44 @@
                                                 })
                                             }
                                         })
+
+                                        $("#btnUpdateChannel").kendoButton({
+                                            click: function () {
+                                                var channel = $("#channel").val();
+
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: "./weixin/sendUpdateChannel",
+                                                    data: {
+                                                        chairId: data.mcSn,
+                                                        channel: channel
+                                                    },
+                                                    success: function (res) {
+                                                        myWindow.data("kendoWindow").close();
+                                                        location.reload();
+                                                    }
+                                                })
+                                            }
+                                        })
+
+                                        $("#btnUpdateCode").kendoButton({
+                                            click: function () {
+                                                var code = $("#code").val();
+
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: "./weixin/sendUpdateCode",
+                                                    data: {
+                                                        chairId: data.mcSn,
+                                                        newChairId: code
+                                                    },
+                                                    success: function (res) {
+                                                        myWindow.data("kendoWindow").close();
+                                                        location.reload();
+                                                    }
+                                                })
+                                            }
+                                        })
                                     }
                                 }
                             ],
@@ -445,7 +497,7 @@
                 var dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: "./place/findDeviceByPlace?placeId=" + placeId + "&deviceId=" + deviceId
+                            url: "/mc/place/findDeviceByPlace?placeId=" + placeId + "&deviceId=" + deviceId
                         }
                     },
                     serverPaging: false,    //设定服务器来实现分页功能
@@ -608,7 +660,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./placeMgr/allPlace",
+                                url: "/mc/placeMgr/allPlace",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -633,7 +685,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./deviceModel/all",
+                                url: "/mc/deviceModel/all",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -658,7 +710,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "./supplierMgr/allSupplier",
+                                url: "/mc/supplierMgr/allSupplier",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

@@ -66,6 +66,11 @@ public class GatewayServiceImpl implements GatewayService {
      */
     @Override
     public void updateGatewayPort(String domainName, String port)throws Exception {
+        GatewayEntity gatewayEntity = new GatewayEntity();
+        gatewayEntity.setDomainName(domainName);
+        gatewayEntity.setPort(port);
+        this.save(gatewayEntity);
+
         WxUtil wxUtil = new WxUtil();
         domainName = wxUtil.strTo16(domainName);//获取域名
         int length = domainName.length();
@@ -93,6 +98,10 @@ public class GatewayServiceImpl implements GatewayService {
      */
     @Override
     public void updateGatewayChannel(String channel) throws Exception {
+        GatewayEntity gatewayEntity = new GatewayEntity();
+        gatewayEntity.setChannel(channel);
+        this.save(gatewayEntity);
+
         WxUtil wxUtil = new WxUtil();
 
         String message = "faaf0704"+channel;

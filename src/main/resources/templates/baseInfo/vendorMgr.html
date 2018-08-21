@@ -80,22 +80,22 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./vendorMgr/allVendor"
+                                url: "./allVendor"
                             },
                             create: {
-                                url: "./vendorMgr/insertVendor",
+                                url: "./insertVendor",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             destroy: {
-                                url: "./vendorMgr/deleteVendor",
+                                url: "./deleteVendor",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
                             },
                             update: {
-                                url:  "./vendorMgr/updateVendor",
+                                url:  "./updateVendor",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json;charset=UTF-8"
@@ -270,10 +270,10 @@
                                             var placeDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./vendorMgr/findContractByVendorId?vendorId="+vendorId
+                                                        url: "/mc/vendorMgr/findContractByVendorId?vendorId="+vendorId
                                                     },
                                                     update: {
-                                                        url:  "./contract/updateContract",
+                                                        url:  "/mc/contract/updateContract",
                                                         dataType: "json",
                                                         type: "post",
                                                         contentType:"application/json;charset=UTF-8"
@@ -438,7 +438,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./headMgr/unboundPlace",
+                                                                        url: "/mc/headMgr/unboundPlace",
                                                                         data:{
                                                                             placeId:placeId,
                                                                             supId:supId,
@@ -478,7 +478,7 @@
                                             var unboundPlaceDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "./headMgr/findAllUnboundPlace"
+                                                        url: "/mc/headMgr/findAllUnboundPlace"
                                                     }
                                                 },
                                                 serverPaging: false,    //设定服务器来实现分页功能
@@ -545,7 +545,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "./vendorMgr/vendorBoundPlace",
+                                                                        url: "/mc/vendorMgr/vendorBoundPlace",
                                                                         data:{
                                                                             vendorId:vendorId,
                                                                             placeId:placeId
@@ -604,7 +604,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./branchMgr/findAllByStatus",
+                                            url: "/mc/branchMgr/findAllByStatus",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -626,7 +626,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./branchMgr/allBranchAndHead",
+                                            url: "/mc/branchMgr/allBranchAndHead",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -721,7 +721,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./branchMgr/allBranchAndHead",
+                                    url: "/mc/branchMgr/allBranchAndHead",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -751,7 +751,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./branchMgr/findAllByStatus",
+                                    url: "/mc/branchMgr/findAllByStatus",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -778,7 +778,7 @@
                         .appendTo(container)
                         .kendoUpload({
                             async: {
-                                saveUrl: "./file/upload",
+                                saveUrl: "/mc/file/upload",
                                 autoUpload: true
                             },
                             localization: {     //设置上传按钮名称
@@ -790,7 +790,7 @@
 
                                 $.ajax({
                                     type:"post",
-                                    url:"./placeMgr/saveFileToDB",
+                                    url:"/mc/placeMgr/saveFileToDB",
                                     data:{
                                         uploadpath:uploadpath,
                                         placeId:placeId,
@@ -819,7 +819,7 @@
                     var historyDataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./vendorMgr/findHistoryContractByVendorId?vendorId="+vendorId
+                                url: "/mc/vendorMgr/findHistoryContractByVendorId?vendorId="+vendorId
                             }
                         },
                         pageSize: 10,
