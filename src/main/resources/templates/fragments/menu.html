@@ -58,6 +58,8 @@
                     <!--<li><a href="./turnToInventoryMgr"><i class="fa fa-circle-o"></i> 库存管理</a></li>-->
                     <li sec:authorize="hasAuthority('设备管理')"><a href="/mc/turnToDeviceMgr"><i
                             class="fa fa-circle-o"></i> 设备管理</a></li>
+                    <li sec:authorize="hasAuthority('网关管理')"><a href="/mc/turnToGatewayMgr"><i class="fa fa-circle-o"></i>
+                        网关管理</a></li>
                     <!--<li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> 客户信息管理</a></li>-->
                 </ul>
             </li>

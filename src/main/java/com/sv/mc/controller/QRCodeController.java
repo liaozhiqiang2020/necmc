@@ -24,8 +24,8 @@ public class QRCodeController {
     public @ResponseBody
     boolean getQRCode(@RequestBody String sn, HttpServletResponse response) throws Exception {
         boolean flag = false;
-        String zipPath = "./qrzip"; //压缩后的zip文件放置的位置
-        String imageDir = "./qrimage"; //要压缩的目录及目录中的文件
+        String zipPath = "/qrzip"; //压缩后的zip文件放置的位置
+        String imageDir = "/qrimage"; //要压缩的目录及目录中的文件
         String zipFileName = "qr.zip"; //zip文件文件名
         File f = new File(imageDir); //图片文件
         File z = new File(zipPath);  //压缩文件
@@ -69,7 +69,7 @@ public class QRCodeController {
 
     @GetMapping(value = "/util/returnQrCode")
     public void getCode(HttpServletResponse response) throws FileNotFoundException {
-        String zipPath = "./qrzip";
+        String zipPath = "/qrzip";
 
         String fileName = "qr.zip"; //zip文件文件名
 

@@ -3,6 +3,8 @@ package com.sv.mc.service.impl;
 import com.sv.mc.pojo.WxUserInfoEntity;
 import com.sv.mc.repository.WxUserInfoRepository;
 import com.sv.mc.service.WxUserInfoService;
+import com.sv.mc.util.WxUtil;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 微信用户信息
@@ -87,5 +90,53 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
     public WxUserInfoEntity findWxUserInfoByOpenId(String openId) {
         WxUserInfoEntity wxUserInfoEntity = this.wxUserInfoRepository.findWxUserInfoEntityByOpenCode(openId);
         return wxUserInfoEntity;
+    }
+
+    /**
+     * 插入用户信息，手机号，openId
+     */
+    @Override
+    public void saveUserInfoAndPhoneAndOpenId(String openId, String userInfo) {
+        WxUserInfoEntity wxUserInfoEntity;
+
+        WxUtil wxUtil = new WxUtil();
+
+        //用户基本信息
+        JSONObject jsonObject1 = JSONObject.fromObject(userInfo.toString());
+        String nickName = jsonObject1.get("nickName").toString();
+        String gender = jsonObject1.get("gender").toString();
+        String language = jsonObject1.get("language").toString();
+        String city = jsonObject1.get("city").toString();
+        String province = jsonObject1.get("province").toString();
+        String country = jsonObject1.get("country").toString();
+        String avatarUrl = jsonObject1.get("avatarUrl").toString();
+
+        //存入微信用户基本信息
+        wxUserInfoEntity = this.findWxUserInfoByOpenId(openId);
+        //如果当前用户信息不为空，修改原来的信息
+        if (wxUserInfoEntity != null) {
+            wxUserInfoEntity.setId(wxUserInfoEntity.getId());
+            wxUserInfoEntity.setNickName(nickName);
+            wxUserInfoEntity.setGender(gender);
+            wxUserInfoEntity.setLanguage(language);
+            wxUserInfoEntity.setCity(city);
+            wxUserInfoEntity.setProvince(province);
+            wxUserInfoEntity.setCountry(country);
+            wxUserInfoEntity.setAvatarUrl(avatarUrl);
+            wxUserInfoEntity.setUpdateDateTime(wxUtil.getNowDate());
+            this.updateWxUserInfo(wxUserInfoEntity);
+        } else{//如果当前用户信息为空，插入新的信息
+            wxUserInfoEntity = new WxUserInfoEntity();
+            wxUserInfoEntity.setOpenCode(openId);
+            wxUserInfoEntity.setNickName(nickName);
+            wxUserInfoEntity.setGender(gender);
+            wxUserInfoEntity.setLanguage(language);
+            wxUserInfoEntity.setCity(city);
+            wxUserInfoEntity.setProvince(province);
+            wxUserInfoEntity.setCountry(country);
+            wxUserInfoEntity.setAvatarUrl(avatarUrl);//头像地址
+            wxUserInfoEntity.setUpdateDateTime(wxUtil.getNowDate());
+            this.addWxUserInfo(wxUserInfoEntity);
+        }
     }
 }

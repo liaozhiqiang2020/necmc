@@ -1,6 +1,7 @@
 package com.sv.mc.service;
 
 import com.sv.mc.conf.JmsConfig;
+import com.sv.mc.util.SingletonHungary;
 import com.sv.mc.util.WxUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,15 +19,7 @@ public class JMSConsumer {
 
     @JmsListener(destination = "youTopic",containerFactory = "jmsListenerContainerTopic")
     public void onTopicMessage(byte[] byteStr) {
-//        System.out.println(msg);
         WxUtil wxUtil = new WxUtil();
-//        String s2 = "";
-//        String[] newMsg = msg.split(",");
-//        StringBuilder b=new StringBuilder();
-//        for(String s:newMsg){
-//            b.append(s);
-//        }
-//        byte[] byteStr =b.toString().getBytes();
         int mcStatus=0;
         String res = wxUtil.bytesToHexString(byteStr);
         int type = Integer.parseInt(res.substring(14,16));//获取协议类型
@@ -34,16 +27,26 @@ public class JMSConsumer {
         String returnMsg = res.substring(32,34);//返回类型
         String chairId = wxUtil.convertHexToString(chairCode);//ascii转16进制
         if(type==8){//查询状态
-            if(returnMsg.equals("01")){
+            if(returnMsg.equals("01")){//空闲
                 mcStatus=1;
-            }else if(returnMsg.equals("02")){
+            }else if(returnMsg.equals("02")){//工作中
                 mcStatus=2;
-            }else if(returnMsg.equals("03")){
+            }else if(returnMsg.equals("03")){//复位中
                 mcStatus=3;
-            }else{
+            }else{ //未响应
                 mcStatus=4;
             }
+            SingletonHungary.getSingleTon().put(chairId+"status",chairId+"_"+mcStatus);
             deviceService.findChairRuningStatus(chairId,mcStatus);
+        }else if(type==9){//启动椅子
+            if(returnMsg.equals("01")){//成功
+                mcStatus=1;
+            }else if(returnMsg.equals("02")){//指令错误
+                mcStatus=2;
+            }else{ //未响应
+                mcStatus=3;
+            }
+            SingletonHungary.getSingleTon().put(chairId+"runing",chairId+"_"+mcStatus);
         }
 
 
