@@ -136,6 +136,19 @@
                     <!--<li ><a href="/mc/user/permissionManagement"><i class="fa fa-circle-o"></i> 权限管理</a></li>-->
                 </ul>
             </li>
+
+            <li class="treeview" sec:authorize="hasAnyAuthority('二维码生成')">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>二维码生成</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li sec:authorize="hasAuthority('二维码生成')"><a href="/mc/util/qrCode"><i
+                            class="fa fa-circle-o"></i> 二维码生成</a></li>
+                </ul>
+            </li>
             <!--<li class="treeview">-->
             <!--<a href="#">-->
             <!--<i class="fa fa-table"></i> <span>系统管理</span>-->
