@@ -12,7 +12,7 @@ public class QRCodeController {
     /**
      * 跳转到二维码生成
      */
-    @GetMapping(value = "/qrCode")
+    @GetMapping(value = "/util/qrCode")
     public ModelAndView turnToOrderMgr() {
         return new ModelAndView("./util/QrUtil");
     }
@@ -20,7 +20,7 @@ public class QRCodeController {
     /**
      * 生成二维码
      */
-    @PostMapping(value = "/getQrCode")
+    @PostMapping(value = "/util/getQrCode")
     public @ResponseBody
     boolean getQRCode(@RequestBody String sn, HttpServletResponse response) throws Exception {
         boolean flag = false;
@@ -67,7 +67,7 @@ public class QRCodeController {
     }
 
 
-    @GetMapping(value = "/returnQrCode")
+    @GetMapping(value = "/util/returnQrCode")
     public void getCode(HttpServletResponse response) throws FileNotFoundException {
         String zipPath = "./qrzip";
 
