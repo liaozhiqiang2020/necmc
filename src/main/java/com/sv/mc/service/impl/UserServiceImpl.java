@@ -196,7 +196,12 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setLatestLoginIp(latestLoginIp);
 //        user.setLatestLoginDatetime(Timestamp.valueOf(lastTime));
 //        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
-        user.setAuthenticationString(MD5Util.encode(password));
+        if (password.length() == 32){
+            user.setAuthenticationString(password);
+        }else {
+            user.setAuthenticationString(MD5Util.encode(password));
+        }
+
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
             user.setGradeId(1);
