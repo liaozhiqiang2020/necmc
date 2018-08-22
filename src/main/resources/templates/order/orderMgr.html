@@ -21,11 +21,11 @@
 
     <div class="container-fluid">
 
-        <div id="window">
-            <textarea id="textarea" style="width:400px;height: 250px" rows="4" hidden="true"></textarea>
-            <!--<a id="btn" class="k-primary" hidden="true">提交</a>-->
-            <button id="btn" type="button" >提交</button>
-        </div>
+        <!--<div id="window">-->
+            <!--<textarea id="textarea" style="width:400px;height: 250px" rows="4" hidden="true"></textarea>-->
+            <!--&lt;!&ndash;<a id="btn" class="k-primary" hidden="true">提交</a>&ndash;&gt;-->
+            <!--<button id="btn" type="button" >提交</button>-->
+        <!--</div>-->
 
         <div class="container-fluid">
             <div id="grid"> <span id="toolbar"></span></div>
@@ -37,10 +37,10 @@
                 /*<![CDATA[*/
                 $(function () {
                     loadUserList();
-                    $("#btn").kendoButton({
-
-                    });
-                    $("#btn").hide();
+                    // $("#btn").kendoButton({
+                    //
+                    // });
+                    // $("#btn").hide();
                 });
 
                 //初始化表格数据
@@ -217,18 +217,23 @@
                                             var oldText = data.cancelReason;
                                             var orderId = data.id;
 
+                                            var detailWindow = $("<div id='window'><textarea id='textarea' style='width:400px;height: 250px' rows='4'></textarea><button id='btn' type='button'>提交</button></div>");
+                                            $("body").append(detailWindow);
+
                                             var myWindow = $("#window");
                                             myWindow.kendoWindow({
                                                 width: "500px",
                                                 height:"300px",
-                                                title: "添加备注"
+                                                title: "添加备注",
+                                                close: function () {
+                                                    myWindow.data("kendoWindow").destroy();
+                                                }
                                             });
-
 
                                             myWindow.data("kendoWindow").center().open();
 
-                                            $("#textarea").show();
-                                            $("#btn").show();
+                                            // $("#textarea").show();
+                                            // $("#btn").show();
                                             $("#textarea").val(oldText);
 
 

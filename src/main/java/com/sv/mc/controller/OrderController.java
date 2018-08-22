@@ -65,7 +65,7 @@ public class OrderController {
     /**
      * 跳转到昨日订单信息页面
      */
-    @GetMapping(value="/turnToOrderMgrByYesterday")
+    @GetMapping(value="/orderMgr/turnToOrderMgrByYesterday")
     public ModelAndView turnToOrderMgrByYesterday(){
         return new ModelAndView("./order/orderMgrYesterday");
     }
