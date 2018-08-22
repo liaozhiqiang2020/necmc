@@ -36,7 +36,7 @@ public class QRCodeController {
             //删除文件
         deleteDir(imageDir);
 
-            f.mkdir();
+            //f.mkdir();
         }
         if(z.exists()){
             //System.out.println("压缩文件存在");
@@ -50,7 +50,7 @@ public class QRCodeController {
             System.out.println(b[i]);
 
             File qrcFile = new File(imageDir+"/" + b[i] + ".jpg");
-            String qrCodeContent = b[i];
+            String qrCodeContent = "https://www.infhp.cn/mc/wx/wxApp?sn="+b[i];
             String pressText = b[i];
             generateQrCode(qrcFile, qrCodeContent, pressText);
         }
@@ -79,6 +79,7 @@ public class QRCodeController {
         response.reset();
         response.setContentType("application/octet-stream;charset=UTF-8");
         response.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        response.addHeader("Pargam", "no-cache");
         response.addHeader("Pargam", "no-cache");
         response.addHeader("Cache-Control", "no-cache");
         // 循环取出流中的数据
