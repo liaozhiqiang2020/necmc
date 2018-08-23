@@ -24,14 +24,15 @@
         <div class="container-fluid row" >
            <textarea id="a" rows="20" cols="100" class="col-md-12" >
            </textarea>
+            <input type="text" id="startnum" rows="1" cols="1" class="col-md-6" >
+           </input>
+            <input type="text" id="endnum" rows="1" cols="1" class="col-md-6" >
+           </input>
 
+            <button class="k-button  k-primary col-md-4" id="getnum" onclick="getnum1()">生成设备sn</button>
 
-            <button class="k-button  k-primary col-md-5" id="out" onclick="a1()">生成二维码</button>
-            <span class="col-md-2"></span>
-
-
-
-            <button class="k-button  k-primary col-md-5" id="get" onclick="g1()">下载二维码</button>
+            <button class="k-button  k-primary col-md-4" id="out" onclick="a1()">生成二维码</button>
+            <button class="k-button  k-primary col-md-4" id="get" onclick="g1()">下载二维码</button>
 
         </div>
     </div>
@@ -51,6 +52,8 @@
 
 $(function(){
     $("#a").html("");
+    $("#startnum").html("");
+    $("#endnum").html("");
 })
 
     function a1(){
@@ -92,7 +95,18 @@ $(function(){
         });*/
     }
 
+  function getnum1() {
+      var start=$("#startnum").val()
+      var end=$("#endnum").val()
+      var num;
+  for (start;start<=end;start++) {
+          num=start+','
+      $("#a").append(num)
+  }
 
+
+
+}
 
 
 
