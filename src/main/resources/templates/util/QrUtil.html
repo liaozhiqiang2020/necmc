@@ -29,10 +29,11 @@
             <input type="text" id="endnum" rows="1" cols="1" class="col-md-6" >
            </input>
 
-            <button class="k-button  k-primary col-md-4" id="getnum" onclick="getnum1()">生成设备sn</button>
+            <button class="k-button  k-primary col-md-3" id="getnum" onclick="getnum1()">生成设备sn</button>
+            <button class="k-button  k-primary col-md-3"  onclick="removenum()">清空sn</button>
 
-            <button class="k-button  k-primary col-md-4" id="out" onclick="a1()">生成二维码</button>
-            <button class="k-button  k-primary col-md-4" id="get" onclick="g1()">下载二维码</button>
+            <button class="k-button  k-primary col-md-3" id="out" onclick="a1()">生成二维码</button>
+            <button class="k-button  k-primary col-md-3" id="get" onclick="g1()">下载二维码</button>
 
         </div>
     </div>
@@ -107,7 +108,12 @@ $(function(){
 
 
 }
+function removenum(){
 
+    $("#a").val("");
+    $("#startnum").val("");
+    $("#endnum").val("");
+}
 
 
 
