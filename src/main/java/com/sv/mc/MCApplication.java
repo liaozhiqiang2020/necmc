@@ -31,7 +31,7 @@ public class MCApplication {
 
     }
 
-    @Bean
+    /*@Bean
     public ServletWebServerFactory servletContainer(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         tomcat.addAdditionalTomcatConnectors(createSslConnector());
@@ -60,6 +60,6 @@ public class MCApplication {
             throw new IllegalStateException("can't access keystore: [" + "keystore"
                     + "] or truststore: [" + "keystore" + "]", ex);
         }
-    }
+    }*/
 
 }
