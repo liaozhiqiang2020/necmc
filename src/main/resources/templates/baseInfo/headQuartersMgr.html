@@ -11,22 +11,25 @@
         <h1>
             总公司管理
         </h1>
+        <br/>
         <ol class="breadcrumb">
             <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">总公司管理</li>
         </ol>
     </section>
 
-    <div id="window">
-        <button id="history" class="k-button  k-primary">历史记录</button>
-        <div id="placeGrid"></div>
-        <div><hr></div>
-        <div id="unboundPlaceGrid"></div>
-    </div>
+    <!--<div id="window">-->
+        <!--<button id="history" class="k-button  k-primary">历史记录</button>-->
+        <!--<div id="placeGrid"></div>-->
+        <!--<div>-->
+            <!--<hr>-->
+        <!--</div>-->
+        <!--<div id="unboundPlaceGrid"></div>-->
+    <!--</div>-->
 
-    <div id="window2">
-        <div id="historyGrid"></div>
-    </div>
+    <!--<div id="window2">-->
+        <!--<div id="historyGrid"></div>-->
+    <!--</div>-->
 
     <div class="container-fluid">
 
@@ -34,18 +37,30 @@
             <div id="grid"></div>
             <script id="popup_editor" type="text/x-kendo-template">
                 <div class="k-edit-label"><label for="name"><span style="color:red;">*</span> 总公司名称</label></div>
-                <div data-container-for="name" class="k-edit-field"><input type="text" class="k-input k-textbox" name="name" required="required" data-required-msg="请您填写名称" data-bind="value:name"></div>
+                <div data-container-for="name" class="k-edit-field"><input type="text" class="k-input k-textbox"
+                                                                           name="name" required="required"
+                                                                           data-required-msg="请您填写名称"
+                                                                           data-bind="value:name"></div>
                 <div class="k-edit-label"><label for="address"><span style="color:red;">*</span> 总公司地址</label></div>
-                <div data-container-for="address" class="k-edit-field"><input type="text" class="k-input k-textbox" name="address" required="required" data-required-msg="请您填写地址" data-bind="value:address"></div>
+                <div data-container-for="address" class="k-edit-field"><input type="text" class="k-input k-textbox"
+                                                                              name="address" required="required"
+                                                                              data-required-msg="请您填写地址"
+                                                                              data-bind="value:address"></div>
                 <div class="k-edit-label"><label for="telephone"><span style="color:red;">*</span> 总公司联系电话</label></div>
-                <div data-container-for="telephone" class="k-edit-field"><input type="text" class="k-input k-textbox" name="telephone" required="required" data-required-msg="请您填写电话" data-bind="value:telephone"></div>
+                <div data-container-for="telephone" class="k-edit-field"><input type="text" class="k-input k-textbox"
+                                                                                name="telephone" required="required"
+                                                                                data-required-msg="请您填写电话"
+                                                                                data-bind="value:telephone"></div>
                 <div class="k-edit-label"><label for="email"><span style="color:red;">*</span> 总公司邮箱</label></div>
-                <div data-container-for="email" class="k-edit-field"><input type="text" class="k-input k-textbox" name="email" required="required" data-required-msg="请您填写电子邮件地址" data-bind="value:email"></div>
-                </script>
+                <div data-container-for="email" class="k-edit-field"><input type="text" class="k-input k-textbox"
+                                                                            name="email" required="required"
+                                                                            data-required-msg="请您填写电子邮件地址"
+                                                                            data-bind="value:email"></div>
+            </script>
             <script>
                 /*<![CDATA[*/
                 $(function () {
-                    $("#history").hide();
+                    // $("#window").hide();
 
                     loadUserList();
                 });
@@ -187,51 +202,66 @@
                                             var data = this.dataItem(tr);
                                             var headId = data.id;//总公司id
 
-                                            $("#history").show();
-                                            $("#history").click(function(){
+                                            var detailWindow = $("<div id='window'><button id='history' class='k-button  k-primary'>历史记录</button><div id='placeGrid'></div><div><hr></div><div id='unboundPlaceGrid'></div></div>")
+                                            $("body").append(detailWindow);
+
+                                            var myWindow = $("#window");
+                                            myWindow.kendoWindow({
+                                                width: "700px",
+                                                height: "520px",
+                                                title: "签约信息维护",
+                                                close: function () {
+                                                    myWindow.data("kendoWindow").destroy();
+                                                }
+                                            });
+
+                                            myWindow.data("kendoWindow").center().open();
+
+
+                                            $("#history").click(function () {
                                                 history(headId);
                                             });
 
                                             var placeDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/headMgr/findContractByHeadId?headId="+headId
+                                                        url: "/mc/headMgr/findContractByHeadId?headId=" + headId
                                                     },
                                                     update: {
-                                                        url:  "/mc/contract/updateContract",
+                                                        url: "/mc/contract/updateContract",
                                                         dataType: "json",
                                                         type: "post",
-                                                        contentType:"application/json;charset=UTF-8"
+                                                        contentType: "application/json;charset=UTF-8"
                                                     },
-                                                    parameterMap:function(options, operation){
-                                                        if(operation == "update"){
-                                                            var endDate =options.endDeteTime;
+                                                    parameterMap: function (options, operation) {
+                                                        if (operation == "update") {
+                                                            var endDate = options.endDeteTime;
                                                             var startDate = options.startDateTime;
                                                             var effectDate = options.effectDateTime;
 
-                                                            if(endDate!=null){
-                                                                if(endDate.length!==19){
-                                                                    options.endDeteTime=  kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                                            if (endDate != null) {
+                                                                if (endDate.length !== 19) {
+                                                                    options.endDeteTime = kendo.toString(kendo.parseDate(endDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
                                                                 }
                                                             }
-                                                            if(startDate!=null){
-                                                                if(startDate.length!==19){
-                                                                    options.startDateTime=  kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                                            if (startDate != null) {
+                                                                if (startDate.length !== 19) {
+                                                                    options.startDateTime = kendo.toString(kendo.parseDate(startDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
                                                                 }
                                                             }
 
-                                                            if(effectDate!=null){
-                                                                if(effectDate.length!==19){
-                                                                    options.effectDateTime=  kendo.toString(kendo.parseDate(effectDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
+                                                            if (effectDate != null) {
+                                                                if (effectDate.length !== 19) {
+                                                                    options.effectDateTime = kendo.toString(kendo.parseDate(effectDate, "yyyy-MM-ddTHH:mm:sszzz"), "yyyy-MM-dd HH:mm:ss");
                                                                 }
                                                             }
 
                                                             var list = {
-                                                                id:options.id,
-                                                                contractCode:options.contractCode,
-                                                                startDateTime:options.startDateTime,
-                                                                endDateTime:options.endDeteTime,
-                                                                effectDateTime:options.effectDateTime
+                                                                id: options.id,
+                                                                contractCode: options.contractCode,
+                                                                startDateTime: options.startDateTime,
+                                                                endDateTime: options.endDeteTime,
+                                                                effectDateTime: options.effectDateTime
                                                             }
                                                             return kendo.stringify(list);
                                                         }
@@ -240,7 +270,7 @@
                                                 serverPaging: false,    //设定服务器来实现分页功能
                                                 serverFiltering: false,
                                                 serverSorting: false,
-                                                requestEnd: function(e){
+                                                requestEnd: function (e) {
                                                     if (e.type == undefined) {
                                                         e.sender.read();
                                                     }
@@ -251,7 +281,9 @@
                                                         var type = e.type;
                                                         if (type != 'read') {
                                                             var status = response.status;
-                                                            if (status == 200) {this.read();}
+                                                            if (status == 200) {
+                                                                this.read();
+                                                            }
                                                             else {
                                                                 // alert(response.msg);
                                                             }
@@ -264,9 +296,9 @@
                                                         id: "id",
                                                         fields: {
                                                             id: {type: "number", editable: false},
-                                                            placeName: {type: "string",editable: false},
+                                                            placeName: {type: "string", editable: false},
                                                             contractCode: {type: "string"},
-                                                            effectDateTime:{type: "timestamp"},
+                                                            effectDateTime: {type: "timestamp"},
                                                             startDateTime: {type: "timestamp"},
                                                             endDeteTime: {type: "timestamp"}
                                                         }
@@ -280,7 +312,7 @@
 
                                             //dataSource是必填属性
                                             $("#placeGrid").kendoGrid({
-                                                toolbar:"已签约场地",
+                                                toolbar: "已签约场地",
                                                 dataSource: placeDataSource,
                                                 height: 215,
                                                 sortable: true, //表示是否支持排序， boolean型
@@ -323,12 +355,13 @@
                                                         field: "image",
                                                         title: "上传",
                                                         editor: categoryDropDownEditor,
-                                                        hidden:true
+                                                        hidden: true
                                                     },
                                                     {
                                                         command: [
                                                             {
-                                                                name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
+                                                                name: "edit",
+                                                                text: {edit: "编辑", cancel: "取消", update: "更新"}
                                                             },
                                                             {
                                                                 text: "下载",//名称
@@ -338,7 +371,7 @@
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.placeId;
-                                                                    window.location="/mc/file/download?placeId="+placeId+"&type=1";
+                                                                    window.location = "/mc/file/download?placeId=" + placeId + "&type=1";
                                                                 }
                                                             },
                                                             {
@@ -349,29 +382,29 @@
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.placeId;
-                                                                    window.open("/mc/file/download?placeId="+placeId+"&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+                                                                    window.open("/mc/file/download?placeId=" + placeId + "&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
                                                                     // window.location="/mc/file/download?placeId="+placeId+"&type=2";
                                                                 }
                                                             },
                                                             {
-                                                                name :"解约场地",click:function (e) {
+                                                                name: "解约场地", click: function (e) {
                                                                     var tr = $(e.target).closest("tr");
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.placeId;
-                                                                    var supId=data.owner;
-                                                                    var flagId=1;
+                                                                    var supId = data.owner;
+                                                                    var flagId = 1;
 
                                                                     $.ajax({
                                                                         type: "POST",
                                                                         url: "/mc/headMgr/unboundPlace",
-                                                                        data:{
-                                                                            placeId:placeId,
-                                                                            supId:supId,
-                                                                            flagId:flagId
+                                                                        data: {
+                                                                            placeId: placeId,
+                                                                            supId: supId,
+                                                                            flagId: flagId
                                                                         },
                                                                         // contentType: "application/json; charset=utf-8",
                                                                         // dataType: "json",
-                                                                        success:function (data) {
+                                                                        success: function (data) {
                                                                             // alert(data);
                                                                             var placeGrid = $("#placeGrid").data("kendoGrid");
                                                                             placeGrid.dataSource.read();
@@ -383,7 +416,7 @@
                                                                     })
                                                                 }
                                                             }
-                                                            ],
+                                                        ],
                                                         title: "操作",
                                                         width: "300px"
                                                     }
@@ -395,8 +428,6 @@
                                                     }
                                                 }
                                             });
-
-
 
 
                                             var unboundPlaceDataSource = new kendo.data.DataSource({
@@ -422,7 +453,7 @@
 
                                             //dataSource是必填属性
                                             $("#unboundPlaceGrid").kendoGrid({
-                                                toolbar:"未签约场地",
+                                                toolbar: "未签约场地",
                                                 dataSource: unboundPlaceDataSource,
                                                 height: 215,
                                                 sortable: true, //表示是否支持排序， boolean型
@@ -436,7 +467,7 @@
                                                     }, {
                                                         command: [
                                                             {
-                                                                name :"签约场地",click:function (e) {
+                                                                name: "签约场地", click: function (e) {
                                                                     var tr = $(e.target).closest("tr");
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.id;
@@ -444,36 +475,27 @@
                                                                     $.ajax({
                                                                         type: "POST",
                                                                         url: "/mc/headMgr/headBoundPlace",
-                                                                        data:{
-                                                                            headId:headId,
-                                                                            placeId:placeId
+                                                                        data: {
+                                                                            headId: headId,
+                                                                            placeId: placeId
                                                                         },
-                                                                        success:function (data) {
+                                                                        success: function (data) {
                                                                             var placeGrid = $("#placeGrid").data("kendoGrid");
                                                                             placeGrid.dataSource.read();
                                                                             var unboundPlaceGrid = $("#unboundPlaceGrid").data("kendoGrid");
                                                                             unboundPlaceGrid.dataSource.read();
-                                                                            location.reload();
+                                                                            // location.reload();
                                                                         }
 
                                                                     })
                                                                 }
                                                             }
-                                                            ],
+                                                        ],
                                                         title: "操作",
                                                         width: "250px"
                                                     }
                                                 ]
                                             });
-
-                                            var myWindow = $("#window");
-                                            myWindow.kendoWindow({
-                                                width: "700px",
-                                                height: "500px",
-                                                title: "签约信息维护"
-                                            });
-
-                                            myWindow.data("kendoWindow").center().open();
                                         }
                                     }
                                 ],
@@ -568,19 +590,19 @@
                             localization: {     //设置上传按钮名称
                                 select: "上传"
                             },
-                            success: function(e){//上传成功后执行的回调函数
+                            success: function (e) {//上传成功后执行的回调函数
                                 var uploadpath = e.response.uploadpath;
                                 var fileName = e.response.fileName;
 
                                 $.ajax({
-                                    type:"post",
-                                    url:"/mc/placeMgr/saveFileToDB",
-                                    data:{
-                                        uploadpath:uploadpath,
-                                        placeId:placeId,
-                                        fileName:fileName
+                                    type: "post",
+                                    url: "/mc/placeMgr/saveFileToDB",
+                                    data: {
+                                        uploadpath: uploadpath,
+                                        placeId: placeId,
+                                        fileName: fileName
                                     },
-                                    success:function(res){
+                                    success: function (res) {
                                         console.log(uploadpath);
                                         // myWindow2.data("kendoWindow").close();
                                         // location.reload();
@@ -590,12 +612,18 @@
                         });
                 }
 
-                function history(headId){
+                function history(headId) {
+                    var detailWindow2 = $("<div id='window2'><div id='historyGrid'></div></div>")
+                    $("body").append(detailWindow2);
+
                     var myWindow2 = $("#window2");
                     myWindow2.kendoWindow({
                         width: "700px",
                         height: "520px",
-                        title: "历史签约信息"
+                        title: "历史签约信息",
+                        close: function () {
+                            myWindow2.data("kendoWindow").destroy();
+                        }
                     });
 
                     myWindow2.data("kendoWindow").center().open();
@@ -603,7 +631,7 @@
                     var historyDataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "/mc/headMgr/findHistoryContractByHeadId?headId="+headId
+                                url: "/mc/headMgr/findHistoryContractByHeadId?headId=" + headId
                             }
                         },
                         pageSize: 10,
@@ -612,9 +640,9 @@
                                 id: "id",
                                 fields: {
                                     id: {type: "number", editable: false},
-                                    placeName: {type: "string",editable: false},
+                                    placeName: {type: "string", editable: false},
                                     contractCode: {type: "string"},
-                                    effectDateTime:{type: "timestamp"},
+                                    effectDateTime: {type: "timestamp"},
                                     startDateTime: {type: "timestamp"},
                                     endDeteTime: {type: "timestamp"}
                                 }
@@ -628,7 +656,7 @@
 
                     //dataSource是必填属性
                     $("#historyGrid").kendoGrid({
-                        toolbar:"历史签约信息",
+                        toolbar: "历史签约信息",
                         dataSource: historyDataSource,
                         height: 500,
                         sortable: true, //表示是否支持排序， boolean型
@@ -677,7 +705,7 @@
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
                                             var placeId = data.placeId;
-                                            window.location="/mc/file/download?placeId="+placeId+"&type=1";
+                                            window.location = "/mc/file/download?placeId=" + placeId + "&type=1";
                                         }
                                     },
                                     {
@@ -688,7 +716,7 @@
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
                                             var placeId = data.placeId;
-                                            window.open("/mc/file/download?placeId="+placeId+"&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+                                            window.open("/mc/file/download?placeId=" + placeId + "&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
                                             // window.location="/mc/file/download?placeId="+placeId+"&type=2";
                                         }
                                     }
