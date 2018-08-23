@@ -21,7 +21,8 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
+
 
 /**
  * 二维码工具类
@@ -111,7 +112,7 @@ public class QrCodeUtils {
      * @param pressText     增加的文字
      * @throws Exception
      */
-    public static void generateQrCode(File qrcFile, String qrCodeContent, String pressText) throws Exception {
+    public static void generateQrCode(File qrcFile, String qrCodeContent, String pressText,int fontsize) throws Exception {
 
 
         BufferedImage image = generateQrCode(qrCodeContent, "jpg");
@@ -120,12 +121,16 @@ public class QrCodeUtils {
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //设置字体
-        Font font = new Font("宋体", Font.PLAIN, 35);
+        Font font = new Font("粗体", Font.BOLD, 30);
         g.setFont(font);
         g.setColor(Color.black);
         FontMetrics metrics = g.getFontMetrics(font);
         // 文字在图片中的坐标 这里设置在中间
+
         int startX = (WIDTH - metrics.stringWidth(pressText)) / 2;
+        System.out.println("文字长度"+fontsize);
+        System.out.println("文字大小"+font.getSize());
+        System.out.println("X起始坐标"+startX);
         int startY = HEIGHT + (PIC_HEIGHT - HEIGHT) / 2;
         g.drawString(pressText, startX, startY);
 
@@ -168,7 +173,8 @@ public class QrCodeUtils {
         ByteArrayOutputStream os = new ByteArrayOutputStream();//新建流。
         ImageIO.write(image, format, os);//利用ImageIO类提供的write方法，将bi以png图片的数据模式写入流。
         byte b[] = os.toByteArray();//从流中获取数据数组。
-        String base64String = new BASE64Encoder().encode(b);
+       // String base64String = new BASE64Encoder().encode(b);
+        String base64String = new String(new Base64().encode(b));
 
         // Base64编码
         return base64String;
@@ -190,8 +196,9 @@ public class QrCodeUtils {
         File qrcFile = new File("D:/1.jpg");
         String qrCodeContent = "a";
         String pressText = "a";
+        /*fontsize=
         generateQrCode(qrcFile, qrCodeContent, pressText);
-
+*/
 
     }
 
