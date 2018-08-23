@@ -31,15 +31,6 @@ public class MCApplication {
 
     }
 
-//    @Value("${https.port}")
-//    private Integer port;
-//
-//    @Value("${https.ssl.key-store-password}")
-//    private String key_store_password;
-//
-//    @Value("${https.ssl.key-password}")
-//    private String key_password;
-
     @Bean
     public ServletWebServerFactory servletContainer(){
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
@@ -51,17 +42,21 @@ public class MCApplication {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
         try {
-            File keystore = new ClassPathResource("sample.jks").getFile();
+//            File keystore = new ClassPathResource("sample.jks").getFile();
             connector.setScheme("https");
             connector.setSecure(true);
             connector.setPort(8443);
             protocol.setSSLEnabled(true);
-            protocol.setKeystoreFile(keystore.getAbsolutePath());
+            protocol.setKeystoreFile("/usr/local/mcProject/sample.jks");
             protocol.setKeystorePass("secret");
             protocol.setKeyPass("password");
             return connector;
         }
-        catch (IOException ex) {
+//        catch (IOException ex) {
+//            throw new IllegalStateException("can't access keystore: [" + "keystore"
+//                    + "] or truststore: [" + "keystore" + "]", ex);
+//        }
+        catch (Exception ex) {
             throw new IllegalStateException("can't access keystore: [" + "keystore"
                     + "] or truststore: [" + "keystore" + "]", ex);
         }
