@@ -42,16 +42,16 @@ public class QrCodeUtils {
     /**
      * 宽
      */
-    private static final int WIDTH = 280;
+    private static final int WIDTH = 350;
     /**
      * 高
      */
-    private static final int HEIGHT = 280;
+    private static final int HEIGHT = 350;
 
     /**
      * 图片高度增加60
      */
-    private static final int PIC_HEIGHT = HEIGHT + 60;
+    private static final int PIC_HEIGHT = HEIGHT + 13;
 
     /**
      * 二维码传图片
@@ -94,7 +94,7 @@ public class QrCodeUtils {
         // 设置UTF-8， 防止中文乱码
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         // 设置二维码四周白色区域的大小
-        hints.put(EncodeHintType.MARGIN, 1);
+        hints.put(EncodeHintType.MARGIN, 0);
         // 设置二维码的容错性
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         // 画二维码
@@ -121,7 +121,7 @@ public class QrCodeUtils {
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //设置字体
-        Font font = new Font("粗体", Font.BOLD, 30);
+        Font font = new Font("粗体", Font.BOLD, 20);
         g.setFont(font);
         g.setColor(Color.black);
         FontMetrics metrics = g.getFontMetrics(font);
@@ -163,7 +163,7 @@ public class QrCodeUtils {
         Map hints = new HashMap();
 
         // 设置二维码四周白色区域的大小
-        hints.put(EncodeHintType.MARGIN, 1);
+        hints.put(EncodeHintType.MARGIN, 0);
         // 设置二维码的容错性
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         // 画二维码

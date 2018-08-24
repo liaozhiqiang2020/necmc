@@ -97,8 +97,11 @@ $(function(){
     }
 
   function getnum1() {
+    //alert('追加了')
+
       var start=$("#startnum").val()
       var end=$("#endnum").val()
+      console.log(start,end)
       var num;
   for (start;start<=end;start++) {
           num=start+','
@@ -109,10 +112,12 @@ $(function(){
 
 }
 function removenum(){
-
+    //alert('清空了')
     $("#a").val("");
     $("#startnum").val("");
     $("#endnum").val("");
+    window.location.reload()
+
 }
 
 

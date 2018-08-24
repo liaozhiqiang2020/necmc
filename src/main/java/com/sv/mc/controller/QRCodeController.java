@@ -52,6 +52,7 @@ public class QRCodeController {
         for (int i = 0; i < b.length; i++) {
             System.out.println(b[i]);
             String qrCodeContent = "https://www.infhp.cn/mc/wx/wxApp?sn="+b[i];
+            //https://www.infhp.cn/mc/wx/wxApp?sn=11000102
             File qrcFile = new File(imageDir+"/" + b[i] + ".jpg");
 
             String pressText = b[i];
