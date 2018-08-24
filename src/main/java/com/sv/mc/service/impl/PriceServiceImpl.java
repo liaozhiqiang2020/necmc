@@ -565,7 +565,9 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     @Transactional
-    public Set<PriceEntity> findDeviceAllPrice(int deviceId) {
+    public Set<PriceEntity> findDeviceAllPrice(String deviceCode) {
+        int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
+
         Set<PriceEntity> priceSet = new HashSet<>();
         List<PriceEntity> priceList1 = priceRepository.findDevicePrice(deviceId);
         priceSet.addAll(priceList1);

@@ -161,7 +161,7 @@ public interface PriceService {
      * 查询机器可用价格
      * @return
      */
-    Set<PriceEntity> findDeviceAllPrice(int deviceId);
+    Set<PriceEntity> findDeviceAllPrice(String deviceCode);
 
 
     /**
