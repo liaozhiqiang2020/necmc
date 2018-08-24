@@ -19,7 +19,7 @@ public class GatewayController {
      *
      * @return
      */
-    @GetMapping(value = "/turnToGatewayMgr")
+    @GetMapping(value = "/gatewayMgr/turnToGatewayMgr")
     public ModelAndView turnToGatewayMgr() {
         return new ModelAndView("./baseInfo/gatewayMgr");
     }

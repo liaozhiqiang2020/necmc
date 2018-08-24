@@ -91,7 +91,7 @@ public class DeviceController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToInventoryMgr")
+    @GetMapping(value="/deviceMgr/turnToInventoryMgr")
     public ModelAndView turnToInventoryMgr(){
         return new ModelAndView("./baseInfo/inventoryMgr");
     }
@@ -102,7 +102,7 @@ public class DeviceController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToDeviceCtrl")
+    @GetMapping(value="/deviceMgr/turnToDeviceCtrl")
     public ModelAndView turnToDeviceCtrl(){
         return new ModelAndView("./deviceManager/deviceCtrlMgr");
     }
@@ -114,7 +114,7 @@ public class DeviceController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToDeviceMgr")
+    @GetMapping(value="/deviceMgr/turnToDeviceMgr")
     public ModelAndView turnToDeviceMgr(){
         return new ModelAndView("./baseInfo/deviceMgr");
     }

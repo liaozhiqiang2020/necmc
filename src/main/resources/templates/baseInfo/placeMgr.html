@@ -47,25 +47,25 @@
                 var dataSource = new kendo.data.TreeListDataSource({
                     transport: {
                         read: {
-                            url: "./placeMgr/getAllPlaceForTreelist",
+                            url: "./getAllPlaceForTreelist",
                             type: "post",
                             dataType: "json",
                             contentType:"application/json;charset=UTF-8"
                         },
                         create: {
-                            url: "./placeMgr/insertPlaceTree",
+                            url: "./insertPlaceTree",
                             dataType: "json",
                             type: "post",
                             contentType:"application/json;charset=UTF-8"
                         },
                         destroy: {
-                            url: "./placeMgr/deletePlace",
+                            url: "./deletePlace",
                             dataType: "json",
                             type: "post",
                             contentType:"application/json;charset=UTF-8"
                         },
                         update: {
-                            url:  "./placeMgr/updatePlaceTree",
+                            url:  "./updatePlaceTree",
                             dataType: "json",
                             type: "post",
                             contentType:"application/json;charset=UTF-8"
@@ -289,7 +289,7 @@
                                 transport: {
                                     read: {
                                         type: "get",
-                                        url: "./bussinessMgr/allUseBusiness",
+                                        url: "/mc/bussinessMgr/allUseBusiness",
                                         dataType: "json",
                                         contentType: "application/json",
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -311,7 +311,7 @@
                                 transport: {
                                     read: {
                                         type: "get",
-                                        url: "./allCity",
+                                        url: "/mc/allCity",
                                         dataType: "json",
                                         contentType: "application/json",
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -333,7 +333,7 @@
                                 transport: {
                                     read: {
                                         type: "get",
-                                        url: "./branchMgr/findAllByStatus",
+                                        url: "/mc/branchMgr/findAllByStatus",
                                         dataType: "json",
                                         contentType: "application/json",
                                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -374,7 +374,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./bussinessMgr/allUseBusiness",
+                                    url: "/mc/bussinessMgr/allUseBusiness",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -404,7 +404,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./allCity",
+                                    url: "/mc/allCity",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -436,7 +436,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./branchMgr/allBranchAndHeadAndVendor",
+                                    url: "/mc/branchMgr/allBranchAndHeadAndVendor",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -468,7 +468,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./branchMgr/findAllByStatus",
+                                    url: "/mc/branchMgr/findAllByStatus",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}

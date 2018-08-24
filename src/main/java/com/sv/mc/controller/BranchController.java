@@ -38,7 +38,7 @@ public class BranchController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToBranchMgr")
+    @GetMapping(value="/branchMgr/turnToBranchMgr")
     public ModelAndView turnToBranchMgr(){
         return new ModelAndView("./baseInfo/branchMgr");
     }

@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +43,12 @@ CountService countService;
 
     @Test
     public void text2(){
-       List<ProvinceEntity>l= countService.getProvinceByP_ID(71);
-        System.out.println(l);
+        List<Integer> a= new ArrayList();
+       for (int i=11000001;i<=11000024;i++){
+           a.add(i);
+
+       }
+        System.out.println(a);
     }
+
 }

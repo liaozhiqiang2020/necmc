@@ -72,6 +72,11 @@
                         <input  id="supplierEntity" data-role="combobox"   data-bind="value:supplierEntity" required="required" data-required-msg="供应商为必填项！">
                     </div>
 
+                    <div class="k-edit-label"><label for="gatewayEntity"><span style="color:red;">* </span>所属网关</label></div>
+                    <div data-container-for="gatewayEntity" class="k-edit-field">
+                        <input  id="gatewayEntity" data-role="combobox"   data-bind="value:gatewayEntity" required="required" data-required-msg="所属网关为必填项！">
+                    </div>
+
                     <div class="k-edit-label"><label for="note">备注信息</label></div>
                     <div data-container-for="note" class="k-edit-field"><input type="text" class="k-input k-textbox" name="note" data-bind="value:note"></div>
                 </script>
@@ -90,22 +95,22 @@
                     var dataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "./deviceMgr/getAllDevice"
+                                url: "./getAllDevice"
                             },
                             create: {
-                                url: "./deviceMgr/insertDevice",
+                                url: "./insertDevice",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json"
                             },
                             destroy: {
-                                url: "./deviceMgr/deleteDevice",
+                                url: "./deleteDevice",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json"
                             },
                             update: {
-                                url:  "./deviceMgr/updateDevice",
+                                url:  "./updateDevice",
                                 dataType: "json",
                                 type: "post",
                                 contentType:"application/json"
@@ -165,6 +170,12 @@
                                         validation: {
                                             required: true,
                                             required: {message: "供应商为必填项！"}
+                                        }
+                                    },
+                                    gatewayEntity:{defaultValue: { id: 1, gatewaySn: ""},
+                                        validation: {
+                                            required: true,
+                                                required: {message: "所属网关为必填项！"}
                                         }
                                     }
                                 }
@@ -261,6 +272,13 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
+                                field: "gatewayEntity",
+                                title: "所属网关",
+                                template:"#=gatewayEntity.gatewaySn#",
+                                editor:supplierEditor,
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
+                            {
                                 field: "note",
                                 title: "备注信息",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
@@ -296,7 +314,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./placeMgr/allPlace",
+                                            url: "./allPlace",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -317,7 +335,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./deviceModel/all",
+                                            url: "/mc/deviceModel/all",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -337,7 +355,27 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./supplierMgr/allSupplier",
+                                            url: "/mc/supplierMgr/allSupplier",
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                        }
+                                    }
+                                }
+                            });
+                            $("#gatewayEntity").kendoComboBox({
+                                autoBind: false,
+                                placeholder: "请选择...",
+                                dataTextField: "gatewaySn",
+                                dataValueField: "id",
+                                value: e.model.id,
+                                filter: "contains",
+                                suggest: true,
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            type: "get",
+                                            url: "/mc/gatewayMgr/allGateway",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -465,7 +503,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./placeMgr/allPlace",
+                                    url: "/mc/placeMgr/allPlace",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -492,7 +530,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./deviceModel/all",
+                                    url: "/mc/deviceModel/all",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -519,7 +557,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "./supplierMgr/allSupplier",
+                                    url: "/mc/supplierMgr/allSupplier",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -564,13 +602,13 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "./deviceMgr/getallDevice",
+                        url: "/mc/deviceMgr/getallDevice",
 
                         contentType: "application/json; charset=utf-8",
 
                         success:function () {
 
-                            window.location="./deviceMgr/getallDevice"
+                            window.location="/mc/deviceMgr/getallDevice"
 
                         }
 
@@ -584,13 +622,13 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "./deviceMgr/getmodel",
+                        url: "/mc/deviceMgr/getmodel",
 
                         contentType: "application/json; charset=utf-8",
 
                         success:function () {
 
-                            window.location="./deviceMgr/getmodel"
+                            window.location="/mc/deviceMgr/getmodel"
 
                         }
 
@@ -613,7 +651,7 @@
 
         $("#files").kendoUpload({
             async: {
-                saveUrl: "./deviceMgr/setExcel",
+                saveUrl: "/mc/deviceMgr/setExcel",
                 autoUpload: true
 
             }, localization: {     //设置上传按钮名称

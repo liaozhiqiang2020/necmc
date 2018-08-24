@@ -76,7 +76,7 @@ public class PlaceController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToPlaceMgr")
+    @GetMapping(value="/placeMgr/turnToPlaceMgr")
     public ModelAndView turnToPlaceMgr(){
         return new ModelAndView("./baseInfo/placeMgr");
     }
@@ -87,7 +87,7 @@ public class PlaceController {
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
-    @GetMapping(value="/turnToPlaceDetailMgr")
+    @GetMapping(value="/placeMgr/turnToPlaceDetailMgr")
     public ModelAndView turnToPlaceDetailMgr(){
         return new ModelAndView("./baseInfo/placeDetailMgr");
     }

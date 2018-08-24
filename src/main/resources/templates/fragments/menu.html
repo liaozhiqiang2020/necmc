@@ -42,23 +42,23 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li sec:authorize="hasAuthority('总公司管理')"><a href="/mc/turnToHeadMgr"><i class="fa fa-circle-o"></i>
+                    <li sec:authorize="hasAuthority('总公司管理')"><a href="/mc/headMgr/turnToHeadMgr"><i class="fa fa-circle-o"></i>
                         总公司管理</a></li>
-                    <li sec:authorize="hasAuthority('分公司管理')"><a href="/mc/turnToBranchMgr"><i
+                    <li sec:authorize="hasAuthority('分公司管理')"><a href="/mc/branchMgr/turnToBranchMgr"><i
                             class="fa fa-circle-o"></i> 分公司管理</a></li>
-                    <li sec:authorize="hasAuthority('代理商管理')"><a href="/mc/turnToVendorMgr"><i
+                    <li sec:authorize="hasAuthority('代理商管理')"><a href="/mc/vendorMgr/turnToVendorMgr"><i
                             class="fa fa-circle-o"></i> 代理商管理</a></li>
                     <li sec:authorize="hasAuthority('行业分类管理')"><a href="/mc/turnToBussinessMgr"><i
                             class="fa fa-circle-o"></i> 行业分类管理</a></li>
-                    <li sec:authorize="hasAuthority('场地方管理')"><a href="/mc/turnToPlaceMgr"><i
+                    <li sec:authorize="hasAuthority('场地方管理')"><a href="/mc/placeMgr/turnToPlaceMgr"><i
                             class="fa fa-circle-o"></i> 场地方管理</a></li>
                     <!--<li><a href="/mc/turnToPlaceDetailMgr"><i class="fa fa-circle-o"></i> 场地方管理</a></li>-->
                     <li sec:authorize="hasAuthority('大区管理')"><a href="/mc/turnToregion"><i class="fa fa-circle-o"></i>
                         大区管理</a></li>
                     <!--<li><a href="./turnToInventoryMgr"><i class="fa fa-circle-o"></i> 库存管理</a></li>-->
-                    <li sec:authorize="hasAuthority('设备管理')"><a href="/mc/turnToDeviceMgr"><i
+                    <li sec:authorize="hasAuthority('设备管理')"><a href="/mc/deviceMgr/turnToDeviceMgr"><i
                             class="fa fa-circle-o"></i> 设备管理</a></li>
-                    <li sec:authorize="hasAuthority('网关管理')"><a href="/mc/turnToGatewayMgr"><i class="fa fa-circle-o"></i>
+                    <li sec:authorize="hasAuthority('网关管理')"><a href="/mc/gatewayMgr/turnToGatewayMgr"><i class="fa fa-circle-o"></i>
                         网关管理</a></li>
                     <!--<li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> 客户信息管理</a></li>-->
                 </ul>
@@ -105,7 +105,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li sec:authorize="hasAuthority('订单查询')"><a href="/mc/turnToOrderMgr"><i class="fa fa-circle-o"></i>
+                    <li sec:authorize="hasAuthority('订单查询')"><a href="/mc/orderMgr/turnToOrderMgr"><i class="fa fa-circle-o"></i>
                         订单查询</a></li>
                     <!--<li><a href="#"><i class="fa fa-circle-o"></i> 异常管理</a></li>-->
                 </ul>
@@ -119,7 +119,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <!--<li><a href="#"><i class="fa fa-circle-o"></i> 设备列表</a></li>-->
-                    <li sec:authorize="hasAuthority('控制设备')"><a href="/mc/turnToDeviceCtrl"><i
+                    <li sec:authorize="hasAuthority('控制设备')"><a href="/mc/deviceMgr/turnToDeviceCtrl"><i
                             class="fa fa-circle-o"></i> 控制设备</a></li>
                 </ul>
             </li>

@@ -30,6 +30,7 @@ public class DeviceEntity {
     private PlaceEntity placeEntity;            //场地
     private SupplierEntity supplierEntity;  //供应商
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
+    private GatewayEntity gatewayEntity;//网关
 
     @Id
     @GeneratedValue
@@ -95,6 +96,16 @@ public class DeviceEntity {
 
     public void setPlaceEntity(PlaceEntity placeEntity) {
         this.placeEntity = placeEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="gateway_id")
+    public GatewayEntity getGatewayEntity() {
+        return gatewayEntity;
+    }
+
+    public void setGatewayEntity(GatewayEntity gatewayEntity) {
+        this.gatewayEntity = gatewayEntity;
     }
 
     @Basic
