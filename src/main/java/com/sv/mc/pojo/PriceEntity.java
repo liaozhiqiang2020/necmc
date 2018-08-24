@@ -31,6 +31,7 @@ public class PriceEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
     private Timestamp endDateTime;              //价格结束时间
     private String priceName;                   //价格名称
+    private String description;                 //价格备注
     private DeviceModelEntity deviceModelEntity; //价格对应机器类型
     private UserEntity user;            //一对多用户
     private List<DeviceEntity> deviceEntities = new ArrayList<>();             //设备多对多集合
@@ -59,6 +60,16 @@ public class PriceEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Basic

@@ -157,6 +157,12 @@ public interface PriceService {
      */
     List<PriceEntity> findAllPagePrice();
 
+    /**
+     * 查询机器可用价格
+     * @return
+     */
+    Set<PriceEntity> findDeviceAllPrice(int deviceId);
+
 
     /**
      * 解析用户上传的excel 文件

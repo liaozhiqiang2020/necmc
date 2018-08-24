@@ -3,9 +3,11 @@ package com.sv.honda;
 import com.sv.mc.MCApplication;
 import com.sv.mc.pojo.DeviceEntity;
 
+import com.sv.mc.pojo.PriceEntity;
 import com.sv.mc.pojo.ProvinceEntity;
 import com.sv.mc.service.CountService;
 import com.sv.mc.service.DeviceService;
+import com.sv.mc.service.PriceService;
 import com.sv.mc.service.ProvinceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,18 +18,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MCApplication.class)
 public class McApplicationTests {
 @Autowired
     DeviceService d;
+
+@Resource
+  private   PriceService priceService;
 @Autowired
 CountService countService;
 
     @Test
     public void contextLoads() {
-
+        Set<PriceEntity> priceEntities = this.priceService.findDeviceAllPrice(47);
+        System.out.println(priceEntities.size());
     }
 
 

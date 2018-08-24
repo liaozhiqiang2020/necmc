@@ -352,185 +352,6 @@
                                 open: {effects: "fadeIn"}
                             }
                         });
-                        //
-                        //
-                        // detailRow.find(".son").kendoGrid({
-                        //     dataSource: {
-                        //         type: "json",
-                        //         transport: {
-                        //             read:  {
-                        //                 url: "./placeMgr/findPlaceByParentId?placeId="+placeId,
-                        //                 dataType: "json"
-                        //             },
-                        //             parameterMap: function(options, operation) {
-                        //                 if (operation !== "read" && options.models) {
-                        //                     return  kendo.stringify(options.models);
-                        //                 }
-                        //             }
-                        //         },
-                        //         pageSize: 20,
-                        //         // serverPaging: true,
-                        //         // serverSorting: true,
-                        //         schema: {
-                        //             model: {
-                        //                 id: "id",
-                        //                 fields: {
-                        //                     id: { editable: false, nullable: true },
-                        //                     placeSn: { type: "string",editable: false},
-                        //                     name: { type: "string",editable: false },
-                        //                     placeAddress: { type: "string",editable: false },
-                        //                     city: { type: "array",editable: false },
-                        //                     principal:{type:"string",editable:false}
-                        //                 }
-                        //             }
-                        //         }
-                        //     },
-                        //     height: 600,
-                        //     sortable: true,
-                        //     pageable: true,
-                        //     groupable: true,
-                        //     filterable:true,
-                        //     scrollable: true,
-                        //     detailTemplate: kendo.template($("#template").html()),
-                        //
-                        //
-                        //     detailInit: detailInit,
-                        //     // dataBound: function() {
-                        //     //     this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        //     // },
-                        //     columns: [
-                        //         {
-                        //             field: "name",
-                        //             title: "场地名",
-                        //             width: "120px"
-                        //         },
-                        //         {
-                        //             field: "placeAddress",
-                        //             title: "场地地点",
-                        //             width: "120px"
-                        //         },
-                        //
-                        //         {
-                        //             field: "placeSn",
-                        //             title:"场地编码",
-                        //             width: "120px"
-                        //         },{
-                        //             field: "principal",
-                        //             title:"场地负责人",
-                        //             width: "120px"
-                        //         },
-                        //         { command: [ {
-                        //                 name: "edit",text: "价格绑定"}
-                        //             ], title: "&nbsp;", width: "160px" }
-                        //     ],
-                        //
-                        //     editable: {
-                        //         mode: "popup",
-                        //         width:500,
-                        //         title:"场地价格绑定",
-                        //         template: $("#template1").html()
-                        //     },
-                        //
-                        //     edit: function(e){
-                        //         let placeId = e.model.id;
-                        //
-                        //         let  dataSource = new kendo.data.DataSource({
-                        //             transport: {
-                        //                 read: {
-                        //                     url: "./price/status",
-                        //                     dataType: "json"
-                        //                 },
-                        //                 destroy: {
-                        //                     url: "./price/placeAddPrice",
-                        //                     dataType: "json",
-                        //                     type: "post",
-                        //                     contentType : "application/json"
-                        //                 },
-                        //                 parameterMap: function (options, operation) {
-                        //                     if (operation === "update" && options.models) {
-                        //                         let array = [];
-                        //                         for (let j =0 ;j<options.models.length;j++){
-                        //                             array[j] = options.models[j].id;
-                        //                         }
-                        //
-                        //                         let list1 = {
-                        //                             price :  array,
-                        //                             placeId : placeId
-                        //                         }
-                        //                         return kendo.stringify(list1);
-                        //                     }
-                        //                     if (operation !== "read" && options.models) {
-                        //                         return kendo.stringify(options.models) ;
-                        //                     }
-                        //                 }
-                        //             },
-                        //             batch: true,
-                        //             pageSize: 5,
-                        //             schema: {
-                        //                 model: {
-                        //                     id: "id",
-                        //                     fields: {
-                        //                         id: { editable: false, nullable: true },
-                        //                         price: { type: "number", validation: { required: true, min: 1} ,editable: false},
-                        //                         useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                        //                         createDateTime: { type: "Date",editable: false },
-                        //                         startDateTime: { type: "Date" ,editable: false},
-                        //                         endDateTime: { type: "Date",editable: false},
-                        //                         userId: { type: "string" ,editable: false},
-                        //                         status: { type: "number",editable: false },
-                        //                         priceName : {type : "string",editable: false},
-                        //                         user :{type:"array",editable: false},
-                        //                         deviceModelEntity:{type:"array",editable: false}
-                        //                     }
-                        //                 }
-                        //             }
-                        //         });
-                        //         $("#edit-1").kendoGrid({
-                        //             toolbar: [ "可绑定价格"],
-                        //             dataSource: dataSource,
-                        //             pageable: true,
-                        //             filterable:true,
-                        //             scrollable: true,
-                        //             sortable:true,
-                        //             height: 350,
-                        //             columns: [
-                        //                 // { selectable: true, width: "50px" },
-                        //                 { field: "priceName", title: "价格名称",  width: "80px" },
-                        //                 { field: "price", title: "价格(元)", width: "80px" },
-                        //                 { field: "useTime", title:"使用时长",width: "80px" },
-                        //                 { field: "deviceModelEntity", title: "按摩椅类型", width: "100px", filterable: { multi: true },template:"#=deviceModelEntity.name#"},
-                        //                 { field: "startDateTime", title:"开始时间",width: "100px" ,format: "{0: yyyy-MM-dd}"},
-                        //                 { field: "endDateTime", title:"结束时间",width: "100px",format: "{0: yyyy-MM-dd}" },
-                        //                 { command: [{
-                        //                         name :"价格绑定",click:function (e) {
-                        //                             var tr = $(e.target).closest("tr");
-                        //                             var data = this.dataItem(tr);
-                        //                             var priceId = data. id;
-                        //                             var array = [priceId];
-                        //                             let list1 = {
-                        //                                 price :  array,
-                        //                                 placeId : placeId
-                        //                             }
-                        //                             $.ajax({
-                        //                                 type: "POST",
-                        //                                 url: "./price/placeAddPrice",
-                        //                                 data: kendo.stringify(list1),
-                        //                                 contentType: "application/json; charset=utf-8",
-                        //                                 dataType: "json",
-                        //                                 success:function (data) {
-                        //                                     alert("保存成功");
-                        //                                 }
-                        //
-                        //                             })
-                        //                         }
-                        //                     }], title: "&nbsp;", width: "50px" }],
-                        //
-                        //             editable: true,
-                        //
-                        //         });
-                        //     },
-                        //
-                        // });
                         detailRow.find(".orders").kendoGrid({
                             dataSource: {
                                 type: "json",
@@ -626,193 +447,6 @@
                                 mode: "popup",
                                 // template: $("#template2").html()
                             },
-                            // edit: function(e){
-                            //     let deviceId = e.model.id;
-                            //    let dataSource = new kendo.data.DataSource({
-                            //         transport: {
-                            //             read: {
-                            //                 url: "./price/devicePrice?deviceId="+deviceId,
-                            //                 dataType: "json"
-                            //             },
-                            //             destroy: {
-                            //                 url: "./price/deviceDeletePrice",
-                            //                 dataType: "json",
-                            //                 type: "post",
-                            //                 contentType : "application/json"
-                            //             },
-                            //             parameterMap: function (options, operation) {
-                            //                 if (operation === "destroy" && options.models) {
-                            //                     let array = [];
-                            //                     for (let j =0 ;j<options.models.length;j++){
-                            //                         array[j] = options.models[j].id;
-                            //                     }
-                            //
-                            //                     let list1 = {
-                            //                         price :  array,
-                            //                         deviceId : deviceId
-                            //                     }
-                            //                     return kendo.stringify(list1);
-                            //                 }
-                            //                 if (operation !== "read" && options.models) {
-                            //                     return kendo.stringify(options.models) ;
-                            //                 }
-                            //             }
-                            //         },
-                            //         batch: true,
-                            //         pageSize: 5,
-                            //         schema: {
-                            //             model: {
-                            //                 id: "id",
-                            //                 fields: {
-                            //                     id: { editable: false, nullable: true },
-                            //                     price: { type: "number", validation: { required: true, min: 1},editable: false },
-                            //                     useTime: { type: "number" ,validation: { required: true, min: 1} ,editable: false},
-                            //                     createDateTime: { type: "Date",editable: false },
-                            //                     startDateTime: { type: "Date" ,editable: false},
-                            //                     endDateTime: { type: "Date" ,editable: false},
-                            //                     userId: { type: "string" ,editable: false},
-                            //                     status: { type: "number" ,editable: false},
-                            //                     priceName : {type : "string",editable: false},
-                            //                     user :{type:"array"}
-                            //                 }
-                            //             }
-                            //         }
-                            //     });
-                            //   let  dataSource1 = new kendo.data.DataSource({
-                            //         transport: {
-                            //             read: {
-                            //                 url: "./price/deviceUnPrice?deviceId=" + deviceId,
-                            //                 dataType: "json"
-                            //             },
-                            //             destroy: {
-                            //                 url: "./price/deviceSavePrice",
-                            //                 dataType: "json",
-                            //                 type: "post",
-                            //                 contentType : "application/json"
-                            //             },
-                            //             parameterMap: function (options, operation) {
-                            //                 if (operation === "destroy" && options.models) {
-                            //                     let array = [];
-                            //                     for (let j =0 ;j<options.models.length;j++){
-                            //                         array[j] = options.models[j].id;
-                            //                     }
-                            //
-                            //                     let list1 = {
-                            //                         price :  array,
-                            //                         deviceId : deviceId
-                            //                     }
-                            //                     return kendo.stringify(list1);
-                            //                 }
-                            //                 if (operation !== "read" && options.models) {
-                            //                     return kendo.stringify(options.models) ;
-                            //                 }
-                            //             }
-                            //         },
-                            //         batch: true,
-                            //         pageSize: 5,
-                            //         schema: {
-                            //             model: {
-                            //                 id: "id",
-                            //                 fields: {
-                            //                     id: { editable: false, nullable: true },
-                            //                     price: { type: "number", validation: { required: true, min: 1},editable: false },
-                            //                     useTime: { type: "number" ,validation: { required: true, min: 1},editable: false },
-                            //                     createDateTime: { type: "Date",editable: false },
-                            //                     startDateTime: { type: "Date",editable: false },
-                            //                     endDateTime: { type: "Date",editable: false },
-                            //                     userId: { type: "string" ,editable: false},
-                            //                     status: { type: "number" ,editable: false},
-                            //                     priceName : {type : "string",editable: false},
-                            //                     user :{type:"array",editable: false}
-                            //                 }
-                            //             }
-                            //         }
-                            //     });
-                            //     $("#edit-3").kendoGrid({
-                            //         toolbar:"已绑定价格",
-                            //         dataSource: dataSource,
-                            //         pageable: {
-                            //             // empty:"没有要显示的数据",
-                            //             // //代表是否支持刷新
-                            //             // refresh: true,
-                            //             // //表示每页显示的记录数，默认为5,10,20
-                            //             pageSizes: true,
-                            //             // //表示显示的页数，5表示1,2,3,4,5
-                            //             buttonCount: 5,
-                            //             totalPages: true,
-                            //             // input: true,//表示是否可以输入数字
-                            //             refresh: true,
-                            //             pageSize: 10,
-                            //             pageSizes: [5, 10, 15, 20],
-                            //             // numeric: true,
-                            //             // input: true,
-                            //             // messages: {
-                            //             //     display: "显示 {0}-{1} 条，共 {2} 条",
-                            //             //     empty: "没有数据",
-                            //             //     itemsPerPage: "每页显示数量",
-                            //             //     first: "第一页",
-                            //             //     last: "最后一页",
-                            //             //     next: "下一页",
-                            //             //     previous: "上一页",
-                            //             //     page: "页",
-                            //             //     of: "共 {0}页"
-                            //             // }
-                            //         },
-                            //         columnMenu:true,
-                            //         filterable:true,
-                            //         resizable: true,
-                            //         scrollable: true,
-                            //         sortable:true,
-                            //         height: 300,
-                            //         columns: [
-                            //             { field: "priceName", title: "价格名称",  width: "50px" },
-                            //             { field: "price", title: "价格(元)", width: "50px" },
-                            //             { field: "useTime", title:"使用时长",width: "50px" },
-                            //             { field: "startDateTime", title:"开始时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
-                            //             { field: "endDateTime", title:"结束时间",width: "50px",format: "{0: yyyy-MM-dd}" }],
-                            //         editable: false
-                            //     });
-                            //     $("#edit-4").kendoGrid({
-                            //         toolbar: [ "未绑定价格"],
-                            //         dataSource: dataSource1,
-                            //         sortable:true,
-                            //         pageable: true,
-                            //         filterable:true,
-                            //         resizable: true,
-                            //         scrollable: true,
-                            //         height: 300,
-                            //         columns: [
-                            //             { field: "priceName", title: "价格",  width: "50px" },
-                            //             { field: "price", title: "价格", width: "50px" },
-                            //             { field: "useTime", title:"使用时长",width: "50px" },
-                            //             { field: "startDateTime", title:"开始时间",width: "50px",format: "{0: yyyy-MM-dd}" },
-                            //             { field: "endDateTime", title:"结束时间",width: "50px" ,format: "{0: yyyy-MM-dd}"},
-                            //             // { title: "绑定", width: 80,template: "<button class='row-number'>绑定</button>"},
-                            //             { command: [{
-                            //                     name :"价格绑定",click:function (e) {
-                            //                         var tr = $(e.target).closest("tr");
-                            //                         var data = this.dataItem(tr);
-                            //                         var priceId = data. id;
-                            //                         let list1 = {
-                            //                             price :  priceId,
-                            //                             deviceId : deviceId
-                            //                         };
-                            //                         $.ajax({
-                            //                             type: "POST",
-                            //                             url: "./price/deviceSavePrice",
-                            //                             data: kendo.stringify(list1),
-                            //                             contentType: "application/json; charset=utf-8",
-                            //                             dataType: "json",
-                            //                             success:function (data) {
-                            //                                 alert("保存成功");
-                            //                             }
-                            //
-                            //                         })
-                            //                     }
-                            //                 }], title: "&nbsp;", width: "50px" },],
-                            //         editable: true
-                            //     });
-                            // },
                         });
                     }
 
@@ -915,6 +549,7 @@
                                         validation: {required: true, min: 1},
                                         editable: false
                                     },
+                                    description:{type: "string"},
                                     createDateTime: {
                                         type: "Date",
                                         editable: false,
@@ -984,39 +619,46 @@
                         scrollable: true,
                         height: 480,
                         columns: [
-                            {field: "priceName", title: "价格名称", width: "80px"},
+                            {field: "priceName", title: "价格名称", width: "60px"},
                             {
-                                field: "price", title: "价格(元)", width: "80px", attributes: {
+                                field: "price", title: "价格(元)", width: "60px", attributes: {
                                     style: "text-align: right"
                                 }
                             },
                             {
-                                field: "useTime", title: "使用时长(分钟)", width: "80px", attributes: {
+                                field: "useTime", title: "使用时长(分钟)", width: "60px", attributes: {
                                     style: "text-align: right"
                                 }
+                            },
+                            {
+                                field: "description",
+                                title: "价格备注",
+                                width: "60px",
+                                filterable: {multi: true},
+                                // attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                             },
                             {
                                 field: "deviceModel",
-                                title: "按摩椅类型",
-                                width: "100px",
+                                title: "按摩椅型号",
+                                width: "60px",
                                 filterable: {multi: true}
                             },
                             {
                                 field: "deviceType",
                                 title: "按摩椅类型",
-                                width: "100px",
+                                width: "60px",
                                 filterable: {multi: true}
                             },
                             {
                                 field: "startDateTime",
                                 title: "开始时间",
-                                width: "100px",
+                                width: "80px",
                                 format: "{0: yyyy-MM-dd}"
                             },
                             {
                                 field: "endDateTime",
                                 title: "结束时间",
-                                width: "100px",
+                                width: "80px",
                                 format: "{0: yyyy-MM-dd}"
                             },
                             {
@@ -1114,6 +756,7 @@
                                         validation: {required: true, min: 1},
                                         editable: false
                                     },
+                                    description:{type: "string"},
                                     createDateTime: {type: "Date", editable: false},
                                     startDateTime: {type: "Date", editable: false},
                                     endDateTime: {type: "Date", editable: false},
@@ -1172,6 +815,7 @@
                                         validation: {required: true, min: 1},
                                         editable: false
                                     },
+                                    description:{type: "string"},
                                     createDateTime: {type: "Date", editable: false},
                                     startDateTime: {type: "Date", editable: false},
                                     endDateTime: {type: "Date", editable: false},
@@ -1232,6 +876,13 @@
                                 }
                             },
                             {
+                                field: "description",
+                                title: "价格备注",
+                                width: "50px",
+                                filterable: {multi: true},
+                                // attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
+                            },
+                            {
                                 field: "startDateTime",
                                 title: "开始时间",
                                 width: "50px",
@@ -1259,6 +910,13 @@
                             {field: "priceName", title: "价格名称", width: "50px"},
                             {field: "price", title: "价格", width: "50px",attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"},},
                             {field: "useTime", title: "使用时长", width: "50px",attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"},},
+                            {
+                                field: "description",
+                                title: "价格备注",
+                                width: "50px",
+                                filterable: {multi: true},
+                                // attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
+                            },
                             {
                                 field: "startDateTime",
                                 title: "开始时间",

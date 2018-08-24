@@ -171,6 +171,7 @@ public class PriceServiceImpl implements PriceService {
         int useTime = (int) map.get("useTime") * 60;
         String end = (String) map.get("endDateTime");
         String start = (String) map.get("startDateTime");
+        String description = (String) map.get("description");
         priceDate(history, priceEntity, end, start);
         if (com.sv.mc.util.intUtil.isInteger((String) map.get("deviceModel"))) {
             int deviceModelId = Integer.parseInt((String) map.get("deviceModel"));
@@ -179,6 +180,7 @@ public class PriceServiceImpl implements PriceService {
         }
         BigDecimal price = intUtil.getBigDecimal(map.get("price"));
         priceEntity.setUseTime(useTime);
+        priceEntity.setDescription(description);
         priceEntity.setStatus(1);
         priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
         priceEntity.setPrice(price);
@@ -252,6 +254,7 @@ public class PriceServiceImpl implements PriceService {
         PriceHistoryEntity history = new PriceHistoryEntity();
         PriceEntity priceEntity = new PriceEntity();
         int useTime = (int) map.get("useTime") * 60;
+        String description = (String) map.get("description");
         String end = (String) map.get("endDateTime");
         String start = (String) map.get("startDateTime");
         priceDate(history, priceEntity, end, start);
@@ -260,6 +263,7 @@ public class PriceServiceImpl implements PriceService {
         BigDecimal price = intUtil.getBigDecimal(map.get("price"));
         priceEntity.setUseTime(useTime);
         priceEntity.setStatus(1);
+        priceEntity.setDescription(description);
         priceEntity.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
         priceEntity.setUser(userEntity);
         priceEntity.setDeviceModelEntity(deviceModelEntity);
@@ -512,6 +516,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
+    @Transactional
     public String findPriceEntitiesByEnd() {
         List<PriceEntity> priceList = this.priceRepository.findPriceEntitiesByEnd();
 
@@ -556,6 +561,32 @@ public class PriceServiceImpl implements PriceService {
     public List<PriceEntity> findAllPagePrice() {
 
         return this.priceRepository.findAllPrice();
+    }
+
+    @Override
+    @Transactional
+    public Set<PriceEntity> findDeviceAllPrice(int deviceId) {
+        Set<PriceEntity> priceSet = new HashSet<>();
+        List<PriceEntity> priceList1 = priceRepository.findDevicePrice(deviceId);
+        priceSet.addAll(priceList1);
+        List<PriceEntity> priceEntities = new ArrayList<>();
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+        for (PriceEntity p : priceSet
+                ) {
+            if ((p.getEndDateTime() != null && p.getEndDateTime().getTime() < date.getTime()) || ( p.getStartDateTime()!= null &&p.getStartDateTime().getTime()>date.getTime()) || p.getStatus() == 0) {
+               priceEntities.add(p);
+            }else {
+                for (PriceEntity p1:priceSet
+                     ) {
+                    if (p.getUseTime() == p1.getUseTime() && (p.getStartDateTime() == null && p.getEndDateTime() == null)){
+                        priceEntities.add(p);
+                    }
+                }
+            }
+
+        }
+        priceSet.removeAll(priceEntities);
+        return priceSet;
     }
 
 

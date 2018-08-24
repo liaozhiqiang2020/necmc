@@ -34,6 +34,9 @@
                 <div class="k-edit-label"><label for="useTime"><span style="color:red;">＊</span> 时长(分钟)</label></div>
                 <div data-container-for="useTime" title='请输入整数' class="k-edit-field"><input type="text"  name="useTime"  required="required" data-required-msg="请您填写时长" data-type="number" data-bind="value:useTime" data-role="numerictextbox" /></div>
 
+                <div class="k-edit-label"><label for="description"><span style="color:red">＊</span> 价格备注</label></div>
+                <div data-container-for="description" class="k-edit-field"><input  type="text" class="k-input k-textbox" name="description" required="required" data-required-msg="请您填写价格备注" data-bind="value:description"></div>
+
                 <div class="k-edit-label"><label for="startDateTime">生效时间</label></div>
                 <div data-container-for="startDateTime" class="k-edit-field"><input type="text" name="startDateTime" data-bind="value:startDateTime" data-role="datetimepicker"></div>
 
@@ -127,6 +130,7 @@
                                     endDateTime: {type: "Date", format: "{0:yyyy-MM-dd HH:mm:ss}"},
                                     userName: {type: "string", editable: false},
                                     deviceModel: {type: "string"},
+                                    description:{type: "string"},
                                     deviceType: {type: "string", editable: false},
                                     deviceModelId: {type: "number"},
                                     status: {type: "number", editable: false},
@@ -209,6 +213,13 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
                             },
                             {
+                                field: "description",
+                                title: "价格备注",
+                                width: 80,
+                                filterable: {multi: true},
+                                // attributes: {style: "white-space:nowrap;text-overflow:ellipsis;text-align:right"}
+                            },
+                            {
                                 field: "startDateTime",
                                 title: "生效时间",
                                 width: 120,
@@ -233,7 +244,7 @@
                             },
                             {
                                 field: "deviceType",
-                                title: "类型",
+                                title: "按摩椅类型",
                                 width: 100,
                                 filterable: {multi: true},
                                 editor: deviceListDropDownEditor

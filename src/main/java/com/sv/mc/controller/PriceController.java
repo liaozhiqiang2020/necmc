@@ -229,6 +229,11 @@ public class PriceController {
         return this.priceService.placeAddPrice(listMap);
     }
 
+    @PostMapping("/weixin/devicePrice")
+    public Set<PriceEntity> findDeviceAllPrice(@RequestBody int deviceId){
+        return this.priceService.findDeviceAllPrice(deviceId);
+    }
+
 
 //    @GetMapping("/price/status")
 //    public List<PriceEntity> priceStatus(@RequestParam int status){
