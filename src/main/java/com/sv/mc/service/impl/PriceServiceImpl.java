@@ -368,15 +368,17 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public Set<PriceEntity> findDevicePrice(int deviceId) {
         Set<PriceEntity> priceSet = new HashSet<>();
+        Set<PriceEntity>  priceSet1 = new HashSet<>();
         List<PriceEntity> priceList1 = priceRepository.findDevicePrice(deviceId);
         priceSet.addAll(priceList1);
         Timestamp date = new Timestamp(System.currentTimeMillis());
         for (PriceEntity p : priceSet
                 ) {
             if ((p.getEndDateTime() != null && p.getEndDateTime().getTime() < date.getTime()) || p.getStatus() == 0) {
-                priceSet.remove(p);
+                priceSet1.add(p);
             }
         }
+        priceSet.removeAll(priceSet1);
         return priceSet;
     }
 
@@ -404,22 +406,25 @@ public class PriceServiceImpl implements PriceService {
         Object priceId = listMap.get("price");
         DeviceEntity device = this.deviceRepository.findDeviceById((int) deviceId);
 
+        List<PriceEntity> priceSet1 = new ArrayList<>();
         PriceEntity price = findPriceById((int) priceId);
         List<PriceEntity> devicePrice = device.getPriceEntities();
         if(price.getEndDateTime() == null && price.getStartDateTime() == null){
             for (int i = 0; i < devicePrice.size(); i++) {
                 if (devicePrice.get(i).getUseTime() == price.getUseTime() && (devicePrice.get(i).getStartDateTime() == null && devicePrice.get(i).getEndDateTime() == null)) {
-                    device.getPriceEntities().remove(devicePrice.get(i));
+                    priceSet1.add(devicePrice.get(i));
                 }
             }
-
+            device.getPriceEntities().removeAll(priceSet1);
         }else {
 
             for (int i = 0; i < devicePrice.size(); i++) {
             if (devicePrice.get(i).getUseTime() == price.getUseTime() && (devicePrice.get(i).getStartDateTime() != null || devicePrice.get(i).getEndDateTime() != null)) {
-                device.getPriceEntities().remove(devicePrice.get(i));
+                priceSet1.add(devicePrice.get(i));
             }
-        }}
+        }
+            device.getPriceEntities().removeAll(priceSet1);
+        }
 
 
         device.getPriceEntities().add(price);
@@ -451,7 +456,7 @@ public class PriceServiceImpl implements PriceService {
         PriceEntity priceEntity = this.priceRepository.findPriceEntitiesById((int) priceId);
         int modelId = priceEntity.getDeviceModelEntity().getId();
         List<DeviceEntity> deviceList = this.deviceRepository.findDeviceByPlace((int)placeId,modelId);
-
+        List<PriceEntity> priceList1 = new ArrayList<>();
         if (priceEntity.getEndDateTime() == null && priceEntity.getStartDateTime() == null){
 
             for (DeviceEntity device : deviceList
@@ -460,9 +465,10 @@ public class PriceServiceImpl implements PriceService {
                 if (!priceEntityList.contains(priceEntity)) {
                     for (int i = 0; i < priceEntityList.size(); i++) {
                         if (priceEntityList.get(i).getUseTime() == priceEntity.getUseTime() && (priceEntityList.get(i).getStartDateTime() == null && priceEntityList.get(i).getEndDateTime() == null)) {
-                            device.getPriceEntities().remove(priceEntityList.get(i));
+                            priceList1.add(priceEntityList.get(i));
                         }
                     }
+                    device.getPriceEntities().removeAll(priceList1);
                     device.getPriceEntities().add(priceEntity);
                 }
 
@@ -474,9 +480,10 @@ public class PriceServiceImpl implements PriceService {
                 if (!priceEntityList.contains(priceEntity)) {
                     for (int i = 0; i < priceEntityList.size(); i++) {
                         if (priceEntityList.get(i).getUseTime() == priceEntity.getUseTime() &&(priceEntityList.get(i).getEndDateTime() != null || priceEntityList.get(i).getStartDateTime() != null)) {
-                            device.getPriceEntities().remove(priceEntityList.get(i));
+                            priceList1.add(priceEntityList.get(i));
                         }
                     }
+                    device.getPriceEntities().removeAll(priceList1);
                     device.getPriceEntities().add(priceEntity);
                 }
 

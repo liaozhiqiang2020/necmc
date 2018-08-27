@@ -35,8 +35,8 @@ CountService countService;
 
     @Test
     public void contextLoads() {
-        Set<PriceEntity> priceEntities = this.priceService.findDeviceAllPrice(47);
-        System.out.println(priceEntities.size());
+//        Set<PriceEntity> priceEntities = this.priceService.findDeviceAllPrice(47);
+//        System.out.println(priceEntities.size());
     }
 
 
