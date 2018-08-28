@@ -602,8 +602,9 @@ public class PlaceServiceImpl implements PlaceService {
 
         @Override
         public String findDeviceBypId(int placeId) {
-                int total = this.placeRepository.findPlaceTotal();
+
                 List<DeviceEntity> deviceEntities = this.deviceRepository.findDevicesByPlaceId(placeId);
+                int total = deviceEntities.size();
                 String model = "";
                 String type = "";
                 String placeName = "";

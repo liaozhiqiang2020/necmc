@@ -361,7 +361,7 @@
                                 // serverPaging: true,
                                 // serverSorting: true,
                                 // serverFiltering: true,
-                                pageSize: 5,
+                                pageSize: 10,
                                 schema: {
                                     model: {
                                         id: "id",
@@ -411,19 +411,19 @@
                                 refresh: true,
                                 pageSize: 10,
                                 pageSizes: [5, 10, 15, 20],
-                                // numeric: true,
+                                numeric: true,
                                 // input: true,
-                                // messages: {
-                                //     display: "显示 {0}-{1} 条，共 {2} 条",
-                                //     empty: "没有数据",
-                                //     itemsPerPage: "每页显示数量",
-                                //     first: "第一页",
-                                //     last: "最后一页",
-                                //     next: "下一页",
-                                //     previous: "上一页",
-                                //     page: "页",
-                                //     of: "共 {0}页"
-                                // }
+                                messages: {
+                                    display: "显示 {0}-{1} 条，共 {2} 条",
+                                    empty: "没有数据",
+                                    itemsPerPage: "每页显示数量",
+                                    first: "第一页",
+                                    last: "最后一页",
+                                    next: "下一页",
+                                    previous: "上一页",
+                                    page: "页",
+                                    of: "共 {0}页"
+                                }
                             },
                             columnMenu: true,
                             groupable: true,
