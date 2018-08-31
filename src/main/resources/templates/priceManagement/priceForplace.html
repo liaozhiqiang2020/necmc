@@ -998,13 +998,13 @@
                     console.log(priceId)
                     $.ajax({
                         type: "GET",
-                        url: "./price/export?id=" + priceId,
+                        url: "./export?id=" + priceId,
                         data: priceId,
                         contentType: "application/json; charset=utf-8",
 
                         success: function (data) {
 
-                            window.location = "./price/export?id=" + priceId;
+                            window.location = "./export?id=" + priceId;
                         }
 
                     })
