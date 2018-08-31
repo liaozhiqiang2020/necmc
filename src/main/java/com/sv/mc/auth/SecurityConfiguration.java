@@ -40,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/fonts/**")
                 .antMatchers("/img/**")
                 .antMatchers("/js/**")
+                .antMatchers("/.well-known/**")
                 .antMatchers("/weixin/**")
                 .antMatchers("/wx/**")
                 .antMatchers("/JMNomfSJJT.txt")
