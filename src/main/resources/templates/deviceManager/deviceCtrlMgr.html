@@ -33,7 +33,7 @@
         </h1>
         <br/>
         <ol class="breadcrumb">
-            <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="../index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">设备控制</li>
         </ol>
     </section>
@@ -113,7 +113,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "/mc/place/findAllPlaceFirst",
+                                url: "../place/findAllPlaceFirst",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -238,7 +238,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendStartChairMsg",
+                                                    url: "../weixin/sendStartChairMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         mcTime: text
@@ -256,7 +256,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendEndChairMsg",
+                                                    url: "../weixin/sendEndChairMsg",
                                                     data: {
                                                         chairId: data.mcSn
                                                     },
@@ -280,7 +280,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendChargeMsg",
+                                                    url: "../weixin/sendChargeMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         mcTime: text
@@ -298,7 +298,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendUnChargeMsg",
+                                                    url: "../weixin/sendUnChargeMsg",
                                                     data: {
                                                         chairId: data.mcSn
                                                     },
@@ -315,7 +315,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendStrengthChairMsg",
+                                                    url: "../weixin/sendStrengthChairMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         strength: 0
@@ -333,7 +333,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendStrengthChairMsg",
+                                                    url: "../weixin/sendStrengthChairMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         strength: 1
@@ -351,7 +351,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendStrengthChairMsg",
+                                                    url: "../weixin/sendStrengthChairMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         strength: 2
@@ -369,7 +369,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/selectMcStatus",
+                                                    url: "../weixin/selectMcStatus",
                                                     data: {
                                                         chairId: data.mcSn
                                                     },
@@ -385,7 +385,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendContinueChairMsg",
+                                                    url: "../weixin/sendContinueChairMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         continueType: 0
@@ -402,7 +402,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendContinueChairMsg",
+                                                    url: "../weixin/sendContinueChairMsg",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         continueType: 1
@@ -421,7 +421,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendUpdateChannel",
+                                                    url: "../weixin/sendUpdateChannel",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         channel: channel
@@ -440,7 +440,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "./weixin/sendUpdateCode",
+                                                    url: "../weixin/sendUpdateCode",
                                                     data: {
                                                         chairId: data.mcSn,
                                                         newChairId: code
@@ -497,7 +497,7 @@
                 var dataSource = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: "/mc/place/findDeviceByPlace?placeId=" + placeId + "&deviceId=" + deviceId
+                            url: "../place/findDeviceByPlace?placeId=" + placeId + "&deviceId=" + deviceId
                         }
                     },
                     serverPaging: false,    //设定服务器来实现分页功能
@@ -660,7 +660,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "/mc/placeMgr/allPlace",
+                                url: "../placeMgr/allPlace",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -685,7 +685,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "/mc/deviceModel/all",
+                                url: "../deviceModel/all",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -710,7 +710,7 @@
                         transport: {
                             read: {
                                 type: "get",
-                                url: "/mc/supplierMgr/allSupplier",
+                                url: "../supplierMgr/allSupplier",
                                 dataType: "json",
                                 contentType: "application/json",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

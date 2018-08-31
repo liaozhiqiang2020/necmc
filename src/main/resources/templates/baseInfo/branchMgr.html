@@ -290,10 +290,10 @@
                                             var placeDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/branchMgr/findContractByBranchId?branchId=" + branchId
+                                                        url: "../branchMgr/findContractByBranchId?branchId=" + branchId
                                                     },
                                                     update: {
-                                                        url: "/mc/contract/updateContract",
+                                                        url: "../contract/updateContract",
                                                         dataType: "json",
                                                         type: "post",
                                                         contentType: "application/json;charset=UTF-8"
@@ -436,7 +436,7 @@
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.placeId;
-                                                                    window.location = "/mc/file/download?placeId=" + placeId + "&type=1";
+                                                                    window.location = "../file/download?placeId=" + placeId + "&type=1";
                                                                 }
                                                             },
                                                             {
@@ -447,7 +447,7 @@
                                                                     // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                                                     var data = this.dataItem(tr);
                                                                     var placeId = data.placeId;
-                                                                    window.open("/mc/file/download?placeId=" + placeId + "&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+                                                                    window.open("../file/download?placeId=" + placeId + "&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
                                                                     // window.location="/mc/file/download?placeId="+placeId+"&type=2";
                                                                 }
                                                             },
@@ -461,7 +461,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "/mc/headMgr/unboundPlace",
+                                                                        url: "../headMgr/unboundPlace",
                                                                         data: {
                                                                             placeId: placeId,
                                                                             supId: supId,
@@ -494,7 +494,7 @@
                                             var unboundPlaceDataSource = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/headMgr/findAllUnboundPlace"
+                                                        url: "../headMgr/findAllUnboundPlace"
                                                     }
                                                 },
                                                 serverPaging: false,    //设定服务器来实现分页功能
@@ -534,7 +534,7 @@
 
                                                                     $.ajax({
                                                                         type: "POST",
-                                                                        url: "/mc/branchMgr/branchBoundPlace",
+                                                                        url: "../branchMgr/branchBoundPlace",
                                                                         data: {
                                                                             branchId: branchId,
                                                                             placeId: placeId
@@ -585,7 +585,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "/mc/branchMgr/findAllByStatus",
+                                            url: "../branchMgr/findAllByStatus",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -607,7 +607,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "/mc/headMgr/allHead",
+                                            url: "../headMgr/allHead",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -758,7 +758,7 @@
                         .appendTo(container)
                         .kendoUpload({
                             async: {
-                                saveUrl: "/mc/file/upload",
+                                saveUrl: "../file/upload",
                                 autoUpload: true
                             },
                             localization: {     //设置上传按钮名称
@@ -770,7 +770,7 @@
 
                                 $.ajax({
                                     type: "post",
-                                    url: "/mc/placeMgr/saveFileToDB",
+                                    url: "../placeMgr/saveFileToDB",
                                     data: {
                                         uploadpath: uploadpath,
                                         placeId: placeId,
@@ -805,7 +805,7 @@
                     var historyDataSource = new kendo.data.DataSource({
                         transport: {
                             read: {
-                                url: "/mc/branchMgr/findHistoryContractByBranchId?branchId=" + branchId
+                                url: "../branchMgr/findHistoryContractByBranchId?branchId=" + branchId
                             }
                         },
                         pageSize: 10,
@@ -879,7 +879,7 @@
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
                                             var placeId = data.placeId;
-                                            window.location = "/mc/file/download?placeId=" + placeId + "&type=1";
+                                            window.location = "../file/download?placeId=" + placeId + "&type=1";
                                         }
                                     },
                                     {
@@ -890,7 +890,7 @@
                                             // 将数据绑定到当前表行。我们则可以通过data来取到这一行的数据了
                                             var data = this.dataItem(tr);
                                             var placeId = data.placeId;
-                                            window.open("/mc/file/download?placeId=" + placeId + "&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+                                            window.open("../file/download?placeId=" + placeId + "&type=2", 'newwindow', 'height=600, width=600, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
                                             // window.location="/mc/file/download?placeId="+placeId+"&type=2";
                                         }
                                     }

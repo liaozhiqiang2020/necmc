@@ -13,7 +13,7 @@
         </h1>
         <br/>
         <ol class="breadcrumb">
-            <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="../index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">行业分类管理</li>
         </ol>
     </section>
@@ -144,22 +144,22 @@
                         dataSource: {
                             type: "json",
                             transport: {
-                                read: "./bussinessMgr/getBusiness2?id="+id,
+                                read: "../bussinessMgr/getBusiness2?id="+id,
                                 create: {
-                                    url: "./bussinessMgr/createBusiness2",
+                                    url: "../bussinessMgr/createBusiness2",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"
                                 },
                                 destroy: {
-                                    url: "./bussinessMgr/removeBusiness2",
+                                    url: "../bussinessMgr/removeBusiness2",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"
 
                                 },
                                 update: {
-                                    url:  "./bussinessMgr/uppdateBusiness2",
+                                    url:  "../bussinessMgr/uppdateBusiness2",
                                     dataType: "json",
                                     type: "post",
                                     contentType:"application/json;charset=UTF-8"

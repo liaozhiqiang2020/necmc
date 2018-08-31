@@ -12,7 +12,7 @@
             网关管理
         </h1>
         <ol class="breadcrumb">
-            <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="../index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">网关管理</li>
         </ol>
     </section>
@@ -207,7 +207,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "/mc/gatewayMgr/updateGatewayPort",
+                                                    url: "../gatewayMgr/updateGatewayPort",
                                                     data: {
                                                         domainName: domainName,
                                                         port: port
@@ -232,7 +232,7 @@
 
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "/mc/gatewayMgr/updateGatewayChannel",
+                                                    url: "../gatewayMgr/updateGatewayChannel",
                                                     data: {
                                                         channel: channel
                                                     },
@@ -249,7 +249,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "/mc/gatewayMgr/restartGateway",
+                                                    url: "../gatewayMgr/restartGateway",
                                                     data: {
                                                     },
                                                     success: function (res) {
