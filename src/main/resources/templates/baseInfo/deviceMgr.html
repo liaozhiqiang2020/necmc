@@ -13,7 +13,7 @@
         </h1>
         <br/>
         <ol class="breadcrumb">
-            <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="../index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">设备管理</li>
         </ol>
     </section>
@@ -314,7 +314,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "./allPlace",
+                                            url: "../placeMgr/allPlace",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -335,7 +335,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "/mc/deviceModel/all",
+                                            url: "../deviceModel/all",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -355,7 +355,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "/mc/supplierMgr/allSupplier",
+                                            url: "../supplierMgr/allSupplier",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -375,7 +375,7 @@
                                     transport: {
                                         read: {
                                             type: "get",
-                                            url: "/mc/gatewayMgr/allGateway",
+                                            url: "../gatewayMgr/allGateway",
                                             dataType: "json",
                                             contentType: "application/json",
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -503,7 +503,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "/mc/placeMgr/allPlace",
+                                    url: "../placeMgr/allPlace",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -530,7 +530,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "/mc/deviceModel/all",
+                                    url: "../deviceModel/all",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -557,7 +557,7 @@
                             transport: {
                                 read: {
                                     type: "get",
-                                    url: "/mc/supplierMgr/allSupplier",
+                                    url: "../supplierMgr/allSupplier",
                                     dataType: "json",
                                     contentType: "application/json",
                                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -602,13 +602,13 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "/mc/deviceMgr/getallDevice",
+                        url: "../deviceMgr/getallDevice",
 
                         contentType: "application/json; charset=utf-8",
 
                         success:function () {
 
-                            window.location="/mc/deviceMgr/getallDevice"
+                            window.location="../deviceMgr/getallDevice"
 
                         }
 
@@ -622,13 +622,13 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "/mc/deviceMgr/getmodel",
+                        url: "../deviceMgr/getmodel",
 
                         contentType: "application/json; charset=utf-8",
 
                         success:function () {
 
-                            window.location="/mc/deviceMgr/getmodel"
+                            window.location="../deviceMgr/getmodel"
 
                         }
 
@@ -647,11 +647,11 @@
 
     $(document).ready(function () {
       //  $("#files").kendoUpload();
-        //window.location="/mc/priceTest1";
+        //window.location="../priceTest1";
 
         $("#files").kendoUpload({
             async: {
-                saveUrl: "/mc/deviceMgr/setExcel",
+                saveUrl: "../deviceMgr/setExcel",
                 autoUpload: true
 
             }, localization: {     //设置上传按钮名称
@@ -670,7 +670,7 @@
 
                 function onClose() {
                     undo.fadeIn();
-                    window.location="/mc/turnToDeviceMgr";
+                    window.location="../turnToDeviceMgr";
                 }
 
                 myWindow.kendoWindow({

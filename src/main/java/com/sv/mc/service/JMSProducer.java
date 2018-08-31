@@ -21,6 +21,7 @@ public class JMSProducer {
     public void sendMessage(String message) throws Exception{
         //1.创建一个连接工厂
         ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.108.129.115:61616");
+//        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
         //2.使用工厂创建Connection
         Connection connection = factory.createConnection();
         //3.开启连接
