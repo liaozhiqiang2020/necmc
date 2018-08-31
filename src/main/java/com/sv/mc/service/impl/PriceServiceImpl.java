@@ -124,7 +124,7 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     public String findStatusPrice() {
         List<PriceEntity> priceList = this.priceRepository.findPriceEntitiesByStatus();
-        int total = this.priceRepository.findPriceTotal();
+        int total = priceList.size();
         String userName = "";
         String deviceModel = "";
         String deviceType = "";

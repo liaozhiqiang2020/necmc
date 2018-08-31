@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header::header-css">
-    <title>价格管理</title>
+    <title>角色管理</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div th:replace="fragments/header::header-body"/>
@@ -14,7 +14,7 @@
         </h1>
         <br/>
         <ol class="breadcrumb">
-            <li><a href="/mc/index"><i class="fa fa-dashboard"></i>首页</a></li>
+            <li><a href="../index"><i class="fa fa-dashboard"></i>首页</a></li>
             <li class="active">角色管理</li>
         </ol>
     </section>
@@ -178,10 +178,10 @@
                                             var dataSource1 = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/role/findRolePermission?roleId=" + roleId
+                                                        url: "./findRolePermission?roleId=" + roleId
                                                     },
                                                     destroy: {
-                                                        url: "/mc/role/roleDeletePermission",
+                                                        url: "./roleDeletePermission",
                                                         dataType: "json",
                                                         type: "post",
                                                         contentType: "application/json;charset=UTF-8"
@@ -325,7 +325,7 @@
                                             var dataSource2 = new kendo.data.DataSource({
                                                 transport: {
                                                     read: {
-                                                        url: "/mc/role/findRoleUnPermission?roleId=" + roleId
+                                                        url: "./findRoleUnPermission?roleId=" + roleId
                                                     },
 
                                                     parameterMap: function (options, operation) {
