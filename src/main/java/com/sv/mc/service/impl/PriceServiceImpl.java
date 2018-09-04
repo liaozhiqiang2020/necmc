@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static javax.xml.bind.JAXBIntrospector.getValue;
@@ -637,10 +638,15 @@ public class PriceServiceImpl implements PriceService {
                         continue;
                     }
                     Object pricename=getValue(row.getCell(1));
-                    Object sn = getValue(row.getCell(0));
+                    Object sn1 = getValue(row.getCell(0));
+
+                    DecimalFormat df = new DecimalFormat("0");
+
+                    String sn=  df.format(Double.parseDouble(sn1.toString()));
+
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
-
+                   if(cellNum==3){
                     if (pricename!=null&& sn != null && price != null && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
@@ -681,8 +687,14 @@ public class PriceServiceImpl implements PriceService {
                                             }
                                         }
                                         priceEntities.add(priceEntity);
-                                        System.out.println(deviceEntity);
+                                        //System.out.println(deviceEntity);
                                         this.deviceRepository.save(deviceEntity);
+                                        result.setId(sn.toString());
+                                        result.setPrice(bigDecimal);
+                                        result.setTime(userTime1);
+                                        result.setPriceName(pricename.toString());
+                                        result.setMsg("绑定成功");
+                                        set.add(result);
 
                                     }else{
                                         result.setId(sn.toString());
@@ -697,7 +709,7 @@ public class PriceServiceImpl implements PriceService {
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
                                     result.setPriceName(pricename.toString());
-                                    result.setMsg("价格已绑定");
+                                    result.setMsg("绑定失败");
                                     set.add(result);
                                 }
                             }else{
@@ -717,7 +729,7 @@ public class PriceServiceImpl implements PriceService {
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-                    }
+                    }}
                 }
             }
 
@@ -745,10 +757,14 @@ public class PriceServiceImpl implements PriceService {
                         continue;
                     }
                     Object pricename=getValue(row.getCell(1));
-                    Object sn = getValue(row.getCell(0));
+                    Object sn1 = getValue(row.getCell(0));
+                    DecimalFormat df = new DecimalFormat("0");
+
+                    String sn=  df.format(Double.parseDouble(sn1.toString()));
+
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
-
+                    if (cellNum==3){
                     if (pricename!=null&& sn != null && price != null && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
@@ -791,6 +807,12 @@ public class PriceServiceImpl implements PriceService {
                                         priceEntities.add(priceEntity);
                                         System.out.println(deviceEntity);
                                         this.deviceRepository.save(deviceEntity);
+                                        result.setId(sn.toString());
+                                        result.setPrice(bigDecimal);
+                                        result.setTime(userTime1);
+                                        result.setPriceName(pricename.toString());
+                                        result.setMsg("绑定成功");
+                                        set.add(result);
 
                                     }else{
                                         result.setId(sn.toString());
@@ -805,7 +827,7 @@ public class PriceServiceImpl implements PriceService {
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
                                     result.setPriceName(pricename.toString());
-                                    result.setMsg("价格已绑定");
+                                    result.setMsg("绑定失败");
                                     set.add(result);
                                 }
                             }else{
@@ -825,7 +847,7 @@ public class PriceServiceImpl implements PriceService {
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-                    }
+                    }}
                 }
             }
         }

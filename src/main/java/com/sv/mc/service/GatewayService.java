@@ -45,4 +45,12 @@ public interface GatewayService<T> extends BaseService<T>{
 
 
     void restartGateway()throws Exception;
+
+    /**
+     * 根据网关sn查询网关信息
+     * @param sn
+     * @return
+     */
+    GatewayEntity selectGateBySn(String sn);
+
 }

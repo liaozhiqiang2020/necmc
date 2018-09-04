@@ -128,4 +128,14 @@ public class GatewayServiceImpl implements GatewayService {
         message = message+res;
         jmsProducer.sendMessage(message);
     }
+
+    /**
+     * 根据网关SN查询网关信息
+     * @param sn
+     * @return
+     */
+    @Override
+    public GatewayEntity selectGateBySn(String sn) {
+        return this.gatewayRepository.findGatewayBySn(sn);
+    }
 }

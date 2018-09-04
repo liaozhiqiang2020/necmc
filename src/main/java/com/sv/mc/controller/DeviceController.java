@@ -196,7 +196,7 @@ public class DeviceController {
        //this.deviceService.getExcelError(result,response);
 
        //response.sendRedirect("./turnToDeviceMgr");
-       return this.deviceService.setAllExcel(file);
+       return result;
    }
 
     /**
