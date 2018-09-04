@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static javax.xml.bind.JAXBIntrospector.getValue;
@@ -637,7 +638,12 @@ public class PriceServiceImpl implements PriceService {
                         continue;
                     }
                     Object pricename=getValue(row.getCell(1));
-                    Object sn = getValue(row.getCell(0));
+                    Object sn1 = getValue(row.getCell(0));
+
+                    DecimalFormat df = new DecimalFormat("0");
+
+                    String sn=  df.format(Double.parseDouble(sn1.toString()));
+
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
 
@@ -745,7 +751,11 @@ public class PriceServiceImpl implements PriceService {
                         continue;
                     }
                     Object pricename=getValue(row.getCell(1));
-                    Object sn = getValue(row.getCell(0));
+                    Object sn1 = getValue(row.getCell(0));
+                    DecimalFormat df = new DecimalFormat("0");
+
+                    String sn=  df.format(Double.parseDouble(sn1.toString()));
+
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
 
