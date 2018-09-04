@@ -568,7 +568,7 @@ public class DeviceServiceImpl implements DeviceService {
 
                                         Object supplierName = getValue(row.getCell(7));//供应商
 
-
+                                        if(cellNum==7){
                                         if (placeName!=null&&deviceType!=null&&type!=null&&sn!=null&&supplierName!=null){
                                                 // System.out.println("内容不为空");
                                                 if (this.placeRepository.getPlaceName(placeName.toString()) != null) {
@@ -578,8 +578,22 @@ public class DeviceServiceImpl implements DeviceService {
                                                                 if (this.supplierRepository.getSupplierBySName(supplierName.toString()) != null) {
                                                                         //失败供应商返回集合
                                                                         //     System.out.println("供应商存在");
-                                                                        if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
-                                                                                //        System.out.println("SN不重复");
+                                                                        if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())!=null) {
+                                                                                // System.out.println("SN不重复");
+                                                                                edr.setName(placeName.toString());
+                                                                                edr.setWeidu(weidu);
+                                                                                edr.setJingdu(jingdu);
+                                                                                edr.setDeviceType(deviceType.toString());
+                                                                                edr.setType(type.toString());
+                                                                                edr.setSn(sn.toString());
+                                                                                edr.setBeizhu(remark);
+                                                                                edr.setSupplier(supplierName.toString());
+                                                                                edr.setMsg("绑定失败");
+
+                                                                                result.add(edr);
+
+
+                                                                        }else{
                                                                                 if(!weidu.equals("")){
                                                                                         BigDecimal bweidu = new BigDecimal(weidu);
 
@@ -611,6 +625,8 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                 edr.setSupplier(supplierName.toString());
                                                                                 edr.setMsg("绑定成功");
                                                                                 result.add(edr);
+
+
                                                                         }
 
                                                                 }else {
@@ -652,7 +668,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                         result.add(edr);
                                                 }
 //
-                                        }
+                                        }}
 
                                 }
 
