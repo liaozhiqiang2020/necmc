@@ -9,6 +9,7 @@ public class ExcelSetDeviceResult {
   private  String beizhu;
   private  String supplier;
   private  String deviceType;
+  private  String gatSn;
   private  String msg;
 
     public String getMsg() {
@@ -81,5 +82,13 @@ public class ExcelSetDeviceResult {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    public String getGatSn() {
+        return gatSn;
+    }
+
+    public void setGatSn(String gatSn) {
+        this.gatSn = gatSn;
     }
 }
