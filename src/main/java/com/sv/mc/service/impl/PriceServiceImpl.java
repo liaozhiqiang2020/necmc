@@ -646,7 +646,7 @@ public class PriceServiceImpl implements PriceService {
 
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
-
+                   if(cellNum==3){
                     if (pricename!=null&& sn != null && price != null && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
@@ -723,7 +723,7 @@ public class PriceServiceImpl implements PriceService {
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-                    }
+                    }}
                 }
             }
 
@@ -758,7 +758,7 @@ public class PriceServiceImpl implements PriceService {
 
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
-
+                    if (cellNum==3){
                     if (pricename!=null&& sn != null && price != null && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
@@ -835,7 +835,7 @@ public class PriceServiceImpl implements PriceService {
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-                    }
+                    }}
                 }
             }
         }
