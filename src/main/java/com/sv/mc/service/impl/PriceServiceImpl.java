@@ -687,8 +687,14 @@ public class PriceServiceImpl implements PriceService {
                                             }
                                         }
                                         priceEntities.add(priceEntity);
-                                        System.out.println(deviceEntity);
+                                        //System.out.println(deviceEntity);
                                         this.deviceRepository.save(deviceEntity);
+                                        result.setId(sn.toString());
+                                        result.setPrice(bigDecimal);
+                                        result.setTime(userTime1);
+                                        result.setPriceName(pricename.toString());
+                                        result.setMsg("绑定成功");
+                                        set.add(result);
 
                                     }else{
                                         result.setId(sn.toString());
@@ -703,7 +709,7 @@ public class PriceServiceImpl implements PriceService {
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
                                     result.setPriceName(pricename.toString());
-                                    result.setMsg("价格已绑定");
+                                    result.setMsg("绑定失败");
                                     set.add(result);
                                 }
                             }else{
@@ -801,6 +807,12 @@ public class PriceServiceImpl implements PriceService {
                                         priceEntities.add(priceEntity);
                                         System.out.println(deviceEntity);
                                         this.deviceRepository.save(deviceEntity);
+                                        result.setId(sn.toString());
+                                        result.setPrice(bigDecimal);
+                                        result.setTime(userTime1);
+                                        result.setPriceName(pricename.toString());
+                                        result.setMsg("绑定成功");
+                                        set.add(result);
 
                                     }else{
                                         result.setId(sn.toString());
@@ -815,7 +827,7 @@ public class PriceServiceImpl implements PriceService {
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
                                     result.setPriceName(pricename.toString());
-                                    result.setMsg("价格已绑定");
+                                    result.setMsg("绑定失败");
                                     set.add(result);
                                 }
                             }else{
