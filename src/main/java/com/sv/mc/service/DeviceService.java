@@ -114,7 +114,7 @@ public interface DeviceService<T> extends BaseService<T>{
     /**
      * 导入设备Excel
      */
-    Set<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException;
+    List<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException;
 
 
     /**

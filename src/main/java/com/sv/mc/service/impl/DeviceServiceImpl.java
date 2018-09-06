@@ -37,10 +37,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static javax.xml.bind.JAXBIntrospector.getValue;
 
@@ -327,10 +324,10 @@ public class DeviceServiceImpl implements DeviceService {
          * @return
          */
         @Override
-        public Set<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException {
+        public List<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException {
                 boolean flag = false;
                 String name = file.getOriginalFilename();
-                Set<ExcelSetDeviceResult> result = new HashSet<>();
+                List<ExcelSetDeviceResult> result = new ArrayList<>();
 
                 String excelName = name.substring(name.indexOf("."));
 
@@ -387,10 +384,14 @@ public class DeviceServiceImpl implements DeviceService {
 
 
                                         Object sn1 = getValue(row.getCell(5));//设备编号
+                                        String sn=null;
                                         DecimalFormat df = new DecimalFormat("0");
-
-                                        String sn=  df.format(Double.parseDouble(sn1.toString()));
-
+                                        if (sn1!=null){
+                                                //System.out.println(sn1);
+                                          if (sn1.toString().trim().length()!=0){
+                                        sn=  df.format(Double.parseDouble(sn1.toString()));
+                                          }
+                                        }
 
                                         String remark = "";     //备注
                                         if (getValue(row.getCell(6)) != null) {
@@ -400,8 +401,10 @@ public class DeviceServiceImpl implements DeviceService {
                                         Object supplierName = getValue(row.getCell(7));//供应商
 
                                         Object gatsn=getValue(row.getCell(8));//网关
-                                        String wg =df.format(Double.parseDouble(gatsn.toString()));
-
+                                        String wg=null;
+                                        if (gatsn.toString().trim().length()!=0) {
+                                                wg = df.format(Double.parseDouble(gatsn.toString()));
+                                        }
 
                                        if(cellNum==8){
                                                System.out.println(cellNum);
@@ -417,15 +420,18 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
                                                                                       // System.out.println("SN不重复");
                                                                               if (this.gatewayRepository.findGatewayBySn(wg)!=null){//网关存在
-                                                                                      if(!weidu.equals("")){
-                                                                                              BigDecimal bweidu = new BigDecimal(weidu);
+                                                                                      if (weidu!=null){
 
-                                                                                              deviceEntity.setLatitude(bweidu);
-                                                                                      }
-                                                                                      if (!jingdu.equals("")){
-                                                                                              BigDecimal bjingdu = new BigDecimal(jingdu);
-                                                                                              deviceEntity.setLongitude(bjingdu);
-                                                                                      }
+                                                                                              if(!weidu.equals("")&&Integer.parseInt( df.format(Double.parseDouble(weidu)))<=999){
+                                                                                                      BigDecimal bweidu = new BigDecimal(weidu);
+
+                                                                                                      deviceEntity.setLatitude(bweidu);
+                                                                                              }}
+                                                                                      if (jingdu!=null){
+                                                                                              if (!jingdu.equals("")&&Integer.parseInt(df.format(Double.parseDouble(jingdu)))<=999){
+                                                                                                      BigDecimal bjingdu = new BigDecimal(jingdu);
+                                                                                                      deviceEntity.setLongitude(bjingdu);
+                                                                                              }}
                                                                                       deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
                                                                                       deviceEntity.setMaintainDateTime(null);
 
@@ -525,6 +531,12 @@ public class DeviceServiceImpl implements DeviceService {
 
                                                 }
 //
+                                        }else {
+
+                                                edr.setMsg("没有数据");
+
+                                                result.add(edr);
+
                                         }}
 
                                 }
@@ -577,9 +589,14 @@ public class DeviceServiceImpl implements DeviceService {
                                         Object type = getValue(row.getCell(4));//型号 大中小
                                         //设备状态刚导入的一律为空闲
                                         Object sn1 = getValue(row.getCell(5));//设备编号
+                                        String sn=null;
                                         DecimalFormat df = new DecimalFormat("0");
-
-                                        String sn=  df.format(Double.parseDouble(sn1.toString()));
+                                        if (sn1!=null){
+                                                //System.out.println(sn1);
+                                                if (sn1.toString().trim().length()!=0){
+                                                        sn=  df.format(Double.parseDouble(sn1.toString()));
+                                                }
+                                        }
 
 
                                         String remark = "";     //备注
@@ -590,7 +607,10 @@ public class DeviceServiceImpl implements DeviceService {
                                         Object supplierName = getValue(row.getCell(7));//供应商
 
                                         Object gatsn=getValue(row.getCell(8));//网关
-                                        String wg =df.format(Double.parseDouble(gatsn.toString()));
+                                        String wg=null;
+                                        if (gatsn.toString().trim().length()!=0) {
+                                                wg = df.format(Double.parseDouble(gatsn.toString()));
+                                        }
                                         if(cellNum==8){
                                                 System.out.println(cellNum);
                                                 if (placeName!=null&&deviceType!=null&&type!=null&&sn!=null&&supplierName!=null){
@@ -605,15 +625,18 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                 if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
                                                                                         // System.out.println("SN不重复");
                                                                                         if (this.gatewayRepository.findGatewayBySn(wg)!=null){//网关存在
-                                                                                                if(!weidu.equals("")){
-                                                                                                        BigDecimal bweidu = new BigDecimal(weidu);
+                                                                                                if (weidu!=null){
 
-                                                                                                        deviceEntity.setLatitude(bweidu);
-                                                                                                }
-                                                                                                if (!jingdu.equals("")){
-                                                                                                        BigDecimal bjingdu = new BigDecimal(jingdu);
-                                                                                                        deviceEntity.setLongitude(bjingdu);
-                                                                                                }
+                                                                                                        if(!weidu.equals("")&&Integer.parseInt( df.format(Double.parseDouble(weidu)))<=999){
+                                                                                                                BigDecimal bweidu = new BigDecimal(weidu);
+
+                                                                                                                deviceEntity.setLatitude(bweidu);
+                                                                                                        }}
+                                                                                                if (jingdu!=null){
+                                                                                                        if (!jingdu.equals("")&&Integer.parseInt(df.format(Double.parseDouble(jingdu)))<=999){
+                                                                                                                BigDecimal bjingdu = new BigDecimal(jingdu);
+                                                                                                                deviceEntity.setLongitude(bjingdu);
+                                                                                                        }}
                                                                                                 deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
                                                                                                 deviceEntity.setMaintainDateTime(null);
 
@@ -713,6 +736,12 @@ public class DeviceServiceImpl implements DeviceService {
 
                                                         }
 //
+                                                }else {
+
+                                                        edr.setMsg("没有数据");
+
+                                                        result.add(edr);
+
                                                 }}
                                 }
 
