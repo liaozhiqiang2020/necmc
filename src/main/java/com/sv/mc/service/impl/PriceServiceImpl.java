@@ -607,10 +607,10 @@ public class PriceServiceImpl implements PriceService {
      * @throws IOException
      */
     @Override
-    public Set getExcel(MultipartFile file) throws IOException {
+    public List getExcel(MultipartFile file) throws IOException {
 
         String name = file.getOriginalFilename();
-        Set<ExcelSetPriceResult> set = new HashSet<>();
+        List<ExcelSetPriceResult> set = new ArrayList<>();
         String excelName = name.substring(name.indexOf("."));
         //System.out.println(excelName);获取文件名
         if (excelName.toLowerCase().equals(".xls")) {//判断文件版本
@@ -641,13 +641,14 @@ public class PriceServiceImpl implements PriceService {
                     Object sn1 = getValue(row.getCell(0));
 
                     DecimalFormat df = new DecimalFormat("0");
-
-                    String sn=  df.format(Double.parseDouble(sn1.toString()));
-
+                    String sn=null;
+                    if (sn1.toString().trim().length()!=0){
+                    sn=  df.format(Double.parseDouble(sn1.toString()));
+                    }
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
                    if(cellNum==3){
-                    if (pricename!=null&& sn != null && price != null && useTime != null) {
+                    if (pricename.toString().trim().length()!=0&& sn != null && price.toString().trim().length()!=0 && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
                         int userTime = userTime1 * 60;//时间
@@ -729,7 +730,10 @@ public class PriceServiceImpl implements PriceService {
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-                    }}
+                    }else{
+                        result.setMsg("没有数据");
+                        set.add(result);
+                    } }
                 }
             }
 
@@ -759,13 +763,15 @@ public class PriceServiceImpl implements PriceService {
                     Object pricename=getValue(row.getCell(1));
                     Object sn1 = getValue(row.getCell(0));
                     DecimalFormat df = new DecimalFormat("0");
-
-                    String sn=  df.format(Double.parseDouble(sn1.toString()));
+                    String sn=null;
+                    if (sn1.toString().trim().length()!=0){
+                        sn=  df.format(Double.parseDouble(sn1.toString()));
+                    }
 
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
                     if (cellNum==3){
-                    if (pricename!=null&& sn != null && price != null && useTime != null) {
+                        if (pricename.toString().trim().length()!=0&& sn != null && price.toString().trim().length()!=0 && useTime != null) {
                         Double ut = Double.parseDouble(useTime.toString());
                         int userTime1 = Double.valueOf(ut).intValue();
                         int userTime = userTime1 * 60;//时间
@@ -847,7 +853,11 @@ public class PriceServiceImpl implements PriceService {
                             result.setMsg("绑定失败");
                             set.add(result);
                         }
-                    }}
+                    }else {
+                        result.setMsg("没有数据");
+                        set.add(result);
+                    }
+                    }
                 }
             }
         }
