@@ -30,6 +30,7 @@ import java.util.*;
 
 /**
  * 微信小程序相关控制
+ *
  * @author: lzq
  * @date: 2018年7月3日
  */
@@ -54,6 +55,7 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
+     *
      * @param code
      * @return openid
      * @throws WeixinException
@@ -70,6 +72,7 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发起微信支付
+     *
      * @param openid
      * @param request
      * @author: lzq
@@ -77,12 +80,13 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/wxPay")
     @ResponseBody
-    public Json wxPay(String openid, HttpServletRequest request,String paidOrderId,String money) {
-       return this.weiXinPayService.wxPay(openid,request,paidOrderId,money);
+    public Json wxPay(String openid, HttpServletRequest request, String paidOrderId, String money) {
+        return this.weiXinPayService.wxPay(openid, request, paidOrderId, money);
     }
 
     /**
      * 微信支付
+     *
      * @throws Exception
      * @throws WeixinException
      * @author: lzq
@@ -91,12 +95,13 @@ public class WeixinController extends WeixinSupport {
     @RequestMapping(value = "/wxNotify")
     @ResponseBody
     public void wxNotify(HttpServletRequest request, HttpServletResponse response) throws Exception {
-       this.weiXinPayService.wxNotify(request,response);
+        this.weiXinPayService.wxNotify(request, response);
     }
 
 
     /**
      * 获取用户信息
+     *
      * @throws WeixinException
      * @throws IOException
      * @author: lzq
@@ -105,17 +110,17 @@ public class WeixinController extends WeixinSupport {
     @RequestMapping("/getUserInfo")
     @ResponseBody
     public String getUserInfo(String sessionkey, String encryptedData, String iv, String openid, String userInfos) {
-       return this.weiXinPayService.getUserInfo(sessionkey,encryptedData,iv,openid,userInfos);
+        return this.weiXinPayService.getUserInfo(sessionkey, encryptedData, iv, openid, userInfos);
     }
 
     /**
-     *保存用户信息
+     * 保存用户信息
      */
     @RequestMapping("/saveUserInfo")
     @ResponseBody
     public void saveUserInfo(String openId, String userInfo) {
 
-        this.wxUserInfoService.saveUserInfoAndPhoneAndOpenId(openId,userInfo);
+        this.wxUserInfoService.saveUserInfoAndPhoneAndOpenId(openId, userInfo);
     }
 
     /**
@@ -130,18 +135,23 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询设备状态
+     *
      * @return
      */
     @RequestMapping("/findChairStatus")
     @ResponseBody
-    public int findChairStatus(String chairId){
-        Object object = SingletonHungary.getSingleTon().get(chairId+"status");//从map中取值
+    public int findChairStatus(String chairId) {
         int mcStatus = 5;//没有收到返回的消息
-        if(object!=null){
-            String info = object.toString();
-            String chairId2 = info.split("_")[0];
-            if(chairId2.equals(chairId)) {
-                mcStatus = Integer.parseInt(info.split("_")[1]);
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            Object object = SingletonHungary.getSingleTon().get(deviceId + "status");//从map中取值
+            if (object != null) {
+                String info = object.toString();
+                String chairId2 = info.split("_")[0];
+                if (chairId2.equals(deviceId)) {
+                    mcStatus = Integer.parseInt(info.split("_")[1]);
+                }
             }
         }
         return mcStatus;
@@ -150,73 +160,82 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询设备是否开启成功
+     *
      * @return
      */
     @RequestMapping("/findChairRuning")
     @ResponseBody
-    public int findChairRuning(String chairId){
-        Object object = SingletonHungary.getSingleTon().get(chairId+"runing");//从map中取值
+    public int findChairRuning(String chairId) {
         int mcRuning = 4;//没有收到返回的消息
-        if(object!=null){
-            String info = object.toString();
-            String chairId2 = info.split("_")[0];
-            if(chairId2.equals(chairId)) {
-                mcRuning = Integer.parseInt(info.split("_")[1]);
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            Object object = SingletonHungary.getSingleTon().get(deviceId + "runing");//从map中取值
+            if (object != null) {
+                String info = object.toString();
+                String chairId2 = info.split("_")[0];
+                if (chairId2.equals(deviceId)) {
+                    mcRuning = Integer.parseInt(info.split("_")[1]);
+                }
             }
         }
         return mcRuning;
     }
 
 
-
 //---------------------------------------------------------已支付订单相关-----------------------------------------------------------
 
     /**
      * 查询订单
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/findPaidOrderList")
     @ResponseBody
     public String findPaidOrderList(String openCode, int state) {
-       return this.orderService.findPaidOrderList(openCode,state);
+        return this.orderService.findPaidOrderList(openCode, state);
     }
 
     /**
      * 分页查询订单
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/findPaidOrderListByPage")
     @ResponseBody
-    public String findPaidOrderListByPage(String openCode, int state,int pageNumber,int pageSize) {
-        return this.orderService.findPaidOrderListByPage(openCode,state,pageNumber,pageSize);
+    public String findPaidOrderListByPage(String openCode, int state, int pageNumber, int pageSize) {
+        return this.orderService.findPaidOrderListByPage(openCode, state, pageNumber, pageSize);
     }
 
     /**
      * 根据订单号查询订单
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/findPaidOrderById")
     @ResponseBody
     public String findPaidOrderById(int orderId) {
-       return this.orderService.findPaidOrderById(orderId);
+        return this.orderService.findPaidOrderById(orderId);
     }
 
     /**
      * 创建订单
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/createPaidOrder")
     @ResponseBody
-    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode,int state,int strength) {
-       return this.orderService.createPaidOrder(openid,mcTime,deviceCode,promoCode,money,unPaidOrderCode,state,strength);
+    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength) {
+        return this.orderService.createPaidOrder(openid, mcTime, deviceCode, promoCode, money, unPaidOrderCode, state, strength);
     }
 
     /**
      * 获取按摩剩余时间
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -228,62 +247,68 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 获取按摩椅code
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/getMcCode")
     @ResponseBody
-    public Map<String,Object> getMcCode(int orderId) {
+    public Map<String, Object> getMcCode(int orderId) {
         return this.orderService.getMcCodeForMap(orderId);
     }
 
     /**
      * 根据订单id更新订单状态
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/updatePaidOrderById")
     @ResponseBody
-    public void updatePaidOrderById(int orderId,int state,String description) {
-       this.orderService.updateOrderById(orderId,state,description);
+    public void updatePaidOrderById(int orderId, int state, String description) {
+        this.orderService.updateOrderById(orderId, state, description);
     }
 
     /**
      * 根据订单code更新订单状态
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/updatePaidOrderByCode")
     @ResponseBody
-    public void updatePaidOrderByCode(String code,int state) {
-        this.orderService.updateOrderByCode(code,state);
+    public void updatePaidOrderByCode(String code, int state) {
+        this.orderService.updateOrderByCode(code, state);
     }
 
     /**
      * 修改订单按摩开始时间，付款时间和结束时间
+     *
      * @param orderId
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/updateOrderDetail")
     @ResponseBody
-    public void updateOrderDetail(int orderId,int state,int mcTime) {
-        this.orderService.updateOrderDetail(orderId,state,mcTime);
+    public void updateOrderDetail(int orderId, int state, int mcTime) {
+        this.orderService.updateOrderDetail(orderId, state, mcTime);
     }
 
     /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
     @RequestMapping("/servingOrderState")
     @ResponseBody
-    public void servingOrderState(int orderId){
+    public void servingOrderState(int orderId) {
         this.orderService.servingOrderState(orderId);
     }
 
     /**
      * 根据设备编号查询价格列表
+     *
      * @param deviceCode
      * @return
      * @author: lzq
@@ -291,8 +316,8 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/queryPriceAndTime")
     @ResponseBody
-    public List<Map<String,Object>> queryPriceAndTime(String deviceCode){
-        List<Map<String,Object>> priceList = priceService.queryPriceAndTime(deviceCode);
+    public List<Map<String, Object>> queryPriceAndTime(String deviceCode) {
+        List<Map<String, Object>> priceList = priceService.queryPriceAndTime(deviceCode);
 
         return priceList;
     }
@@ -304,19 +329,26 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendFindChairStatus")
     @ResponseBody
-    public void sendFindChairStatus(String chairId) throws Exception{
+    public String sendFindChairStatus(String chairId) throws Exception {
+        String result = "设备异常！";
         WxUtil wxUtil = new WxUtil();
-        String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            String chairCode = wxUtil.convertStringToHex(deviceId);
+            String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
 
-        String message = "faaf0e08"+chairCode;
+            String message = "faaf0e08" + chairCode;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+            byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+            byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
+            String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+            message = message + res + "_" + gatewayId;
 
-        jmsProducer.sendMessage(message);
+            jmsProducer.sendMessage(message);
+            result = null;
+        }
+        return result;
     }
 
     /**
@@ -324,28 +356,27 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendStartChairMsg")
     @ResponseBody
-    public void sendStartChairMsg(String chairId,Integer mcTime) throws Exception{
+    public void sendStartChairMsg(String chairId, Integer mcTime) throws Exception {
         WxUtil wxUtil = new WxUtil();
-        String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
-        String time = mcTime.toHexString(mcTime);
-//        String time = wxUtil.convertStringToHex(String.valueOf(mcTime));
-//        String message = "faaf0f09"+chairCode+"3c0000";//按摩椅20000002，60min
-        if(time.length()<2){
-            time = "0"+time;
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            String chairCode = wxUtil.convertStringToHex(deviceId);
+            String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
+            String time = mcTime.toHexString(mcTime);
+            if (time.length() < 2) {
+                time = "0" + time;
+            }
+            String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
+
+            byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+            byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
+            String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+            message = message + res + "_" + gatewayId;
+
+            jmsProducer.sendMessage(message);
         }
-        String message = "faaf0f09"+chairCode+time;//按摩椅20000002，60min
-
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
-
-        System.out.println(message);
-
-        jmsProducer.sendMessage(message);
 //        deviceService.findChairRuningStatus(chairId,0);//如果设备开启成功，修改椅子状态为运行中
-
     }
 
     /**
@@ -353,18 +384,18 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendEndChairMsg")
     @ResponseBody
-    public void sendEndChairMsg(String chairId)throws Exception{
+    public void sendEndChairMsg(String chairId) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
 //        jmsProducer.sendMessage("faaf0e10"+chairCode+"0000");//按摩椅20000002
 
-        String message = "faaf0e10"+chairCode;//按摩椅20000002，60min
+        String message = "faaf0e10" + chairCode;//按摩椅20000002，60min
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
 
@@ -377,28 +408,28 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendStrengthChairMsg")
     @ResponseBody
-    public void sendStrengthChairMsg(String chairId,int strength) throws Exception{
+    public void sendStrengthChairMsg(String chairId, int strength) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
 
-        String message="";
+        String message = "";
 
-        if(strength==0){//弱
-            message = "faaf0e15"+chairCode;
-        }else if(strength==1){//中
-            message = "faaf0e16"+chairCode;
-        }else if(strength==2){//强
-            message = "faaf0e17"+chairCode;
+        if (strength == 0) {//弱
+            message = "faaf0e15" + chairCode;
+        } else if (strength == 1) {//中
+            message = "faaf0e16" + chairCode;
+        } else if (strength == 2) {//强
+            message = "faaf0e17" + chairCode;
         }
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
-        deviceService.findChairStrength(chairId,strength);
+        deviceService.findChairStrength(chairId, strength);
     }
 
     /**
@@ -406,48 +437,48 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendContinueChairMsg")
     @ResponseBody
-    public void sendContinueChairMsg(String chairId,int continueType)throws Exception{
+    public void sendContinueChairMsg(String chairId, int continueType) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
 
-        String message="";
-        if(continueType==1){//继续
-            message = "faaf0e19"+chairCode;
-        }else if(continueType==0){//暂停
-            message = "faaf0e18"+chairCode;
+        String message = "";
+        if (continueType == 1) {//继续
+            message = "faaf0e19" + chairCode;
+        } else if (continueType == 0) {//暂停
+            message = "faaf0e18" + chairCode;
         }
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
     }
 
     /**
      * 查询按摩椅状态
+     *
      * @param chairId
      * @throws Exception
      */
     @RequestMapping("/selectMcStatus")
     @ResponseBody
-    public void selectMcStatus(String chairId) throws Exception{
+    public void selectMcStatus(String chairId) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
 
-        String message="faaf0e08"+chairCode;
+        String message = "faaf0e08" + chairCode;
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
     }
-
 
 
     /**
@@ -455,21 +486,21 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendChargeMsg")
     @ResponseBody
-    public void sendChargeMsg(String chairId,Integer mcTime) throws Exception{
+    public void sendChargeMsg(String chairId, Integer mcTime) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
         String time = mcTime.toHexString(mcTime);
-        if(time.length()<2){
-            time = "0"+time;
+        if (time.length() < 2) {
+            time = "0" + time;
         }
 
-        String message ="faaf0f13"+chairCode+time;
+        String message = "faaf0f13" + chairCode + time;
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
     }
@@ -479,17 +510,17 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendUnChargeMsg")
     @ResponseBody
-    public void sendUnChargeMsg(String chairId) throws Exception{
+    public void sendUnChargeMsg(String chairId) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
 
-        String message = "faaf0e14"+chairCode;
+        String message = "faaf0e14" + chairCode;
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
     }
@@ -499,22 +530,22 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendUpdateChannel")
     @ResponseBody
-    public void sendUpdateChannel(String chairId,Integer channel) throws Exception{
+    public void sendUpdateChannel(String chairId, Integer channel) throws Exception {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(chairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
 
         String time = channel.toString();
-        if(time.length()<2){
-            time = "0"+time;
+        if (time.length() < 2) {
+            time = "0" + time;
         }
 
-        String message = "faaf0f11"+chairCode+time;
+        String message = "faaf0f11" + chairCode + time;
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
     }
@@ -525,10 +556,10 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendUpdateCode")
     @ResponseBody
-    public void sendUpdateCode(String chairId,String newChairId) throws Exception{
+    public void sendUpdateCode(String chairId, String newChairId) throws Exception {
         DeviceEntity deviceEntity = new DeviceEntity();
         deviceEntity.setLoraId(newChairId);
-        String gatewayId =this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
+        String gatewayId = this.deviceService.selectDeviceBYSN(chairId).getGatewayEntity().getGatewaySn();//网关sn
         this.deviceService.save(deviceEntity);
 
         WxUtil wxUtil = new WxUtil();
@@ -536,12 +567,12 @@ public class WeixinController extends WeixinSupport {
 
         String newChairCode = wxUtil.convertStringToHex(newChairId);
 
-        String message = "faaf1612"+chairCode+newChairCode;
+        String message = "faaf1612" + chairCode + newChairCode;
 
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
+        byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewayId;
+        message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
     }
