@@ -141,8 +141,8 @@ public class BranchServiceImpl implements BranchService {
 
                 JSONArray jsonArray = JSONArray.fromObject(branchEntityList);
                 String headQuartersName;
-                String userName="";
                 for (int i = 0; i < jsonArray.size(); i++) {
+                        String userName="";
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int headQuartersId = Integer.parseInt(jsonObject.get("headQuartersId").toString());
                         String userStr = jsonObject.get("userId").toString();

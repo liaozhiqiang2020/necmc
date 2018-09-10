@@ -116,8 +116,8 @@ public class VendorServiceImpl implements VendorService {
 
                 String superiorName="";
                 String levelFlagName="";
-                String userName = "";
                 for (int i = 0; i <jsonArray.size() ; i++) {
+                        String userName = "";
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
                         int superiorId =Integer.parseInt(jsonObject.get("superiorId").toString());
                         int levelFlag =Integer.parseInt(jsonObject.get("levelFlag").toString());
