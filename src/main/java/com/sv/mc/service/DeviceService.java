@@ -62,7 +62,7 @@ public interface DeviceService<T> extends BaseService<T>{
     /**
      * 不分页查询设备数据
      */
-    List<DeviceEntity> findAllDevice(HttpSession session);
+    String findAllDevice(HttpSession session);
 
 
     /**
@@ -133,5 +133,10 @@ public interface DeviceService<T> extends BaseService<T>{
      * 导出ExcEL 失败数据
      */
     void getExcelError(Set excelError1,HttpServletResponse response);
+
+    /**
+     * 修改按摩椅状态为未查询
+     */
+    void updateMcStatusToZero();
 
 }

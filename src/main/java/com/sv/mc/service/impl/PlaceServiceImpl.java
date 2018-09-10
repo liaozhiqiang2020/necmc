@@ -486,7 +486,7 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         @Override
-        public List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId,HttpSession session) {
+        public String findDeviceByPlaceId(int placeId,String deviceId,HttpSession session) {
                 UserEntity userEntity = (UserEntity) session.getAttribute("user");
                 int superId = userEntity.getGradeId();
                 int pId = userEntity.getpId();//隶属单位id
@@ -512,7 +512,26 @@ public class PlaceServiceImpl implements PlaceService {
                                 deviceEntityList =  this.deviceRepository.findDevicesById4(device,pId);
                         }
                 }
-                 return deviceEntityList;
+
+
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+                config.setExcludes(new String[] { "priceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+
+                JSONArray jsonArray = JSONArray.fromObject(deviceEntityList,config);
+                JSONArray jsonArray1 = new JSONArray();
+                for (int i = 0; i <jsonArray.size() ; i++) {
+                        String placeName="";
+                        JSONObject jsonObject =jsonArray.getJSONObject(i);
+                        int placeesId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+                        placeName=this.placeRepository.findPlaceById(placeesId).getName();
+
+                        jsonObject.put("placeName",placeName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                 return jsonArray1.toString();
         }
 
 
@@ -621,7 +640,7 @@ public class PlaceServiceImpl implements PlaceService {
                         DeviceEntity deviceEntity = deviceEntities.get(y);
                         model = deviceEntity.getDeviceModelEntity().getName();
                         type = deviceEntity.getDeviceModelEntity().getModel();
-                        placeName = deviceEntity.getPlaceEntity().getName();
+                        placeName = this.placeRepository.findPlaceById(deviceEntity.getPlaceId()).getName();
                         jsonObject2.put("model",model);
                         jsonObject2.put("type",type);
                         jsonObject2.put("placeName",placeName);
@@ -842,4 +861,12 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
 
+        /**
+         * 查询所有未删除场地
+         * @return
+         */
+        @Override
+        public List<PlaceEntity> allPlaceUnDelete() {
+                return this.placeRepository.findAllPlace();
+        }
 }

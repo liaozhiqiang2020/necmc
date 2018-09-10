@@ -109,17 +109,17 @@ public class PlaceEntity {
 //        this.cityEntity = cityEntity;
 //    }
 
-    private List<DeviceEntity> deviceEntities = new ArrayList<>();//设备信息
-
-    @JsonIgnore
-    @OneToMany( mappedBy = "placeEntity")  //指定一对多关系
-    public List<DeviceEntity> getDeviceEntities() {
-        return deviceEntities;
-    }
-
-    public void setDeviceEntities(List<DeviceEntity> deviceEntities) {
-        this.deviceEntities = deviceEntities;
-    }
+//    private List<DeviceEntity> deviceEntities = new ArrayList<>();//设备信息
+//
+//    @JsonIgnore
+//    @OneToMany( mappedBy = "placeEntity")  //指定一对多关系
+//    public List<DeviceEntity> getDeviceEntities() {
+//        return deviceEntities;
+//    }
+//
+//    public void setDeviceEntities(List<DeviceEntity> deviceEntities) {
+//        this.deviceEntities = deviceEntities;
+//    }
 
     @Id
     @GeneratedValue

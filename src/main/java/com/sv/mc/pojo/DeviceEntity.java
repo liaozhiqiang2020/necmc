@@ -27,7 +27,8 @@ public class DeviceEntity {
     private int strength;//按摩强度(0弱，1中，2强)
     private Integer discardStatus;
     private DeviceModelEntity deviceModelEntity; //按摩椅类型
-    private PlaceEntity placeEntity;            //场地
+//    private PlaceEntity placeEntity;            //场地
+    private int placeId;//场地
     private SupplierEntity supplierEntity;  //供应商
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
     private GatewayEntity gatewayEntity;//网关
@@ -88,14 +89,24 @@ public class DeviceEntity {
         this.supplierEntity = supplierEntity;
     }
 
-    @ManyToOne
-    @JoinColumn(name="place_id")
-    public PlaceEntity getPlaceEntity() {
-        return placeEntity;
+//    @ManyToOne
+//    @JoinColumn(name="place_id")
+//    public PlaceEntity getPlaceEntity() {
+//        return placeEntity;
+//    }
+//
+//    public void setPlaceEntity(PlaceEntity placeEntity) {
+//        this.placeEntity = placeEntity;
+//    }
+
+    @Basic
+    @Column(name="place_id")
+    public int getPlaceId() {
+        return placeId;
     }
 
-    public void setPlaceEntity(PlaceEntity placeEntity) {
-        this.placeEntity = placeEntity;
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     @ManyToOne

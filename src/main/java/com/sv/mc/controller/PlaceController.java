@@ -36,6 +36,18 @@ public class PlaceController {
     List<PlaceEntity> getAll() {
         return this.placeService.findAllEntities();
     }
+
+
+    /**
+     * 全部查询
+     * @return 返回所有未删除场地内容
+     */
+    @GetMapping(value = "/placeMgr/allPlaceUnDelete")
+    public @ResponseBody
+    List<PlaceEntity> allPlaceUnDelete() {
+        return this.placeService.allPlaceUnDelete();
+    }
+
     /**
      * 根据场地id查询单个场地内容
      * @param id
@@ -213,8 +225,15 @@ public class PlaceController {
     }
 
 
+    /**
+     * 设备控制列表查询
+     * @param placeId
+     * @param deviceId
+     * @param session
+     * @return
+     */
     @GetMapping("/place/findDeviceByPlace")
-    public List<DeviceEntity> findDeviceByPlace1(@RequestParam("placeId") int placeId,@RequestParam("deviceId") String deviceId,HttpSession session){
+    public String findDeviceByPlace1(@RequestParam("placeId") int placeId,@RequestParam("deviceId") String deviceId,HttpSession session){
         return this.placeService.findDeviceByPlaceId(placeId,deviceId,session);
     }
 

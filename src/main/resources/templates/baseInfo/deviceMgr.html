@@ -57,9 +57,9 @@
                     <div class="k-edit-label"><label for="loraId"><span style="color:red;">* </span>模块编号</label></div>
                     <div data-container-for="loraId" class="k-edit-field"><input type="text" class="k-input k-textbox" name="loraId" required="required" data-required-msg="模块编号为必填项！" data-bind="value:loraId"></div>
 
-                    <div class="k-edit-label"><label for="placeEntity"><span style="color:red;">* </span>所属场地</label></div>
-                    <div data-container-for="placeEntity" class="k-edit-field">
-                        <input  id="placeEntity" data-role="combobox"   data-bind="value:placeEntity" required="required" data-required-msg="所属场地为必填项！">
+                    <div class="k-edit-label"><label for="placeId"><span style="color:red;">* </span>所属场地</label></div>
+                    <div data-container-for="placeId" class="k-edit-field">
+                        <input  id="placeId" data-role="combobox"   data-bind="value:placeId" required="required" data-required-msg="所属场地为必填项！">
                     </div>
 
                     <div class="k-edit-label"><label for="deviceModelEntity"><span style="color:red;">* </span>所属型号</label></div>
@@ -154,12 +154,8 @@
                                         }
                                     },
                                     note: {type: "string"},
-                                    placeEntity:{defaultValue: { id: 1, name: ""},
-                                        validation: {
-                                            required: true,
-                                            required: {message: "所属场地为必填项！"}
-                                        }
-                                    },
+                                    placeId:{type: "number"},
+                                    placeName:{type:"string"},
                                     deviceModelEntity:{defaultValue: { id: 1, name: ""},
                                         validation: {
                                             required: true,
@@ -181,9 +177,9 @@
                                 }
                             },
                             data: function (response) {
-                                // var list = JSON.parse(response);
-                                // return list;
-                                return response;
+                                var list = JSON.parse(response);
+                                return list;
+                                // return response;
                             }
                         }
                     });
@@ -251,10 +247,8 @@
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
-                                field: "placeEntity",
+                                field: "placeName",
                                 title: "所属场地",
-                                template:"#=placeEntity.name#",
-                                editor:placeEditor,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             },
                             {
@@ -302,12 +296,13 @@
                             }
                         },edit:function(e){
 
-                            $("#placeEntity").kendoComboBox({
+                            $("#placeId").kendoComboBox({
                                 autoBind: false,
                                 placeholder: "请选择...",
                                 dataTextField: "name",
                                 dataValueField: "id",
-                                value: e.model.id,
+                                value: e.model.placeId,
+                                text: e.model.placeName,
                                 filter: "contains",
                                 suggest: true,
                                 dataSource: {

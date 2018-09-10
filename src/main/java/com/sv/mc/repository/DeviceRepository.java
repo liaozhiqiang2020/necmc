@@ -14,6 +14,9 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query("from DeviceEntity as d   where d.id = :id")
     DeviceEntity findDeviceById(@Param("id") int id);
 
+    @Query(value = "select * from mc_device where mc_status<>0",nativeQuery = true)
+    List<DeviceEntity> findDeviceEntities();
+
     /**
      * 根据设备id查询
      * @param id

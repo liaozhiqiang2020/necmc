@@ -9,8 +9,10 @@ import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.SupplierService;
 import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.DataSourceResult;
+import com.sv.mc.util.DateJsonValueProcessor;
 import com.sv.mc.util.ExcelUtil;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -151,7 +153,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         @Override
         @Transactional
-        public List<DeviceEntity> findAllDevice(HttpSession session) {
+        public String findAllDevice(HttpSession session) {
                 UserEntity userEntity = (UserEntity) session.getAttribute("user");
                 int superId = userEntity.getGradeId();//1.2.3.4
                 int flag = userEntity.getpId();//上级id
@@ -167,7 +169,24 @@ public class DeviceServiceImpl implements DeviceService {
                      deviceEntityList= this.deviceRepository.findAllDevice5(flag);
                 }
 
-                return deviceEntityList;
+                JsonConfig config = new JsonConfig();
+                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+                config.setExcludes(new String[]{"priceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+
+                JSONArray jsonArray = JSONArray.fromObject(deviceEntityList, config);
+                JSONArray jsonArray1 = new JSONArray();
+                for (int i = 0; i < jsonArray.size(); i++) {
+                        String placeName = "";
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+                        placeName = this.placeRepository.findPlaceById(placeId).getName();
+
+                        jsonObject.put("placeName", placeName);
+                        jsonArray1.add(jsonObject);
+                }
+
+                return jsonArray1.toString();
         }
 
 
@@ -270,7 +289,8 @@ public class DeviceServiceImpl implements DeviceService {
                         String obj = deviceEntity.getMcSn();
 //                        System.out.println(obj);
                         String obj1 = deviceEntity.getLoraId();
-                        String obj2 =deviceEntity.getPlaceEntity().getName();
+//                        String obj2 =deviceEntity.getPlaceEntity().getName();
+                        String obj2 = this.placeRepository.findPlaceById(deviceEntity.getPlaceId()).getName();
                         String obj3 = deviceEntity.getDeviceModelEntity().getName();
                         String obj4 = deviceEntity.getSupplierEntity().getSupplierName();
                         String obj5 = deviceEntity.getNote();
@@ -432,7 +452,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                                       BigDecimal bjingdu = new BigDecimal(jingdu);
                                                                                                       deviceEntity.setLongitude(bjingdu);
                                                                                               }}
-                                                                                      deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
+                                                                                      deviceEntity.setPlaceId(this.placeRepository.getPlaceName(placeName.toString()).getId());
                                                                                       deviceEntity.setMaintainDateTime(null);
 
                                                                                       deviceEntity.setMcStatus(1);
@@ -637,7 +657,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                                                 BigDecimal bjingdu = new BigDecimal(jingdu);
                                                                                                                 deviceEntity.setLongitude(bjingdu);
                                                                                                         }}
-                                                                                                deviceEntity.setPlaceEntity(this.placeRepository.getPlaceName(placeName.toString()));
+                                                                                                deviceEntity.setPlaceId(this.placeRepository.getPlaceName(placeName.toString()).getId());
                                                                                                 deviceEntity.setMaintainDateTime(null);
 
                                                                                                 deviceEntity.setMcStatus(1);
@@ -859,27 +879,17 @@ public class DeviceServiceImpl implements DeviceService {
                         }
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
-
+        @Override
+        public void updateMcStatusToZero() {
+               List<DeviceEntity> deviceList = this.deviceRepository.findDeviceEntities();//所有按摩椅状态改为待查询
+                for (int i = 0; i <deviceList.size() ; i++) {
+                        DeviceEntity deviceEntity = deviceList.get(i);
+                        deviceEntity.setMcStatus(0);
+                        this.deviceRepository.save(deviceEntity);
+                }
+        }
 }
 
 

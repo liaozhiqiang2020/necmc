@@ -104,6 +104,7 @@ public class DeviceController {
      */
     @GetMapping(value="/deviceMgr/turnToDeviceCtrl")
     public ModelAndView turnToDeviceCtrl(){
+        this.deviceService.updateMcStatusToZero();
         return new ModelAndView("./deviceManager/deviceCtrlMgr");
     }
 
@@ -137,7 +138,7 @@ public class DeviceController {
      */
     @GetMapping(value = "/deviceMgr/getAllDevice")
     public @ResponseBody
-    List<DeviceEntity> getAllDevice(HttpSession session) {
+    String getAllDevice(HttpSession session) {
         return this.deviceService.findAllDevice(session);
     }
 

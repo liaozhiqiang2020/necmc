@@ -82,7 +82,7 @@ public class BranchServiceImpl implements BranchService {
         public BranchEntity insertBranch(BranchEntity branch) {
                 branch.setDiscardStatus(1);
 //                int headId = branch.getHeadQuartersEntity().getId();
-                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(branch.getHeadQuartersId());
+//                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(branch.getHeadQuartersId());
 //                branch.setHeadQuartersEntity(headQuartersEntity);
                 return  this.branchRepository.save(branch);
         }
@@ -96,7 +96,7 @@ public class BranchServiceImpl implements BranchService {
         @Transactional
         public BranchEntity updateBranchDataById(BranchEntity branch) {
 //                int headId = branch.getHeadQuartersEntity().getId();
-                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(branch.getHeadQuartersId());
+//                HeadQuartersEntity headQuartersEntity = this.headQuartersRepository.findHeadQuartersById(branch.getHeadQuartersId());
 //                branch.setHeadQuartersEntity(headQuartersEntity);
                 return  this.branchRepository.save(branch);
 
@@ -141,13 +141,17 @@ public class BranchServiceImpl implements BranchService {
 
                 JSONArray jsonArray = JSONArray.fromObject(branchEntityList);
                 String headQuartersName;
-                String userName;
+                String userName="";
                 for (int i = 0; i < jsonArray.size(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int headQuartersId = Integer.parseInt(jsonObject.get("headQuartersId").toString());
-                        int userId = Integer.parseInt(jsonObject.get("userId").toString());
+                        String userStr = jsonObject.get("userId").toString();
+                        if(userStr!="" && !userStr.equals("0")){
+                                int userId = Integer.parseInt(userStr);
+                                userName = this.userRepository.findUserById(userId).getName();
+                        }
                         headQuartersName = this.headQuartersRepository.findHeadQuartersById(headQuartersId).getName();//查出总部名称
-                        userName = this.userRepository.findUserById(userId).getName();
+
                         jsonObject.put("headQuartersName", headQuartersName);
                         jsonObject.put("userName", userName);
                         jsonArray1.add(jsonObject);

@@ -18,26 +18,26 @@
     </section>
 
     <div class="container-fluid">
-        <div id="window">
-            <table>
-                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
-                <div style="padding-top: 5px">
-                    域名:<input type="text" id="domainName" class="k-input k-textbox" placeholder="请输入域名">
-                    端口:<input type="text" id="port" class="k-input k-textbox" placeholder="请输入端口">
-                    <button id="btnUpdatePort" type="button" class="k-button  k-primary">修改端口</button>
-                </div>
-                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
-                <div style="padding-top: 5px">
-                    频道:<input type="text" id="channel" class="k-input k-textbox" placeholder="请输入频道">
-                    <button id="btnUpdateChannel" type="button" class="k-button  k-primary">修改频道</button>
-                    </button>
-                </div>
-                <div style="border-bottom:1px solid #000;padding-top: 5px"></div>
-                <div style="padding-top: 5px">
-                    <button id="btnRestart" type="button" class="k-button  k-primary">重启网关</button>
-                </div>
-            </table>
-        </div>
+        <!--<div id="window">-->
+            <!--<table>-->
+                <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
+                <!--<div style="padding-top: 5px">-->
+                    <!--域名:<input type="text" id="domainName" class="k-input k-textbox" placeholder="请输入域名">-->
+                    <!--端口:<input type="text" id="port" class="k-input k-textbox" placeholder="请输入端口">-->
+                    <!--<button id="btnUpdatePort" type="button" class="k-button  k-primary">修改端口</button>-->
+                <!--</div>-->
+                <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
+                <!--<div style="padding-top: 5px">-->
+                    <!--频道:<input type="text" id="channel" class="k-input k-textbox" placeholder="请输入频道">-->
+                    <!--<button id="btnUpdateChannel" type="button" class="k-button  k-primary">修改频道</button>-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
+                <!--<div style="padding-top: 5px">-->
+                    <!--<button id="btnRestart" type="button" class="k-button  k-primary">重启网关</button>-->
+                <!--</div>-->
+            <!--</table>-->
+        <!--</div>-->
 
         <div id="grid"></div>
         <script id="popup_editor" type="text/x-kendo-template">
@@ -65,7 +65,7 @@
         <script>
             /*<![CDATA[*/
             $(function () {
-                $("#window").hide();
+                // $("#window").hide();
 
                 loadUserList();
             });
@@ -180,16 +180,44 @@
                                         var tr = $(e.target).closest("tr"); // 得到当前表格的行 (tr)
                                         var data = this.dataItem(tr);
 
-                                        $("#window").show();
+                                        // $("#window").show();
+                                        var str = " <div id='window'>" +
+                                            "            <table>" +
+                                            "                <div style='border-bottom:1px solid #000;padding-top: 5px'></div>" +
+                                            "                <div style='padding-top: 5px'>" +
+                                            "                    域名:<input type='text' id='domainName' class='k-input k-textbox' placeholder='请输入域名'>" +
+                                            "                    端口:<input type='text' id='port' class='k-input k-textbox' placeholder='请输入端口'>" +
+                                            "                    <button id='btnUpdatePort' type='button' class='k-button  k-primary'>修改端口</button>" +
+                                            "                </div>" +
+                                            "                <div style='border-bottom:1px solid #000;padding-top: 5px'></div>" +
+                                            "                <div style='padding-top: 5px'>" +
+                                            "                    频道:<input type='text' id='channel' class='k-input k-textbox' placeholder='请输入频道'>" +
+                                            "                    <button id='btnUpdateChannel' type='button' class='k-button  k-primary'>修改频道</button>" +
+                                            "                    </button>" +
+                                            "                </div>" +
+                                            "                <div style='border-bottom:1px solid #000;padding-top: 5px'></div>" +
+                                            "                <div style='padding-top: 5px'>" +
+                                            "                    <button id='btnRestart' type='button' class='k-button  k-primary'>重启网关</button>" +
+                                            "                </div>" +
+                                            "            </table>" +
+                                            "        </div>";
+
+                                        var detailWindow = $(str);
+                                        $("body").append(detailWindow);
 
                                         var myWindow = $("#window");
                                         myWindow.kendoWindow({
                                             width: "450px",
                                             height: "300px",
-                                            title: "修改网关信息"
+                                            title: "修改网关信息",
+                                            close: function () {
+                                                myWindow.data("kendoWindow").destroy();
+                                            }
                                         });
 
                                         myWindow.data("kendoWindow").center().open();
+
+                                        var g = $("#grid").data("kendoGrid");
 
                                         $("#btnUpdatePort").kendoButton({
                                             click: function () {
@@ -215,7 +243,8 @@
                                                     success: function (res) {
                                                         alert("修改域名端口成功，请重启网关！");
                                                         myWindow.data("kendoWindow").close();
-                                                        location.reload();
+                                                        // //location.reload();
+                                                        g.dataSource.read();
                                                     }
                                                 })
                                             }
@@ -239,7 +268,8 @@
                                                     success: function (res) {
                                                         alert("修改频道成功，请重启网关！");
                                                         myWindow.data("kendoWindow").close();
-                                                        location.reload();
+                                                        //location.reload();
+                                                        g.dataSource.read();
                                                     }
                                                 })
                                             }
@@ -255,7 +285,8 @@
                                                     success: function (res) {
                                                         alert("重启网关成功！");
                                                         myWindow.data("kendoWindow").close();
-                                                        location.reload();
+                                                        //location.reload();
+                                                        g.dataSource.read();
                                                     }
                                                 })
                                             }

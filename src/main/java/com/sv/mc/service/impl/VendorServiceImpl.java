@@ -121,7 +121,11 @@ public class VendorServiceImpl implements VendorService {
                         JSONObject jsonObject =jsonArray.getJSONObject(i);
                         int superiorId =Integer.parseInt(jsonObject.get("superiorId").toString());
                         int levelFlag =Integer.parseInt(jsonObject.get("levelFlag").toString());
-                        int userId = Integer.parseInt(jsonObject.get("userId").toString());
+                        String userStr = jsonObject.get("userId").toString();
+                        if(userStr!="" && !userStr.equals("0")){
+                                int userId = Integer.parseInt(userStr);
+                                userName = this.userRepository.findUserById(userId).getName();
+                        }
                         if(levelFlag==1){
                                 levelFlagName = "总部";
                                 superiorName = this.vendorRepository.findHeadNameById(superiorId).getName();
@@ -129,7 +133,6 @@ public class VendorServiceImpl implements VendorService {
                                 levelFlagName = "分公司";
                                 superiorName = this.vendorRepository.findBranchNameById(superiorId).getName();
                         }
-                        userName = this.userRepository.findUserById(userId).getName();
                         jsonObject.put("superiorId",superiorId+"_"+superiorName);
                         jsonObject.put("superiorName",superiorName);
                         jsonObject.put("levelFlagName",levelFlagName);
@@ -192,9 +195,26 @@ public class VendorServiceImpl implements VendorService {
 //                Object principal = map.get("principal");
                 Object telephone = map.get("telephone");
                 Object vendorAddress = map.get("vendorAddress");
-                int userId = Integer.parseInt(map.get("userId").toString());
-                int superiorId = Integer.parseInt(map.get("superiorId").toString().split("_")[0]);//上级公司id
-                String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
+                String userStr = map.get("userId").toString();
+                if(userStr!=""){
+                        int userId = Integer.parseInt(userStr);
+                        vendorEntity.setUserId(userId);
+                }
+                String superiorStr = map.get("superiorId").toString().split("_")[0];
+                if(superiorStr!=""){
+                        int superiorId = Integer.parseInt(superiorStr);//上级公司id
+                        String superiorName = map.get("superiorId").toString().split("_")[1];//上级公司name
+                        HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
+                        if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
+                                BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
+                                vendorEntity.setLevelFlag(2);
+                                vendorEntity.setSuperiorId(branchEntity.getId());
+                        }else{
+                                vendorEntity.setLevelFlag(1);
+                                vendorEntity.setSuperiorId(headQuartersEntity.getId());
+                        }
+
+                }
 
                 vendorEntity.setDiscardStatus(1);
                 vendorEntity.setEmail(email.toString());
@@ -203,19 +223,11 @@ public class VendorServiceImpl implements VendorService {
                 }
                 vendorEntity.setName(name.toString());
 //                vendorEntity.setPrincipal(principal.toString());\
-                vendorEntity.setUserId(userId);
+
                 vendorEntity.setTelephone(telephone.toString());
                 vendorEntity.setVendorAddress(vendorAddress.toString());
 
-                HeadQuartersEntity headQuartersEntity = this.vendorRepository.findHeadNameByIdAndName(superiorId,superiorName);//根据id查询总部信息
-                if(headQuartersEntity==null){  //如果分公司表中没有查到数据，就查总部表
-                        BranchEntity branchEntity = this.vendorRepository.findBranchNameByIdAndName(superiorId,superiorName);//根据id查询分公司信息
-                        vendorEntity.setLevelFlag(2);
-                        vendorEntity.setSuperiorId(branchEntity.getId());
-                }else{
-                        vendorEntity.setLevelFlag(1);
-                        vendorEntity.setSuperiorId(headQuartersEntity.getId());
-                }
+
 
                 return this.vendorRepository.save(vendorEntity);
         }

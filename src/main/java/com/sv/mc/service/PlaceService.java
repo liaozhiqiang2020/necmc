@@ -109,7 +109,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param placeId
      * @return
      */
-    List<DeviceEntity> findDeviceByPlaceId(int placeId,String deviceId,HttpSession session);
+    String findDeviceByPlaceId(int placeId,String deviceId,HttpSession session);
 
     /**
      * 根据场地id查下一级信息
@@ -169,4 +169,10 @@ public interface PlaceService<T> extends BaseService<T>{
      * 四级权限查询场地
      */
     List<PlaceEntity>getPlaceBy_ID(int pid);
+
+    /**
+     * 查询所有未删除场地
+     * @return
+     */
+    List<PlaceEntity> allPlaceUnDelete();
 }
