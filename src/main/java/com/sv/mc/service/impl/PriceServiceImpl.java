@@ -642,8 +642,10 @@ public class PriceServiceImpl implements PriceService {
 
                     DecimalFormat df = new DecimalFormat("0");
                     String sn=null;
+                    if (sn1!=null){
                     if (sn1.toString().trim().length()!=0){
                     sn=  df.format(Double.parseDouble(sn1.toString()));
+                    }
                     }
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
@@ -731,9 +733,13 @@ public class PriceServiceImpl implements PriceService {
                             set.add(result);
                         }
                     }else{
-                        result.setMsg("没有数据");
+                        result.setMsg("数据不完整");
                         set.add(result);
-                    } }
+                    } }else{
+                       result.setMsg("没有数据");
+                       set.add(result);
+                   }
+
                 }
             }
 
@@ -764,10 +770,11 @@ public class PriceServiceImpl implements PriceService {
                     Object sn1 = getValue(row.getCell(0));
                     DecimalFormat df = new DecimalFormat("0");
                     String sn=null;
+                    if (sn1!=null){
                     if (sn1.toString().trim().length()!=0){
                         sn=  df.format(Double.parseDouble(sn1.toString()));
                     }
-
+                    }
                     Object price = getValue(row.getCell(2));
                     Object useTime = getValue(row.getCell(3));
                     if (cellNum==3){
@@ -854,13 +861,24 @@ public class PriceServiceImpl implements PriceService {
                             set.add(result);
                         }
                     }else {
-                        result.setMsg("没有数据");
+                        result.setMsg("数据不完整");
                         set.add(result);
                     }
+                    }else{
+                        result.setMsg("没有数据");
+                        set.add(result);
                     }
                 }
             }
         }
+        for  ( int  i  =   0 ; i  <  set.size()  -   1 ; i ++ )  {
+            for  ( int  j  =  set.size()  -   1 ; j  >  i; j -- )  {
+                if  (set.get(j).equals(set.get(i)))  {
+                    set.remove(j);
+                }
+            }
+        }
+
         return set;
 
 

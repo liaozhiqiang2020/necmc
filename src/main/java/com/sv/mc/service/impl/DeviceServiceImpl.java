@@ -422,10 +422,11 @@ public class DeviceServiceImpl implements DeviceService {
 
                                         Object gatsn=getValue(row.getCell(8));//网关
                                         String wg=null;
+                                        if (gatsn!=null){
                                         if (gatsn.toString().trim().length()!=0) {
                                                 wg = df.format(Double.parseDouble(gatsn.toString()));
                                         }
-
+                                        }
                                        if(cellNum==8){
                                                System.out.println(cellNum);
                                         if (placeName!=null&&deviceType!=null&&type!=null&&sn!=null&&supplierName!=null){
@@ -553,11 +554,15 @@ public class DeviceServiceImpl implements DeviceService {
 //
                                         }else {
 
-                                                edr.setMsg("没有数据");
+                                                edr.setMsg("数据不完整");
 
                                                 result.add(edr);
 
-                                        }}
+                                        }}else {
+                                               edr.setMsg("没有数据");
+
+                                               result.add(edr);
+                                       }
 
                                 }
 
@@ -628,8 +633,10 @@ public class DeviceServiceImpl implements DeviceService {
 
                                         Object gatsn=getValue(row.getCell(8));//网关
                                         String wg=null;
+                                        if (gatsn!=null){
                                         if (gatsn.toString().trim().length()!=0) {
                                                 wg = df.format(Double.parseDouble(gatsn.toString()));
+                                        }
                                         }
                                         if(cellNum==8){
                                                 System.out.println(cellNum);
@@ -758,18 +765,26 @@ public class DeviceServiceImpl implements DeviceService {
 //
                                                 }else {
 
-                                                        edr.setMsg("没有数据");
+                                                        edr.setMsg("数据不完整");
 
                                                         result.add(edr);
 
-                                                }}
+                                                }} else {edr.setMsg("没有数据");
+
+                                        result.add(edr);}
                                 }
 
                         }
 
 
                 }
-
+                for  ( int  i  =   0 ; i  <  result.size()  -   1 ; i ++ )  {
+                        for  ( int  j  =  result.size()  -   1 ; j  >  i; j -- )  {
+                                if  (result.get(j).equals(result.get(i)))  {
+                                        result.remove(j);
+                                }
+                        }
+                }
                 return result;
 
 
