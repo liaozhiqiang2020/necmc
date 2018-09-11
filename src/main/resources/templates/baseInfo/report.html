@@ -108,19 +108,24 @@
                  alert("缺少时间条件")
                  a()
              }else{
-                  if (place!=''){
-                  //  alert('一个场地方')
-                      placeGrid();
-                  }else if(place==''&&city!=''){
-                  //   alert('一个市')
-                      cityGrid();
-                  } else if(place==''&&city==''&&province!=''){
-                   //   alert('一个省')
-                      provinceGrid();
-                  }else{
-                      allprovince();
-                  //    alert('所有省')
-                  }
+                     if(gradeId!=4){
+                      if (place!=''){
+                      //  alert('一个场地方')
+                          placeGrid();
+                      }else if(place==''&&city!=''){
+                      //   alert('一个市')
+                          cityGrid();
+                      } else if(place==''&&city==''&&province!=''){
+                       //   alert('一个省')
+                          provinceGrid();
+                      }else{
+                          allprovince();
+                      //    alert('所有省')
+                      }
+                     }else {
+                         placeGrid();
+                         alert(111)
+                     }
              }
 console.log(start,end,province,city,place)
 
@@ -745,6 +750,10 @@ console.log(start,end,province,city,place)
               var  province =$("#province").val();//省
               var  city=$("#city").val();//市
               var  place=$("#place").val();//场地
+              console.log(place)
+              if (place=='') {
+                  place=p_id
+              }
               var dataSource = new kendo.data.DataSource({
                   transport: {
                       read: {

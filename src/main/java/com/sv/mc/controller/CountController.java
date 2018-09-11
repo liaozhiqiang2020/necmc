@@ -40,7 +40,7 @@ public class CountController {
            p1.add(p);
        }else{
         List<ProvinceQo>   plist=this.countService.getProvinceBypIdANDprovinceID(gid,p_Id,start,end,pId);
-        if (plist!=null){
+        if (plist.size()!=0){
             p=plist.get(0);
             p1.add(p);
 
@@ -89,7 +89,7 @@ public class CountController {
             p1.add(p);
         }else{
           List<ProvinceQo>  pist=this.countService.getCityBypIdANDcityID(gid,p_Id,start,end,cId);
-          if (pist!=null){
+          if (pist.size()!=0){
               p=pist.get(0);
               p1.add(p);
           }else{
@@ -137,7 +137,7 @@ public class CountController {
             p1.add(p);
         }else if (gid==2||gid==3){
            List<ProvinceQo> plist=this.countService.getPlacyBypIdANDplaceID(gid,p_Id,start,end,pId);
-            if (plist!=null){
+            if (plist.size()!=0){
                 p= plist.get(0);
                 p1.add(p);
             }else {
@@ -147,7 +147,7 @@ public class CountController {
         }else {
 
             List<ProvinceQo> plist=this.countService.getPlacyByANDplaceID(start,end,pId);
-            if (plist!=null){
+            if (plist.size()!=0){
                 p= plist.get(0);
                 p1.add(p);
             }else {

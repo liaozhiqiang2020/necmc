@@ -33,7 +33,7 @@ public interface CityRepository extends BaseRepository<CityEntity, Long>, Paging
      * 根据p_id 查询所有市
      */
 
-    @Query(value = " select  c.*  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.p_id=:pid)",nativeQuery = true)
+    @Query(value = " select  c.*  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.superior_id=:pid)",nativeQuery = true)
     List<CityEntity> getCityByP_ID(@Param("pid") int pid);
 
     /**

@@ -53,6 +53,9 @@ public class ReportController1 {
      List<ProvinceEntity> list= new ArrayList<>();
         UserEntity user= (UserEntity) request.getSession().getAttribute("user");
         int pId=user.getpId();
+        System.out.println(pId);
+        int gid=user.getGradeId();
+        System.out.println(gid);
         if (user.getGradeId()==1) {
             list=ps.selectProvince();
         }else if(user.getGradeId()==2||user.getGradeId()==3){
@@ -93,6 +96,7 @@ public class ReportController1 {
     @GetMapping(value = "/place")
     public List<PlaceEntity> getPlace(HttpServletRequest request,@Param("id") int id){
         UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+
         int pId=user.getpId();
        List<PlaceEntity> list= new ArrayList<>();
         if (user.getGradeId()==1){

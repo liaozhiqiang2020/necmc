@@ -148,7 +148,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     /**
      * 根据p_id查询场地
      */
-    @Query(value = "select * from mc_place as p where p.p_id=:pid",nativeQuery = true)
+    @Query(value = "select * from mc_place as p where p.superior_id=:pid",nativeQuery = true)
     List<PlaceEntity>getPlaceByP_ID(@Param("pid")int pid);
 
 

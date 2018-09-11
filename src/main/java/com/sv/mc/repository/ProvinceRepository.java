@@ -37,7 +37,7 @@ public interface ProvinceRepository extends BaseRepository<ProvinceEntity, Long>
     /**
      * 根据p_id 查询所有省
      */
-    @Query(value = "select p.*  from mc_province as p where p.Id in(select c.province_id  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.p_id=:pid))",nativeQuery = true)
+    @Query(value = "select p.*  from mc_province as p where p.Id in(select c.province_id  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.superior_id=:pid))",nativeQuery = true)
     List<ProvinceEntity>getProvinceByP_ID(@Param("pid")int pid);
 
 
