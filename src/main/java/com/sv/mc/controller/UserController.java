@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -131,6 +133,28 @@ public class UserController {
         return this.userService.addUserRole((int) userId, (int) roleId);
     }
 
+    @PostMapping("/user/changePassword")
+    public String changePassword(HttpServletRequest request, HttpSession session, HttpServletResponse response){
+        return this.userService.changePwd(request,session,response);
+    }
+
+    /**
+     * 跳转到修改密码页面
+     *
+     * @return
+     */
+    @GetMapping(value = "/user/change")
+    public ModelAndView turnToUserChangeManagement() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("./authorityManagement/changePassWord");
+        return mv;
+    }
+
+    /**
+     * 用户未绑定的角色
+     * @param userId
+     * @return
+     */
     @GetMapping("/user/userUnRole")
     public List<RoleEntity> findUserUnRole(@RequestParam("userId") int userId) {
         return this.userService.userUnRole(userId);

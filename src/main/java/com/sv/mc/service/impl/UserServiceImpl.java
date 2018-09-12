@@ -9,6 +9,9 @@ import com.sv.mc.util.intUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -421,5 +425,31 @@ public class UserServiceImpl implements UserService<UserEntity> {
         }
 
         return companyName;
+    }
+
+    @Override
+    public String changePwd(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+        String old = request.getParameter("password");
+        String new1 = request.getParameter("password1");
+        String new2 = request.getParameter("password2");
+        String oldPwd = MD5Util.encode(old);
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        String message = "";
+        if (old.equals(new1)){
+            message="新密码不能与原密码相同";
+        }else if (oldPwd.equals(user.getAuthenticationString())){
+            user.setAuthenticationString(MD5Util.encode(new1));
+            this.userRepository.save(user);
+            message="修改成功,请重新登录";
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null){
+                new SecurityContextLogoutHandler().logout(request, response, auth);
+            }
+        }else if(!oldPwd.equals(user.getAuthenticationString()) ){
+            message = "原密码错误";
+        }else {
+            message = "密码修改失败";
+        }
+        return message;
     }
 }

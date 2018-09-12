@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -97,4 +99,11 @@ public interface UserService<T>  {
      * @return 公司名称
      */
     String findCompanyNameByGradeType(int gradeId, int pId);
+
+    /**
+     * 修改密码
+     * @param request
+     * @return
+     */
+    String changePwd(HttpServletRequest request, HttpSession session , HttpServletResponse response);
 }
