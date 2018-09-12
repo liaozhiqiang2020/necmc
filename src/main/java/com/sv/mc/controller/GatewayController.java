@@ -32,8 +32,8 @@ public class GatewayController {
      */
     @GetMapping(value = "/gatewayMgr/allGateway")
     public @ResponseBody
-    List<GatewayEntity> getAllGateway() {
-        return this.gatewayService.findAllEntities();
+    String getAllGateway() {
+        return this.gatewayService.selectAllGatewayEnties();
     }
 
     /**
@@ -59,10 +59,10 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayPort")
     public @ResponseBody
-    void updateGatewayPort(String domainName,String port){
+    void updateGatewayPort(String domainName, String port) {
         try {
-            this.gatewayService.updateGatewayPort(domainName,port);
-        }catch (Exception e){
+            this.gatewayService.updateGatewayPort(domainName, port);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -75,7 +75,7 @@ public class GatewayController {
     void updateGatewayChannel(String channel) {
         try {
             this.gatewayService.updateGatewayChannel(channel);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -88,7 +88,7 @@ public class GatewayController {
     void restartGateway() {
         try {
             this.gatewayService.restartGateway();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

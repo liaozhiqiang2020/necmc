@@ -2,13 +2,20 @@ package com.sv.mc.service.impl;
 
 import com.sv.mc.pojo.GatewayEntity;
 import com.sv.mc.repository.GatewayRepository;
+import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.service.GatewayService;
 import com.sv.mc.service.JMSProducer;
+import com.sv.mc.service.PlaceService;
+import com.sv.mc.util.DateJsonValueProcessor;
 import com.sv.mc.util.WxUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -18,6 +25,9 @@ public class GatewayServiceImpl implements GatewayService {
 
     @Autowired
     private JMSProducer jmsProducer;
+
+    @Autowired
+    private PlaceRepository placeRepository;
 
     /**
      * 保存数据
@@ -137,5 +147,36 @@ public class GatewayServiceImpl implements GatewayService {
     @Override
     public GatewayEntity selectGateBySn(String sn) {
         return this.gatewayRepository.findGatewayBySn(sn);
+    }
+
+    /**
+     * 查询所有网关信息(不分页,json数据)
+     */
+    @Override
+    public String selectAllGatewayEnties() {
+        List<GatewayEntity> gatewayEntityList = this.gatewayRepository.findAll();
+        int total = this.gatewayRepository.findGatewayEntitsCount();
+
+        JsonConfig config = new JsonConfig();
+        config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        config.setExcludes(new String[]{"priceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
+
+        JSONArray jsonArray = JSONArray.fromObject(gatewayEntityList,config);
+        JSONArray jsonArray1 = new JSONArray();
+        JSONObject jsonObject1 = new JSONObject();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            String placeName = "";
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
+
+            placeName = this.placeRepository.findPlaceById(placeId).getName();
+
+            jsonObject.put("placeName", placeName);
+            jsonArray1.add(jsonObject);
+        }
+        jsonObject1.put("data",jsonArray1.toString());
+        jsonObject1.put("total",total);
+
+        return jsonObject1.toString();
     }
 }

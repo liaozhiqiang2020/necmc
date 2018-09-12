@@ -13,6 +13,7 @@ public class GatewayEntity {
     private String gatewaySn;
     private Integer deviceCount;
     private String domainName;//域名
+    private int placeId;//场地
 
     @Id
     @GeneratedValue
@@ -23,6 +24,16 @@ public class GatewayEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name="place_id")
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     @Basic

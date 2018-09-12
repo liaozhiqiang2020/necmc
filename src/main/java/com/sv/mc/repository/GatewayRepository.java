@@ -15,5 +15,9 @@ public interface GatewayRepository extends BaseRepository<GatewayEntity, Long>, 
     @Query("from GatewayEntity as d where d.gatewaySn = :sn")
     GatewayEntity findGatewayBySn(@Param("sn") String sn);
 
+    //查询网关总数
+    @Query("select count(id) from GatewayEntity")
+    int findGatewayEntitsCount();
+
 
 }

@@ -53,4 +53,9 @@ public interface GatewayService<T> extends BaseService<T>{
      */
     GatewayEntity selectGateBySn(String sn);
 
+    /**
+     * 查询所有网关信息(不分页,json数据)
+     */
+    String selectAllGatewayEnties();
+
 }

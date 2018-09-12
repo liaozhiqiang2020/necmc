@@ -19,24 +19,24 @@
 
     <div class="container-fluid">
         <!--<div id="window">-->
-            <!--<table>-->
-                <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
-                <!--<div style="padding-top: 5px">-->
-                    <!--域名:<input type="text" id="domainName" class="k-input k-textbox" placeholder="请输入域名">-->
-                    <!--端口:<input type="text" id="port" class="k-input k-textbox" placeholder="请输入端口">-->
-                    <!--<button id="btnUpdatePort" type="button" class="k-button  k-primary">修改端口</button>-->
-                <!--</div>-->
-                <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
-                <!--<div style="padding-top: 5px">-->
-                    <!--频道:<input type="text" id="channel" class="k-input k-textbox" placeholder="请输入频道">-->
-                    <!--<button id="btnUpdateChannel" type="button" class="k-button  k-primary">修改频道</button>-->
-                    <!--</button>-->
-                <!--</div>-->
-                <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
-                <!--<div style="padding-top: 5px">-->
-                    <!--<button id="btnRestart" type="button" class="k-button  k-primary">重启网关</button>-->
-                <!--</div>-->
-            <!--</table>-->
+        <!--<table>-->
+        <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
+        <!--<div style="padding-top: 5px">-->
+        <!--域名:<input type="text" id="domainName" class="k-input k-textbox" placeholder="请输入域名">-->
+        <!--端口:<input type="text" id="port" class="k-input k-textbox" placeholder="请输入端口">-->
+        <!--<button id="btnUpdatePort" type="button" class="k-button  k-primary">修改端口</button>-->
+        <!--</div>-->
+        <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
+        <!--<div style="padding-top: 5px">-->
+        <!--频道:<input type="text" id="channel" class="k-input k-textbox" placeholder="请输入频道">-->
+        <!--<button id="btnUpdateChannel" type="button" class="k-button  k-primary">修改频道</button>-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--<div style="border-bottom:1px solid #000;padding-top: 5px"></div>-->
+        <!--<div style="padding-top: 5px">-->
+        <!--<button id="btnRestart" type="button" class="k-button  k-primary">重启网关</button>-->
+        <!--</div>-->
+        <!--</table>-->
         <!--</div>-->
 
         <div id="grid"></div>
@@ -51,16 +51,21 @@
                                                                      name="ip"></div>
             <!--<div class="k-edit-label"><label for="domainName"><span style="color:red;"></span>域名</label></div>-->
             <!--<div data-container-for="domainName" class="k-edit-field"><input type="text" class="k-input k-textbox"-->
-                                                                     <!--name="domainName"></div>-->
+            <!--name="domainName"></div>-->
             <!--<div class="k-edit-label"><label for="port"><span style="color:red;"></span>网关通讯端口</label></div>-->
             <!--<div data-container-for="port" class="k-edit-field"><input type="text" class="k-input k-textbox"-->
-                                                                       <!--name="port"></div>-->
+            <!--name="port"></div>-->
             <!--<div class="k-edit-label"><label for="channel"><span style="color:red;"></span>网关通讯频道</label></div>-->
             <!--<div data-container-for="channel" class="k-edit-field"><input type="text" class="k-input k-textbox"-->
-                                                                          <!--name="channel"></div>-->
+            <!--name="channel"></div>-->
             <div class="k-edit-label"><label for="deviceCount"><span style="color:red;"></span>设备数量</label></div>
             <div data-container-for="deviceCount" class="k-edit-field"><input type="text" class="k-input k-textbox"
                                                                               name="deviceCount"></div>
+            <div class="k-edit-label"><label for="placeId"><span style="color:red;">* </span>所属场地</label></div>
+            <div data-container-for="placeId" class="k-edit-field">
+                <input id="placeId" data-role="combobox" data-bind="value:placeId" required="required"
+                       data-required-msg="所属场地为必填项！">
+            </div>
         </script>
         <script>
             /*<![CDATA[*/
@@ -88,7 +93,7 @@
                             type: "post"
                         }
                     },
-                    serverPaging: true,    //设定服务器来实现分页功能
+                    serverPaging: false,    //设定服务器来实现分页功能
                     serverFiltering: false,
                     serverSorting: false,
                     pageSize: 10,
@@ -103,8 +108,17 @@
                                 port: {type: "string"},
                                 channel: {type: "string"},
                                 gatewaySn: {type: "string"},
-                                deviceCount: {type: "number"}
+                                deviceCount: {type: "number"},
+                                placeId:{type: "number"},
+                                placeName:{type: "string"}
                             }
+                        },
+                        data: function (response) {
+                            var list = JSON.parse(response).data;
+                            return list;
+                        },
+                        total:function(response){
+                            return JSON.parse(response).total;
                         }
                     }
                 });
@@ -170,6 +184,11 @@
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
+                            field: "placeName",
+                            title: "所属场地",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
                             command: [
                                 {
                                     name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
@@ -228,7 +247,7 @@
                                                     alert("请输入域名！");
                                                     return;
                                                 }
-                                                if(port==""){
+                                                if (port == "") {
                                                     alert("请输入端口！");
                                                     return;
                                                 }
@@ -280,8 +299,7 @@
                                                 $.ajax({
                                                     type: "post",
                                                     url: "../gatewayMgr/restartGateway",
-                                                    data: {
-                                                    },
+                                                    data: {},
                                                     success: function (res) {
                                                         alert("重启网关成功！");
                                                         myWindow.data("kendoWindow").close();
@@ -305,6 +323,29 @@
                         window: {
                             title: "网关管理"
                         }
+                    },
+                    edit: function (e) {
+                        $("#placeId").kendoComboBox({
+                            autoBind: false,
+                            placeholder: "请选择...",
+                            dataTextField: "name",
+                            dataValueField: "id",
+                            value: e.model.placeId,
+                            text: e.model.placeName,
+                            filter: "contains",
+                            suggest: true,
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        type: "get",
+                                        url: "../placeMgr/allPlace",
+                                        dataType: "json",
+                                        contentType: "application/json",
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                    }
+                                }
+                            }
+                        });
                     }
                 });
             }
