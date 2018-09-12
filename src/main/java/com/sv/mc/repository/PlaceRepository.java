@@ -110,6 +110,14 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     List<Object[]> findAllChildById(@Param("placeId") int placeId);
 
     /**
+     * 查询场地下所有设备总数
+     * @param placeId
+     * @return
+     */
+    @Query(value="select count(d.id) from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)) )",nativeQuery = true)
+    int findAllChildByIdCount(@Param("placeId") int placeId);
+
+    /**
      * 分页查询场地下所有设备
      * @param placeId
      * @return

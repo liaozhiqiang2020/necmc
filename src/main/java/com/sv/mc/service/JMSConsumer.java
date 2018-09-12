@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class JMSConsumer {
@@ -26,7 +25,7 @@ public class JMSConsumer {
             String chairCode2 = res.substring(4, 20);//获取设备ascii
             String chairId2 = wxUtil.convertHexToString(chairCode2);//ascii转16进制
             SingletonHungary.getSingleTon().put(chairId2 + "status", chairId2 + "_" + 4);
-            deviceService.findChairRuningStatus(chairId2, 4);
+            this.deviceService.findChairRuningStatus(chairId2, 4);
         } else {
             int type = Integer.parseInt(res.substring(14, 16));//获取协议类型
             String chairCode = res.substring(16, 32);//获取设备ascii
@@ -43,7 +42,7 @@ public class JMSConsumer {
                     mcStatus = 4;
                 }
                 SingletonHungary.getSingleTon().put(chairId + "status", chairId + "_" + mcStatus);
-                deviceService.findChairRuningStatus(chairId, mcStatus);
+                this.deviceService.findChairRuningStatus(chairId, mcStatus);
             } else if (type == 9) {//启动椅子
                 if (returnMsg.equals("01")) {//成功
                     mcStatus = 1;
@@ -53,6 +52,9 @@ public class JMSConsumer {
                     mcStatus = 3;
                 }
                 SingletonHungary.getSingleTon().put(chairId + "runing", chairId + "_" + mcStatus);
+            } else if (type == 10) {//停止椅子
+                SingletonHungary.getSingleTon().put(chairId + "status", chairId + "_" + 4);
+                this.deviceService.findChairRuningStatus(chairId, 4);//修改为未响应状态
             }
         }
     }

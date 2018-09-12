@@ -72,9 +72,10 @@
                                                                             data-required-msg="代理商邮箱为必填项！"
                                                                             data-bind="value:email"></div>
 
-                <div class="k-edit-label"><label for="superiorId">上级单位名称</label></div>
+                <div class="k-edit-label"><label for="superiorId"><span style="color:red;">* </span>上级单位名称</label></div>
                 <div data-container-for="superiorId" class="k-edit-field">
-                    <input id="superiorId" data-role="combobox" data-bind="value:superiorId">
+                    <input id="superiorId" data-role="combobox" data-bind="value:superiorId" required="required"
+                           data-required-msg="请您选择上级单位..."/>
                 </div>
 
 
@@ -654,8 +655,8 @@
                                 placeholder: "请选择...",
                                 dataTextField: "name",
                                 dataValueField: "id",
-                                value: e.model.id,
-                                text: e.model.name,
+                                value: e.model.superiorId,
+                                text: e.model.superiorName,
                                 filter: "contains",
                                 suggest: true,
                                 dataSource: {

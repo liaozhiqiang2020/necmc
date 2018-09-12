@@ -586,7 +586,8 @@
                             }
                         },
                         data: function (response) {
-                            var list = JSON.parse(response);
+                            var list = JSON.parse(response).data;
+                            console.log(list);
                             for (var i = 0; i < list.length; i++) {
                                 var content2 = list[i];
                                 var flag = content2.mcStatus;
@@ -615,6 +616,10 @@
                                 }
                             }
                             return list;
+                        },
+                        total: function (response) {
+                            console.log(JSON.parse(response).total);
+                            return JSON.parse(response).total;
                         }
                     }
                 });
@@ -679,109 +684,6 @@
                         }
                     }
                 }
-            }
-
-
-            function statusEditor(container, options) {
-                var placeId = options.model.mcStatus;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoComboBox({
-                    autoBind: true,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: placeId,
-                    dataSource: [
-                        {
-                            "id": 0,
-                            "name": "正常"
-                        }, {
-                            "id": 1,
-                            "name": "维修中"
-                        }, {
-                            "id": 2,
-                            "name": "停用"
-                        }
-                    ]
-                });
-            }
-
-
-            function placeEditor(container, options) {
-                var placeId = options.model.placeEntity.id;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoComboBox({
-                    autoBind: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: placeId,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                type: "get",
-                                url: "../placeMgr/allPlace",
-                                dataType: "json",
-                                contentType: "application/json",
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                            }
-                        }
-                    }
-                });
-            }
-
-            function deviceEditor(container, options) {
-                var deviceId = options.model.deviceModelEntity.id;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoComboBox({
-                    autoBind: false,
-                    placeholder: "请选择...",
-                    dataTextField: "name",
-                    dataValueField: "id",
-                    value: deviceId,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                type: "get",
-                                url: "../deviceModel/all",
-                                dataType: "json",
-                                contentType: "application/json",
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                            }
-                        }
-                    }
-                });
-            }
-
-            function supplierEditor(container, options) {
-                var deviceId = options.model.supplierEntity.id;
-
-                var input = $('<input required name="' + options.field + '"/>');
-                input.appendTo(container);
-                input.kendoComboBox({
-                    autoBind: false,
-                    placeholder: "请选择...",
-                    dataTextField: "supplierName",
-                    dataValueField: "id",
-                    value: deviceId,
-                    dataSource: {
-                        transport: {
-                            read: {
-                                type: "get",
-                                url: "../supplierMgr/allSupplier",
-                                dataType: "json",
-                                contentType: "application/json",
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                            }
-                        }
-                    }
-                });
             }
 
             /*]]>*/
