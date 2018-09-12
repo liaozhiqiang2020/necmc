@@ -133,7 +133,7 @@ public class UserController {
         return this.userService.addUserRole((int) userId, (int) roleId);
     }
 
-    @PostMapping("/user/changePassword")
+    @PostMapping("/userc/changePassword")
     public String changePassword(HttpServletRequest request, HttpSession session, HttpServletResponse response){
         return this.userService.changePwd(request,session,response);
     }
@@ -143,7 +143,7 @@ public class UserController {
      *
      * @return
      */
-    @GetMapping(value = "/user/change")
+    @GetMapping(value = "/userc/change")
     public ModelAndView turnToUserChangeManagement() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("./authorityManagement/changePassWord");
