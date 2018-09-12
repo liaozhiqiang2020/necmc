@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService<UserEntity> {
     @Resource
     HeadQuartersRepository headQuartersRepository;
 
+    /**
+     * 分页查询所有用户
+     * @param page
+     * @param pageSize
+     * @return
+     */
     @Override
     @Transactional
     public String findEntitiesPager(int page, int pageSize) {
@@ -101,12 +107,21 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return jsonObject.toString();
     }
 
+    /**
+     * 查询所有用户
+     * @return
+     */
     @Override
     @Transactional
     public List<UserEntity> findAllUser() {
         return this.userRepository.findAll();
     }
 
+    /**
+     * 查询所有状态为1的用户
+     * @param request
+     * @return
+     */
     @Override
     @Transactional
     public String findAllByStatus(HttpServletRequest request) {
@@ -169,6 +184,11 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return jsonObject.toString();
     }
 
+    /**
+     * 更新用户
+     * @param map user对象
+     * @return
+     */
     @Override
     @Transactional
     public UserEntity updateUser(Map<String, Object> map) {
@@ -218,6 +238,11 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return this.userRepository.save(user);
     }
 
+    /**
+     * 新建一个用户
+     * @param map user对象
+     * @return
+     */
     @Override
     @Transactional
     public UserEntity saveUser(@RequestBody Map<String, Object> map) {
@@ -272,6 +297,10 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return this.userRepository.save(user);
     }
 
+    /**
+     * 逻辑删除用户
+     * @param user 需要删除的User对象
+     */
     @Override
     @Transactional
     public void deleteUser(UserEntity user) {
@@ -279,18 +308,33 @@ public class UserServiceImpl implements UserService<UserEntity> {
         this.userRepository.save(user);
     }
 
+    /**
+     * 根据id查询用户
+     * @param userId user主键
+     * @return
+     */
     @Override
     @Transactional
     public UserEntity findUserById(int userId) {
         return this.userRepository.findUserById(userId);
     }
 
+    /**
+     * 查询当前用户拥有的所有角色
+     * @param userId
+     * @return
+     */
     @Override
     public Set<RoleEntity> findUserRole(int userId) {
         UserEntity user = this.userRepository.findUserById(userId);
         return user.getRoleEntitySet();
     }
 
+    /**
+     * 解绑用户所拥有的角色
+     * @param listMap
+     * @return
+     */
     @Override
     public Set<RoleEntity> deleteUserRole(Map<String, Object> listMap) {
         Object userId = listMap.get("userId");
@@ -304,6 +348,12 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return user.getRoleEntitySet();
     }
 
+    /**
+     * 为用户绑定角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
     @Override
     public Set<RoleEntity> addUserRole(int userId, int roleId) {
         UserEntity user = this.userRepository.findUserById(userId);
@@ -313,6 +363,11 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return user.getRoleEntitySet();
     }
 
+    /**
+     * 当前用户还为绑定的角色
+     * @param userId
+     * @return
+     */
     @Override
     public List<RoleEntity> userUnRole(int userId) {
         UserEntity user = this.userRepository.findUserById(userId);
@@ -321,6 +376,10 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return roleEntities;
     }
 
+    /**
+     * 查询所有公司
+     * @return
+     */
     @Override
     public List<Object> findAllplace() {
         List<BranchEntity> branch = this.branchRepository.findAll();
@@ -335,6 +394,12 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return list;
     }
 
+    /**
+     * 根据公司名字查询所属公司
+     * @param gradeId 公司分类
+     * @param pId 公司分类
+     * @return
+     */
     @Override
     public String findCompanyNameByGradeType(int gradeId, int pId) {
         String companyName;

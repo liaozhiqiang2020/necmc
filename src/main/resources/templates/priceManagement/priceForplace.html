@@ -301,6 +301,7 @@
                         },
 
                         detailTemplate: kendo.template($("#template").html()),
+                        //表格里的嵌套
                         detailInit: detailInit,
 
 
@@ -457,6 +458,7 @@
                     }
                 });
 
+                //场地可以绑定的所有价格
                 function placePrice(e) {
                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                     var data = this.dataItem(tr);
@@ -691,6 +693,7 @@
                     });
                 }
 
+                //设备上可绑定的价格
                 function devicePrice(e) {
                     var tr = $(e.target).closest("tr"); // get the current table row (tr)
                     var data = this.dataItem(tr);

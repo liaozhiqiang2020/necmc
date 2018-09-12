@@ -11,9 +11,11 @@ import java.util.List;
 @Repository
 public interface PermissionRepository extends BaseRepository<PermissionEntity, Long> {
 
+    //根据名字查询权限
     @Query("from PermissionEntity as p where p.permissionsName = :permission")
     PermissionEntity findByPermissionName(@Param("permission") String permissionName);
 
+    //根据id查询权限
     @Query("from PermissionEntity as p where p.id = :pId")
     PermissionEntity findByPermissionId(@Param("pId") int pId);
 

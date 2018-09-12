@@ -287,7 +287,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     /**
-     * 价格方案起止结束时间判断
+     * 价格方案起止结束时间判断方法
      *
      * @param history
      * @param priceEntity
@@ -343,6 +343,11 @@ public class PriceServiceImpl implements PriceService {
         return priceEntities;
     }
 
+    /**
+     * 批量删除价格
+     * @param priceEntityList 需要删除的价格集合
+     * @return
+     */
     @Transactional
     @Override
     public List<PriceEntity> batchDeletePrice(List<PriceEntity> priceEntityList) {
@@ -365,6 +370,11 @@ public class PriceServiceImpl implements PriceService {
         return this.priceRepository.findPriceEntitiesByDeviceID(deviceId);
     }
 
+    /**
+     * 查询当前设备上的已绑定价格
+     * @param deviceId 设备Id
+     * @return
+     */
     @Transactional
     @Override
     public Set<PriceEntity> findDevicePrice(int deviceId) {
@@ -400,6 +410,13 @@ public class PriceServiceImpl implements PriceService {
         return priceList;
     }
 
+    /**
+     * 为一台设备绑定价格
+     * 分为基础价格和活动价格，基础价格没有起止时间，活动价格有
+     * 相同时间的价格旧的会被新的替换掉，但只会替换相同类型的，如基础价格只会替换想通的基础价格
+     * @param listMap
+     * @return
+     */
     @Transactional
     @Override
     public List<PriceEntity> deviceSavePrice(Map<String, Object> listMap) {
@@ -434,6 +451,11 @@ public class PriceServiceImpl implements PriceService {
         return device.getPriceEntities();
     }
 
+    /**
+     * 删除设备上的价格
+     * @param listMap
+     * @return
+     */
     @Transactional
     @Override
     public List<PriceEntity> deviceDeletePrice(Map<String, Object> listMap) {
@@ -523,6 +545,10 @@ public class PriceServiceImpl implements PriceService {
         return listmap;
     }
 
+    /**
+     * 查询所有状态为可用，时间还未失效或者没有结束时间的
+     * @return
+     */
     @Override
     @Transactional
     public String findPriceEntitiesByEnd() {
@@ -571,6 +597,11 @@ public class PriceServiceImpl implements PriceService {
         return this.priceRepository.findAllPrice();
     }
 
+    /**
+     * 查询设备上的所有价格
+     * @param deviceCode
+     * @return
+     */
     @Override
     @Transactional
     public Set<PriceEntity> findDeviceAllPrice(String deviceCode) {

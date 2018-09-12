@@ -28,7 +28,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+//登录成功后进行的操作
 @Service
 public class LoginSuccessHandler extends
         SavedRequestAwareAuthenticationSuccessHandler {
@@ -54,21 +54,24 @@ public class LoginSuccessHandler extends
                 .getAuthorities();
 
 
-        //获得授权后可得到用户信息   可使用SUserService进行数据库操作
+        //获得授权后可得到用户信息   可使用UserService进行数据库操作
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         /* Set<SysRole> roles = userDetails.getSysRoles();*/
-        //TODO 修改为使用Service
+        //通过用户名得到user实体
         UserEntity user = userRepository.findUserByUserName(userDetails.getUsername());
+        //修改当前登录用户上次登录时间 IP等
         user.setLatestLoginDatetime(new Timestamp(System.currentTimeMillis()));
         String ip = this.getIpAddress(request);
         String companyName = this.userService.findCompanyNameByGradeType(user.getGradeId(), user.getpId());
         user.setLatestLoginIp(ip);
         this.userRepository.save(user);
         HttpSession session = request.getSession();
+        //把用户信息放进缓存
         session.setAttribute("user",user);
         session.setAttribute("userName",user.getName());
         session.setAttribute("companyName", companyName);
 
+        //对登录请求页面进行判断，登录成功后进行重定向
         String url = null;
         SavedRequest savedRequest = requestCache.getRequest(request,response);
 
@@ -100,7 +103,7 @@ public class LoginSuccessHandler extends
         this.authDispatcherMap = authDispatcherMap;
     }
 
-
+    //获取当前登录Ip
     public String getIpAddress(HttpServletRequest request){
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {

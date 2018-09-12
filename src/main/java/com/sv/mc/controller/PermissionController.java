@@ -12,26 +12,50 @@ public class PermissionController {
     @Resource
     private PermissionService permissionService;
 
+    /**
+     * 查询所有权限
+     * @return
+     */
     @GetMapping("/permission/all")
     List<PermissionEntity> findAll() {
         return this.permissionService.findAllPermission();
     }
 
+    /**
+     * 更新权限
+     * @param permissionEntity
+     * @return
+     */
     @PostMapping("/permission/update")
     PermissionEntity updatePermission(@RequestBody PermissionEntity permissionEntity) {
         return this.permissionService.updatePermission(permissionEntity);
     }
 
+    /**
+     * 保存权限
+     * @param permissionEntity
+     * @return
+     */
     @PostMapping("/permission/save")
     PermissionEntity savePermission(@RequestBody PermissionEntity permissionEntity) {
         return this.permissionService.savePermission(permissionEntity);
     }
 
+    /**
+     * 根据名字查询权限
+     * @param name
+     * @return
+     */
     @PostMapping("/permission/findByName")
     PermissionEntity findPermissionByName(@RequestParam("permissionName") String name) {
         return this.permissionService.findPermissionByPermissionName(name);
     }
 
+    /**
+     * 根据id查询权限
+     * @param id
+     * @return
+     */
     @GetMapping("/permission/findById")
     PermissionEntity findPermissionById(@RequestParam("permissionId") int id) {
         return this.permissionService.findPermissionById(id);

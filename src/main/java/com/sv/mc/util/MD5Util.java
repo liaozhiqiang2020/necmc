@@ -1,7 +1,11 @@
 package com.sv.mc.util;
 
+
 import java.security.MessageDigest;
 
+/**
+ * md5密码加密解密
+ */
 public class MD5Util {
 
     private static final String SALT = "necmc";

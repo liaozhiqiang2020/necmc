@@ -51,6 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                //在权限校验框架之前添加过滤器
                 .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 .csrf().disable()
                 .authorizeRequests()
@@ -78,6 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        auth.userDetailsService(myUserDetailService);
 //    }
 
+    //权限校验框架登录校验
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailService).passwordEncoder(new PasswordEncoder(){

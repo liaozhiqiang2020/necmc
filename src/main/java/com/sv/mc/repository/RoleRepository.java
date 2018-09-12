@@ -12,6 +12,7 @@ public interface RoleRepository extends BaseRepository<RoleEntity, Long>, Paging
     @Query("from RoleEntity as r where r.roleName = :roleName")
     RoleEntity findRoleByRoleName(@Param("roleName") String roleName);
 
+    //根据id查询角色
     @Query("from RoleEntity as r where r.id = :rId")
     RoleEntity findById(@Param("rId") int id);
 

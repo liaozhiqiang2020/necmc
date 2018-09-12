@@ -30,7 +30,7 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
 //    }
 
     /**
-     * 加载资源，初始化资源变量
+     * 加载资源，初始化资源变量，把所有权限放在权限校验框架里
      */
     public void loadResourceDefine(){
         map = new HashMap<>();
