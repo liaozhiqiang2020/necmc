@@ -191,5 +191,49 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query(value = "from DeviceEntity as d where d.mcSn=:sn")
     DeviceEntity getDeviceBySn(@Param("sn") String sn);
 
+    /**
+     * 1级权限返回所有的正常设备数
+     * @return
+     */
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status<>4 and discard_status=1 ",nativeQuery = true)
+    int  getDeviceCount();
 
+    /**
+     * 1级权限返回所有的异常设备数
+     * @return
+     */
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status=4 and discard_status=1 ",nativeQuery = true)
+    int  getDeviceErrorCount();
+
+    //3级权限返回正常设备数
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid ) ",nativeQuery = true)
+    int getDevCotBySuperiorId(@Param("pid") int pid);
+
+    //3级权限返回异常设备数
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status=4 and discard_status=1 and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid) ",nativeQuery = true)
+    int getDevErrorCotBySuperiorId(@Param("pid") int pid);
+
+
+    //2级权限返回正常设备数
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid ) ",nativeQuery = true)
+    int getDevCotBySuperiorId1(@Param("pid") int pid);
+
+    //2级权限返回异常设备数
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status=4 and discard_status=1 and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid) ",nativeQuery = true)
+    int getDevErrorCotBySuperiorId1(@Param("pid") int pid);
+
+
+    //场地管理员正常设备数
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id=:pid "
+            ,nativeQuery = true)
+    int getcDeviceByPid(@Param("pid")int pid);
+
+    //场地管理员异常设备数
+    @Query(value = "select count(mc_device.id) from mc_device where mc_status=4 and discard_status=1 and mc_device.place_id=:pid "
+            ,nativeQuery = true)
+    int geteDeviceByPid(@Param("pid")int pid);
 }

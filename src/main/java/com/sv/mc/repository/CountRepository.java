@@ -159,7 +159,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
 @Query(value = "" +
         "  select s.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
         " from  mc_city c " +
-        "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
+        "  left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
         " left  join mc_device d on d.place_id = p.id " +
         " left  join mc_order o on o.device_id = d.id " +
         " left  join mc_province s on c.province_id = s.id " +
@@ -177,7 +177,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
     @Query(value = "" +
             "  select s.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
             " from  mc_city c " +
-            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
+            " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
             " left  join mc_order o on o.device_id = d.id " +
             " left  join mc_province s on c.province_id = s.id " +
@@ -194,7 +194,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
     @Query(value = "" +
             "  select c.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
             " from  mc_city c " +
-            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
+            " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
             " left  join mc_order o on o.device_id = d.id " +
             " left  join mc_province s on c.province_id = s.id " +
@@ -214,7 +214,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
     @Query(value = "" +
             "  select c.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
             " from  mc_city c " +
-            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
+            " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
             " left  join mc_order o on o.device_id = d.id " +
             " left  join mc_province s on c.province_id = s.id " +
@@ -234,7 +234,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
     @Query(value = "" +
             "  select p.name ,count( o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
             " from  mc_city c " +
-            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
+            " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
             " left  join mc_order o on o.device_id = d.id " +
             " left  join mc_province s on c.province_id = s.id " +
@@ -256,7 +256,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
     @Query(value = "" +
             "    select p.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
             "  from  mc_city c " +
-            "  join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
+            " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             "  left  join mc_device d on d.place_id = p.id " +
             " left  join mc_order o on o.device_id = d.id " +
             " left  join mc_province s on c.province_id = s.id " +
@@ -276,7 +276,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
     @Query(value = "" +
             "   select p.name ,count(distinct o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0))"
             + "   from  mc_city c "
-            + "   join mc_place p on c.id = p.city_id "
+            + "  left join mc_place p on c.id = p.city_id "
             + "    left  join mc_device d on d.place_id = p.id "
             + "    left  join mc_order o on o.device_id = d.id "
             + "    left  join mc_province s on c.province_id = s.id "

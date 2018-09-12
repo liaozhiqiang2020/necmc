@@ -1,15 +1,23 @@
 package com.sv.mc.controller;
 
+import com.sv.mc.pojo.UserEntity;
+import com.sv.mc.pojo.vo.HomeVO;
+import com.sv.mc.service.HomeService;
 import com.sv.mc.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class DefaultController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private HomeService homeService;
 
     @RequestMapping("/index")
     public ModelAndView index() {
@@ -49,4 +57,15 @@ public class DefaultController {
     public String  getYesterdayOrderCount(){
         return String.valueOf(orderService.findYesterDayOrderCount());
     }
+
+
+    @GetMapping("/getCount")
+    public HomeVO getCount(HttpServletRequest request){
+        UserEntity user= (UserEntity) request.getSession().getAttribute("user");
+        HomeVO result=  homeService.dataDisplay(user);
+        System.out.println(result);
+        return result;
+    }
+
+
 }
