@@ -56,10 +56,8 @@ public class HomeVO {
                 yedOrder == homeVO.yedOrder &&
                 Objects.equals(yedInc, homeVO.yedInc);
     }
-
     @Override
     public int hashCode() {
-
         return Objects.hash(nmoDevice, expDevice, yedInc, yedOrder);
     }
 }
