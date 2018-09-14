@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class GatewayController {
@@ -26,9 +28,7 @@ public class GatewayController {
 
 
     /**
-     * 查询所有网关
-     *
-     * @return 返回所有设备内容
+     * 查询所有网关信息(不分页,json数据)
      */
     @GetMapping(value = "/gatewayMgr/allGateway")
     public @ResponseBody
@@ -36,12 +36,23 @@ public class GatewayController {
         return this.gatewayService.selectAllGatewayEnties();
     }
 
+
+    /**
+     * 查询所有网关信息(不分页,list)
+     */
+    @GetMapping(value = "/gatewayMgr/allGatewayList")
+    public @ResponseBody
+    List<GatewayEntity> allGatewayList() {
+        return this.gatewayService.findAllEntities();
+    }
+
     /**
      * 添加网关
      */
     @PostMapping(value = "/gatewayMgr/insertGateway")
     public @ResponseBody
-    GatewayEntity insertGateway(GatewayEntity gatewayEntity) {
+    GatewayEntity insertGateway(@RequestBody  GatewayEntity gatewayEntity) {
+        gatewayEntity.setStatus(0);
         return this.gatewayService.save(gatewayEntity);
     }
 
@@ -50,7 +61,7 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGateway")
     public @ResponseBody
-    GatewayEntity updateGateway(GatewayEntity gatewayEntity) {
+    GatewayEntity updateGateway(@RequestBody GatewayEntity gatewayEntity) {
         return this.gatewayService.updateGatewayInfo(gatewayEntity);
     }
 

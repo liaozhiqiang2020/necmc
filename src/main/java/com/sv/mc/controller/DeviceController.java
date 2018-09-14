@@ -152,6 +152,7 @@ public class DeviceController {
     @RequestMapping(value = "/deviceMgr/insertDevice",method = RequestMethod.POST)
     public @ResponseBody
     DeviceEntity insertDevice(@RequestBody DeviceEntity deviceEntity){
+        deviceEntity.setMcIsNotOnline(0);
         return  this.deviceService.insertDevice(deviceEntity);
     }
 

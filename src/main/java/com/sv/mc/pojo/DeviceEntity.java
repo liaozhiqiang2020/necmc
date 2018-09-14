@@ -21,6 +21,7 @@ public class DeviceEntity {
     private BigDecimal latitude;//按摩椅纬度
     private BigDecimal longitude; //按摩椅经度
     private int mcStatus;//按摩椅状态(0可用,1使用中,2维修中)
+    private int mcIsNotOnline;//按摩椅是否在线
     private String mcSn;//按摩椅SN
     private String loraId;//按摩椅模块编号
     private String note;//备注
@@ -58,6 +59,16 @@ public class DeviceEntity {
         this.priceEntities = priceEntities;
     }
 
+
+    @Basic
+    @Column(name = "isnot_online")
+    public int getMcIsNotOnline() {
+        return mcIsNotOnline;
+    }
+
+    public void setMcIsNotOnline(int mcIsNotOnline) {
+        this.mcIsNotOnline = mcIsNotOnline;
+    }
 
     @Basic
     @Column(name = "strength")

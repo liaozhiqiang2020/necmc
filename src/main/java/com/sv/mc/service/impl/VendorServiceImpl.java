@@ -195,11 +195,12 @@ public class VendorServiceImpl implements VendorService {
 //                Object principal = map.get("principal");
                 Object telephone = map.get("telephone");
                 Object vendorAddress = map.get("vendorAddress");
-                String userStr = map.get("userId").toString();
-                if(userStr!=""){
-                        int userId = Integer.parseInt(userStr);
-                        vendorEntity.setUserId(userId);
-                }
+//                String userStr = map.get("userId").toString();
+                String principal = map.get("principal").toString();
+//                if(userStr!=""){
+//                        int userId = Integer.parseInt(userStr);
+//                        vendorEntity.setUserId(userId);
+//                }
                 String superiorStr = map.get("superiorId").toString().split("_")[0];
                 if(superiorStr!=""){
                         int superiorId = Integer.parseInt(superiorStr);//上级公司id
@@ -216,6 +217,7 @@ public class VendorServiceImpl implements VendorService {
 
                 }
 
+                vendorEntity.setPrincipal(principal);
                 vendorEntity.setDiscardStatus(1);
                 vendorEntity.setEmail(email.toString());
                 if(id!=null){

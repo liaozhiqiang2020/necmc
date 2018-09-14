@@ -138,7 +138,6 @@ public class DeviceServiceImpl implements DeviceService {
                 config.setExcludes(new String[] { "priceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
                 JSONArray jsonArray = JSONArray.fromObject(deviceEntityDataSourceResult,config);
 
-
                 return jsonArray.toString();
         }
 
@@ -158,15 +157,20 @@ public class DeviceServiceImpl implements DeviceService {
                 int superId = userEntity.getGradeId();//1.2.3.4
                 int flag = userEntity.getpId();//上级id
                 List<DeviceEntity> deviceEntityList;
+                int total;
 
                 if(superId==1){
                      deviceEntityList=this.deviceRepository.findAllDevice2();
+                     total =this.deviceRepository.findDeviceTotal();
                 }else if(superId==2){
                      deviceEntityList= this.deviceRepository.findAllDevice3(flag);
+                     total = this.deviceRepository.findAllDeviceTotal3(flag);
                 }else if(superId==3){
                      deviceEntityList= this.deviceRepository.findAllDevice4(flag);
+                     total = this.deviceRepository.findAllDeviceTotal4(flag);
                 }else{
                      deviceEntityList= this.deviceRepository.findAllDevice5(flag);
+                     total = this.deviceRepository.findAllDeviceTotal5(flag);
                 }
 
                 JsonConfig config = new JsonConfig();
@@ -175,6 +179,7 @@ public class DeviceServiceImpl implements DeviceService {
 
                 JSONArray jsonArray = JSONArray.fromObject(deviceEntityList, config);
                 JSONArray jsonArray1 = new JSONArray();
+                JSONObject jsonObject1 = new JSONObject();
                 for (int i = 0; i < jsonArray.size(); i++) {
                         String placeName = "";
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -185,8 +190,10 @@ public class DeviceServiceImpl implements DeviceService {
                         jsonObject.put("placeName", placeName);
                         jsonArray1.add(jsonObject);
                 }
+                jsonObject1.put("data",jsonArray1.toString());
+                jsonObject1.put("total",total);
 
-                return jsonArray1.toString();
+                return jsonObject1.toString();
         }
 
 

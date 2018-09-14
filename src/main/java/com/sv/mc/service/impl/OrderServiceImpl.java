@@ -96,6 +96,17 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject12 = jsonArray.getJSONObject(i);
             int status = Integer.parseInt(jsonObject12.get("status").toString());
+
+            Object object = jsonObject12.get("deviceId").toString();
+
+            if(object.equals("0")){
+                jsonObject12.put("deviceSn", "");
+            }else{
+                int deviceId = Integer.parseInt(object.toString());
+                String deviceSn = this.deviceRepository.findDeviceById(deviceId).getMcSn();
+                jsonObject12.put("deviceSn", deviceSn);
+            }
+
             if (status == 0) {
                 statusName = "未付款";
             } else if (status == 1) {
@@ -572,6 +583,17 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject12 = jsonArray.getJSONObject(i);
             int status = Integer.parseInt(jsonObject12.get("status").toString());
+
+            Object object = jsonObject12.get("deviceId").toString();
+
+            if(object.equals("0")){
+                jsonObject12.put("deviceSn", "");
+            }else{
+                int deviceId = Integer.parseInt(object.toString());
+                String deviceSn = this.deviceRepository.findDeviceById(deviceId).getMcSn();
+                jsonObject12.put("deviceSn", deviceSn);
+            }
+
             if (status == 0) {
                 statusName = "未付款";
             } else if (status == 1) {

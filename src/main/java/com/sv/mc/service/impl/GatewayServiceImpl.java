@@ -1,6 +1,8 @@
 package com.sv.mc.service.impl;
 
+import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.GatewayEntity;
+import com.sv.mc.repository.DeviceRepository;
 import com.sv.mc.repository.GatewayRepository;
 import com.sv.mc.repository.PlaceRepository;
 import com.sv.mc.service.GatewayService;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GatewayServiceImpl implements GatewayService {
@@ -28,6 +31,9 @@ public class GatewayServiceImpl implements GatewayService {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private DeviceRepository deviceRepository;
 
     /**
      * 保存数据
@@ -156,6 +162,9 @@ public class GatewayServiceImpl implements GatewayService {
     public String selectAllGatewayEnties() {
         List<GatewayEntity> gatewayEntityList = this.gatewayRepository.findAll();
         int total = this.gatewayRepository.findGatewayEntitsCount();
+        WxUtil wxUtil = new WxUtil();
+
+        Timestamp nowTime = wxUtil.getNowDate();
 
         JsonConfig config = new JsonConfig();
         config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
@@ -165,11 +174,36 @@ public class GatewayServiceImpl implements GatewayService {
         JSONArray jsonArray1 = new JSONArray();
         JSONObject jsonObject1 = new JSONObject();
         for (int i = 0; i < jsonArray.size(); i++) {
+            GatewayEntity gatewayEntity = gatewayEntityList.get(i);
+
             String placeName = "";
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             int placeId = Integer.parseInt(jsonObject.get("placeId").toString());
 
-            placeName = this.placeRepository.findPlaceById(placeId).getName();
+            if(gatewayEntity.getLastCorrespondTime()!=null){
+                Timestamp time = Timestamp.valueOf(jsonObject.get("lastCorrespondTime").toString());
+                long result = (nowTime.getTime()-time.getTime())/(1000);  //计算两个时间戳相差的秒数(当前时间-最后通信时间)
+
+                if(result<120 && result>=0){//如果当前时间和网关最后通信时间相差2分钟以内，网关在线
+                    gatewayEntity.setStatus(1);
+                    this.gatewayRepository.save(gatewayEntity);
+                    jsonObject.put("status", 1);
+                    jsonObject.put("statusName", "在线");
+                }else{
+                    gatewayEntity.setStatus(0);
+                    this.gatewayRepository.save(gatewayEntity);
+                    jsonObject.put("status", 0);
+                    jsonObject.put("statusName", "不在线");
+                }
+            }else{
+                jsonObject.put("lastCorrespondTime", "");
+                gatewayEntity.setStatus(0);
+                this.gatewayRepository.save(gatewayEntity);
+                jsonObject.put("status", 0);
+                jsonObject.put("statusName", "不在线");
+            }
+
+            placeName = this.placeRepository.findPlaceById(placeId).getName();//查询场地名称
 
             jsonObject.put("placeName", placeName);
             jsonArray1.add(jsonObject);
@@ -178,5 +212,28 @@ public class GatewayServiceImpl implements GatewayService {
         jsonObject1.put("total",total);
 
         return jsonObject1.toString();
+    }
+
+    /**
+     * 根据网关sn查询网关下所有设备
+     * @return
+     */
+    @Override
+    public List<String> findAllDeviceByGatewayCode(String sn) {
+        List<String> list = this.deviceRepository.findAllDeviceByGatewayCode(sn);
+        return list;
+    }
+
+
+    @Override
+    public GatewayEntity insertGateway(Map map) {
+
+
+        return null;
+    }
+
+    @Override
+    public GatewayEntity updateGateway(Map map) {
+        return null;
     }
 }

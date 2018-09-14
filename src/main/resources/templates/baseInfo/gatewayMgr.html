@@ -85,12 +85,19 @@
                         create: {
                             url: "./insertGateway",
                             dataType: "json",
-                            type: "post"
+                            type: "post",
+                            contentType:"application/json;charset=UTF-8"
                         },
                         update: {
                             url: "./updateGateway",
                             dataType: "json",
-                            type: "post"
+                            type: "post",
+                            contentType:"application/json;charset=UTF-8"
+                        },
+                        parameterMap:function(options, operation){
+                            if (operation === "create" || operation === "update") {
+                                return kendo.stringify(options);
+                            }
                         }
                     },
                     serverPaging: false,    //设定服务器来实现分页功能
@@ -110,7 +117,10 @@
                                 gatewaySn: {type: "string"},
                                 deviceCount: {type: "number"},
                                 placeId:{type: "number"},
-                                placeName:{type: "string"}
+                                placeName:{type: "string"},
+                                lastCorrespondTime:{type: "timestamp",editable: false},
+                                status:{type:"int",editable: false},
+                                statusName:{type: "string",editable: false}
                             }
                         },
                         data: function (response) {
@@ -189,6 +199,16 @@
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
+                            field: "lastCorrespondTime",
+                            title: "最后通信时间",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                        },
+                        {
+                            field: "statusName",
+                            title: "是否在线",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;#=statusName === '在线' ? 'background-color:lime;' : 'background-color:gold;'#"}
+                        },
+                        {
                             command: [
                                 {
                                     name: "edit", text: {edit: "编辑", cancel: "取消", update: "更新"}
@@ -202,6 +222,9 @@
                                         // $("#window").show();
                                         var str = " <div id='window'>" +
                                             "            <table>" +
+                                            "                <div style='padding-top: 5px'>" +
+                                            "                    <span style='color:red;'>"+data.gatewaySn+"</span>" +
+                                            "                </div>" +
                                             "                <div style='border-bottom:1px solid #000;padding-top: 5px'></div>" +
                                             "                <div style='padding-top: 5px'>" +
                                             "                    域名:<input type='text' id='domainName' class='k-input k-textbox' placeholder='请输入域名'>" +

@@ -4,6 +4,7 @@ import com.sv.mc.pojo.DeviceEntity;
 import com.sv.mc.pojo.GatewayEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 网管管理接口
@@ -57,5 +58,25 @@ public interface GatewayService<T> extends BaseService<T>{
      * 查询所有网关信息(不分页,json数据)
      */
     String selectAllGatewayEnties();
+
+    /**
+     * 根据网关sn查询网关下所有设备
+     * @return
+     */
+    List<String> findAllDeviceByGatewayCode(String sn);
+
+    /**
+     * 插入一条网关数据
+     * @param map
+     * @return
+     */
+    GatewayEntity insertGateway(Map<String,Object> map);
+
+    /**
+     * 修改网关数据
+     * @param map
+     * @return
+     */
+    GatewayEntity updateGateway(Map<String,Object> map);
 
 }
