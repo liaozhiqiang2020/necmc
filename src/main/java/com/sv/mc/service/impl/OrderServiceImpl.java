@@ -2,10 +2,7 @@ package com.sv.mc.service.impl;
 
 import com.google.gson.Gson;
 import com.sv.mc.pojo.*;
-import com.sv.mc.repository.AccountRepository;
-import com.sv.mc.repository.DeviceRepository;
-import com.sv.mc.repository.OrderRepository;
-import com.sv.mc.repository.WxUserInfoRepository;
+import com.sv.mc.repository.*;
 import com.sv.mc.service.*;
 import com.sv.mc.util.DataSourceResult;
 import com.sv.mc.util.DateJsonValueProcessor;
@@ -44,6 +41,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     private WxUserInfoRepository wxUserInfoRepository;
     @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private DeviceService deviceService;
+    @Autowired
+    private PlaceRepository placeRepository;
     @Resource
     private JMSProducer jmsProducer;
     @Autowired
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      */
     @Override
     @Transactional
-    public String findAllOrdersByPage(int page, int pageSize,HttpSession session) {
+    public String findAllOrdersByPage(int page, int pageSize,HttpSession session,String startTime,String endTime) {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         int superId = userEntity.getGradeId();//1.2.3.4
         int flag = userEntity.getpId();//上级id
@@ -66,19 +67,35 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         int offset = ((page - 1) * pageSize);
         int total = 0;
 
-        if(superId==1){
-            branchEntityList=this.orderRepository.findAllOrdersByPage(offset, pageSize);//记录
-            total = this.orderRepository.findOrderTotal();//数量
-        }else if(superId==2){
-            branchEntityList= this.orderRepository.findAllOrdersByPage2(offset, pageSize,flag);
-            total = this.orderRepository.findOrderTotal2(flag);//数量
-        }else if(superId==3){
-            branchEntityList= this.orderRepository.findAllOrdersByPage3(offset, pageSize,flag);
-            total = this.orderRepository.findOrderTotal3(flag);//数量
-        }else{
-            branchEntityList= this.orderRepository.findAllOrdersByPage4(offset, pageSize,flag);
-            total = this.orderRepository.findOrderTotal4(flag);//数量
-        }
+//        if(placeId==0){
+            if(superId==1){
+                branchEntityList=this.orderRepository.findAllOrdersByPage(offset, pageSize,startTime,endTime);//记录
+                total = this.orderRepository.findOrderTotal(startTime,endTime);//数量
+            }else if(superId==2){
+                branchEntityList= this.orderRepository.findAllOrdersByPage2(offset, pageSize,flag,startTime,endTime);
+                total = this.orderRepository.findOrderTotal2(flag,startTime,endTime);//数量
+            }else if(superId==3){
+                branchEntityList= this.orderRepository.findAllOrdersByPage3(offset, pageSize,flag,startTime,endTime);
+                total = this.orderRepository.findOrderTotal3(flag,startTime,endTime);//数量
+            }else{
+                branchEntityList= this.orderRepository.findAllOrdersByPage4(offset, pageSize,flag,startTime,endTime);
+                total = this.orderRepository.findOrderTotal4(flag,startTime,endTime);//数量
+            }
+//        }else{
+//            if(superId==1){
+//                branchEntityList=this.orderRepository.findAllOrdersByPlace(offset, pageSize,startTime,endTime,placeId);//记录
+//                total = this.orderRepository.findOrderTotalByPlace(startTime,endTime,placeId);//数量
+//            }else if(superId==2){
+//                branchEntityList= this.orderRepository.findAllOrdersByPlace2(offset, pageSize,flag,startTime,endTime,placeId);
+//                total = this.orderRepository.findOrderTotalByPlace2(flag,startTime,endTime,placeId);//数量
+//            }else if(superId==3){
+//                branchEntityList= this.orderRepository.findAllOrdersByPlace3(offset, pageSize,flag,startTime,endTime,placeId);
+//                total = this.orderRepository.findOrderTotalByPlace3(flag,startTime,endTime,placeId);//数量
+//            }else{
+//                branchEntityList= this.orderRepository.findAllOrdersByPlace4(offset, pageSize,flag,startTime,endTime);
+//                total = this.orderRepository.findOrderTotalByPlace4(flag,startTime,endTime);//数量
+//            }
+//        }
 
         DataSourceResult<OrderEntity> branchEntityDataSourceResult = new DataSourceResult<>();
 
@@ -104,7 +121,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
             }else{
                 int deviceId = Integer.parseInt(object.toString());
                 String deviceSn = this.deviceRepository.findDeviceById(deviceId).getMcSn();
+                int placeCode = this.deviceRepository.findDeviceById(deviceId).getPlaceId();
+                String placeName = this.placeRepository.findPlaceById(placeCode).getName();
                 jsonObject12.put("deviceSn", deviceSn);
+                jsonObject12.put("placeName", placeName);
             }
 
             if (status == 0) {
@@ -395,6 +415,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 //        SingletonHungary.getSingleTon().put(devideCode+"status",devideCode+"_"+2);
 
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+
         //参数：1、任务体 2、首次执行的延时时间
         //      3、任务执行间隔 4、间隔时间单位
         service.scheduleAtFixedRate(() -> {
@@ -404,6 +425,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
                 e.printStackTrace();
             }
         }, 0, 1, TimeUnit.SECONDS);//开始计时
+
 
     }
 
@@ -422,7 +444,17 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
             this.orderRepository.save(orderEntity);
             service.shutdownNow();//停止当前计时器
             try {
-                jmsProducer.sendMessage("faaf0e10" + chairCode + "0000");//按摩椅20000002  停止按摩椅
+                DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairCode);
+                String loraId = wxUtil.convertStringToHex(deviceEntity.getLoraId());
+                String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
+
+                String message = "faaf0e10" + loraId;//按摩椅20000002，60min
+
+                byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+                byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
+                String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+                message = message + res + "_" + gatewayId;
+                jmsProducer.sendMessage(message);//按摩椅20000002  停止按摩椅
             } catch (Exception e) {
                 e.printStackTrace();
             }

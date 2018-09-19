@@ -22,8 +22,16 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
     PriceEntity findPriceEntitiesById(@Param("id") int id);
 
     //根据机器id查询机器已绑定价格
-    @Query("select d.priceEntities from DeviceEntity d  where d.id = :did ")
+    @Query("select d.priceEntities from DeviceEntity d  where d.id = :did")
     List<PriceEntity> findDevicePrice(@Param("did") int deviceId);
+
+    /**
+     * 查询机器绑定的价格（排序去重）
+     * @param deviceId
+     * @return
+     */
+    @Query(value="select DISTINCT p.use_time,p.Id,p.price_name,p.price,p.create_date_time,p.user_id,p.status,p.start_date_time,p.end_date_time,p.mc_type,p.description from mc_price p,mc_price_device d where p.Id=d.price_id and d.device_id=:did and p.status=1 order by p.price",nativeQuery = true)
+    List<PriceEntity> findDevicePriceSort(@Param("did") int deviceId);
 
 
     //状态为可用的所有价格

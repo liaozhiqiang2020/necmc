@@ -604,30 +604,30 @@ public class PriceServiceImpl implements PriceService {
      */
     @Override
     @Transactional
-    public Set<PriceEntity> findDeviceAllPrice(String deviceCode) {
+    public List<PriceEntity> findDeviceAllPrice(String deviceCode) {
         int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
 
-        Set<PriceEntity> priceSet = new HashSet<>();
-        List<PriceEntity> priceList1 = priceRepository.findDevicePrice(deviceId);
-        priceSet.addAll(priceList1);
+        List<PriceEntity> priceEntityList = new ArrayList<>();
+        List<PriceEntity> priceList1 = priceRepository.findDevicePriceSort(deviceId);
+        priceEntityList.addAll(priceList1);
         List<PriceEntity> priceEntities = new ArrayList<>();
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        for (PriceEntity p : priceSet
+
+        for (PriceEntity p : priceEntityList
                 ) {
-            if ((p.getEndDateTime() != null && p.getEndDateTime().getTime() < date.getTime()) || ( p.getStartDateTime()!= null &&p.getStartDateTime().getTime()>date.getTime()) || p.getStatus() == 0) {
+            if ((p.getEndDateTime() != null && p.getEndDateTime().getTime() < date.getTime()) || ( p.getStartDateTime()!= null &&p.getStartDateTime().getTime()>date.getTime())) {
                priceEntities.add(p);
             }else {
-                for (PriceEntity p1:priceSet
+                for (PriceEntity p1:priceEntityList
                      ) {
                     if (p.getUseTime() == p1.getUseTime() && (p.getStartDateTime() == null && p.getEndDateTime() == null)){
                         priceEntities.add(p);
                     }
                 }
             }
-
         }
-        priceSet.removeAll(priceEntities);
-        return priceSet;
+        priceEntityList.removeAll(priceEntities);
+        return priceEntityList;
     }
 
 

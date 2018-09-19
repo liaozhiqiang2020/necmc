@@ -81,11 +81,11 @@ public class GatewayServiceImpl implements GatewayService {
      * 修改网关域名端口
      */
     @Override
-    public void updateGatewayPort(String domainName, String port)throws Exception {
-        GatewayEntity gatewayEntity = new GatewayEntity();
+    public void updateGatewayPort(String domainName, String port,String gatewaySn)throws Exception {
+        GatewayEntity gatewayEntity = this.gatewayRepository.findGatewayBySn(gatewaySn);
         gatewayEntity.setDomainName(domainName);
         gatewayEntity.setPort(port);
-        this.save(gatewayEntity);
+        this.gatewayRepository.save(gatewayEntity);
 
         WxUtil wxUtil = new WxUtil();
         domainName = wxUtil.strTo16(domainName);//获取域名
@@ -105,7 +105,7 @@ public class GatewayServiceImpl implements GatewayService {
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res;
+        message = message+res+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }
 
@@ -113,10 +113,10 @@ public class GatewayServiceImpl implements GatewayService {
      * 修改网关频道
      */
     @Override
-    public void updateGatewayChannel(String channel) throws Exception {
-        GatewayEntity gatewayEntity = new GatewayEntity();
+    public void updateGatewayChannel(String channel,String gatewaySn) throws Exception {
+        GatewayEntity gatewayEntity = this.gatewayRepository.findGatewayBySn(gatewaySn);
         gatewayEntity.setChannel(channel);
-        this.save(gatewayEntity);
+        this.gatewayRepository.save(gatewayEntity);
 
         WxUtil wxUtil = new WxUtil();
 
@@ -125,7 +125,7 @@ public class GatewayServiceImpl implements GatewayService {
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res;
+        message = message+res+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }
 
@@ -133,7 +133,7 @@ public class GatewayServiceImpl implements GatewayService {
      * 重启网关
      */
     @Override
-    public void restartGateway() throws Exception {
+    public void restartGateway(String gatewaySn) throws Exception {
         WxUtil wxUtil = new WxUtil();
 
         String message = "faaf0605";
@@ -141,7 +141,7 @@ public class GatewayServiceImpl implements GatewayService {
         byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
         String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res;
+        message = message+res+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }
 

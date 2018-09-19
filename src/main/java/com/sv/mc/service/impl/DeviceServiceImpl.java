@@ -7,10 +7,7 @@ import com.sv.mc.repository.*;
 import com.sv.mc.service.DeviceModelService;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.SupplierService;
-import com.sv.mc.util.BaseUtil;
-import com.sv.mc.util.DataSourceResult;
-import com.sv.mc.util.DateJsonValueProcessor;
-import com.sv.mc.util.ExcelUtil;
+import com.sv.mc.util.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -102,6 +99,10 @@ public class DeviceServiceImpl implements DeviceService {
         @Override
         @Transactional
         public DeviceEntity insertDevice(DeviceEntity device) {
+                WxUtil wxUtil = new WxUtil();
+                Timestamp nowTime = wxUtil.getNowDate();
+                device.setLastCorrespondTime(nowTime);
+//                device.setOfflineTime(0);
                 device.setDiscardStatus(1);
                 return deviceRepository.save(device);
         }
@@ -352,6 +353,7 @@ public class DeviceServiceImpl implements DeviceService {
          */
         @Override
         public List<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException {
+                WxUtil wxUtil = new WxUtil();
                 boolean flag = false;
                 String name = file.getOriginalFilename();
                 List<ExcelSetDeviceResult> result = new ArrayList<>();
@@ -468,6 +470,8 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                       deviceEntity.setMcSn(sn);
                                                                                       deviceEntity.setNote(remark);
                                                                                       deviceEntity.setDiscardStatus(1);
+                                                                                      deviceEntity.setMcIsNotOnline(0);
+                                                                                      deviceEntity.setLastCorrespondTime(wxUtil.getNowDate());
                                                                                       deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
                                                                                       deviceEntity.setLoraId(sn.toString());
                                                                                       deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));

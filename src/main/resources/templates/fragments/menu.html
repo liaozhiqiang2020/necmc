@@ -105,7 +105,9 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li sec:authorize="hasAuthority('订单查询')"><a href="/mc/orderMgr/turnToOrderMgr"><i class="fa fa-circle-o"></i>
+                    <li sec:authorize="hasAuthority('订单查询(管理员)')"><a href="/mc/orderMgr/turnToOrderMgr"><i class="fa fa-circle-o"></i>
+                        订单查询(管理员)</a></li>
+                    <li sec:authorize="hasAuthority('订单查询')"><a href="/mc/orderMgr/turnToOrderPlaceMgr"><i class="fa fa-circle-o"></i>
                         订单查询</a></li>
                     <!--<li><a href="#"><i class="fa fa-circle-o"></i> 异常管理</a></li>-->
                 </ul>

@@ -14,6 +14,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -45,6 +46,8 @@ public class JMSConsumer {
             String gatewaySn = res16.split("_")[1];//截取网关sn
 
             Timestamp time = wxUtil.getNowDate();//获取当前时间戳
+            DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String timeStr = sdf.format(time);
             GatewayEntity gatewayEntity = this.gatewayRepository.findGatewayBySn(gatewaySn);//获取网关信息
             gatewayEntity.setLastCorrespondTime(time);
             this.gatewayRepository.save(gatewayEntity);//保存网关最后通信时间
@@ -63,7 +66,12 @@ public class JMSConsumer {
                 String deviceSn = baseGateway+resMsg;
 
                 if(deviceEntityList.contains(deviceSn)){
-                    this.deviceRepository.updateDeviceStatusByLoraId(deviceSn,resInt);//修改按摩椅状态(0，不在线;1，在线)
+                    if(resInt==1){
+                        this.deviceRepository.updateDeviceTimeByLoraId(deviceSn,resInt,timeStr);//修改按摩椅状态(0，不在线;1，在线)
+                    }else{
+                        this.deviceRepository.updateDeviceStatusByLoraId(deviceSn,resInt);
+                    }
+
                 }
             }
 

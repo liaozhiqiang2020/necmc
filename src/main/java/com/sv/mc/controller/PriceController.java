@@ -230,7 +230,7 @@ public class PriceController {
     }
 
     @GetMapping("/weixin/devicePrice")
-    public Set<PriceEntity> findDeviceAllPrice(String deviceCode){
+    public List<PriceEntity> findDeviceAllPrice(String deviceCode){
         return this.priceService.findDeviceAllPrice(deviceCode);
     }
 

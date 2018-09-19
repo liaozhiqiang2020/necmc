@@ -35,11 +35,19 @@ public class OrderController {
 
 
     /**
-     * 跳转到订单管理页面
+     * 跳转到订单查询(管理员)页面
      */
     @GetMapping(value="/orderMgr/turnToOrderMgr")
     public ModelAndView turnToOrderMgr(){
         return new ModelAndView("./order/orderMgr");
+    }
+
+    /**
+     * 跳转到订单查询(代理、场地)页面
+     */
+    @GetMapping(value="/orderMgr/turnToOrderPlaceMgr")
+    public ModelAndView turnToOrderPlaceMgr(){
+        return new ModelAndView("./order/orderPlaceMgr");
     }
 
 
@@ -49,8 +57,8 @@ public class OrderController {
      */
     @GetMapping(value = "/orderMgr/allOrder")
     public @ResponseBody
-    String getAll(@Param("page") String page, @Param("pageSize") String pageSize, HttpSession session) {
-        return this.orderService.findAllOrdersByPage(Integer.parseInt(page),Integer.parseInt(pageSize),session);
+    String getAll(@Param("page") String page, @Param("pageSize") String pageSize, HttpSession session,@Param("startTime") String startTime,@Param("endTime") String endTime) {
+        return this.orderService.findAllOrdersByPage(Integer.parseInt(page),Integer.parseInt(pageSize),session,startTime,endTime);
     }
 
     /**

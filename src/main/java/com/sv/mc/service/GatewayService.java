@@ -37,15 +37,15 @@ public interface GatewayService<T> extends BaseService<T>{
     /**
      * 修改网关域名端口
      */
-    void updateGatewayPort(String domainName,String port)throws Exception;
+    void updateGatewayPort(String domainName,String port,String gatewaySn)throws Exception;
 
     /**
      * 修改网关频道
      */
-    void updateGatewayChannel(String channel)throws Exception;
+    void updateGatewayChannel(String channel,String gatewaySn)throws Exception;
 
 
-    void restartGateway()throws Exception;
+    void restartGateway(String gatewaySn)throws Exception;
 
     /**
      * 根据网关sn查询网关信息

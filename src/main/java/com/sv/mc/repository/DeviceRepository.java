@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -54,6 +55,12 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      */
     @Query("select d.id from DeviceEntity d where d.mcSn=:deviceCode")
     int queryDeviceIdByDeviceCode(@Param("deviceCode") String deviceCode);
+
+    /**
+     * 根据模块编号查询设备id
+     */
+    @Query("select d.id from DeviceEntity d where d.loraId=:loraId")
+    int queryDeviceIdByLoraId(@Param("loraId") String loraId);
 
 
     /**
@@ -246,6 +253,22 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Query(value = "select d.lora_id from mc_gateway g,mc_device d where g.Id = d.gateway_id and g.gateway_sn=:sn order by lora_id", nativeQuery = true)
     List<String> findAllDeviceByGatewayCode(@Param("sn") String sn);
 
+    /**
+     * 修改设备最后通信时间
+     * @param loraId
+     * @param status
+     * @param timeStr
+     */
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update mc_device set isnot_online=:status,last_correspond_time=:timeStr where lora_id=:loraId", nativeQuery = true)
+    void updateDeviceTimeByLoraId(@Param("loraId") String loraId, @Param("status") int status, @Param("timeStr")String timeStr);
+
+    /**
+     * 修改设备在线状态
+     * @param loraId
+     * @param status
+     */
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update mc_device set isnot_online=:status where lora_id=:loraId", nativeQuery = true)

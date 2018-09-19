@@ -70,9 +70,9 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayPort")
     public @ResponseBody
-    void updateGatewayPort(String domainName, String port) {
+    void updateGatewayPort(String domainName, String port,String gatewaySn) {
         try {
-            this.gatewayService.updateGatewayPort(domainName, port);
+            this.gatewayService.updateGatewayPort(domainName, port,gatewaySn);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,9 +83,9 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayChannel")
     public @ResponseBody
-    void updateGatewayChannel(String channel) {
+    void updateGatewayChannel(String channel,String gatewaySn) {
         try {
-            this.gatewayService.updateGatewayChannel(channel);
+            this.gatewayService.updateGatewayChannel(channel,gatewaySn);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,9 +96,9 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/restartGateway")
     public @ResponseBody
-    void restartGateway() {
+    void restartGateway(String gatewaySn) {
         try {
-            this.gatewayService.restartGateway();
+            this.gatewayService.restartGateway(gatewaySn);
         } catch (Exception e) {
             e.printStackTrace();
         }

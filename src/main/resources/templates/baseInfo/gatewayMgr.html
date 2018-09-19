@@ -280,7 +280,8 @@
                                                     url: "../gatewayMgr/updateGatewayPort",
                                                     data: {
                                                         domainName: domainName,
-                                                        port: port
+                                                        port: port,
+                                                        gatewaySn:data.gatewaySn
                                                     },
                                                     success: function (res) {
                                                         alert("修改域名端口成功，请重启网关！");
@@ -305,7 +306,8 @@
                                                     type: "post",
                                                     url: "../gatewayMgr/updateGatewayChannel",
                                                     data: {
-                                                        channel: channel
+                                                        channel: channel,
+                                                        gatewaySn:data.gatewaySn
                                                     },
                                                     success: function (res) {
                                                         alert("修改频道成功，请重启网关！");
@@ -322,7 +324,9 @@
                                                 $.ajax({
                                                     type: "post",
                                                     url: "../gatewayMgr/restartGateway",
-                                                    data: {},
+                                                    data: {
+                                                        gatewaySn:data.gatewaySn
+                                                    },
                                                     success: function (res) {
                                                         alert("重启网关成功！");
                                                         myWindow.data("kendoWindow").close();
