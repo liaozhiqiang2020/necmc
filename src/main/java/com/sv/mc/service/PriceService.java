@@ -143,12 +143,20 @@ public interface PriceService {
     List<Map<String, Object>> queryPriceAndTime(String deviceCode);
 
     /**
+     * 查询场地上所有已绑定价格
+     *
+     * @param
+     * @return
+     */
+    String findPriceEntitiesByEnd(int placeId);
+
+    /**
      * 查询所有可用的价格
      *
      * @param
      * @return
      */
-    String findPriceEntitiesByEnd();
+    String findPriceEntitiesByEnd1();
 
     /**
      * 分页查询所有数据
@@ -169,6 +177,8 @@ public interface PriceService {
      */
 
     List getExcel(MultipartFile multipartFile) throws IOException;
+
+    String deletePlacePrice(Map<String, Object> listMap);
 
 
 }
