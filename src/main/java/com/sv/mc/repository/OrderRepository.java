@@ -200,11 +200,11 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     List<OrderEntity>getExcelOrder();
 
    //1级权限 查询昨天的订单数
-    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1",nativeQuery = true)
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now())",nativeQuery = true)
     int getYeOrder();
 
     //3级权限查询昨天的订单数'
-    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1 and " +
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and " +
             "mc_order.device_id in " +
             "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid))",nativeQuery = true)
@@ -212,7 +212,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 
 
     //2级权限查询昨天的订单数'
-    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1 and " +
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and " +
             "mc_order.device_id in " +
             "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid))",nativeQuery = true)
@@ -221,7 +221,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 
 
     //4级权限查询昨天的订单数'
-    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1 and mc_order.device_id in " +
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and mc_order.device_id in " +
             "            (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id=:pid)",
             nativeQuery = true)
     int getYeOrderFour(@Param("pid")int pid);

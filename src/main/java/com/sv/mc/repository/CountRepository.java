@@ -120,8 +120,8 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  left  join mc_order o on o.device_id = d.id  " +
             "  left  join mc_province s on c.province_id = s.id  " +
             "  left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate and ad.from_level = 0  " +
-            "  group by s.name  " +
-            "  order by s.id  " +
+            "  group by s.name having count(o.id)>0 " +
+            "   " +
             "",nativeQuery = true)
     List<Object[]>findProvince(@Param("startDate") Date start ,@Param("endDate") Date end);
 
