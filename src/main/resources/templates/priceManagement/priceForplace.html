@@ -726,11 +726,7 @@
                             },
                             parameterMap: function (options, operation) {
                                 if (operation === "destroy" && options.models) {
-                                    let array = [];
-                                    for (let j = 0; j < options.models.length; j++) {
-                                        array[j] = options.models[j].id;
-                                    }
-
+                                    let array = options.models[0].id;
                                     let list1 = {
                                         price: array,
                                         deviceId: deviceId
@@ -744,6 +740,7 @@
                         },
                         batch: true,
                         pageSize: 5,
+                        requestEnd: onRequestEnd1,
                         schema: {
                             model: {
                                 id: "id",
@@ -896,8 +893,16 @@
                                 title: "结束时间",
                                 width: "50px",
                                 format: "{0: yyyy-MM-dd}"
+                            },
+                            {
+                                command: [
+                                     {
+                                        name: "destroy", text: "解绑价格"
+                                    }],
+                                title: "操作",
+                                width: "80px"
                             }],
-                        editable: false
+                        editable: "popup"
                     });
                     $("#edit-4").kendoGrid({
                         toolbar: "未绑定价格",
@@ -977,6 +982,8 @@
                         e.sender.read();
                     }
 
+
+
                     //更新成功后弹出提示信息
                     var response = e.response;
                     if (response) {
@@ -993,6 +1000,37 @@
                     }
                 }
 
+                function onRequestEnd1(e) {
+                    if (e.type == "create") {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+                    else if (e.type == "update") {
+                        e.sender.read();
+                    }
+                    else if (e.type == "destroy") {
+                        var roleGrid = $("#edit-3").data("kendoGrid");
+                        roleGrid.dataSource.read();
+                        var roleGrid1 = $("#edit-4").data("kendoGrid");
+                        roleGrid1.dataSource.read();
+                    }
+
+
+
+                    //更新成功后弹出提示信息
+                    var response = e.response;
+                    if (response) {
+                        var type = e.type;
+                        if (type != 'read') {
+                            var status = response.status;
+                            if (status == 200) {
+                                this.read();
+                            }
+                            else {
+                                // alert(response.msg);
+                            }
+                        }
+                    }
+                }
                 function excel(e) {
                     var tr = $(e.target).closest("tr");
 

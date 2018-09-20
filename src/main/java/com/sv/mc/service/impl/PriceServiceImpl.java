@@ -462,10 +462,7 @@ public class PriceServiceImpl implements PriceService {
         Object deviceId = listMap.get("deviceId");
         Object price = listMap.get("price");
         DeviceEntity device = this.deviceRepository.findDeviceById((int) deviceId);
-        for (int priceId : (ArrayList<Integer>) price
-                ) {
-            device.getPriceEntities().remove(this.priceRepository.findPriceEntitiesById(priceId));
-        }
+        device.getPriceEntities().remove(this.priceRepository.findPriceEntitiesById((int)price));
         return device.getPriceEntities();
     }
 
