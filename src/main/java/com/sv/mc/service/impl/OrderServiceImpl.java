@@ -59,7 +59,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      */
     @Override
     @Transactional
-    public String findAllOrdersByPage(int page, int pageSize,HttpSession session,String startTime,String endTime) {
+    public String findAllOrdersByPage(int page, int pageSize, HttpSession session, String startTime, String endTime) {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         int superId = userEntity.getGradeId();//1.2.3.4
         int flag = userEntity.getpId();//上级id
@@ -68,19 +68,19 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         int total = 0;
 
 //        if(placeId==0){
-            if(superId==1){
-                branchEntityList=this.orderRepository.findAllOrdersByPage(offset, pageSize,startTime,endTime);//记录
-                total = this.orderRepository.findOrderTotal(startTime,endTime);//数量
-            }else if(superId==2){
-                branchEntityList= this.orderRepository.findAllOrdersByPage2(offset, pageSize,flag,startTime,endTime);
-                total = this.orderRepository.findOrderTotal2(flag,startTime,endTime);//数量
-            }else if(superId==3){
-                branchEntityList= this.orderRepository.findAllOrdersByPage3(offset, pageSize,flag,startTime,endTime);
-                total = this.orderRepository.findOrderTotal3(flag,startTime,endTime);//数量
-            }else{
-                branchEntityList= this.orderRepository.findAllOrdersByPage4(offset, pageSize,flag,startTime,endTime);
-                total = this.orderRepository.findOrderTotal4(flag,startTime,endTime);//数量
-            }
+        if (superId == 1) {
+            branchEntityList = this.orderRepository.findAllOrdersByPage(offset, pageSize, startTime, endTime);//记录
+            total = this.orderRepository.findOrderTotal(startTime, endTime);//数量
+        } else if (superId == 2) {
+            branchEntityList = this.orderRepository.findAllOrdersByPage2(offset, pageSize, flag, startTime, endTime);
+            total = this.orderRepository.findOrderTotal2(flag, startTime, endTime);//数量
+        } else if (superId == 3) {
+            branchEntityList = this.orderRepository.findAllOrdersByPage3(offset, pageSize, flag, startTime, endTime);
+            total = this.orderRepository.findOrderTotal3(flag, startTime, endTime);//数量
+        } else {
+            branchEntityList = this.orderRepository.findAllOrdersByPage4(offset, pageSize, flag, startTime, endTime);
+            total = this.orderRepository.findOrderTotal4(flag, startTime, endTime);//数量
+        }
 //        }else{
 //            if(superId==1){
 //                branchEntityList=this.orderRepository.findAllOrdersByPlace(offset, pageSize,startTime,endTime,placeId);//记录
@@ -116,9 +116,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
             Object object = jsonObject12.get("deviceId").toString();
 
-            if(object.equals("0")){
+            if (object.equals("0")) {
                 jsonObject12.put("deviceSn", "");
-            }else{
+            } else {
                 int deviceId = Integer.parseInt(object.toString());
                 String deviceSn = this.deviceRepository.findDeviceById(deviceId).getMcSn();
                 int placeCode = this.deviceRepository.findDeviceById(deviceId).getPlaceId();
@@ -263,7 +263,6 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
 
-
     /**
      * 根据订单id修改订单状态
      *
@@ -377,41 +376,50 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         this.orderRepository.save(orderEntity);//保存订单信息
 
-        if (state == 1) {//插入账单信息
-            AccountDetailEntity accountDetailEntity = new AccountDetailEntity();
-//            int deviceId = orderEntity.getDeviceId();//按摩椅编号
-//            DeviceEntity deviceEntity = this.deviceRepository.findDeviceById(deviceId);//设备信息
-//            int placeId = deviceEntity.getPlaceEntity().getId();//场地id
-//            int superiorId = deviceEntity.getPlaceEntity().getSuperiorId();//上级单位id
-//            int typeFlag = deviceEntity.getPlaceEntity().getLevelFlag();//上级单位
-//            BigDecimal bigDecimal = new BigDecimal(0);
-            BigDecimal money = orderEntity.getMoney();//收入
-            accountDetailEntity.setAccountId(1);
-            accountDetailEntity.setDetailCode("accountDetail_" + ts.toString());
-            accountDetailEntity.setDetailName("accountDetail_" + ts.toString());
-            accountDetailEntity.setCapital(money);
-            accountDetailEntity.setCapitalFlag(1);
-            accountDetailEntity.setDetailDateTime(ts);
-            this.accountDetailService.createAccountDetail(accountDetailEntity);
-
+//        int deviceId = orderEntity.getDeviceId();//按摩椅编号
+//        DeviceEntity deviceEntity = this.deviceRepository.findDeviceById(deviceId);//设备信息
+//        int placeId = deviceEntity.getPlaceId();
+//        PlaceEntity placeEntity = this.placeRepository.findPlaceById(placeId);
 //
-//            accountEntity.setPlaceId(placeId);
-//            accountEntity.setAccountStatus(1);
-//            accountEntity.setName("微信");
-//            accountEntity.setGeneralIncome(money);
-//            accountEntity.setTotalExpenditure(bigDecimal);
-//            accountEntity.setProfit(money);
-//            accountEntity.setSuperiorId(superiorId);
-//            accountEntity.setTypeFlag(typeFlag);
-//            this.accountService.createAccount(accountEntity);
-        }
+//        int superiorId =placeEntity.getSuperiorId();
+//        int typeFlag = placeEntity.getLevelFlag();
+
+        //插入账单信息
+//        BigDecimal bigDecimal = new BigDecimal(0);
+//        AccountEntity accountEntity = new AccountEntity();
+//        accountEntity.setPlaceId(placeId);
+//        accountEntity.setAccountStatus(1);
+//        accountEntity.setName("微信");
+////        accountEntity.setGeneralIncome(money);
+//        accountEntity.setTotalExpenditure(bigDecimal);
+////        accountEntity.setProfit(money);
+//        accountEntity.setSuperiorId(superiorId);
+//        accountEntity.setTypeFlag(typeFlag);
+//        this.accountService.createAccount(accountEntity);
+
+
+//        if (state == 1) {//插入账单明细
+        AccountDetailEntity accountDetailEntity = new AccountDetailEntity();
+        BigDecimal money = orderEntity.getMoney();//收入
+        accountDetailEntity.setAccountId(1);
+        accountDetailEntity.setDetailCode("accountDetail_" + ts.toString());
+        accountDetailEntity.setDetailName("accountDetail_" + ts.toString());
+        accountDetailEntity.setCapital(money);
+        accountDetailEntity.setCapitalFlag(1);
+        accountDetailEntity.setDetailDateTime(ts);
+        accountDetailEntity.setFromId(orderEntity.getId());
+        accountDetailEntity.setFrom_level(0);
+        this.accountDetailService.createAccountDetail(accountDetailEntity);
+
+
+//        }
 
 
         String devideCode = getMcCode(orderId);
         String chairCode = wxUtil.convertStringToHex(devideCode);
 
-        SingletonHungary.getSingleTon().remove(devideCode+"runing");
-        SingletonHungary.getSingleTon().remove(devideCode+"status");
+        SingletonHungary.getSingleTon().remove(devideCode + "runing");
+        SingletonHungary.getSingleTon().remove(devideCode + "status");
 //        SingletonHungary.getSingleTon().put(devideCode+"status",devideCode+"_"+2);
 
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
@@ -439,11 +447,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     @Transactional
     public void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity, String chairCode) {
         WxUtil wxUtil = new WxUtil();
-        if (afterTs.getTime() <= wxUtil.getNowDate().getTime()) {//获取当前时间(时间戳)//如果现在的时间大于等于结束时间
-            orderEntity.setStatus(2);//修改状态为已完成
-            this.orderRepository.save(orderEntity);
-            service.shutdownNow();//停止当前计时器
-            try {
+        try {
+            if (afterTs.getTime() <= wxUtil.getNowDate().getTime()) {//获取当前时间(时间戳)//如果现在的时间大于等于结束时间
+                orderEntity.setStatus(2);//修改状态为已完成
+                this.orderRepository.save(orderEntity);
+                service.shutdownNow();//停止当前计时器
+
                 DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairCode);
                 String loraId = wxUtil.convertStringToHex(deviceEntity.getLoraId());
                 String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
@@ -455,10 +464,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
                 String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
                 message = message + res + "_" + gatewayId;
                 jmsProducer.sendMessage(message);//按摩椅20000002  停止按摩椅
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -593,7 +603,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
 
     @Override
-    public String findYesterDayOrderInfo(int page,int pageSize) {
+    public String findYesterDayOrderInfo(int page, int pageSize) {
         Calendar calendar = Calendar.getInstance();//此时打印它获取的是系统当前时间
         calendar.add(Calendar.DATE, -1);    //得到前一天
 
@@ -601,12 +611,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         String today = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(new Date());
 
         int offset = ((page - 1) * pageSize);
-        List<OrderEntity> orderEntityList = this.orderRepository.findOrdersInfo(yestedayDate, today,offset,pageSize);
+        List<OrderEntity> orderEntityList = this.orderRepository.findOrdersInfo(yestedayDate, today, offset, pageSize);
         int total = this.orderRepository.findOrderByPeriod(yestedayDate, today);//数量
 
         JsonConfig config = new JsonConfig();
         config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        JSONArray jsonArray= JSONArray.fromObject(orderEntityList, config);//转化为jsonArray
+        JSONArray jsonArray = JSONArray.fromObject(orderEntityList, config);//转化为jsonArray
 
         JSONObject jsonObject1 = new JSONObject();
         JSONArray jsonArray1 = new JSONArray();//新建json数组
@@ -618,9 +628,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
             Object object = jsonObject12.get("deviceId").toString();
 
-            if(object.equals("0")){
+            if (object.equals("0")) {
                 jsonObject12.put("deviceSn", "");
-            }else{
+            } else {
                 int deviceId = Integer.parseInt(object.toString());
                 String deviceSn = this.deviceRepository.findDeviceById(deviceId).getMcSn();
                 jsonObject12.put("deviceSn", deviceSn);
@@ -647,6 +657,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 不分页查询所有订单信息
+     *
      * @return
      */
     @Override
@@ -657,11 +668,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 修改微信订单号
+     *
      * @param orderId
      * @param codeWx
      */
     @Override
-    public void updateOrderByCode(String orderId,String codeWx) {
+    public void updateOrderByCode(String orderId, String codeWx) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(Integer.parseInt(orderId));//查询订单信息
         orderEntity.setCodeWx(codeWx);
         this.orderRepository.save(orderEntity);

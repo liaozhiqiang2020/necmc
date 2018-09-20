@@ -126,6 +126,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
     @Override
     public Json wxPay(String openid,HttpServletRequest request,String paidOrderId,String money) {
         Json json = new Json();
+        WxUtil wxUtil = new WxUtil();
         try {
             //生成的随机字符串
             String nonce_str = StringUtils.getRandomStringByLength(32);
@@ -138,8 +139,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
             String orderNo = paidOrderId;
 //            money = "1";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
-            int payMoney = Integer.parseInt(money);
-            money = payMoney*100+"";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
+//            int payMoney = Integer.parseInt(money);
+            money = wxUtil.yuanToFen(money);//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
 
             Map<String, String> packageParams = new HashMap<String, String>();
             packageParams.put("appid", WxPayConfig.appid);

@@ -18,6 +18,28 @@ public class AccountDetailEntity {
     private BigDecimal capital;//资金
     private int capitalFlag;//资金类型判断(1收入,2支出,3退款)
     private Timestamp detailDateTime;//账目时间
+    private int fromId;//账目来源id
+    private int from_level;//0.设备订单 1 商场订单
+
+    @Basic
+    @Column(name = "from_id")
+    public int getFromId() {
+        return fromId;
+    }
+
+    public void setFromId(int fromId) {
+        this.fromId = fromId;
+    }
+
+    @Basic
+    @Column(name = "from_level")
+    public int getFrom_level() {
+        return from_level;
+    }
+
+    public void setFrom_level(int from_level) {
+        this.from_level = from_level;
+    }
 
     @Id
     @GeneratedValue
