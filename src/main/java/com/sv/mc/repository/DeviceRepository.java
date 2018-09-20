@@ -206,7 +206,7 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      *
      * @return
      */
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=1 and discard_status=1 ", nativeQuery = true)
+    @Query(value = "select count(mc_device.id) from mc_device where  last_correspond_time > DATE_SUB(NOW(), INTERVAL 60 MINUTE); ", nativeQuery = true)
     int getDeviceCount();
 
     /**
@@ -214,38 +214,38 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      *
      * @return
      */
-    @Query(value = "select count(mc_device.id) from mc_device where mc_status=0 and discard_status=1 ", nativeQuery = true)
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time < DATE_SUB(NOW(), INTERVAL 60 MINUTE); ", nativeQuery = true)
     int getDeviceErrorCount();
 
     //3级权限返回正常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=1 and discard_status=1 and mc_device.place_id in " +
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time > DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid ) ", nativeQuery = true)
     int getDevCotBySuperiorId(@Param("pid") int pid);
 
     //3级权限返回异常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=0 and discard_status=1 and mc_device.place_id in " +
-            "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid) ", nativeQuery = true)
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time < DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid ) ", nativeQuery = true)
     int getDevErrorCotBySuperiorId(@Param("pid") int pid);
 
 
     //2级权限返回正常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=1 and discard_status=1 and mc_device.place_id in " +
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time > DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid ) ", nativeQuery = true)
     int getDevCotBySuperiorId1(@Param("pid") int pid);
 
     //2级权限返回异常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=0 and discard_status=1 and mc_device.place_id in " +
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time < DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid) ", nativeQuery = true)
     int getDevErrorCotBySuperiorId1(@Param("pid") int pid);
 
 
     //场地管理员正常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=1 and discard_status=1 and mc_device.place_id=:pid "
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time > DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id=:pid "
             , nativeQuery = true)
     int getcDeviceByPid(@Param("pid") int pid);
 
     //场地管理员异常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where isnot_online=0 and discard_status=1 and mc_device.place_id=:pid "
+    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time < DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id=:pid "
             , nativeQuery = true)
     int geteDeviceByPid(@Param("pid") int pid);
 
