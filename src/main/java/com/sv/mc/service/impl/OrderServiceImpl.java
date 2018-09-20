@@ -605,10 +605,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     @Override
     public String findYesterDayOrderInfo(int page, int pageSize) {
         Calendar calendar = Calendar.getInstance();//此时打印它获取的是系统当前时间
-        calendar.add(Calendar.DATE, -1);    //得到前一天
+        //calendar.add(Calendar.DATE, -1);    //得到前一天
+        calendar.add(Calendar.DATE, 0);    //今天
 
         String yestedayDate = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(calendar.getTime());
-        String today = new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(new Date());
+        String today = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
         int offset = ((page - 1) * pageSize);
         List<OrderEntity> orderEntityList = this.orderRepository.findOrdersInfo(yestedayDate, today, offset, pageSize);

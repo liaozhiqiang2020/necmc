@@ -80,7 +80,7 @@ public class OrderController {
 
     /**
      * 全部查询
-     * @return 返回昨日订单内容
+     * @return 返回昨日订单内容（改为今日 2018/9/20）
      */
     @GetMapping(value = "/orderMgr/allOrderYesterday")
     public @ResponseBody
