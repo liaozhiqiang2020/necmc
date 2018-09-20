@@ -7,10 +7,7 @@ import com.sv.mc.repository.*;
 import com.sv.mc.service.DeviceModelService;
 import com.sv.mc.service.DeviceService;
 import com.sv.mc.service.SupplierService;
-import com.sv.mc.util.BaseUtil;
-import com.sv.mc.util.DataSourceResult;
-import com.sv.mc.util.DateJsonValueProcessor;
-import com.sv.mc.util.ExcelUtil;
+import com.sv.mc.util.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -102,6 +99,10 @@ public class DeviceServiceImpl implements DeviceService {
         @Override
         @Transactional
         public DeviceEntity insertDevice(DeviceEntity device) {
+                WxUtil wxUtil = new WxUtil();
+                Timestamp nowTime = wxUtil.getNowDate();
+                device.setLastCorrespondTime(nowTime);
+//                device.setOfflineTime(0);
                 device.setDiscardStatus(1);
                 return deviceRepository.save(device);
         }
@@ -138,7 +139,6 @@ public class DeviceServiceImpl implements DeviceService {
                 config.setExcludes(new String[] { "priceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
                 JSONArray jsonArray = JSONArray.fromObject(deviceEntityDataSourceResult,config);
 
-
                 return jsonArray.toString();
         }
 
@@ -158,15 +158,20 @@ public class DeviceServiceImpl implements DeviceService {
                 int superId = userEntity.getGradeId();//1.2.3.4
                 int flag = userEntity.getpId();//上级id
                 List<DeviceEntity> deviceEntityList;
+                int total;
 
                 if(superId==1){
                      deviceEntityList=this.deviceRepository.findAllDevice2();
+                     total =this.deviceRepository.findDeviceTotal();
                 }else if(superId==2){
                      deviceEntityList= this.deviceRepository.findAllDevice3(flag);
+                     total = this.deviceRepository.findAllDeviceTotal3(flag);
                 }else if(superId==3){
                      deviceEntityList= this.deviceRepository.findAllDevice4(flag);
+                     total = this.deviceRepository.findAllDeviceTotal4(flag);
                 }else{
                      deviceEntityList= this.deviceRepository.findAllDevice5(flag);
+                     total = this.deviceRepository.findAllDeviceTotal5(flag);
                 }
 
                 JsonConfig config = new JsonConfig();
@@ -175,6 +180,7 @@ public class DeviceServiceImpl implements DeviceService {
 
                 JSONArray jsonArray = JSONArray.fromObject(deviceEntityList, config);
                 JSONArray jsonArray1 = new JSONArray();
+                JSONObject jsonObject1 = new JSONObject();
                 for (int i = 0; i < jsonArray.size(); i++) {
                         String placeName = "";
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -185,8 +191,10 @@ public class DeviceServiceImpl implements DeviceService {
                         jsonObject.put("placeName", placeName);
                         jsonArray1.add(jsonObject);
                 }
+                jsonObject1.put("data",jsonArray1.toString());
+                jsonObject1.put("total",total);
 
-                return jsonArray1.toString();
+                return jsonObject1.toString();
         }
 
 
@@ -345,6 +353,7 @@ public class DeviceServiceImpl implements DeviceService {
          */
         @Override
         public List<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException {
+                WxUtil wxUtil = new WxUtil();
                 boolean flag = false;
                 String name = file.getOriginalFilename();
                 List<ExcelSetDeviceResult> result = new ArrayList<>();
@@ -428,7 +437,7 @@ public class DeviceServiceImpl implements DeviceService {
                                         }
                                         }
                                        if(cellNum==8){
-                                               System.out.println(cellNum);
+                                              // System.out.println(cellNum);
                                         if (placeName!=null&&deviceType!=null&&type!=null&&sn!=null&&supplierName!=null){
                                                  //System.out.println("内容不为空");
                                                 if (this.placeRepository.getPlaceName(placeName.toString()) != null) {
@@ -438,7 +447,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                 if (this.supplierRepository.getSupplierBySName(supplierName.toString()) != null) {
                                                                         //失败供应商返回集合
                                                                            // System.out.println("供应商存在");
-                                                                        if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
+                                                                       // if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
                                                                                       // System.out.println("SN不重复");
                                                                               if (this.gatewayRepository.findGatewayBySn(wg)!=null){//网关存在
                                                                                       if (weidu!=null){
@@ -458,12 +467,17 @@ public class DeviceServiceImpl implements DeviceService {
 
                                                                                       deviceEntity.setMcStatus(1);
                                                                                       deviceEntity.setDeviceModelEntity(this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()));
-                                                                                      deviceEntity.setMcSn(sn.toString());
+                                                                                      deviceEntity.setMcSn(sn);
                                                                                       deviceEntity.setNote(remark);
                                                                                       deviceEntity.setDiscardStatus(1);
+                                                                                      deviceEntity.setMcIsNotOnline(0);
+                                                                                      deviceEntity.setLastCorrespondTime(wxUtil.getNowDate());
                                                                                       deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
                                                                                       deviceEntity.setLoraId(sn.toString());
                                                                                       deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));
+                                                                                    if (this.deviceRepository.getDeviceBySn(sn)!=null){
+                                                                                           deviceEntity.setId(this.deviceRepository.getDeviceBySn(sn).getId());
+                                                                                    }
                                                                                       this.deviceRepository.save(deviceEntity);
 
                                                                                       edr.setName(placeName.toString());
@@ -487,25 +501,12 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                       edr.setBeizhu(remark);
                                                                                       edr.setSupplier(supplierName.toString());
                                                                                       edr.setGatSn(wg);
-                                                                                      edr.setMsg("绑定失败");
+                                                                                      edr.setMsg("绑定失败1");
                                                                                       result.add(edr);
                                                                               }
 
 
-                                                                        }else{
-                                                                                edr.setName(placeName.toString());
-                                                                                edr.setWeidu(weidu);
-                                                                                edr.setJingdu(jingdu);
-                                                                                edr.setDeviceType(deviceType.toString());
-                                                                                edr.setType(type.toString());
-                                                                                edr.setSn(sn.toString());
-                                                                                edr.setBeizhu(remark);
-                                                                                edr.setSupplier(supplierName.toString());
-                                                                                edr.setGatSn(wg);
-                                                                                edr.setMsg("绑定失败");
-                                                                                result.add(edr);
 
-                                                                        }
 
                                                                 }else {
                                                                         edr.setName(placeName.toString());
@@ -516,7 +517,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         edr.setSn(sn.toString());
                                                                         edr.setBeizhu(remark);
                                                                         edr.setSupplier(supplierName.toString());
-                                                                        edr.setMsg("绑定失败");
+                                                                        edr.setMsg("绑定失败3");
                                                                         edr.setGatSn(wg);
                                                                         result.add(edr);
 
@@ -531,7 +532,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                 edr.setSn(sn.toString());
                                                                 edr.setBeizhu(remark);
                                                                 edr.setSupplier(supplierName.toString());
-                                                                edr.setMsg("绑定失败");
+                                                                edr.setMsg("绑定失败4");
                                                                 edr.setGatSn(wg);
                                                                 result.add(edr);
 
@@ -546,7 +547,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                         edr.setSn(sn.toString());
                                                         edr.setBeizhu(remark);
                                                         edr.setSupplier(supplierName.toString());
-                                                        edr.setMsg("绑定失败");
+                                                        edr.setMsg("绑定失败5");
                                                         edr.setGatSn(wg);
                                                         result.add(edr);
 
@@ -649,7 +650,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         if (this.supplierRepository.getSupplierBySName(supplierName.toString()) != null) {
                                                                                 //失败供应商返回集合
                                                                                 // System.out.println("供应商存在");
-                                                                                if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
+                                                                                //if (/*设备编号重复*/this.deviceRepository.getDeviceBySn(sn.toString())==null) {
                                                                                         // System.out.println("SN不重复");
                                                                                         if (this.gatewayRepository.findGatewayBySn(wg)!=null){//网关存在
                                                                                                 if (weidu!=null){
@@ -675,6 +676,9 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                                 deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
                                                                                                 deviceEntity.setLoraId(sn.toString());
                                                                                                 deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));
+                                                                                                if (this.deviceRepository.getDeviceBySn(sn)!=null){
+                                                                                                        deviceEntity.setId(this.deviceRepository.getDeviceBySn(sn).getId());
+                                                                                                }
                                                                                                 this.deviceRepository.save(deviceEntity);
 
                                                                                                 edr.setName(placeName.toString());
@@ -703,20 +707,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                         }
 
 
-                                                                                }else{
-                                                                                        edr.setName(placeName.toString());
-                                                                                        edr.setWeidu(weidu);
-                                                                                        edr.setJingdu(jingdu);
-                                                                                        edr.setDeviceType(deviceType.toString());
-                                                                                        edr.setType(type.toString());
-                                                                                        edr.setSn(sn.toString());
-                                                                                        edr.setBeizhu(remark);
-                                                                                        edr.setSupplier(supplierName.toString());
-                                                                                        edr.setGatSn(wg);
-                                                                                        edr.setMsg("绑定失败");
-                                                                                        result.add(edr);
 
-                                                                                }
 
                                                                         }else {
                                                                                 edr.setName(placeName.toString());

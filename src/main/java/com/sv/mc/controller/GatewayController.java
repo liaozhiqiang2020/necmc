@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class GatewayController {
@@ -26,13 +28,21 @@ public class GatewayController {
 
 
     /**
-     * 查询所有网关
-     *
-     * @return 返回所有设备内容
+     * 查询所有网关信息(不分页,json数据)
      */
     @GetMapping(value = "/gatewayMgr/allGateway")
     public @ResponseBody
-    List<GatewayEntity> getAllGateway() {
+    String getAllGateway() {
+        return this.gatewayService.selectAllGatewayEnties();
+    }
+
+
+    /**
+     * 查询所有网关信息(不分页,list)
+     */
+    @GetMapping(value = "/gatewayMgr/allGatewayList")
+    public @ResponseBody
+    List<GatewayEntity> allGatewayList() {
         return this.gatewayService.findAllEntities();
     }
 
@@ -41,7 +51,8 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/insertGateway")
     public @ResponseBody
-    GatewayEntity insertGateway(GatewayEntity gatewayEntity) {
+    GatewayEntity insertGateway(@RequestBody  GatewayEntity gatewayEntity) {
+        gatewayEntity.setStatus(0);
         return this.gatewayService.save(gatewayEntity);
     }
 
@@ -50,7 +61,7 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGateway")
     public @ResponseBody
-    GatewayEntity updateGateway(GatewayEntity gatewayEntity) {
+    GatewayEntity updateGateway(@RequestBody GatewayEntity gatewayEntity) {
         return this.gatewayService.updateGatewayInfo(gatewayEntity);
     }
 
@@ -59,10 +70,10 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayPort")
     public @ResponseBody
-    void updateGatewayPort(String domainName,String port){
+    void updateGatewayPort(String domainName, String port,String gatewaySn) {
         try {
-            this.gatewayService.updateGatewayPort(domainName,port);
-        }catch (Exception e){
+            this.gatewayService.updateGatewayPort(domainName, port,gatewaySn);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -72,10 +83,10 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayChannel")
     public @ResponseBody
-    void updateGatewayChannel(String channel) {
+    void updateGatewayChannel(String channel,String gatewaySn) {
         try {
-            this.gatewayService.updateGatewayChannel(channel);
-        }catch (Exception e){
+            this.gatewayService.updateGatewayChannel(channel,gatewaySn);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -85,10 +96,10 @@ public class GatewayController {
      */
     @PostMapping(value = "/gatewayMgr/restartGateway")
     public @ResponseBody
-    void restartGateway() {
+    void restartGateway(String gatewaySn) {
         try {
-            this.gatewayService.restartGateway();
-        }catch (Exception e){
+            this.gatewayService.restartGateway(gatewaySn);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

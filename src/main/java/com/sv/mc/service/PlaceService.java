@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -109,7 +110,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param placeId
      * @return
      */
-    String findDeviceByPlaceId(int placeId,String deviceId,HttpSession session);
+    String findDeviceByPlaceId(int placeId,String deviceId,HttpSession session) throws ParseException;
 
     /**
      * 根据场地id查下一级信息

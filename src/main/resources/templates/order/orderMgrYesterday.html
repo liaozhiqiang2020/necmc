@@ -69,6 +69,7 @@
                                     mcEndDateTime: {type: "timestamp"},
                                     mcStatus: {type: "int"},
                                     deviceId: {type: "int"},
+                                    deviceSn:{type:"string"},
                                     mcTime: {type: "number"},
                                     description:{type:"string"},
                                     cancelReason:{type:"string"}
@@ -182,6 +183,11 @@
                             //     title: "设备资产编码",
                             //     attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             // },
+                            {
+                                field: "deviceSn",
+                                title: "设备编号",
+                                attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
+                            },
                             {
                                 field: "mcTime",
                                 title: "按摩时长(分钟)",

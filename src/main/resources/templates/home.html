@@ -27,7 +27,11 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">正常设备</span>
-                            <span class="info-box-number" style="font-size: 30px;">300台</span>
+                            <span class="info-box-number">
+                                <p style="font-size: 30px;">
+                                    <a href="#" target="_blank" id="nmoDevice">0</a>台
+                                </p>
+                            </span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -44,7 +48,7 @@
                             <span class="info-box-text">故障设备</span>
                             <span class="info-box-number">
                                 <p style="font-size: 30px;">
-                                    <a href="#" target="_blank">2台</a>
+                                    <a href="#" target="_blank" id="expDevice">0</a>台
                                 </p>
                             </span>
 
@@ -70,7 +74,7 @@
                             <span class="info-box-text">昨日收入</span>
                             <span class="info-box-number">
                                 <p style="font-size: 30px;">
-                                <a href="#" target="_blank">760元</a>
+                                <a href="#" target="_blank" id="yedInc">0.00</a>元
                                 </p>
                             </span>
                         </div>
@@ -127,7 +131,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="box">
+                    <div class="box collapsed-box">
                         <div class="box-header with-border">
                             <h3 class="box-title">昨日设备运行情况统计图</h3>
 
@@ -152,7 +156,7 @@
                     <!-- /.box -->
                 </div>
                 <div class="col-md-6">
-                    <div class="box">
+                    <div class="box collapsed-box">
                         <div class="box-header with-border">
                             <h3 class="box-title">近6个月运营概况</h3>
 
@@ -528,9 +532,20 @@
 
     $(document).ready(function () {
         //获取昨日的订单数
-        $.get("./getYesterdayOrderCount", function (result) {
+       /* $.get("./getYesterdayOrderCount", function (result) {
             $("#orderCount").text(result);
+        });*/
+        $.get("./getCount", function (result) {
+           console.log(result)
+
+            $("#nmoDevice").text(result.nmoDevice) //正常设备
+            if (result.yedInc!=null) {
+            $("#yedInc").text(result.yedInc) //昨天收入
+            }
+            $("#expDevice").text( result.expDevice) //异常设备
+            $("#orderCount").text(result.yedOrder);  //昨日订单数
         });
+
     });
 </script>
 

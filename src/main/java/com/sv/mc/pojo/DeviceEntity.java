@@ -21,6 +21,7 @@ public class DeviceEntity {
     private BigDecimal latitude;//按摩椅纬度
     private BigDecimal longitude; //按摩椅经度
     private int mcStatus;//按摩椅状态(0可用,1使用中,2维修中)
+    private int mcIsNotOnline;//按摩椅是否在线
     private String mcSn;//按摩椅SN
     private String loraId;//按摩椅模块编号
     private String note;//备注
@@ -32,6 +33,9 @@ public class DeviceEntity {
     private SupplierEntity supplierEntity;  //供应商
     private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
     private GatewayEntity gatewayEntity;//网关
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private Timestamp lastCorrespondTime;  //设备最后在线时间
+//    private int offlineTime;//设备离线时长
 
     @Id
     @GeneratedValue
@@ -58,6 +62,35 @@ public class DeviceEntity {
         this.priceEntities = priceEntities;
     }
 
+    @Basic
+    @Column(name = "last_correspond_time")
+    public Timestamp getLastCorrespondTime() {
+        return lastCorrespondTime;
+    }
+
+    public void setLastCorrespondTime(Timestamp lastCorrespondTime) {
+        this.lastCorrespondTime = lastCorrespondTime;
+    }
+
+//    @Basic
+//    @Column(name = "offline_time")
+//    public int getOfflineTime() {
+//        return offlineTime;
+//    }
+//
+//    public void setOfflineTime(int offlineTime) {
+//        this.offlineTime = offlineTime;
+//    }
+
+    @Basic
+    @Column(name = "isnot_online")
+    public int getMcIsNotOnline() {
+        return mcIsNotOnline;
+    }
+
+    public void setMcIsNotOnline(int mcIsNotOnline) {
+        this.mcIsNotOnline = mcIsNotOnline;
+    }
 
     @Basic
     @Column(name = "strength")

@@ -501,10 +501,12 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public String findDeviceByPlaceId(int placeId, String deviceId, HttpSession session) {
+    public String findDeviceByPlaceId(int placeId, String deviceId, HttpSession session) throws ParseException{
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         int superId = userEntity.getGradeId();
         int pId = userEntity.getpId();//隶属单位id
+
+        WxUtil wxUtil = new WxUtil();
 
         List<DeviceEntity> deviceEntityList = new ArrayList<>();
         int count = 0;
@@ -534,6 +536,7 @@ public class PlaceServiceImpl implements PlaceService {
             }
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         JsonConfig config = new JsonConfig();
         config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
@@ -546,6 +549,19 @@ public class PlaceServiceImpl implements PlaceService {
             String placeName = "";
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             int placeesId = Integer.parseInt(jsonObject.get("placeId").toString());
+            int mcIsNotOnline = Integer.parseInt(jsonObject.get("mcIsNotOnline").toString());
+            if(mcIsNotOnline==1){
+                jsonObject.put("offlineTime", 0);
+            }else{
+                String time = jsonObject.get("lastCorrespondTime").toString();
+//                System.out.println(time);
+                Date oldDate = sdf.parse(time);
+
+                Date nowDate = new Date();
+
+                long timeCount = wxUtil.getDifference(oldDate,nowDate,1);//计算
+                jsonObject.put("offlineTime", timeCount);
+            }
 
             placeName = this.placeRepository.findPlaceById(placeesId).getName();
 

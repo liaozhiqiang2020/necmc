@@ -52,10 +52,13 @@
                                                                                     data-required-msg="分公司地址为必填项！"
                                                                                     data-bind="value:branchAddress">
                 </div>
-                <div class="k-edit-label"><label for="userId">分公司负责人</label></div>
-                <div data-container-for="userId" class="k-edit-field">
-                    <input id="user1" data-role="combobox" data-bind="value:userId"/>
-                </div>
+                <!--<div class="k-edit-label"><label for="userId">分公司负责人</label></div>-->
+                <!--<div data-container-for="userId" class="k-edit-field">-->
+                    <!--<input id="user1" data-role="combobox" data-bind="value:userId"/>-->
+                <!--</div>-->
+                <div class="k-edit-label"><label for="principal">分公司负责人</div>
+                <div data-container-for="principal" class="k-edit-field"><input type="text" class="k-input k-textbox"
+                                                                           name="name" data-bind="value:principal"></div>
                 <div class="k-edit-label"><label for="telephone"><span style="color:red;">*</span> 分公司联系电话</label></div>
                 <div data-container-for="telephone" class="k-edit-field"><input type="text" class="k-input k-textbox"
                                                                                 name="telephone" required="required"
@@ -162,8 +165,9 @@
                                     },
                                     headQuartersId: {type: "number"},
                                     headQuartersName: {type: "string"},
-                                    userId: {type: "number"},
-                                    userName: {type: "string"},
+                                    principal:{type:"string"}
+                                    // userId: {type: "number"},
+                                    // userName: {type: "string"},
                                 }
                             },
                             data: function (response) {
@@ -226,9 +230,9 @@
                                 title: "分公司地址",
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {
-                                field: "userId",
+                                field: "principal",
                                 title: "分公司负责人",
-                                template: "#=userName#",
+                                // template: "#=userName#",
                                 // editor: chooseUser,
                                 attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                             }, {

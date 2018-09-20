@@ -1,6 +1,9 @@
 package com.sv.mc.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +16,10 @@ public class GatewayEntity {
     private String gatewaySn;
     private Integer deviceCount;
     private String domainName;//域名
+    private int placeId;//场地
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private Timestamp lastCorrespondTime;
+    private int status; //当前状态
 
     @Id
     @GeneratedValue
@@ -23,6 +30,36 @@ public class GatewayEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name="place_id")
+    public int getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
+    }
+
+    @Basic
+    @Column(name="status")
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Basic
+    @Column(name="last_correspond_time")
+    public Timestamp getLastCorrespondTime() {
+        return lastCorrespondTime;
+    }
+
+    public void setLastCorrespondTime(Timestamp lastCorrespondTime) {
+        this.lastCorrespondTime = lastCorrespondTime;
     }
 
     @Basic

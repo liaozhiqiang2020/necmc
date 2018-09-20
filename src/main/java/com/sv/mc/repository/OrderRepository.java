@@ -104,59 +104,78 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     @Query(value = "select d.mc_sn from mc_order o,mc_device d where o.device_id = d.id and o.id=:orderId",nativeQuery = true)
     String getMcCode(@Param("orderId")int orderId);
 
-
-
     /**
-     * 分页查询订单信息
+     * 分页查询订单信息(不选场地)
      * @param offset
      * @param pageSize
      * @return
      */
-    @Query(value="select * from mc_order as b order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    @Query(value="select * from mc_order as b where mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPage4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
     /**
-     * 分页查询订单信息
+     * 查询订单数量(不选场地)
+     * @return
+     */
+    @Query(value="select count(*) from mc_order as b where mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotal(@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotal2(@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotal3(@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotal4(@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+
+
+
+    /**
+     * 分页查询订单信息(选场地)
      * @param offset
      * @param pageSize
      * @return
      */
-    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("branchId") int branchId);
+    @Query(value="select * from mc_order as b,mc_device as d where b.device_Id=d.Id and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPlace(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPlace2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPlace3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    List<OrderEntity> findAllOrdersByPlace4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
     /**
-     * 分页查询订单信息
-     * @param offset
-     * @param pageSize
+     * 查询订单数量(选场地)
      * @return
      */
-    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId);
+    @Query(value="select count(*) from mc_order as b,mc_device as d where b.device_Id=d.Id and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotalByPlace(@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
 
-    /**
-     * 分页查询订单信息
-     * @param offset
-     * @param pageSize
-     * @return
-     */
-    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId);
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotalByPlace2(@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
 
-    /**
-     * 查询订单数量
-     * @return
-     */
-    @Query(value="select count(*) from mc_order as b",nativeQuery = true)
-    int findOrderTotal();
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotalByPlace3(@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
 
-    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId",nativeQuery = true)
-    int findOrderTotal2(@Param("branchId") int branchId);
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    int findOrderTotalByPlace4(@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
-    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId",nativeQuery = true)
-    int findOrderTotal3(@Param("vendorId") int vendorId);
 
-    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId",nativeQuery = true)
-    int findOrderTotal4(@Param("placeId") int placeId);
+
 
     /**
      *
@@ -179,6 +198,35 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 
     @Query(value = "from OrderEntity ")
     List<OrderEntity>getExcelOrder();
+
+   //1级权限 查询昨天的订单数
+    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1",nativeQuery = true)
+    int getYeOrder();
+
+    //3级权限查询昨天的订单数'
+    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1 and " +
+            "mc_order.device_id in " +
+            "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid))",nativeQuery = true)
+    int getYeOrderThree(@Param("pid")int pid);
+
+
+    //2级权限查询昨天的订单数'
+    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1 and " +
+            "mc_order.device_id in " +
+            "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
+            "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid))",nativeQuery = true)
+    int getYeOrderTwo(@Param("pid")int pid);
+
+
+
+    //4级权限查询昨天的订单数'
+    @Query(value = "select count(mc_order.id) from mc_order where TO_DAYS(NOW()) - TO_DAYS(mc_start_date_time) = 1 and mc_order.device_id in " +
+            "            (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id=:pid)",
+            nativeQuery = true)
+    int getYeOrderFour(@Param("pid")int pid);
+
+
 
 
 }
