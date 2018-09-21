@@ -164,7 +164,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
         " left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :start and o.create_date_time < :end1" +
         " left  join mc_province s on c.province_id = s.id " +
         " left  join mc_account_detail ad on ad.from_id = o.id  " +
-        " group by s.name " +
+        " group by s.name having count(o.id)>0" +
         "",nativeQuery = true)
     List<Object[]> getProvinceBypId(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start") String start,@Param("end1") String end);
 
