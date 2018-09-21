@@ -603,7 +603,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
 
     @Override
-    public String findYesterDayOrderInfo(int page, int pageSize) {
+    public String findYesterDayOrderInfo(int page, int pageSize,HttpSession session) {
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        int superId = userEntity.getGradeId();//1.2.3.4
+        int flag = userEntity.getpId();//上级id
+
         Calendar calendar = Calendar.getInstance();//此时打印它获取的是系统当前时间
         //calendar.add(Calendar.DATE, -1);    //得到前一天
         calendar.add(Calendar.DATE, 0);    //今天
@@ -612,8 +616,27 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         String today = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
         int offset = ((page - 1) * pageSize);
-        List<OrderEntity> orderEntityList = this.orderRepository.findOrdersInfo(yestedayDate, today, offset, pageSize);
-        int total = this.orderRepository.findOrderByPeriod(yestedayDate, today);//数量
+
+        List<OrderEntity> orderEntityList = new ArrayList<>();
+        int total=0;
+
+        if (superId == 1) {
+            orderEntityList = this.orderRepository.findAllOrdersByPage(offset, pageSize, yestedayDate, today);//记录
+            total = this.orderRepository.findOrderTotal(yestedayDate, today);//数量
+        } else if (superId == 2) {
+            orderEntityList = this.orderRepository.findAllOrdersByPage2(offset, pageSize, flag, yestedayDate, today);
+            total = this.orderRepository.findOrderTotal2(flag, yestedayDate, today);//数量
+        } else if (superId == 3) {
+            orderEntityList = this.orderRepository.findAllOrdersByPage3(offset, pageSize, flag, yestedayDate, today);
+            total = this.orderRepository.findOrderTotal3(flag,yestedayDate, today);//数量
+        } else {
+            orderEntityList = this.orderRepository.findAllOrdersByPage4(offset, pageSize, flag, yestedayDate, today);
+            total = this.orderRepository.findOrderTotal4(flag, yestedayDate, today);//数量
+        }
+
+
+//        List<OrderEntity> orderEntityList = this.orderRepository.findOrdersInfo(yestedayDate, today, offset, pageSize);
+//        int total = this.orderRepository.findOrderByPeriod(yestedayDate, today);//数量
 
         JsonConfig config = new JsonConfig();
         config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
