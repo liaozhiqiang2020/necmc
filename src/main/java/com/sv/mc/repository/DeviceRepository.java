@@ -240,12 +240,15 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
 
 
     //场地管理员正常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time > DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id=:pid "
+    @Query(value = "" +
+            "select count(mc_device.id) from mc_device where last_correspond_time > DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id " +
+            "in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))) "
             , nativeQuery = true)
     int getcDeviceByPid(@Param("pid") int pid);
 
     //场地管理员异常设备数
-    @Query(value = "select count(mc_device.id) from mc_device where last_correspond_time < DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id=:pid "
+    @Query(value =  "select count(mc_device.id) from mc_device where last_correspond_time < DATE_SUB(NOW(), INTERVAL 60 MINUTE) and mc_device.place_id " +
+            "in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))) "
             , nativeQuery = true)
     int geteDeviceByPid(@Param("pid") int pid);
 

@@ -470,6 +470,7 @@ public class CountServiceImpl implements CountService {
     @Override
     public List<ProvinceQo> getPlacyByANDplaceID(String start, String end, int placeId) {
         List<Object[]>list =this.repository.getPlacyByANDplaceID(start, end, placeId);
+        System.out.println(list);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -492,6 +493,7 @@ public class CountServiceImpl implements CountService {
             ProvinceQo.setUserCount(userCount);
             plist.add(ProvinceQo);
         }
+        System.out.println(plist);
         return plist;
 
 

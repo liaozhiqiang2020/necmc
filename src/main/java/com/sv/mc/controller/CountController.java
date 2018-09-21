@@ -148,8 +148,8 @@ public class CountController {
 
             List<ProvinceQo> plist=this.countService.getPlacyByANDplaceID(start,end,pId);
             if (plist.size()!=0){
-                p= plist.get(0);
-                p1.add(p);
+                //p= plist.get(0);
+                p1.addAll(plist);
             }else {
                 p=null;
                 p1.add(p);

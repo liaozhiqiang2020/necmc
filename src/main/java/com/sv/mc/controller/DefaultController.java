@@ -63,7 +63,7 @@ public class DefaultController {
     public HomeVO getCount(HttpServletRequest request){
         UserEntity user= (UserEntity) request.getSession().getAttribute("user");
         HomeVO result=  homeService.dataDisplay(user);
-        System.out.println(result);
+
         return result;
     }
 

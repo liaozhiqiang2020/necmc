@@ -221,8 +221,9 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 
 
     //4级权限查询昨天的订单数'
-    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and mc_order.device_id in " +
-            "            (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id=:pid)",
+    @Query(value =  "" +"select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and mc_order.device_id in"+
+            " (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(2052))))",
+
             nativeQuery = true)
     int getYeOrderFour(@Param("pid")int pid);
 
