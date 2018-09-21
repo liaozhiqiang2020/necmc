@@ -55,13 +55,23 @@ public class PriceController {
     }
 
     /**
-     * 不分页查询价格列表,价格状态为可用的并不过期可绑定的
+     * 不分页查询价格列表,场地上已绑定的价格
      *
      * @return 价格集合
      */
     @GetMapping("/price/statusOrDate")
-    public String findEndPrice() {
-        return this.priceService.findPriceEntitiesByEnd();
+    public String findEndPrice(@RequestParam int placeId) {
+        return this.priceService.findPriceEntitiesByEnd(placeId);
+    }
+
+    /**
+     * 不分页查询价格列表,场地上可绑定的价格
+     *
+     * @return 价格集合
+     */
+    @GetMapping("/price/statusOrDate1")
+    public String findEndPrice1() {
+        return this.priceService.findPriceEntitiesByEnd1();
     }
 
     /**
@@ -405,7 +415,11 @@ public class PriceController {
 
     }
 
-    ;
+    @PostMapping("/price/deletePlacePrice")
+    public String deletePlacePrice(@RequestBody Map<String, Object> listMap){
+         this.priceService.deletePlacePrice(listMap);
+         return "绑定成功";
 
+    }
 
 }
