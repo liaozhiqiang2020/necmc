@@ -84,8 +84,8 @@ public class OrderController {
      */
     @GetMapping(value = "/orderMgr/allOrderYesterday")
     public @ResponseBody
-    String allOrderYesterday(@Param("page") String page, @Param("pageSize") String pageSize) {
-        return this.orderService.findYesterDayOrderInfo(Integer.parseInt(page),Integer.parseInt(pageSize));
+    String allOrderYesterday(@Param("page") String page, @Param("pageSize") String pageSize,HttpSession session) {
+        return this.orderService.findYesterDayOrderInfo(Integer.parseInt(page),Integer.parseInt(pageSize),session);
     }
     /**
      * excel 导出订单记录
