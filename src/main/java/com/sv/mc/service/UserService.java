@@ -39,13 +39,13 @@ public interface UserService<T>  {
      * @param map user对象
      * @return 更新的user对象
      */
-    UserEntity updateUser(Map<String,Object> map);
+    int updateUser(Map<String,Object> map);
     /**
      *保存user对象
      * @param map user对象
      * @return 保存的user对象
      */
-    UserEntity saveUser(Map<String,Object> map);
+    int saveUser(Map<String,Object> map);
 
     /**
      * 逻辑删除一个user对象

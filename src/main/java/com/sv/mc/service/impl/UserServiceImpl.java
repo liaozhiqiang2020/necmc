@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
      */
     @Override
     @Transactional
-    public UserEntity updateUser(Map<String, Object> map) {
+    public int updateUser(Map<String, Object> map) {
         String company = (String) map.get("company");
         String password = (String) map.get("authenticationString");
         String cellphoneNumber = (String) map.get("cellphoneNumber");
@@ -209,6 +209,10 @@ public class UserServiceImpl implements UserService<UserEntity> {
         String createDateTime = (String) map.get("createDatetime");
         String latestLoginDatetime = (String) map.get("latestLoginDatetime");
         String lastTime = intUtil.dateString(latestLoginDatetime);
+        int ss = this.userRepository.findUserName(userName);
+        if (ss == 1 ){
+            return 0;
+        }else {
 
         UserEntity user = this.userRepository.findUserById(id);
         user.setStatus(status);
@@ -239,7 +243,9 @@ public class UserServiceImpl implements UserService<UserEntity> {
             user.setpId(this.placeRepository.findPByName(company).getId());
             user.setGradeId(4);
         }
-        return this.userRepository.save(user);
+        this.userRepository.save(user);
+        return 1;
+        }
     }
 
     /**
@@ -249,7 +255,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
      */
     @Override
     @Transactional
-    public UserEntity saveUser(@RequestBody Map<String, Object> map) {
+    public int saveUser(@RequestBody Map<String, Object> map) {
         String company = (String) map.get("company");
         String password = (String) map.get("authenticationString");
         String cellphoneNumber = (String) map.get("cellphoneNumber");
@@ -261,6 +267,11 @@ public class UserServiceImpl implements UserService<UserEntity> {
         int status = 1;
         String latestLoginDatetime = (String) map.get("latestLoginDatetime");
 
+        int ss = this.userRepository.findUserName(userName);
+        if (ss == 1 ){
+            return 0;
+        }else {
+
         UserEntity user = new UserEntity();
         user.setStatus(status);
         user.setCellphoneNumber(cellphoneNumber);
@@ -270,20 +281,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
         user.setUserName(userName);
         user.setLatestLoginIp(latestLoginIp);
         user.setCreateDatetime(new Timestamp(System.currentTimeMillis()));
-//        user.setLatestLoginDatetime(new Timestamp(System.currentTimeMillis()));
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        try {
-//            Date date1 = simpleDateFormat.parse(createDateTime);
-//            Date date2 = simpleDateFormat.parse(latestLoginDatetime);
-//            long timeStamp1 = date1.getTime();
-//            long timeStamp2 = date2.getTime();
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            user.setCreateDatetime( (Timestamp) map.get("latestLoginDatetime"));
-//        }catch (ParseException e){
-//            System.out.println(e.getMessage());
-//        }
 
-//        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
         user.setAuthenticationString(MD5Util.encode(password));
         if (this.headQuartersRepository.findHByName(company) != null) {
             user.setpId(this.headQuartersRepository.findHByName(company).getId());
@@ -298,7 +296,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
             user.setpId(this.placeRepository.findPByName(company).getId());
             user.setGradeId(4);
         }
-        return this.userRepository.save(user);
+        this.userRepository.save(user);
+        return 1;}
     }
 
     /**

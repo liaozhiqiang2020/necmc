@@ -83,7 +83,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/user/update")
-    public UserEntity updateUser(@RequestBody Map<String, Object> map) {
+    public int updateUser(@RequestBody Map<String, Object> map) {
         return this.userService.updateUser(map);
     }
 
@@ -94,7 +94,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/user/save")
-    public UserEntity saveUser(@RequestBody Map<String, Object> map) {
+    public int saveUser(@RequestBody Map<String, Object> map) {
         return this.userService.saveUser(map);
     }
 

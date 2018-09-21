@@ -11,6 +11,10 @@ import java.util.List;
 @Repository
 public interface UserRepository extends BaseRepository<UserEntity, Long>, PagingAndSortingRepository<UserEntity, Long> {
 
+    //查询账号是否存在
+    @Query(value = "select count(u.user_name) from mc_user u where u.user_name = :userName" , nativeQuery = true)
+    int findUserName(@Param("userName") String userName);
+
     //根据用户账号查询用户
     @Query("from UserEntity as u where u.userName = :userName")
     UserEntity findUserByUserName(@Param("userName") String userName);

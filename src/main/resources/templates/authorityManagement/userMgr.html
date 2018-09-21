@@ -571,8 +571,7 @@
                                 }
                             }
                         });
-                    }
-
+                    },
                 });
 
             }
@@ -581,10 +580,19 @@
             //（请求后触发）点击按钮更新表格,只适用于单条修改，直接修改数据库，不适用于批量修改
             function onRequestEnd(e) {
                 if (e.type == "create") {
-                    e.sender.read();       //调用read方法 重新读取表格
+                    if(e.response == 0){
+                        alert("账号已存在，用户创建失败。")
+                    }else {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
+
                 }
                 else if (e.type == "update") {
-                    e.sender.read();
+                    if(e.response == 0){
+                        alert("账号已存在，用户更新失败。")
+                    }else {
+                        e.sender.read();       //调用read方法 重新读取表格
+                    }
                 }
                 else if (e.type == "destroy") {
                     e.sender.read();
@@ -597,6 +605,7 @@
                     if (type != 'read') {
                         var status = response.status;
                         if (status == 200) {
+                            alert(1)
                             this.read();
                         }
                         else {
@@ -661,6 +670,7 @@
                 $('<input class="k-checkbox" id="' + guid + '" type="checkbox" name="' + options.field + '" data-type="boolean" data-bind="checked:' + options.field + '">').appendTo(container);
                 $('<label class="k-checkbox-label" for="' + guid + '">&#8203;</label>').appendTo(container);
             }
+
 
 
             /*]]>*/
