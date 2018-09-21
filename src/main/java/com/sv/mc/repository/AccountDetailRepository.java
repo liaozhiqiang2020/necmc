@@ -34,7 +34,7 @@ public interface AccountDetailRepository extends BaseRepository<AccountDetailEnt
     //4级权限查询昨天的收入
     @Query(value = "select sum(mc_account_detail.capital) from mc_account_detail where capital_flag=1 and to_days(detail_date_time) = to_days(now()) " +
             " and mc_account_detail.account_id in( " +
-            " select mc_account.id from mc_account where mc_account.place_id=:pid " +
+            " select mc_account.id from mc_account where mc_account.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))) " +
             " )",nativeQuery = true)
     BigDecimal getIncFour(@Param("pid")int pid);
 

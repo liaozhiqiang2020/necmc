@@ -172,7 +172,7 @@ public interface OrderService<T> extends BaseService<T>{
      * 根据时间段查询订单数量，例如：[2018/7/1 00:00:00, 2018/8/1 00:00:00)
      * @return 订单信息
      */
-    String findYesterDayOrderInfo(int page,int pageSize);
+    String findYesterDayOrderInfo(int page,int pageSize,HttpSession session);
 
 
 

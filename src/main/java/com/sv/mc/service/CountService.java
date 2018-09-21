@@ -7,6 +7,7 @@ import com.sv.mc.pojo.qo.ProvinceQo;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -21,27 +22,27 @@ public interface CountService {
       * @return
       */
 
-     ProvinceQo findProvinceById(int pId, Date start, Date end);
+     ProvinceQo findProvinceById(int pId, String start, String end);
 
      /**
       * 根据省ID查询所有市区
       */
 
-     List<ProvinceQo> findCityByProvinceID(int id, Date start, Date end);
+     List<ProvinceQo> findCityByProvinceID(int id, String start, String end);
 
 
      /**
       *  根据市查询所有场地数据
       */
 
-     List<ProvinceQo> findPlaceByCityID(int id, Date start, Date end);
+     List<ProvinceQo> findPlaceByCityID(int id, String start, String end);
 
 
      /**
       * 查询市总数据
       */
 
-     ProvinceQo findCityById(int cId, Date start, Date end);
+     ProvinceQo findCityById(int cId, String start, String end);
 
 
 
@@ -49,19 +50,19 @@ public interface CountService {
      /**
       * 查询省总数据
       */
-     ProvinceQo findprovince(Date start, Date end);
+     ProvinceQo findprovince(String start, String end);
 
 
      /**
       * 根据场地ID查询一个场地
       */
-     ProvinceQo getONEPlaceById(int pId, Date start, Date end);
+     ProvinceQo getONEPlaceById(int pId, String start, String end);
 
 
      /**
       * 查询所有省
       */
-     List<ProvinceQo>getALLProvince(Date start, Date end);
+     List<ProvinceQo>getALLProvince(String start, String end);
 
 
      /**
@@ -93,7 +94,7 @@ public interface CountService {
       * @param end
       */
 
-     List<ProvinceQo> getProvinceBypId( int level, int pid, Date start, Date end);
+     List<ProvinceQo> getProvinceBypId( int level, int pid, String start, String end);
 
 
      /**
@@ -103,38 +104,38 @@ public interface CountService {
       * @return
       */
 
-     List<ProvinceQo> getProvinceBypIdANDprovinceID( int level, int pid,Date start, Date end,int provinceId);
+     List<ProvinceQo> getProvinceBypIdANDprovinceID( int level, int pid,String start, String end,int provinceId);
 
 
      /**
       * 根据省ID查询所有所在市数据
       */
-     List<ProvinceQo> getCBypIdANDprovinceID( int level, int pid, Date start, Date end,int provinceId);
+     List<ProvinceQo> getCBypIdANDprovinceID( int level, int pid, String start, String end,int provinceId);
 
 
      /**
       * 根据市ID查询所有所在市数据
       */
 
-     List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, Date start, Date end,int cityId);
+     List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, String start, String end,int cityId);
 
 
 
      /**
       * 根据市Id 查询所有所在场地数据
       */
-     List<ProvinceQo> getPlacyBypIdANDcityID( int level, int pid, Date start, Date end,int cityId);
+     List<ProvinceQo> getPlacyBypIdANDcityID( int level, int pid, String start, String end,int cityId);
 
 
      /**
       * 根据场地Id 查询所有所在场地数据
       */
-     List<ProvinceQo> getPlacyBypIdANDplaceID( int level, int pid, Date start, Date end,int placeId);
+     List<ProvinceQo> getPlacyBypIdANDplaceID( int level, int pid, String start, String end,int placeId);
 
 
      /**
       * 最低级权限查询场地
       */
-     List<ProvinceQo> getPlacyByANDplaceID( Date start, Date end,int placeId);
+     List<ProvinceQo> getPlacyByANDplaceID( String start, String end,int placeId);
 
 }

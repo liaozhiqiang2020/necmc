@@ -119,7 +119,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
     List<OrderEntity> findAllOrdersByPage3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
-    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
+    @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id in (select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))) and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
     List<OrderEntity> findAllOrdersByPage4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
     /**
@@ -135,7 +135,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
     int findOrderTotal3(@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
-    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
+    @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id in (select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))) and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
     int findOrderTotal4(@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
 
 
@@ -221,8 +221,9 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
 
 
     //4级权限查询昨天的订单数'
-    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and mc_order.device_id in " +
-            "            (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id=:pid)",
+    @Query(value =  "" +"select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and mc_order.device_id in"+
+            " (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))))",
+
             nativeQuery = true)
     int getYeOrderFour(@Param("pid")int pid);
 

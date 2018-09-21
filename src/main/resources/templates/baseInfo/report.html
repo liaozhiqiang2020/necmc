@@ -124,10 +124,10 @@
                       }
                      }else {
                          placeGrid();
-                         alert(111)
+
                      }
              }
-console.log(start,end,province,city,place)
+//console.log(start,end,province,city,place)
 
 
     }
@@ -978,6 +978,8 @@ console.log(start,end,province,city,place)
     }
 
     function onChange1() {
+      //  alert($("#city").data("kendoDropDownList").value())
+
         if ($("#city").data("kendoDropDownList").value()=="") {
 
             $("#place").kendoDropDownList({
@@ -998,7 +1000,7 @@ console.log(start,end,province,city,place)
                         read: {
                             dataType: "json",
                             url: "./place",
-                            data: { id: $("#province").data("kendoDropDownList").value() }
+                            data: { id: $("#city").data("kendoDropDownList").value() }
                         }
                     }
                 }
