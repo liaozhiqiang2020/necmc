@@ -26,7 +26,7 @@ public class CountController {
      * @return
      */
     @GetMapping(value = "/findProvinceByPid")
-    private List<ProvinceQo> findProvinceById(@RequestParam("pId") int pId, @RequestParam("start") Date start , @RequestParam("end") Date end, HttpServletRequest request){
+    private List<ProvinceQo> findProvinceById(@RequestParam("pId") int pId, @RequestParam("start") String start , @RequestParam("end") String end, HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
          int p_Id= user.getpId();
          int gid=user.getGradeId();
@@ -56,7 +56,7 @@ public class CountController {
      * 根据省ID查询所有市
      */
     @GetMapping(value = "/findCityByPid")
-    private List<ProvinceQo> findCTByPId(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> findCTByPId(@RequestParam("pId") int pId, @RequestParam("start") String start ,@RequestParam("end") String end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();
@@ -75,7 +75,7 @@ public class CountController {
      * 查询一个市区
      */
     @GetMapping(value = "/findPlaceByCity")
-    private List<ProvinceQo> findCityBycityID(@RequestParam("cId") int cId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> findCityBycityID(@RequestParam("cId") int cId, @RequestParam("start") String start ,@RequestParam("end") String end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();
@@ -106,7 +106,7 @@ public class CountController {
      * 根据市ID查询所有场地
      */
     @GetMapping(value = "/findPlaceBycid")
-    private List<ProvinceQo> findByplacecId(@RequestParam("cId") int cId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> findByplacecId(@RequestParam("cId") int cId, @RequestParam("start") String start ,@RequestParam("end") String end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();
@@ -126,7 +126,7 @@ public class CountController {
      */
 
     @GetMapping(value = "/findonePlace")
-    private List<ProvinceQo> getplaceByplaceID(@RequestParam("pId") int pId, @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> getplaceByplaceID(@RequestParam("pId") int pId, @RequestParam("start") String start ,@RequestParam("end") String end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();
@@ -164,7 +164,7 @@ public class CountController {
      * 查询所有省
      */
     @GetMapping(value = "/findoneProvince")
-    private List<ProvinceQo> getprovinceByplaceID( @RequestParam("start") Date start ,@RequestParam("end") Date end,HttpServletRequest request){
+    private List<ProvinceQo> getprovinceByplaceID( @RequestParam("start") String start ,@RequestParam("end") String end,HttpServletRequest request){
         UserEntity user=(UserEntity) request.getSession().getAttribute("user");
         int p_Id= user.getpId();
         int gid=user.getGradeId();

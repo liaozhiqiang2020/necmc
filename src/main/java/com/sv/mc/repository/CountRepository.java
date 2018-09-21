@@ -22,13 +22,13 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " from  mc_city c " +
             " left  join mc_place p on c.id = p.city_id " +
             " left  join mc_device d on d.place_id = p.id " +
-            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :startDate and o.create_date_time < :endDate" +
             " left  join mc_province s on c.province_id = s.id " +
-            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+            " left  join mc_account_detail ad on ad.from_id = o.id  " +
             " where s.id=:provinceId " +
             " group by s.name " +
             "",nativeQuery = true)
-    List<Object[]> findCountById(@Param("provinceId") int pId,@Param("startDate") Date start ,@Param("endDate") Date end);
+    List<Object[]> findCountById(@Param("provinceId") int pId,@Param("startDate") String start ,@Param("endDate") String end);
 
 
     /**
@@ -43,15 +43,15 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
        " from  mc_city c "+
             " left  join mc_place p on c.id = p.city_id "+
             "  left  join mc_device d on d.place_id = p.id "+
-            " left  join mc_order o on o.device_id = d.id "+
+            " left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :startDate and o.create_date_time < :endDate"+
             "  left  join mc_province s on c.province_id = s.id "+
-            "  left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate "+
+            "  left  join mc_account_detail ad on ad.from_id = o.id  "+
             "  where c.province_id = :provinceId "+
             "   group by c.name "
 
 
             ,nativeQuery = true)
-    List<Object[]>findCityByPid(@Param("provinceId") int pId,@Param("startDate") Date start ,@Param("endDate") Date end);
+    List<Object[]>findCityByPid(@Param("provinceId") int pId,@Param("startDate") String start ,@Param("endDate") String end);
 
 
     /**
@@ -67,13 +67,13 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  from  mc_city c " +
             " left  join mc_place p on c.id = p.city_id " +
             "  left  join mc_device d on d.place_id = p.id " +
-            "  left  join mc_order o on o.device_id = d.id " +
+            "  left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :startDate and o.create_date_time < :endDate" +
            "  left  join mc_province s on c.province_id = s.id " +
-           "  left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+           "  left  join mc_account_detail ad on ad.from_id = o.id  " +
            "  where p.city_id = :cityId " +
            "  group by p.name " +
            "",nativeQuery = true)
-    List<Object[]>findPlaceByCityID(@Param("cityId") int cId,@Param("startDate") Date start ,@Param("endDate") Date end);
+    List<Object[]>findPlaceByCityID(@Param("cityId") int cId,@Param("startDate") String start ,@Param("endDate") String end);
 
 
     /**
@@ -84,12 +84,12 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "from  mc_city c " +
             " left  join mc_place p on c.id = p.city_id " +
             "   left  join mc_device d on d.place_id = p.id " +
-            "   left  join mc_order o on o.device_id = d.id " +
+            "   left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :startDate and o.create_date_time < :endDate" +
             "  left  join mc_province s on c.province_id = s.id " +
-            "   left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+            "   left  join mc_account_detail ad on ad.from_id = o.id  " +
             " where c.id = :cityId " +
             "",nativeQuery = true)
-    List<Object[]>findOneCTByCityID(@Param("cityId") int cId,@Param("startDate") Date start ,@Param("endDate") Date end);
+    List<Object[]>findOneCTByCityID(@Param("cityId") int cId,@Param("startDate") String start ,@Param("endDate") String end);
 
 
     /**
@@ -100,30 +100,30 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  from  mc_city c" +
             "  left  join mc_place p on c.id = p.city_id" +
             "  left  join mc_device d on d.place_id = p.id" +
-            "  left  join mc_order o on o.device_id = d.id" +
+            "  left  join mc_order o on o.device_id = d.id and o.create_date_time >= :startDate and o.create_date_time < :endDate" +
             "  left  join mc_province s on c.province_id = s.id" +
-            "   left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+            "   left  join mc_account_detail ad on ad.from_id = o.id  " +
             "  where p.id = :placeId " +
             "  group by p.name" +
             "",nativeQuery = true)
-    List<Object[]>findOnePlaceByPlaceID(@Param("placeId") int cId,@Param("startDate") Date start ,@Param("endDate") Date end);
+    List<Object[]>findOnePlaceByPlaceID(@Param("placeId") int cId,@Param("startDate") String start ,@Param("endDate") String end);
 
 
 /**
  *   无条件查询所有省数据
  */
     @Query(value = " " +
-            "      select s.name ,count(o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
-            " from  mc_city c  " +
-            " left  join mc_place p on c.id = p.city_id  " +
-            "  left  join mc_device d on d.place_id = p.id  " +
-            "  left  join mc_order o on o.device_id = d.id  " +
-            "  left  join mc_province s on c.province_id = s.id  " +
-            "  left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate and ad.from_level = 0  " +
-            "  group by s.name having count(o.id)>0 " +
+          "  select s.name ,count(o.id),count(distinct o.wx_user_info_id),sum(if(ad.capital_flag=1,ad.capital,0)) " +
+            "  from  mc_city c " +
+            "  left  join mc_place p on c.id = p.city_id " +
+            "  left  join mc_device d on d.place_id = p.id " +
+            "  left  join mc_order o on o.device_id = d.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+            " left  join mc_province s on c.province_id = s.id " +
+            "  left  join mc_account_detail ad on ad.from_id = o.id and ad.from_level = 0 " +
+            " group by s.name having count(o.id)>0 " +
             "   " +
             "",nativeQuery = true)
-    List<Object[]>findProvince(@Param("startDate") Date start ,@Param("endDate") Date end);
+    List<Object[]>findProvince(@Param("startDate") String start ,@Param("endDate") String end);
 
 
     /**
@@ -137,13 +137,13 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  from  mc_city c " +
             "  left  join mc_place p on c.id = p.city_id " +
             "  left  join mc_device d on d.place_id = p.id " +
-            "  left  join mc_order o on o.device_id = d.id " +
+            "  left  join mc_order o on o.device_id = d.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
             "   left  join mc_province s on c.province_id = s.id " +
-            "   left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :startDate and o.create_date_time < :endDate " +
+            "   left  join mc_account_detail ad on ad.from_id = o.id  " +
             "   where c.province_id = :provinceId " +
             "  group by c.name " +
             "",nativeQuery = true)
-            List<Object[]>findcityByProvince(@Param("provinceId") int pId,@Param("startDate") Date start ,@Param("endDate") Date end);
+            List<Object[]>findcityByProvince(@Param("provinceId") int pId,@Param("startDate") String start ,@Param("endDate") String end);
 
 
 //==================================================================================================================================================================
@@ -161,12 +161,12 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
         " from  mc_city c " +
         "  left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
         " left  join mc_device d on d.place_id = p.id " +
-        " left  join mc_order o on o.device_id = d.id " +
+        " left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :start and o.create_date_time < :end1" +
         " left  join mc_province s on c.province_id = s.id " +
-        " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+        " left  join mc_account_detail ad on ad.from_id = o.id  " +
         " group by s.name " +
         "",nativeQuery = true)
-    List<Object[]> getProvinceBypId(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start") Date start,@Param("end1") Date end);
+    List<Object[]> getProvinceBypId(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start") String start,@Param("end1") String end);
 
 
     /**
@@ -179,14 +179,14 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " from  mc_city c " +
             " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
-            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_order o on o.device_id = d.id and o.create_date_time >= :start and o.create_date_time < :end1" +
             " left  join mc_province s on c.province_id = s.id " +
-            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " left  join mc_account_detail ad on ad.from_id = o.id  " +
             " where s.id=:provinceId" +
             " group by s.name " +
             "",nativeQuery = true)
     List<Object[]> getProvinceBypIdANDprovinceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            Date start,@Param("end1") Date end,@Param("provinceId")int provinceId);
+            String start,@Param("end1") String end,@Param("provinceId")int provinceId);
 
     /**
      * 根据省ID查询所有所在市数据
@@ -196,14 +196,14 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " from  mc_city c " +
             " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
-            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_order o on o.device_id = d.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
             " left  join mc_province s on c.province_id = s.id " +
-            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " left  join mc_account_detail ad on ad.from_id = o.id  " +
             " where s.id=:provinceId" +
             " group by c.name " +
             "",nativeQuery = true)
     List<Object[]> getCBypIdANDprovinceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            Date start,@Param("end1") Date end,@Param("provinceId")int provinceId);
+            String start,@Param("end1") String end,@Param("provinceId")int provinceId);
 
 
 
@@ -216,14 +216,14 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " from  mc_city c " +
             " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
-            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_order o on o.device_id = d.id and o.create_date_time >= :start and o.create_date_time < :end1  " +
             " left  join mc_province s on c.province_id = s.id " +
-            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " left  join mc_account_detail ad on ad.from_id = o.id " +
             " where c.id=:cityId" +
             " group by c.name " +
             "",nativeQuery = true)
     List<Object[]> getCityBypIdANDcityID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            Date start,@Param("end1") Date end,@Param("cityId")int cityId);
+            String start,@Param("end1") String end,@Param("cityId")int cityId);
 
 
     /**
@@ -236,14 +236,14 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " from  mc_city c " +
             " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             " left  join mc_device d on d.place_id = p.id " +
-            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :start and o.create_date_time < :end1" +
             " left  join mc_province s on c.province_id = s.id " +
-            " left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 " +
+            " left  join mc_account_detail ad on ad.from_id = o.id  " +
             " where c.id=:cityId" +
             " group by p.name " +
             "",nativeQuery = true)
     List<Object[]> getPlacyBypIdANDcityID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            Date start,@Param("end1") Date end,@Param("cityId")int cityId);
+            String start,@Param("end1") String end,@Param("cityId")int cityId);
 
 
 
@@ -258,14 +258,14 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  from  mc_city c " +
             " left join mc_place p on c.id = p.city_id and p.level_flag = :groudId and p.superior_id = :p_Id " +
             "  left  join mc_device d on d.place_id = p.id " +
-            " left  join mc_order o on o.device_id = d.id " +
+            " left  join mc_order o on o.device_id = d.id  and o.create_date_time >= :start and o.create_date_time <:end1 " +
             " left  join mc_province s on c.province_id = s.id " +
-            "  left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time <:end1  " +
+            "  left  join mc_account_detail ad on ad.from_id = o.id  " +
             "  where p.id=:placeId " +
             "  group by p.name " +
             "",nativeQuery = true)
     List<Object[]> getPlacyBypIdANDplaceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            Date start,@Param("end1") Date end,@Param("placeId")int placeId);
+            String start,@Param("end1") String end,@Param("placeId")int placeId);
 
 
 
@@ -278,13 +278,13 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             + "   from  mc_city c "
             + "  left join mc_place p on c.id = p.city_id "
             + "    left  join mc_device d on d.place_id = p.id "
-            + "    left  join mc_order o on o.device_id = d.id "
+            + "    left  join mc_order o on o.device_id = d.id and o.create_date_time >= :start and o.create_date_time < :end1 "
             + "    left  join mc_province s on c.province_id = s.id "
-            + "    left  join mc_account_detail ad on ad.from_id = o.id and o.create_date_time >= :start and o.create_date_time < :end1 "
+            + "    left  join mc_account_detail ad on ad.from_id = o.id  "
             + "    where p.id=:placeId "
             +"    group by p.name "+
      "",nativeQuery = true)
-    List<Object[]> getPlacyByANDplaceID(@Param("start") Date start,@Param("end1") Date end,@Param("placeId")int placeId);
+    List<Object[]> getPlacyByANDplaceID(@Param("start") String start,@Param("end1") String end,@Param("placeId")int placeId);
 
 
 
