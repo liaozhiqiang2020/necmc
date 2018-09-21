@@ -213,7 +213,6 @@ public class UserServiceImpl implements UserService<UserEntity> {
         if (ss == 1 ){
             return 0;
         }else {
-
         UserEntity user = this.userRepository.findUserById(id);
         user.setStatus(status);
         user.setCellphoneNumber(cellphoneNumber);

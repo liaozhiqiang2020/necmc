@@ -581,6 +581,7 @@
             function onRequestEnd(e) {
                 if (e.type == "create") {
                     if(e.response == 0){
+                        e.sender.read();
                         alert("账号已存在，用户创建失败。")
                     }else {
                         e.sender.read();       //调用read方法 重新读取表格
@@ -589,7 +590,9 @@
                 }
                 else if (e.type == "update") {
                     if(e.response == 0){
+                        e.sender.read();
                         alert("账号已存在，用户更新失败。")
+
                     }else {
                         e.sender.read();       //调用read方法 重新读取表格
                     }
