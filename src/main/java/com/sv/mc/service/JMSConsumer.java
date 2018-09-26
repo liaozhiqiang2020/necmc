@@ -41,6 +41,7 @@ public class JMSConsumer {
             String chairCode2 = res.substring(4, 20);//获取设备ascii
             String chairId2 = wxUtil.convertHexToString(chairCode2);//ascii转16进制
             SingletonHungary.getSingleTon().put(chairId2 + "status", chairId2 + "_" + 4);
+            SingletonHungary.getSingleTon().put(chairId2 + "statusSys", chairId2 + "_" + 4);
             this.deviceService.findChairRuningStatus(chairId2, 4);
         }else if(res16.length() == 73){            //解析心跳包
             String gatewaySn = res16.split("_")[1];//截取网关sn
@@ -71,10 +72,8 @@ public class JMSConsumer {
                     }else{
                         this.deviceRepository.updateDeviceStatusByLoraId(deviceSn,resInt);
                     }
-
                 }
             }
-
         } else {
             int type = Integer.parseInt(res.substring(14, 16));//获取协议类型
             String chairCode = res.substring(16, 32);//获取设备ascii
@@ -91,6 +90,7 @@ public class JMSConsumer {
                     mcStatus = 4;
                 }
                 SingletonHungary.getSingleTon().put(chairId + "status", chairId + "_" + mcStatus);
+                SingletonHungary.getSingleTon().put(chairId + "statusSys", chairId + "_" + mcStatus);
                 this.deviceService.findChairRuningStatus(chairId, mcStatus);
             } else if (type == 9) {//启动椅子
                 if (returnMsg.equals("01")) {//成功
@@ -101,8 +101,9 @@ public class JMSConsumer {
                     mcStatus = 3;
                 }
                 SingletonHungary.getSingleTon().put(chairId + "runing", chairId + "_" + mcStatus);
+                SingletonHungary.getSingleTon().put(chairId + "runingSys", chairId + "_" + mcStatus);
             } else if (type == 10) {//停止椅子
-                SingletonHungary.getSingleTon().put(chairId + "status", chairId + "_" + 4);
+                SingletonHungary.getSingleTon().put(chairId + "statusSys", chairId + "_" + 4);
                 this.deviceService.findChairRuningStatus(chairId, 4);//修改为未响应状态
             }
         }

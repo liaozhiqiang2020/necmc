@@ -51,6 +51,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     private AccountService accountService;
     @Autowired
     private AccountDetailService accountDetailService;
+    @Autowired
+    private AccountDetailRepository accountDetailRepository;
 
     /**
      * 分页查询所有订单(后台查询)
@@ -255,7 +257,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      */
     @Override
     @Transactional
-    public void updateOrderByCode(String paidOrderCode, int state) {
+    public void updateOrderByCodeState(String paidOrderCode, int state) {
         OrderEntity orderEntity = this.orderRepository.findPaidOrderIdByOrderCode(paidOrderCode);//查询订单信息
         orderEntity.setStatus(state);//写入订单状态
         this.orderRepository.save(orderEntity);
@@ -314,7 +316,6 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
-    @Transactional
     public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength) {
         OrderEntity orderEntity = new OrderEntity();
         WxUtil wxUtil = new WxUtil();
@@ -335,15 +336,15 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         orderEntity.setCode(paidOrderCode);//生成订单号
         orderEntity.setCreateDateTime(ts);//订单创建时间
-        orderEntity.setPayDateTime(ts);//支付时间
-        orderEntity.setMcStartDateTime(ts);//开始计时时间
+//        orderEntity.setPayDateTime(ts);//支付时间
+//        orderEntity.setMcStartDateTime(null);//开始计时时间
         orderEntity.setCodeWx("");//微信/支付宝/银联订单号
         orderEntity.setOrderSource("微信");
         orderEntity.setDeviceId(deviceId);//设备id
 
-        Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
+//        Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
 
-        orderEntity.setMcEndDateTime(afterTs);//结束计时时间
+//        orderEntity.setMcEndDateTime(null);//结束计时时间
         orderEntity.setStatus(state);//使用状态(未支付)
         orderEntity.setMcTime(mcTime);//按摩时长
         orderEntity.setMoney(money);//金额
@@ -399,21 +400,20 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
 
 //        if (state == 1) {//插入账单明细
-        AccountDetailEntity accountDetailEntity = new AccountDetailEntity();
         BigDecimal money = orderEntity.getMoney();//收入
-        accountDetailEntity.setAccountId(1);
-        accountDetailEntity.setDetailCode("accountDetail_" + ts.toString());
-        accountDetailEntity.setDetailName("accountDetail_" + ts.toString());
-        accountDetailEntity.setCapital(money);
-        accountDetailEntity.setCapitalFlag(1);
-        accountDetailEntity.setDetailDateTime(ts);
-        accountDetailEntity.setFromId(orderEntity.getId());
-        accountDetailEntity.setFrom_level(0);
-        this.accountDetailService.createAccountDetail(accountDetailEntity);
-
-
-//        }
-
+        AccountDetailEntity accountDetailEntity = this.accountDetailRepository.findAccountDetailEntityByOrderId(orderId);
+        if(accountDetailEntity==null){
+            AccountDetailEntity accountDetailEntity1 = new AccountDetailEntity();
+            accountDetailEntity1.setAccountId(1);
+            accountDetailEntity1.setDetailCode("accountDetail_" + ts.toString());
+            accountDetailEntity1.setDetailName("accountDetail_" + ts.toString());
+            accountDetailEntity1.setCapital(money);
+            accountDetailEntity1.setCapitalFlag(1);
+            accountDetailEntity1.setDetailDateTime(ts);
+            accountDetailEntity1.setFromId(orderEntity.getId());
+            accountDetailEntity1.setFrom_level(0);
+            this.accountDetailService.createAccountDetail(accountDetailEntity1);
+        }
 
         String devideCode = getMcCode(orderId);
         String chairCode = wxUtil.convertStringToHex(devideCode);
@@ -444,7 +444,6 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
-    @Transactional
     public void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity, String chairCode) {
         WxUtil wxUtil = new WxUtil();
         try {

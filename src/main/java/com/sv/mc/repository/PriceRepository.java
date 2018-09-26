@@ -30,7 +30,7 @@ public interface PriceRepository extends BaseRepository<PriceEntity, Long>, Pagi
      * @param deviceId
      * @return
      */
-    @Query(value="select DISTINCT p.use_time,p.Id,p.price_name,p.price,p.create_date_time,p.user_id,p.status,p.start_date_time,p.end_date_time,p.mc_type,p.description from mc_price p,mc_price_device d where p.Id=d.price_id and d.device_id=:did and p.status=1 order by p.price",nativeQuery = true)
+    @Query(value="select DISTINCT p.use_time,p.Id,p.price_name,p.price,p.create_date_time,p.user_id,p.status,p.start_date_time,p.end_date_time,p.mc_type,p.description from mc_price p,mc_price_device d where p.Id=d.price_id and d.device_id=:did and p.status=1 order by p.price,p.use_time",nativeQuery = true)
     List<PriceEntity> findDevicePriceSort(@Param("did") int deviceId);
 
 

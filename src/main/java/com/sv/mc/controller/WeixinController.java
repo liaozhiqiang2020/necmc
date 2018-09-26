@@ -133,8 +133,9 @@ public class WeixinController extends WeixinSupport {
         return wxUserInfoEntity;
     }
 
+//-----------------------------------------------小程序查询设备状态---start-------------------------------
     /**
-     * 查询设备状态
+     * 查询设备状态(小程序)
      *
      * @return
      */
@@ -158,22 +159,7 @@ public class WeixinController extends WeixinSupport {
     }
 
     /**
-     * 清空设备状态
-     *
-     * @return
-     */
-    @RequestMapping("/cleanDeviceStatus")
-    @ResponseBody
-    public void cleanDeviceStatus(String deviceSn) {
-//        SingletonHungary.getSingleTon().remove(deviceSn+"runing");
-        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(deviceSn);//获取设备信息
-        SingletonHungary.getSingleTon().remove(deviceEntity.getLoraId()+"status");
-    }
-
-
-
-    /**
-     * 查询设备是否开启成功
+     * 查询设备是否开启成功(小程序)
      *
      * @return
      */
@@ -195,6 +181,72 @@ public class WeixinController extends WeixinSupport {
         }
         return mcRuning;
     }
+
+
+    /**
+     * 清空设备状态
+     *
+     * @return
+     */
+    @RequestMapping("/cleanDeviceStatus")
+    @ResponseBody
+    public void cleanDeviceStatus(String chairId) {
+//        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(deviceSn);//获取设备信息
+        SingletonHungary.getSingleTon().remove(chairId+"status");
+        SingletonHungary.getSingleTon().remove(chairId+"runing");
+    }
+//-----------------------------------------------小程序查询设备状态---end-------------------------------
+
+
+//-----------------------------------------------后台管理系统查询设备状态---start-------------------------------
+    /**
+     * 查询设备状态(后台管理系统)
+     *
+     * @return
+     */
+    @RequestMapping("/findChairStatusSys")
+    @ResponseBody
+    public int findChairStatusSys(String chairId) {
+        int mcStatus = 5;//没有收到返回的消息
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            Object object = SingletonHungary.getSingleTon().get(deviceEntity.getLoraId() + "statusSys");//从map中取值
+            if (object != null) {
+                String info = object.toString();
+                String chairId2 = info.split("_")[0];
+                if (chairId2.equals(deviceId)) {
+                    mcStatus = Integer.parseInt(info.split("_")[1]);
+                }
+            }
+        }
+        return mcStatus;
+    }
+
+    /**
+     * 查询设备是否开启成功(后台管理系统)
+     *
+     * @return
+     */
+    @RequestMapping("/findChairRuningSys")
+    @ResponseBody
+    public int findChairRuningSys(String chairId) {
+        int mcRuning = 4;//没有收到返回的消息
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            Object object = SingletonHungary.getSingleTon().get(deviceEntity.getLoraId() + "runingSys");//从map中取值
+            if (object != null) {
+                String info = object.toString();
+                String chairId2 = info.split("_")[0];
+                if (chairId2.equals(deviceId)) {
+                    mcRuning = Integer.parseInt(info.split("_")[1]);
+                }
+            }
+        }
+        return mcRuning;
+    }
+//-----------------------------------------------后台管理系统查询设备状态---end-------------------------------
 
 
 //---------------------------------------------------------已支付订单相关-----------------------------------------------------------
@@ -271,6 +323,19 @@ public class WeixinController extends WeixinSupport {
         return this.orderService.getMcCodeForMap(orderId);
     }
 
+
+    /**
+     * 根据orderId查询按摩椅编号
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @RequestMapping("/getChairIdByOrderId")
+    @ResponseBody
+    public String getChairIdByOrderId(int orderId) {
+        return this.orderService.getMcCode(orderId);
+    }
+
     /**
      * 根据订单id更新订单状态
      *
@@ -292,7 +357,7 @@ public class WeixinController extends WeixinSupport {
     @RequestMapping("/updatePaidOrderByCode")
     @ResponseBody
     public void updatePaidOrderByCode(String code, int state) {
-        this.orderService.updateOrderByCode(code, state);
+        this.orderService.updateOrderByCodeState(code, state);
     }
 
     /**

@@ -324,7 +324,7 @@
                                             click: function () {
                                                 $.ajax({
                                                     type: "post",
-                                                    url: "../weixin/findChairStatus",
+                                                    url: "../weixin/findChairStatusSys",
                                                     data: {
                                                         chairId: data.mcSn
                                                     },
@@ -369,7 +369,7 @@
                                                         var timeout = setInterval(function(){
                                                             $.ajax({
                                                                 type: "post",
-                                                                url: "../weixin/findChairRuning",
+                                                                url: "../weixin/findChairRuningSys",
                                                                 data: {
                                                                     chairId: data.mcSn
                                                                 },

@@ -39,6 +39,9 @@ public interface AccountDetailRepository extends BaseRepository<AccountDetailEnt
     BigDecimal getIncFour(@Param("pid")int pid);
 
 
-
-
+    /**
+     * 根据订单id查询账单信息
+     */
+    @Query(value="select * from mc_account_detail where from_id=:orderId",nativeQuery = true)
+   AccountDetailEntity findAccountDetailEntityByOrderId(@Param("orderId")int orderId);
 }
