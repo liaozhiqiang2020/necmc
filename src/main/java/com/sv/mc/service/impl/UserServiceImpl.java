@@ -211,39 +211,40 @@ public class UserServiceImpl implements UserService<UserEntity> {
         String lastTime = intUtil.dateString(latestLoginDatetime);
         UserEntity user = this.userRepository.findUserById(id);
         UserEntity ss = this.userRepository.findUserByUserName(userName);
-        if (ss != null ){
-            return 0;
-        }else {
-        user.setStatus(status);
-        user.setCellphoneNumber(cellphoneNumber);
-        user.setEmail(email);
-        user.setFixedPhoneNumber(fixedPhoneNumber);
-        user.setName(name);
-        user.setUserName(userName);
-        user.setLatestLoginIp(latestLoginIp);
+        if ( ss==user||ss == null ){
+            user.setStatus(status);
+            user.setCellphoneNumber(cellphoneNumber);
+            user.setEmail(email);
+            user.setFixedPhoneNumber(fixedPhoneNumber);
+            user.setName(name);
+            user.setUserName(userName);
+            user.setLatestLoginIp(latestLoginIp);
 //        user.setLatestLoginDatetime(Timestamp.valueOf(lastTime));
 //        user.setAuthenticationString(DigestUtils.md5DigestAsHex(password.getBytes()));
-        if (password.length() == 32){
-            user.setAuthenticationString(password);
-        }else {
-            user.setAuthenticationString(MD5Util.encode(password));
-        }
+            if (password.length() == 32){
+                user.setAuthenticationString(password);
+            }else {
+                user.setAuthenticationString(MD5Util.encode(password));
+            }
 
-        if (this.headQuartersRepository.findHByName(company) != null) {
-            user.setpId(this.headQuartersRepository.findHByName(company).getId());
-            user.setGradeId(1);
-        } else if (this.branchRepository.findBByName(company) != null) {
-            user.setGradeId(2);
-            user.setpId(this.branchRepository.findBByName(company).getId());
-        } else if (this.vendorRepository.findVendorEntityByName(company) != null) {
-            user.setGradeId(3);
-            user.setpId(this.vendorRepository.findVendorEntityByName(company).getId());
-        } else if (this.placeRepository.findPByName(company) != null) {
-            user.setpId(this.placeRepository.findPByName(company).getId());
-            user.setGradeId(4);
-        }
-        this.userRepository.save(user);
-        return 1;
+            if (this.headQuartersRepository.findHByName(company) != null) {
+                user.setpId(this.headQuartersRepository.findHByName(company).getId());
+                user.setGradeId(1);
+            } else if (this.branchRepository.findBByName(company) != null) {
+                user.setGradeId(2);
+                user.setpId(this.branchRepository.findBByName(company).getId());
+            } else if (this.vendorRepository.findVendorEntityByName(company) != null) {
+                user.setGradeId(3);
+                user.setpId(this.vendorRepository.findVendorEntityByName(company).getId());
+            } else if (this.placeRepository.findPByName(company) != null) {
+                user.setpId(this.placeRepository.findPByName(company).getId());
+                user.setGradeId(4);
+            }
+            this.userRepository.save(user);
+            return 1;
+        }else {
+
+        return 0;
         }
     }
 
