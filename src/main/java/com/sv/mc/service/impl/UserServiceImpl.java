@@ -209,11 +209,11 @@ public class UserServiceImpl implements UserService<UserEntity> {
         String createDateTime = (String) map.get("createDatetime");
         String latestLoginDatetime = (String) map.get("latestLoginDatetime");
         String lastTime = intUtil.dateString(latestLoginDatetime);
-        int ss = this.userRepository.findUserName(userName);
-        if (ss == 1 ){
+        UserEntity user = this.userRepository.findUserById(id);
+        UserEntity ss = this.userRepository.findUserByUserName(userName);
+        if (ss != null ){
             return 0;
         }else {
-        UserEntity user = this.userRepository.findUserById(id);
         user.setStatus(status);
         user.setCellphoneNumber(cellphoneNumber);
         user.setEmail(email);
