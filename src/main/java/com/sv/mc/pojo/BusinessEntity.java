@@ -5,11 +5,29 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "mc_business", schema = "mc", catalog = "")
+/**
+ * 行业一级
+ */
 public class BusinessEntity {
+    /**
+     * 主键
+     */
     private int id;
+    /**
+     * 级分类名称
+     */
     private String name;
+    /**
+     * 级分类级别
+     */
     private int level;
+    /**
+     * 逻辑删除 0删除 1使用
+     */
     private Integer discardStatus;
+    /**
+     * 1级id
+     */
     private Integer parentId;
 
     @Id

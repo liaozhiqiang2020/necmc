@@ -6,10 +6,25 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "mc_device_status", schema = "mc", catalog = "")
+/**
+ * 设备状态实体类
+ */
 public class DeviceStatusEntity {
+    /**
+     * 主键Id
+     */
     private int id;
+    /**
+     * 状态 0正常 1异常
+     */
     private int status;
+    /**
+     * 创建时间
+     */
     private Timestamp createDateTime;
+    /**
+     * 备注
+     */
     private String note;
 
     @Id

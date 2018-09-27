@@ -10,9 +10,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_city", schema = "mc", catalog = "")
 public class CityEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private int provinceId; //省id
-    private String name;    //市名字
+    /**
+     * 省Id
+     */
+    private int provinceId;
+    /**
+     * 市名称
+     */
+    private String name;
 
     @Id
     @GeneratedValue

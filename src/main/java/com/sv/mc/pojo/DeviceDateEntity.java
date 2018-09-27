@@ -12,13 +12,34 @@ import java.util.Objects;
 @Table(name = "mc_device_date", schema = "mc", catalog = "")
 public class
 DeviceDateEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private Timestamp startDate; //设备写入系统时间
-    private Timestamp endDate;      //设备最后一次使用时间
-    private Timestamp entrancePlaceDate;//设备进入场地时间
-    private Timestamp withdrawPlaceDate;//设备撤出场地时间
-    private int deviceId;       //绑定设备id
-    private int placeId;        //绑定场地id
+    /**
+     * 设备写入系统时间
+     */
+    private Timestamp startDate;
+    /**
+     * 设备最后一次使用时间
+     */
+    private Timestamp endDate;
+    /**
+     * 设备进入场地时间
+     */
+    private Timestamp entrancePlaceDate;
+    /**
+     * 设备撤出场地时间
+     */
+    private Timestamp withdrawPlaceDate;
+    /**
+     * 绑定设备Id
+     */
+    private int deviceId;
+    /**
+     * 绑定场地id
+     */
+    private int placeId;
 
     @Id
     @GeneratedValue

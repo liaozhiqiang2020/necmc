@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * DAO层
+ * DAO层 主要用户市查询
  * author:赵政博
  */
 @Repository
@@ -20,8 +20,8 @@ public interface CityRepository extends BaseRepository<CityEntity, Long>, Paging
 
     /**
      * 根据省份id查询市
-     * @param provinceId
-     * @return
+     * @param provinceId 省Id
+     * @return 市集合对象
      * @auther liaozhiqiang
      * @date 2018//7/11
      */
@@ -30,14 +30,18 @@ public interface CityRepository extends BaseRepository<CityEntity, Long>, Paging
 
 
     /**
-     * 根据p_id 查询所有市
+     * 根据上级Id查询所有市
+     * @param pid 上级Id
+     * @return 所有市信息
      */
 
     @Query(value = " select  c.*  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.superior_id=:pid)",nativeQuery = true)
     List<CityEntity> getCityByP_ID(@Param("pid") int pid);
 
     /**
-     * 四级查询市
+     * 根据场地id查询市
+     * @param pid 场地Id
+     * @return 所有市信息
      */
     @Query(value = " select  c.*  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.id=:pid)",nativeQuery = true)
     List<CityEntity> getCityByPlace_ID(@Param("pid") int pid);

@@ -15,28 +15,82 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_order", schema = "mc", catalog = "")
 public class OrderEntity {
-    private int id;   //订单id
-    private String code;  //订单编号(自己编写后台代码生成规则)
-    private String codeWx;  //微信生成的订单编号
-    private int status;  //订单状态(0未付款，1已付款(服务中)，2已付款(已完成)，3已取消)
+    /**
+     * 订单Id
+     */
+    private int id;
+    /**
+     * 订单编号 (自己编写代码生成规则)
+     */
+    private String code;
+    /**
+     * 微信生成的订单编号
+     */
+    private String codeWx;
+    /**
+     * 订单状态(0未付款,1已付款服务中,已付款已完成,3已取消)
+     */
+    private int status;
+    /**
+     * 自己的订单创建时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp createDateTime;  //订单创建时间(自己的订单)
+    private Timestamp createDateTime;
+    /**
+     * 订单支付时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp payDateTime;  //订单支付时间
-    private BigDecimal money; //订单金额
-    private String description;  //订单描述
+    private Timestamp payDateTime;
+    /**
+     * 订单金额
+     */
+    private BigDecimal money;
+    /**
+     * 订单描述
+     */
+    private String description;
+    /**
+     * 按摩开始时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp mcStartDateTime;  //按摩开始时间
+    private Timestamp mcStartDateTime;
+    /**
+     * 按摩结束时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Timestamp mcEndDateTime;  //按摩结束时间
-    private Integer mcStatus;  //按摩椅状态(0为异常，1为正常)
-    private Integer deviceId;  //椅子编号
-    private Integer promoCodeId;  //优惠码编号
-    private Integer wxUserInfoId;  //微信用户编号
-    private Integer mcTime;  //按摩时长
-    private Integer strength;//按摩强度
-    private String cancelReason;//取消原因
-    private String orderSource;//订单来源
+    private Timestamp mcEndDateTime;
+    /**
+     * 按摩椅状态(0为异常,1为正常)
+     */
+    private Integer mcStatus;
+    /**
+     * 椅子编号
+     */
+    private Integer deviceId;
+    /**
+     * 优惠码编号
+     */
+    private Integer promoCodeId;
+    /**
+     * 微信用户编号
+     */
+    private Integer wxUserInfoId;
+    /**
+     * 按摩时长
+     */
+    private Integer mcTime;
+    /**
+     * 按摩强度
+     */
+    private Integer strength;
+    /**
+     * 取消原因
+     */
+    private String cancelReason;
+    /**
+     * 订单来源
+     */
+    private String orderSource;
 
     @Id
     @GeneratedValue

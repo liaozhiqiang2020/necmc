@@ -6,19 +6,52 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * 网关管理类
+ */
 @Entity
 @Table(name = "mc_gateway", schema = "mc", catalog = "")
 public class GatewayEntity {
+    /**
+     * 主键Id
+     */
     private int id;
+    /**
+     * 网关通讯ip
+     */
     private String ip;
+    /**
+     * 网关通讯端口
+     */
     private String port;
+    /**
+     * 网关通讯频道
+     */
     private String channel;
+    /**
+     * 网关Sn
+     */
     private String gatewaySn;
+    /**
+     * 设备数
+     */
     private Integer deviceCount;
-    private String domainName;//域名
-    private int placeId;//场地
+    /**
+     * 域名
+     */
+    private String domainName;
+    /**
+     * 场地
+     */
+    private int placeId;
+    /**
+     * 最后通信时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp lastCorrespondTime;
+    /**
+     * 当前状态 0不在线 1在线
+     */
     private int status; //当前状态
 
     @Id

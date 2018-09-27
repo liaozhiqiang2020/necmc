@@ -3,15 +3,26 @@ package com.sv.mc.pojo.vo;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * 主页面 数据展示类
+ */
 public class HomeVO {
 
-    //正常设备数
+    /**
+     * 正常设备数
+     */
     private int nmoDevice;
-    //故障设备数
+    /**
+     * 故障设备数
+     */
     private int expDevice;
-    //昨日收入
+    /**
+     * 昨日收入
+     */
     private BigDecimal yedInc;
-    //昨日订单
+    /**
+     * 昨日订单
+     */
     private int yedOrder;
 
     public int getNmoDevice() {

@@ -12,14 +12,38 @@ import java.util.Objects;
 @Table(name = "mc_account_detail", schema = "mc", catalog = "")
 public class AccountDetailEntity {
     private int id;
-    private int accountId;//关联账目表
-    private String detailCode;//账单编号
-    private String detailName;//账单单据名称
-    private BigDecimal capital;//资金
-    private int capitalFlag;//资金类型判断(1收入,2支出,3退款)
-    private Timestamp detailDateTime;//账目时间
-    private int fromId;//账目来源id
-    private int from_level;//0.设备订单 1 商场订单
+    /**
+     * 关联账目表
+     */
+    private int accountId;
+    /**
+     * 账单编号
+     */
+    private String detailCode;
+    /**
+     * 账单单据名称
+     */
+    private String detailName;
+    /**
+     * 资金
+     */
+    private BigDecimal capital;
+    /**
+     * 资金类型 1收入 2支出 3退款
+     */
+    private int capitalFlag;
+    /**
+     * 账目时间
+     */
+    private Timestamp detailDateTime;
+    /**
+     * 账目来源id
+     */
+    private int fromId;
+    /**
+     * 0 设备订单  1 商场订单
+     */
+    private int from_level;
 
     @Basic
     @Column(name = "from_id")

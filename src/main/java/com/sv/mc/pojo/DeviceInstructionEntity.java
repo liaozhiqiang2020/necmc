@@ -4,13 +4,31 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * 设备指令实体类
+ */
 @Entity
 @Table(name = "mc_device_instruction", schema = "mc", catalog = "")
 public class DeviceInstructionEntity {
+    /**
+     * 主键Id
+     */
     private int id;
+    /**
+     * 指令名称
+     */
     private String instructionName;
+    /**
+     * 具体指令
+     */
     private String instruction;
+    /**
+     * 创建日期
+     */
     private Timestamp createDateTime;
+    /**
+     * 状态 生效0 停用1
+     */
     private int status;
 
     @Id

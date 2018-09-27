@@ -3,10 +3,25 @@ package com.sv.mc.pojo.qo;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * 登陆页面展示类对象
+ */
 public class ProvinceQo {
+    /**
+     * 地区名称
+     */
     private String name;
+    /**
+     * 用户数
+     */
     private int userCount;
+    /**
+     * 订单数
+     */
     private int orderCount;
+    /**
+     * 收入
+     */
     private BigDecimal income;
 
 

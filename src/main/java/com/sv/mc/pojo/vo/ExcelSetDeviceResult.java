@@ -1,15 +1,48 @@
 package com.sv.mc.pojo.vo;
 
+/**
+ * 设备导入结果
+ */
 public class ExcelSetDeviceResult {
+    /**
+     * 场地名称
+     */
   private  String name;
+    /**
+     * 设备坐标纬度
+     */
   private  String weidu;
+    /**
+     * 设备坐标经度
+     */
   private  String jingdu;
+    /**
+     * 设备型号
+     */
   private  String type;
+    /**
+     * 设备sn 编号
+     */
   private  String  sn;
+    /**
+     * 备注
+     */
   private  String beizhu;
+    /**
+     * 上级
+     */
   private  String supplier;
+    /**
+     * 设备类型
+     */
   private  String deviceType;
+    /**
+     * 导入的sn
+     */
   private  String gatSn;
+    /**
+     * 结果
+     */
   private  String msg;
 
     public String getMsg() {

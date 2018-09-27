@@ -1,9 +1,20 @@
 package com.sv.mc.pojo.vo;
 
+/**
+ *
+ */
 public class DevicePriceImport {
-
+    /**
+     * 设备sn
+    */
     private String mc_sn;
+    /**
+     * 价格
+     */
     private int price;
+    /**
+     * 时间
+     */
     private int  time;
 
     public String getMc_sn() {

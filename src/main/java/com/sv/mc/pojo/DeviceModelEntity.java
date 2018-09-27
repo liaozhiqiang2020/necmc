@@ -10,9 +10,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_device_model", schema = "mc", catalog = "")
 public class DeviceModelEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private String name;     //按摩椅名称
-    private String model;    //按摩椅型号
+    /**
+     * 按摩椅名称
+     */
+    private String name;
+    /**
+     * 按摩椅型号
+     */
+    private String model;
+    /**
+     * 按摩椅型号分类
+     */
     private int deviceType;     //按摩椅型号分类
 //    private List<PriceEntity> priceEntities = new ArrayList<>();
 

@@ -9,9 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 设备类型dao
+ */
 @Repository
 public interface DeviceModelRepository extends BaseRepository<DeviceModelEntity,Long>, PagingAndSortingRepository<DeviceModelEntity,Long>{
-
+    /**
+     * 根据Id 查询设备类型信息
+     * @param dId
+     * @return 设备类型信息
+     */
     @Query("from DeviceModelEntity as d where d.id = :dId")
     DeviceModelEntity findById (@Param("dId") int dId);
 
@@ -19,7 +26,7 @@ public interface DeviceModelRepository extends BaseRepository<DeviceModelEntity,
     List<String> findDeviceModelAll();
 
     /**
-     * 根据
+     * 根据 设备名称查询设备
      * @param name 设备类型名称
      * @param model  设备型号
      * @return  查询设备

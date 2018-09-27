@@ -13,12 +13,30 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_head_quarters", schema = "mc", catalog = "")
 public class HeadQuartersEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private String name;        //总部名称
-    private String address;     //总部地址
-    private String telephone;   //总部电话
-    private String email;       //总部邮箱
-    private int deleteFlag;  //删除标志
+    /**
+     * 总部名称
+     */
+    private String name;
+    /**
+     * 总部地址
+     */
+    private String address;
+    /**
+     * 总部电话
+     */
+    private String telephone;
+    /**
+     * 总部邮箱
+     */
+    private String email;
+    /**
+     * 删除标志
+     */
+    private int deleteFlag;
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<BranchEntity> branchEntityList;

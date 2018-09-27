@@ -13,8 +13,14 @@ import java.util.Objects;
 @Table(name = "mc_area", schema = "mc", catalog = "")
 public class AreaEntity {
     private int id;
-    private String name;  //大区名称
-    private int areaState;//大区状态 0 隐藏, 1 显示.
+    /**
+     * 大区名称
+     */
+    private String name;
+    /**
+     * 大区状态 0隐藏 1显示
+     */
+    private int areaState;
 
     private List<ProvinceEntity> province=new ArrayList<ProvinceEntity>();//有多少个省
     /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -17,20 +17,59 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_place", schema = "mc", catalog = "")
 public class PlaceEntity {
+    /**
+     * 主键Id
+     */
     private int id;
+    /**
+     * 场地编号
+     */
     private String placeSn;
+    /**
+     * 判断隶属单位 1总部 2分公司 3代理商
+     */
     private Integer levelFlag;
+    /**
+     * 事物删除 1显示 0删除
+     */
     private int discardStatus;
+    /**
+     * 场地负责人
+     */
     private String principal;
+    /**
+     * 场地地址
+     */
     private String placeAddress;
+    /**
+     * 场地名称
+     */
     private String name;
+    /**
+     * 纬度
+     */
     private BigDecimal latitude;
+    /**
+     * 经度
+     */
     private BigDecimal longitude;
+    /**
+     * 协议开始时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp startDateTime;
+    /**
+     * 协议结束时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp endDateTime;
+    /**
+     * 上级场地id
+     */
     private Integer pId;
+    /**
+     *  场地地图编号
+     */
     private Integer placeMapId;
     private String placeRank;
     private Integer level;

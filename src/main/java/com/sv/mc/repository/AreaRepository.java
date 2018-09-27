@@ -11,12 +11,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * DAO层
+ * DAO层 大区查询
  * author:赵政博
  */
 @Repository
 public interface AreaRepository extends BaseRepository<AreaEntity, Long>, PagingAndSortingRepository<AreaEntity, Long> {
-
+    /**
+     * 根据大区Id查询大区Id
+     * @param id  大区Id
+     * @return  大区结果对象
+     */
     @Query("from AreaEntity as b where b.id = :id")
     AreaEntity findAreaById(@Param("id") int id);
 

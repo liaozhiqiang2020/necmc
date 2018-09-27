@@ -5,19 +5,52 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * 分公司实体类
+ */
 @Entity
 @Table(name = "mc_branch", schema = "mc", catalog = "")
 public class BranchEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private int levelFlag;      //判断1代理商和分公司平级,2分公司管理代理商
-    private int discardStatus;  //事物删除(1是显示此数据,0是事物删除数据)
-    private String name;  //分公司名称
-    private String branchAddress;//分公司地址
-    private String principal;   //分公司负责人
-    private String telephone;   //分公司联系电话
-    private String email;       //分公司邮箱
-    private int headQuartersId;  //总公司Id
-    private int userId;//用户id
+    /**
+     * 判断1代理商和分公司平级,2分公司管理代理商
+     */
+    private int levelFlag;
+    /**
+     * 事物删除状态 (1是显示此数据,0是事物删除数据)
+     */
+    private int discardStatus;
+    /**
+     * 分公司名称
+     */
+    private String name;
+    /**
+     * 分公司地址
+     */
+    private String branchAddress;
+    /**
+     * 分公司负责人
+     */
+    private String principal;
+    /**
+     * 分公司联系电话
+     */
+    private String telephone;
+    /**
+     * 分公司邮箱
+     */
+    private String email;
+    /**
+     * 总公司Id
+     */
+    private int headQuartersId;
+    /**
+     * 用户Id
+     */
+    private int userId;
 
     @Basic
     @Column(name = "head_quarters_id")

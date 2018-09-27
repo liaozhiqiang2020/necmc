@@ -2,13 +2,30 @@ package com.sv.mc.pojo.vo;
 
 import java.math.BigDecimal;
 
+/**
+ * 价格导入结果对象
+ */
 public class ExcelSetPriceResult {
-
-  private String id;   //用户输入的设备ID
-  private BigDecimal price; //用户输入的价格
-    private String priceName;//用户输入价格名称
-  private int time;  //时长
-  private String msg; //结果
+    /**
+     * 用户输入的设备Id
+     */
+  private String id;
+    /**
+     * 用户输入的价格
+     */
+  private BigDecimal price;
+    /**
+     * 用户输入的价格名称
+     */
+    private String priceName;
+    /**
+     * 绑定的时长
+     */
+  private int time;
+    /**
+     * 绑定的结果
+     */
+    private String msg;
 
     public String getId() {
         return id;

@@ -12,18 +12,57 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_contract", schema = "mc", catalog = "")
 public class ContractEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private int owner;           //甲方
-    private int second;          //乙方
-    private Timestamp effectDateTime;//签约时间
-    private Timestamp startDateTime; //开始时间
-    private Timestamp endDeteTime;   //结束时间
-    private String contractCode;     //合同编号
-    private int earningsRatio;       //收益比例
-    private BigDecimal minimum;     //保底（最低是多少钱，低于这个这个标准没收益）
-    private BigDecimal adminiFee;   //管理费（基础收益扣除合同额的百分之多少，相当于管理费）
+    /**
+     * 甲方
+     */
+    private int owner;
+    /**
+     * 乙方
+     */
+    private int second;
+    /**
+     * 签约时间
+     */
+    private Timestamp effectDateTime;
+    /**
+     * 开始时间
+     */
+    private Timestamp startDateTime;
+    /**
+     * 结束时间
+     */
+    private Timestamp endDeteTime;
+    /**
+     * 合同编号
+     */
+    private String contractCode;
+    /**
+     * 收益比例
+     */
+    private int earningsRatio;
+    /**
+     * 保底收入标准,低于标准没有收益
+     */
+    private BigDecimal minimum;
+    /**
+     * 管理费（基础收益扣除合同额的百分之多少，相当于管理费）
+     */
+    private BigDecimal adminiFee;
+    /**
+     * 甲方标志(1总部.2分公司,3代理商)
+     */
     private int flag;
+    /**
+     * 0使用 1使用
+     */
     private int useFlag;
+    /**
+     * 场地Id
+     */
     private int placeId;
 
     @Id

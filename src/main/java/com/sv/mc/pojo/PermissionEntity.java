@@ -6,14 +6,29 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * 权限表实体类
+ */
 @Entity
 @Table(name = "mc_permission", schema = "mc", catalog = "")
 public class PermissionEntity {
+    /**
+     * 主键Id
+     */
     @Id
-    private int id;                                 //主键id
-    private String permissionsName;                 //权限名称
-    private String url;                             //当前权限可以访问url
-    private String description;                     //具体权限描述
+    private int id;
+    /**
+     * 权限名称
+     */
+    private String permissionsName;
+    /**
+     * 当前权限可以访问的url
+     */
+    private String url;
+    /**
+     * 具体权限描述
+     */
+    private String description;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)

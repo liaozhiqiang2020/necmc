@@ -10,15 +10,42 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_account", schema = "mc", catalog = "")
 public class AccountEntity {
+    /**
+     * 主键Id
+     */
     private int id;
+    /**
+     * 场地Id
+     */
     private int placeId;
-    private Integer accountStatus;  //账单状态(0废弃,1在用)
-    private String name;//该账单单位（支付宝。微信。刷卡）
-    private BigDecimal generalIncome;//该账单总收入
-    private BigDecimal totalExpenditure;//该账单总支出
-    private BigDecimal profit;//该账单总利润
+    /**
+     * 账单状态 0废弃  1在用
+     */
+    private Integer accountStatus;
+    /**
+     * 账单单位 （支付宝。微信。刷卡）
+     */
+    private String name;
+    /**
+     * 账单总收入
+     */
+    private BigDecimal generalIncome;
+    /**
+     * 账单总支出
+     */
+    private BigDecimal totalExpenditure;
+    /**
+     * 账单总利润
+     */
+    private BigDecimal profit;
+    /**
+     * 上级Id
+     */
     private int superiorId;//上级id
-    private int typeFlag;//判断该账单单位(1总部,2分公司,3代理商)
+    /**
+     * 判断该账单单位(1总部,2分公司,3代理商)
+     */
+    private int typeFlag;
 
     @Id
     @GeneratedValue

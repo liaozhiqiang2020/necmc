@@ -11,30 +11,85 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ *  设备类
+ */
 @Entity
 @Table(name = "mc_device", schema = "mc", catalog = "")
 public class DeviceEntity {
-    private int id;//资产编码
-
+    /**
+     * 主键Id
+     */
+    private int id;
+    /**
+     * 维修时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-    private Timestamp maintainDateTime; //维修时间
-    private BigDecimal latitude;//按摩椅纬度
-    private BigDecimal longitude; //按摩椅经度
-    private int mcStatus;//按摩椅状态(0可用,1使用中,2维修中)
-    private int mcIsNotOnline;//按摩椅是否在线
-    private String mcSn;//按摩椅SN
-    private String loraId;//按摩椅模块编号
-    private String note;//备注
-    private int strength;//按摩强度(0弱，1中，2强)
+    private Timestamp maintainDateTime;
+    /**
+     * 按摩椅纬度
+     */
+    private BigDecimal latitude;
+    /**
+     * 按摩椅经度
+     */
+    private BigDecimal longitude;
+    /**
+     * 按摩椅状态(0可用,1使用中,2维修中)
+     */
+    private int mcStatus;
+    /**
+     * 按摩椅是否在线
+     */
+    private int mcIsNotOnline;
+    /**
+     * 按摩椅sn
+     */
+    private String mcSn;
+    /**
+     * 按摩椅模块编号
+     */
+    private String loraId;
+    /**
+     * 备注
+     */
+    private String note;
+    /**
+     * 按摩强度(0弱,1中,2强)
+     */
+    private int strength;
+    /**
+     * 删除状态
+     */
     private Integer discardStatus;
-    private DeviceModelEntity deviceModelEntity; //按摩椅类型
-//    private PlaceEntity placeEntity;            //场地
-    private int placeId;//场地
-    private SupplierEntity supplierEntity;  //供应商
-    private List<PriceEntity> priceEntities = new ArrayList<>();     //价格集合
-    private GatewayEntity gatewayEntity;//网关
+    /**
+     * 按摩椅类型
+     */
+    private DeviceModelEntity deviceModelEntity;
+    /**
+     * 场地
+     */
+    private int placeId;
+    /**
+     * 供应商
+     */
+    private SupplierEntity supplierEntity;
+    /**
+     * 价格集合
+     */
+    private List<PriceEntity> priceEntities = new ArrayList<>();
+    /**
+     * 网关
+     */
+    private GatewayEntity gatewayEntity;
+    /**
+     * 设备最后在线时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-    private Timestamp lastCorrespondTime;  //设备最后在线时间
+    /**
+     * 设备最后在线时间
+     */
+    private Timestamp lastCorrespondTime;
 //    private int offlineTime;//设备离线时长
 
     @Id
