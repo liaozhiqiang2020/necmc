@@ -1,10 +1,7 @@
 package com.sv.mc.util;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-    public class ExcelUtil {
+import org.apache.poi.hssf.usermodel.*;
+
+public class ExcelUtil {
 
         /**
          * 导出Excel
@@ -44,9 +41,40 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
             //创建内容
             for(int i=0;i<values.length;i++){
                 row = sheet.createRow(i + 1);
+                Boolean isNum = false;//data是否为数值型
+                Boolean isInteger=false;//data是否为整数
+                Boolean isPercent=false;//data是否为百分数
                 for(int j=0;j<values[i].length;j++){
                     //将内容按顺序赋给对应的列对象
                     row.createCell(j).setCellValue(values[i][j]);
+                    if (values[i][j] != null || "".equals(values[i][j])) {
+                        //判断data是否为数值型
+                        isNum = values[i][j].toString().matches("^(-?\\d+)(\\.\\d+)?$");
+                        //判断data是否为整数（小数部分是否为0）
+                        isInteger=values[i][j].toString().matches("^[-\\+]?[\\d]*$");
+                        //判断data是否为百分数（是否包含“%”）
+                        isPercent=values[i][j].toString().contains("%");
+                    }
+                    if (isNum && !isPercent) {
+                        HSSFDataFormat df = wb.createDataFormat(); // 此处设置数据格式
+                        if (isInteger) {
+                            style.setDataFormat(df.getBuiltinFormat("#,#0"));//数据格式只显示整数
+                        }else{
+                            style.setDataFormat(df.getBuiltinFormat("#,##0.00"));//保留两位小数点
+                        }
+                        // 设置单元格格式
+                        row.createCell(j).setCellStyle(style);
+                        // 设置单元格内容为double类型
+                        if (values[i][j]!=null){
+                        row.createCell(j).setCellValue(Double.parseDouble(values[i][j].toString()));
+                        }
+                    } else {
+                        row.createCell(j).setCellStyle(style);
+                        // 设置单元格内容为字符型
+                       if (values[i][j]!=null){
+                        row.createCell(j).setCellValue(values[i][j].toString());
+                       }
+                    }
                 }
             }
             return wb;
