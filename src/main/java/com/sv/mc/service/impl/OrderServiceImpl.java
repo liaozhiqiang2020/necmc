@@ -316,6 +316,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @date: 2018年7月6日
      */
     @Override
+    @Transactional
     public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength) {
         OrderEntity orderEntity = new OrderEntity();
         WxUtil wxUtil = new WxUtil();
