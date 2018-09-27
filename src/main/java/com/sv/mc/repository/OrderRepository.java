@@ -321,7 +321,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * 最高权限查询昨天的订单数
      * @return 昨天订单数量
      */
-    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now())",nativeQuery = true)
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now())",nativeQuery = true)
     int getYeOrder();
 
 
@@ -331,7 +331,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @param pid 代理商id
      * @return 昨天订单数
      */
-    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and " +
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now()) and " +
             "mc_order.device_id in " +
             "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid))",nativeQuery = true)
@@ -343,7 +343,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @param pid 分公司id
      * @return  分公司订单数量
      */
-    @Query(value = "select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and " +
+    @Query(value = "select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now()) and " +
             "mc_order.device_id in " +
             "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid))",nativeQuery = true)
@@ -355,7 +355,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @param pid 场地Id
      * @return 订单数量
      */
-    @Query(value =  "" +"select count(mc_order.id) from mc_order where to_days(mc_start_date_time) = to_days(now()) and mc_order.device_id in"+
+    @Query(value =  "" +"select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now()) and mc_order.device_id in"+
             " (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))))",
 
             nativeQuery = true)

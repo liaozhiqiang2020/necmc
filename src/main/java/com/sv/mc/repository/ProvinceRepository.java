@@ -13,14 +13,19 @@ import java.util.List;
  */
 public interface ProvinceRepository extends BaseRepository<ProvinceEntity, Long>, PagingAndSortingRepository<ProvinceEntity, Long> {
 
-
+    /**
+     * 根据省id 查询省
+     * @param id 省Id
+     * @return 省数据
+     */
     @Query("from ProvinceEntity as b where b.id = :id")
     ProvinceEntity findProvinceById(@Param("id") int id);
 
 
     /**
-     * 根据大区ID 查询省信息
-     * // 王雨辰
+     * 根据大区Id 查询省数据
+     * @param id 大区Id
+     * @return 省集合
      */
     @Query("from ProvinceEntity  as p where p.areaId=:id")
     List<ProvinceEntity> getProvinceByAreaID(@Param("id") int id);
@@ -34,8 +39,11 @@ public interface ProvinceRepository extends BaseRepository<ProvinceEntity, Long>
     List<ProvinceEntity> selectProvince();
 
 
+
     /**
-     * 根据p_id 查询所有省
+     *  根据上级id查询 省
+     * @param pid 上级Id
+     * @return 省数据
      */
     @Query(value = "select p.*  from mc_province as p where p.Id in(select c.province_id  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.superior_id=:pid))",nativeQuery = true)
     List<ProvinceEntity>getProvinceByP_ID(@Param("pid")int pid);

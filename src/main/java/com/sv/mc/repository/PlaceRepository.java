@@ -169,32 +169,40 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
     @Query("from PlaceEntity p where p.name = :name")
     PlaceEntity findPByName(@Param("name")String name);
 
+
     /**
-     * 不分页查询当前用户管理的所有场地
-     * @param pId
-     * @return
+     *  不分页查询当前用户管理的场地
+     * @param pId 上级用户Id
+     * @param level 用户等级
+     * @return 场地集合
      */
     @Query(value="select * from mc_place as p where p.discard_status=1 AND p.p_id is null AND p.level_flag = :plevel and p.superior_id = :pId",nativeQuery = true)
     List<PlaceEntity> findAllPlaceById(@Param("pId") int pId,@Param("plevel") int level);
 
 
     /**
-     * 根据场地名称查询场地
+     *  根据场地名称查询场地
+     * @param name 场地名称
+     * @return 场地
      */
     @Query(value = "from PlaceEntity  as p where p.name=:name")
     PlaceEntity getPlaceName(@Param("name")String name);
 
 
-
     /**
-     * 根据p_id查询场地
+     * 根据上级id查询场地
+     * @param pid 上级Id
+     * @return 场地集合
      */
     @Query(value = "select * from mc_place as p where p.superior_id=:pid",nativeQuery = true)
     List<PlaceEntity>getPlaceByP_ID(@Param("pid")int pid);
 
 
+
     /**
-     * 根据ID查询场地
+     *  根据上级场地id查询
+     * @param pid 上级场地id
+     * @return 场地集合
      */
     @Query(value = "select * from mc_place as p where p.id=:pid",nativeQuery = true)
     List<PlaceEntity>getPlaceBy_ID(@Param("pid")int pid);
