@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 已支付订单
+ * 订单
  * @author: lzq
  * @date: 2018年7月6日
  */

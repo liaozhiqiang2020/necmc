@@ -9,11 +9,25 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 场地Dao
+ */
 @Repository
 public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, PagingAndSortingRepository<PlaceEntity, Long> {
+
+    /**
+     * 根据场地Id 查询场地信息
+     * @param id
+     * @return 场地信息
+     */
     @Query("from PlaceEntity as d   where d.id = :id")
     PlaceEntity findPlaceById(@Param("id") int id);
 
+    /**
+     * 根据场地id查询 行业市的场地
+     * @param id 场地Id
+     * @return 行业市下的场地
+     */
     @Query(value="select " +
             "p.*,b.name,c.name " +
             "from mc.mc_place p, mc.mc_business b, mc.mc_city c " +
@@ -23,8 +37,8 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
 
     /**
      * 根据市id查询场地
-     * @param cityId
-     * @return
+     * @param cityId 市id
+     * @return 场地信息
      * @auther liaozhiqiang
      * @date 2018//7/11
      */
@@ -33,86 +47,101 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
 
     /**
      * 分页查询场地方信息
-     * @param offset
-     * @param pageSize
-     * @return
+     * @param offset 起始个数
+     * @param pageSize 截至个数
+     * @return 场地方集合
      */
     @Query(value="select * from mc_place as b where b.discard_status=1 and b.p_id is null LIMIT :offset,:pageSize",nativeQuery = true)
     List<PlaceEntity> findAllPlaceByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**
-     * 查询数量
-     * @return
+     * 查询主场地数量
+     * @return  主场地数量
      */
     @Query(value="select count(*) from mc_place as b where b.discard_status=1 and b.p_id is null",nativeQuery = true)
     int findPlaceTotal();
 
     /**
      * 不分页查询场地方信息
-     * @return
+     * @return 场地信息集合
      */
     @Query(value="select * from mc_place as b where b.discard_status=1",nativeQuery = true)
     List<PlaceEntity> findAllPlace();
 
     /**
      * 不分页查询场地方信息(pId为0，第一级)
-     * @return
+     * @return 一级场地信息
      */
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null")
     List<PlaceEntity> findAllPlaces2();
 
+
     /**
-     * 不分页查询场地方信息(pId为0，第一级)
-     * @return
+     *  不分页查询分公司场地方信息(pId为0，第一级)
+     * @param superiorId  分公司Id
+     * @return 分公司场地信息
      */
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null and b.levelFlag=2 and b.superiorId=:superiorId")
     List<PlaceEntity> findAllPlaces3(@Param("superiorId") int superiorId);
 
+
     /**
-     * 不分页查询场地方信息(pId为0，第一级)
-     * @return
+     * 不分页查询代理商场地方信息(pId为0，第一级)
+     * @param superiorId 代理商Id
+     * @return  代理商场地信息
      */
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null and b.levelFlag=3 and b.superiorId=:superiorId")
     List<PlaceEntity> findAllPlaces4(@Param("superiorId") int superiorId);
 
+
     /**
-     * 不分页查询场地方信息(pId为0，第一级)
-     * @return
+     * 根据场地Id 查询一级场地信息
+     * @param placeId
+     * @return 场地集合
      */
     @Query("from PlaceEntity as b where b.discardStatus=1 and b.pId is null and id=:placeId")
     List<PlaceEntity> findAllPlaces5(@Param("placeId") int placeId);
 
     /**
-     * 根据场地id查询他下一级的所有信息
+     *  根据场地 负责人 查询场地信息
+     * @param placeId 场地ID
+     * @param userId 负责人
+     * @return 场地集合
      */
     @Query("from PlaceEntity where pId=:placeId and discardStatus=1 and userId=:userId")
     List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId,@Param("userId") int userId);
 
+
     /**
      * 根据场地id查询他下一级的所有信息
+     * @param placeId 场地Id
+     * @return 场地信息
      */
     @Query("from PlaceEntity where pId=:placeId and discardStatus=1")
     List<PlaceEntity> findPlaceByParentId2(@Param("placeId") int placeId);
 
 
+
     /**
-     * 查询所有子场地id
+     * 根据场地Id 查询子场地id
+     * @param placeId 场地Id
+     * @return  子场地id
      */
     @Query(value="select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))",nativeQuery = true)
     List<Integer> findAllPlaceChildById(@Param("placeId") int placeId);
 
     /**
      * 查询场地下所有设备
-     * @param placeId
-     * @return
+     * @param placeId 场地Id
+     * @return  场地下所有设备
      */
     @Query(value="select d.id,d.place_id,d.mc_type from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)) )",nativeQuery = true)
     List<Object[]> findAllChildById(@Param("placeId") int placeId);
 
     /**
      * 查询场地下所有设备总数
-     * @param placeId
-     * @return
+     * @param placeId 场地Id
+     * @return 设备数
      */
     @Query(value="select count(d.id) from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)) )",nativeQuery = true)
     int findAllChildByIdCount(@Param("placeId") int placeId);

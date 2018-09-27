@@ -123,8 +123,10 @@ public class OrderController {
             }
             Timestamp createDateTime = orderEntity.getCreateDateTime();
             String obj4=createDateTime.toString();
-
-            String obj5 = orderEntity.getPayDateTime().toString();
+            String obj5=null;
+            if (orderEntity.getPayDateTime()!=null){
+             obj5 = orderEntity.getPayDateTime().toString();
+            }
             BigDecimal money=orderEntity.getMoney();
             String obj6=money.toString();
             String obj7=null;
