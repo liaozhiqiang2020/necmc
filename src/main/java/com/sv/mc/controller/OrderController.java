@@ -91,11 +91,12 @@ public class OrderController {
      * excel 导出订单记录
      */
     @GetMapping(value = "/orderMgr/getExcelOrder")
-    public void getExcelOrder(HttpServletResponse response){
+    public void getExcelOrder(HttpServletResponse response,@Param("startTime") String startTime,@Param("endTime") String endTime){
 
-        List<OrderEntity>list =this.orderService.findAllExcelOrder();
+        List<OrderEntity>list =this.orderService.findAllExcelOrder(startTime,endTime);
+        System.out.println("执行了");
         //标题
-        String[] title = {"来源", "订单编号","订单号","订单状态","订单创建时间","订单支付时间","订单金额($)","开始按摩时间","结束按摩时间","按摩时长(分钟)","取消订单原因","备注"};
+        String[] title = {"订单id","来源", "订单编号","订单号","订单状态","订单创建时间","订单支付时间","订单金额($)","开始按摩时间","结束按摩时间","按摩时长(分钟)","取消订单原因","备注"};
         //文件名
         Date d = new Date();
         String time = DateFormat.getDateInstance(DateFormat.FULL).format(d);
@@ -128,7 +129,7 @@ public class OrderController {
              obj5 = orderEntity.getPayDateTime().toString();
             }
             BigDecimal money=orderEntity.getMoney();
-            String obj6=money.toString();
+            String obj6=money.stripTrailingZeros().toPlainString();//金额
             String obj7=null;
             String obj8=null;
             String obj9=null;
@@ -148,18 +149,20 @@ public class OrderController {
             }if(orderEntity.getDescription()!=null){
                 obj11=orderEntity.getDescription();
             }
-            content[i][0] = obj;
-            content[i][1] = obj1;
-            content[i][2] = obj2;
-            content[i][3] = obj3;
-            content[i][4] = obj4;
-            content[i][5] = obj5;
-            content[i][6] = obj6;
-            content[i][7] = obj7;
-            content[i][8] = obj8;
-            content[i][9] = obj9;
-            content[i][10] = obj10;
-            content[i][11] = obj11;
+            String obj12=String.valueOf(orderEntity.getId());
+            content[i][1] = obj;
+            content[i][2] = obj1;
+            content[i][3] = obj2;
+            content[i][4] = obj3;
+            content[i][5] = obj4;
+            content[i][6] = obj5;
+            content[i][7] = obj6;
+            content[i][8] = obj7;
+            content[i][9] = obj8;
+            content[i][10] = obj9;
+            content[i][11] = obj10;
+            content[i][12] = obj11;
+            content[i][0]=obj12;
         }
         //创建HSSFWorkbook
         HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);

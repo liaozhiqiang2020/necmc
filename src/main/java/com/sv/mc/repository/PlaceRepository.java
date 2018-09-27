@@ -148,8 +148,8 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
 
     /**
      * 分页查询场地下所有设备
-     * @param placeId
-     * @return
+     * @param placeId 场地Id
+     * @return 场地下设备信息
      */
     @Query(value="select d.id,d.place_id,d.mc_type from mc_place p,mc_device d where p.id=d.place_id and p.id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId)) )",nativeQuery = true)
     List<Object[]> findAllDeviceBypId(@Param("placeId") int placeId);
@@ -161,7 +161,11 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
 //    @Query("select p.deviceEntities from PlaceEntity p where p.id=:placeId")
 //    List<DeviceEntity> findAllDeviceByPlaceId(@Param("placeId") int placeId);
 
-
+    /**
+     * 根据场地名称查询场地
+     * @param name 场地名称
+     * @return 场地信息
+     */
     @Query("from PlaceEntity p where p.name = :name")
     PlaceEntity findPByName(@Param("name")String name);
 

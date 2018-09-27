@@ -685,8 +685,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
      * @return
      */
     @Override
-    public List<OrderEntity> findAllExcelOrder() {
-        return this.orderRepository.getExcelOrder();
+    public List<OrderEntity> findAllExcelOrder(String startTime,String endTime) {
+        return this.orderRepository.getExcelOrder(startTime,endTime);
     }
 
 

@@ -16,7 +16,7 @@ public interface WxUserInfoRepository extends BaseRepository<WxUserInfoEntity, L
     /**
      * 根据用户唯一编码查询用户信息
      * @param openId
-     * @return
+     * @return 微信用户信息
      * @author: lzq
      * @date: 2018年7月6日
      */

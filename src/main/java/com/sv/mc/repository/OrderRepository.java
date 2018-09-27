@@ -312,8 +312,8 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * 查询所有订单信息
      * @return 订单信息
      */
-    @Query(value = "from OrderEntity ")
-    List<OrderEntity>getExcelOrder();
+    @Query(value = "select * from mc_order where create_date_time>= :startTime and create_date_time< :endTime ",nativeQuery = true)
+    List<OrderEntity>getExcelOrder(@Param("startTime") String startTime,@Param("endTime") String endTime);
 
 
 
