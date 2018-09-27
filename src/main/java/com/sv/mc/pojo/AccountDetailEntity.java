@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * 账单详情实体类
+ *  账单详情实体类
  */
 @Entity
 @Table(name = "mc_account_detail", schema = "mc", catalog = "")

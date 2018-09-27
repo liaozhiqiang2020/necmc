@@ -11,7 +11,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_promo_code", schema = "mc", catalog = "")
 public class PromoCodeEntity {
-    private int id;  //优惠码Id
+    /**
+     * 优惠码Id
+     */
+    private int id;
+    /**
+     * 优惠码状态(0:已使用,1未使用)
+     */
     private Integer status;  //优惠码状态(0:已使用，1未使用)
     private String content;  //优惠码内容
     private Integer origin;  //优惠码来源(1线上，0线下)

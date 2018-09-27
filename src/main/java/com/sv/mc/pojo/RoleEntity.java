@@ -9,13 +9,28 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * 角色实体类
+ */
 @Entity
 @Table(name = "mc_role", schema = "mc", catalog = "")
 public class RoleEntity {
-    private int id;                             //角色id
-    private Timestamp createDateTime;           //创建时间
-    private String roleName;                    //角色名
-    private String description;                 //角色权限描述
+    /**
+     * 角色Id
+     */
+    private int id;
+    /**
+     * 创建时间
+     */
+    private Timestamp createDateTime;
+    /**
+     * 角色名
+     */
+    private String roleName;
+    /**
+     * 角色权限描述
+     */
+    private String description;
     private Set<UserEntity> userEntitySet = new HashSet<>();
     private Set<PermissionEntity> permissionEntityHashSet = new HashSet<>();
 

@@ -11,12 +11,33 @@ import java.util.Objects;
 @Table(name = "mc_supplier", schema = "mc", catalog = "")
 public class SupplierEntity {
     private int id;
-    private String supplierName; //生产厂家名称
-    private String supplierAddress;//生产厂家地址
-    private String principal;//联系人
-    private Integer telephone;//联系电话
-    private String email;//邮箱
-    private String model;//按摩椅型号
+    /**
+     * 生产厂家名称
+     */
+    private String supplierName;
+    /**
+     * 生产厂家地址
+     */
+    private String supplierAddress;
+    /**
+     * 联系人
+     */
+    private String principal;
+    /**
+     * 联系地址
+     */
+    private Integer telephone;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 按摩椅型号
+     */
+    private String model;
+    /**
+     * 按摩椅型号分类
+     */
     private int modelType;//按摩椅型号分类
 
     @Id

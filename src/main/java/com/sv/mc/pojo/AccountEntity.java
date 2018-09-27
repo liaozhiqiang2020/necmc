@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * 账单实体类
+ *  账单实体类
  */
 @Entity
 @Table(name = "mc_account", schema = "mc", catalog = "")

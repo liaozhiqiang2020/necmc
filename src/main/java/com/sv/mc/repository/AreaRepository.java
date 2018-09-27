@@ -25,9 +25,8 @@ public interface AreaRepository extends BaseRepository<AreaEntity, Long>, Paging
     AreaEntity findAreaById(@Param("id") int id);
 
     /**
-     *
-     *
-     * @return 查询所有大区
+     *查询所有大区
+     * @return 所有大区集合
      */
 
     @Query("from AreaEntity as a where a.areaState=1")

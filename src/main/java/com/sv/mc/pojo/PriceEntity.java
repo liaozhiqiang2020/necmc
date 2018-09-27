@@ -18,22 +18,58 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_price", schema = "mc", catalog = "")
 public class PriceEntity {
-    private int id;         //主键id
-    private BigDecimal price;           //价格
-    private int useTime;            //使用时间
+    /**
+     * 主键Id
+     */
+    private int id;
+    /**
+     * 价格
+     */
+    private BigDecimal price;
+    /**
+     * 使用时间
+     */
+    private int useTime;
 //  @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp createDateTime;           //创建时间
+    /**
+     * 创建时间
+     */
+    private Timestamp createDateTime;
+    /**
+     * 状态
+     */
     private int status;         //状态
 //  @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    /**
+     * 价格开始时间
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
-    private Timestamp startDateTime;            //价格开始时间
+    private Timestamp startDateTime;
 //  @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    /**
+     * 价格结束时间
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss" )
-    private Timestamp endDateTime;              //价格结束时间
-    private String priceName;                   //价格名称
-    private String description;                 //价格备注
-    private DeviceModelEntity deviceModelEntity; //价格对应机器类型
-    private UserEntity user;            //一对多用户
+    private Timestamp endDateTime;
+    /**
+     * 价格名称
+     */
+    private String priceName;
+    /**
+     * 价格备注
+     */
+    private String description;
+    /**
+     * 价格对应机器
+     */
+    private DeviceModelEntity deviceModelEntity;
+    /**
+     * 一对多用户
+     */
+    private UserEntity user;
+    /**
+     * 设备多对多集合
+     */
     private List<DeviceEntity> deviceEntities = new ArrayList<>();             //设备多对多集合
 
 

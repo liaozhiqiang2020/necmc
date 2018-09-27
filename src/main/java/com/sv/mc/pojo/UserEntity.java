@@ -17,19 +17,58 @@ import java.util.Set;
 @Entity
 @Table(name = "mc_user", schema = "mc", catalog = "")
 public class UserEntity {
-    private int id;                                 //主键Id
-    private String userName;                        //用户名
-    private String name;                            //用户真实姓名
-    private String authenticationString;            //密码
-    private Timestamp createDatetime;               //创建日期
-    private String email;                           //邮箱
-    private String cellphoneNumber;                 //手机
-    private String fixedPhoneNumber;                //固话
-    private Timestamp latestLoginDatetime;          //上次登录时间
-    private String latestLoginIp;                   //上次登录Ip
-    private int status;                             //状态
-    private int pId;                                //隶属公司id
-    private int gradeId;                           //判断所属公司是哪个级别，1：总公司 2：分公司 3：代理商 4：场地方
+    /**
+     * 主键Id
+     */
+    private int id;
+    /**
+     * 用户名
+     */
+    private String userName;
+    /**
+     * 用户真实姓名
+     */
+    private String name;
+    /**
+     * 密码
+     */
+    private String authenticationString;
+    /**
+     * 创建日期
+     */
+    private Timestamp createDatetime;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 手机
+     */
+    private String cellphoneNumber;
+    /**
+     * 固话
+     */
+    private String fixedPhoneNumber;
+    /**
+     * 上次登陆时间
+     */
+    private Timestamp latestLoginDatetime;
+    /**
+     * 上次登陆id
+     */
+    private String latestLoginIp;
+    /**
+     * 状态
+     */
+    private int status;
+    /**
+     * 隶属公司Id
+     */
+    private int pId;
+    /**
+     * 判断所属公司是那个级别 1总公司,2分公司,3代理商,4场地方
+     */
+    private int gradeId;
 
     private Set<RoleEntity> roleEntitySet = new HashSet<>();
 

@@ -12,18 +12,57 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_wx_user_info", schema = "mc", catalog = "")
 public class WxUserInfoEntity {
-    private int id;   //微信用户id
-    private String openCode;  //微信用户唯一编号
-    private String nickName;  //昵称
-    private String avatarUrl;  //用户头像地址
-    private String gender;  //性别
-    private String city;  //用户所在城市
-    private String province;  //用户所在省份
-    private String country;  //用户所在国家
-    private String language;  //用户的语言，简体中文为zh_CN
-    private String phoneNumber;  //用户绑定的手机号（国外手机号会有区号）
-    private String purePhoneNumber;  //没有区号的手机号
-    private String countryCode;  //区号
+    /**
+     * 微信用户Id
+     */
+    private int id;
+    /**
+     * 微信用户唯一编号
+     */
+    private String openCode;
+    /**
+     * 昵称
+     */
+    private String nickName;
+    /**
+     * 用户头像地址
+     */
+    private String avatarUrl;
+    /**
+     * 性别
+     */
+    private String gender;
+    /**
+     * 用户所在城市
+     */
+    private String city;
+    /**
+     * 用户所在省份
+     */
+    private String province;
+    /**
+     * 用户所在国家
+     */
+    private String country;
+    /**
+     * 用户的语言,简体中文为zn_CN
+     */
+    private String language;
+    /**
+     * 用户绑定的手机号(国外手机号会有区号)
+     */
+    private String phoneNumber;
+    /**
+     * 没有区号的手机号
+     */
+    private String purePhoneNumber;
+    /**
+     * 区号
+     */
+    private String countryCode;
+    /**
+     * 修改时间
+     */
     private Timestamp updateDateTime;  //修改时间
 
     @Id

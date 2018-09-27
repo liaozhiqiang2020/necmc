@@ -15,6 +15,11 @@ import java.util.List;
 @Repository
 public interface CityRepository extends BaseRepository<CityEntity, Long>, PagingAndSortingRepository<CityEntity, Long> {
 
+    /**
+     * 根据市Id 查询指定市
+     * @param id
+     * @return
+     */
     @Query("from CityEntity as b where b.id = :id")
     CityEntity findCityById(@Param("id") int id);
 

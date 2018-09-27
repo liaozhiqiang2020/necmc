@@ -1,7 +1,7 @@
 package com.sv.mc.pojo.vo;
 
 /**
- *
+ * 设备价格关系实体类
  */
 public class DevicePriceImport {
     /**

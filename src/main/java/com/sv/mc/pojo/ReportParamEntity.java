@@ -1,13 +1,28 @@
 package com.sv.mc.pojo;
 
 /**
- * 报表接受页面参数实体
+ * 报表接收页面参数实体
  */
 public class ReportParamEntity {
+    /**
+     * 起始时间
+     */
     private String startTime;
+    /**
+     * 截止时间
+     */
     private String endTime;
+    /**
+     * 省Id
+     */
     private int provinceId;
+    /**
+     * 市id
+     */
     private int cityId;
+    /**
+     * 场地Id
+     */
     private int placeId;
 
     public String getStartTime() {

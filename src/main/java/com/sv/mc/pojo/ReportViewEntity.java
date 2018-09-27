@@ -7,21 +7,61 @@ import org.springframework.context.annotation.Bean;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-
+/**
+ * 报表实体类
+ */
 public class ReportViewEntity {
-
-    private String site; //地点
-    private String dm_name;// 型号
-    private String chairType;// 类型
-    private int userNumber;//用户量
-    private int payment;//未付款
-    private int accountpaid;//已付款
-    private int offthestocks;//已完成
-    private int canceled;//已取消
-    private int orderTotal;//订单总数
-    private BigDecimal income;//收入
-    private BigDecimal expend;//支出
-    private BigDecimal profit;//利润
+    /**
+     * 地点
+     */
+    private String site;
+    /**
+     * 型号
+     */
+    private String dm_name;
+    /**
+     * 类型
+     */
+    private String chairType;
+    /**
+     * 用户量
+     */
+    private int userNumber;
+    /**
+     * 未付款
+     */
+    private int payment;
+    /**
+     * 已付款
+     */
+    private int accountpaid;
+    /**
+     * 已完成
+     */
+    private int offthestocks;
+    /**
+     * 已取消
+     */
+    private int canceled;
+    /**
+     * 订单总数
+     */
+    private int orderTotal;
+    /**
+     * 收入
+     */
+    private BigDecimal income;
+    /**
+     * 支出
+     */
+    private BigDecimal expend;
+    /**
+     * 利润
+     */
+    private BigDecimal profit;
+    /**
+     * 异常
+     */
     private int unitException;//异常
 
     public String getSite() {

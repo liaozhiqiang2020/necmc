@@ -3,6 +3,9 @@ package com.sv.mc.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * 场地级别
+ */
 @Entity
 @Table(name = "mc_place_level", schema = "mc", catalog = "")
 public class PlaceLevelEntity {

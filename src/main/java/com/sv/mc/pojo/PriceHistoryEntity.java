@@ -16,18 +16,53 @@ import java.util.Set;
 @Entity
 @Table(name = "mc_price_history", schema = "mc", catalog = "")
 public class PriceHistoryEntity {
-    private int id;                     //主键id
-    private String priceName;              //价格名称
-    private BigDecimal newPrice;           //新价格
-    private BigDecimal oldPrice;           //新价格
-    private int newUseTime;                //新使用时间
-    private int oldUseTime;                //旧使用时间
-    private Timestamp createDateTime;   //创建时间
-    private Timestamp editTime;   //最后操作时间
-    private int status;                 //状态
-    private Timestamp startDateTime;    //价格开始时间
-    private Timestamp endDateTime;      //价格结束时间
-
+    /**
+     * 主键Id
+     */
+    private int id;
+    /**
+     * 价格名称
+     */
+    private String priceName;
+    /**
+     * 新价格
+     */
+    private BigDecimal newPrice;
+    /**
+     * 旧价格
+     */
+    private BigDecimal oldPrice;
+    /**
+     * 新使用时间
+     */
+    private int newUseTime;
+    /**
+     * 旧使用时间
+     */
+    private int oldUseTime;
+    /**
+     * 创建时间
+     */
+    private Timestamp createDateTime;
+    /**
+     * 最后操作时间
+     */
+    private Timestamp editTime;
+    /**
+     * 状态
+     */
+    private int status;
+    /**
+     * 价格开始时间
+     */
+    private Timestamp startDateTime;
+    /**
+     * 价格结束时间
+     */
+    private Timestamp endDateTime;
+    /**
+     * 一对多用户
+     */
     private UserEntity user;            //一对多用户
 //    private Set<DeviceEntity> deviceEntities = new HashSet<>();             //设备多对多集合
 

@@ -11,16 +11,46 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_vendor", schema = "mc", catalog = "")
 public class VendorEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private int discardStatus;//删除标注
-    private String name;//代理商名字
-    private String vendorAddress;//代理商地址
-    private String principal;//负责人
-    private String telephone;//电话
-    private String email;//邮箱
-    private int levelFlag;//隶属单位（1总部，2分公司）
-    private int superiorId;//上级主键
-    private Integer userId;//用户id
+    /**
+     * 删除状态
+     */
+    private int discardStatus;
+    /**
+     * 代理商名称
+     */
+    private String name;
+    /**
+     * 代理商地址
+     */
+    private String vendorAddress;
+    /**
+     * 负责人
+     */
+    private String principal;
+    /**
+     * 电话
+     */
+    private String telephone;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 隶属单位1总部,2分公司
+     */
+    private int levelFlag;
+    /**
+     * 上级主键
+     */
+    private int superiorId;
+    /**
+     * 用户id
+     */
+    private Integer userId;
 
     @Basic
     @Column(name = "superior_id")

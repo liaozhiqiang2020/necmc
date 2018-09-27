@@ -12,10 +12,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "mc_province", schema = "mc", catalog = "")
 public class ProvinceEntity {
+    /**
+     * 主键Id
+     */
     private int id;
-    private String name; //省名
-    private int areaId; //大区id
-    private List<CityEntity> city=new ArrayList<>();//有多少个市区
+    /**
+     * 省名
+     */
+    private String name;
+    /**
+     * 大区Id
+     */
+    private int areaId;
+    /**
+     * 有多少个市区
+     */
+    private List<CityEntity> city=new ArrayList<>();
 
 
     public void setCity(List<CityEntity> city) {

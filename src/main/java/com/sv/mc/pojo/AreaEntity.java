@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 实体类层 大区
- * Author:赵政博
+ * 实体类层  大区
+ * Author:赵政 博
  */
 @Entity
 @Table(name = "mc_area", schema = "mc", catalog = "")

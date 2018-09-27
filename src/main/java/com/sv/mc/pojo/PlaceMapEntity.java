@@ -6,15 +6,24 @@ import java.util.Objects;
 
 /**
  * 实体类层 场地地图
- * Author:赵政博
+ * Author: 赵政博
  */
 @Entity
 @Table(name = "mc_place_map", schema = "mc", catalog = "")
 public class PlaceMapEntity {
     private int id;
-    private byte[] placeImage; //场地方图片
-    private int placeId;       //场地方id
-    private String name;        //地图名称
+    /**
+     * 场地方图片
+     */
+    private byte[] placeImage;
+    /**
+     * 场地方id
+     */
+    private int placeId;
+    /**
+     * 场地名称
+     */
+    private String name;
 
     @Id
     @GeneratedValue
