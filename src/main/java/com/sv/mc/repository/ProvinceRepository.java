@@ -49,8 +49,11 @@ public interface ProvinceRepository extends BaseRepository<ProvinceEntity, Long>
     List<ProvinceEntity>getProvinceByP_ID(@Param("pid")int pid);
 
 
+
     /**
-     * 四级查询省 查询所有省
+     * 司机权限,根据场地查询所在省
+     * @param pid 场地Id
+     * @return 省数据
      */
     @Query(value = "select p.*  from mc_province as p where p.Id in(select c.province_id  FROM mc_city as c where c.Id in (SELECT p.city_id from mc_place as p where p.id=:pid))",nativeQuery = true)
     List<ProvinceEntity>getProvinceByID(@Param("pid")int pid);

@@ -14,21 +14,21 @@ public interface ProvinceService<T> extends BaseService<T>{
     /**1
      * 保存数据
      * @param province 省
-     * @return       ProvinceEntity
+     * @return  ProvinceEntity
      */
 
     ProvinceEntity save(ProvinceEntity province);
 
     /**
      * 根据id查询省
-     * @param  id
+     * @param  id 省Id
      * @return ProvinceEntity
      */
     ProvinceEntity findProvinceById(int id);
 
     /**
      * 删除省
-     * @param provinceEntity
+     * @param provinceEntity 省信息
      */
     void removeProvince(ProvinceEntity provinceEntity);
 
@@ -41,14 +41,17 @@ public interface ProvinceService<T> extends BaseService<T>{
 
     /**
      * 查询所有的省份
-     * @return
+     * @return 查询到的所有省份信息
      */
       List<ProvinceEntity> selectProvince();
 
 
     /**
      * 四级权限查询省
+     * @param pid 场地Id
+     * @return 查询到的省信息
      */
+
 
     List<ProvinceEntity>getProvinceByID(int pid);
 

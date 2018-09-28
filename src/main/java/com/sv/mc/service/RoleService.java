@@ -50,31 +50,31 @@ public interface RoleService<T>{
 
  /**
   * 查询当前角色所拥有权限
-  * @param roleId
-  * @return
+  * @param roleId 权限主键Id
+  * @return 所有权限
   */
  Set<PermissionEntity> findRolePermission(int roleId);
 
  /**
   * 查询角色未拥有的权限
-  * @param roleId
-  * @return
+  * @param roleId 权限主键Id
+  * @return 未拥有的权限
   */
  List<PermissionEntity> findRoleUnPermission(int roleId);
 
  /**
   * 角色删除权限
-  * @param roleId
+  * @param roleId 权限主键Id
   * @param pId 权限id
-  * @return
+  * @return 删除的权限
   */
  Set<PermissionEntity> roleDeletePermission(int roleId,int pId);
 
  /**
   * 角色添加权限
-  * @param roleId
+  * @param roleId 权限主键Id
   * @param pId 权限id
-  * @return
+  * @return 添加的权限
   */
  Set<PermissionEntity> roleAddPermission(int roleId,int pId);
 

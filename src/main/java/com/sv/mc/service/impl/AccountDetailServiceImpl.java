@@ -18,8 +18,8 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 
     /**
      * 新增一条账单详细数据
-     * @param accountDetailEntity
-     * @return
+     * @param accountDetailEntity  账单数据
+     * @return 账单信息
      */
     @Override
     public AccountDetailEntity createAccountDetail(AccountDetailEntity accountDetailEntity) {

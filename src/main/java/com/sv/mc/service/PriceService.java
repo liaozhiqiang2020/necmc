@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 价格
+ */
 public interface PriceService {
 
     /**
@@ -74,7 +77,7 @@ public interface PriceService {
     /**
      * 批量修改或者保存价格数据
      *
-     * @param priceEntityList
+     * @param priceEntityList 价格信息集合
      * @return 页面需要回显新的价格数据
      */
     List<PriceEntity> batchSaveOrUpdatePrice(List<PriceEntity> priceEntityList);
@@ -130,54 +133,58 @@ public interface PriceService {
      * 给场地上的某种类型的所有机器绑定价格
      *
      * @param listMap 场地id 与 价格id集合
-     * @return
+     * @return 价格集合
      */
     List<PriceEntity> placeAddPrice(Map<String, Object> listMap);
 
     /**
      * 根据设备编号查询价格列表
      *
-     * @param deviceCode
-     * @return
+     * @param deviceCode 设备编号
+     * @return 价格列表信息
      */
     List<Map<String, Object>> queryPriceAndTime(String deviceCode);
 
     /**
      * 查询场地上所有已绑定价格
      *
-     * @param
-     * @return
+     * @param placeId 场地Id
+     * @return 已绑定的价格
      */
     String findPriceEntitiesByEnd(int placeId);
 
     /**
      * 查询所有可用的价格
-     *
-     * @param
-     * @return
+     * @return 查询到的价格
      */
     String findPriceEntitiesByEnd1();
 
     /**
      * 分页查询所有数据
-     *
      * @return 价格集合
      */
     List<PriceEntity> findAllPagePrice();
 
     /**
      * 查询机器可用价格
-     * @return
+     * @param  deviceCode 设备编码
+     * @return 价格集合
      */
     List<PriceEntity> findDeviceAllPrice(String deviceCode);
 
 
     /**
      * 解析用户上传的excel 文件
+     * @param multipartFile 上传的excel
+     * @return  导入结果
      */
-
     List getExcel(MultipartFile multipartFile) throws IOException;
 
+    /**
+     * 删除场地绑定价格
+     * @param listMap 场地价格信息
+     * @return  场地价格信息
+     */
     String deletePlacePrice(Map<String, Object> listMap);
 
 

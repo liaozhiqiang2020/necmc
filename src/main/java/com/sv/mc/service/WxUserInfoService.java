@@ -12,6 +12,7 @@ import java.util.Map;
 public interface WxUserInfoService<T> extends BaseService<T> {
     /**
      * 插入用户数据
+     * @param wxUserInfoEntity 用户信息
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -19,6 +20,7 @@ public interface WxUserInfoService<T> extends BaseService<T> {
 
     /**
      * 删除用户数据
+     * @param openId 用户唯一Id
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -26,8 +28,7 @@ public interface WxUserInfoService<T> extends BaseService<T> {
 
     /**
      * 修改用户信息
-     * @param wxUserInfoEntity
-     * @return
+     * @param wxUserInfoEntity 用户信息对象
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -35,8 +36,8 @@ public interface WxUserInfoService<T> extends BaseService<T> {
 
     /**
      * 根据openId查询是否存在用户信息
-     * @param openId
-     * @return
+     * @param openId 用户唯一id
+     * @return 用户信息
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -44,6 +45,8 @@ public interface WxUserInfoService<T> extends BaseService<T> {
 
     /**
      * 插入用户信息，手机号，openId
+     * @param openId 用户唯一Id
+     * @param userInfo  用户信息
      */
     void saveUserInfoAndPhoneAndOpenId(String openId, String userInfo);
 }

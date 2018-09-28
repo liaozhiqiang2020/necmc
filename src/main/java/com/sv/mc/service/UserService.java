@@ -20,6 +20,8 @@ public interface UserService<T>  {
 
     /**
      * 分页查询所有user
+     * @param page  起始个数
+     * @param pageSize  截至个数
      * @return 分页集合
      */
     String findEntitiesPager(int page, int pageSize);
@@ -70,26 +72,30 @@ public interface UserService<T>  {
     /**
      * 删除用户所拥有的角色
      * @param listMap
-     * @return
+     * @return 角色集合
      */
     Set<RoleEntity> deleteUserRole(Map<String,Object> listMap);
 
 
     /**
      *用户添加角色
-     * @param userId
-     * @param roleId
+     * @param userId 用户id
+     * @param roleId 权限id
      * @return
      */
     Set<RoleEntity> addUserRole(int userId,int roleId);
 
     /**
      * 查询用户未绑定的角色
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 未绑定的角色
      */
     List<RoleEntity> userUnRole(int userId);
 
+    /**
+     * 查询所有场地
+     * @return 场地集合
+     */
     List<Object> findAllplace();
 
     /**
@@ -102,8 +108,10 @@ public interface UserService<T>  {
 
     /**
      * 修改密码
-     * @param request
-     * @return
+     * @param request 请求
+     * @param session  用户
+     * @param response  响应
+     * @return 修改后的密码
      */
     String changePwd(HttpServletRequest request, HttpSession session , HttpServletResponse response);
 }

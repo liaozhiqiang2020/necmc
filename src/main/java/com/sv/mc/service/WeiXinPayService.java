@@ -16,37 +16,40 @@ import java.util.Map;
 public interface WeiXinPayService {
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
-     * @param code
-     * @return
+     * @param code 登陆请求
+     * @return openid
      * @author: lzq
      * @date: 2018年7月3日
      */
     Map<String, Object> login(String code)throws WeixinException, IOException;
 
+
     /**
      * 发起微信支付
-     * @param openid
-     * @return
-     * @author: lzq
-     * @date: 2018年7月3日
+     * @param openid 用户唯一Id
+     * @param request 请求
+     * @param paidOrderId 订单号
+     * @param money 钱数
+     * @return 微信支付信息
      */
     Json wxPay(String openid, HttpServletRequest request,String paidOrderId,String money);
 
     /**
      * 微信支付
-     * @author: lzq
-     * @date: 2018年7月3日
+     * @param request 支付请求
+     * @param response 响应
+     * @throws Exception
      */
     void wxNotify(HttpServletRequest request, HttpServletResponse response)throws Exception ;
 
     /**
      * 获取用户信息
-     * @param sessionkey
-     * @param encryptedData
-     * @param iv
-     * @param openid
-     * @param userInfos
-     * @return
+     * @param sessionkey 用户主键
+     * @param encryptedData 加密信息
+     * @param iv 输入
+     * @param openid 用户唯一Id
+     * @param userInfos 用户信息
+     * @return 用户信息
      */
     String getUserInfo(String sessionkey, String encryptedData, String iv, String openid, String userInfos);
 }

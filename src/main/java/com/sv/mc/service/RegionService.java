@@ -11,22 +11,22 @@ import java.util.List;
  * author:王雨辰
  */
 public interface RegionService<T> extends BaseService<T>{
-    /**1
-     *
+    /**
+     * 查询大区
      * @return      获取 大区
      */
    public List<AreaEntity> getRegionOne();
 
 
-    /**1
-     *
+    /**
+     * 根据大区Id查询省
      * @return      获取省
      */
     public List<ProvinceEntity> getRegionPrivince(int id);
 
 
-    /**1
-     *
+    /**
+     * 根据省查询市
      * @return      获取市
      */
     public List<CityEntity> getRegionityCity(int id);

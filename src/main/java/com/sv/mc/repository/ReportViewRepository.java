@@ -15,9 +15,13 @@ import java.util.List;
 public interface ReportViewRepository extends
         BaseRepository<AreaEntity, Long>, PagingAndSortingRepository<AreaEntity, Long> {
 
+
     /**
-     * 根据省报表数据
-     * @return
+     *  根据省id 查询报表
+     * @param s 起始时间
+     * @param e 截止时间
+     * @param id 省Id
+     * @return 省报表数据
      */
 
 @Query(value = "" +
@@ -63,11 +67,15 @@ public interface ReportViewRepository extends
         " chairType",nativeQuery = true)
 List<Object[]> fillReport(@Param("s") Date s, @Param("e") Date e, @Param("id") int id);
 
+
+
     /**
      * 根据市来查询报表
+     * @param s 起始时间
+     * @param e 截止时间
+     * @param id 市Id
+     * @return 市报表
      */
-
-
     @Query(value = "" +
             "SELECT" +
             " mc_place.name AS site," +
@@ -112,10 +120,14 @@ List<Object[]> fillReport(@Param("s") Date s, @Param("e") Date e, @Param("id") i
     List<Object[]> fillcityReport(@Param("s") Date s, @Param("e") Date e, @Param("id") int id);
 
 
-/**
- * 根据场地查询报表
- */
-@Query(value = "" +
+    /**
+     *  根据场地来查询报表
+     * @param s 起始时间
+     * @param e 截止时间
+     * @param id 场地Id
+     * @return 场地报表数据
+     */
+    @Query(value = "" +
         "SELECT" +
         " mc_place.name AS site," +
         " mc_device_model.name AS dm_name," +

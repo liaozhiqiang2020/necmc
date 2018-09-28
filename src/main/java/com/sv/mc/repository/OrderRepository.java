@@ -333,7 +333,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      */
     @Query(value = "select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now()) and " +
             "mc_order.device_id in " +
-            "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
+            "(select mc_device.id from mc_device where discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid))",nativeQuery = true)
     int getYeOrderThree(@Param("pid")int pid);
 
@@ -345,7 +345,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      */
     @Query(value = "select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now()) and " +
             "mc_order.device_id in " +
-            "(select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in " +
+            "(select mc_device.id from mc_device where  discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid))",nativeQuery = true)
     int getYeOrderTwo(@Param("pid")int pid);
 
@@ -356,7 +356,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数量
      */
     @Query(value =  "" +"select count(mc_order.id) from mc_order where to_days(create_date_time) = to_days(now()) and mc_order.device_id in"+
-            " (select mc_device.id from mc_device where mc_status<>4 and discard_status=1 and mc_device.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))))",
+            " (select mc_device.id from mc_device where  discard_status=1 and mc_device.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))))",
 
             nativeQuery = true)
     int getYeOrderFour(@Param("pid")int pid);

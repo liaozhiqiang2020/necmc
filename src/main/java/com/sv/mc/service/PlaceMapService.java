@@ -32,7 +32,7 @@ public interface PlaceMapService<T> extends BaseService<T>{
 
     /**4
      * 插入一条场地图片数据
-     * @param placeMap
+     * @param placeMap 场地图片
      * @return PlaceMapEntity
      */
     PlaceMapEntity insertPlaceMap(PlaceMapEntity placeMap);
