@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 
+/**
+ * activemq生产者
+ */
 @Component
 public class JMSProducer {
     @Autowired
@@ -18,10 +21,15 @@ public class JMSProducer {
 //        this.jmsTemplate.convertAndSend(destination,message);
 //    }
 
+    /**
+     * 传入命令字符串，发送给给activemq
+     * @param message
+     * @throws Exception
+     */
     public void sendMessage(String message) throws Exception {
         //1.创建一个连接工厂
-        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.108.129.115:61616");
-//        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.104.142.21:61616");
+//        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.108.129.115:61616");
+        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.104.142.21:61616");
 //        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
         //2.使用工厂创建Connection
         Connection connection = factory.createConnection();

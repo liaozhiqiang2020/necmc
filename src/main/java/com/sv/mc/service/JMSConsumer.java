@@ -18,6 +18,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * activemq消费者
+ */
 @Component
 public class JMSConsumer {
     @Autowired
@@ -31,6 +34,10 @@ public class JMSConsumer {
 
     private final static Logger logger = LoggerFactory.getLogger(JMSConsumer.class);
 
+    /**
+     * 监听activemq的topic,拿到字节数组
+     * @param byteStr 从activemq中获取的命令字节数组
+     */
     @JmsListener(destination = "youTopic", containerFactory = "jmsListenerContainerTopic")
     public void onTopicMessage(byte[] byteStr) {
         WxUtil wxUtil = new WxUtil();
@@ -40,7 +47,7 @@ public class JMSConsumer {
         if (res.length() == 20) {
             String chairCode2 = res.substring(4, 20);//获取设备ascii
             String chairId2 = wxUtil.convertHexToString(chairCode2);//ascii转16进制
-            SingletonHungary.getSingleTon().put(chairId2 + "status", chairId2 + "_" + 4);
+            SingletonHungary.getSingleTon().put(chairId2 + "status", chairId2 + "_" + 4);//从map的单例中获取key为“statusXXX”的value
             SingletonHungary.getSingleTon().put(chairId2 + "statusSys", chairId2 + "_" + 4);
             this.deviceService.findChairRuningStatus(chairId2, 4);
         }else if(res16.length() == 73){            //解析心跳包
@@ -109,6 +116,10 @@ public class JMSConsumer {
         }
     }
 
+    /**
+     * 监听activemq的queue,拿到字符串
+     * @param msg 从activemq中获取的string命令字符串
+     */
     @JmsListener(destination = JmsConfig.QUEUE, containerFactory = "jmsListenerContainerQueue")
     public void onQueueMessage(String msg) {
         logger.error("接收到queue消息：{}", msg);
