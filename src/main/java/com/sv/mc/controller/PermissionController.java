@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 权限管理控制层
+ */
 @RestController
 public class PermissionController {
     @Resource
@@ -14,7 +17,7 @@ public class PermissionController {
 
     /**
      * 查询所有权限
-     * @return
+     * @return 所有权限内容
      */
     @GetMapping("/permission/all")
     List<PermissionEntity> findAll() {
@@ -23,8 +26,8 @@ public class PermissionController {
 
     /**
      * 更新权限
-     * @param permissionEntity
-     * @return
+     * @param permissionEntity 修改的权限信息
+     * @return 权限信息内容
      */
     @PostMapping("/permission/update")
     PermissionEntity updatePermission(@RequestBody PermissionEntity permissionEntity) {
@@ -33,8 +36,8 @@ public class PermissionController {
 
     /**
      * 保存权限
-     * @param permissionEntity
-     * @return
+     * @param permissionEntity 新增的权限内容
+     * @return 权限内容
      */
     @PostMapping("/permission/save")
     PermissionEntity savePermission(@RequestBody PermissionEntity permissionEntity) {
@@ -43,8 +46,8 @@ public class PermissionController {
 
     /**
      * 根据名字查询权限
-     * @param name
-     * @return
+     * @param name 名称
+     * @return 权限信息内容
      */
     @PostMapping("/permission/findByName")
     PermissionEntity findPermissionByName(@RequestParam("permissionName") String name) {
@@ -53,8 +56,8 @@ public class PermissionController {
 
     /**
      * 根据id查询权限
-     * @param id
-     * @return
+     * @param id 主键Id
+     * @return 权限内容
      */
     @GetMapping("/permission/findById")
     PermissionEntity findPermissionById(@RequestParam("permissionId") int id) {

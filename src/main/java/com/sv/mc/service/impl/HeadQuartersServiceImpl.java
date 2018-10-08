@@ -55,7 +55,10 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
         return headQuartersRepository.findHeadQuartersById(id);
     }
 
-
+    /**
+     * 查询所有总公司
+     * @return
+     */
     @Override
     @Transactional
     public List findAllEntities() {
@@ -65,9 +68,10 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 分页查询总公司数据
-     * @param page
-     * @param pageSize
-     * @return
+     * @param page 起始个数
+     * @param pageSize 截至个数
+     * @param session 用户信息
+     * @return 总公司数据
      */
     @Override
     @Transactional
@@ -90,8 +94,8 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 修改数据
-     * @param headQuartersEntity
-     * @return
+     * @param headQuartersEntity 修改的总公司内容
+     * @return 修改的总公司内容
      */
     @Override
     @Transactional
@@ -101,8 +105,8 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 新增数据
-     * @param headQuartersEntity
-     * @return
+     * @param headQuartersEntity 总公司数据
+     * @return 总公司数据
      */
     @Override
     @Transactional
@@ -113,7 +117,7 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 逻辑删除数据
-     * @param headId
+     * @param headId 总公司ID
      */
     @Override
     @Transactional
@@ -123,21 +127,32 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
         this.headQuartersRepository.save(headQuartersEntity);
     }
 
-
+    /**
+     * 查询所有总公司数据
+     * @return
+     */
     @Override
     @Transactional
     public List<HeadQuartersEntity> findAllHead() {
         return this.headQuartersRepository.findAllHead();
     }
 
+    /**
+     * 根据分公司id 查询总公司
+     * @param branchId 分公司Id
+     * @return 总公司信息
+     */
     @Override
     @Transactional
     public HeadQuartersEntity findHeadByBranchId(int branchId) {
         return this.headQuartersRepository.findHeadByBranchId(branchId);
     }
 
+
     /**
      * 根据总公司id查询下面的场地
+     * @param headId 总公司Id
+     * @return 场地信息
      */
     @Override
     @Transactional
@@ -156,6 +171,8 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 总公司绑定场地(包括所有子场地)
+     * @param headId  总公司Id
+     * @param placeId  场地Id
      */
     @Override
     @Transactional
@@ -186,9 +203,12 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
         }
     }
 
+
     /**
      * 解绑上级与场地解绑
-     * @param placeId
+     * @param placeId  场地Id
+     * @param supId 上级Id
+     * @param flagId   等级标识
      */
     @Override
     @Transactional
@@ -210,6 +230,8 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 根据总公司id查询下面的合同
+     * @param headId 总公司id
+     * @return 合同信息
      */
     @Override
     @Transactional
@@ -243,6 +265,8 @@ public class HeadQuartersServiceImpl implements HeadQuartersService {
 
     /**
      * 根据总公司id查询合同历史
+     * @param headId 总公司Id
+     * @return  合同历史
      */
     @Override
     @Transactional

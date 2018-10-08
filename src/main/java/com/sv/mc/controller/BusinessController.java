@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+/**
+ * 行业控制层
+ */
 @RestController
 public class BusinessController {
     @Autowired
@@ -39,6 +42,7 @@ public class BusinessController {
 
     /**
      * 根据id查询行业
+     * @param id 行业Id
      * @return 返回所有行业内容p
      */
     @RequestMapping(value = "/bussinessMgr/business",method=RequestMethod.GET)
@@ -49,8 +53,9 @@ public class BusinessController {
 
     /**
      * 根据id修改数据
-     * @param id
-     * @return
+     * @param id 主键Id
+     * @param business 修改分公司信息
+     * @return 修改的信息
      */
     @RequestMapping(value = "/update/business",method=RequestMethod.GET)
     public @ResponseBody
@@ -60,7 +65,7 @@ public class BusinessController {
 
     /**
      * 跳转到行业分类管理页面
-     * @return
+     * @return 转发到的页面
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -72,8 +77,8 @@ public class BusinessController {
 
     /**
      * 插入一条行业分类数据
-     * @param businessEntity
-     * @return
+     * @param businessEntity 行业分类数据
+     * @return 插入的数据
      */
     @RequestMapping(value = "/bussinessMgr/insertBussiness",method = RequestMethod.POST)
     public @ResponseBody
@@ -83,8 +88,8 @@ public class BusinessController {
 
     /**
      * 更改行业分类数据
-     * @param businessEntity
-     * @return
+     * @param businessEntity 行业分类数据
+     * @return 修改的行业分类数据
      */
     @RequestMapping(value = "/bussinessMgr/updateBussiness",method = RequestMethod.POST)
     public @ResponseBody
@@ -95,6 +100,7 @@ public class BusinessController {
 
     /**
      * 逻辑删除行业分类数据
+     * @param id 主键id
      */
     @RequestMapping(value = "/bussinessMgr/deleteBussiness",method = RequestMethod.POST)
     public @ResponseBody
@@ -103,7 +109,9 @@ public class BusinessController {
     }
 
     /**
-     * 全部查询
+     * 全部查询 分页查询
+     * @param page 起始个数
+     * @param pageSize 截至个数
      * @return 返回所有行业分类内容
      */
     @GetMapping(value = "/bussinessMgr/getAllBusiness")
@@ -115,6 +123,7 @@ public class BusinessController {
 
     /**
      * 查询一级分类
+     * @param id 行业等级
      * @return 返回一级分类内容
      */
     @GetMapping(value = "/bussinessMgr/getBusiness")
@@ -126,6 +135,7 @@ public class BusinessController {
 
     /**
      * 根据上级id查询二级分类
+     * @param id 行业等级
      * @return 返回二级分类内容
      */
 
@@ -139,6 +149,7 @@ public class BusinessController {
 
     /**
      * 增加一级分类
+     * @param business  增加的一级分类内容
      * @return 返回一级分类内容
      */
 
@@ -163,7 +174,7 @@ public class BusinessController {
 
     /**
      * 删除一级分类
-     *
+     * @param business 一级分类内容
      */
 
     @PostMapping(value = "/bussinessMgr/removeBusiness1")
@@ -177,7 +188,7 @@ public class BusinessController {
 
     /**
      * 删除二级分类
-     *
+     * @param business 二级分类信息
      */
 
     @PostMapping(value = "/bussinessMgr/removeBusiness2")
@@ -191,6 +202,7 @@ public class BusinessController {
 
     /**
      * 修改一级分类
+     * @param business 修改的一级分类信息
      * @return 返回一级分类内容
      */
     @PostMapping(value = "/bussinessMgr/uppdateBusiness1")
@@ -201,6 +213,7 @@ public class BusinessController {
     }
     /**
      * 修改二级分类
+     * @param business 修改的二级分类信息
      * @return 返回一级分类内容
      */
     @PostMapping(value = "/bussinessMgr/uppdateBusiness2")

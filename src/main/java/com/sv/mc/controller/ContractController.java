@@ -11,6 +11,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 合同信息控制层
+ */
 @RestController
 public class ContractController {
     @Autowired
@@ -27,7 +30,7 @@ public class ContractController {
     }
     /**
      * 根据id查询单个合同内容
-     * @param id
+     * @param id 合同Id
      * @return 单个分公司合同
      */
     @RequestMapping(value = "/contract",method=RequestMethod.GET)
@@ -38,8 +41,8 @@ public class ContractController {
 
     /**
      * 插入一条新合同数据
-     * @param sign
-     * @return
+     * @param sign 合同信息
+     * @return 合同结果
      */
     @RequestMapping(value = "/contract/insert",method = RequestMethod.POST)
     public @ResponseBody
@@ -49,8 +52,8 @@ public class ContractController {
 
     /**
      * 修改签约信息
-     * @param
-     * @return
+     * @param map 修改的签约信息
+     * @return 修改的签约信息
      */
     @RequestMapping(value = "/contract/updateContract",method = RequestMethod.POST)
     public @ResponseBody

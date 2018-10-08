@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+/**
+ * 大区
+ */
 public class AreaServiceImpl implements AreaService {
     @Autowired
     private AreaRepository areaRepository;
@@ -15,7 +18,7 @@ public class AreaServiceImpl implements AreaService {
     /**
      * 保存数据
      * @param branch 大区域
-     * @return       AreaEntity
+     * @return       AreaEntity 大区信息
      */
     @Override
     public AreaEntity save(AreaEntity branch) {
@@ -25,7 +28,7 @@ public class AreaServiceImpl implements AreaService {
 
     /**
      * 删除大区
-     * @param areaEntity
+     * @param areaEntity 删除的大区
      */
 
 
@@ -37,8 +40,8 @@ public class AreaServiceImpl implements AreaService {
 
     /**
      * 修改大区
-     * @param areaEntity
-     * @return
+     * @param areaEntity 修改了的内容
+     * @return 修改后的内容
      */
     @Override
     public AreaEntity updateArea(AreaEntity areaEntity) {
@@ -49,7 +52,7 @@ public class AreaServiceImpl implements AreaService {
 
     /**
      * 查询所有大区域
-     * @return List
+     * @return List 查询到的所有大区
      */
     @Override
     public List<AreaEntity> findAllEntities() {
@@ -59,6 +62,8 @@ public class AreaServiceImpl implements AreaService {
 
     /**
      * 增加区域
+     * @param areaEntity 增加的大区信息
+     * @return 增加的大区
      */
     @Override
     public AreaEntity createArea(AreaEntity areaEntity) {

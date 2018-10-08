@@ -15,9 +15,9 @@ public class PermissionServiceImpl implements PermissionService{
     PermissionRepository permissionRepository;
 
     /**
-     *根据权限名查询用户
-     * @param permissionName
-     * @return
+     * 根据权限名查询用户
+     * @param permissionName 权限名
+     * @return 用户信息
      */
     @Override
     @Transactional
@@ -37,7 +37,7 @@ public class PermissionServiceImpl implements PermissionService{
 
     /**
      * 查询所有权限
-     * @return
+     * @return 权限信息
      */
     @Override
     @Transactional
@@ -47,8 +47,8 @@ public class PermissionServiceImpl implements PermissionService{
 
     /**
      * 更新权限
-     * @param permission
-     * @return
+     * @param permission 修改的权限
+     * @return 修改的权限
      */
     @Override
     @Transactional
@@ -58,8 +58,8 @@ public class PermissionServiceImpl implements PermissionService{
 
     /**
      * 新建权限
-     * @param permission
-     * @return
+     * @param permission 新增的权限内容
+     * @return 修改了的权限内容
      */
     @Override
     @Transactional
@@ -69,8 +69,8 @@ public class PermissionServiceImpl implements PermissionService{
 
     /**
      * 根据Id查询权限
-     * @param permissionId
-     * @return
+     * @param permissionId 权限id
+     * @return 查询的权限
      */
     @Override
     @Transactional

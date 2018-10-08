@@ -51,7 +51,7 @@ public class DeviceController {
     }
     /**
      * 根据设备id查询单个设备内容
-     * @param id
+     * @param id 设备Id
      * @return 单个设备内容
      */
     @RequestMapping(value = "/deviceMgr/device",method=RequestMethod.GET)
@@ -87,7 +87,7 @@ public class DeviceController {
 
     /**
      * 跳转到设备库存管理页面
-     * @return
+     * @return  转发到设备库存管理页面
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -98,7 +98,7 @@ public class DeviceController {
 
     /**
      * 跳转到设备控制页面
-     * @return
+     * @return 设备控制view
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -111,7 +111,7 @@ public class DeviceController {
 
     /**
      * 跳转到设备场地绑定页面
-     * @return
+     * @return 设备场地绑定页面
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -146,8 +146,8 @@ public class DeviceController {
 
     /**
      * 插入一条设备数据
-     * @param deviceEntity
-     * @return
+     * @param deviceEntity 插入的设备信息
+     * @return 设备信息
      */
     @RequestMapping(value = "/deviceMgr/insertDevice",method = RequestMethod.POST)
     public @ResponseBody
@@ -158,8 +158,8 @@ public class DeviceController {
 
     /**
      * 更改设备数据
-     * @param deviceEntity
-     * @return
+     * @param deviceEntity 更改的设备信息
+     * @return 设备信息
      */
     @RequestMapping(value = "/deviceMgr/updateDevice",method = RequestMethod.POST)
     public @ResponseBody
@@ -170,6 +170,7 @@ public class DeviceController {
 
     /**
      * 逻辑删除设备数据
+     * @param map  设备修改数据
      */
     @RequestMapping(value = "/deviceMgr/deleteDevice",method = RequestMethod.POST)
     public @ResponseBody
@@ -185,26 +186,24 @@ public class DeviceController {
 //        dateFormat.setLenient(false);
 //        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));   //true:允许输入空值，false:不能为空值
 //    }
+
     /**
      * 导入Excel 增加设备
+     * @param file  上传的文件
+     * @return  上传结果
      */
-
    @PostMapping("/deviceMgr/setExcel")
    public List<ExcelSetDeviceResult> setAllExcel(@RequestParam("file") MultipartFile file,HttpServletResponse response) throws IOException{
-
-
        List<ExcelSetDeviceResult> result= this.deviceService.setAllExcel(file);
-
        //this.deviceService.getExcelError(result,response);
-
        //response.sendRedirect("./turnToDeviceMgr");
        return result;
    }
 
     /**
-     *
-     * @param result
-     * @param response
+     * 响应导入结果
+     * @param result 结果内容
+     * @param response 响应
      */
    @GetMapping(value = "/deviceMgr/getExcelError")
    public void getExcelError(@RequestParam("result") Set result,HttpServletResponse response){

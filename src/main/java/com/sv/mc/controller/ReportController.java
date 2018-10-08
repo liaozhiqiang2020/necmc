@@ -42,7 +42,7 @@ public class ReportController {
 
     /**
      * 跳转到报表查询条件页面
-     * @return
+     * @return View销售报表
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -53,7 +53,7 @@ public class ReportController {
 
     /**
      * 查询所有省份
-     * @return
+     * @return 所有省份数据
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -65,8 +65,8 @@ public class ReportController {
 
     /**
      * 根据省份id查询市
-     * @param provinceId
-     * @return
+     * @param provinceId 省id
+     * @return 市信息
      * @auther liaozhiqiang
      * @date 2018//7/11
      */
@@ -78,8 +78,8 @@ public class ReportController {
 
     /**
      * 根据市id查询场地
-     * @param cityId
-     * @return
+     * @param cityId 市Id
+     * @return 场地信息集合
      * @auther liaozhiqiang
      * @date 2018//7/11
      */
@@ -89,12 +89,11 @@ public class ReportController {
         return this.reportService.queryAllPlaceByCityId(cityId);
     }
 
+
     /**
      * 点击[生成报表]按钮后，获取页面数据
-     * @param
-     * @return
-     * @auther liaozhiqiang
-     * @date 2018//7/11
+     * @param reportParamEntity 报表对象
+     * @return 订单信息集合
      */
     @RequestMapping(value="/getReportCondition")
     @ResponseBody

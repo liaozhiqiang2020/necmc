@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import static com.sv.mc.util.QrCodeUtils.generateQrCode;
 import static com.sv.mc.util.TestMain.zip;
+
+/**
+ * 二维码小工具控制层
+ */
 @RestController
 public class QRCodeController {
 
@@ -21,8 +25,10 @@ public class QRCodeController {
 
 
     /**
-     * 生成二维码
-     */
+     * 根据设备编号生成二维码
+     * @param response 响应下载
+     * @param sn 设备编号
+    */
     @PostMapping(value = "/util/getQrCode")
     public @ResponseBody
     boolean getQRCode(@RequestBody String sn, HttpServletResponse response) throws Exception {
@@ -130,7 +136,11 @@ public class QRCodeController {
         return flag;
     }
 
-
+    /**
+     * 压缩文件下载
+     * @param response
+     * @throws FileNotFoundException
+     */
     @GetMapping(value = "/util/returnQrCode")
     public void getCode(HttpServletResponse response) throws FileNotFoundException {
         String zipPath = "./qrzip";

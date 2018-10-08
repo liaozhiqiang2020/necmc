@@ -36,6 +36,7 @@ public class OrderController {
 
     /**
      * 跳转到订单查询(管理员)页面
+     * @return  订单查询管理员 view 对象
      */
     @GetMapping(value="/orderMgr/turnToOrderMgr")
     public ModelAndView turnToOrderMgr(){
@@ -44,6 +45,7 @@ public class OrderController {
 
     /**
      * 跳转到订单查询(代理、场地)页面
+     * @return  订单查询view 对象
      */
     @GetMapping(value="/orderMgr/turnToOrderPlaceMgr")
     public ModelAndView turnToOrderPlaceMgr(){
@@ -52,7 +54,12 @@ public class OrderController {
 
 
     /**
-     * 全部查询
+     * 分页全部查询
+     * @param session 用户信息
+     * @param pageSize  截至个数
+     * @param page 起始个数
+     * @param startTime  起始时间
+     * @param endTime  截止时间
      * @return 返回所有订单内容
      */
     @GetMapping(value = "/orderMgr/allOrder")
@@ -63,6 +70,8 @@ public class OrderController {
 
     /**
      * 后台添加订单描述
+     * @param orderId 订单Id
+     * @param description 订单信息
      */
     @PostMapping(value = "/orderMgr/addOrderDescription")
     public @ResponseBody
@@ -79,16 +88,23 @@ public class OrderController {
     }
 
     /**
-     * 全部查询
+     * 分页全部查询
      * @return 返回昨日订单内容（改为今日 2018/9/20）
+     * @param page 起始个数
+     * @param pageSize 截至个数
+     * @param session 用户信息
      */
     @GetMapping(value = "/orderMgr/allOrderYesterday")
     public @ResponseBody
     String allOrderYesterday(@Param("page") String page, @Param("pageSize") String pageSize,HttpSession session) {
         return this.orderService.findYesterDayOrderInfo(Integer.parseInt(page),Integer.parseInt(pageSize),session);
     }
+
     /**
      * excel 导出订单记录
+     * @param response 响应下载
+     * @param startTime 起始时间
+     * @param endTime 截止时间
      */
     @GetMapping(value = "/orderMgr/getExcelOrder")
     public void getExcelOrder(HttpServletResponse response,@Param("startTime") String startTime,@Param("endTime") String endTime){
@@ -181,6 +197,11 @@ public class OrderController {
 
     }
 
+    /**
+     * 文件下载
+     * @param response 响应下载
+     * @param fileName 文件名
+     */
     private void setResponseHeader(HttpServletResponse response, String fileName) {
         try {
             try {

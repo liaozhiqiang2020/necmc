@@ -20,6 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
+
+/**
+ * 分公司控制层
+ */
 @RestController
 public class BranchController {
     //注入
@@ -34,7 +38,7 @@ public class BranchController {
 
     /**
      * 跳转到分公司管理页面
-     * @return
+     * @return 分公司view 对象转发到页面
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -45,6 +49,9 @@ public class BranchController {
 
     /**
      * 全部查询
+     * @param page 起始个数
+     * @param pageSize 截至个数
+     * @param session 用户信息
      * @return 返回所有分公司内容
      */
     @GetMapping(value = "/branchMgr/allBranchByPage")
@@ -65,7 +72,7 @@ public class BranchController {
 
     /**
      * 根据分公司id查询单个分公司内容
-     * @param id
+     * @param id 分公司Id
      * @return 单个分公司内容
      */
     @RequestMapping(value = "/branchMgr/branch",method=RequestMethod.GET)
@@ -76,8 +83,8 @@ public class BranchController {
 
     /**
      * 插入一条分公司数据
-     * @param branch
-     * @return
+     * @param branch 分公司数据
+     * @return 分公司数据
      */
     @RequestMapping(value = "/branchMgr/insertBranch",method = RequestMethod.POST)
     public @ResponseBody
@@ -87,8 +94,8 @@ public class BranchController {
 
     /**
      * 更改分公司数据
-     * @param branch
-     * @return
+     * @param branch 分公司数据
+     * @return 修改的分公司数据
      */
     @RequestMapping(value = "/branchMgr/updateBranch",method = RequestMethod.POST)
     public @ResponseBody
@@ -98,6 +105,7 @@ public class BranchController {
 
     /**
      * 逻辑删除分公司数据
+     * @param branch 需要逻辑删除的分公司数据
      */
     @RequestMapping(value = "/branchMgr/deleteBranch",method = RequestMethod.POST)
     public @ResponseBody
@@ -130,6 +138,7 @@ public class BranchController {
 
     /**
      * 查询所有状态为1的用户
+     * @return 用户信息
      */
     @GetMapping(value="/branchMgr/findAllByStatus")
     public @ResponseBody
@@ -140,6 +149,8 @@ public class BranchController {
 
     /**
      * 根据分公司id查询下面的场地
+     * @param branchId 分公司Id
+     * @return 场地信息集合
      */
     @GetMapping(value = "/branchMgr/findAllPlaceByBranchId")
     public @ResponseBody
@@ -149,6 +160,8 @@ public class BranchController {
 
     /**
      * 根据分公司id查询下面的合同
+     * @param branchId  分公司Id
+     * @return  合同信息
      */
     @GetMapping(value = "/branchMgr/findContractByBranchId")
     public @ResponseBody
@@ -158,6 +171,8 @@ public class BranchController {
 
     /**
      * 根据分公司id查询历史合同
+     * @param branchId 分公司Id
+     * @return 历史合同信息
      */
     @GetMapping(value = "/branchMgr/findHistoryContractByBranchId")
     public @ResponseBody
@@ -169,6 +184,8 @@ public class BranchController {
 
     /**
      * 分公司绑定场地
+     * @param branchId 分公司Id
+     * @param placeId  场地id
      */
     @PostMapping(value="/branchMgr/branchBoundPlace")
     public @ResponseBody

@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 价格控制层
+ */
 @RestController
 public class PriceController {
 
@@ -35,7 +38,7 @@ public class PriceController {
      *
      * @param page     当前开始页码（代码中从0开始）
      * @param pageSize 页号
-     * @return
+     * @return 价格列表
      */
     @GetMapping("/price/pageAll")
     public String findAllPagePrice(@RequestParam("page") String page, @RequestParam("pageSize") String pageSize) {
@@ -44,7 +47,6 @@ public class PriceController {
 
     /**
      * 不分页查询价格列表,价格状态为可用的
-     *
      * @return 价格集合
      */
     @GetMapping("/price/status")
@@ -56,7 +58,7 @@ public class PriceController {
 
     /**
      * 不分页查询价格列表,场地上已绑定的价格
-     *
+     * @param placeId  场地Id
      * @return 价格集合
      */
     @GetMapping("/price/statusOrDate")
@@ -66,7 +68,6 @@ public class PriceController {
 
     /**
      * 不分页查询价格列表,场地上可绑定的价格
-     *
      * @return 价格集合
      */
     @GetMapping("/price/statusOrDate1")
@@ -76,7 +77,6 @@ public class PriceController {
 
     /**
      * 不分页查询价格列表
-     *
      * @return 价格集合
      */
     @GetMapping("/price/all")
@@ -105,8 +105,9 @@ public class PriceController {
 
     /**
      * 新建价格
-     *
      * @param map 价格对象
+     * @param request 请求用户信息
+     * @return 价格对象
      */
     @PostMapping("/price/save")
     public PriceEntity addPrice(@RequestBody Map<String, Object> map, HttpServletRequest request) {
@@ -115,8 +116,8 @@ public class PriceController {
 
     /**
      * 更新价格
-     *
-     * @param map 价格对象
+     * @param map 修改的价格信息对象
+     * @return 修改后价格对象
      */
     @PostMapping("/price/update")
     public PriceEntity updatePrice(@RequestBody Map<String, Object> map) {
@@ -125,8 +126,8 @@ public class PriceController {
 
     /**
      * 批量更新或保存价格
-     *
      * @param models 价格对象集合
+     * @return 更新保存价格对象集合
      */
     @PostMapping("/price/updateList")
     public @ResponseBody
@@ -141,7 +142,7 @@ public class PriceController {
 
     /**
      * 批量删除价格
-     *
+     * @return 删除的价格对象
      * @param models 价格对象集合
      */
     @PostMapping("/price/batchDelete")
@@ -152,8 +153,7 @@ public class PriceController {
 
     /**
      * 删除价格
-     *
-     * @param priceEntity 价格Id
+     * @param priceEntity 删除的价格对象
      */
     @PostMapping("/price/delete")
     public void deletePrice(@RequestBody PriceEntity priceEntity) {
@@ -163,7 +163,7 @@ public class PriceController {
     /**
      * 根据设备id查询价格和时长
      *
-     * @param deviceId
+     * @param deviceId 设备Id
      * @return 当前设备的价格，时长集合
      */
     @PostMapping("/price/deviceUse")
@@ -176,8 +176,8 @@ public class PriceController {
     /**
      * 根据机器查询当前机器已绑定价格
      *
-     * @param deviceId
-     * @return
+     * @param deviceId 设备Id
+     * @return 绑定的价格信息
      */
     @GetMapping("/price/devicePrice")
     public Set<PriceEntity> findDevicePrice(@RequestParam("deviceId") int deviceId) {
@@ -192,8 +192,7 @@ public class PriceController {
 
     /**
      * 查询当前设备可绑定的未绑定价格
-     *
-     * @param deviceId
+     * @param deviceId 设备Id
      * @return 价格集合
      */
     @GetMapping("/price/deviceUnPrice")
@@ -208,7 +207,6 @@ public class PriceController {
 
     /**
      * 给对应机器绑定价格
-     *
      * @param listMap 价格id集合与机器Id
      * @return 保存成功消息
      */
@@ -239,6 +237,11 @@ public class PriceController {
         return this.priceService.placeAddPrice(listMap);
     }
 
+    /**
+     *  根据设备编码查询价格
+     * @param deviceCode 设备编码
+     * @return 价格
+     */
     @GetMapping("/weixin/devicePrice")
     public List<PriceEntity> findDeviceAllPrice(String deviceCode){
         return this.priceService.findDeviceAllPrice(deviceCode);
@@ -252,8 +255,7 @@ public class PriceController {
 
     /**
      * 跳转到priceTest页面
-     *
-     * @return
+     * @return 价格信息
      */
     @GetMapping(value = "/price/priceTest")
     public ModelAndView turnToRoleMgrTest() {
@@ -265,7 +267,6 @@ public class PriceController {
 
     /**
      * 跳转到priceTest页面
-     *
      * @return
      */
     @GetMapping(value = "/price/priceTest1")
@@ -289,8 +290,12 @@ public class PriceController {
 //        return mv;
 //    }
 
+    /**
+     * 导出excel 设备
+     * @param id 设备价格
+     * @param response 下载
+     */
     @GetMapping(value = "/price/export")
-
     public void exportReport(@RequestParam("id") int id, HttpServletResponse response) {
         //获取数据
 
@@ -343,9 +348,11 @@ public class PriceController {
         }
     }
 
-
+    /**
+     * 导出价格管理
+     * @param response 下载
+     */
     @GetMapping(value = "/price/export1")
-
     public void exportReport(HttpServletResponse response) {
         //获取数据
 
@@ -408,13 +415,23 @@ public class PriceController {
         }
     }
 
-
+    /**
+     * 上传绑定
+     * @param file 文件对象
+     * @return 上传结果
+     * @throws IOException
+     */
     @PostMapping(value = "/price/setexcel")
     public List setExcel(@RequestParam("file") MultipartFile file) throws IOException {
         return this.priceService.getExcel(file);
 
     }
 
+    /**
+     * 删除场地价格
+     * @param listMap 场地价格
+     * @return 绑定成功结果
+     */
     @PostMapping("/price/deletePlacePrice")
     public String deletePlacePrice(@RequestBody Map<String, Object> listMap){
          this.priceService.deletePlacePrice(listMap);

@@ -20,8 +20,8 @@ public class SupplierSeviceImpl implements SupplierService {
 
     /**
      * 保存数据
-     * @param supplier
-     * @return
+     * @param supplier 生厂商信息
+     * @return 增加的生产商信息
      */
     @Override
     public SupplierEntity save(SupplierEntity supplier) {
@@ -30,8 +30,8 @@ public class SupplierSeviceImpl implements SupplierService {
 
     /**
      * 根据id查询生产商
-     * @param id
-     * @return
+     * @param id 生产商id
+     * @return 生厂商信息
      */
     @Override
     public SupplierEntity findSupplierById(int id) {
@@ -40,8 +40,8 @@ public class SupplierSeviceImpl implements SupplierService {
 
     /**
      * 插入一条新的生产商数据
-     * @param supplier
-     * @return
+     * @param supplier  供应商信息
+     * @return 供应商对象
      */
     @Override
     public SupplierEntity insertSupplier(SupplierEntity supplier) {
@@ -52,7 +52,7 @@ public class SupplierSeviceImpl implements SupplierService {
 
     /**
      * 查询所有生产商数据
-     * @return
+     * @return 所有生产商数据集合
      */
     @Override
     public List<SupplierEntity> findAllEntities() {
@@ -63,7 +63,7 @@ public class SupplierSeviceImpl implements SupplierService {
     /**
      * 根据供应商名称查询 供应商信息
      * @param name 供应商名称
-     * @return
+     * @return 供应商查询结果对象
      */
 
     @Override

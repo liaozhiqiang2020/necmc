@@ -11,6 +11,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 合同逻辑处理层
+ */
 @Service
 public class ContractSeviceImpl implements ContractService {
 
@@ -19,8 +22,8 @@ public class ContractSeviceImpl implements ContractService {
 
     /**
      * 保存数据
-     * @param contractEntity 合同
-     * @return
+     * @param contractEntity 要增加的合同
+     * @return 合同信息
      */
     @Override
     @Transactional
@@ -31,7 +34,7 @@ public class ContractSeviceImpl implements ContractService {
     /**
      * 根据id查询合同
      * @param id
-     * @return
+     * @return 合同信息
      */
     @Override
     @Transactional
@@ -41,8 +44,8 @@ public class ContractSeviceImpl implements ContractService {
 
     /**
      * 插入新一条合同
-     * @param contractEntity
-     * @return
+     * @param contractEntity 合同信息
+     * @return 合同信息
      */
     @Override
     @Transactional
@@ -52,7 +55,7 @@ public class ContractSeviceImpl implements ContractService {
 
     /**
      * 查询所有合同
-     * @return
+     * @return 合同信息
      */
     @Override
     @Transactional
@@ -60,10 +63,10 @@ public class ContractSeviceImpl implements ContractService {
         return contractRepository.findAll();
     }
 
+
     /**
      * 修改签约信息
-     * @param map
-     * @return
+     * @param map 签约信息
      */
     @Override
     @Transactional

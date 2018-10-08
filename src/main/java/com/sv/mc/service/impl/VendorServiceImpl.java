@@ -45,7 +45,7 @@ public class VendorServiceImpl implements VendorService {
         /**
          * 提交数据
          * @param vendor 代理商数据
-         * @return VendorEntity
+         * @return VendorEntity 代理商数据
          */
         @Override
         @Transactional
@@ -89,9 +89,9 @@ public class VendorServiceImpl implements VendorService {
 
         /**
          * 分页查询全部数据
-         * @param page
-         * @param pageSize
-         * @return
+         * @param page 起始个数
+         * @param pageSize 截至个数
+         * @return 代理商数据
          */
         @Override
         @Transactional
@@ -150,7 +150,7 @@ public class VendorServiceImpl implements VendorService {
 
         /**
          * 插入一条代理商数据
-         * @param
+         * @param map 插入的 代理商内容
          * @return VendorEntity
          */
         @Override
@@ -161,8 +161,8 @@ public class VendorServiceImpl implements VendorService {
 
         /**
          * 修改数据
-         * @param map
-         * @return
+         * @param map 修改的内容
+         * @return 修改后的内容
          */
         @Override
         @Transactional
@@ -172,7 +172,7 @@ public class VendorServiceImpl implements VendorService {
 
         /**
          * 删除数据
-         * @param headId
+         * @param headId 分公司Id
          */
         @Override
         @Transactional
@@ -183,8 +183,11 @@ public class VendorServiceImpl implements VendorService {
         }
 
 
+
         /**
          * 新增修改通用方法
+         * @param map 替换的内容
+         * @return 新增修改的结果
          */
         private VendorEntity saveData(Map map) {
                 VendorEntity vendorEntity = new VendorEntity();
@@ -236,8 +239,11 @@ public class VendorServiceImpl implements VendorService {
 
 
 
+
         /**
          * 根据代理商id查询下面的场地
+         * @param vendorId 代理商Id
+         * @return 场地信息
          */
         @Override
         @Transactional
@@ -247,6 +253,8 @@ public class VendorServiceImpl implements VendorService {
 
         /**
          * 代理商绑定场地
+         * @param vendorId 代理商id
+         * @param placeId 场地Id
          */
         @Override
         @Transactional
@@ -277,9 +285,13 @@ public class VendorServiceImpl implements VendorService {
                 }
         }
 
+
         /**
          * 根据代理商id查询下面的合同
+         * @param vendorId 代理商Id
+         * @return 代理商合同信息
          */
+
         @Override
         @Transactional
         public String findContractByVendorId(int vendorId) {
@@ -311,6 +323,8 @@ public class VendorServiceImpl implements VendorService {
 
         /**
          * 根据代理商id查询合同历史
+         * @param vendorId 代理商Id
+         * @return 历史合同信息
          */
         @Override
         @Transactional

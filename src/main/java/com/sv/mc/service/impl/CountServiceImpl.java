@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 销售报表
+ */
 @Service
 public class CountServiceImpl implements CountService {
 
@@ -37,7 +40,15 @@ public class CountServiceImpl implements CountService {
     private PlaceRepository placeRepository;
 
 
-//一个省
+
+
+    /**
+     * 一个省报表数据
+     * @param pId 省Id
+     * @param start 起始时间
+     * @param end 截止时间
+     * @return 报表信息
+     */
     @Override
     public ProvinceQo findProvinceById(int pId, String start , String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
@@ -63,7 +74,14 @@ public class CountServiceImpl implements CountService {
         ProvinceQo.setUserCount(userCount);
         return ProvinceQo;
     }
-//省下所有市区
+
+    /**
+     * 省下所有市区
+     * @param id 省Id
+     * @param start 起始时间
+     * @param end 截止时间
+     * @return 剩下所有市报表
+     */
     @Override
     public List<ProvinceQo> findCityByProvinceID(int id, String start, String end) {
             List<Object[]>list =this.repository.findCityByPid(id,start,end);
@@ -91,7 +109,14 @@ public class CountServiceImpl implements CountService {
             }
             return plist;
     }
-//市区下所有场地
+
+    /**
+     * 市区下所有场地
+     * @param id 市Id
+     * @param start 起始时间
+     * @param end 截至时间
+     * @return 市下所有场地报表
+     */
     @Override
     public List<ProvinceQo> findPlaceByCityID(int id, String start, String end) {
         List<Object[]>list =this.repository.findPlaceByCityID(id,start,end);
@@ -119,7 +144,15 @@ public class CountServiceImpl implements CountService {
         }
         return plist;
     }
-//一个市
+
+
+    /**
+     * 一个市报表
+     * @param cId 市id
+     * @param start 起始时间
+     * @param end 截止时间
+     * @return 市报表数据
+     */
     @Override
     public ProvinceQo findCityById(int cId, String start, String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
@@ -144,7 +177,12 @@ public class CountServiceImpl implements CountService {
     }
 
 
-    //省总数据
+    /**
+     * 省总数据
+     * @param start 起始时间
+     * @param end 截止时间
+     * @return 省数据
+     */
     @Override
     public ProvinceQo findprovince(String start, String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
@@ -168,11 +206,12 @@ public class CountServiceImpl implements CountService {
         return ProvinceQo;
     }
 
-
     /**
      * 查一个场地
-     *
-     * @return
+     * @param pId 场地Id
+     * @param start 起始时间
+     * @param end 截止时间
+     * @return 一个场地的信息
      */
 
     @Override
@@ -201,9 +240,9 @@ public class CountServiceImpl implements CountService {
 
     /**
      * 查询所有省
-     * @param start
-     * @param end
-     * @return
+     * @param start 起始时间
+     * @param end 截止时间
+     * @return 所有省的数据
      */
     @Override
     public List<ProvinceQo> getALLProvince(String start, String end) {
@@ -236,18 +275,32 @@ public class CountServiceImpl implements CountService {
 
 
 
-    //根据 p_id 查询省
+
+    /**
+     * 根据 p_id 查询省
+     * @param pid 隶属单位Id
+     * @return 省信息
+     */
     @Override
     public List<ProvinceEntity> getProvinceByP_ID(int pid) {
         return this.provinceRepository.getProvinceByP_ID(pid);
     }
 
-    //根据 p_id 查询市
+    /**
+     * 根据 p_id 查询市
+     * @param pid 隶属单位
+     * @return 市信息
+     */
     @Override
     public List<CityEntity> getCityByP_ID(int pid) {
         return this.cityRepository.getCityByP_ID(pid);
     }
-    //根据 p_id 查询场地
+
+    /**
+     * 根据 p_id 查询场地
+     * @param pid 隶属单位Id
+     * @return 场地信息
+     */
     @Override
     public List<PlaceEntity> getPlaceByP_ID(int pid) {
         return this.placeRepository.getPlaceByP_ID(pid);

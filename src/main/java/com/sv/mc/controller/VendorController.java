@@ -16,6 +16,9 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 代理商控制层
+ */
 @RestController
 public class VendorController {
     //注入
@@ -35,7 +38,7 @@ public class VendorController {
     }
     /**
      * 根据分公司id查询单个代理商内容
-     * @param id
+     * @param id 分公司Id
      * @return 单个代理商内容
      */
     @RequestMapping(value = "/vendorMgr/vendor",method=RequestMethod.GET)
@@ -56,22 +59,19 @@ public class VendorController {
 //    }
     /**
      * 更改代理商id更改数据
-     * @param id
-     * @param vendor
-     * @return
+     * @param id 代理商Id
+     * @param vendor 代理商数据
+     * @return 代理商数据
      */
     @RequestMapping(value = "/vendor/updateVendor",method = RequestMethod.POST)
     public @ResponseBody
     VendorEntity updateVendor(@PathParam("id") int id,@RequestBody VendorEntity vendor){
         return vendorService.updateVendorDataById(id,vendor);
-
     }
-
-
 
     /**
      * 跳转到代理商管理页面
-     * @return
+     * @return 代理商管理页面view  页面
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -83,6 +83,9 @@ public class VendorController {
     /**
      * 全部查询
      * @return 返回所有代理商内容
+     * @param session  用户信息
+     * @param page  起始个数
+     * @param pageSize  截至个数
      */
     @GetMapping(value = "/vendorMgr/allVendor")
     public @ResponseBody
@@ -92,8 +95,8 @@ public class VendorController {
 
     /**
      * 插入一条代理商数据
-     * @param
-     * @return
+     * @param map 代理商数据
+     * @return 插入的代理商对象
      */
     @RequestMapping(value = "/vendorMgr/insertVendor",method = RequestMethod.POST)
     public @ResponseBody
@@ -103,8 +106,8 @@ public class VendorController {
 
     /**
      * 更改代理商数据
-     * @param
-     * @return
+     * @param  map 代理商数据
+     * @return 代理商对象
      */
     @RequestMapping(value = "/vendorMgr/updateVendor",method = RequestMethod.POST)
     public @ResponseBody
@@ -114,17 +117,17 @@ public class VendorController {
 
     /**
      * 逻辑删除代理商数据
+     * @param map 代理商id
      */
     @RequestMapping(value = "/vendorMgr/deleteVendor",method = RequestMethod.POST)
     public @ResponseBody
     void deleteVendor(@RequestBody Map<String,Object> map){
         this.vendorService.deleteVendor(Integer.parseInt(map.get("id").toString()));
     }
-
-
-
     /**
      * 根据代理商id查询下面的场地
+     * @param vendorId 代理商id
+     * @return 场地Id集合
      */
     @GetMapping(value = "/vendorMgr/findAllPlaceByVendorId")
     public @ResponseBody
@@ -134,6 +137,8 @@ public class VendorController {
 
     /**
      * 代理商绑定场地
+     * @param vendorId  代理商id
+     * @param placeId  场地id
      */
     @PostMapping(value="/vendorMgr/vendorBoundPlace")
     public @ResponseBody
@@ -151,6 +156,8 @@ public class VendorController {
 
     /**
      * 根据代理商id查询下面的合同
+     * @param vendorId 代理商id
+     * @return 代理商合同
      */
     @GetMapping(value = "/vendorMgr/findContractByVendorId")
     public @ResponseBody
@@ -160,6 +167,8 @@ public class VendorController {
 
     /**
      * 根据代理商id查询历史合同
+     * @param vendorId 代理商id
+     * @return 合同历史
      */
     @GetMapping(value = "/vendorMgr/findHistoryContractByVendorId")
     public @ResponseBody

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 大区控制层
+ */
 @RestController
 public class AreaController {
     @Autowired

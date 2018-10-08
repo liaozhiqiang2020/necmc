@@ -16,6 +16,13 @@ public class ReportViewServiceImp implements ReportViewService {
    @Autowired
     private ReportViewRepository rvr;
 
+    /**
+     * 省报表
+     * @param start 起始时间
+     * @param end 截止时间
+     * @param id 省Id
+     * @return 报表
+     */
     @Override
     public List<ReportViewEntity> fillDayReport(Date start, Date end,int id) {
         ReportViewEntity reportViewEntity=new ReportViewEntity();
@@ -64,11 +71,13 @@ public class ReportViewServiceImp implements ReportViewService {
     }
 
 
-
-
-
-
-
+    /**
+     * 市报表
+     * @param start 起始时间
+     * @param end 截止时间
+     * @param cityid 市id
+     * @return 市报表
+     */
     @Override
     public List<ReportViewEntity> fillcityReport(Date start, Date end, int cityid) {
         ReportViewEntity reportViewEntity=new ReportViewEntity();

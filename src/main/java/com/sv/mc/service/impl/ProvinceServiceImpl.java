@@ -18,7 +18,7 @@ public class ProvinceServiceImpl implements ProvinceService {
     /**
      * 保存数据
      * @param province 省
-     * @return       ProvinceEntity
+     * @return  ProvinceEntity 省对象
      */
 
     @Override
@@ -28,7 +28,7 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 根据id查询省
-     * @param id
+     * @param id 省id
      * @return  ProvinceEntity
      */
     @Override
@@ -40,7 +40,7 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 查询所有省
-     * @return List
+     * @return List 省集合
      */
     @Override
     public List<ProvinceEntity> findAllEntities() {
@@ -50,7 +50,7 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 删除省份
-     * @param provinceEntity
+     * @param provinceEntity 省份信息
      */
 
     @Override
@@ -61,8 +61,8 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 增加省份
-     * @param provinceEntity
-     * @return
+     * @param provinceEntity 增加的内容
+     * @return  增加的对象
      */
     @Override
     public ProvinceEntity createProvince(ProvinceEntity provinceEntity) {
@@ -71,13 +71,18 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 查询所有的省份
-     * @return
+     * @return 查询到的所有省
      */
     @Override
     public List<ProvinceEntity> selectProvince() {
         return this.provinceRepository.selectProvince();
     }
 
+    /**
+     *  查询所有省份
+     * @param pid 场地Id
+     * @return 查询到的所有省份集合
+     */
     @Override
     public List<ProvinceEntity> getProvinceByID(int pid) {
         return this.provinceRepository.getProvinceByID(pid);

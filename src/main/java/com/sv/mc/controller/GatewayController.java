@@ -11,6 +11,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 网关控制层
+ */
 @RestController
 public class GatewayController {
     @Autowired
@@ -18,8 +21,7 @@ public class GatewayController {
 
     /**
      * 跳转到网关管理页面
-     *
-     * @return
+     * @return 网关页面
      */
     @GetMapping(value = "/gatewayMgr/turnToGatewayMgr")
     public ModelAndView turnToGatewayMgr() {
@@ -29,6 +31,7 @@ public class GatewayController {
 
     /**
      * 查询所有网关信息(不分页,json数据)
+     * @return 所有网关信息
      */
     @GetMapping(value = "/gatewayMgr/allGateway")
     public @ResponseBody
@@ -39,6 +42,7 @@ public class GatewayController {
 
     /**
      * 查询所有网关信息(不分页,list)
+     * @return 网关信息
      */
     @GetMapping(value = "/gatewayMgr/allGatewayList")
     public @ResponseBody
@@ -48,6 +52,7 @@ public class GatewayController {
 
     /**
      * 添加网关
+     * @return 添加的网关内容
      */
     @PostMapping(value = "/gatewayMgr/insertGateway")
     public @ResponseBody
@@ -58,6 +63,8 @@ public class GatewayController {
 
     /**
      * 修改网关信息
+     * @param gatewayEntity 修改的网关信息
+     * @return 网关信息
      */
     @PostMapping(value = "/gatewayMgr/updateGateway")
     public @ResponseBody
@@ -67,6 +74,9 @@ public class GatewayController {
 
     /**
      * 修改域名端口
+     * @param domainName 域名名称
+     * @param port 端口
+     * @param gatewaySn 编号sn
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayPort")
     public @ResponseBody
@@ -78,8 +88,11 @@ public class GatewayController {
         }
     }
 
+
     /**
      * 修改频道
+     * @param channel 频道信息
+     * @param gatewaySn 网关sn
      */
     @PostMapping(value = "/gatewayMgr/updateGatewayChannel")
     public @ResponseBody
@@ -93,6 +106,7 @@ public class GatewayController {
 
     /**
      * 重启网关
+     * @param gatewaySn sn
      */
     @PostMapping(value = "/gatewayMgr/restartGateway")
     public @ResponseBody

@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 角色控制层
+ */
 @RestController
 public class RoleController {
     @Resource
@@ -19,8 +22,8 @@ public class RoleController {
     /**
      * 根据名字查询角色
      *
-     * @param roleName
-     * @return
+     * @param roleName 角色名称
+     * @return 角色信息
      */
     @PostMapping("/role/findByName")
     public RoleEntity findRoleByRoleName(@RequestParam("roleName") String roleName) {
@@ -29,8 +32,7 @@ public class RoleController {
 
     /**
      * 查询所有角色
-     *
-     * @return
+     * @return 角色信息
      */
     @GetMapping("/role/all")
     public List<RoleEntity> findAllRole() {
@@ -39,9 +41,8 @@ public class RoleController {
 
     /**
      * 保存角色
-     *
-     * @param role
-     * @return
+     * @param role 保存的角色信息
+     * @return 角色信息对象
      */
     @PostMapping("/role/save")
     public RoleEntity saveRole(@RequestBody RoleEntity role) {
@@ -50,9 +51,8 @@ public class RoleController {
 
     /**
      * 更新角色
-     *
-     * @param role
-     * @return
+     * @param role 修改的角色信息
+     * @return 角色内容
      */
     @PostMapping("/role/update")
     public RoleEntity updateRole(@RequestBody RoleEntity role) {
@@ -61,8 +61,7 @@ public class RoleController {
 
     /**
      * 删除角色
-     *
-     * @param role
+     * @param role 删除的角色信息
      */
     @PostMapping("/role/deleteRole")
     public void deleteRole(@RequestBody RoleEntity role) {
@@ -71,9 +70,8 @@ public class RoleController {
 
     /**
      * 通过id查询角色
-     *
-     * @param roleId
-     * @return
+     * @param roleId 角色id
+     * @return 角色对象
      */
     @PostMapping("/role/findRoleById")
     public RoleEntity findRoleById(@RequestParam("roleId") int roleId) {
@@ -82,9 +80,8 @@ public class RoleController {
 
     /**
      * 查询角色所拥有的所有权限
-     *
-     * @param roleId
-     * @return
+     * @param roleId 角色Id
+     * @return 角色所有的权限内容
      */
     @GetMapping("/role/findRolePermission")
     public Set<PermissionEntity> findRolePermission(@RequestParam("roleId") int roleId) {
@@ -93,9 +90,8 @@ public class RoleController {
 
     /**
      * 查询角色所有未绑定权限
-     *
-     * @param roleId
-     * @return
+     * @param roleId 角色Id
+     * @return 未绑定的权限内容
      */
     @GetMapping("/role/findRoleUnPermission")
     public List<PermissionEntity> findRoleUnPermission(@RequestParam("roleId") int roleId) {
@@ -104,8 +100,8 @@ public class RoleController {
 
     /**
      * 删除当前角色的权限
-     *
-     * @param mapList
+     * @param mapList 需要删除的权限
+     * @return  删除的权限
      */
     @PostMapping("/role/roleDeletePermission")
     public Set<PermissionEntity> roleDeletePermission(@RequestBody Map<String, Object> mapList) {
@@ -116,9 +112,8 @@ public class RoleController {
 
     /**
      * 为角色绑定权限
-     *
-     * @param mapList
-     * @return
+     * @param mapList 绑定的权限信息
+     * @return  绑定的权限集合
      */
     @PostMapping("/role/roleAddPermission")
     public Set<PermissionEntity> roleAddPermission(@RequestBody Map<String, Object> mapList) {
@@ -129,8 +124,7 @@ public class RoleController {
 
     /**
      * 跳转到roleManagement页面
-     *
-     * @return
+     * @return 权限页面view 层
      */
     @GetMapping(value = "/role/roleManagement")
     public ModelAndView turnToUserManagement() {

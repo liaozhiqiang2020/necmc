@@ -16,7 +16,7 @@ public class PlaceMapServiceImpl implements PlaceMapService {
         /**
          * 保存数据
          * @param place 场地图片数据
-         * @return PlaceMapEntity
+         * @return PlaceMapEntity 地图信息
          */
         @Override
         public PlaceMapEntity save(PlaceMapEntity place) {
@@ -26,7 +26,7 @@ public class PlaceMapServiceImpl implements PlaceMapService {
         /**
          * 根据id查询相对的数据
          * @param id  场地id
-         * @return PlaceMapEntity
+         * @return PlaceMapEntity 地图信息集合
          */
         @Override
         public PlaceMapEntity findPlaceMapById(int id) {
@@ -37,7 +37,7 @@ public class PlaceMapServiceImpl implements PlaceMapService {
          * 根据id更改数据
          * @param id  场地id
          * @param placeMap 场地图片
-         * @return PlaceMapEntity
+         * @return PlaceMapEntity 地图信息
          */
         @Override
         public PlaceMapEntity updatePlaceMapById(int id, PlaceMapEntity placeMap) {
@@ -47,7 +47,7 @@ public class PlaceMapServiceImpl implements PlaceMapService {
         /**
          * 插入一条新数据
          * @param placeMap
-         * @return PlaceMapEntity
+         * @return PlaceMapEntity 地图信息
          */
         @Override
         public PlaceMapEntity insertPlaceMap(PlaceMapEntity placeMap) {
@@ -56,7 +56,7 @@ public class PlaceMapServiceImpl implements PlaceMapService {
 
         /**
          * 查询所有地图数据
-          * @return  List
+          * @return  List地图信息集合
          */
         @Override
         public List findAllEntities() {

@@ -17,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+/**
+ * 行业分类管理控制层
+ */
 @RestController
 public class RegionController {
     @Autowired
@@ -29,7 +32,7 @@ public class RegionController {
     /**
      * 跳转到行业分类管理页面
      *
-     * @return
+     * @return 行业分类view对象
      * @auther wangyuchen
      * @date 2018/7/17
      */
@@ -40,8 +43,7 @@ public class RegionController {
 
     /**
      * 响应大区数据
-     *
-     * @return
+     * @return 大区数据集合
      */
     @GetMapping(value = "/bussinessMgr/getRegion")
     public @ResponseBody
@@ -52,8 +54,8 @@ public class RegionController {
     /**
      * 响应省级数据
      *
-     * @param id
-     * @return
+     * @param id 省id
+     * @return 省数据
      */
     @GetMapping(value = "/bussinessMgr/getProvince")
     public @ResponseBody
@@ -63,9 +65,8 @@ public class RegionController {
 
     /**
      * 响应市级数据
-     *
-     * @param id
-     * @return
+     * @param id 市Id
+     * @return 市数据
      */
     @GetMapping(value = "/bussinessMgr/getCity")
     public @ResponseBody
@@ -75,9 +76,8 @@ public class RegionController {
 
     /**
      * 修改大区
-     *
-     * @param area
-     * @return
+     * @param area 大区信息
+     * @return 修改大区信息
      */
     @PostMapping(value = "/bussinessMgr/updateArea")
     public @ResponseBody
@@ -87,6 +87,8 @@ public class RegionController {
 
     /**
      * 增加大区
+     * @param area 大区增加的数据
+     * @return 大区结果对象
      */
     @PostMapping(value = "/bussinessMgr/createArea")
     public @ResponseBody
@@ -97,6 +99,7 @@ public class RegionController {
 
     /**
      * 删除大区
+     * @param area 删除的大区信息
      */
     @PostMapping(value = "/bussinessMgr/deleteArea")
     public @ResponseBody

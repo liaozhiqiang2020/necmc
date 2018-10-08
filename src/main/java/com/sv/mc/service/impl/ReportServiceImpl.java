@@ -29,7 +29,7 @@ public class ReportServiceImpl implements ReportService{
 
     /**
      * 查询所有省份
-     * @return
+     * @return 所有省份报表
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -40,9 +40,10 @@ public class ReportServiceImpl implements ReportService{
 
     /**
      * 根据省份id查询所属的市
-     * @return
+     * @return 所属市报表
      * @auther liaozhiqiang
      * @date 2018/7/11
+     * @param provinceId 省Id
      */
     @Override
     public List<CityEntity> queryAllCityByProId(int provinceId) {
@@ -52,8 +53,8 @@ public class ReportServiceImpl implements ReportService{
 
     /**
      * 根据市id查询场地
-     * @param cityId
-     * @return
+     * @param cityId 市Id
+     * @return 场地集合
      * @auther liaozhiqiang
      * @date 2018//7/11
      */

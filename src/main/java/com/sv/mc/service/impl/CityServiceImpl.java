@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 市数据实现类
+ */
 @Service
 public class CityServiceImpl implements CityService {
     @Autowired
@@ -25,8 +28,8 @@ public class CityServiceImpl implements CityService {
 
     /**
      * 根据id查询市
-     * @param id
-     * @return
+     * @param id 市id
+     * @return 对应的市信息
      */
     @Override
     public CityEntity findCityById(int id) {
@@ -37,13 +40,18 @@ public class CityServiceImpl implements CityService {
 
     /**
      * 查询所有市
-     * @return List
+     * @return List 市数据集合
      */
     @Override
     public List<CityEntity> findAllEntities() {
         return cityRepository.findAll();
     }
 
+    /**
+     * 根据场地Id查询市
+     * @param pid 上级iD
+     * @return 市
+     */
     @Override
     public List<CityEntity> getCityByPlace_ID(int pid) {
         return this.cityRepository.getCityByPlace_ID(pid);

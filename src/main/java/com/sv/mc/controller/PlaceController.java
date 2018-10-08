@@ -22,6 +22,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * 场地控制层
+ */
 @RestController
 public class PlaceController {
     //注入
@@ -51,7 +54,7 @@ public class PlaceController {
 
     /**
      * 根据场地id查询单个场地内容
-     * @param id
+     * @param id 场地Id
      * @return 单个分公司内容
      */
     @RequestMapping(value = "/placeMgr/place",method=RequestMethod.GET)
@@ -72,9 +75,9 @@ public class PlaceController {
 //    }
     /**
      * 更改分场地id更改数据
-     * @param id
-     * @param place
-     * @return
+     * @param id 分场地Id
+     * @param place 场地信息
+     * @return 修改的场地信息
      */
     @RequestMapping(value = "/placeMgr/place/update",method = RequestMethod.POST)
     public @ResponseBody
@@ -85,7 +88,7 @@ public class PlaceController {
 
     /**
      * 跳转到场地树状图页面
-     * @return
+     * @return 场地树状图view对象
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -96,7 +99,7 @@ public class PlaceController {
 
     /**
      * 跳转到场地方管理页面
-     * @return
+     * @return 场地管理view对象
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -107,7 +110,9 @@ public class PlaceController {
 
 
     /**
-     * 全部查询
+     * 全部查询分页
+     * @param pageSize 截至个数
+     * @param page 起始个数
      * @return 返回所有场地内容
      */
     @GetMapping(value = "/placeMgr/getAllPlace")
@@ -141,8 +146,8 @@ public class PlaceController {
 
     /**
      * 插入一条场地数据
-     * @param
-     * @return
+     * @param map 场地数据
+     * @return 插入的场地对象
      */
     @RequestMapping(value = "/placeMgr/insertPlace",method = RequestMethod.POST)
     public @ResponseBody
@@ -152,8 +157,8 @@ public class PlaceController {
 
     /**
      * 更改场地数据
-     * @param
-     * @return
+     * @param map 更改的场地数据
+     * @return 场地信息
      */
     @RequestMapping(value = "/placeMgr/updatePlace",method = RequestMethod.POST)
     public @ResponseBody
@@ -164,8 +169,8 @@ public class PlaceController {
 
     /**
      * 插入一条场地数据
-     * @param
-     * @return
+     * @param map 插入的场地数据
+     * @return 场地数据结果
      */
     @RequestMapping(value = "/placeMgr/insertPlaceTree",method = RequestMethod.POST)
     public @ResponseBody
@@ -175,8 +180,8 @@ public class PlaceController {
 
     /**
      * 更改场地数据
-     * @param
-     * @return
+     * @param map 修改的场地数据
+     * @return 修改的场地信息
      */
     @RequestMapping(value = "/placeMgr/updatePlaceTree",method = RequestMethod.POST)
     public @ResponseBody
@@ -186,8 +191,8 @@ public class PlaceController {
 
     /**
      * 插入一条场地数据
-     * @param
-     * @return
+     * @param map 插入的场地数据
+     * @return 插入的场地数据
      */
     @RequestMapping(value = "/placeMgr/insertPlaceChild",method = RequestMethod.POST)
     public @ResponseBody
@@ -197,8 +202,8 @@ public class PlaceController {
 
     /**
      * 更改场地数据
-     * @param
-     * @return
+     * @param  map 修改的场地信息
+     * @return 修改后的场地对象
      */
     @RequestMapping(value = "/placeMgr/updatePlaceChild",method = RequestMethod.POST)
     public @ResponseBody
@@ -208,6 +213,7 @@ public class PlaceController {
 
     /**
      * 逻辑删除场地数据
+     * @param map 删除的场地信息
      */
     @RequestMapping(value = "/placeMgr/deletePlace",method = RequestMethod.POST)
     public @ResponseBody
@@ -217,7 +223,9 @@ public class PlaceController {
 
 
     /**
-     * 根据场地id查询他的字节点
+     * 根据场地id查询他的子场点
+     * @param placeId  场地Id
+     * @return 子场地信息
      */
     @GetMapping(value = "/placeMgr/findPlaceByParentId")
     public @ResponseBody
@@ -228,10 +236,10 @@ public class PlaceController {
 
     /**
      * 设备控制列表查询
-     * @param placeId
-     * @param deviceId
-     * @param session
-     * @return
+     * @param placeId 场地Id
+     * @param deviceId 设备Id
+     * @param session 用户信息
+     * @return 设备信息
      */
     @GetMapping("/place/findDeviceByPlace")
     public String findDeviceByPlace1(@RequestParam("placeId") int placeId,@RequestParam("deviceId") String deviceId,HttpSession session) throws ParseException{
@@ -240,8 +248,8 @@ public class PlaceController {
 
     /**
      * 根据场地id查询所有设备
-     * @param placeId
-     * @return
+     * @param placeId 场地Id
+     * @return 设备信息
      */
     @GetMapping("/place/findDeviceByPlaceId")
     public String findDeviceByPlace(@RequestParam("placeId") int placeId){
@@ -250,8 +258,8 @@ public class PlaceController {
 
     /**
      * 根据场地id查询所有设备分页
-     * @param placeId
-     * @return
+     * @param placeId 场地Id
+     * @return 设备信息
      */
     @GetMapping("/place/findDeviceBypId")
     public String findDeviceBypId(@RequestParam("placeId") int placeId){
@@ -260,6 +268,8 @@ public class PlaceController {
 
     /**
      * 不分页查询第一级场地数据
+     * @param session 用户信息
+     * @return 场地信息集合
      */
     @GetMapping("/place/findAllPlaceFirst")
     public @ResponseBody
@@ -269,8 +279,8 @@ public class PlaceController {
 
     /**
      * 根据场地id查询所有设备(设备控制)
-     * @param placeId
-     * @return
+     * @param placeId 场地Id
+     * @return 设备信息
      */
     @GetMapping("/place/findDevicesByPlaceId")
     public @ResponseBody
@@ -281,9 +291,9 @@ public class PlaceController {
     /**
      * 单文件上传
      *
-     * @param file
-     * @param request
-     * @return
+     * @param file 文件
+     * @param request 请求对象
+     * @return 上传内容
      */
     @PostMapping("/file/upload")
     @ResponseBody
@@ -312,6 +322,10 @@ public class PlaceController {
 
     /**
      * 后台添加图片路径
+     * @param placeId 场地Id
+     * @param fileName  文件名称
+     * @param uploadpath  文件路径
+     *
      */
     @PostMapping(value = "/placeMgr/saveFileToDB")
     public @ResponseBody
@@ -319,13 +333,23 @@ public class PlaceController {
         this.placeService.saveFileToDB(placeId,uploadpath,fileName);
     }
 
+    /**
+     * 查询所有场地
+     * @param request 用户请求
+     * @return 场地信息
+     */
     @GetMapping("/placeMgr/userPlace")
     public String findAllPlaceByPlace(HttpServletRequest request){
         return this.placeService.findDeviceByUser(request);
     }
 
+
     /**
      * 下载文件
+     * @param placeId 场地Id
+     * @param type 状态
+     * @param response 响应下载
+     * @throws Exception
      */
     @GetMapping("/file/download")
     public void download(@RequestParam("placeId") int placeId,@RequestParam("type")int type, HttpServletResponse response) throws Exception {

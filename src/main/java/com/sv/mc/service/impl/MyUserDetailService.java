@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+/**
+ * 登陆处理
+ */
 public class MyUserDetailService implements UserDetailsService {
     @Resource
     private UserRepository userRepository;

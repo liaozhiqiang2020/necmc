@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 账目实现类
+ */
 @Service
 public class AccountDetailServiceImpl implements AccountDetailService {
     @Autowired
@@ -28,7 +31,7 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 
     /**
      * 查询全部
-     * @return
+     * @return 全部账目
      */
     @Override
     public List findAllEntities() {

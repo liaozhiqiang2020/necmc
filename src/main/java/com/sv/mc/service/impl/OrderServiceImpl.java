@@ -56,8 +56,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 分页查询所有订单(后台查询)
-     *
-     * @return
+     * @param page 起始个数
+     * @param pageSize 截至个数
+     * @param session 用户信息
+     * @param startTime 起始时间
+     * @param endTime 截止时间
+     * @return 所有的订单信息
      */
     @Override
     @Transactional
@@ -165,8 +169,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 创建订单
-     *
-     * @param orderEntity
+     * @param orderEntity 订单信息
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -179,8 +182,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 查询当前用户订单列表
      *
-     * @param openId
-     * @return
+     * @param openId 唯一Id
+     * @param state 订单状态
+     * @return 订单信息
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -192,12 +196,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
     /**
-     * 分页查询当前用户订单列表
-     *
-     * @param openId
-     * @return
-     * @author: lzq
-     * @date: 2018年7月6日
+     *  分页查询当前用户订单列表
+     * @param openId 用户唯一id
+     * @param state 订单状态
+     * @param offset  起始个数
+     * @param pageSize 截至个数
+     * @return 订单信息集合
      */
     @Override
     @Transactional
@@ -209,7 +213,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 根据订单号查询订单
      *
-     * @param paidOrderId
+     * @param paidOrderId 订单号
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -223,9 +227,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 根据订单code查询订单信息
      *
-     * @param paidOrderCode
+     * @param paidOrderCode 订单code
      * @author: lzq
      * @date: 2018年7月6日
+     * @return 订单数
      */
     @Override
     @Transactional
@@ -237,7 +242,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 修改已支付订单
      *
-     * @param
+     * @param orderEntity 订单信息
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -249,9 +254,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据订单code修改订单状态
-     *
-     * @param paidOrderCode,state
-     * @return
+     * @param paidOrderCode 订单code
+     * @param state  订单状态
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -267,11 +271,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据订单id修改订单状态
-     *
-     * @param orderId,state
-     * @return
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param orderId 订单Id
+     * @param state  订单状态
+     * @param description 订单描述
      */
     @Override
     @Transactional
@@ -285,8 +287,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 获取按摩剩余时间
      *
-     * @param orderId
-     * @return
+     * @param orderId 订单Id
+     * @return 剩余时间
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -308,12 +310,18 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return differTime;
     }
 
+
     /**
      * 创建订单
-     *
+     * @param openid 用户唯一Id
+     * @param mcTime  按摩时长
+     * @param deviceCode 设备编号
+     * @param promoCode 优惠码
+     * @param money 钱
+     * @param unPaidOrderCode 未付款订单号
+     * @param state 订单状态
+     * @param strength 按摩力度
      * @return
-     * @author: lzq
-     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -357,10 +365,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 修改订单按摩开始时间，付款时间和结束时间
-     *
-     * @param orderId
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param orderId 订单Id
+     * @param state 状态
+     * @param  mcTime  时间
      */
     @Override
     @Transactional
@@ -438,11 +445,13 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     }
 
+
     /**
      * 每秒查询一次订单状态，如果时间到了，修改状态为[已完成订单]state=2
-     *
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param service 定时器服务
+     * @param afterTs 按摩结束时间
+     * @param orderEntity  订单信息
+     * @param chairCode 按摩椅编号
      */
     @Override
     public void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity, String chairCode) {
@@ -473,9 +482,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据订单号查询订单
-     *
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param orderId  订单信息
+     * @return 订单信息
      */
     @Override
     @Transactional
@@ -488,9 +496,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 查询订单
-     *
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param openCode  用户唯一Id
+     * @param state 订单状态
+     * @return 订单信息
      */
     @Override
     @Transactional
@@ -501,11 +509,14 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return json;
     }
 
+
     /**
      * 分页查询订单
-     *
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param openCode 用户唯一Id
+     * @param state 订单状态
+     * @param pageNumber 起始个数
+     * @param pageSize 截至个数
+     * @return 订单信息
      */
     @Override
     @Transactional
@@ -520,9 +531,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
-     *
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param orderId 订单Id
      */
     @Override
     @Transactional
@@ -537,8 +546,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据orderId获取按摩椅code
-     *
-     * @param orderId
+     * @param orderId 订单号
      * @return
      */
     @Override
@@ -556,13 +564,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         return map;
     }
-
-
     /**
      * 根据orderId获取按摩椅code
-     *
-     * @param orderId
-     * @return
+     * @param orderId 订单id
+     * @return  按摩椅code
      */
     @Override
     @Transactional
@@ -571,13 +576,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
 
+
     /**
      * 后台添加订单描述
-     *
-     * @param
-     * @return
-     * @author: lzq
-     * @date: 2018年7月6日
+     * @param orderId 订单Id
+     * @param description 订单描述
      */
     @Override
     @Transactional
@@ -587,6 +590,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         this.orderRepository.save(orderEntity);
     }
 
+    /**
+     * 查询前一天的订单数
+     * @return  昨天订单数
+     */
     @Override
     public int findYesterDayOrderCount() {
         Calendar calendar = Calendar.getInstance();//此时打印它获取的是系统当前时间
@@ -601,7 +608,13 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return this.orderRepository.findOrderByPeriod(yestedayDate, today);
     }
 
-
+    /**
+     * 查询用户昨天订单信息
+     * @param page  起始个数
+     * @param pageSize 截至个数
+     * @param session 用户信息
+     * @return 昨天订单信息
+     */
     @Override
     public String findYesterDayOrderInfo(int page, int pageSize,HttpSession session) {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
@@ -681,8 +694,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 不分页查询所有订单信息
-     *
-     * @return
+     * @param startTime  起始时间
+     * @param endTime  截止时间
+     * @return 所有订单信息
      */
     @Override
     public List<OrderEntity> findAllExcelOrder(String startTime,String endTime) {
@@ -692,9 +706,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 修改微信订单号
-     *
-     * @param orderId
-     * @param codeWx
+     * @param orderId 订单号
+     * @param codeWx 微信订单编号
      */
     @Override
     public void updateOrderByCode(String orderId, String codeWx) {

@@ -47,9 +47,9 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     /**
      * 分页查询所有用户
-     * @param page
-     * @param pageSize
-     * @return
+     * @param page 起始个数
+     * @param pageSize 截至个数
+     * @return 用户信息
      */
     @Override
     @Transactional
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     /**
      * 查询所有用户
-     * @return
+     * @return 所有用户集合
      */
     @Override
     @Transactional
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
     /**
      * 查询所有状态为1的用户
      * @param request
-     * @return
+     * @return 所有状态为1 的用户
      */
     @Override
     @Transactional
@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
     /**
      * 更新用户
      * @param map user对象
-     * @return
+     * @return 修改的个数
      */
     @Override
     @Transactional
@@ -251,7 +251,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
     /**
      * 新建一个用户
      * @param map user对象
-     * @return
+     * @return 新建的个数
      */
     @Override
     @Transactional
@@ -314,7 +314,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
     /**
      * 根据id查询用户
      * @param userId user主键
-     * @return
+     * @return 用户信息
      */
     @Override
     @Transactional
@@ -324,8 +324,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     /**
      * 查询当前用户拥有的所有角色
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 角色信息
      */
     @Override
     public Set<RoleEntity> findUserRole(int userId) {
@@ -335,8 +335,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     /**
      * 解绑用户所拥有的角色
-     * @param listMap
-     * @return
+     * @param listMap  用户id 权限Id
+     * @return 用户权限
      */
     @Override
     public Set<RoleEntity> deleteUserRole(Map<String, Object> listMap) {
@@ -353,9 +353,9 @@ public class UserServiceImpl implements UserService<UserEntity> {
 
     /**
      * 为用户绑定角色
-     * @param userId
-     * @param roleId
-     * @return
+     * @param userId 用户Id
+     * @param roleId 角色id
+     * @return 用户角色权限
      */
     @Override
     public Set<RoleEntity> addUserRole(int userId, int roleId) {
@@ -367,9 +367,9 @@ public class UserServiceImpl implements UserService<UserEntity> {
     }
 
     /**
-     * 当前用户还为绑定的角色
-     * @param userId
-     * @return
+     * 删除绑定的角色
+     * @param userId 用户id
+     * @return 权限信息
      */
     @Override
     public List<RoleEntity> userUnRole(int userId) {
@@ -380,8 +380,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
     }
 
     /**
-     * 查询所有公司
-     * @return
+     * 查询所有公司 
+     * @return 所有公司集合
      */
     @Override
     public List<Object> findAllplace() {
@@ -401,7 +401,7 @@ public class UserServiceImpl implements UserService<UserEntity> {
      * 根据公司名字查询所属公司
      * @param gradeId 公司分类
      * @param pId 公司分类
-     * @return
+     * @return 所属的公司信息
      */
     @Override
     public String findCompanyNameByGradeType(int gradeId, int pId) {
@@ -426,6 +426,13 @@ public class UserServiceImpl implements UserService<UserEntity> {
         return companyName;
     }
 
+    /**
+     *  密码修改
+     * @param request 请求
+     * @param session  用户
+     * @param response  响应
+     * @return 修改结果
+     */
     @Override
     public String changePwd(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
         String old = request.getParameter("password");

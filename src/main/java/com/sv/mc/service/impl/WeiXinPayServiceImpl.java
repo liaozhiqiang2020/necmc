@@ -56,7 +56,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
      * @param code
-     * @return
+     * @return 用户信息
      * @author: lzq
      * @date: 2018年7月3日
      */
@@ -117,8 +117,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
 
     /**
-     * @param openid
-     * @param request
+     * @param openid 用户唯一id
+     * @param request 支付请求
      * @Description: 发起微信支付
      * @author: lzq
      * @date: 2018年7月3日
@@ -273,12 +273,12 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
     /**
      * 获取用户信息
-     * @param sessionkey
-     * @param encryptedData
-     * @param iv
-     * @param openid
-     * @param userInfos
-     * @return
+     * @param sessionkey 用户会话 key
+     * @param encryptedData  加密
+     * @param iv 输入信息
+     * @param openid 用户唯一Id
+     * @param userInfos 用户信息
+     * @return 用户的信息
      * @author: lzq
      * @date: 2018年7月3日
      */

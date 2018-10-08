@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 用户信息
+ */
 @RestController
 public class UserController {
 
@@ -28,7 +31,6 @@ public class UserController {
 
     /**
      * 查询所有user
-     *
      * @return 返回User集合
      */
     @GetMapping("/user/all")
@@ -39,7 +41,7 @@ public class UserController {
 
     /**
      * 查询所有user
-     *
+     * @param request 用户请求信息
      * @return 返回User集合
      */
     @GetMapping("/user/allStatus")
@@ -47,7 +49,10 @@ public class UserController {
         return this.userService.findAllByStatus(request);
     }
 
-
+    /**
+     * 查询用户下所有场地
+     * @return
+     */
     @GetMapping("/user/allplace1")
     public List<Object> findAll1() {
         return this.userService.findAllplace();
@@ -57,7 +62,6 @@ public class UserController {
 
     /**
      * 根据id查询当前用户
-     *
      * @param userId 当前用户id
      * @return 用户信息
      */
@@ -68,7 +72,6 @@ public class UserController {
 
     /**
      * 逻辑删除用户
-     *
      * @param userEntity 用户对象
      */
     @PostMapping("/user/delete")
@@ -78,9 +81,8 @@ public class UserController {
 
     /**
      * 更新用户
-     *
-     * @param map
-     * @return
+     * @param map 用户信息
+     * @return 更新的用户信息条数
      */
     @PostMapping("/user/update")
     public int updateUser(@RequestBody Map<String, Object> map) {
@@ -89,9 +91,8 @@ public class UserController {
 
     /**
      * 保存用户
-     *
-     * @param map
-     * @return
+     * @param map 用户信息
+     * @return 保存的用户信息条数
      */
     @PostMapping("/user/save")
     public int saveUser(@RequestBody Map<String, Object> map) {
@@ -101,8 +102,8 @@ public class UserController {
     /**
      * 根据用户查询其拥有角色
      *
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return 用户角色
      */
     @GetMapping("/user/role")
     public Set<RoleEntity> findUserRole(@RequestParam("userId") int userId) {
@@ -112,8 +113,8 @@ public class UserController {
     /**
      * 为用户解绑角色
      *
-     * @param listMap
-     * @return
+     * @param listMap 用户角色信息
+     * @return 解绑的角色
      */
     @PostMapping("/user/deleteRole")
     public Set<RoleEntity> deleteUserRole(@RequestBody Map<String, Object> listMap) {
@@ -122,9 +123,8 @@ public class UserController {
 
     /**
      * 为用户绑定角色
-     *
-     * @param listMap
-     * @return
+     * @param listMap 用户角色id
+     * @return 绑定的角色集合
      */
     @PostMapping("/user/userAddRole")
     public Set<RoleEntity> userAddRole(@RequestBody Map<String, Object> listMap) {
@@ -133,6 +133,13 @@ public class UserController {
         return this.userService.addUserRole((int) userId, (int) roleId);
     }
 
+    /**
+     * 密码修改
+     * @param request 请求信息
+     * @param session 用户会话
+     * @param response 响应信息
+     * @return 修改的密码
+     */
     @PostMapping("/userc/changePassword")
     public String changePassword(HttpServletRequest request, HttpSession session, HttpServletResponse response){
         return this.userService.changePwd(request,session,response);
@@ -141,7 +148,7 @@ public class UserController {
     /**
      * 跳转到修改密码页面
      *
-     * @return
+     * @return 修改密码页面view
      */
     @GetMapping(value = "/userc/change")
     public ModelAndView turnToUserChangeManagement() {
@@ -152,8 +159,8 @@ public class UserController {
 
     /**
      * 用户未绑定的角色
-     * @param userId
-     * @return
+     * @param userId 用户Id
+     * @return 未绑定的角色信息
      */
     @GetMapping("/user/userUnRole")
     public List<RoleEntity> findUserUnRole(@RequestParam("userId") int userId) {
@@ -163,7 +170,7 @@ public class UserController {
     /**
      * 跳转到userManagement页面
      *
-     * @return
+     * @return 用户管理view 对象
      */
     @GetMapping(value = "/user/userManagement")
     public ModelAndView turnToUserManagement() {

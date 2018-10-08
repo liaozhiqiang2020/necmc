@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 销售报表控制层
+ */
 @RestController
 public class ReportController1 {
    @Autowired
@@ -46,6 +49,8 @@ public class ReportController1 {
 
     /**
      * 查询所有省
+     * @param request 用户信息
+     * @return 省报表数据
      */
 
     @GetMapping(value = "/province")
@@ -61,18 +66,16 @@ public class ReportController1 {
         }else if(user.getGradeId()==2||user.getGradeId()==3){
             list=this.countService.getProvinceByP_ID(pId);
         }else{
-
             list=this.provinceService.getProvinceByID(pId);
-
         }
-
-
-
         return list;
     }
 
     /**
      * 查询所有市
+     * @param request 请求信息
+     * @param id 市iD
+     * @return  市报表数据
      */
 
     @GetMapping(value = "/city1")
@@ -90,8 +93,12 @@ public class ReportController1 {
         return  list;
     }
 
+
     /**
      * 查询所有地区
+     * @param request 用户信息
+     * @param id 场地ID
+     * @return  场地报表数据
      */
     @GetMapping(value = "/place")
     public List<PlaceEntity> getPlace(HttpServletRequest request,@Param("id") int id){
@@ -110,10 +117,14 @@ public class ReportController1 {
     }
 
 
+
     /**
      * 根据时间省id 查询报表
+     * @param s 起始时间
+     * @param e 截止时间
+     * @param id 省Id
+     * @return 省报表数据
      */
-
     @GetMapping(value = "/fillday")
     public List<ReportViewEntity> getProvince1(@Param("s")Date s,@Param("e")Date e,@Param("id") int id){
       return  rvs.fillDayReport(s, e, id);
@@ -122,10 +133,10 @@ public class ReportController1 {
 
     /**
      *  查询市报表
-     * @param s
-     * @param e
-     * @param id
-     * @return
+     * @param s 起始时间
+     * @param e 截止时间
+     * @param id 市id
+     * @return 市报表数据
      */
     @GetMapping(value = "/fillcity")
     public List<ReportViewEntity> getCity1(@Param("s")Date s,@Param("e")Date e,@Param("id") int id){
@@ -136,10 +147,10 @@ public class ReportController1 {
 
     /**
      *  查询市报表
-     * @param s
-     * @param e
-     * @param id
-     * @return
+     * @param s 起始时间
+     * @param e 截止时间
+     * @param id 市Id
+     * @return 报表数据
      */
     @GetMapping(value = "/fillplace")
     public List<ReportViewEntity> getPlace1(@Param("s")Date s,@Param("e")Date e,@Param("id") int id){

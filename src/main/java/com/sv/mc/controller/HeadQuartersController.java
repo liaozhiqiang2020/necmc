@@ -16,6 +16,9 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+/**
+ * 总公司控制层
+ */
 @RestController
 public class HeadQuartersController {
     //注入
@@ -36,9 +39,9 @@ public class HeadQuartersController {
 
     /**
      * 更改总公司id更改数据
-     * @param id
-     * @param headQuarters
-     * @return
+     * @param id 总公司Id
+     * @param headQuarters 总公司数据
+     * @return 修改总公司的数据
      */
     @RequestMapping(value = "/headMgr/update/headQuarters",method = RequestMethod.POST)
     public @ResponseBody
@@ -48,7 +51,7 @@ public class HeadQuartersController {
 
     /**
      * 跳转到总公司管理页面
-     * @return
+     * @return 总公司管理页面
      * @auther liaozhiqiang
      * @date 2018/7/11
      */
@@ -60,6 +63,9 @@ public class HeadQuartersController {
     /**
      * 全部查询
      * @return 返回所有总公司内容分页
+     * @param page 起始个数
+     * @param pageSize  截至个数
+     * @param session  用户信息
      */
     @GetMapping(value = "/headMgr/allHeadByPage")
     public @ResponseBody
@@ -79,8 +85,8 @@ public class HeadQuartersController {
 
     /**
      * 插入一条总公司数据
-     * @param headQuartersEntity
-     * @return
+     * @param headQuartersEntity 总公司数据
+     * @return 插入总公司数据
      */
     @RequestMapping(value = "/headMgr/insertHead",method = RequestMethod.POST)
     public @ResponseBody
@@ -90,8 +96,8 @@ public class HeadQuartersController {
 
     /**
      * 更改总公司数据
-     * @param headQuartersEntity
-     * @return
+     * @param headQuartersEntity 修改的总公司数据
+     * @return 总公司数据
      */
     @RequestMapping(value = "/headMgr/updateHead",method = RequestMethod.POST)
     public @ResponseBody
@@ -102,6 +108,7 @@ public class HeadQuartersController {
 
     /**
      * 逻辑删除总公司数据
+     * @param id 总公司Id
      */
     @RequestMapping(value = "/headMgr/deleteHead",method = RequestMethod.POST)
     public @ResponseBody
@@ -112,7 +119,8 @@ public class HeadQuartersController {
 
     /**
      * 根据分公司id查询总公司名称
-     * @return
+     * @return 查询的条数
+     * @param branchId 分公司ID
      */
     @PostMapping(value = "/headMgr/findHeadInfo")
     public @ResponseBody
@@ -122,7 +130,8 @@ public class HeadQuartersController {
 
     /**
      * 根据总公司id查询总公司名称
-     * @return
+     * @param headId 总公司Id
+     * @return 总公司名称
      */
     @PostMapping(value = "/headMgr/findHeadName")
     public @ResponseBody
@@ -133,6 +142,8 @@ public class HeadQuartersController {
 
     /**
      * 根据总公司id查询下面的场地
+     * @param headId 总公司Id
+     * @return 场地信息
      */
     @GetMapping(value = "/headMgr/findAllPlaceByHeadId")
     public @ResponseBody
@@ -142,6 +153,7 @@ public class HeadQuartersController {
 
     /**
      * 查询所有未绑定的场地
+     * @return 查询到的未绑定场地
      */
     @GetMapping(value = "/headMgr/findAllUnboundPlace")
     public @ResponseBody
@@ -153,6 +165,8 @@ public class HeadQuartersController {
 
     /**
      * 根据总公司id查询下面的合同
+     * @param headId 总公司Id
+     * @return 合同信息
      */
     @GetMapping(value = "/headMgr/findContractByHeadId")
     public @ResponseBody
@@ -162,6 +176,8 @@ public class HeadQuartersController {
 
     /**
      * 根据总公司id查询历史合同
+     * @param headId 总公司id
+     * @return 历史合同
      */
     @GetMapping(value = "/headMgr/findHistoryContractByHeadId")
     public @ResponseBody
@@ -172,6 +188,8 @@ public class HeadQuartersController {
 
     /**
      * 总公司绑定场地
+     * @param headId  总公司Id
+     * @param placeId  场地id
      */
     @PostMapping(value="/headMgr/headBoundPlace")
     public @ResponseBody
@@ -186,8 +204,12 @@ public class HeadQuartersController {
 //        return result;
     }
 
+
     /**
      * 解绑场地
+     * @param placeId 场地Id
+     * @param supId 上级id
+     * @param flagId 等级Id
      */
     @PostMapping(value="/headMgr/unboundPlace")
     public @ResponseBody

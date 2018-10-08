@@ -22,7 +22,7 @@ public class RegionServiceImpl implements RegionService {
 
     /**
      * 查询所有大区
-     * @return
+     * @return 大区集合
      */
     @Override
     public List<AreaEntity> getRegionOne() {
@@ -30,7 +30,8 @@ public class RegionServiceImpl implements RegionService {
     }
     /**
      * 查询所有省
-     * @return
+     * @param id 大区Id
+     * @return 省集合
      */
     @Override
     public List<ProvinceEntity> getRegionPrivince(int id) {
@@ -38,7 +39,8 @@ public class RegionServiceImpl implements RegionService {
     }
     /**
      * 查询所有市
-     * @return
+     * @param id 市
+     * @return 市集合
      */
     @Override
     public List<CityEntity> getRegionityCity(int id) {

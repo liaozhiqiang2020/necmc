@@ -21,6 +21,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 网关
+ */
 @Service
 public class GatewayServiceImpl implements GatewayService {
     @Autowired
@@ -37,9 +40,8 @@ public class GatewayServiceImpl implements GatewayService {
 
     /**
      * 保存数据
-     *
-     * @param gatewayEntity
-     * @return
+     * @param gatewayEntity 网关信息
+     * @return 网关数据
      */
     @Override
     public GatewayEntity save(GatewayEntity gatewayEntity) {
@@ -48,9 +50,8 @@ public class GatewayServiceImpl implements GatewayService {
 
     /**
      * 根据id查询网关信息
-     *
-     * @param id
-     * @return
+     * @param id 网关Id
+     * @return 网关信息
      */
     @Override
     public GatewayEntity findGatewayInfoById(int id) {
@@ -59,8 +60,7 @@ public class GatewayServiceImpl implements GatewayService {
 
     /**
      * 查询所有网关(不分页)
-     *
-     * @return
+     * @return 网关集合
      */
     @Override
     public List findAllEntities() {
@@ -69,16 +69,21 @@ public class GatewayServiceImpl implements GatewayService {
 
     /**
      * 修改网关信息
-     * @param gatewayEntity
-     * @return
+     * @param gatewayEntity 修改的网关对象
+     * @return 网关对象
      */
     @Override
     public GatewayEntity updateGatewayInfo(GatewayEntity gatewayEntity){
         return this.save(gatewayEntity);
     }
 
+
     /**
      * 修改网关域名端口
+     * @param domainName 域名
+     * @param port 通讯端口
+     * @param gatewaySn sn
+     * @throws Exception
      */
     @Override
     public void updateGatewayPort(String domainName, String port,String gatewaySn)throws Exception {
@@ -109,8 +114,12 @@ public class GatewayServiceImpl implements GatewayService {
         jmsProducer.sendMessage(message);
     }
 
+
     /**
      * 修改网关频道
+     * @param channel 网关通讯频道
+     * @param gatewaySn sn
+     * @throws Exception
      */
     @Override
     public void updateGatewayChannel(String channel,String gatewaySn) throws Exception {
@@ -129,8 +138,11 @@ public class GatewayServiceImpl implements GatewayService {
         jmsProducer.sendMessage(message);
     }
 
+
     /**
      * 重启网关
+     * @param gatewaySn sn
+     * @throws Exception
      */
     @Override
     public void restartGateway(String gatewaySn) throws Exception {
@@ -147,8 +159,8 @@ public class GatewayServiceImpl implements GatewayService {
 
     /**
      * 根据网关SN查询网关信息
-     * @param sn
-     * @return
+     * @param sn 网关sn
+     * @return  网关信息
      */
     @Override
     public GatewayEntity selectGateBySn(String sn) {
@@ -216,7 +228,7 @@ public class GatewayServiceImpl implements GatewayService {
 
     /**
      * 根据网关sn查询网关下所有设备
-     * @return
+     * @return 网关下设备
      */
     @Override
     public List<String> findAllDeviceByGatewayCode(String sn) {

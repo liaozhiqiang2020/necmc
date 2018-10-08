@@ -5,10 +5,10 @@ import com.sv.mc.pojo.ReportViewEntity;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 报表service
+ */
 public interface ReportViewService extends  BaseService{
-
-
-
 
     /**
      * 查询特定省的报表信息

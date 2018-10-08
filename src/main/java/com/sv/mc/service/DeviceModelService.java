@@ -30,14 +30,12 @@ public interface DeviceModelService {
    Map<String,String> findDeviceModelAll();
 
 
-
-
-
-
     /**
      * 根据设备名称型号大小查询是否存在
+     * @param name 设备名称
+     * @param model 设备型号
+     * @return 查询到的设备信息
      */
-
     DeviceModelEntity getDeviceByType(String name,String model);
 
 }

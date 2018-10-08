@@ -11,6 +11,9 @@ import com.sv.mc.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 主页面信息
+ */
 @Service
 public class HomeServiceImpl implements HomeService {
     @Autowired
@@ -21,6 +24,12 @@ public class HomeServiceImpl implements HomeService {
     private AccountDetailRepository accountDetailRepository;
     @Autowired
     private VendorRepository vendorRepository;
+
+    /**
+     * 主页面显示数据
+     * @param user 用户信息
+     * @return 设备 订单 收入 故障 数据
+     */
     @Override
     public HomeVO dataDisplay(UserEntity user) {
         //判断用户的等级

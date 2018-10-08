@@ -44,7 +44,7 @@ public class BranchServiceImpl implements BranchService {
         /**1
          * 保存缓存数据
          * @param branch 分公司数据
-         * @return
+         * @return 分公司数据
          */
         @Transactional
         @Override
@@ -54,7 +54,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**2
          * 查询所有分公司列表
-         * @return List<BranchEntity>
+         * @return List<BranchEntity> 查询到的分公司列表
          */
         @Override
         @Transactional
@@ -75,7 +75,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**4
          * 插入一条分公司数据
-         * @param branch
+         * @param branch 插入的内容
          */
         @Override
         @Transactional
@@ -90,7 +90,7 @@ public class BranchServiceImpl implements BranchService {
         /**
          * 根据分公司id更改分公司数据
          * @param branch 分公司实体类
-         * @return branch
+         * @return branch 分公司实体类
          */
         @Override
         @Transactional
@@ -104,6 +104,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 根据id删除（逻辑删除，更改状态）
+         * @param branchId 分公司Id
          */
         @Override
         @Transactional
@@ -115,9 +116,9 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 分页查询分公司数据
-         * @param page
-         * @param pageSize
-         * @return
+         * @param page 起始个数
+         * @param pageSize 截至个数
+         * @return 分公司数据
          */
         @Override
         @Transactional
@@ -165,6 +166,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 查询所有总公司和分公司内容
+         * @return 总公司分公司内容
          */
         @Override
         @Transactional
@@ -203,6 +205,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 查询所有总公司和分公司和代理商内容
+         * @return 总公司分公司代理商结果
          */
         @Override
         @Transactional
@@ -266,7 +269,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 查询所有状态为1的用户
-         * @return
+         * @return 状态为1的用户结果集
          */
         @Override
         @Transactional
@@ -276,6 +279,7 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 根据分公司id查询下面的合同
+         * @param branchId 分公司Id
          */
         @Override
         @Transactional
@@ -309,6 +313,8 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 根据分公司id查询历史合同
+         * @param branchId 分公司Id
+         * @return 历史合同
          */
         @Override
         @Transactional
@@ -341,6 +347,8 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 根据分公司id查询下面的场地
+         * @param branchId 分公司Id
+         * @return 场地结果集合
          */
         @Override
         @Transactional
@@ -350,6 +358,8 @@ public class BranchServiceImpl implements BranchService {
 
         /**
          * 分公司绑定场地
+         * @param branchId 分公司Id
+         * @param placeId  场地Id
          */
         @Override
         @Transactional

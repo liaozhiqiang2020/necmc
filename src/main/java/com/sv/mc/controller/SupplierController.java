@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+/**
+ * 供应商 控制层
+ */
 @RestController
 public class SupplierController {
     @Autowired
@@ -24,7 +27,7 @@ public class SupplierController {
     }
     /**
      * 根据id查询单个合同内容
-     * @param id
+     * @param id 合同id
      * @return 单个分公司合同
      */
     @RequestMapping(value = "/supplierMgr/supplier",method=RequestMethod.GET)
@@ -35,8 +38,8 @@ public class SupplierController {
 
     /**
      * 插入一条新合同数据
-     * @param supplier
-     * @return
+     * @param supplier 供应商信息
+     * @return 合同信息
      */
     @RequestMapping(value = "/supplierMgr/supplier/insert",method = RequestMethod.POST)
     public @ResponseBody

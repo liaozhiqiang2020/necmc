@@ -59,12 +59,13 @@ public class PriceServiceImpl implements PriceService {
     private PlaceRepository placeRepository;
 
 
+
     /**
      * 分页查询所有价格
-     *
-     * @return 所有价格
+     * @param page     分页规则
+     * @param pageSize 分页规则
+     * @return 价格信息
      */
-
     @Override
     @Transactional(readOnly = true)
     public String findAllPagePrice(int page, int pageSize) {
@@ -103,12 +104,11 @@ public class PriceServiceImpl implements PriceService {
     }
 
 
+
     /**
      * 不分页查询所有价格
-     *
      * @return 所有价格
      */
-
     @Transactional(readOnly = true)
     @Override
     public List<PriceEntity> findAllPrice() {
@@ -118,7 +118,6 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 不分页查询所有可用价格
-     *
      * @return 所有价格
      */
     @Override
@@ -160,7 +159,6 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 更新价格
-     *
      * @param map 价格对象（价格对象必须包含主键ID）
      * @return 消息
      */
@@ -203,7 +201,6 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 删除价格
-     *
      * @param priceEntity 价格Id
      * @return 消息
      */
@@ -231,9 +228,8 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 根据id查询价格
-     *
      * @param Id 价格ID
-     * @return
+     * @return 价格信息
      */
     @Override
     public PriceEntity findPriceById(int Id) {
@@ -242,7 +238,6 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 添加价格
-     *
      * @param map 价格对象
      * @return 消息
      */
@@ -289,10 +284,10 @@ public class PriceServiceImpl implements PriceService {
     /**
      * 价格方案起止结束时间判断方法
      *
-     * @param history
-     * @param priceEntity
-     * @param end
-     * @param start
+     * @param history 历史价格
+     * @param priceEntity 价格
+     * @param end 截至时间
+     * @param start  起始时间
      */
     private void priceDate(PriceHistoryEntity history, PriceEntity priceEntity, String end, String start) {
         if (end == null && start == null) {
@@ -329,8 +324,7 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 批量删除或者保存价格数据
-     *
-     * @param priceEntityList
+     * @param priceEntityList 价格对象集合
      * @return 页面需要回显新的价格数据
      */
     @Override
@@ -346,7 +340,7 @@ public class PriceServiceImpl implements PriceService {
     /**
      * 批量删除价格
      * @param priceEntityList 需要删除的价格集合
-     * @return
+     * @return 价格集合
      */
     @Transactional
     @Override
@@ -360,7 +354,6 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 根据设备id的价格进行查询
-     *
      * @param deviceId 设备Id
      * @return 当前机器的价格集合
      */
@@ -373,7 +366,7 @@ public class PriceServiceImpl implements PriceService {
     /**
      * 查询当前设备上的已绑定价格
      * @param deviceId 设备Id
-     * @return
+     * @return  绑定的价格集合
      */
     @Transactional
     @Override
@@ -393,7 +386,11 @@ public class PriceServiceImpl implements PriceService {
         return priceSet;
     }
 
-    //查询该设备当前未绑定的价格
+    /**
+     * 查询该设备当前未绑定的价格
+     * @param deviceId 当前设备
+     * @return 未绑定价格集合
+     */
     @Override
     @Transactional
     public List<PriceEntity> findUnDevicePrice(int deviceId) {
@@ -414,8 +411,8 @@ public class PriceServiceImpl implements PriceService {
      * 为一台设备绑定价格
      * 分为基础价格和活动价格，基础价格没有起止时间，活动价格有
      * 相同时间的价格旧的会被新的替换掉，但只会替换相同类型的，如基础价格只会替换想通的基础价格
-     * @param listMap
-     * @return
+     * @param listMap 绑定价格内容
+     * @return 绑定价格集合
      */
     @Transactional
     @Override
@@ -453,8 +450,8 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 删除设备上的价格
-     * @param listMap
-     * @return
+     * @param listMap 删除的价格
+     * @return 删除的价格
      */
     @Transactional
     @Override
@@ -465,8 +462,11 @@ public class PriceServiceImpl implements PriceService {
         device.getPriceEntities().remove(this.priceRepository.findPriceEntitiesById((int)price));
         return device.getPriceEntities();
     }
-
-    //为场地上某种类型的机器添加价格
+    /**
+     * 为场地上某种类型的机器添加价格
+     * @param listMap 场地id 与 价格id集合
+     * @return 价格集合
+     */
     @Override
     @Transactional
     public List<PriceEntity> placeAddPrice(Map<String, Object> listMap) {
@@ -518,9 +518,8 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 根据设备id查询价格和时间
-     *
-     * @param deviceCode
-     * @return
+     * @param deviceCode 设备编码
+     * @return  设备价格时间
      */
     @Override
     public List<Map<String, Object>> queryPriceAndTime(String deviceCode) {
@@ -544,7 +543,8 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 查询场地上所有已绑定的价格
-     * @return
+     * @param placeId 场地Id
+     * @return  价格信息
      */
     @Override
     @Transactional
@@ -590,6 +590,10 @@ public class PriceServiceImpl implements PriceService {
         return jsonObject.toString();
     }
 
+    /**
+     * 查询设备信息
+     * @return 设备信息
+     */
     @Override
     public String findPriceEntitiesByEnd1() {
         List<PriceEntity> priceList = this.priceRepository.findPriceEntitiesByEnd();
@@ -601,8 +605,6 @@ public class PriceServiceImpl implements PriceService {
         config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 //        config.setIgnoreDefaultExcludes(false);  //设置默认忽略
         config.setExcludes(new String[]{"deviceModelEntity", "user", "deviceEntities"});//红色的部分是过滤掉deviceEntities对象 不转成JSONArray
-
-
 //        config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         JSONArray jsonArray = JSONArray.fromObject(priceList, config);//转化为jsonArray
         JSONArray jsonArray1 = new JSONArray();//新建json数组
@@ -627,8 +629,7 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 查询所有导出数据
-     *
-     * @return
+     * @return 导出的价格
      */
     @Override
     public List<PriceEntity> findAllPagePrice() {
@@ -638,8 +639,8 @@ public class PriceServiceImpl implements PriceService {
 
     /**
      * 查询设备上的所有价格
-     * @param deviceCode
-     * @return
+     * @param deviceCode 设备编码
+     * @return 价格集合
      */
     @Override
     @Transactional
@@ -673,7 +674,7 @@ public class PriceServiceImpl implements PriceService {
     /**
      * 导入价格绑定数据
      *
-     * @param file
+     * @param file 接收的文件
      * @throws IOException
      */
     @Transactional
@@ -955,6 +956,11 @@ public class PriceServiceImpl implements PriceService {
 
     }
 
+    /**
+     * 解绑价格
+     * @param listMap 场地价格信息
+     * @return  解绑结果
+     */
     @Transactional
     @Override
     public String deletePlacePrice(Map<String, Object> listMap) {

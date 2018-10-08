@@ -23,14 +23,15 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 根据角色名查询角色
-     * @param roleName
-     * @return
+     * @param roleName 角色名
+     * @return 权限内容
      */
     @Override
     @Transactional
     public RoleEntity findRoleByRoleName(String roleName) {
         return this.roleRepository.findRoleByRoleName(roleName);
     }
+
 
     @Override
     @Transactional
@@ -40,7 +41,7 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 查询所有角色
-     * @return
+     * @return 角色集合
      */
     @Override
     @Transactional
@@ -52,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 更新角色
      * @param role role对象
-     * @return
+     * @return 角色对象
      */
     @Override
     @Transactional
@@ -63,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 新建角色
      * @param role role对象
-     * @return
+     * @return 新增的角色对象
      */
     @Override
     @Transactional
@@ -84,7 +85,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 根据Id查询角色
      * @param roleId role主键
-     * @return
+     * @return 角色信息
      */
     @Override
     @Transactional
@@ -94,8 +95,8 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 查询角色绑定的权限
-     * @param roleId
-     * @return
+     * @param roleId 角色Id
+     * @return 权限内容
      */
     @Override
     public Set<PermissionEntity> findRolePermission(int roleId) {
@@ -105,8 +106,8 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 查询角色未绑定的权限
-     * @param roleId
-     * @return
+     * @param roleId 角色Id
+     * @return 未绑定的角色权限
      */
     @Override
     public List<PermissionEntity> findRoleUnPermission(int roleId) {
@@ -118,9 +119,9 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 角色解绑权限
-     * @param roleId
+     * @param roleId 角色Id
      * @param pId 权限id
-     * @return
+     * @return 角色权限
      */
     @Override
     public Set<PermissionEntity> roleDeletePermission(int roleId, int pId) {
@@ -143,9 +144,9 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 角色添加权限
-     * @param roleId
+     * @param roleId 角色Id
      * @param pId 权限id
-     * @return
+     * @return 角色权限内容
      */
     @Override
     public Set<PermissionEntity> roleAddPermission(int roleId, int pId) {
