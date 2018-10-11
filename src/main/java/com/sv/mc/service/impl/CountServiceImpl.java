@@ -52,7 +52,7 @@ public class CountServiceImpl implements CountService {
     @Override
     public ProvinceQo findProvinceById(int pId, String start , String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
-        List<Object[]> list = this.repository.findCountById(pId,start,end);
+        List<Object[]> list = this.repository.findCountById(pId,start,end+" 23:59:59");
         Object[] array = list.get(0);
         String name = (String)array[0];
         int orderCount = Integer.valueOf(array[1].toString());
@@ -84,7 +84,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> findCityByProvinceID(int id, String start, String end) {
-            List<Object[]>list =this.repository.findCityByPid(id,start,end);
+            List<Object[]>list =this.repository.findCityByPid(id,start,end+" 23:59:59");
            // ProvinceQo ProvinceQo = new ProvinceQo();
             List<ProvinceQo>plist=new ArrayList<>();
             for (int i=0;i<list.size();i++){
@@ -119,7 +119,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> findPlaceByCityID(int id, String start, String end) {
-        List<Object[]>list =this.repository.findPlaceByCityID(id,start,end);
+        List<Object[]>list =this.repository.findPlaceByCityID(id,start,end+" 23:59:59");
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -156,7 +156,7 @@ public class CountServiceImpl implements CountService {
     @Override
     public ProvinceQo findCityById(int cId, String start, String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
-        List<Object[]> list = this.repository.findOneCTByCityID(cId, start, end);
+        List<Object[]> list = this.repository.findOneCTByCityID(cId, start, end+" 23:59:59");
         Object[] array = list.get(0);
         String name = (String)array[0];
         int orderCount = Integer.valueOf(array[1].toString());
@@ -186,7 +186,7 @@ public class CountServiceImpl implements CountService {
     @Override
     public ProvinceQo findprovince(String start, String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
-        List<Object[]> list = this.repository.findProvince(start, end);
+        List<Object[]> list = this.repository.findProvince(start, end+" 23:59:59");
         Object[] array = list.get(0);
         String name = (String)array[0];
         int orderCount = Integer.valueOf(array[1].toString());
@@ -217,7 +217,7 @@ public class CountServiceImpl implements CountService {
     @Override
     public ProvinceQo getONEPlaceById(int pId, String start, String end) {
         ProvinceQo ProvinceQo = new ProvinceQo();
-        List<Object[]> list = this.repository.findOnePlaceByPlaceID(pId, start, end);
+        List<Object[]> list = this.repository.findOnePlaceByPlaceID(pId, start, end+" 23:59:59");
         Object[] array = list.get(0);
         String name = (String)array[0];
         int orderCount = Integer.valueOf(array[1].toString());
@@ -246,7 +246,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> getALLProvince(String start, String end) {
-        List<Object[]>list =this.repository.findProvince(start,end);
+        List<Object[]>list =this.repository.findProvince(start,end+" 23:59:59");
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -325,7 +325,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> getProvinceBypId(int level, int pid, String start, String end) {
-        List<Object[]>list =this.repository.getProvinceBypId(level, pid, start, end);
+        List<Object[]>list =this.repository.getProvinceBypId(level, pid, start, end+" 23:59:59");
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -359,7 +359,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> getProvinceBypIdANDprovinceID(int level, int pid, String start, String end, int provinceId) {
-        List<Object[]>list =this.repository.getProvinceBypIdANDprovinceID(level, pid, start, end, provinceId);
+        List<Object[]>list =this.repository.getProvinceBypIdANDprovinceID(level, pid, start, end+" 23:59:59", provinceId);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -390,7 +390,7 @@ public class CountServiceImpl implements CountService {
 
     @Override
     public List<ProvinceQo> getCBypIdANDprovinceID(int level, int pid, String start, String end, int provinceId) {
-        List<Object[]> list = this.repository.getCBypIdANDprovinceID(level, pid, start, end, provinceId);
+        List<Object[]> list = this.repository.getCBypIdANDprovinceID(level, pid, start, end+" 23:59:59", provinceId);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo> plist = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -422,7 +422,7 @@ public class CountServiceImpl implements CountService {
 
     @Override
     public List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, String start, String end, int cityId) {
-        List<Object[]>list =this.repository.getCityBypIdANDcityID(level, pid, start, end, cityId);
+        List<Object[]>list =this.repository.getCityBypIdANDcityID(level, pid, start, end+" 23:59:59", cityId);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -455,7 +455,7 @@ public class CountServiceImpl implements CountService {
 
     @Override
     public List<ProvinceQo> getPlacyBypIdANDcityID(int level, int pid, String start, String end, int cityId) {
-        List<Object[]>list =this.repository.getPlacyBypIdANDcityID(level, pid, start, end, cityId);
+        List<Object[]>list =this.repository.getPlacyBypIdANDcityID(level, pid, start, end+" 23:59:59", cityId);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -486,7 +486,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> getPlacyBypIdANDplaceID(int level, int pid, String start, String end, int placeId) {
-        List<Object[]>list =this.repository.getPlacyBypIdANDplaceID(level, pid, start, end, placeId);
+        List<Object[]>list =this.repository.getPlacyBypIdANDplaceID(level, pid, start, end+" 23:59:59", placeId);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
         for (int i=0;i<list.size();i++){
@@ -522,7 +522,7 @@ public class CountServiceImpl implements CountService {
      */
     @Override
     public List<ProvinceQo> getPlacyByANDplaceID(String start, String end, int placeId) {
-        List<Object[]>list =this.repository.getPlacyByANDplaceID(start, end, placeId);
+        List<Object[]>list =this.repository.getPlacyByANDplaceID(start, end+" 23:59:59", placeId);
         System.out.println(list);
         // ProvinceQo ProvinceQo = new ProvinceQo();
         List<ProvinceQo>plist=new ArrayList<>();
