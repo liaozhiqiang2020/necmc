@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,7 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
 
     /**
      * 插入用户信息
-     * @param wxUserInfoEntity 用户信息
+     * @param wxUserInfoEntity
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -55,7 +56,7 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
 
     /**
      * 删除用户信息
-     * @param openId 用户唯一标识
+     * @param openId
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -68,7 +69,8 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
 
     /**
      * 修改用户信息
-     * @param wxUserInfoEntity 用户信息
+     * @param wxUserInfoEntity
+     * @return
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -80,8 +82,8 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
 
     /**
      * 根据openId查询是否存在用户信息
-     * @param openId 用户唯一标识
-     * @return 用户信息
+     * @param openId
+     * @return
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -91,11 +93,8 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
         return wxUserInfoEntity;
     }
 
-
     /**
      * 插入用户信息，手机号，openId
-     * @param openId 用户唯一Id
-     * @param userInfo  用户信息 手机号
      */
     @Override
     public void saveUserInfoAndPhoneAndOpenId(String openId, String userInfo) {
@@ -106,6 +105,16 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
         //用户基本信息
         JSONObject jsonObject1 = JSONObject.fromObject(userInfo.toString());
         String nickName = jsonObject1.get("nickName").toString();
+
+//        try {
+//            nickName = new String(nickName.getBytes("ISO-8859-1"), "UTF-8");
+//            System.out.println("打印微信个人用户数据******************* nickname = " + nickName);
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            System.out.println("获取WX用户个人信息******************* 解析失败 Exception e = " + e.toString());
+//        }
+
         String gender = jsonObject1.get("gender").toString();
         String language = jsonObject1.get("language").toString();
         String city = jsonObject1.get("city").toString();

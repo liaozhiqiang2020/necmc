@@ -2,10 +2,11 @@ package com.sv.mc.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.NotFoundException;
+import com.sv.mc.pojo.DeviceEntity;
+import com.sv.mc.pojo.OrderEntity;
 import com.sv.mc.pojo.WxUserInfoEntity;
-import com.sv.mc.service.OrderService;
-import com.sv.mc.service.WeiXinPayService;
-import com.sv.mc.service.WxUserInfoService;
+import com.sv.mc.repository.OrderRepository;
+import com.sv.mc.service.*;
 import com.sv.mc.util.BaseUtil;
 import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.config.WxPayConfig;
@@ -25,12 +26,14 @@ import org.weixin4j.WeixinException;
 import org.weixin4j.http.HttpsClient;
 import org.weixin4j.http.Response;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +48,12 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
     private WxUserInfoService wxUserInfoService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private DeviceService deviceService;
+    @Resource
+    private JMSProducer jmsProducer;
+    @Autowired
+    private OrderRepository orderRepository;
 
 //    private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -56,7 +65,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
     /**
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
      * @param code
-     * @return 用户信息
+     * @return
      * @author: lzq
      * @date: 2018年7月3日
      */
@@ -117,8 +126,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
 
     /**
-     * @param openid 用户唯一id
-     * @param request 支付请求
+     * @param openid
+     * @param request
      * @Description: 发起微信支付
      * @author: lzq
      * @date: 2018年7月3日
@@ -207,8 +216,8 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
                 response.put("paySign", paySign);
 
-                //更新订单表中的微信code
-                this.orderService.updateOrderByCode(paidOrderId,prepay_id);
+//                //更新订单表中的微信code
+//                this.orderService.updateOrderByCode(paidOrderId,prepay_id);
             }
 
             response.put("appid", WxPayConfig.appid);
@@ -247,11 +256,27 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
         String returnCode = (String) map.get("return_code");
         if ("SUCCESS".equals(returnCode)) {
             //验证签名是否正确
-            if (PayUtil.verify(PayUtil.createLinkString(map), (String) map.get("sign"), WxPayConfig.key, "utf-8")) {
-                /**此处添加自己的业务逻辑代码start**/
+            Map<String, String> validParams = PayUtil.paraFilter(map);  //回调验签时需要去除sign和空值参数
+            String validStr = PayUtil.createLinkString(validParams);//把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
+            String sign = PayUtil.sign(validStr, WxPayConfig.key, "utf-8").toUpperCase();//拼装生成服务器端验证的签名
+            // 因为微信回调会有八次之多,所以当第一次回调成功了,那么我们就不再执行逻辑了
 
+            //根据微信官网的介绍，此处不仅对回调的参数进行验签，还需要对返回的金额与系统订单的金额进行比对等
+            if(sign.equals(map.get("sign"))){
+                /**此处添加自己的业务逻辑代码start**/
+                WxUtil wxUtil = new WxUtil();
+                Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
+                String orderStr = (String)map.get("out_trade_no");
+                String transactionId = (String)map.get("transaction_id");//微信订单号
+                int orderId = Integer.parseInt(orderStr);
+                OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
+                orderEntity.setStatus(4);//写入订单状态  (已支付)
+                orderEntity.setCodeWx(transactionId);
+                orderEntity.setPayDateTime(ts);
+                this.orderRepository.save(orderEntity);
 
                 /**此处添加自己的业务逻辑代码end**/
+                System.out.println("回调成功");
 
                 //通知微信服务器已经支付成功
                 resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>"
@@ -260,6 +285,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
         } else {
             resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>"
                     + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
+            System.out.println("回调失败");
         }
         System.out.println(resXml);
         System.out.println("微信支付回调数据结束");
@@ -273,12 +299,12 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
     /**
      * 获取用户信息
-     * @param sessionkey 用户会话 key
-     * @param encryptedData  加密
-     * @param iv 输入信息
-     * @param openid 用户唯一Id
-     * @param userInfos 用户信息
-     * @return 用户的信息
+     * @param sessionkey
+     * @param encryptedData
+     * @param iv
+     * @param openid
+     * @param userInfos
+     * @return
      * @author: lzq
      * @date: 2018年7月3日
      */
@@ -355,5 +381,30 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
         return userInfo;
     }
+
+
+    @Override
+    public void sendStartChairMsg(String chairId, Integer mcTime) throws Exception {
+        WxUtil wxUtil = new WxUtil();
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        if (deviceEntity != null) {
+            String deviceId = deviceEntity.getLoraId();//获取模块id
+            String chairCode = wxUtil.convertStringToHex(deviceId);
+            String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
+            String time = mcTime.toHexString(mcTime);
+            if (time.length() < 2) {
+                time = "0" + time;
+            }
+            String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
+
+            byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+            byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
+            String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+            message = message + res + "_" + gatewayId;
+
+            jmsProducer.sendMessage(message);
+        }
+    }
+
 
 }

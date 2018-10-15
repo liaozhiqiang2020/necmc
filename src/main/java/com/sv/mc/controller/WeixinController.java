@@ -57,7 +57,7 @@ public class WeixinController extends WeixinSupport {
      * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId
      *
      * @param code
-     * @return openid 用户唯一标识
+     * @return openid
      * @throws WeixinException
      * @throws IOException
      * @author: lzq
@@ -73,7 +73,7 @@ public class WeixinController extends WeixinSupport {
     /**
      * 发起微信支付
      *
-     * @param openid 用户唯一标识
+     * @param openid
      * @param request
      * @author: lzq
      * @date: 2018年7月3日
@@ -101,6 +101,7 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 获取用户信息
+     *
      * @throws WeixinException
      * @throws IOException
      * @author: lzq
@@ -114,8 +115,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 保存用户信息
-     * @param userInfo  用户信息
-     * @param openId 用户唯一标识
      */
     @RequestMapping("/saveUserInfo")
     @ResponseBody
@@ -126,8 +125,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询用户信息
-     * @param openId 用户唯一标识
-     * @return 用户结果对象
      */
     @RequestMapping("/findWxUserInfoByOpenId")
     @ResponseBody
@@ -139,7 +136,7 @@ public class WeixinController extends WeixinSupport {
 //-----------------------------------------------小程序查询设备状态---start-------------------------------
     /**
      * 查询设备状态(小程序)
-     * @param chairId 设备id
+     *
      * @return
      */
     @RequestMapping("/findChairStatus")
@@ -163,8 +160,8 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询设备是否开启成功(小程序)
-     * @param chairId 椅子Id
-     * @return 椅子状态
+     *
+     * @return
      */
     @RequestMapping("/findChairRuning")
     @ResponseBody
@@ -188,7 +185,8 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 清空设备状态
-     * @param chairId 设备Id
+     *
+     * @return
      */
     @RequestMapping("/cleanDeviceStatus")
     @ResponseBody
@@ -204,7 +202,7 @@ public class WeixinController extends WeixinSupport {
     /**
      * 查询设备状态(后台管理系统)
      *
-     * @return 设备状态
+     * @return
      */
     @RequestMapping("/findChairStatusSys")
     @ResponseBody
@@ -227,8 +225,8 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询设备是否开启成功(后台管理系统)
-     * @param chairId 椅子Id
-     * @return 开启状态
+     *
+     * @return
      */
     @RequestMapping("/findChairRuningSys")
     @ResponseBody
@@ -255,8 +253,7 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询订单
-     * @param state  订单状态
-     * @param openCode 订单编码
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -268,13 +265,9 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 分页查询订单
+     *
      * @author: lzq
      * @date: 2018年7月6日
-     * @param openCode 订单编码
-     * @param state  订单状态
-     * @param pageSize  截至个数
-     * @param pageNumber 起始个数
-     * @return 订单结果
      */
     @RequestMapping("/findPaidOrderListByPage")
     @ResponseBody
@@ -284,7 +277,7 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 根据订单号查询订单
-     * @param orderId 订单Id
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -294,18 +287,11 @@ public class WeixinController extends WeixinSupport {
         return this.orderService.findPaidOrderById(orderId);
     }
 
-
     /**
      * 创建订单
-     * @param openid 用户 唯一标识
-     * @param mcTime 按摩时长
-     * @param deviceCode 设备编码
-     * @param promoCode  优惠码
-     * @param money 价格
-     * @param unPaidOrderCode 未付款订单号
-     * @param state 状态
-     * @param strength 按摩强度
-     * @return 创建的订单条数
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @RequestMapping("/createPaidOrder")
     @ResponseBody
@@ -315,10 +301,9 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 获取按摩剩余时间
-     * @param orderId 订单id
+     *
      * @author: lzq
      * @date: 2018年7月6日
-     * @return 按摩剩余时间
      */
     @RequestMapping("/getMcRemainingTime")
     @ResponseBody
@@ -328,10 +313,9 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 获取按摩椅code
+     *
      * @author: lzq
      * @date: 2018年7月6日
-     * @param orderId  订单id
-     * @return  按摩椅code
      */
     @RequestMapping("/getMcCode")
     @ResponseBody
@@ -342,10 +326,9 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 根据orderId查询按摩椅编号
-     * @param orderId 订单id
+     *
      * @author: lzq
      * @date: 2018年7月6日
-     * @return 按摩椅编号
      */
     @RequestMapping("/getChairIdByOrderId")
     @ResponseBody
@@ -355,22 +338,19 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 根据订单id更新订单状态
+     *
      * @author: lzq
      * @date: 2018年7月6日
-     * @param orderId 订单Id
-     * @param state 订单状态
-     * @param description 订单描述
      */
     @RequestMapping("/updatePaidOrderById")
     @ResponseBody
-    public void updatePaidOrderById(int orderId, int state, String description) {
+    public void updatePaidOrderById(int orderId, int state, String description) throws Exception{
         this.orderService.updateOrderById(orderId, state, description);
     }
 
     /**
      * 根据订单code更新订单状态
-     * @param state 订单状态
-     * @param code  订单编码
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -383,9 +363,7 @@ public class WeixinController extends WeixinSupport {
     /**
      * 修改订单按摩开始时间，付款时间和结束时间
      *
-     * @param orderId 订单Id
-     * @param state  订单状态
-     * @param mcTime  按摩时间
+     * @param orderId
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -397,7 +375,7 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
-     * @param orderId 订单Id
+     *
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -406,10 +384,12 @@ public class WeixinController extends WeixinSupport {
     public void servingOrderState(int orderId) {
         this.orderService.servingOrderState(orderId);
     }
+
     /**
      * 根据设备编号查询价格列表
-     * @param deviceCode 设备编码
-     * @return 价格列表
+     *
+     * @param deviceCode
+     * @return
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -425,7 +405,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送查询查询设备状态指令
-     * @param chairId 椅子Id
      */
     @RequestMapping("/sendFindChairStatus")
     @ResponseBody
@@ -453,8 +432,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送启动按摩椅命令
-     * @param chairId 椅子id
-     * @param mcTime 按摩时长
      */
     @RequestMapping("/sendStartChairMsg")
     @ResponseBody
@@ -483,7 +460,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送停止按摩椅命令
-     * @param chairId 设备id
      */
     @RequestMapping("/sendEndChairMsg")
     @ResponseBody
@@ -509,8 +485,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送控制按摩椅强度指令
-     * @param chairId  椅子id
-     * @param strength  按摩强度
      */
     @RequestMapping("/sendStrengthChairMsg")
     @ResponseBody
@@ -541,8 +515,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送继续和暂停按摩椅命令
-     * @param chairId 椅子Id
-     * @param continueType 按摩指令
      */
     @RequestMapping("/sendContinueChairMsg")
     @ResponseBody
@@ -569,7 +541,8 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 查询按摩椅状态
-     * @param chairId 椅子Id
+     *
+     * @param chairId
      * @throws Exception
      */
     @RequestMapping("/selectMcStatus")
@@ -593,8 +566,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送充电指令
-     * @param chairId 椅子Id
-     * @param mcTime 按摩时长
      */
     @RequestMapping("/sendChargeMsg")
     @ResponseBody
@@ -620,7 +591,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送断电指令
-     * @param chairId 椅子Id
      */
     @RequestMapping("/sendUnChargeMsg")
     @ResponseBody
@@ -642,8 +612,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送修改椅子频道指令
-     * @param chairId 椅子Id
-     * @param channel 频道指令
      */
     @RequestMapping("/sendUpdateChannel")
     @ResponseBody
@@ -671,8 +639,6 @@ public class WeixinController extends WeixinSupport {
 
     /**
      * 发送修改椅子编号指令
-     * @param chairId 椅子Id
-     * @param newChairId 新椅子id
      */
     @RequestMapping("/sendUpdateCode")
     @ResponseBody

@@ -60,7 +60,7 @@ public class DeviceServiceImpl implements DeviceService {
         /**
          * 保存数据
          * @param device 设备数据
-         * @return  保存的设备数据
+         * @return
          */
         @Override
         @Transactional
@@ -71,7 +71,7 @@ public class DeviceServiceImpl implements DeviceService {
         /**
          * 根据id查找
          * @param id  设备id
-         * @return 设备
+         * @return
          */
         @Override
         @Transactional
@@ -82,8 +82,8 @@ public class DeviceServiceImpl implements DeviceService {
         /**
          * 根据id修改
          * @param id  设备id
-         * @param device 设备信息
-         * @return 设备
+         * @param device
+         * @return
          */
         @Override
         @Transactional
@@ -93,8 +93,8 @@ public class DeviceServiceImpl implements DeviceService {
 
         /**
          * 插入一条新设备数据
-         * @param device 插入的设备
-         * @return 设备信息
+         * @param device
+         * @return
          */
         @Override
         @Transactional
@@ -109,7 +109,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         /**
          * 查询所有设备数据
-         * @return 所有的设备信息
+         * @return
          */
         @Override
         @Transactional
@@ -118,23 +118,13 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
 
-        /**
-         * 修改所有的设备信息
-         * @param device 修改的数据
-         * @return 设备信息
-         */
+
         @Override
         @Transactional
         public DeviceEntity updateDevice(DeviceEntity device) {
                 return this.deviceRepository.save(device);
         }
 
-        /**
-         * 分页查询设备信息
-         * @param page 起始个数
-         * @param pageSize 截止个数
-         * @return 设备信息
-         */
         @Override
         @Transactional
         public String findAllDeviceByPage(int page, int pageSize) {
@@ -152,10 +142,6 @@ public class DeviceServiceImpl implements DeviceService {
                 return jsonArray.toString();
         }
 
-        /**
-         *  逻辑删除设备
-         * @param deviceId 设备id
-         */
         @Override
         @Transactional
         public void deleteDevice(int deviceId) {
@@ -164,11 +150,7 @@ public class DeviceServiceImpl implements DeviceService {
                 this.deviceRepository.save(deviceEntity);
         }
 
-        /**
-         * 根据用户查询设备
-         * @param session  用户信息
-         * @return 设备json
-         */
+
         @Override
         @Transactional
         public String findAllDevice(HttpSession session) {
@@ -216,29 +198,23 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
 
-
         /**
          * 根据椅子sn修改椅子运行状态
-         * @param deviceCode 设备sn
-         * @param mcStatus 设备状态
          */
         @Override
         public void findChairRuningStatus(String deviceCode,int mcStatus) {
-                int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
+                Integer deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
                 DeviceEntity deviceEntity = this.findDeviceById(deviceId);
                 deviceEntity.setMcStatus(mcStatus);
                 this.deviceRepository.save(deviceEntity);
         }
 
-
         /**
          * 根据椅子sn修改椅子按摩强度
-         * @param deviceCode 设备sc
-         * @param strength 按摩椅强度
          */
         @Override
         public void findChairStrength(String deviceCode, int strength) {
-                int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
+                Integer deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);
                 DeviceEntity deviceEntity = this.findDeviceById(deviceId);
                 deviceEntity.setStrength(strength);
                 this.deviceRepository.save(deviceEntity);
@@ -247,7 +223,6 @@ public class DeviceServiceImpl implements DeviceService {
         /**
          * 根据场地查询所有的设备编码
          * @param id  场地id
-         * @return  设备编码
          */
         @Override
         public List<String> getFill_SN(int id) {
@@ -257,8 +232,8 @@ public class DeviceServiceImpl implements DeviceService {
 
         /**
          * 根据权限查询设备
-         * @param id 权限Id
-         * @return  设备信息
+         * @param id
+         * @return
          */
         @Override
         public List<DeviceEntity> geyDeviceByPid(int id) {
@@ -267,8 +242,8 @@ public class DeviceServiceImpl implements DeviceService {
 
         /**
          * 根据场地查询设备
-         * @param id 场地Id
-         * @return 设备集合
+         * @param id
+         * @return
          */
         @Override
         public List<DeviceEntity> getDeviceByplace_id(int id) {
@@ -278,22 +253,17 @@ public class DeviceServiceImpl implements DeviceService {
 
         /**
          * 无条件查询所有设备
-         * @return 设备集合
+         * @return
          */
+
         @Override
         public List<DeviceEntity> findDevice2() {
                 return  this.deviceRepository.getAllDevice();
         }
 
 
+        //Excel导出
 
-
-        /**
-         * Excel导出
-         * @param request 页面请求
-         * @param response  相应excel
-         * @param session 用户信息
-         */
         @Override
         public void getAllExcel(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
@@ -353,11 +323,6 @@ public class DeviceServiceImpl implements DeviceService {
                 }
         }
 
-        /**
-         *  下载
-         * @param response 文件吐出
-         * @param fileName 文件名
-         */
         private void setResponseHeader(HttpServletResponse response, String fileName) {
                 try {
                         try {
@@ -376,11 +341,15 @@ public class DeviceServiceImpl implements DeviceService {
         }
 
 
-
         /**
          * 导入Excel
          * @param file 用户上传的Excel 文件
-         * @return 导入结果
+         * @return
+         */
+        /**
+         * 导入Excel
+         * @param file 用户上传的Excel 文件
+         * @return
          */
         @Override
         public List<ExcelSetDeviceResult> setAllExcel(MultipartFile file) throws IOException {
@@ -506,8 +475,8 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                       deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
                                                                                       deviceEntity.setLoraId(sn.toString());
                                                                                       deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));
-                                                                                    if (this.deviceRepository.getDeviceBySn(sn)!=null){
-                                                                                           deviceEntity.setId(this.deviceRepository.getDeviceBySn(sn).getId());
+                                                                                    if (this.deviceRepository.getDeviceBySN(sn)!=null){
+                                                                                           deviceEntity.setId(this.deviceRepository.getDeviceBySN(sn).getId());
                                                                                     }
                                                                                       this.deviceRepository.save(deviceEntity);
 
@@ -707,8 +676,8 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                                 deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
                                                                                                 deviceEntity.setLoraId(sn.toString());
                                                                                                 deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));
-                                                                                                if (this.deviceRepository.getDeviceBySn(sn)!=null){
-                                                                                                        deviceEntity.setId(this.deviceRepository.getDeviceBySn(sn).getId());
+                                                                                                if (this.deviceRepository.getDeviceBySN(sn)!=null){
+                                                                                                        deviceEntity.setId(this.deviceRepository.getDeviceBySN(sn).getId());
                                                                                                 }
                                                                                                 this.deviceRepository.save(deviceEntity);
 
@@ -813,7 +782,7 @@ public class DeviceServiceImpl implements DeviceService {
         }
         /**
          * 导出设备模板
-         * @param response 下载模板
+         * @param response
          */
         @Override
         public void getExcelModel(HttpServletResponse response) {
@@ -860,11 +829,6 @@ public class DeviceServiceImpl implements DeviceService {
 
         }
 
-        /**
-         *  根据SN查询设备
-         * @param sn 椅子sn
-         * @return 设备
-         */
         @Override
         public DeviceEntity selectDeviceBYSN(String sn) {
                return this.deviceRepository.getDeviceBySN(sn);
@@ -873,12 +837,7 @@ public class DeviceServiceImpl implements DeviceService {
 
 
 
-
-        /**
-         * 导出失败结果Excel
-         * @param excelError1  失败数据
-         * @param response  响应excel
-         */
+        //导出失败结果Excel
         @Override
         public void getExcelError(Set excelError1, HttpServletResponse response) {
               Set<ExcelSetDeviceResult>list= excelError1;
@@ -928,9 +887,6 @@ public class DeviceServiceImpl implements DeviceService {
 
         }
 
-        /**
-         * 修改设备状态为待查询
-         */
         @Override
         public void updateMcStatusToZero() {
                List<DeviceEntity> deviceList = this.deviceRepository.findDeviceEntities();//所有按摩椅状态改为待查询

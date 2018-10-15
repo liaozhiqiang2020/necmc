@@ -47,10 +47,11 @@ public class PlaceServiceImpl implements PlaceService {
     private UserRepository userRepository;
 
     /**
-     *
+     * 1
      * 保存缓存数据
+     *
      * @param place 场地数据
-     * @return 场地信息
+     * @return
      */
     @Override
     public PlaceEntity save(PlaceEntity place) {
@@ -58,8 +59,9 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     /**
-     *
+     * 2
      * 查询所有场地数据列表
+     *
      * @return List<PranchEntity>
      */
     @Override
@@ -71,6 +73,7 @@ public class PlaceServiceImpl implements PlaceService {
     /**
      * 3
      * 根据场地id查询对应场地数据
+     *
      * @param id 分公司id
      * @return PranchEntity
      */
@@ -83,6 +86,7 @@ public class PlaceServiceImpl implements PlaceService {
     /**
      * 5
      * 根据场地id更改场地数据
+     *
      * @param id    场地
      * @param place 场地实体类
      * @return PranchEntity
@@ -93,22 +97,12 @@ public class PlaceServiceImpl implements PlaceService {
 
     }
 
-    /**
-     * 根据场地id查询场地数据
-     * @param id 主键Id
-     * @return 场地数据
-     */
     @Override
     public List findPlace(int id) {
         return null;
     }
 
-    /**
-     * 分页查询场地
-     * @param page 起始个数
-     * @param pageSize 截至个数
-     * @return 场地信息
-     */
+
     @Override
     public String findAllPlaceByPage(int page, int pageSize) {
         int offset = ((page - 1) * pageSize);
@@ -162,12 +156,6 @@ public class PlaceServiceImpl implements PlaceService {
         return jsonObject2.toString();
     }
 
-    /**
-     * 查询用户下场地
-     * @param map 查询的信息
-     * @param session 用户信息
-     * @return 场地信息Json
-     */
     @Override
     public String findAllPlace(Map map, HttpSession session) {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
@@ -246,9 +234,10 @@ public class PlaceServiceImpl implements PlaceService {
 
 
     /**
+     * 4
      * 插入一条场地数据
-     * @param map 接收到的场地json
-     * @return 场地信息
+     *
+     * @param
      */
     @Override
     public PlaceEntity insertPlace(Map map) {
@@ -304,8 +293,8 @@ public class PlaceServiceImpl implements PlaceService {
     /**
      * 修改场地数据
      *
-     * @param map 场地数据
-     * @return 修改的场地对象
+     * @param
+     * @return
      */
     @Override
     public PlaceEntity updatePlace(Map map) {
@@ -360,9 +349,10 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     /**
+     * 4
      * 插入一条场地数据
-     * @param map 场地数据
-     * @return  插入的场地对象
+     *
+     * @param
      */
     @Override
     public PlaceEntity insertPlaceChild(Map map) {
@@ -415,11 +405,6 @@ public class PlaceServiceImpl implements PlaceService {
         return this.placeRepository.save(placeEntity);
     }
 
-    /**
-     *  查询分公司场地
-     * @param map 分公司信息
-     * @return 场地信息
-     */
     @Override
     public PlaceEntity updatePlaceChild(Map map) {
         PlaceEntity placeEntity = new PlaceEntity();
@@ -471,10 +456,6 @@ public class PlaceServiceImpl implements PlaceService {
         return this.placeRepository.save(placeEntity);
     }
 
-    /**
-     * 根据场地Id 删除场地
-     * @param placeId 场地Id
-     */
     @Override
     public void deletePlace(int placeId) {
         PlaceEntity placeEntity = findPlaceById(placeId);
@@ -483,11 +464,6 @@ public class PlaceServiceImpl implements PlaceService {
 
     }
 
-    /**
-     * 根据场地id查询设备
-     * @param pId 场地ID
-     * @return 设备信息
-     */
     @Override
     public String findDeviceByPlace(int pId) {
         List<Object[]> deviceEntities = this.placeRepository.findAllChildById(pId);
@@ -501,7 +477,7 @@ public class PlaceServiceImpl implements PlaceService {
             deviceList.add(this.deviceRepository.findDeviceById(id));
         }
         JsonConfig config = new JsonConfig();
-        config.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        config.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 //                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
         config.setExcludes(new String[]{"deviceModelEntity", "placeEntity", "supplierEntity", "priceEntities"});
         JSONArray jsonArray = JSONArray.fromObject(deviceList, config);//转化为jsonArray
@@ -524,14 +500,6 @@ public class PlaceServiceImpl implements PlaceService {
 
     }
 
-    /**
-     * 查询用户下的场地
-     * @param placeId 场地Id
-     * @param deviceId 设备id
-     * @param session 用户信息
-     * @return 场地信息
-     * @throws ParseException
-     */
     @Override
     public String findDeviceByPlaceId(int placeId, String deviceId, HttpSession session) throws ParseException{
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
@@ -551,7 +519,7 @@ public class PlaceServiceImpl implements PlaceService {
             }
             count = this.placeRepository.findAllChildByIdCount(placeId);
         } else {
-            int device = this.deviceRepository.queryDeviceIdByDeviceCode(deviceId);
+            Integer device = this.deviceRepository.queryDeviceIdByDeviceCode(deviceId);
 
             if (superId == 1) {
                 deviceEntityList = this.deviceRepository.findDevicesById(device);
@@ -606,11 +574,7 @@ public class PlaceServiceImpl implements PlaceService {
         return jsonObject1.toString();
     }
 
-    /**
-     *
-     * @param placeId 一级场地Id
-     * @return 查询一级场地信息
-     */
+
     @Override
     public String findPlaceByParentId(int placeId) {
         List<PlaceEntity> placeEntityList = this.placeRepository.findPlaceByParentId2(placeId);
@@ -645,20 +609,13 @@ public class PlaceServiceImpl implements PlaceService {
         return jsonArray1.toString();
     }
 
-    /**
-     *  查询所有场地信息
-     * @return 场地信息集合
-     */
+
     @Override
     public List<PlaceEntity> findAllPlaces() {
         return this.placeRepository.findAllPlace();
     }
 
-    /**
-     *  根据市查场地
-     * @param cityId 市id
-     * @return 场地集合
-     */
+
     @Override
     public List<PlaceEntity> getPlace(int cityId) {
         return this.placeRepository.queryPlaceEntitiesByCityId(cityId);
@@ -667,8 +624,6 @@ public class PlaceServiceImpl implements PlaceService {
 
     /**
      * 不分页查询第一级场地数据
-     * @param session 用户信息
-     * @return 场地数据
      */
     @Override
     public List<PlaceEntity> findAllPlaceFirst(HttpSession session) {
@@ -693,8 +648,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     /**
      * 把图片存到数据库中
-     * @param placeId 场地Id
-     * @param uploadpath 上传路径
+     *
+     * @param placeId
+     * @param uploadpath
      */
     @Override
     public void saveFileToDB(int placeId, String uploadpath, String fileName) {
@@ -704,11 +660,6 @@ public class PlaceServiceImpl implements PlaceService {
         this.placeRepository.save(placeEntity);
     }
 
-    /**
-     * 根据场地Id 查询设备
-     * @param placeId 场地Id
-     * @return 设备信息
-     */
     @Override
     public String findDeviceBypId(int placeId) {
 
@@ -718,7 +669,7 @@ public class PlaceServiceImpl implements PlaceService {
         String type = "";
         String placeName = "";
         JsonConfig config = new JsonConfig();
-        config.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        config.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 //                config.registerJsonValueProcessor(Timestamp.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
         config.setExcludes(new String[]{"deviceModelEntity", "placeEntity", "supplierEntity", "priceEntities"});
         JSONArray jsonArray = JSONArray.fromObject(deviceEntities, config);//转化为jsonArray
@@ -741,11 +692,6 @@ public class PlaceServiceImpl implements PlaceService {
         return jsonObject.toString();
     }
 
-    /**
-     * 根据用户查询场地
-     * @param request 请求的用户
-     * @return 场地信息
-     */
     @Override
     public String findDeviceByUser(HttpServletRequest request) {
         List<PlaceEntity> placeEntityList = new ArrayList<>();
@@ -818,10 +764,10 @@ public class PlaceServiceImpl implements PlaceService {
 
 
     /**
-     *
+     * 4
      * 插入一条场地数据
-     * @param map 场地信息
-     * @return 场地信息
+     *
+     * @param
      */
     @Override
     public PlaceEntity insertPlaceTree(Map map) {
@@ -884,8 +830,9 @@ public class PlaceServiceImpl implements PlaceService {
 
     /**
      * 修改场地数据
-     * @param map 修改的场地信息
-     * @return 修改的场地信息对象
+     *
+     * @param
+     * @return
      */
     @Override
     public PlaceEntity updatePlaceTree(Map map) {
@@ -946,21 +893,12 @@ public class PlaceServiceImpl implements PlaceService {
         return this.placeRepository.save(placeEntity);
     }
 
-    /**
-     * 根据场地名称查询场地
-     * @param name 场地名称
-     * @return 场地信息
-     */
+
     @Override
     public PlaceEntity getPlaceByName(String name) {
         return this.placeRepository.getPlaceName(name);
     }
 
-    /**
-     * 根据场地Id 查询场地信息
-     * @param pid 场地Id
-     * @return 场地信息集合
-     */
     @Override
     public List<PlaceEntity> getPlaceBy_ID(int pid) {
         return this.placeRepository.getPlaceBy_ID(pid);
@@ -969,7 +907,8 @@ public class PlaceServiceImpl implements PlaceService {
 
     /**
      * 查询所有未删除场地
-     * @return 场地信息集合
+     *
+     * @return
      */
     @Override
     public List<PlaceEntity> allPlaceUnDelete() {

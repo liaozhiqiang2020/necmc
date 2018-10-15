@@ -108,7 +108,7 @@ public class JMSConsumer {
                     mcStatus = 3;
                 }
                 SingletonHungary.getSingleTon().put(chairId + "runing", chairId + "_" + mcStatus);
-                SingletonHungary.getSingleTon().put(chairId + "runingSys", chairId + "_" + mcStatus);
+                SingletonHungary.getSingleTon().put(chairId + "runingSys",  chairId + "_" + mcStatus);
             } else if (type == 10) {//停止椅子
                 SingletonHungary.getSingleTon().put(chairId + "statusSys", chairId + "_" + 4);
                 this.deviceService.findChairRuningStatus(chairId, 4);//修改为未响应状态

@@ -108,7 +108,7 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      * @return 设备Id
      */
     @Query("select d.id from DeviceEntity d where d.mcSn=:deviceCode")
-    int queryDeviceIdByDeviceCode(@Param("deviceCode") String deviceCode);
+    Integer queryDeviceIdByDeviceCode(@Param("deviceCode") String deviceCode);
 
     /**
      * 根据模块Id 查询 设备Id
@@ -266,7 +266,7 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      * @param sn  设备sn
      * @return 设备信息
      */
-    @Query(value = "from DeviceEntity as d where d.mcSn=:sn")
+    @Query("from DeviceEntity as d where d.mcSn=:sn")
     DeviceEntity getDeviceBySN(@Param("sn") String sn);
 
 
@@ -299,8 +299,8 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
      * @param sn 设备编号Sn
      * @return 设备信息
      */
-    @Query(value = "from DeviceEntity as d where d.mcSn=:sn")
-    DeviceEntity getDeviceBySn(@Param("sn") String sn);
+    @Query(value = "select * from mc_device where mc_sn=:sn",nativeQuery = true)
+    DeviceEntity getDeviceBySn2(@Param("sn") String sn);
 
     /**
      * 1级权限返回所有的正常设备数

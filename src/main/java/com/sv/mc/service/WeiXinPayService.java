@@ -52,4 +52,12 @@ public interface WeiXinPayService {
      * @return 用户信息
      */
     String getUserInfo(String sessionkey, String encryptedData, String iv, String openid, String userInfos);
+
+    /**
+     * 发送启动按摩椅命令
+     * @param chairId
+     * @param mcTime
+     * @throws Exception
+     */
+    void sendStartChairMsg(String chairId, Integer mcTime) throws Exception;
 }

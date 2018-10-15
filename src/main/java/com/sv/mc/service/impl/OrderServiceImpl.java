@@ -53,15 +53,13 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     private AccountDetailService accountDetailService;
     @Autowired
     private AccountDetailRepository accountDetailRepository;
+    @Autowired
+    private WeiXinPayService weiXinPayService;
 
     /**
      * 分页查询所有订单(后台查询)
-     * @param page 起始个数
-     * @param pageSize 截至个数
-     * @param session 用户信息
-     * @param startTime 起始时间
-     * @param endTime 截止时间
-     * @return 所有的订单信息
+     *
+     * @return
      */
     @Override
     @Transactional
@@ -141,6 +139,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
                 statusName = "已完成";
             } else if (status == 3) {
                 statusName = "已取消";
+            }else if (status == 4) {
+                statusName = "已付款,未启动";
             }
             jsonObject12.put("statusName", statusName);
             jsonArray1.add(jsonObject12);
@@ -169,7 +169,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 创建订单
-     * @param orderEntity 订单信息
+     *
+     * @param orderEntity
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -182,9 +183,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 查询当前用户订单列表
      *
-     * @param openId 唯一Id
-     * @param state 订单状态
-     * @return 订单信息
+     * @param openId
+     * @return
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -196,12 +196,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
     /**
-     *  分页查询当前用户订单列表
-     * @param openId 用户唯一id
-     * @param state 订单状态
-     * @param offset  起始个数
-     * @param pageSize 截至个数
-     * @return 订单信息集合
+     * 分页查询当前用户订单列表
+     *
+     * @param openId
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -213,7 +213,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 根据订单号查询订单
      *
-     * @param paidOrderId 订单号
+     * @param paidOrderId
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -227,10 +227,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 根据订单code查询订单信息
      *
-     * @param paidOrderCode 订单code
+     * @param paidOrderCode
      * @author: lzq
      * @date: 2018年7月6日
-     * @return 订单数
      */
     @Override
     @Transactional
@@ -242,7 +241,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     /**
      * 修改已支付订单
      *
-     * @param orderEntity 订单信息
+     * @param
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -254,8 +253,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据订单code修改订单状态
-     * @param paidOrderCode 订单code
-     * @param state  订单状态
+     *
+     * @param paidOrderCode,state
+     * @return
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -271,24 +271,33 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据订单id修改订单状态
-     * @param orderId 订单Id
-     * @param state  订单状态
-     * @param description 订单描述
+     *
+     * @param orderId,state
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
-    public void updateOrderById(int orderId, int state, String description) {
+    public void updateOrderById(int orderId, int state, String description) throws Exception{
+        WxUtil wxUtil = new WxUtil();
+        Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
         OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
         orderEntity.setStatus(state);//写入订单状态
+        orderEntity.setPayDateTime(ts);
         orderEntity.setDescription(description);
         this.orderRepository.save(orderEntity);
+
+//        int deviceId = orderEntity.getDeviceId();//按摩椅编号
+//        DeviceEntity deviceEntity = this.deviceRepository.findDeviceById(deviceId);//设备信息
+//        this.weiXinPayService.sendStartChairMsg(deviceEntity.getMcSn(),orderEntity.getMcTime());
     }
 
     /**
      * 获取按摩剩余时间
      *
-     * @param orderId 订单Id
-     * @return 剩余时间
+     * @param orderId
+     * @return
      * @author: lzq
      * @date: 2018年7月6日
      */
@@ -310,18 +319,12 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return differTime;
     }
 
-
     /**
      * 创建订单
-     * @param openid 用户唯一Id
-     * @param mcTime  按摩时长
-     * @param deviceCode 设备编号
-     * @param promoCode 优惠码
-     * @param money 钱
-     * @param unPaidOrderCode 未付款订单号
-     * @param state 订单状态
-     * @param strength 按摩力度
+     *
      * @return
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -329,7 +332,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         OrderEntity orderEntity = new OrderEntity();
         WxUtil wxUtil = new WxUtil();
         String paidOrderCode = wxUtil.createPaidOrderCode(openid, deviceCode); //生成订单号
-        int deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);//设备id
+        Integer deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);//设备id
 
         Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
 
@@ -341,13 +344,15 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
             wxUserInfoEntity.setOpenCode(openid);
             wxUserInfoEntity.setUpdateDateTime(wxUtil.getNowDate());
             this.wxUserInfoRepository.save(wxUserInfoEntity);
+
+            orderEntity.setWxUserInfoId(wxUserInfoEntity.getId());
         }
 
         orderEntity.setCode(paidOrderCode);//生成订单号
         orderEntity.setCreateDateTime(ts);//订单创建时间
 //        orderEntity.setPayDateTime(ts);//支付时间
 //        orderEntity.setMcStartDateTime(null);//开始计时时间
-        orderEntity.setCodeWx("");//微信/支付宝/银联订单号
+//        orderEntity.setCodeWx("");//微信/支付宝/银联订单号
         orderEntity.setOrderSource("微信");
         orderEntity.setDeviceId(deviceId);//设备id
 
@@ -365,9 +370,10 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 修改订单按摩开始时间，付款时间和结束时间
-     * @param orderId 订单Id
-     * @param state 状态
-     * @param  mcTime  时间
+     *
+     * @param orderId
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -381,7 +387,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
         orderEntity.setMcEndDateTime(afterTs);//结束计时时间
-        orderEntity.setStatus(state);//使用状态1  已支付，使用中
+        orderEntity.setStatus(state);//使用状态1已支付，使用中
 
         this.orderRepository.save(orderEntity);//保存订单信息
 
@@ -423,8 +429,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
             this.accountDetailService.createAccountDetail(accountDetailEntity1);
         }
 
-        String devideCode = getMcCode(orderId);
-        String chairCode = wxUtil.convertStringToHex(devideCode);
+        String devideCode = getMcCode(orderId);//从订单中获取按摩椅编号
+//        String chairCode = wxUtil.convertStringToHex(devideCode);
 
         SingletonHungary.getSingleTon().remove(devideCode + "runing");
         SingletonHungary.getSingleTon().remove(devideCode + "status");
@@ -436,7 +442,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         //      3、任务执行间隔 4、间隔时间单位
         service.scheduleAtFixedRate(() -> {
             try {
-                findOrderStateByTime(service, afterTs, orderEntity, chairCode);
+                findOrderStateByTime(service, afterTs, orderEntity, devideCode);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -445,25 +451,23 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     }
 
-
     /**
      * 每秒查询一次订单状态，如果时间到了，修改状态为[已完成订单]state=2
-     * @param service 定时器服务
-     * @param afterTs 按摩结束时间
-     * @param orderEntity  订单信息
-     * @param chairCode 按摩椅编号
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
-    public void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity, String chairCode) {
+    @Transactional
+    public void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity, String devideCode) {
         WxUtil wxUtil = new WxUtil();
         try {
             if (afterTs.getTime() <= wxUtil.getNowDate().getTime()) {//获取当前时间(时间戳)//如果现在的时间大于等于结束时间
                 orderEntity.setStatus(2);//修改状态为已完成
                 this.orderRepository.save(orderEntity);
-                service.shutdownNow();//停止当前计时器
 
-                DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairCode);
-                String loraId = wxUtil.convertStringToHex(deviceEntity.getLoraId());
+                DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(devideCode);//查询按摩椅信息
+                String loraId = wxUtil.convertStringToHex(deviceEntity.getLoraId());//根据按摩椅编号查询模块编号
                 String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
 
                 String message = "faaf0e10" + loraId;//按摩椅20000002，60min
@@ -473,6 +477,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
                 String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
                 message = message + res + "_" + gatewayId;
                 jmsProducer.sendMessage(message);//按摩椅20000002  停止按摩椅
+                service.shutdownNow();//停止当前计时器
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -482,8 +487,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据订单号查询订单
-     * @param orderId  订单信息
-     * @return 订单信息
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -496,9 +502,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 查询订单
-     * @param openCode  用户唯一Id
-     * @param state 订单状态
-     * @return 订单信息
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -509,14 +515,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return json;
     }
 
-
     /**
      * 分页查询订单
-     * @param openCode 用户唯一Id
-     * @param state 订单状态
-     * @param pageNumber 起始个数
-     * @param pageSize 截至个数
-     * @return 订单信息
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -531,7 +534,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
-     * @param orderId 订单Id
+     *
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -546,7 +551,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 根据orderId获取按摩椅code
-     * @param orderId 订单号
+     *
+     * @param orderId
      * @return
      */
     @Override
@@ -564,10 +570,13 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         return map;
     }
+
+
     /**
      * 根据orderId获取按摩椅code
-     * @param orderId 订单id
-     * @return  按摩椅code
+     *
+     * @param orderId
+     * @return
      */
     @Override
     @Transactional
@@ -576,11 +585,13 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
     }
 
 
-
     /**
      * 后台添加订单描述
-     * @param orderId 订单Id
-     * @param description 订单描述
+     *
+     * @param
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
      */
     @Override
     @Transactional
@@ -590,10 +601,6 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         this.orderRepository.save(orderEntity);
     }
 
-    /**
-     * 查询前一天的订单数
-     * @return  昨天订单数
-     */
     @Override
     public int findYesterDayOrderCount() {
         Calendar calendar = Calendar.getInstance();//此时打印它获取的是系统当前时间
@@ -608,13 +615,7 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return this.orderRepository.findOrderByPeriod(yestedayDate, today);
     }
 
-    /**
-     * 查询用户昨天订单信息
-     * @param page  起始个数
-     * @param pageSize 截至个数
-     * @param session 用户信息
-     * @return 昨天订单信息
-     */
+
     @Override
     public String findYesterDayOrderInfo(int page, int pageSize,HttpSession session) {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
@@ -681,6 +682,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
                 statusName = "已完成";
             } else if (status == 3) {
                 statusName = "已取消";
+            }else if (status == 4) {
+                statusName = "已付款,未启动";
             }
             jsonObject12.put("statusName", statusName);
             jsonArray1.add(jsonObject12);
@@ -694,9 +697,8 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 不分页查询所有订单信息
-     * @param startTime  起始时间
-     * @param endTime  截止时间
-     * @return 所有订单信息
+     *
+     * @return
      */
     @Override
     public List<OrderEntity> findAllExcelOrder(String startTime,String endTime) {
@@ -706,8 +708,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
     /**
      * 修改微信订单号
-     * @param orderId 订单号
-     * @param codeWx 微信订单编号
+     *
+     * @param orderId
+     * @param codeWx
      */
     @Override
     public void updateOrderByCode(String orderId, String codeWx) {
