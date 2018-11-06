@@ -273,7 +273,34 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                 orderEntity.setStatus(4);//写入订单状态  (已支付)
                 orderEntity.setCodeWx(transactionId);
                 orderEntity.setPayDateTime(ts);
+
                 this.orderRepository.save(orderEntity);
+
+                Integer mcTime = orderEntity.getMcTime();//获取按摩时间
+//                Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
+//                orderEntity.setMcEndDateTime(afterTs);//结束计时时间
+//                orderEntity.setMcStartDateTime(ts);
+
+                int chairId = orderEntity.getDeviceId();//获取按摩椅编号
+                DeviceEntity deviceEntity = this.deviceService.findDeviceById(chairId);//获取设备信息
+                if (deviceEntity != null) {
+                    String deviceId = deviceEntity.getLoraId();//获取模块id
+                    String chairCode = wxUtil.convertStringToHex(deviceId);
+                    String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
+                    String time = mcTime.toHexString(mcTime);
+                    if (time.length() < 2) {
+                        time = "0" + time;
+                    }
+                    String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
+
+                    byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+                    byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
+                    String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+                    message = message + res + "_" + gatewayId;
+
+                    jmsProducer.sendMessage(message);
+                }
+
 
                 /**此处添加自己的业务逻辑代码end**/
                 System.out.println("回调成功");
