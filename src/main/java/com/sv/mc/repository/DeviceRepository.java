@@ -398,7 +398,7 @@ public interface DeviceRepository extends BaseRepository<DeviceEntity, Long>, Pa
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update mc_device set isnot_online=:status,last_correspond_time=:timeStr where lora_id=:loraId", nativeQuery = true)
-    void updateDeviceTimeByLoraId(@Param("loraId") String loraId, @Param("status") int status, @Param("timeStr")String timeStr);
+    void updateDeviceTimeByLoraId(@Param("loraId") String loraId, @Param("status") int status, @Param("timeStr") String timeStr);
 
     /**
      * 修改设备在线状态

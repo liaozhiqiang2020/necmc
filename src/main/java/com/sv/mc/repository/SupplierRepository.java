@@ -29,5 +29,5 @@ public interface SupplierRepository extends BaseRepository<SupplierEntity, Long>
      */
 
     @Query("from SupplierEntity as s where s.supplierName=:name")
-    SupplierEntity getSupplierBySName(@Param("name")String name);
+    SupplierEntity getSupplierBySName(@Param("name") String name);
 }

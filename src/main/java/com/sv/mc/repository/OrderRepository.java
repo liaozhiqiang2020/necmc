@@ -48,7 +48,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @date: 2018年7月6日
      */
     @Query(value = "select p.* from mc_order p,mc_wx_user_info u where p.wx_user_info_id=u.id and u.open_code=:openId and p.status=:state order by p.create_date_time DESC LIMIT :offset,:pageSize", nativeQuery = true)
-    List<OrderEntity> findListByWxUserIdByPage(@Param("openId") String openId, @Param("state") int state,@Param("offset") int offset,@Param("pageSize") int pageSize);
+    List<OrderEntity> findListByWxUserIdByPage(@Param("openId") String openId, @Param("state") int state, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     /**
      * 根据订单code查询订单id
@@ -78,7 +78,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @date: 2018年7月6日
      */
     @Query(value="select sum(money) from mc_order where status=1 or status=2 and  pay_date_time BETWEEN cast(:startTime as datetime ) and cast(:endTime as datetime)",nativeQuery = true)
-    BigDecimal findTotalIncomeByTime(@Param("startTime")String startTime,@Param("endTime")String endTime);
+    BigDecimal findTotalIncomeByTime(@Param("startTime") String startTime, @Param("endTime") String endTime);
 
 //    /**
 //     * 根据openId查询服务中订单
@@ -94,7 +94,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 按摩椅code 集合
      */
     @Query(value = "select d.mc_sn,o.strength from mc_order o,mc_device d where o.device_id = d.id and o.id=:orderId",nativeQuery = true)
-    List<Object[]> getMcCodeForList(@Param("orderId")int orderId);
+    List<Object[]> getMcCodeForList(@Param("orderId") int orderId);
 
     /**
      * 根据orderId获取按摩椅code
@@ -102,7 +102,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return  按摩椅code
      */
     @Query(value = "select d.mc_sn from mc_order o,mc_device d where o.device_id = d.id and o.id=:orderId",nativeQuery = true)
-    String getMcCode(@Param("orderId")int orderId);
+    String getMcCode(@Param("orderId") int orderId);
 
 
     /**
@@ -114,7 +114,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息集合
      */
     @Query(value="select * from mc_order as b where create_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    List<OrderEntity> findAllOrdersByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 分页查询分公司订单信息
@@ -126,7 +126,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息集合
      */
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and create_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    List<OrderEntity> findAllOrdersByPage2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("branchId") int branchId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 分页查询代理商订单信息
@@ -138,7 +138,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息集合
      */
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and create_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    List<OrderEntity> findAllOrdersByPage3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("vendorId") int vendorId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 分页查询场地订单信息
@@ -150,7 +150,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息集合
      */
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id in (select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))) and create_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPage4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    List<OrderEntity> findAllOrdersByPage4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("placeId") int placeId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 查询一定时间订单数
@@ -159,7 +159,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数
      */
     @Query(value="select count(*) from mc_order as b where create_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotal(@Param("startTime") String startTime,@Param("endTime") String endTime);
+    int findOrderTotal(@Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 查询指定时间段分公司订单数
@@ -169,7 +169,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数
      */
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and create_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotal2(@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    int findOrderTotal2(@Param("branchId") int branchId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 查询指定时间段代理商订单数
@@ -179,7 +179,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数
      */
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and create_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotal3(@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    int findOrderTotal3(@Param("vendorId") int vendorId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      *  查询指定时间段场地的订单数
@@ -189,7 +189,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数
      */
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id in (select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))) and create_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotal4(@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    int findOrderTotal4(@Param("placeId") int placeId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
 
 
@@ -204,7 +204,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单集合
      */
     @Query(value="select * from mc_order as b,mc_device as d where b.device_Id=d.Id and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPlace(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+    List<OrderEntity> findAllOrdersByPlace(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("placeId") int placeId);
 
     /**
      * 分页查询指定时间段分公司场地订单信息
@@ -217,7 +217,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息
      */
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPlace2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+    List<OrderEntity> findAllOrdersByPlace2(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("branchId") int branchId, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("placeId") int placeId);
 
     /**
      * 分页查询指定时间段代理商场地订单信息
@@ -230,7 +230,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息
      */
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPlace3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+    List<OrderEntity> findAllOrdersByPlace3(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("vendorId") int vendorId, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("placeId") int placeId);
 
     /**
      * 分页查询指定时间段场地的订单信息
@@ -242,7 +242,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息
      */
     @Query(value="select * from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime order by b.create_date_time DESC LIMIT :offset,:pageSize",nativeQuery=true)
-    List<OrderEntity> findAllOrdersByPlace4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    List<OrderEntity> findAllOrdersByPlace4(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("placeId") int placeId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
 
     /**
@@ -253,7 +253,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数量
      */
     @Query(value="select count(*) from mc_order as b,mc_device as d where b.device_Id=d.Id and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotalByPlace(@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+    int findOrderTotalByPlace(@Param("startTime") String startTime, @Param("endTime") String endTime, @Param("placeId") int placeId);
 
     /**
      * 查询指定时间段分公司场地的订单数量
@@ -264,7 +264,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数量
      */
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=2 and p.superior_id=:branchId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotalByPlace2(@Param("branchId") int branchId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+    int findOrderTotalByPlace2(@Param("branchId") int branchId, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("placeId") int placeId);
 
     /**
      * 查询指定时间代理商的场地订单数量
@@ -275,7 +275,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数量
      */
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.level_flag=3 and p.superior_id=:vendorId and d.place_id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotalByPlace3(@Param("vendorId") int vendorId,@Param("startTime") String startTime,@Param("endTime") String endTime,@Param("placeId") int placeId);
+    int findOrderTotalByPlace3(@Param("vendorId") int vendorId, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("placeId") int placeId);
 
     /**
      * 查询指定时间场地的订单数
@@ -285,7 +285,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数量
      */
     @Query(value="select count(*) from mc_order b,mc_place p,mc_device d where b.device_Id=d.Id and d.place_id=p.Id and p.Id=:placeId and mc_start_date_time BETWEEN :startTime and :endTime",nativeQuery = true)
-    int findOrderTotalByPlace4(@Param("placeId") int placeId,@Param("startTime") String startTime,@Param("endTime") String endTime);
+    int findOrderTotalByPlace4(@Param("placeId") int placeId, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
 
     /**
@@ -295,7 +295,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单数
      */
     @Query(value="select count(id) from mc_order where pay_date_time BETWEEN cast(:startTime as datetime ) and cast(:endTime as datetime)",nativeQuery = true)
-    int findOrderByPeriod(@Param("startTime")String startTime,@Param("endTime")String endTime);
+    int findOrderByPeriod(@Param("startTime") String startTime, @Param("endTime") String endTime);
 
     /**
      * 分页查询指定时间段的支付订单信息
@@ -306,14 +306,14 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
      * @return 订单信息集合
      */
     @Query(value="select * from mc_order where pay_date_time BETWEEN cast(:startTime as datetime ) and cast(:endTime as datetime) order by create_date_time DESC LIMIT :offset,:pageSize",nativeQuery = true)
-    List<OrderEntity> findOrdersInfo(@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+    List<OrderEntity> findOrdersInfo(@Param("startTime") String startTime, @Param("endTime") String endTime, @Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询所有订单信息
      * @return 订单信息
      */
     @Query(value = "select * from mc_order where create_date_time>= :startTime and create_date_time< :endTime ",nativeQuery = true)
-    List<OrderEntity>getExcelOrder(@Param("startTime") String startTime,@Param("endTime") String endTime);
+    List<OrderEntity>getExcelOrder(@Param("startTime") String startTime, @Param("endTime") String endTime);
 
 
 
@@ -335,7 +335,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
             "mc_order.device_id in " +
             "(select mc_device.id from mc_device where discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid))",nativeQuery = true)
-    int getYeOrderThree(@Param("pid")int pid);
+    int getYeOrderThree(@Param("pid") int pid);
 
 
     /**
@@ -347,7 +347,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
             "mc_order.device_id in " +
             "(select mc_device.id from mc_device where  discard_status=1 and mc_device.place_id in " +
             "( select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid))",nativeQuery = true)
-    int getYeOrderTwo(@Param("pid")int pid);
+    int getYeOrderTwo(@Param("pid") int pid);
 
 
     /**
@@ -359,7 +359,7 @@ public interface OrderRepository extends BaseRepository<OrderEntity, Long>, Pagi
             " (select mc_device.id from mc_device where  discard_status=1 and mc_device.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))))",
 
             nativeQuery = true)
-    int getYeOrderFour(@Param("pid")int pid);
+    int getYeOrderFour(@Param("pid") int pid);
 
 
 

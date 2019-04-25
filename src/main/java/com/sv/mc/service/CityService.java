@@ -30,6 +30,6 @@ public interface CityService<T> extends BaseService<T>{
      * @param pid 上级iD
      * @return 查询到的市
      */
-    List<CityEntity> getCityByPlace_ID( int pid);
+    List<CityEntity> getCityByPlace_ID(int pid);
 
 }

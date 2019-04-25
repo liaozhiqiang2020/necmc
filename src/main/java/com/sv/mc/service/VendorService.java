@@ -43,7 +43,7 @@ public interface VendorService<T> extends BaseService<T>{
      * @param pageSize  截至个数
      * @param page  起始个数
      */
-    String findAllVendorByPage(int page, int pageSize,HttpSession session);
+    String findAllVendorByPage(int page, int pageSize, HttpSession session);
 
 
     /**
@@ -51,7 +51,7 @@ public interface VendorService<T> extends BaseService<T>{
      * @param map 代理商信息
      * @return BranchEntity
      */
-    VendorEntity updateVendorDataById(Map<String,Object> map);
+    VendorEntity updateVendorDataById(Map<String, Object> map);
 
     /**4
      * 插入一条分代理商数据

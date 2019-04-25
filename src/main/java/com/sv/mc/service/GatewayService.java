@@ -42,7 +42,7 @@ public interface GatewayService<T> extends BaseService<T>{
      * @param gatewaySn sn
      * @throws Exception
      */
-    void updateGatewayPort(String domainName,String port,String gatewaySn)throws Exception;
+    void updateGatewayPort(String domainName, String port, String gatewaySn)throws Exception;
 
 
     /**
@@ -51,7 +51,7 @@ public interface GatewayService<T> extends BaseService<T>{
      * @param gatewaySn sn
      * @throws Exception
      */
-    void updateGatewayChannel(String channel,String gatewaySn)throws Exception;
+    void updateGatewayChannel(String channel, String gatewaySn)throws Exception;
 
     /**
      * 重启网关
@@ -87,13 +87,13 @@ public interface GatewayService<T> extends BaseService<T>{
      * @param map json格式网关
      * @return  增加的网关对象
      */
-    GatewayEntity insertGateway(Map<String,Object> map);
+    GatewayEntity insertGateway(Map<String, Object> map);
 
     /**
      * 修改网关数据
      * @param map  json格式要修改的信息
      * @return 网关数据
      */
-    GatewayEntity updateGateway(Map<String,Object> map);
+    GatewayEntity updateGateway(Map<String, Object> map);
 
 }

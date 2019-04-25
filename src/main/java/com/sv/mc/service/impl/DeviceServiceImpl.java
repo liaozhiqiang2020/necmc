@@ -331,7 +331,7 @@ public class DeviceServiceImpl implements DeviceService {
 
                                 e.printStackTrace();
                         }
-                        response.setContentType("application/octet-stream;charset=UTF-8");
+                        response.setContentType("application/octet-stream;charSingletonHungaryset=UTF-8");
                         response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
                         response.addHeader("Pargam", "no-cache");
                         response.addHeader("Cache-Control", "no-cache");

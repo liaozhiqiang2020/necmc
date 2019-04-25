@@ -64,7 +64,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param session 用户信息
      * @return 场地数据
      */
-    String findAllPlace(Map<String,Object> map,HttpSession session);
+    String findAllPlace(Map<String, Object> map, HttpSession session);
 
     /**
      * 不分页查询场地数据
@@ -76,28 +76,28 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param map 插入的数据
      * @return PlaceEntity 场地数据
      */
-    PlaceEntity insertPlace(Map<String,Object> map);
+    PlaceEntity insertPlace(Map<String, Object> map);
 
     /**
      * 根据分公司id更改对应的场地数据
      * @param map 分公司Id
      * @return placeEntity 场地对象
      */
-    PlaceEntity updatePlace(Map<String,Object> map);
+    PlaceEntity updatePlace(Map<String, Object> map);
 
     /**4
      * 插入一条子场地数据
      * @param map 子场地数据
      * @return PlaceEntity 场地数据
      */
-    PlaceEntity insertPlaceChild(Map<String,Object> map);
+    PlaceEntity insertPlaceChild(Map<String, Object> map);
 
     /**
      * 根据分公司id更改对应的场地数据
      * @param map 分公司信息
      * @return placeEntity 更改的场地数据
      */
-    PlaceEntity updatePlaceChild(Map<String,Object> map);
+    PlaceEntity updatePlaceChild(Map<String, Object> map);
 
 
     /**
@@ -119,7 +119,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param deviceId 设备id
      * @return 设备信息
      */
-    String findDeviceByPlaceId(int placeId,String deviceId,HttpSession session) throws ParseException;
+    String findDeviceByPlaceId(int placeId, String deviceId, HttpSession session) throws ParseException;
 
 
     /**
@@ -151,7 +151,7 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param uploadpath 上传地址
      * @param fileName 文件名
      */
-    void saveFileToDB(int placeId,String uploadpath,String fileName);
+    void saveFileToDB(int placeId, String uploadpath, String fileName);
 
 
     /**4
@@ -159,14 +159,14 @@ public interface PlaceService<T> extends BaseService<T>{
      * @param map 场地数据
      * @return PlaceEntity 场地集合
      */
-    PlaceEntity insertPlaceTree(Map<String,Object> map);
+    PlaceEntity insertPlaceTree(Map<String, Object> map);
 
     /**
      * 根据分公司id更改对应的场地数据
      * @param map 分公司id 场地信息
      * @return placeEntity 场地数据
      */
-    PlaceEntity updatePlaceTree(Map<String,Object> map);
+    PlaceEntity updatePlaceTree(Map<String, Object> map);
 
     /**
      * 根据场地Id查询该场地的所有设备

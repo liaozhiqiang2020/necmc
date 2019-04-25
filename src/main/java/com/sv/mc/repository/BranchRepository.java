@@ -32,7 +32,7 @@ public interface BranchRepository extends BaseRepository<BranchEntity, Long>, Pa
      * @return 分公司信息结果集
      */
     @Query(value="select * from mc_branch as b where b.discard_status=1 and b.user_id=:userId LIMIT :offset,:pageSize",nativeQuery=true)
-    List<BranchEntity> findAllBranchByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("userId") Integer userId);
+    List<BranchEntity> findAllBranchByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("userId") Integer userId);
     /**
      * 分页查询分公司信息，总公司
      * @param offset  起始个数
@@ -73,6 +73,6 @@ public interface BranchRepository extends BaseRepository<BranchEntity, Long>, Pa
      * @return  主场地结果集
      */
     @Query("from PlaceEntity p where p.levelFlag=2 and p.discardStatus=1 and p.superiorId=:branchId and p.pId is null")
-    List<PlaceEntity> findAllPlaceByBranchId(@Param("branchId")int branchId);
+    List<PlaceEntity> findAllPlaceByBranchId(@Param("branchId") int branchId);
 
 }

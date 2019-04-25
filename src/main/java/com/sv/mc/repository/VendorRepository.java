@@ -35,7 +35,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @return
      */
     @Query(value="select * from mc_vendor where discard_status=1 and user_id=:userId  LIMIT :offset,:pageSize",nativeQuery = true)
-    List<VendorEntity> findAllVendorByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize,@Param("userId") Integer userId);
+    List<VendorEntity> findAllVendorByPage(@Param("offset") Integer offset, @Param("pageSize") Integer pageSize, @Param("userId") Integer userId);
 
     /**
      * 分页查询代理商信息
@@ -69,7 +69,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      */
 
     @Query(value=" from BranchEntity b where b.id=:branchId")
-    BranchEntity findBranchNameById(@Param("branchId")int branchId);
+    BranchEntity findBranchNameById(@Param("branchId") int branchId);
 
     /**
      * 使用headId查总公司名
@@ -80,7 +80,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @return 总公司
      */
     @Query(value=" from HeadQuartersEntity b where b.id=:headId")
-    HeadQuartersEntity findHeadNameById(@Param("headId")int headId);
+    HeadQuartersEntity findHeadNameById(@Param("headId") int headId);
 
 
     /**
@@ -90,7 +90,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @return 分公司
      */
     @Query(value=" from BranchEntity b where b.id=:branchId and b.name=:branchName")
-    BranchEntity findBranchNameByIdAndName(@Param("branchId")int branchId,@Param("branchName") String branchName);
+    BranchEntity findBranchNameByIdAndName(@Param("branchId") int branchId, @Param("branchName") String branchName);
 
     /**
      * 根据总公司id 总公司名称查询总公司
@@ -99,7 +99,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @return 总公司
      */
     @Query(value=" from HeadQuartersEntity b where b.id=:headId and b.name=:headName")
-    HeadQuartersEntity findHeadNameByIdAndName(@Param("headId")int headId,@Param("headName") String headName);
+    HeadQuartersEntity findHeadNameByIdAndName(@Param("headId") int headId, @Param("headName") String headName);
 
 
     /**
@@ -108,7 +108,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @return 代理商
      */
     @Query("from VendorEntity v where v.name = :name")
-    VendorEntity findVendorEntityByName(@Param("name")String name);
+    VendorEntity findVendorEntityByName(@Param("name") String name);
 
 
     /**
@@ -117,7 +117,7 @@ public interface VendorRepository extends BaseRepository<VendorEntity, Long>, Pa
      * @return 场地集合
      */
     @Query("from PlaceEntity p where p.levelFlag=3 and p.discardStatus=1 and p.superiorId=:vendorId and p.pId is null")
-    List<PlaceEntity> findAllPlaceByVendorId(@Param("vendorId")int vendorId);
+    List<PlaceEntity> findAllPlaceByVendorId(@Param("vendorId") int vendorId);
 
     /**
      * 根据分公司Id查出其下所有代理商

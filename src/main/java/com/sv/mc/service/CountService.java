@@ -129,7 +129,7 @@ public interface CountService {
       */
 
 
-     List<ProvinceQo> getProvinceBypId( int level, int pid, String start, String end);
+     List<ProvinceQo> getProvinceBypId(int level, int pid, String start, String end);
 
      /**
       *  根据省ID查询所在省
@@ -140,7 +140,7 @@ public interface CountService {
       * @param provinceId 省Id
       * @return 所在省报表数据
       */
-     List<ProvinceQo> getProvinceBypIdANDprovinceID( int level, int pid,String start, String end,int provinceId);
+     List<ProvinceQo> getProvinceBypIdANDprovinceID(int level, int pid, String start, String end, int provinceId);
 
 
 
@@ -153,7 +153,7 @@ public interface CountService {
       * @param provinceId 省id
       * @return 市报表数据
       */
-     List<ProvinceQo> getCBypIdANDprovinceID( int level, int pid, String start, String end,int provinceId);
+     List<ProvinceQo> getCBypIdANDprovinceID(int level, int pid, String start, String end, int provinceId);
 
 
 
@@ -167,7 +167,7 @@ public interface CountService {
       * @return 所在市数据
       */
 
-     List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, String start, String end,int cityId);
+     List<ProvinceQo> getCityBypIdANDcityID(int level, int pid, String start, String end, int cityId);
 
 
 
@@ -180,7 +180,7 @@ public interface CountService {
       * @param cityId 市Id
       * @return 所在场地报表数据
       */
-     List<ProvinceQo> getPlacyBypIdANDcityID( int level, int pid, String start, String end,int cityId);
+     List<ProvinceQo> getPlacyBypIdANDcityID(int level, int pid, String start, String end, int cityId);
 
 
      /**
@@ -192,7 +192,7 @@ public interface CountService {
       * @param placeId 场地Id
       * @return 所在场地报表数据
       */
-     List<ProvinceQo> getPlacyBypIdANDplaceID( int level, int pid, String start, String end,int placeId);
+     List<ProvinceQo> getPlacyBypIdANDplaceID(int level, int pid, String start, String end, int placeId);
 
 
 
@@ -203,6 +203,6 @@ public interface CountService {
       * @param placeId 场地Id
       * @return 所在场地报表数据
       */
-     List<ProvinceQo> getPlacyByANDplaceID( String start, String end,int placeId);
+     List<ProvinceQo> getPlacyByANDplaceID(String start, String end, int placeId);
 
 }

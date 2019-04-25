@@ -20,7 +20,7 @@ public interface DeviceModelRepository extends BaseRepository<DeviceModelEntity,
      * @return 设备类型信息
      */
     @Query("from DeviceModelEntity as d where d.id = :dId")
-    DeviceModelEntity findById (@Param("dId") int dId);
+    DeviceModelEntity findById(@Param("dId") int dId);
 
     @Query(value = "select distinct d.model from mc_device_model d ",nativeQuery = true)
     List<String> findDeviceModelAll();
@@ -32,7 +32,7 @@ public interface DeviceModelRepository extends BaseRepository<DeviceModelEntity,
      * @return  查询设备
      */
     @Query(value = "from DeviceModelEntity AS d where d.name=:name and d.model=:model")
-    DeviceModelEntity getDeviceByName(@Param("name") String name,@Param("model") String model);
+    DeviceModelEntity getDeviceByName(@Param("name") String name, @Param("model") String model);
 
 
 

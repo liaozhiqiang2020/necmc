@@ -83,7 +83,7 @@ public interface DeviceService<T> extends BaseService<T>{
      * @param deviceCode 设备sn
      * @param mcStatus 设备状态
      */
-    void findChairRuningStatus(String deviceCode,int mcStatus);
+    void findChairRuningStatus(String deviceCode, int mcStatus);
 
 
     /**
@@ -91,7 +91,7 @@ public interface DeviceService<T> extends BaseService<T>{
      * @param deviceCode 设备sc
      * @param strength 按摩椅强度
      */
-    void findChairStrength(String deviceCode,int strength);
+    void findChairStrength(String deviceCode, int strength);
 
 
     /**
@@ -164,7 +164,7 @@ public interface DeviceService<T> extends BaseService<T>{
      * @param response  响应excel
      * @param excelError1  失败数据
      */
-    void getExcelError(Set excelError1,HttpServletResponse response);
+    void getExcelError(Set excelError1, HttpServletResponse response);
 
     /**
      * 修改按摩椅状态为未查询

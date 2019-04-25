@@ -109,7 +109,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @return 场地集合
      */
     @Query("from PlaceEntity where pId=:placeId and discardStatus=1 and userId=:userId")
-    List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId,@Param("userId") int userId);
+    List<PlaceEntity> findPlaceByParentId(@Param("placeId") int placeId, @Param("userId") int userId);
 
 
     /**
@@ -167,7 +167,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @return 场地信息
      */
     @Query("from PlaceEntity p where p.name = :name")
-    PlaceEntity findPByName(@Param("name")String name);
+    PlaceEntity findPByName(@Param("name") String name);
 
 
     /**
@@ -177,7 +177,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @return 场地集合
      */
     @Query(value="select * from mc_place as p where p.discard_status=1 AND p.p_id is null AND p.level_flag = :plevel and p.superior_id = :pId",nativeQuery = true)
-    List<PlaceEntity> findAllPlaceById(@Param("pId") int pId,@Param("plevel") int level);
+    List<PlaceEntity> findAllPlaceById(@Param("pId") int pId, @Param("plevel") int level);
 
 
     /**
@@ -186,7 +186,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @return 场地
      */
     @Query(value = "from PlaceEntity  as p where p.name=:name")
-    PlaceEntity getPlaceName(@Param("name")String name);
+    PlaceEntity getPlaceName(@Param("name") String name);
 
 
     /**
@@ -195,7 +195,7 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @return 场地集合
      */
     @Query(value = "select * from mc_place as p where p.superior_id=:pid",nativeQuery = true)
-    List<PlaceEntity>getPlaceByP_ID(@Param("pid")int pid);
+    List<PlaceEntity>getPlaceByP_ID(@Param("pid") int pid);
 
 
 
@@ -205,6 +205,6 @@ public interface PlaceRepository extends BaseRepository<PlaceEntity, Long>, Pagi
      * @return 场地集合
      */
     @Query(value = "select * from mc_place as p where p.id=:pid",nativeQuery = true)
-    List<PlaceEntity>getPlaceBy_ID(@Param("pid")int pid);
+    List<PlaceEntity>getPlaceBy_ID(@Param("pid") int pid);
 
 }

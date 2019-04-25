@@ -35,7 +35,7 @@ public interface BranchService<T> extends BaseService<T>{
      * @param session 用户session
      * @return 分公司信息
      */
-    String findAllBranchByPage(int page, int pageSize,HttpSession session);
+    String findAllBranchByPage(int page, int pageSize, HttpSession session);
 
     /**
      * 根据分公司id更改对应的分公司数据

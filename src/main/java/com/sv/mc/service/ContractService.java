@@ -36,6 +36,6 @@ public interface ContractService<T> extends BaseService<T> {
      * @param map 签约信息
      *
      */
-    void updateContract(Map<String,Object> map);
+    void updateContract(Map<String, Object> map);
 
 }

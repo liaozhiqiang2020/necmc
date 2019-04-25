@@ -207,8 +207,8 @@ public class UserServiceImpl implements UserService<UserEntity> {
         String userName = (String) map.get("userName");
         int status = (int) map.get("status");
         String createDateTime = (String) map.get("createDatetime");
-        String latestLoginDatetime = (String) map.get("latestLoginDatetime");
-        String lastTime = intUtil.dateString(latestLoginDatetime);
+//        String latestLoginDatetime = (String) map.get("latestLoginDatetime");
+//        String lastTime = intUtil.dateString(latestLoginDatetime);
         UserEntity user = this.userRepository.findUserById(id);
         UserEntity ss = this.userRepository.findUserByUserName(userName);
         if ( ss==user||ss == null ){

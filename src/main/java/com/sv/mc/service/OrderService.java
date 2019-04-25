@@ -42,7 +42,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @author: lzq
      * @date: 2018年7月6日
      */
-     List<OrderEntity> findListByWxUserOpenIdByPage(String openId, int state,int offset,int pageSize);
+     List<OrderEntity> findListByWxUserOpenIdByPage(String openId, int state, int offset, int pageSize);
 
     /**
      * 根据订单号查询订单信息
@@ -59,7 +59,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @author: lzq
      * @date: 2018年7月6日
      */
-    void updateOrderByCode(String orderId,String codeWx);
+    void updateOrderByCode(String orderId, String codeWx);
 
     /**
      * 根据订单code修改订单状态
@@ -68,7 +68,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @author: lzq
      * @date: 2018年7月6日
      */
-    void updateOrderByCodeState(String paidOrderCode,int state);
+    void updateOrderByCodeState(String paidOrderCode, int state);
 
     /**
      * 根据订单id修改订单状态
@@ -78,7 +78,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @author: lzq
      * @date: 2018年7月6日
      */
-    void updateOrderById(int orderId,int state,String description) throws Exception;
+    void updateOrderById(int orderId, int state, String description) throws Exception;
 
     /**
      * 修改订单信息
@@ -109,7 +109,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @param state 状态
      * @param  mcTime  时间
      */
-     void updateOrderDetail(int orderId,int state,int mcTime);
+     void updateOrderDetail(int orderId, int state, int mcTime);
 
 
     /**
@@ -124,7 +124,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @param strength 按摩力度
      * @return 创建的订单
      */
-    int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state,int strength);
+    int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength);
 
 
     /**
@@ -134,7 +134,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @param orderEntity  订单信息
      * @param chairCode 按摩椅编号
      */
-    void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity,String chairCode);
+    void findOrderStateByTime(ScheduledExecutorService service, Timestamp afterTs, OrderEntity orderEntity, String chairCode);
 
     /**
      * 根据订单号查询订单
@@ -162,7 +162,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @param pageSize 截至个数
      * @return 订单信息
      */
-    String findPaidOrderListByPage(String openCode, int state,int pageNumber,int pageSize);
+    String findPaidOrderListByPage(String openCode, int state, int pageNumber, int pageSize);
 
     /**
      * 查看服务中列表中订单状态，如果时间结束状态为1，改为2
@@ -195,7 +195,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @param endTime 截止时间
      * @return 订单信息
      */
-    String findAllOrdersByPage(int page, int pageSize, HttpSession session, String startTime,String endTime);
+    String findAllOrdersByPage(int page, int pageSize, HttpSession session, String startTime, String endTime);
 
     /**
      * 后台添加订单描述
@@ -219,7 +219,7 @@ public interface OrderService<T> extends BaseService<T>{
      * @param page  起始个数
      * @return 订单信息
      */
-    String findYesterDayOrderInfo(int page,int pageSize,HttpSession session);
+    String findYesterDayOrderInfo(int page, int pageSize, HttpSession session);
 
 
 
@@ -230,5 +230,5 @@ public interface OrderService<T> extends BaseService<T>{
      * @return 订单信息
      */
 
-    public List<OrderEntity> findAllExcelOrder(String startTime,String endTime);
+    public List<OrderEntity> findAllExcelOrder(String startTime, String endTime);
 }

@@ -71,7 +71,7 @@ public interface HeadQuartersRepository extends BaseRepository<HeadQuartersEntit
      * @return 场地信息集合
      */
     @Query("from PlaceEntity p where p.levelFlag=1 and p.discardStatus=1 and p.superiorId=:headId and p.pId is null")
-    List<PlaceEntity> findAllPlaceByHeadId(@Param("headId")int headId);
+    List<PlaceEntity> findAllPlaceByHeadId(@Param("headId") int headId);
 
 
     /**

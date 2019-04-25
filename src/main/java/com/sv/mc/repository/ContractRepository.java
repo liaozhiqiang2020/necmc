@@ -86,5 +86,5 @@ public interface ContractRepository extends BaseRepository<ContractEntity, Long>
      * @return 合同信息对象
      */
     @Query(value="select c.* from mc_contract c where c.`owner`=:supId and c.flag=:flagId and c.second=:placeId and c.use_flag=1",nativeQuery = true)
-    ContractEntity findContractEntityBeforeUnBound(@Param("placeId")int placeId,@Param("supId")int supId,@Param("flagId")int flagId);
+    ContractEntity findContractEntityBeforeUnBound(@Param("placeId") int placeId, @Param("supId") int supId, @Param("flagId") int flagId);
 }

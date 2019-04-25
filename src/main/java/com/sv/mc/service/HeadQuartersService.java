@@ -35,7 +35,7 @@ public interface HeadQuartersService<T> extends BaseService<T>{
      * @param session 用户信息
      * @return  用户所在总公司信息
      */
-    String findAllHeadByPage(int page, int pageSize,HttpSession session);
+    String findAllHeadByPage(int page, int pageSize, HttpSession session);
 
     /**
      * 分页查询总公司数据
@@ -91,7 +91,7 @@ public interface HeadQuartersService<T> extends BaseService<T>{
      * @param headId  总公司Id
      * @param placeId  场地Id
      */
-    void headBoundPlace(int headId,int placeId);
+    void headBoundPlace(int headId, int placeId);
 
     /**
      * 解绑场地
@@ -99,7 +99,7 @@ public interface HeadQuartersService<T> extends BaseService<T>{
      * @param flagId   删除标识
      * @param supId 上级Id
      */
-    void unboundPlace(int placeId,int supId,int flagId);
+    void unboundPlace(int placeId, int supId, int flagId);
 
     /**
      * 根据总公司id查询下面的合同

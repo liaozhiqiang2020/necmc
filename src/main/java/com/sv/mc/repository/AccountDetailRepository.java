@@ -34,7 +34,7 @@ public interface AccountDetailRepository extends BaseRepository<AccountDetailEnt
             " and mc_account_detail.account_id in( " +
             " select mc_account.id from mc_account where mc_account.place_id in " +
             " (select mc_place.id from mc_place where discard_status=1 and level_flag=3 and superior_id=:pid))",nativeQuery = true)
-    BigDecimal getIncThree(@Param("pid")int pid);
+    BigDecimal getIncThree(@Param("pid") int pid);
 
     /**
      * 分公司查询昨天收入
@@ -45,7 +45,7 @@ public interface AccountDetailRepository extends BaseRepository<AccountDetailEnt
             " and mc_account_detail.account_id in( " +
             " select mc_account.id from mc_account where mc_account.place_id in " +
             " (select mc_place.id from mc_place where discard_status=1 and level_flag=2 and superior_id=:pid))",nativeQuery = true)
-    BigDecimal getIncTwo(@Param("pid")int pid);
+    BigDecimal getIncTwo(@Param("pid") int pid);
 
 
     /**
@@ -57,7 +57,7 @@ public interface AccountDetailRepository extends BaseRepository<AccountDetailEnt
             " and mc_account_detail.account_id in( " +
             " select mc_account.id from mc_account where mc_account.place_id in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:pid))) " +
             " )",nativeQuery = true)
-    BigDecimal getIncFour(@Param("pid")int pid);
+    BigDecimal getIncFour(@Param("pid") int pid);
 
 
     /**
@@ -66,5 +66,5 @@ public interface AccountDetailRepository extends BaseRepository<AccountDetailEnt
      * @return 钱数
      */
     @Query(value="select * from mc_account_detail where from_id=:orderId",nativeQuery = true)
-   AccountDetailEntity findAccountDetailEntityByOrderId(@Param("orderId")int orderId);
+   AccountDetailEntity findAccountDetailEntityByOrderId(@Param("orderId") int orderId);
 }

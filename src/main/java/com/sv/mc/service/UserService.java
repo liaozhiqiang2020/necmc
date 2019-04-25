@@ -1,9 +1,12 @@
 package com.sv.mc.service;
 
+import com.sv.mc.controller.UserController;
 import com.sv.mc.pojo.RoleEntity;
 import com.sv.mc.pojo.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,13 +44,13 @@ public interface UserService<T>  {
      * @param map user对象
      * @return 更新的user对象
      */
-    int updateUser(Map<String,Object> map);
+    int updateUser(Map<String, Object> map);
     /**
      *保存user对象
      * @param map user对象
      * @return 保存的user对象
      */
-    int saveUser(Map<String,Object> map);
+    int saveUser(Map<String, Object> map);
 
     /**
      * 逻辑删除一个user对象
@@ -74,7 +77,7 @@ public interface UserService<T>  {
      * @param listMap
      * @return 角色集合
      */
-    Set<RoleEntity> deleteUserRole(Map<String,Object> listMap);
+    Set<RoleEntity> deleteUserRole(Map<String, Object> listMap);
 
 
     /**
@@ -83,7 +86,7 @@ public interface UserService<T>  {
      * @param roleId 权限id
      * @return
      */
-    Set<RoleEntity> addUserRole(int userId,int roleId);
+    Set<RoleEntity> addUserRole(int userId, int roleId);
 
     /**
      * 查询用户未绑定的角色
@@ -113,5 +116,16 @@ public interface UserService<T>  {
      * @param response  响应
      * @return 修改后的密码
      */
-    String changePwd(HttpServletRequest request, HttpSession session , HttpServletResponse response);
+    String changePwd(HttpServletRequest request, HttpSession session, HttpServletResponse response);
+
+    /**
+     * 保存用户
+     * @param map 用户信息
+     * @param userController
+     * @return 保存的用户信息条数
+     */
+    @PostMapping("/user/save")
+    default int saveUser(@RequestBody Map<String, Object> map, UserController userController) {
+        return saveUser(map);
+    }
 }

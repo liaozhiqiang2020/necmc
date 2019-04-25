@@ -270,7 +270,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                 String transactionId = (String)map.get("transaction_id");//微信订单号
                 int orderId = Integer.parseInt(orderStr);
                 OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
-                orderEntity.setStatus(4);//写入订单状态  (已支付)
+                orderEntity.setStatus(2);//写入订单状态  (已支付)
                 orderEntity.setCodeWx(transactionId);
                 orderEntity.setPayDateTime(ts);
 

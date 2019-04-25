@@ -32,7 +32,7 @@ public interface WeiXinPayService {
      * @param money 钱数
      * @return 微信支付信息
      */
-    Json wxPay(String openid, HttpServletRequest request,String paidOrderId,String money);
+    Json wxPay(String openid, HttpServletRequest request, String paidOrderId, String money);
 
     /**
      * 微信支付

@@ -68,7 +68,7 @@ public interface RoleService<T>{
   * @param pId 权限id
   * @return 删除的权限
   */
- Set<PermissionEntity> roleDeletePermission(int roleId,int pId);
+ Set<PermissionEntity> roleDeletePermission(int roleId, int pId);
 
  /**
   * 角色添加权限
@@ -76,6 +76,6 @@ public interface RoleService<T>{
   * @param pId 权限id
   * @return 添加的权限
   */
- Set<PermissionEntity> roleAddPermission(int roleId,int pId);
+ Set<PermissionEntity> roleAddPermission(int roleId, int pId);
 
 }

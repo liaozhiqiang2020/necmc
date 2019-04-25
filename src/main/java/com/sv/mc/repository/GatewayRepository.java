@@ -53,5 +53,5 @@ public interface GatewayRepository extends BaseRepository<GatewayEntity, Long>, 
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value="update mc_gateway set status=:status where gateway_sn=:sn",nativeQuery = true)
-    void updateGatewayStatusBySn(@Param("sn") String sn,@Param("status") int status);
+    void updateGatewayStatusBySn(@Param("sn") String sn, @Param("status") int status);
 }

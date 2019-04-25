@@ -36,6 +36,6 @@ public interface DeviceModelService {
      * @param model 设备型号
      * @return 查询到的设备信息
      */
-    DeviceModelEntity getDeviceByType(String name,String model);
+    DeviceModelEntity getDeviceByType(String name, String model);
 
 }

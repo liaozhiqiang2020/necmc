@@ -36,7 +36,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " where s.id=:provinceId " +
             " group by s.name " +
             "",nativeQuery = true)
-    List<Object[]> findCountById(@Param("provinceId") int pId,@Param("startDate") String start ,@Param("endDate") String end);
+    List<Object[]> findCountById(@Param("provinceId") int pId, @Param("startDate") String start, @Param("endDate") String end);
 
 
     /**
@@ -59,7 +59,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
 
 
             ,nativeQuery = true)
-    List<Object[]>findCityByPid(@Param("provinceId") int pId,@Param("startDate") String start ,@Param("endDate") String end);
+    List<Object[]>findCityByPid(@Param("provinceId") int pId, @Param("startDate") String start, @Param("endDate") String end);
 
 
     /**
@@ -81,7 +81,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
            "  where p.city_id = :cityId " +
            "  group by p.name " +
            "",nativeQuery = true)
-    List<Object[]>findPlaceByCityID(@Param("cityId") int cId,@Param("startDate") String start ,@Param("endDate") String end);
+    List<Object[]>findPlaceByCityID(@Param("cityId") int cId, @Param("startDate") String start, @Param("endDate") String end);
 
 
 
@@ -103,7 +103,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "   left  join mc_account_detail ad on ad.from_id = o.id  " +
             " where c.id = :cityId " +
             "",nativeQuery = true)
-    List<Object[]>findOneCTByCityID(@Param("cityId") int cId,@Param("startDate") String start ,@Param("endDate") String end);
+    List<Object[]>findOneCTByCityID(@Param("cityId") int cId, @Param("startDate") String start, @Param("endDate") String end);
 
 
 
@@ -125,7 +125,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  where p.id = :placeId " +
             "  group by p.name" +
             "",nativeQuery = true)
-    List<Object[]>findOnePlaceByPlaceID(@Param("placeId") int cId,@Param("startDate") String start ,@Param("endDate") String end);
+    List<Object[]>findOnePlaceByPlaceID(@Param("placeId") int cId, @Param("startDate") String start, @Param("endDate") String end);
 
 
 
@@ -146,7 +146,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " group by s.name having count(o.id)>0 " +
             "   " +
             "",nativeQuery = true)
-    List<Object[]>findProvince(@Param("startDate") String start ,@Param("endDate") String end);
+    List<Object[]>findProvince(@Param("startDate") String start, @Param("endDate") String end);
 
 
     /**
@@ -167,7 +167,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "   where c.province_id = :provinceId " +
             "  group by c.name " +
             "",nativeQuery = true)
-            List<Object[]>findcityByProvince(@Param("provinceId") int pId,@Param("startDate") String start ,@Param("endDate") String end);
+            List<Object[]>findcityByProvince(@Param("provinceId") int pId, @Param("startDate") String start, @Param("endDate") String end);
 
 
 //==================================================================================================================================================================
@@ -195,7 +195,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
         " left  join mc_account_detail ad on ad.from_id = o.id  " +
         " group by s.name having count(o.id)>0" +
         "",nativeQuery = true)
-    List<Object[]> getProvinceBypId(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start") String start,@Param("end1") String end);
+    List<Object[]> getProvinceBypId(@Param("groudId") int level, @Param("p_Id") int pid, @Param("start") String start, @Param("end1") String end);
 
 
 
@@ -220,8 +220,8 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " where s.id=:provinceId" +
             " group by s.name " +
             "",nativeQuery = true)
-    List<Object[]> getProvinceBypIdANDprovinceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            String start,@Param("end1") String end,@Param("provinceId")int provinceId);
+    List<Object[]> getProvinceBypIdANDprovinceID(@Param("groudId") int level, @Param("p_Id") int pid, @Param("start")
+            String start, @Param("end1") String end, @Param("provinceId") int provinceId);
 
 
     /**
@@ -244,8 +244,8 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " where s.id=:provinceId" +
             " group by c.name " +
             "",nativeQuery = true)
-    List<Object[]> getCBypIdANDprovinceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            String start,@Param("end1") String end,@Param("provinceId")int provinceId);
+    List<Object[]> getCBypIdANDprovinceID(@Param("groudId") int level, @Param("p_Id") int pid, @Param("start")
+            String start, @Param("end1") String end, @Param("provinceId") int provinceId);
 
 
 
@@ -271,8 +271,8 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " where c.id=:cityId" +
             " group by c.name " +
             "",nativeQuery = true)
-    List<Object[]> getCityBypIdANDcityID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            String start,@Param("end1") String end,@Param("cityId")int cityId);
+    List<Object[]> getCityBypIdANDcityID(@Param("groudId") int level, @Param("p_Id") int pid, @Param("start")
+            String start, @Param("end1") String end, @Param("cityId") int cityId);
 
 
 
@@ -297,8 +297,8 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             " where c.id=:cityId" +
             " group by p.name " +
             "",nativeQuery = true)
-    List<Object[]> getPlacyBypIdANDcityID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            String start,@Param("end1") String end,@Param("cityId")int cityId);
+    List<Object[]> getPlacyBypIdANDcityID(@Param("groudId") int level, @Param("p_Id") int pid, @Param("start")
+            String start, @Param("end1") String end, @Param("cityId") int cityId);
 
 
 
@@ -325,8 +325,8 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             "  where p.id=:placeId " +
             "  group by p.name " +
             "",nativeQuery = true)
-    List<Object[]> getPlacyBypIdANDplaceID(@Param("groudId") int level,@Param("p_Id") int pid,@Param("start")
-            String start,@Param("end1") String end,@Param("placeId")int placeId);
+    List<Object[]> getPlacyBypIdANDplaceID(@Param("groudId") int level, @Param("p_Id") int pid, @Param("start")
+            String start, @Param("end1") String end, @Param("placeId") int placeId);
 
 
     /**
@@ -348,7 +348,7 @@ public interface CountRepository extends BaseRepository<AreaEntity, Long>, Pagin
             + "    where p.id  in(select id from mc_place where FIND_IN_SET(id,getChildrenOrg(:placeId))) "
             +"    group by p.name "+
      "",nativeQuery = true)
-    List<Object[]> getPlacyByANDplaceID(@Param("start") String start,@Param("end1") String end,@Param("placeId")int placeId);
+    List<Object[]> getPlacyByANDplaceID(@Param("start") String start, @Param("end1") String end, @Param("placeId") int placeId);
 
 
 
