@@ -9,6 +9,7 @@ import org.jdom.input.SAXBuilder;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.SignatureException;
 import java.util.*;
 
@@ -35,11 +36,7 @@ public class PayUtil {
     public static boolean verify(String text, String sign, String key, String input_charset) {   
         text = text + key;   
         String mysign = DigestUtils.md5Hex(getContentBytes(text, input_charset));
-        if (mysign.equals(sign)) {   
-            return true;   
-        } else {   
-            return false;   
-        }   
+        return mysign.equals(sign);
     }   
     /**  
      * @param content  
@@ -71,11 +68,10 @@ public class PayUtil {
     }   
     private static boolean isValidChar(char ch) {   
         if ((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))   
-            return true;   
-        if ((ch >= 0x4e00 && ch <= 0x7fff) || (ch >= 0x8000 && ch <= 0x952f))   
-            return true;// 简体中文汉字编码   
-        return false;   
-    }   
+            return true;
+        // 简体中文汉字编码
+        return (ch >= 0x4e00 && ch <= 0x7fff) || (ch >= 0x8000 && ch <= 0x952f);
+    }
     /**  
      * 除去数组中的空值和签名参数  
      * @param sArray 签名参数组  
@@ -135,12 +131,12 @@ public class PayUtil {
 	        //往服务器端写内容   
 	        if(null !=outputStr){   
 	            OutputStream os=conn.getOutputStream();   
-	            os.write(outputStr.getBytes("utf-8"));   
+	            os.write(outputStr.getBytes(StandardCharsets.UTF_8));
 	            os.close();   
 	        }   
 	        // 读取服务器端返回的内容   
 	        InputStream is = conn.getInputStream();   
-	        InputStreamReader isr = new InputStreamReader(is, "utf-8");   
+	        InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
 	        BufferedReader br = new BufferedReader(isr);   
 	        buffer = new StringBuffer();   
 	        String line = null;   

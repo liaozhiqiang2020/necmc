@@ -42,7 +42,7 @@ public class JMSConsumer {
     public void onTopicMessage(byte[] byteStr) {
         WxUtil wxUtil = new WxUtil();
         int mcStatus = 0;
-        String res = wxUtil.bytesToHexString(byteStr);
+        String res = WxUtil.bytesToHexString(byteStr);
         String res16 = wxUtil.convertHexToString(res);//网关心跳包使用
         if (res.length() == 20) {
             String chairCode2 = res.substring(4, 20);//获取设备ascii

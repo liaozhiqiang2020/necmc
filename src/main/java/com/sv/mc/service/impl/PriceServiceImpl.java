@@ -731,11 +731,11 @@ public class PriceServiceImpl implements PriceService {
                         //测试数据
 
                         //判断sn 是否存在
-                        DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(sn.toString());
+                        DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(sn);
 
                         //判断 price 是否存在
                         // DeviceModelEntity d=deviceEntity.getDeviceModelEntity();
-                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString(),pricename.toString());
+                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn,pricename.toString());
                         if (deviceEntity != null && priceEntity != null) {
                             if (priceEntity.getEndDateTime() == null || priceEntity.getEndDateTime().getTime() > new Date().getTime()) {
                                 if (!deviceEntity.getPriceEntities().contains(priceEntity)) {
@@ -763,7 +763,7 @@ public class PriceServiceImpl implements PriceService {
                                         priceEntities.add(priceEntity);
                                         //System.out.println(deviceEntity);
                                         this.deviceRepository.save(deviceEntity);
-                                        result.setId(sn.toString());
+                                        result.setId(sn);
                                         result.setPrice(bigDecimal);
                                         result.setTime(userTime1);
                                         result.setPriceName(pricename.toString());
@@ -771,7 +771,7 @@ public class PriceServiceImpl implements PriceService {
                                         set.add(result);
 
                                     }else{
-                                        result.setId(sn.toString());
+                                        result.setId(sn);
                                         result.setPrice(bigDecimal);
                                         result.setTime(userTime1);
                                         result.setPriceName(pricename.toString());
@@ -779,7 +779,7 @@ public class PriceServiceImpl implements PriceService {
                                         set.add(result);
                                     }
                                 }else{
-                                    result.setId(sn.toString());
+                                    result.setId(sn);
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
                                     result.setPriceName(pricename.toString());
@@ -787,7 +787,7 @@ public class PriceServiceImpl implements PriceService {
                                     set.add(result);
                                 }
                             }else{
-                                result.setId(sn.toString());
+                                result.setId(sn);
                                 result.setPrice(bigDecimal);
                                 result.setTime(userTime1);
                                 result.setPriceName(pricename.toString());
@@ -796,7 +796,7 @@ public class PriceServiceImpl implements PriceService {
                             }
 
                         }else{
-                            result.setId(sn.toString());
+                            result.setId(sn);
                             result.setPrice(bigDecimal);
                             result.setTime(userTime1);
                             result.setPriceName(pricename.toString());
@@ -859,11 +859,11 @@ public class PriceServiceImpl implements PriceService {
                         //测试数据
 
                         //判断sn 是否存在
-                        DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(sn.toString());
+                        DeviceEntity deviceEntity = this.deviceRepository.getDeviceBySN(sn);
 
                         //判断 price 是否存在
                         // DeviceModelEntity d=deviceEntity.getDeviceModelEntity();
-                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn.toString(),pricename.toString());
+                        PriceEntity priceEntity = this.priceRepository.findAllFlag(userTime, bigDecimal, sn,pricename.toString());
                         if (deviceEntity != null && priceEntity != null) {
                             if (priceEntity.getEndDateTime() == null || priceEntity.getEndDateTime().getTime() > new Date().getTime()) {
                                 if (!deviceEntity.getPriceEntities().contains(priceEntity)) {
@@ -891,7 +891,7 @@ public class PriceServiceImpl implements PriceService {
                                         priceEntities.add(priceEntity);
                                         System.out.println(deviceEntity);
                                         this.deviceRepository.save(deviceEntity);
-                                        result.setId(sn.toString());
+                                        result.setId(sn);
                                         result.setPrice(bigDecimal);
                                         result.setTime(userTime1);
                                         result.setPriceName(pricename.toString());
@@ -899,7 +899,7 @@ public class PriceServiceImpl implements PriceService {
                                         set.add(result);
 
                                     }else{
-                                        result.setId(sn.toString());
+                                        result.setId(sn);
                                         result.setPrice(bigDecimal);
                                         result.setTime(userTime1);
                                         result.setPriceName(pricename.toString());
@@ -907,7 +907,7 @@ public class PriceServiceImpl implements PriceService {
                                         set.add(result);
                                     }
                                 }else{
-                                    result.setId(sn.toString());
+                                    result.setId(sn);
                                     result.setPrice(bigDecimal);
                                     result.setTime(userTime1);
                                     result.setPriceName(pricename.toString());
@@ -915,7 +915,7 @@ public class PriceServiceImpl implements PriceService {
                                     set.add(result);
                                 }
                             }else{
-                                result.setId(sn.toString());
+                                result.setId(sn);
                                 result.setPrice(bigDecimal);
                                 result.setTime(userTime1);
                                 result.setPriceName(pricename.toString());
@@ -924,7 +924,7 @@ public class PriceServiceImpl implements PriceService {
                             }
 
                         }else{
-                            result.setId(sn.toString());
+                            result.setId(sn);
                             result.setPrice(bigDecimal);
                             result.setTime(userTime1);
                             result.setPriceName(pricename.toString());
@@ -966,9 +966,7 @@ public class PriceServiceImpl implements PriceService {
         for (DeviceEntity device:deviceList
              ) {
             List<PriceEntity> priceList = device.getPriceEntities();
-            if (priceList.contains(priceEntity)) {
-                priceList.remove(priceEntity);
-            }
+            priceList.remove(priceEntity);
         }
         this.deviceRepository.saveAll(deviceList);
 

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -359,7 +360,7 @@ public class PlaceController {
         PlaceEntity placeEntity = this.placeService.findPlaceById(placeId);
         String fileUrl = placeEntity.getFile();
         String fileName = placeEntity.getFileName();
-        fileName = new String(fileName.getBytes("utf-8"),"iso-8859-1");
+        fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
 
         File file = new File(fileUrl);
         if (file.exists()) {

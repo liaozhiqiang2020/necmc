@@ -117,25 +117,25 @@ public class ReportController {
         int totalFaultInfoCount = this.deviceRepository.findFaultInfoCount();//异常信息数量
 //        System.out.println(totalFaultInfoCount);
 
-        String timeData[] = reportParamEntity.getStartTime().split("/");
+        String[] timeData = reportParamEntity.getStartTime().split("/");
         String reportMonth = timeData[1];
         String reportDay = timeData[2].split(" ")[0];
         System.out.println(reportDay);
 
-        String dailyReportDate = reportParamEntity.getEndTime().toString().substring(0,9);
+        String dailyReportDate = reportParamEntity.getEndTime().substring(0,9);
         String dailyReportDate2="";
         if(Integer.parseInt(reportMonth)>=1 && Integer.parseInt(reportMonth)<10){ //如果月份在1-10
             if(Integer.parseInt(reportDay)>=1 && Integer.parseInt(reportDay)<10){//如果日期在1-10
-                dailyReportDate2 = reportParamEntity.getStartTime().toString().substring(0,8);
+                dailyReportDate2 = reportParamEntity.getStartTime().substring(0,8);
             }else{
-                dailyReportDate2 = reportParamEntity.getStartTime().toString().substring(0,10);
+                dailyReportDate2 = reportParamEntity.getStartTime().substring(0,10);
             }
 
         }else if(Integer.parseInt(reportMonth)>=10 && Integer.parseInt(reportMonth)<=12){//如果月份在11-12
             if(Integer.parseInt(reportDay)>=10 && Integer.parseInt(reportDay)<=31){//10-31
-                dailyReportDate2 = reportParamEntity.getStartTime().toString().substring(0,10);
+                dailyReportDate2 = reportParamEntity.getStartTime().substring(0,10);
             }else{
-                dailyReportDate2 = reportParamEntity.getStartTime().toString().substring(0,9);
+                dailyReportDate2 = reportParamEntity.getStartTime().substring(0,9);
             }
 
         }

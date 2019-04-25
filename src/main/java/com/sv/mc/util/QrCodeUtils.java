@@ -172,7 +172,7 @@ public class QrCodeUtils {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();//新建流。
         ImageIO.write(image, format, os);//利用ImageIO类提供的write方法，将bi以png图片的数据模式写入流。
-        byte b[] = os.toByteArray();//从流中获取数据数组。
+        byte[] b = os.toByteArray();//从流中获取数据数组。
        // String base64String = new BASE64Encoder().encode(b);
         String base64String = new String(new Base64().encode(b));
 

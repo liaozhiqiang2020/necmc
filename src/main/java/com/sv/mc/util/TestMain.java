@@ -29,7 +29,7 @@ public class TestMain {
         //如果是文件，则直接压缩该文件
         if (file.isFile()) {
             int count, bufferLen = 1024;
-            byte data[] = new byte[bufferLen];
+            byte[] data = new byte[bufferLen];
 
             //获取文件相对于压缩文件夹根目录的子路径
             String subPath = file.getAbsolutePath();

@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -325,12 +326,7 @@ public class DeviceServiceImpl implements DeviceService {
 
         private void setResponseHeader(HttpServletResponse response, String fileName) {
                 try {
-                        try {
-                                fileName = new String(fileName.getBytes(),"iso-8859-1");
-                        } catch (UnsupportedEncodingException e) {
-
-                                e.printStackTrace();
-                        }
+                        fileName = new String(fileName.getBytes(), StandardCharsets.ISO_8859_1);
                         response.setContentType("application/octet-stream;charSingletonHungaryset=UTF-8");
                         response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
                         response.addHeader("Pargam", "no-cache");
@@ -473,7 +469,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                       deviceEntity.setMcIsNotOnline(0);
                                                                                       deviceEntity.setLastCorrespondTime(wxUtil.getNowDate());
                                                                                       deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
-                                                                                      deviceEntity.setLoraId(sn.toString());
+                                                                                      deviceEntity.setLoraId(sn);
                                                                                       deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));
                                                                                     if (this.deviceRepository.getDeviceBySN(sn)!=null){
                                                                                            deviceEntity.setId(this.deviceRepository.getDeviceBySN(sn).getId());
@@ -497,7 +493,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                       edr.setJingdu(jingdu);
                                                                                       edr.setDeviceType(deviceType.toString());
                                                                                       edr.setType(type.toString());
-                                                                                      edr.setSn(sn.toString());
+                                                                                      edr.setSn(sn);
                                                                                       edr.setBeizhu(remark);
                                                                                       edr.setSupplier(supplierName.toString());
                                                                                       edr.setGatSn(wg);
@@ -514,7 +510,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         edr.setJingdu(jingdu);
                                                                         edr.setDeviceType(deviceType.toString());
                                                                         edr.setType(type.toString());
-                                                                        edr.setSn(sn.toString());
+                                                                        edr.setSn(sn);
                                                                         edr.setBeizhu(remark);
                                                                         edr.setSupplier(supplierName.toString());
                                                                         edr.setMsg("绑定失败3");
@@ -529,7 +525,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                 edr.setJingdu(jingdu);
                                                                 edr.setDeviceType(deviceType.toString());
                                                                 edr.setType(type.toString());
-                                                                edr.setSn(sn.toString());
+                                                                edr.setSn(sn);
                                                                 edr.setBeizhu(remark);
                                                                 edr.setSupplier(supplierName.toString());
                                                                 edr.setMsg("绑定失败4");
@@ -544,7 +540,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                         edr.setJingdu(jingdu);
                                                         edr.setDeviceType(deviceType.toString());
                                                         edr.setType(type.toString());
-                                                        edr.setSn(sn.toString());
+                                                        edr.setSn(sn);
                                                         edr.setBeizhu(remark);
                                                         edr.setSupplier(supplierName.toString());
                                                         edr.setMsg("绑定失败5");
@@ -670,11 +666,11 @@ public class DeviceServiceImpl implements DeviceService {
 
                                                                                                 deviceEntity.setMcStatus(1);
                                                                                                 deviceEntity.setDeviceModelEntity(this.deviceModelService.getDeviceByType(deviceType.toString(), type.toString()));
-                                                                                                deviceEntity.setMcSn(sn.toString());
+                                                                                                deviceEntity.setMcSn(sn);
                                                                                                 deviceEntity.setNote(remark);
                                                                                                 deviceEntity.setDiscardStatus(1);
                                                                                                 deviceEntity.setSupplierEntity(this.supplierService.getSupplierBySName(supplierName.toString()));
-                                                                                                deviceEntity.setLoraId(sn.toString());
+                                                                                                deviceEntity.setLoraId(sn);
                                                                                                 deviceEntity.setGatewayEntity(this.gatewayRepository.findGatewayBySn(wg));
                                                                                                 if (this.deviceRepository.getDeviceBySN(sn)!=null){
                                                                                                         deviceEntity.setId(this.deviceRepository.getDeviceBySN(sn).getId());
@@ -698,7 +694,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                                 edr.setJingdu(jingdu);
                                                                                                 edr.setDeviceType(deviceType.toString());
                                                                                                 edr.setType(type.toString());
-                                                                                                edr.setSn(sn.toString());
+                                                                                                edr.setSn(sn);
                                                                                                 edr.setBeizhu(remark);
                                                                                                 edr.setSupplier(supplierName.toString());
                                                                                                 edr.setGatSn(wg);
@@ -715,7 +711,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                                 edr.setJingdu(jingdu);
                                                                                 edr.setDeviceType(deviceType.toString());
                                                                                 edr.setType(type.toString());
-                                                                                edr.setSn(sn.toString());
+                                                                                edr.setSn(sn);
                                                                                 edr.setBeizhu(remark);
                                                                                 edr.setSupplier(supplierName.toString());
                                                                                 edr.setMsg("绑定失败");
@@ -730,7 +726,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                         edr.setJingdu(jingdu);
                                                                         edr.setDeviceType(deviceType.toString());
                                                                         edr.setType(type.toString());
-                                                                        edr.setSn(sn.toString());
+                                                                        edr.setSn(sn);
                                                                         edr.setBeizhu(remark);
                                                                         edr.setSupplier(supplierName.toString());
                                                                         edr.setMsg("绑定失败");
@@ -745,7 +741,7 @@ public class DeviceServiceImpl implements DeviceService {
                                                                 edr.setJingdu(jingdu);
                                                                 edr.setDeviceType(deviceType.toString());
                                                                 edr.setType(type.toString());
-                                                                edr.setSn(sn.toString());
+                                                                edr.setSn(sn);
                                                                 edr.setBeizhu(remark);
                                                                 edr.setSupplier(supplierName.toString());
                                                                 edr.setMsg("绑定失败");

@@ -322,19 +322,19 @@ public class WxUtil {
                     if(str == "0"){
                         str = "";
                     }
-                    sb.append(str).append(s.substring(posIndex+1,posIndex+2)).append("0");
+                    sb.append(str).append(s, posIndex+1, posIndex+2).append("0");
                 }else if(len == posIndex+3){
                     str = s.substring(0,posIndex);
                     if(str == "0"){
                         str = "";
                     }
-                    sb.append(str).append(s.substring(posIndex+1,posIndex+3));
+                    sb.append(str).append(s, posIndex+1, posIndex+3);
                 }else{
                     str = s.substring(0,posIndex);
                     if(str == "0"){
                         str = "";
                     }
-                    sb.append(str).append(s.substring(posIndex+1,posIndex+3));
+                    sb.append(str).append(s, posIndex+1, posIndex+3);
                 }
             }else{
                 sb.append(s).append("00");

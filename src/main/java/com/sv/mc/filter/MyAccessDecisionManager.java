@@ -28,7 +28,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         Iterator<ConfigAttribute> ite=configAttributes.iterator();
         while(ite.hasNext()){
             ConfigAttribute ca=ite.next();
-            String needRole=((SecurityConfig)ca).getAttribute();
+            String needRole= ca.getAttribute();
             for(GrantedAuthority ga : authentication.getAuthorities()){
                 if(needRole.equals(ga.getAuthority())){
 

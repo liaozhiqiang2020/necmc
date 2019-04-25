@@ -49,30 +49,30 @@ public class ExcelUtil {
                     row.createCell(j).setCellValue(values[i][j]);
                     if (values[i][j] != null || "".equals(values[i][j])) {
                         //判断data是否为数值型
-                        isNum = values[i][j].toString().matches("^(-?\\d+)(\\.\\d+)?$");
+                        isNum = values[i][j].matches("^(-?\\d+)(\\.\\d+)?$");
                         //判断data是否为整数（小数部分是否为0）
-                        isInteger=values[i][j].toString().matches("^[-\\+]?[\\d]*$");
+                        isInteger= values[i][j].matches("^[-\\+]?[\\d]*$");
                         //判断data是否为百分数（是否包含“%”）
-                        isPercent=values[i][j].toString().contains("%");
+                        isPercent= values[i][j].contains("%");
                     }
                     if (isNum && !isPercent) {
                         HSSFDataFormat df = wb.createDataFormat(); // 此处设置数据格式
                         if (isInteger) {
-                            style.setDataFormat(df.getBuiltinFormat("#,#0"));//数据格式只显示整数
+                            style.setDataFormat(HSSFDataFormat.getBuiltinFormat("#,#0"));//数据格式只显示整数
                         }else{
-                            style.setDataFormat(df.getBuiltinFormat("#,##0.00"));//保留两位小数点
+                            style.setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0.00"));//保留两位小数点
                         }
                         // 设置单元格格式
                         row.createCell(j).setCellStyle(style);
                         // 设置单元格内容为double类型
                         if (values[i][j]!=null){
-                        row.createCell(j).setCellValue(Double.parseDouble(values[i][j].toString()));
+                        row.createCell(j).setCellValue(Double.parseDouble(values[i][j]));
                         }
                     } else {
                         row.createCell(j).setCellStyle(style);
                         // 设置单元格内容为字符型
                        if (values[i][j]!=null){
-                        row.createCell(j).setCellValue(values[i][j].toString());
+                        row.createCell(j).setCellValue(values[i][j]);
                        }
                     }
                 }

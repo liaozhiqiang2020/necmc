@@ -82,7 +82,7 @@ public class PlaceEntity {
     private int userId;//用户id
     private String file;
     private String fileName;
-;
+
     @Basic
     @JoinColumn(name="business_id")
     public Integer getBusinessId() {

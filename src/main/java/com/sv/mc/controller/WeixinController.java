@@ -419,9 +419,9 @@ public class WeixinController extends WeixinSupport {
 
             String message = "faaf0e08" + chairCode;
 
-            byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+            byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
             byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-            String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+            String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
             message = message + res + "_" + gatewayId;
 
             jmsProducer.sendMessage(message);
@@ -442,15 +442,15 @@ public class WeixinController extends WeixinSupport {
             String deviceId = deviceEntity.getLoraId();//获取模块id
             String chairCode = wxUtil.convertStringToHex(deviceId);
             String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
-            String time = mcTime.toHexString(mcTime);
+            String time = Integer.toHexString(mcTime);
             if (time.length() < 2) {
                 time = "0" + time;
             }
             String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
 
-            byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+            byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
             byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-            String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+            String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
             message = message + res + "_" + gatewayId;
 
             jmsProducer.sendMessage(message);
@@ -472,9 +472,9 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf0e10" + chairCode;//按摩椅20000002，60min
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -504,9 +504,9 @@ public class WeixinController extends WeixinSupport {
             message = "faaf0e17" + chairCode;
         }
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -531,9 +531,9 @@ public class WeixinController extends WeixinSupport {
             message = "faaf0e18" + chairCode;
         }
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -555,9 +555,9 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf0e08" + chairCode;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -574,16 +574,16 @@ public class WeixinController extends WeixinSupport {
         WxUtil wxUtil = new WxUtil();
         String chairCode = wxUtil.convertStringToHex(deviceEntity.getLoraId());
         String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
-        String time = mcTime.toHexString(mcTime);
+        String time = Integer.toHexString(mcTime);
         if (time.length() < 2) {
             time = "0" + time;
         }
 
         String message = "faaf0f13" + chairCode + time;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -602,9 +602,9 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf0e14" + chairCode;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -628,9 +628,9 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf0f11" + chairCode + time;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);
@@ -656,9 +656,9 @@ public class WeixinController extends WeixinSupport {
 
         String message = "faaf1612" + chairCode + newChairCode;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
 
         jmsProducer.sendMessage(message);

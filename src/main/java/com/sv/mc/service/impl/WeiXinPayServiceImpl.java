@@ -149,7 +149,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             String orderNo = paidOrderId;
 //            money = "1";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
 //            int payMoney = Integer.parseInt(money);
-            money = wxUtil.yuanToFen(money);//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
+            money = WxUtil.yuanToFen(money);//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
 
             Map<String, String> packageParams = new HashMap<String, String>();
             packageParams.put("appid", WxPayConfig.appid);
@@ -239,7 +239,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
      */
     @Override
     public void wxNotify(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()));
+        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String line = null;
         StringBuilder sb = new StringBuilder();
         while ((line = br.readLine()) != null) {
@@ -287,15 +287,15 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                     String deviceId = deviceEntity.getLoraId();//获取模块id
                     String chairCode = wxUtil.convertStringToHex(deviceId);
                     String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
-                    String time = mcTime.toHexString(mcTime);
+                    String time = Integer.toHexString(mcTime);
                     if (time.length() < 2) {
                         time = "0" + time;
                     }
                     String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
 
-                    byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+                    byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
                     byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-                    String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+                    String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
                     message = message + res + "_" + gatewayId;
 
                     jmsProducer.sendMessage(message);
@@ -354,13 +354,13 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
         WxUserInfoEntity wxUserInfoEntity;
 
         //用户手机号信息
-        JSONObject jsonObject = JSONObject.fromObject(userInfo.toString());
+        JSONObject jsonObject = JSONObject.fromObject(userInfo);
         String phoneNumber = jsonObject.get("phoneNumber").toString();
         String purePhoneNumber = jsonObject.get("purePhoneNumber").toString();
         String countryCode = jsonObject.get("countryCode").toString();
 
         //用户基本信息
-        JSONObject jsonObject1 = JSONObject.fromObject(userInfos.toString());
+        JSONObject jsonObject1 = JSONObject.fromObject(userInfos);
         String nickName = jsonObject1.get("nickName").toString();
         String gender = jsonObject1.get("gender").toString();
         String language = jsonObject1.get("language").toString();
@@ -418,15 +418,15 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             String deviceId = deviceEntity.getLoraId();//获取模块id
             String chairCode = wxUtil.convertStringToHex(deviceId);
             String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
-            String time = mcTime.toHexString(mcTime);
+            String time = Integer.toHexString(mcTime);
             if (time.length() < 2) {
                 time = "0" + time;
             }
             String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
 
-            byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+            byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
             byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-            String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+            String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
             message = message + res + "_" + gatewayId;
 
             jmsProducer.sendMessage(message);

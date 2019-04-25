@@ -472,9 +472,9 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
                 String message = "faaf0e10" + loraId;//按摩椅20000002，60min
 
-                byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+                byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
                 byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-                String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+                String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
                 message = message + res + "_" + gatewayId;
                 jmsProducer.sendMessage(message);//按摩椅20000002  停止按摩椅
                 service.shutdownNow();//停止当前计时器

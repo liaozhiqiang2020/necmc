@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Date;
@@ -204,12 +205,7 @@ public class OrderController {
      */
     private void setResponseHeader(HttpServletResponse response, String fileName) {
         try {
-            try {
-                fileName = new String(fileName.getBytes(),"iso-8859-1");
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-            }
+            fileName = new String(fileName.getBytes(), StandardCharsets.ISO_8859_1);
             response.setContentType("application/octet-stream;charset=UTF-8");
             response.setHeader("Content-Disposition", "attachment;filename=\""+ fileName+"\"");
             response.addHeader("Pargam", "no-cache");

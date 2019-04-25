@@ -17,7 +17,7 @@ public interface ReportViewService extends  BaseService{
      * @param provinceid 省Id
      * @return 报表信息
      */
-    public List<ReportViewEntity> fillDayReport(Date start, Date end, int provinceid);
+    List<ReportViewEntity> fillDayReport(Date start, Date end, int provinceid);
 
 
     /**
@@ -27,7 +27,7 @@ public interface ReportViewService extends  BaseService{
      * @param cityid 市id
      * @return 市报表信息
      */
-    public List<ReportViewEntity> fillcityReport(Date start, Date end, int cityid);
+    List<ReportViewEntity> fillcityReport(Date start, Date end, int cityid);
 
 
 
@@ -39,7 +39,7 @@ public interface ReportViewService extends  BaseService{
      * @param placeid 场地Id
      * @return 报表信息
      */
-    public List<ReportViewEntity> fillplaceReport(Date start, Date end, int placeid);
+    List<ReportViewEntity> fillplaceReport(Date start, Date end, int placeid);
 
 
 }

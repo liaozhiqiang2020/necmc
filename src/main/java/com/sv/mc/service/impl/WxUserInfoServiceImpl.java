@@ -102,7 +102,7 @@ public class WxUserInfoServiceImpl implements WxUserInfoService<WxUserInfoEntity
         WxUtil wxUtil = new WxUtil();
 
         //用户基本信息
-        JSONObject jsonObject1 = JSONObject.fromObject(userInfo.toString());
+        JSONObject jsonObject1 = JSONObject.fromObject(userInfo);
         String nickName = jsonObject1.get("nickName").toString();
 
 //        try {

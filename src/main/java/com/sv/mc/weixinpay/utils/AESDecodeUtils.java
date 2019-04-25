@@ -4,6 +4,7 @@ package com.sv.mc.weixinpay.utils;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.spec.AlgorithmParameterSpec;
 
 /**
@@ -26,7 +27,7 @@ public class AESDecodeUtils {
         SecretKeySpec keySpec = new SecretKeySpec(key, "AES");
         cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
         //解析解密后的字符串
-        return new String(cipher.doFinal(encData),"UTF-8");
+        return new String(cipher.doFinal(encData), StandardCharsets.UTF_8);
     }
 
 }

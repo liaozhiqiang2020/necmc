@@ -93,7 +93,7 @@ public class GatewayServiceImpl implements GatewayService {
         this.gatewayRepository.save(gatewayEntity);
 
         WxUtil wxUtil = new WxUtil();
-        domainName = wxUtil.strTo16(domainName);//获取域名
+        domainName = WxUtil.strTo16(domainName);//获取域名
         int length = domainName.length();
         if(length<40){
             for (int i = 0; i < 40-length; i++) {
@@ -107,9 +107,9 @@ public class GatewayServiceImpl implements GatewayService {
 
         String message = "faaf1c03"+domainName+strHex;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }
@@ -131,9 +131,9 @@ public class GatewayServiceImpl implements GatewayService {
 
         String message = "faaf0704"+channel;
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }
@@ -150,9 +150,9 @@ public class GatewayServiceImpl implements GatewayService {
 
         String message = "faaf0605";
 
-        byte[] srtbyte = wxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
-        String res = wxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message+res+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }

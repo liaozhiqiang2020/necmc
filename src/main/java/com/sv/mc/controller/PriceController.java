@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -333,12 +334,7 @@ public class PriceController {
 
     private void setResponseHeader(HttpServletResponse response, String fileName) {
         try {
-            try {
-                fileName = new String(fileName.getBytes(), "iso-8859-1");
-            } catch (UnsupportedEncodingException e) {
-
-                e.printStackTrace();
-            }
+            fileName = new String(fileName.getBytes(), StandardCharsets.ISO_8859_1);
             response.setContentType("application/octet-stream;charset=UTF-8");
             response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName+"\"");
             response.addHeader("Pargam", "no-cache");
@@ -371,7 +367,7 @@ public class PriceController {
         System.out.println(list.size());
         for (int i = 0; i < list.size(); i++) {
             content[i] = new String[title.length];
-            PriceEntity priceEntity = (PriceEntity) list.get(i);
+            PriceEntity priceEntity = list.get(i);
             String obj = priceEntity.getPriceName();//价格名称
             String obj1 = priceEntity.getPrice().toString();//价格
             int a = priceEntity.getUseTime();

@@ -264,7 +264,7 @@ public class BaseUtil {
             System.out.println("调用生成微信URL接口传参:" + param);
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
             HttpEntity requestEntity = new HttpEntity(JSONObject.fromObject(param), headers);
-            ResponseEntity<byte[]> entity = rest.exchange(url, HttpMethod.POST, requestEntity, byte[].class, new Object[0]);
+            ResponseEntity<byte[]> entity = rest.exchange(url, HttpMethod.POST, requestEntity, byte[].class);
             System.out.println("调用小程序生成微信永久小程序码URL接口返回结果:" + entity.getBody());
             byte[] result = entity.getBody();
             inputStream = new ByteArrayInputStream(result);

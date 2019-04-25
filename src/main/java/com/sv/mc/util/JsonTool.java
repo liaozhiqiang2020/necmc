@@ -50,10 +50,10 @@ public class JsonTool {
                         System.out.println("[String]" + e.getKey() + " | " + e.getValue());
                     } else if (e.getValue() instanceof LinkedHashMap) {
                         System.out.println("{Map}" + e.getKey() + " | " + e.getValue());
-                        viewJsonTree((LinkedHashMap) e.getValue());
+                        viewJsonTree(e.getValue());
                     } else if (e.getValue() instanceof ArrayList) {
                         System.out.println("[Array]" + e.getKey() + " | " + e.getValue());
-                        viewJsonTree((ArrayList) e.getValue());
+                        viewJsonTree(e.getValue());
                     }
                 }
             }
@@ -61,9 +61,9 @@ public class JsonTool {
                 ls = (ArrayList) m;
                 for (int i = 0; i < ls.size(); i++) {
                     if (ls.get(i) instanceof LinkedHashMap) {
-                        viewJsonTree((LinkedHashMap) ls.get(i));
+                        viewJsonTree(ls.get(i));
                     } else if (ls.get(i) instanceof ArrayList) {
-                        viewJsonTree((ArrayList) ls.get(i));
+                        viewJsonTree(ls.get(i));
                     }
                 }
             }
@@ -93,11 +93,11 @@ public class JsonTool {
                 if (argsType == TypeEnum.STRING) {
                     obj = maps.get(argsPath).toString();
                 } else if (argsType == TypeEnum.MAP) {
-                    obj = (Map) maps.get(argsPath);
+                    obj = maps.get(argsPath);
                 } else if (argsType == TypeEnum.ARRAY_LIST) {
-                    obj = (List) maps.get(argsPath);
+                    obj = maps.get(argsPath);
                 } else if (argsType == TypeEnum.ARRAY_MAP) {
-                    obj = (List<Map>) maps.get(argsPath);
+                    obj = maps.get(argsPath);
                 }
             }
         } catch (Exception e) {
@@ -132,25 +132,25 @@ public class JsonTool {
                         } else if (e.getValue() instanceof LinkedHashMap) {
                             if (i == key.split("\\.").length) {
                                 if (type == TypeEnum.MAP) {
-                                    o = (LinkedHashMap) e.getValue();
+                                    o = e.getValue();
                                     return o;
                                 }
                             } else {
-                                o = getObject((LinkedHashMap) e.getValue(), key, type);
+                                o = getObject(e.getValue(), key, type);
                             }
                             return o;
                         } else if (e.getValue() instanceof ArrayList) {
                             if (i == key.split("\\.").length) {
                                 if (type == TypeEnum.ARRAY_LIST) {
-                                    o = (ArrayList) e.getValue();
+                                    o = e.getValue();
                                     return o;
                                 }
                                 if (type == TypeEnum.ARRAY_MAP) {
-                                    o = (ArrayList<Map>) e.getValue();
+                                    o = e.getValue();
                                     return o;
                                 }
                             } else {
-                                o = getObject((ArrayList) e.getValue(), key, type);
+                                o = getObject(e.getValue(), key, type);
                             }
                             return o;
                         }
@@ -164,25 +164,25 @@ public class JsonTool {
                     if (ls.get(i) instanceof LinkedHashMap) {
                         if (i == key.split("\\.").length) {
                             if (type == TypeEnum.MAP) {
-                                o = (LinkedHashMap) ls.get(i);
+                                o = ls.get(i);
                                 return o;
                             }
                         } else {
-                            o = getObject((LinkedHashMap) ls.get(i), key, type);
+                            o = getObject(ls.get(i), key, type);
                         }
                         return o;
                     } else if (ls.get(i) instanceof ArrayList) {
                         if (i == key.split("\\.").length) {
                             if (type == TypeEnum.ARRAY_LIST) {
-                                o = (ArrayList) ls.get(i);
+                                o = ls.get(i);
                                 return o;
                             }
                             if (type == TypeEnum.ARRAY_MAP) {
-                                o = (ArrayList<Map>) ls.get(i);
+                                o = ls.get(i);
                                 return o;
                             }
                         } else {
-                            o = getObject((ArrayList) ls.get(i), key, type);
+                            o = getObject(ls.get(i), key, type);
                         }
                         return o;
                     }
@@ -215,7 +215,7 @@ public class JsonTool {
         /**
          * 通过key获取到ArrayMap数组对象
          */
-        ARRAY_MAP;
+        ARRAY_MAP
     }
 
 }

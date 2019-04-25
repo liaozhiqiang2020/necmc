@@ -230,5 +230,5 @@ public interface OrderService<T> extends BaseService<T>{
      * @return 订单信息
      */
 
-    public List<OrderEntity> findAllExcelOrder(String startTime, String endTime);
+    List<OrderEntity> findAllExcelOrder(String startTime, String endTime);
 }
