@@ -62,8 +62,8 @@
                             select: "上传"
                         },
                         success: function (e) {
-                            var flag = e.response
-                         console.log(flag)
+                            var flag = e.response;
+                         console.log(flag);
                             var my= $("#window3");
                             my.data("kendoWindow").close();
 
@@ -494,7 +494,7 @@
                                     let list1 = {
                                         priceId: array,
                                         placeId: placeId
-                                    }
+                                    };
                                     return kendo.stringify(list1);
                                 }
                                 if (operation !== "read" && options.models) {
@@ -598,7 +598,7 @@
                                     let list1 = {
                                         priceId: array,
                                         placeId: placeId
-                                    }
+                                    };
                                     return kendo.stringify(list1);
                                 }
                                 if (operation !== "read" && options.models) {
@@ -775,7 +775,7 @@
                                         let list1 = {
                                             priceId: array,
                                             placeId: placeId
-                                        }
+                                        };
                                         $.ajax({
                                             type: "POST",
                                             url: "./deletePlacePrice",
@@ -887,7 +887,7 @@
                                         let list1 = {
                                             price: array,
                                             placeId: placeId
-                                        }
+                                        };
                                         $.ajax({
                                             type: "POST",
                                             url: "./placeAddPrice",
@@ -948,7 +948,7 @@
                                     let list1 = {
                                         price: array,
                                         deviceId: deviceId
-                                    }
+                                    };
                                     return kendo.stringify(list1);
                                 }
                                 if (operation !== "read" && options.models) {
@@ -1008,7 +1008,7 @@
                                     var list1 = {
                                         price: array,
                                         deviceId: deviceId
-                                    }
+                                    };
                                     return kendo.stringify(list1);
                                 }
                                 if (operation !== "read" && options.models) {
@@ -1286,7 +1286,7 @@
 
                     var data = this.dataItem(tr);
                     var priceId = data.id;
-                    console.log(priceId)
+                    console.log(priceId);
                     $.ajax({
                         type: "GET",
                         url: "./export?id=" + priceId,

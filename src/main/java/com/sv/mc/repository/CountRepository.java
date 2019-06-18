@@ -1,16 +1,11 @@
 package com.sv.mc.repository;
 
 import com.sv.mc.pojo.AreaEntity;
-import com.sv.mc.pojo.CityEntity;
-import com.sv.mc.pojo.PlaceEntity;
-import com.sv.mc.pojo.ProvinceEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**

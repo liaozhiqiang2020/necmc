@@ -564,13 +564,14 @@
                                                         channel: channel
                                                     },
                                                     success: function (res) {
+                                                        alert("修改模块端口成功！");
                                                         myWindow.data("kendoWindow").close();
                                                         //location.reload();
                                                         g.dataSource.read();
                                                     }
                                                 })
                                             }
-                                        })
+                                        });
 
                                         $("#btnUpdateCode").kendoButton({
                                             click: function () {

@@ -262,7 +262,7 @@
                                                         var list1 = {
                                                             roleId: roleId,
                                                             userId: userId
-                                                        }
+                                                        };
                                                         return kendo.stringify(list1);
                                                     }
                                                     // if(operation !== "read"){
@@ -605,7 +605,7 @@
                     if (type != 'read') {
                         var status = response.status;
                         if (status == 200) {
-                            alert(1)
+                            alert(1);
                             this.read();
                         }
                         else {
@@ -662,7 +662,7 @@
                 });
             }
 
-            $(".product-preview").html()
+            $(".product-preview").html();
 
             //编辑时boolean类型复选框样式修改
             function customBoolEditor(container, options) {

@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 网关dao
  */
@@ -54,4 +56,12 @@ public interface GatewayRepository extends BaseRepository<GatewayEntity, Long>, 
     @Modifying(clearAutomatically = true)
     @Query(value="update mc_gateway set status=:status where gateway_sn=:sn",nativeQuery = true)
     void updateGatewayStatusBySn(@Param("sn") String sn, @Param("status") int status);
+
+    /**
+     * 根据协议类型查询网关
+     * @param protocolType (1老协议，2眯会儿协议)
+     * @return
+     */
+    @Query(value="select * from mc_gateway where protocol_type=:protocolType",nativeQuery = true)
+    List<GatewayEntity> findListByProtocalType(@Param("protocolType") int protocolType);
 }

@@ -85,7 +85,7 @@
 
                                 if(operation ==="create"){
 
-                                    console.log(options)
+                                    console.log(options);
 
                                     return kendo.stringify(options);
                                 }
@@ -163,7 +163,7 @@
 
                 function detailInit(e) {
                     var e=e;
-                    var id=e.data.id
+                    var id=e.data.id;
                     var detailRow = e.detailRow;
                     detailRow.find(".tabstrip").kendoTabStrip({
                         animation: {
@@ -197,7 +197,7 @@
 
                                     if(operation ==="create"){
                                         options.name.areaId=id;
-                                        console.log(options)
+                                        console.log(options);
 
                                   return kendo.stringify(options.name);
                                     }
@@ -309,7 +309,7 @@
 
 
                 function deviceEditor(container, options){
-                   console.log(options)
+                   console.log(options);
                     var areaId = options.id;
 
                     var input = $('<input required name="' + options.field + '"/>');
@@ -348,7 +348,7 @@
 
                 function detailInit2(e) {
                     var e=e;
-                    var id=e.data.id
+                    var id=e.data.id;
                     var detailRow = e.detailRow;
                     detailRow.find(".tabstrip").kendoTabStrip({
 
@@ -373,7 +373,7 @@
 
                                     if(operation ==="create"){
                                         options.parentId =id;
-                                        console.log(options)
+                                        console.log(options);
 
                                         return kendo.stringify(options);
                                     }

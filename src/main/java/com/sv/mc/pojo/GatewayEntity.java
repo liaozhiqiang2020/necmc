@@ -53,6 +53,10 @@ public class GatewayEntity {
      * 当前状态 0不在线 1在线
      */
     private int status; //当前状态
+    /**
+     * 协议类型 1 老协议 2 新协议
+     */
+    private int protocolType;
 
     @Id
     @GeneratedValue
@@ -154,6 +158,23 @@ public class GatewayEntity {
     public void setDeviceCount(Integer deviceCount) {
         this.deviceCount = deviceCount;
     }
+
+
+
+
+    @Basic
+    @Column(name = "protocol_type")
+    public int getProtocolType() {
+        return protocolType;
+    }
+
+    public void setProtocolType(int protocolType) {
+        this.protocolType = protocolType;
+    }
+
+
+
+
 
     @Override
     public boolean equals(Object o) {

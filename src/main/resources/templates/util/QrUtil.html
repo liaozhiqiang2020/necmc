@@ -55,13 +55,13 @@ $(function(){
     $("#a").html("");
     $("#startnum").html("");
     $("#endnum").html("");
-})
+});
 
     function a1(){
         var value= $("#a").val();
         var json ={
             sn:value
-        }
+        };
         $.ajax({
             type: 'POST',
             url:"./getQrCode",
@@ -69,7 +69,7 @@ $(function(){
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function(data){
-                console.log(data)
+                console.log(data);
                 if (data==true) {
                     alert("二维码生成成功")
                 }else{
@@ -99,12 +99,12 @@ $(function(){
   function getnum1() {
     //alert('追加了')
 
-      var start=$("#startnum").val()
-      var end=$("#endnum").val()
-      console.log(start,end)
+      var start=$("#startnum").val();
+      var end=$("#endnum").val();
+      console.log(start,end);
       var num;
   for (start;start<=end;start++) {
-          num=start+','
+          num=start+',';
       $("#a").append(num)
   }
 

@@ -1,9 +1,6 @@
 package com.sv.mc.controller;
 
-import com.sv.mc.pojo.DeviceEntity;
-import com.sv.mc.pojo.PriceEntity;
-import com.sv.mc.pojo.PriceHistoryEntity;
-import com.sv.mc.pojo.WxUserInfoEntity;
+import com.sv.mc.pojo.*;
 import com.sv.mc.service.*;
 import com.sv.mc.util.SingletonHungary;
 import com.sv.mc.util.WxUtil;
@@ -47,6 +44,8 @@ public class WeixinController extends WeixinSupport {
     private DeviceService deviceService;
     @Autowired
     private WxUserInfoService wxUserInfoService;
+    @Autowired
+    private GatewayService gatewayService;
 
     @Resource
     private JMSProducer jmsProducer;
@@ -348,6 +347,21 @@ public class WeixinController extends WeixinSupport {
         this.orderService.updateOrderById(orderId, state, description);
     }
 
+
+    /**
+     * 查询按摩椅版本
+     *
+     * @return
+     */
+    @RequestMapping("/findChairBanben")
+    @ResponseBody
+    public int findChairBanben(String chairId) {
+        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
+        int type = deviceEntity.getGatewayEntity().getProtocolType();
+        return type;
+    }
+
+
     /**
      * 根据订单code更新订单状态
      *
@@ -360,7 +374,7 @@ public class WeixinController extends WeixinSupport {
         this.orderService.updateOrderByCodeState(code, state);
     }
 
-    /**
+    /**createPaidOrder
      * 修改订单按摩开始时间，付款时间和结束时间
      *
      * @param orderId
@@ -626,12 +640,15 @@ public class WeixinController extends WeixinSupport {
             time = "0" + time;
         }
 
-        String message = "faaf0f11" + chairCode + time;
+        String time2 = WxUtil.intToHex(Integer.parseInt(time));//10进制转16进制
+        String message = "faaf0f11" + chairCode + time2;
+//        System.out.println(message);
 
         byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
         String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
         message = message + res + "_" + gatewayId;
+//        System.out.println(message);
 
         jmsProducer.sendMessage(message);
     }

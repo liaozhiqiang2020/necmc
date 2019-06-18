@@ -77,15 +77,15 @@
 
 
 <script>
-          var   gradeId=  '[[${session.user.gradeId}]]'   //隶属单位
-          var   p_id='[[${session.user.pId}]]'  //权限
+          var   gradeId=  '[[${session.user.gradeId}]]';   //隶属单位
+          var   p_id='[[${session.user.pId}]]';  //权限
          // alert(gradeId)
         //  alert(p_id)
 
 //起始页面
           $(function () {
               a()
-          })
+          });
 
 
 
@@ -97,7 +97,7 @@
 
 
     function grid(){
-        $("#grid").html("")
+        $("#grid").html("");
         var start=$("#start").val();//开始时间
         var end=$("#end").val();//结束时间
         var  province =$("#province").val();//省
@@ -105,7 +105,7 @@
         var  place=$("#place").val();//场地
 
              if (start=='起始日期'||end=='截至日期'){
-                 alert("缺少时间条件")
+                 alert("缺少时间条件");
                  a()
              }else{
                      if(gradeId!=4){
@@ -159,7 +159,7 @@
 
                         var list = {
                             id:deviceId
-                        }
+                        };
                         return kendo.stringify(list);
                     }
                 }
@@ -251,7 +251,7 @@
                         var  province =$("#province").val();//省
 
 //==============================================================
-                        $("#grid").html("")
+                        $("#grid").html("");
                         var dataSource2 = new kendo.data.DataSource({
                             transport: {
                                 read: {
@@ -264,7 +264,7 @@
 
                                         var list = {
                                             id:deviceId
-                                        }
+                                        };
                                         return kendo.stringify(list);
                                     }
                                 }
@@ -397,7 +397,7 @@
                               var deviceId = options.id;
                               var list = {
                                   id:deviceId
-                              }
+                              };
                               return kendo.stringify(list);
                           }
                       }
@@ -491,7 +491,7 @@
                                       var  city=$("#city").val();//市
                                       var  place=$("#place").val();//场地
 //==============================================================
-                                      $("#grid").html("")
+                                      $("#grid").html("");
                                       var dataSource1 = new kendo.data.DataSource({
                                           transport: {
                                               read: {
@@ -504,7 +504,7 @@
 
                                                       var list = {
                                                           id:deviceId
-                                                      }
+                                                      };
                                                       return kendo.stringify(list);
                                                   }
                                               }
@@ -640,7 +640,7 @@
                               var deviceId = options.id;
                               var list = {
                                   id:deviceId
-                              }
+                              };
                               return kendo.stringify(list);
                           }
                       }
@@ -750,7 +750,7 @@
               var  province =$("#province").val();//省
               var  city=$("#city").val();//市
               var  place=$("#place").val();//场地
-              console.log(place)
+              console.log(place);
               if (place=='') {
                   place=p_id
               }
@@ -764,7 +764,7 @@
                               var deviceId = options.id;
                               var list = {
                                   id:deviceId
-                              }
+                              };
                               return kendo.stringify(list);
                           }
                       }
@@ -906,7 +906,7 @@
         end.min(start.value());
 
 
-    })
+    });
 
 
     $(function () {

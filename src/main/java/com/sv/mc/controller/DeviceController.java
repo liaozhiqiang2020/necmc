@@ -61,7 +61,7 @@ public class DeviceController {
     }
 
 //    /**
-//     * 插入一条设备数据
+//     * 插入一条设备数据deleteDevice
 //     * @param deivce
 //     * @return
 //     */

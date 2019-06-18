@@ -13,10 +13,12 @@ import com.sv.mc.util.WxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.jms.Destination;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -129,7 +131,13 @@ public class GatewayServiceImpl implements GatewayService {
 
         WxUtil wxUtil = new WxUtil();
 
-        String message = "faaf0704"+channel;
+        if (channel.length() < 2) {
+            channel = "0" + channel;
+        }
+
+        String time2 = WxUtil.intToHex(Integer.parseInt(channel));//10进制转16进制
+        String message = "faaf0704"+time2;
+//        System.out.println(message);
 
         byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
         byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
@@ -150,10 +158,10 @@ public class GatewayServiceImpl implements GatewayService {
 
         String message = "faaf0605";
 
-        byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
-        byte[] newByte = wxUtil.SumCheck(srtbyte,2);  //计算校验和
-        String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-        message = message+res+"_"+gatewaySn;
+        byte[] srtbyte3 = WxUtil.toByteArray(message);  //字符串转化成byte[]
+        byte[] newByte3 = wxUtil.SumCheck(srtbyte3,2);  //计算校验和
+        String res3 = WxUtil.bytesToHexString(newByte3).toLowerCase();  //byte[]转16进制字符串
+        message = message+res3+"_"+gatewaySn;
         jmsProducer.sendMessage(message);
     }
 
@@ -218,7 +226,17 @@ public class GatewayServiceImpl implements GatewayService {
             placeName = this.placeRepository.findPlaceById(placeId).getName();//查询场地名称
 
             jsonObject.put("placeName", placeName);
+
+            if(gatewayEntity.getProtocolType()==1){
+                jsonObject.put("protocolTypeName", "老协议");
+            }
+            if(gatewayEntity.getProtocolType()==2){
+                jsonObject.put("protocolTypeName", "眯会儿协议");
+            }
+
             jsonArray1.add(jsonObject);
+
+
         }
         jsonObject1.put("data",jsonArray1.toString());
         jsonObject1.put("total",total);

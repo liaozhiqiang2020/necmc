@@ -22,9 +22,17 @@
     <div class="container-fluid">
 
         <div class="container-fluid">
+            <div id="fieldlist" style="background-color:#EDF0F4">
+                <label>场地:</label> <input id="place"/> <!--下拉框-->
+                <label>设备:</label> <input id="device" class="k-input k-textbox"/> <!--下拉框-->
+                <button class="k-button  k-primary" onclick="grid()">查询</button>
+            </div>
+
             <div id="grid">
                 <!-- <button>导出Excel</button>-->
                 <div><span id="toolbar"></span><span id="toolbar1"></span></div>
+
+
 
                 <div id="window3" style="display: none">
                     <input name="file" id="files" type="file">
@@ -99,16 +107,40 @@
                 <script>
                     /*<![CDATA[*/
                     $(function () {
-                        loadUserList();
+
+
+                        $("#place").kendoComboBox({
+                            autoBind: false,
+                            placeholder: "请选择...",
+                            dataTextField: "name",
+                            dataValueField: "id",
+                            filter: "contains",
+                            suggest: true,
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        type: "get",
+                                        url: "../place/findAllPlaceFirst",
+                                        dataType: "json",
+                                        contentType: "application/json",
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                                    }
+                                }
+                            }
+                        });
+
+                        // grid();
+                        // loadUserList(placeId, deviceId);
                     });
 
                     //初始化表格数据
-                    function loadUserList() {
+                    function loadUserList(placeId, deviceId) {
 
                         var dataSource = new kendo.data.DataSource({
                             transport: {
                                 read: {
-                                    url: "./getAllDevice"
+                                    // url: "./getAllDevice"
+                                    url: "../place/findDeviceByPlace?placeId=" + placeId + "&deviceId=" + deviceId
                                 },
                                 create: {
                                     url: "./insertDevice",
@@ -134,7 +166,7 @@
 
                                         var list = {
                                             id: deviceId
-                                        }
+                                        };
                                         return kendo.stringify(list);
                                     }
                                     if (operation === "create" || operation === "update") {
@@ -573,6 +605,27 @@
                     // }
 
                     /*]]>*/
+
+                    //点击查询按钮
+                    function grid() {
+                        var placeId = $("#place").data("kendoComboBox").value();//场地id
+                        var deviceId = $("#device").val();//设备id
+
+                        if (placeId == "" && deviceId == "") {
+                            alert("请选择场地或输入设备编号！");
+                            return;
+                        }
+                        if (placeId == "") {
+                            placeId = 0;
+                        }
+                        if (deviceId == "") {
+                            deviceId = 0;
+                        }
+                        console.log(placeId);
+                        console.log(deviceId);
+
+                        loadUserList(placeId, deviceId);
+                    }
                 </script>
 
                 <!--设置tooltip的样式-->
@@ -664,7 +717,7 @@
                     select: "上传"
                 },
                 success: function (e) {
-                    console.log(e.response)
+                    console.log(e.response);
 ////////
                     var my = $("#window3");
                     my.data("kendoWindow").close();

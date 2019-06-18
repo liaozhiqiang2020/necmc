@@ -15,11 +15,14 @@ public class JMSProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    private static final String QUEUE_NAME = "myTopic";//发命令的topic
+    //    @Scheduled(fixedDelay=5000) // 5s执行一次   只有无参的方法才能用该注解
+    public void sendMessage2(Destination destination, String message){
+//        jmsTemplate.convertAndSend(destinationName, payload, messagePostProcessor);
+        this.jmsTemplate.convertAndSend(destination, message);
+    }
 
-//    public void sendMessage(Destination destination, String message) {
-//        this.jmsTemplate.convertAndSend(destination,message);
-//    }
+
+    private static final String QUEUE_NAME = "myTopic";//发命令的topic
 
     /**
      * 传入命令字符串，发送给给activemq
@@ -28,8 +31,8 @@ public class JMSProducer {
      */
     public void sendMessage(String message) throws Exception {
         //1.创建一个连接工厂
-        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.108.129.115:61616");
-//        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.104.142.21:61616");
+//        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.108.129.115:61616");
+        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://39.104.142.21:61616");
 //        ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://127.0.0.1:61616");
         //2.使用工厂创建Connection
         Connection connection = factory.createConnection();
@@ -47,6 +50,7 @@ public class JMSProducer {
         //7.创建Message对象
 //        TextMessage message = new ActiveMQTextMessage();
 //        message.setText("");
+
         TextMessage textMessage = session.createTextMessage(message);
         //8.发送消息
         producer.send(textMessage);

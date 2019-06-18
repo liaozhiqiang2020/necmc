@@ -269,7 +269,7 @@
                                             var branchId = data.id;//分公司id
 
 
-                                            var detailWindow = $("<div id='window'><button id='history' class='k-button  k-primary'>历史记录</button><div id='placeGrid'></div><div><hr></div><div id='unboundPlaceGrid'></div></div>")
+                                            var detailWindow = $("<div id='window'><button id='history' class='k-button  k-primary'>历史记录</button><div id='placeGrid'></div><div><hr></div><div id='unboundPlaceGrid'></div></div>");
                                             $("body").append(detailWindow);
 
                                             // $("#window").show();
@@ -330,7 +330,7 @@
                                                                 startDateTime: options.startDateTime,
                                                                 endDateTime: options.endDeteTime,
                                                                 effectDateTime: options.effectDateTime
-                                                            }
+                                                            };
                                                             return kendo.stringify(list);
                                                         }
                                                     }
@@ -790,7 +790,7 @@
                 }
 
                 function history(branchId) {
-                    var detailWindow2 = $("<div id='window2'><div id='historyGrid'></div></div>")
+                    var detailWindow2 = $("<div id='window2'><div id='historyGrid'></div></div>");
                     $("body").append(detailWindow2);
 
                     var myWindow2 = $("#window2");

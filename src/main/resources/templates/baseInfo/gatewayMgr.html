@@ -46,12 +46,12 @@
                                                                             name="gatewaySn" required="required"
                                                                             data-required-msg="请您填写网关编号"
                                                                             data-bind="value:gatewaySn"></div>
-            <div class="k-edit-label"><label for="ip"><span style="color:red;"></span>网关通讯ip</label></div>
+            <!--<div class="k-edit-label"><label for="ip"><span style="color:red;"></span>网关通讯ip</label></div>
             <div data-container-for="ip" class="k-edit-field"><input type="text" class="k-input k-textbox"
-                                                                     name="ip"></div>
-            <!--<div class="k-edit-label"><label for="domainName"><span style="color:red;"></span>域名</label></div>-->
-            <!--<div data-container-for="domainName" class="k-edit-field"><input type="text" class="k-input k-textbox"-->
-            <!--name="domainName"></div>-->
+                                                                     name="ip"></div>-->
+            <div class="k-edit-label"><label for="domainName"><span style="color:red;"></span>域名</label></div>
+            <div data-container-for="domainName" class="k-edit-field"><input type="text" class="k-input k-textbox"
+            name="domainName"></div>
             <!--<div class="k-edit-label"><label for="port"><span style="color:red;"></span>网关通讯端口</label></div>-->
             <!--<div data-container-for="port" class="k-edit-field"><input type="text" class="k-input k-textbox"-->
             <!--name="port"></div>-->
@@ -65,6 +65,12 @@
             <div data-container-for="placeId" class="k-edit-field">
                 <input id="placeId" data-role="combobox" data-bind="value:placeId" required="required"
                        data-required-msg="所属场地为必填项！">
+            </div>
+
+            <div class="k-edit-label"><label for="protocolType"><span style="color:red;"></span>协议类型</label></div>
+            <div data-container-for="protocolType" class="k-edit-field">
+                <input id="protocolType" data-role="combobox" data-bind="value:protocolType" required="required"
+                       data-required-msg="协议类型为必填项！">
             </div>
         </script>
         <script>
@@ -120,7 +126,9 @@
                                 placeName:{type: "string"},
                                 lastCorrespondTime:{type: "timestamp",editable: false},
                                 status:{type:"int",editable: false},
-                                statusName:{type: "string",editable: false}
+                                statusName:{type: "string",editable: false},
+                                protocolType:{type:"number"},
+                                protocolTypeName:{type: "string"}
                             }
                         },
                         data: function (response) {
@@ -207,6 +215,11 @@
                             field: "statusName",
                             title: "是否在线",
                             attributes: {style: "white-space:nowrap;text-overflow:ellipsis;#=statusName === '在线' ? 'background-color:lime;' : 'background-color:gold;'#"}
+                        },
+                        {
+                            field: "protocolTypeName",
+                            title: "协议类型",
+                            attributes: {style: "white-space:nowrap;text-overflow:ellipsis;"}
                         },
                         {
                             command: [
@@ -373,6 +386,22 @@
                                 }
                             }
                         });
+
+                        $("#protocolType").kendoComboBox({
+                            // autoBind: false,
+                            placeholder: "请选择...",
+                            dataValueField: "id",
+                            dataTextField: "name",
+                            value: e.model.protocolType,
+                            text: e.model.protocolTypeName,
+                            filter: "contains",
+                            suggest: true,
+                            dataSource: [
+                                { name:"老协议", id:"1"},
+                                { name:"眯会儿协议", id: "2"}
+                            ]
+                        });
+
                     }
                 });
             }

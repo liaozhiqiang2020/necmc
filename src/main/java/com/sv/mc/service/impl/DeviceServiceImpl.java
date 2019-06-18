@@ -147,8 +147,9 @@ public class DeviceServiceImpl implements DeviceService {
         @Transactional
         public void deleteDevice(int deviceId) {
                 DeviceEntity deviceEntity = findDeviceById(deviceId);
-                deviceEntity.setDiscardStatus(0);
-                this.deviceRepository.save(deviceEntity);
+//                deviceEntity.setDiscardStatus(0);
+////                this.deviceRepository.save(deviceEntity);
+                this.deviceRepository.delete(deviceEntity);
         }
 
 
