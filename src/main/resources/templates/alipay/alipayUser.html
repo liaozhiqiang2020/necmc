@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
+    <title>提示</title>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"
+            src="../../static/js/jquery.js"></script>
+
+</head>
+<body class="keBody">
+    <a href="">授权</a>
+
+    <input type="hidden" class="form-control1" id="app_id" name="app_id" th:value="${app_id}">
+    <input type="hidden" class="form-control1" id="scope" name="scope" th:value="${scope}">
+    <input type="hidden" class="form-control1" id="redirect_uri" name="redirect_uri" th:value="${redirect_uri}">
+
+<script>
+    $(function () {
+        // console.log(888);
+
+        var sn = getQueryString("sn");
+
+        var app_id=$("#app_id").val();
+        var scope=$("#scope").val();
+        var redirect_uri=$("#redirect_uri").val();
+        $("a").attr("href","https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id="+app_id+"&scope="+scope+"&redirect_uri="+redirect_uri+"&state="+sn);
+        // var sn = getQueryString("sn");
+        // alert(sn)
+
+        // $.ajaxSettings.async = false;
+        //调用支付接口
+        // $.get("https://www.infhp.cn/mc/alipay/getUser", {sn:sn}, function (res) {
+        //     console.log("success");
+        // });
+        // $.ajaxSettings.async = true;
+
+        console.log(888);
+
+    })
+
+    //获取url中的参数值
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+
+
+</script>
+</body>
+</html>

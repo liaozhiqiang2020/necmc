@@ -254,6 +254,9 @@
                                             "                <div style='padding-top: 5px'>" +
                                             "                    <button id='btnRestart' type='button' class='k-button  k-primary'>重启网关</button>" +
                                             "                </div>" +
+                                            "                <div style='padding-top: 5px'>" +
+                                            "                    <button id='btnDelete' type='button' class='k-button  k-primary'>删除网关</button>" +
+                                            "                </div>" +
                                             "            </table>" +
                                             "        </div>";
 
@@ -350,6 +353,25 @@
                                             }
                                         });
 
+                                        $("#btnDelete").kendoButton({
+                                            click: function () {
+
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: "../gatewayMgr/deleteGateway",
+                                                    data: {
+                                                        gatewaySn:data.gatewaySn
+                                                    },
+                                                    success: function (res) {
+                                                        alert(res);
+                                                        // alert("重启网关成功！");
+                                                        myWindow.data("kendoWindow").close();
+                                                        //location.reload();
+                                                        g.dataSource.read();
+                                                    }
+                                                })
+                                            }
+                                        });
                                     }
                                 }
                             ],

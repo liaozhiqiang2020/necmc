@@ -96,4 +96,8 @@ public interface GatewayService<T> extends BaseService<T>{
      */
     GatewayEntity updateGateway(Map<String, Object> map);
 
+    /**
+     * 删除网关
+     */
+    String deleteGateway(String sn);
 }

@@ -15,12 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.apache.poi.sl.usermodel.PresetColor.Control;
 
 /**
  * 价格控制层
@@ -236,17 +239,6 @@ public class PriceController {
     public List<PriceEntity> placeAddPrice(@RequestBody Map<String, Object> listMap) {
         return this.priceService.placeAddPrice(listMap);
     }
-
-    /**
-     *  根据设备编码查询价格
-     * @param deviceCode 设备编码
-     * @return 价格
-     */
-    @GetMapping("/weixin/devicePrice")
-    public List<PriceEntity> findDeviceAllPrice(String deviceCode){
-        return this.priceService.findDeviceAllPrice(deviceCode);
-    }
-
 
 //    @GetMapping("/price/status")
 //    public List<PriceEntity> priceStatus(@RequestParam int status){

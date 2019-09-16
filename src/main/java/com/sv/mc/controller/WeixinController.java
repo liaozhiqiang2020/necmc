@@ -5,13 +5,14 @@ import com.sv.mc.service.*;
 import com.sv.mc.util.SingletonHungary;
 import com.sv.mc.util.WxUtil;
 import com.sv.mc.weixinpay.vo.Json;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.weixin4j.WeixinException;
 import org.weixin4j.WeixinSupport;
@@ -22,6 +23,7 @@ import javax.jms.Topic;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -140,7 +142,9 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/findChairStatus")
     @ResponseBody
-    public int findChairStatus(String chairId) {
+    public int findChairStatus(String chairId,HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
         int mcStatus = 5;//没有收到返回的消息
         DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
         if (deviceEntity != null) {
@@ -156,6 +160,21 @@ public class WeixinController extends WeixinSupport {
         }
         return mcStatus;
     }
+
+    /**
+     *  根据设备编码查询价格
+     * @param deviceCode 设备编码
+     * @return 价格
+     */
+    @RequestMapping("/devicePrice")
+    @ResponseBody
+    public List<PriceEntity> findDeviceAllPrice(String deviceCode){
+        List<PriceEntity> list = this.priceService.findDeviceAllPrice(deviceCode);
+        return list;
+    }
+
+
+
 
     /**
      * 查询设备是否开启成功(小程序)
@@ -189,7 +208,9 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/cleanDeviceStatus")
     @ResponseBody
-    public void cleanDeviceStatus(String chairId) {
+    public void cleanDeviceStatus(String chairId,HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
 //        DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(deviceSn);//获取设备信息
         SingletonHungary.getSingleTon().remove(chairId+"status");
         SingletonHungary.getSingleTon().remove(chairId+"runing");
@@ -258,7 +279,10 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/findPaidOrderList")
     @ResponseBody
-    public String findPaidOrderList(String openCode, int state) {
+    public String findPaidOrderList(String openCode, int state,HttpServletResponse response) {
+//        System.out.println(this.orderService.findPaidOrderList(openCode, state));
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
         return this.orderService.findPaidOrderList(openCode, state);
     }
 
@@ -294,7 +318,12 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/createPaidOrder")
     @ResponseBody
-    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength) {
+    public int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength,HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
+        if(openid.equals("")){
+            openid=UUID.randomUUID().toString().replace("-", "");
+        }
         return this.orderService.createPaidOrder(openid, mcTime, deviceCode, promoCode, money, unPaidOrderCode, state, strength);
     }
 
@@ -343,7 +372,9 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/updatePaidOrderById")
     @ResponseBody
-    public void updatePaidOrderById(int orderId, int state, String description) throws Exception{
+    public void updatePaidOrderById(int orderId, int state, String description,HttpServletResponse response) throws Exception{
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
         this.orderService.updateOrderById(orderId, state, description);
     }
 
@@ -383,7 +414,9 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/updateOrderDetail")
     @ResponseBody
-    public void updateOrderDetail(int orderId, int state, int mcTime) {
+    public void updateOrderDetail(int orderId, int state, int mcTime,HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
         this.orderService.updateOrderDetail(orderId, state, mcTime);
     }
 
@@ -422,7 +455,10 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendFindChairStatus")
     @ResponseBody
-    public String sendFindChairStatus(String chairId) throws Exception {
+    public String sendFindChairStatus(String chairId, HttpServletResponse response) throws Exception {
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
+
         String result = "设备异常！";
         WxUtil wxUtil = new WxUtil();
         DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
@@ -449,7 +485,10 @@ public class WeixinController extends WeixinSupport {
      */
     @RequestMapping("/sendStartChairMsg")
     @ResponseBody
-    public void sendStartChairMsg(String chairId, Integer mcTime) throws Exception {
+    public void sendStartChairMsg(String chairId, Integer mcTime,HttpServletResponse response) throws Exception {
+        response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访问
+        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
+
         WxUtil wxUtil = new WxUtil();
         DeviceEntity deviceEntity = this.deviceService.selectDeviceBYSN(chairId);//获取设备信息
         if (deviceEntity != null) {

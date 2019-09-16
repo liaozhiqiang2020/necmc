@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
+    <title>按摩中</title>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"
+            src="../../static/js/jquery.js"></script>
+
+
+
+    <!--<link type="text/css" rel="stylesheet" href="../../static/css/time_css.css" th:src="@{/css/time_css.css}"/>-->
+
+    <style>
+        /*科e互联特效基本框架CSS*/
+        body, ul, dl, dd, dt, ol, li, p, h1, h2, h3, h4, h5, h6, textarea, form, select, fieldset, table, td, div, input {margin:0;padding:0;-webkit-text-size-adjust: none}
+        h1, h2, h3, h4, h5, h6{font-size:12px;font-weight:normal}
+        body>div{margin:0 auto}
+        div {text-align:left}
+        a img {border:0}
+        body { color: #333; text-align: center; font: 12px "微软雅黑"; }
+        .clear{height:0; overflow:hidden; clear:both}
+        /*.keBody{background:repeat #642b8d;}*/
+        .game_time{height:200px;width:200px; margin-top: 100px;margin-left:auto;margin-right: auto;}
+        .pie{width:200px;height:200px;background-color:blue;border-radius:100px;position:absolute;}
+        .pie1{clip:rect(0px,200px,200px,100px);-o-transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);background-color:#dedede;}
+        .pie2{clip:rect(0px,100px,200px,0px);-o-transform:rotate(0deg);-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);background-color:#dedede;}
+        .hold{width:200px;height:200px;position:absolute;z-index:1;}
+        .bg{width:200px;height:200px;border-radius:200px;position:absolute;background-color:#dedede;}
+        .time{width:160px;height:160px;margin:20px 0 0 20px;background-color:#e45534;border-radius:160px;position:absolute;z-index:1;text-align:center;line-height:160px;font-size:30px;}
+    </style>
+</head>
+<body class="keBody">
+    <div style="width:100%;height:25%;">
+
+        <img src="../../static/wx/dise-2.png" th:src="@{/wx/dise-2.png}" width="100%" height="100%"/>
+        <img src="../../static/wx/logo-white.png" th:src="@{/wx/logo-white.png}"
+             style="width:60%;height:80%;position:relative;top: -85%;left: 18%;"/>
+    </div>
+    <p style="font-size:17px;color:grey;display:inline;margin-left: 38%">设备号：</p>
+    <a id="a1" style="font-size:17px;color:grey;position:absolute;"></a>
+
+    <div class="game_time">
+        <div class="hold">
+            <div class="pie pie1"></div>
+        </div>
+        <div class="hold">
+            <div class="pie pie2"></div>
+        </div>
+        <div class="bg"> </div>
+        <div class="time"></div>
+    </div>
+
+
+    <input type="hidden" class="form-control1" id="mcTime" name="mcTime" th:value="${mcTime}">
+    <input type="hidden" class="form-control1" id="orderId" name="orderId" th:value="${orderId}">
+    <input type="hidden" class="form-control1" id="states" name="states" th:value="${states}">
+    <input type="hidden" class="form-control1" id="orderNo" name="orderNo" th:value="${orderNo}">
+    <input type="hidden" class="form-control1" id="deviceId" name="deviceId" th:value="${deviceId}">
+<script>
+    $(function () {
+        $("#a1").text($("#deviceId").val());
+    });
+    // console.log($("#orderNo").val().split("_")[1]);
+    var MM;
+    var SS;
+    var MS;
+    var gameTime;
+
+    if($("#states").val()==0){
+         MM = $("#mcTime").val();
+         SS = 1;  // 秒 90s
+         MS = 0;
+         gameTime = $("#mcTime").val()*60;
+
+        $.ajaxSettings.async = false;
+        $.get("https://www.infhp.cn/mc/weixin/updateOrderDetail",
+            {orderId:$("#orderId").val(),
+                mcTime:$("#mcTime").val(),
+                state:1
+        }, function (data) {
+            console.log("success");
+        });
+        $.ajaxSettings.async = true;
+    }else{
+         MM = Math.floor($("#mcTime").val()/60);
+         SS = Math.floor($("#mcTime").val()%60*60/60);  // 秒 90s
+         MS = 0;
+         gameTime = $("#mcTime").val();
+    }
+
+
+
+</script>
+<script type="text/javascript" src="../../static/js/time_js.js" th:src="@{/js/time_js.js}"></script>
+<script>
+    countDown();
+</script>
+    <!--效果html结束-->
+    <div class="clear"></div>
+    </div>
+</body>
+</html>

@@ -238,6 +238,13 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return orderEntity.getId();
     }
 
+    @Override
+    public OrderEntity findOrderEntityByOrderCode(String paidOrderCode) {
+        OrderEntity orderEntity = this.orderRepository.findPaidOrderIdByOrderCode(paidOrderCode);
+        return orderEntity;
+    }
+
+
     /**
      * 修改已支付订单
      *
@@ -354,6 +361,57 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 //        orderEntity.setMcStartDateTime(null);//开始计时时间
 //        orderEntity.setCodeWx("");//微信/支付宝/银联订单号
         orderEntity.setOrderSource("微信");
+        orderEntity.setDeviceId(deviceId);//设备id
+
+//        Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
+
+//        orderEntity.setMcEndDateTime(null);//结束计时时间
+        orderEntity.setStatus(state);//使用状态(未支付)
+        orderEntity.setMcTime(mcTime);//按摩时长
+        orderEntity.setMoney(money);//金额
+        orderEntity.setStrength(strength);//按摩强度
+        createPaidOrder(orderEntity);
+
+        return findPaidOrderIdByOrderCode(paidOrderCode);
+    }
+
+
+
+    /**
+     * 创建订单
+     *
+     * @return
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    @Override
+    @Transactional
+    public int createPaidOrderAlipay(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength) {
+        OrderEntity orderEntity = new OrderEntity();
+        WxUtil wxUtil = new WxUtil();
+        String paidOrderCode = wxUtil.createPaidOrderCode(openid, deviceCode); //生成订单号
+        Integer deviceId = this.deviceRepository.queryDeviceIdByDeviceCode(deviceCode);//设备id
+
+        Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
+
+        WxUserInfoEntity wxUserInfoEntity = this.wxUserInfoRepository.findWxUserInfoEntityByOpenCode(openid); //根据openId查询wxUser表
+        if (wxUserInfoEntity != null) {
+            orderEntity.setWxUserInfoId(wxUserInfoEntity.getId());
+        } else {
+            wxUserInfoEntity = new WxUserInfoEntity();
+            wxUserInfoEntity.setOpenCode(openid);
+            wxUserInfoEntity.setUpdateDateTime(wxUtil.getNowDate());
+            this.wxUserInfoRepository.save(wxUserInfoEntity);
+
+            orderEntity.setWxUserInfoId(wxUserInfoEntity.getId());
+        }
+
+        orderEntity.setCode(paidOrderCode);//生成订单号
+        orderEntity.setCreateDateTime(ts);//订单创建时间
+//        orderEntity.setPayDateTime(ts);//支付时间
+//        orderEntity.setMcStartDateTime(null);//开始计时时间
+//        orderEntity.setCodeWx("");//微信/支付宝/银联订单号
+        orderEntity.setOrderSource("支付宝");
         orderEntity.setDeviceId(deviceId);//设备id
 
 //        Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间

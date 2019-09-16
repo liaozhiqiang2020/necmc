@@ -252,4 +252,14 @@ public class GatewayController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 删除网关
+     *
+     */
+    @PostMapping(value = "/gatewayMgr/deleteGateway")
+    public @ResponseBody
+    String deleteGateway(String gatewaySn) {
+        return this.gatewayService.deleteGateway(gatewaySn);
+    }
 }

@@ -36,11 +36,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //解决静态资源被拦截的问题
         web.ignoring()
                 .antMatchers("/css/**")
+                .antMatchers("/static/**")
                 .antMatchers("/fonts/**")
                 .antMatchers("/img/**")
                 .antMatchers("/js/**")
                 .antMatchers("/.well-known/**")
                 .antMatchers("/weixin/**")
+                .antMatchers("/alipay/**")
                 .antMatchers("/wx/**")
                 .antMatchers("/JMNomfSJJT.txt")
                 .antMatchers("/wx/JMNomfSJJT.txt");
@@ -51,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 //在权限校验框架之前添加过滤器
+                .cors().and()
                 .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 .csrf().disable()
                 .authorizeRequests()

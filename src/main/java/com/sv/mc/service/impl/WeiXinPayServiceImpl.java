@@ -431,6 +431,9 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
 
             jmsProducer.sendMessage(message);
         }
+
+
+
     }
 
 

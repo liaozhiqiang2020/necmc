@@ -15,7 +15,7 @@ public class WxPayConfig {
     public static final String key = "ed93wmr8gjek439fhjflw9gfjewmre98";
     //支付成功后的服务器回调url
     public static final String notify_url = "https://www.infhp.cn/mc/weixin/wxNotify";
-//    public static final String notify_url = "http://sv-wechat-dev.natapp4.cc/mc/weixin/wxNotify";
+//    public static final String notify_url = "http://www.infhp.cn/mc/weixin/wxNotify";
     //签名方式
     public static final String SIGNTYPE = "MD5";
     //交易类型

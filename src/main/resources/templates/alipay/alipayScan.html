@@ -1,0 +1,262 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
+    <title>扫一扫</title>
+    <link th:href="@{/css/sweetalert.css}"  href="../../static/css/sweetalert.css" rel="stylesheet" >
+    <link th:href="@{/css/application.css}"  href="../../static/css/application.css" rel="stylesheet">
+    <script type="text/javascript" th:src="@{/js/jquery.js}"
+            src="../../static/js/jquery.js"></script>
+    <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.inc.min.js"></script>
+
+
+
+    <!--<link type="text/css" rel="stylesheet" href="../../static/css/time_css.css" th:src="@{/css/time_css.css}"/>-->
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        /*背景层*/
+        #popLayer {
+            display: none;
+            background-color: #B3B3B3;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            -moz-opacity: 0.8;
+            opacity:.80;
+            filter: alpha(opacity=80);/* 只支持IE6、7、8、9 */
+        }
+
+        /*弹出层*/
+        #popBox {
+            display: none;
+            background-color: #FFFFFF;
+            z-index: 11;
+            width: auto;
+            height: auto;
+            position:fixed;
+            top:0;
+            right:0;
+            left:0;
+            bottom:0;
+            margin:auto;
+        }
+
+        #popBox .close{
+            text-align: right;
+            margin-right: 5px;
+            background-color: #F8F8F8;
+        }
+
+        /*关闭按钮*/
+        #popBox .close a {
+            text-decoration: none;
+            color: #2D2C3B;
+        }
+
+    </style>
+    <style>
+        body, ul, dl, dd, dt, ol, li, p, h1, h2, h3, h4, h5, h6, textarea, form, select, fieldset, table, td, div, input {margin:0;padding:0;-webkit-text-size-adjust: none}
+        h1, h2, h3, h4, h5, h6{font-size:12px;font-weight:normal}
+        body>div{margin:0 auto}
+        div {text-align:left}
+        a img {border:0}
+        body { color: #333; text-align: center; font: 12px "微软雅黑"; }
+
+    </style>
+</head>
+<body style="background-color: white">
+        <header>
+            <div class="headerbar">
+                <h1>首页</h1>
+            </div>
+        </header>
+
+
+    <div style="width:100%;height:25%;">
+
+        <img src="../../static/wx/logo.png" th:src="@{/wx/logo.png}" style="position: relative;left: 5%;top: 10%;" width="90%" height="100%"/>
+
+    </div>
+    <p style="font-size:25px;color:grey;position: relative;margin-top: 20px;">共享按摩  轻松出行</p>
+
+    <div style="width:100%;height:50%;">
+
+        <img src="../../static/wx/saoma.png" th:src="@{/wx/saoma.png}" style="width: auto;height: auto;position: relative;left: 25%;margin-top: 70px;"  class="read"/>
+
+    </div>
+
+
+
+    <div style="width:100%;height:7%;">
+        <div style="margin-top: 40px;">
+            <input id="checkbox1" type="checkbox" checked style="position: relative;left: 34%;zoom:160%;display:inline-block;margin-top:-15px;">
+        </div>
+        <div>
+            <a style="left: 40%;color:grey;margin-top:-25px;position: relative;display:inline-block" onclick="popBox()">《用户使用协议》</a>
+        </div>
+    </div>
+    <div id="popLayer"></div>
+    <div id="popBox">
+        <div class="close">
+            <a href="javascript:void(0)" onclick="closeBox()">关闭</a>
+        </div>
+        <div class="content">
+
+            <div style="font-size: 12px">
+
+                <div style="text-align:center"><text>用户协议</text></div>
+                <br>
+
+                <text>特别提示:</text>
+                <div style="text-align:left">
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;北京无限热点科技有限公司（以下简称“无限热点”）在此特别提醒您（用户）在扫码支付使用共享按摩椅的按摩服务之前，请认真阅读本《用户协议》（以下简称“协议”），确保您充分理解本协议中各条款。请您审慎阅读并选择接受或不接受本协议。除非您接受本协议所有条款，否则您无权使用按摩服务。您的扫码支付使用按摩服务等行为将视为对本协议的接受，并同意接受本协议各项条款的约束。
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;本协议约定无限热点与用户之间关于共享按摩椅服务（以下简称“服务”）的权利义务。“用户”是指使用共享按摩椅的个人。本协议可由无限热点随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在扫码支付页面查阅最新版协议条款。在无限热点修改协议条款后，如果用户不接受修改后的条款，请立即停止使用无限热点提供的服务，用户继续使用无限热点提供的服务将被视为接受修改后的协议。
+                        <br>
+                    </text>
+
+                    <text>一、不宜使用人群</text>
+                    <br>
+                    <text>1．残障人士、感观或神经有缺陷人士、未成年人士使用时必须在监护人或专业人士的监督
+                        与指导下使用；
+                        <br>
+                        2．具有心脏问题以及佩戴心脏起搏器等医用电子仪器者；
+                        <br>
+                        3正在接受医生治疗者，经医生瞩咐需要休养或感觉身体不适者，在使用期间感到身体异常请立即停止使用；
+                        <br>
+                        4．患有恶性月中瘤、急性疾病、心脏病、严重高血压等患者；
+                        <br>
+                        5．孕妇或正处于经期者；处于发热期并且体温38度以上的人士；
+                        <br>
+                        6．骨质疏松、颈椎骨折等患者，身体有创伤或体表患病者；
+                        <br>
+                        7．年满60岁以上人士，请慎重使用。
+                        <br>
+                    </text>
+
+                    <text>二、服务内容</text>
+                    <br>
+                    <text>1．如果发现按摩椅异常时禁止使用，如果在使用中感到按摩椅异常时请立即停止使用；
+                        <br>
+                        2．如果发现按摩椅损坏、破裂、漏电以及相关部件暴露出来时止使用；
+                        <br>
+                        3．禁止将其他重物放置或挤压按摩椅、禁止在按摩椅上玩耍、站力、倒立；
+                        <br>
+                        4．不满12周岁的几童以及年满70岁以上人士，禁止使用；
+                        <br>
+                        5．身体潮湿时禁止使用按摩椅；
+                        <br>
+                        6．酒醉及神志不清时禁止使用，请勿在工作中的按摩椅上入睡；
+                        <br>
+                        7．请勿将手指或者其他物件插入按摩椅缝隙，以免受伤或发生故障；
+                        <br>
+                        8．使用按摩椅时与按摩椅有接触的部位禁止佩戴饰品，避免损坏；
+                        <br>
+                        9．为方便有需要的人使用按摩椅，禁止非使用状态下占用按摩椅。
+                        <br>
+                    </text>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="row footbar">
+            <a class="col-4 text-center active" href="#" onclick="toScan()"><span class="icon-home"></span>首页</a>
+            <a class="col-4 text-center" href="#" onclick="toOrder()"><span class="icon-cart2"></span>订单管理</a>
+            <a class="col-4 text-center" href="#" onclick="toOur()"><span class="icon-user2"></span>我的</a>
+        </div>
+    </footer>
+<script>
+    var auth_app_id = getQueryString("auth_app_id");
+
+    function toScan(){
+        window.location.href='https://www.infhp.cn/mc/alipay/turnToAlipayScan?auth_app_id='+auth_app_id;
+    }
+
+    function toOrder(){
+        window.location.href='https://www.infhp.cn/mc/alipay/turnToAlipayOrder?auth_app_id='+auth_app_id;
+    }
+
+    function toOur(){
+        window.location.href='https://www.infhp.cn/mc/alipay/turnToAlipayOur?auth_app_id='+auth_app_id;
+    }
+
+    /*点击弹出按钮*/
+    function popBox() {
+        var popBox = document.getElementById("popBox");
+        var popLayer = document.getElementById("popLayer");
+        popBox.style.display = "block";
+        popLayer.style.display = "block";
+    };
+
+    /*点击关闭按钮*/
+    function closeBox() {
+        var popBox = document.getElementById("popBox");
+        var popLayer = document.getElementById("popLayer");
+        popBox.style.display = "none";
+        popLayer.style.display = "none";
+    }
+
+    function ready(callback) {
+        // 如果jsbridge已经注入则直接调用
+        if (window.AlipayJSBridge) {
+            callback && callback();
+        } else {
+            // 如果没有注入则监听注入的事件
+            document.addEventListener('AlipayJSBridgeReady', callback, false);
+        }
+    }
+
+    ready(function() {
+        document.querySelector('.read').addEventListener('click', function () {
+            var checkbox = $('#checkbox1').prop('checked');//返回值是true或者false
+            if(checkbox) {
+                AlipayJSBridge.call('scan', {
+                    type: 'qr',
+                    actionType: 'scanAndRoute'
+                }, function (result) {
+                    alert(JSON.stringify(result));
+                });
+            }else{
+                alert("请同意用户协议后再扫码！");
+            }
+        });
+
+    });
+
+
+
+    //获取url中的参数值
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+
+
+</script>
+<!--<script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js" type="text/javascript"></script>-->
+<script th:src="@{/js/swipeSlide.min.js}" src="../../static/js/swipeSlide.min.js" type="text/javascript"></script>
+<script th:src="@{/js/sweetalert.min.js}" src="../../static/js/sweetalert.min.js" type="text/javascript"></script>
+<script th:src="@{/js/jquery.touchSwipe.min.js}" src="../../static/js/jquery.touchSwipe.min.js"  type="text/javascript" ></script>
+<script th:src="@{/js/jquery.mmenu.min.js}" src="../../static/js/jquery.mmenu.min.js" type="text/javascript"></script>
+<script th:src="@{/js/icheck.min.js}" src="../../static/js/icheck.min.js" type="text/javascript"></script>
+<script th:src="@{/js/application.js}" src="../../static/js/application.js" type="text/javascript"></script>
+</body>
+</html>

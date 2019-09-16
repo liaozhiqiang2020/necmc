@@ -85,7 +85,7 @@ public class JMSConsumer {
                     }
                 }
             }
-        } else {
+        } else{
             int type = Integer.parseInt(res.substring(14, 16));//获取协议类型
             String chairCode = res.substring(16, 32);//获取设备ascii
             String returnMsg = res.substring(32, 34);//返回类型
@@ -144,6 +144,71 @@ public class JMSConsumer {
         String res16 = wxUtil.convertHexToString(res);//网关心跳包使用
         System.out.println(res16);
         String gatewaySn = res16.split("_")[1];//截取网关sn
+        GatewayEntity gatewayEntity = gatewayRepository.findGatewayBySn(gatewaySn);
+        int protocolType = gatewayEntity.getProtocolType();
+        if (protocolType == 1) {
+            System.out.println("老网关" + gatewaySn);
+            Timestamp time = wxUtil.getNowDate();//获取当前时间戳
+            DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String timeStr = sdf.format(time);
+//        GatewayEntity gatewayEntity = this.gatewayRepository.findGatewayBySn(gatewaySn);//获取网关信息
+            gatewayEntity.setLastCorrespondTime(time);
+            this.gatewayRepository.save(gatewayEntity);//保存网关最后通信时间
+
+            List<String> deviceEntityList = this.deviceRepository.findAllDeviceByGatewayCode(gatewaySn);//获取网关下所有设备
+            List<String> resMsgs = Arrays.asList(res16.split("_")[0].split(""));//截取心跳包数据
+
+            String baseGateway = gatewaySn.substring(0, 6);//截取网关sn的前6位
+
+            for (int i = 1; i < resMsgs.size() + 1; i++) {
+                String resMsg = String.valueOf(i);
+                int resInt = Integer.parseInt(resMsgs.get(i - 1));
+                if (i < 10) {
+                    resMsg = "0" + resMsg;
+                }
+                String deviceSn = baseGateway + resMsg;
+
+                if (deviceEntityList.contains(deviceSn)) {
+                    if (resInt == 1) {
+                        this.deviceRepository.updateDeviceTimeByLoraId(deviceSn, resInt, timeStr);//修改按摩椅状态(0，不在线;1，在线)
+                    } else {
+                        this.deviceRepository.updateDeviceStatusByLoraId(deviceSn, resInt);
+                    }
+                }
+            }
+        } else if (protocolType == 2) {
+            System.out.println("新网关" + gatewaySn);
+            Timestamp time = wxUtil.getNowDate();//获取当前时间戳
+            DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String timeStr = sdf.format(time);
+//        GatewayEntity gatewayEntity = this.gatewayRepository.findGatewayBySn(gatewaySn);//获取网关信息
+            gatewayEntity.setLastCorrespondTime(time);
+            this.gatewayRepository.save(gatewayEntity);//保存网关最后通信时间
+
+            List<String> deviceEntityList = this.deviceRepository.findAllDeviceByGatewayCode(gatewaySn);//获取网关下所有设备
+            List<String> resMsgs = Arrays.asList(res16.split("_")[0].split(""));//截取心跳包数据
+
+            String baseGateway = gatewaySn.substring(0, 6);//截取网关sn的前6位
+
+            for (int i = 0; i < resMsgs.size() + 1; i++) {
+//                String resMsg = String.valueOf(i);
+                int resInt = Integer.parseInt(resMsgs.get(i));
+//                if (i < 10) {
+//                    resMsg = "0" + resMsg;
+//                }
+
+                String deviceSn = deviceEntityList.get(i);
+//                String deviceSn = baseGateway + resMsg;
+
+                if (deviceEntityList.contains(deviceSn)) {
+                    if (resInt == 1) {
+                        this.deviceRepository.updateDeviceTimeByLoraId(deviceSn, resInt, timeStr);//修改按摩椅状态(0，不在线;1，在线)
+                    } else {
+                        this.deviceRepository.updateDeviceStatusByLoraId(deviceSn, resInt);
+                    }
+                }
+            }
+        }
 
 //        if(gatewaySn.length()==16){
 //            System.out.println("新网关");
@@ -180,35 +245,7 @@ public class JMSConsumer {
 //            }
 //        }else{
 //            System.out.println("老网关");
-        System.out.println(gatewaySn);
-        Timestamp time = wxUtil.getNowDate();//获取当前时间戳
-        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String timeStr = sdf.format(time);
-        GatewayEntity gatewayEntity = this.gatewayRepository.findGatewayBySn(gatewaySn);//获取网关信息
-        gatewayEntity.setLastCorrespondTime(time);
-        this.gatewayRepository.save(gatewayEntity);//保存网关最后通信时间
 
-        List<String> deviceEntityList = this.deviceRepository.findAllDeviceByGatewayCode(gatewaySn);//获取网关下所有设备
-        List<String> resMsgs = Arrays.asList(res16.split("_")[0].split(""));//截取心跳包数据
-
-        String baseGateway = gatewaySn.substring(0, 6);//截取网关sn的前6位
-
-        for (int i = 1; i < resMsgs.size() + 1; i++) {
-            String resMsg = String.valueOf(i);
-            int resInt = Integer.parseInt(resMsgs.get(i - 1));
-            if (i < 10) {
-                resMsg = "0" + resMsg;
-            }
-            String deviceSn = baseGateway + resMsg;
-
-            if (deviceEntityList.contains(deviceSn)) {
-                if (resInt == 1) {
-                    this.deviceRepository.updateDeviceTimeByLoraId(deviceSn, resInt, timeStr);//修改按摩椅状态(0，不在线;1，在线)
-                } else {
-                    this.deviceRepository.updateDeviceStatusByLoraId(deviceSn, resInt);
-                }
-            }
-        }
 //        }
 //        String gatewaySn = wxUtil.convertHexToString(gatewaySn2);//截取网关sn
 //        System.out.println(gatewaySn);
@@ -230,17 +267,25 @@ public class JMSConsumer {
         String res16333 = wxUtil.convertHexToString(res333);
 //        System.out.println(res16333);
         String gatewaySn2 = res16333.split("_")[0];//截取网关sn
-        String count = res16333.split("_")[1];//截取网关sn
+        String count = res16333.split("_")[1];
         String gatewaySn = wxUtil.convertHexToString(gatewaySn2);
-        System.out.println(gatewaySn);
-        System.out.println(count);
-
+//        GatewayEntity gatewayEntity33 = gatewayRepository.findGatewayBySn(gatewaySn);
 
         String deviceSnStr = "";
         String deviceSnStr2 = "";
         String str = "";
         String str2 = "";
         List<String> deviceEntityList = this.deviceRepository.findAllDeviceByGatewayCode(gatewaySn);//获取网关下所有设备
+
+        int countoo = deviceEntityList.size();
+        String countoo2 = "";
+        countoo2 = Integer.toHexString(countoo);
+        if(countoo2.length()==1) {
+            countoo2 = "0"+countoo2;
+        }
+
+        System.out.println("countoo2------------:"+countoo2);
+
         if (deviceEntityList.size() != 0) {
 
 
@@ -250,6 +295,24 @@ public class JMSConsumer {
                     deviceSnStr += "00000000";
                 } else {
                     String devivesn = deviceEntityList.get(j);
+                    devivesn = Integer.toHexString(Integer.parseInt(devivesn));
+                    if(devivesn.length()!=8) {
+                        if(devivesn.length()==1) {
+                            devivesn = "0000000"+devivesn;
+                        }else if(devivesn.length()==2) {
+                            devivesn = "000000"+devivesn;
+                        }else if(devivesn.length()==3) {
+                            devivesn = "00000"+devivesn;
+                        }else if(devivesn.length()==4) {
+                            devivesn = "0000"+devivesn;
+                        }else if(devivesn.length()==5) {
+                            devivesn = "000"+devivesn;
+                        }else if(devivesn.length()==6) {
+                            devivesn = "00"+devivesn;
+                        }else if(devivesn.length()==7) {
+                            devivesn = "0"+devivesn;
+                        }
+                    }
                     deviceSnStr += devivesn;
                 }
 //                 }
@@ -261,6 +324,24 @@ public class JMSConsumer {
                     if (deviceEntityList.size() >= 32) {
                         if (o < deviceEntityList.size()) {
                             String devivesn = deviceEntityList.get(o);
+                            devivesn = Integer.toHexString(Integer.parseInt(devivesn));
+                            if(devivesn.length()!=8) {
+                                if(devivesn.length()==1) {
+                                    devivesn = "0000000"+devivesn;
+                                }else if(devivesn.length()==2) {
+                                    devivesn = "000000"+devivesn;
+                                }else if(devivesn.length()==3) {
+                                    devivesn = "00000"+devivesn;
+                                }else if(devivesn.length()==4) {
+                                    devivesn = "0000"+devivesn;
+                                }else if(devivesn.length()==5) {
+                                    devivesn = "000"+devivesn;
+                                }else if(devivesn.length()==6) {
+                                    devivesn = "00"+devivesn;
+                                }else if(devivesn.length()==7) {
+                                    devivesn = "0"+devivesn;
+                                }
+                            }
                             deviceSnStr2 += devivesn;
                         } else {
                             deviceSnStr2 += "00000000";
@@ -271,15 +352,15 @@ public class JMSConsumer {
                 }
             }
 
-            str = "faaf88210132" + deviceSnStr;
-            str2 = "faaf872102" + deviceSnStr2;
+            str = "faaf882101"+ countoo2+ deviceSnStr.toLowerCase();
+            str2 = "faaf872102" + deviceSnStr2.toLowerCase();
 
             if (Integer.parseInt(count) == 1) {
                 System.out.println("网关注册1------------------");
                 byte[] srtbyte = WxUtil.toByteArray(str);  //字符串转化成byte[]
                 byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
                 String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-                str = str + res+ "_" + gatewaySn;
+                str = str + res + "_" + gatewaySn;
 
                 // 写入消息队列
                 Destination destination = new ActiveMQQueue("queue1");
@@ -291,7 +372,7 @@ public class JMSConsumer {
                 byte[] srtbyte2 = WxUtil.toByteArray(str2);  //字符串转化成byte[]
                 byte[] newByte2 = wxUtil.SumCheck(srtbyte2, 2);  //计算校验和
                 String res2 = WxUtil.bytesToHexString(newByte2).toLowerCase();  //byte[]转16进制字符串
-                str2 = str2 + res2+ "_" + gatewaySn;
+                str2 = str2 + res2 + "_" + gatewaySn;
 
                 // 写入消息队列
                 Destination destination2 = new ActiveMQQueue("queue2");
@@ -301,6 +382,5 @@ public class JMSConsumer {
 //        }
         }
     }
-
 
 }

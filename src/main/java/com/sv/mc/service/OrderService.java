@@ -97,6 +97,14 @@ public interface OrderService<T> extends BaseService<T>{
     int findPaidOrderIdByOrderCode(String paidOrderCode);
 
     /**
+     * 根据订单code查询订单信息
+     * @param paidOrderCode 订单code
+     * @author: lzq
+     * @date: 2018年7月6日
+     */
+    OrderEntity findOrderEntityByOrderCode(String paidOrderCode);
+
+    /**
      * 获取按摩剩余时间
      * @param orderId 订单Id
      * @return 剩余按摩时间
@@ -125,6 +133,9 @@ public interface OrderService<T> extends BaseService<T>{
      * @return 创建的订单
      */
     int createPaidOrder(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength);
+
+
+    int createPaidOrderAlipay(String openid, int mcTime, String deviceCode, String promoCode, BigDecimal money, String unPaidOrderCode, int state, int strength);
 
 
     /**

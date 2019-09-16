@@ -254,6 +254,29 @@ public class GatewayServiceImpl implements GatewayService {
         return list;
     }
 
+    /**
+     * 删除网关
+     * @param sn
+     * @return
+     */
+    @Override
+    public String deleteGateway(String sn) {
+        String msg = "";
+        List<String> deviceEntities = this.deviceRepository.findAllDeviceByGatewayCode(sn);
+        if(deviceEntities.size()>0){
+            msg = "请先删除该网关下的设备";
+        }else{
+            int result = this.gatewayRepository.deleteGateway(sn);
+            if(result>0){
+                msg="删除成功";
+            }else{
+                msg="删除失败";
+            }
+        }
+
+        return msg;
+    }
+
 
     @Override
     public GatewayEntity insertGateway(Map map) {
@@ -266,4 +289,6 @@ public class GatewayServiceImpl implements GatewayService {
     public GatewayEntity updateGateway(Map map) {
         return null;
     }
+
+
 }

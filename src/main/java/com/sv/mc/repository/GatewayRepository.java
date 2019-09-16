@@ -64,4 +64,13 @@ public interface GatewayRepository extends BaseRepository<GatewayEntity, Long>, 
      */
     @Query(value="select * from mc_gateway where protocol_type=:protocolType",nativeQuery = true)
     List<GatewayEntity> findListByProtocalType(@Param("protocolType") int protocolType);
+
+    /***
+     * 删除网关
+     * @return
+     */
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value="delete from mc_gateway where gateway_sn=:sn",nativeQuery = true)
+    int deleteGateway(@Param("sn") String sn);
 }
