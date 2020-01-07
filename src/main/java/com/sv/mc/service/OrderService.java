@@ -242,4 +242,11 @@ public interface OrderService<T> extends BaseService<T>{
      */
 
     List<OrderEntity> findAllExcelOrder(String startTime, String endTime);
+
+    /**
+     * 保存订单信息
+     * @param orderEntity
+     * @return
+     */
+    OrderEntity saveOrder(OrderEntity orderEntity);
 }

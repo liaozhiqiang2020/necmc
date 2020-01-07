@@ -299,6 +299,8 @@ public class AlipayController {
             System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
 
             OrderEntity orderEntity = orderService.findPaidOrderByOrderId(Integer.parseInt(out_trade_no.split("-")[0]));
+            orderEntity.setCodeWx(trade_no);
+            orderService.saveOrder(orderEntity);
             DeviceEntity deviceEntity  = deviceService.findDeviceById(orderEntity.getDeviceId());
 
             //发送启动按摩椅命令

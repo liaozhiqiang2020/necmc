@@ -408,15 +408,15 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
 
         orderEntity.setCode(paidOrderCode);//生成订单号
         orderEntity.setCreateDateTime(ts);//订单创建时间
-//        orderEntity.setPayDateTime(ts);//支付时间
-//        orderEntity.setMcStartDateTime(null);//开始计时时间
+        orderEntity.setPayDateTime(ts);//支付时间
+        orderEntity.setMcStartDateTime(null);//开始计时时间
 //        orderEntity.setCodeWx("");//微信/支付宝/银联订单号
         orderEntity.setOrderSource("支付宝");
         orderEntity.setDeviceId(deviceId);//设备id
 
-//        Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
+        Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
 
-//        orderEntity.setMcEndDateTime(null);//结束计时时间
+        orderEntity.setMcEndDateTime(afterTs);//结束计时时间
         orderEntity.setStatus(state);//使用状态(未支付)
         orderEntity.setMcTime(mcTime);//按摩时长
         orderEntity.setMoney(money);//金额
@@ -763,6 +763,11 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         return this.orderRepository.getExcelOrder(startTime,endTime);
     }
 
+    @Override
+    public OrderEntity saveOrder(OrderEntity orderEntity) {
+        return this.orderRepository.save(orderEntity);
+    }
+
 
     /**
      * 修改微信订单号
@@ -776,4 +781,6 @@ public class OrderServiceImpl implements OrderService<OrderEntity> {
         orderEntity.setCodeWx(codeWx);
         this.orderRepository.save(orderEntity);
     }
+
+
 }

@@ -146,7 +146,7 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
             //获取本机的ip地址
             String spbill_create_ip = IpUtils.getIpAddr(request);
 
-            String orderNo = paidOrderId;
+            String orderNo = paidOrderId.split("_")[0];
 //            money = "1";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
 //            int payMoney = Integer.parseInt(money);
             money = WxUtil.yuanToFen(money);//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
@@ -268,38 +268,38 @@ public class WeiXinPayServiceImpl implements WeiXinPayService{
                 Timestamp ts = wxUtil.getNowDate();//获取当前时间(时间戳)
                 String orderStr = (String)map.get("out_trade_no");
                 String transactionId = (String)map.get("transaction_id");//微信订单号
-                int orderId = Integer.parseInt(orderStr);
+                int orderId = Integer.parseInt(orderStr.split("_")[0]);
                 OrderEntity orderEntity = this.orderRepository.findPaidOrderByOrderId(orderId); //查询订单信息
-                orderEntity.setStatus(2);//写入订单状态  (已支付)
+                orderEntity.setStatus(4);//写入订单状态  (已付款)
                 orderEntity.setCodeWx(transactionId);
                 orderEntity.setPayDateTime(ts);
 
                 this.orderRepository.save(orderEntity);
 
-                Integer mcTime = orderEntity.getMcTime();//获取按摩时间
+//                Integer mcTime = orderEntity.getMcTime();//获取按摩时间
 //                Timestamp afterTs = wxUtil.getAfterDate(mcTime);//计算按摩结束时间
 //                orderEntity.setMcEndDateTime(afterTs);//结束计时时间
 //                orderEntity.setMcStartDateTime(ts);
 
-                int chairId = orderEntity.getDeviceId();//获取按摩椅编号
-                DeviceEntity deviceEntity = this.deviceService.findDeviceById(chairId);//获取设备信息
-                if (deviceEntity != null) {
-                    String deviceId = deviceEntity.getLoraId();//获取模块id
-                    String chairCode = wxUtil.convertStringToHex(deviceId);
-                    String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
-                    String time = Integer.toHexString(mcTime);
-                    if (time.length() < 2) {
-                        time = "0" + time;
-                    }
-                    String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
-
-                    byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
-                    byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
-                    String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
-                    message = message + res + "_" + gatewayId;
-
-                    jmsProducer.sendMessage(message);
-                }
+//                int chairId = orderEntity.getDeviceId();//获取按摩椅编号
+//                DeviceEntity deviceEntity = this.deviceService.findDeviceById(chairId);//获取设备信息
+//                if (deviceEntity != null) {
+//                    String deviceId = deviceEntity.getLoraId();//获取模块id
+//                    String chairCode = wxUtil.convertStringToHex(deviceId);
+//                    String gatewayId = deviceEntity.getGatewayEntity().getGatewaySn();//网关sn
+//                    String time = Integer.toHexString(mcTime);
+//                    if (time.length() < 2) {
+//                        time = "0" + time;
+//                    }
+//                    String message = "faaf0f09" + chairCode + time;//按摩椅20000002，60min
+//
+//                    byte[] srtbyte = WxUtil.toByteArray(message);  //字符串转化成byte[]
+//                    byte[] newByte = wxUtil.SumCheck(srtbyte, 2);  //计算校验和
+//                    String res = WxUtil.bytesToHexString(newByte).toLowerCase();  //byte[]转16进制字符串
+//                    message = message + res + "_" + gatewayId;
+//
+//                    jmsProducer.sendMessage(message);
+//                }
 
 
                 /**此处添加自己的业务逻辑代码end**/
